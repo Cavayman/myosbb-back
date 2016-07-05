@@ -2,6 +2,7 @@ package com.softserve.osbb.model;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Date;
 
 /**
  * Created by cavayman on 05.07.2016.
@@ -50,6 +51,8 @@ public class TicketEntity {
     public String getTime() {
         return time;
     }
+
+
 
     public void setTime(String time) {
         this.time = time;

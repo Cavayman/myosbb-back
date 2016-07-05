@@ -11,6 +11,7 @@ public class MassegeEntity {
     private Integer massageId;
     private String time;
     private String massage;
+    private String description;
     private TicketEntity ticketByTicketId;
 
     @Id
@@ -55,6 +56,14 @@ public class MassegeEntity {
         if (massage != null ? !massage.equals(that.massage) : that.massage != null) return false;
 
         return true;
+    }
+    @Column(name = "description")
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

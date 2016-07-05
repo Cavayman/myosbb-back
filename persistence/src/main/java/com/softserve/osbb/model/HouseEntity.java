@@ -7,14 +7,14 @@ import java.util.Collection;
  * Created by cavayman on 05.07.2016.
  */
 @Entity
-@Table(name = "house", schema = "public", catalog = "myosbb")
+@Table(name = "house")
 public class HouseEntity {
     private Integer houseId;
     private String adress;
     private Collection<AppartamentEntity> appartamentsByHouseId;
     private OsbbEntity osbbByOsbbId;
 
-    @Id
+    @Id @GeneratedValue(strategy =  GenerationType.IDENTITY)
     @Column(name = "house_id")
     public Integer getHouseId() {
         return houseId;

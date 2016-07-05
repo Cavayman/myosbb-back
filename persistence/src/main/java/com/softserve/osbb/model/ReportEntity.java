@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by cavayman on 05.07.2016.
  */
 @Entity
-@Table(name = "report", schema = "public", catalog = "myosbb")
+@Table(name = "report")
 public class ReportEntity {
     private Integer reportId;
     private String name;
@@ -15,7 +15,7 @@ public class ReportEntity {
     private String filepath;
     private OsbbEntity osbbByOsbbId;
 
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "report_id")
     public Integer getReportId() {
         return reportId;
