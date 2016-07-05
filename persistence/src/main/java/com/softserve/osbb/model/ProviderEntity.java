@@ -26,7 +26,7 @@ public class ProviderEntity {
         this.providerId = providerId;
     }
 
-    @OneToMany(mappedBy = "providerByProviderId")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "providerByProviderId")
     public Collection<ContractEntity> getContractsByProviderId() {
         return contractsByProviderId;
     }
