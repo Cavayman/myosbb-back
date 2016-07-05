@@ -1,6 +1,6 @@
 package com.softserve.osbb;
 
-import com.softserve.osbb.dao.AppartamentDAO;
+import com.softserve.osbb.dao.ApartmentDAO;
 import com.softserve.osbb.model.ApartmentEntity;
 import org.junit.Assert;
 import org.junit.Test;
@@ -22,16 +22,16 @@ public class ApartmentDAOTest {
 public static final Integer APPNUMBER = 111;
 private ApartmentEntity apartmentEntity = new ApartmentEntity();
     @Autowired
-    AppartamentDAO appartamentDAO;
+    ApartmentDAO apartmentDAO;
 
     @Test
     public void testSave(){
         apartmentEntity.setNumber(APPNUMBER);
-        appartamentDAO.save(apartmentEntity);
+        apartmentDAO.save(apartmentEntity);
         Assert.assertNotNull(apartmentEntity);
         Assert.assertEquals(APPNUMBER, apartmentEntity.getNumber());
-        appartamentDAO.delete(apartmentEntity.getApartmentId());
-        Assert.assertFalse(appartamentDAO.exists(apartmentEntity.getApartmentId()));
+        apartmentDAO.delete(apartmentEntity.getApartmentId());
+        Assert.assertFalse(apartmentDAO.exists(apartmentEntity.getApartmentId()));
     }
 
 }
