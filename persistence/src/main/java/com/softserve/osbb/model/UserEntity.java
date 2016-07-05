@@ -19,7 +19,7 @@ public class UserEntity {
     private String password;
     private String gender;
     private List<VoteEntity> votes;
-    private List<AppartamentEntity> appartaments;
+    private List<ApartmentEntity> appartaments;
     private List<MassegeEntity> messages;
     private List<TicketEntity> ticket;
 
@@ -118,11 +118,11 @@ public class UserEntity {
             @JoinColumn(name = "user_id", nullable = false) },
             inverseJoinColumns = { @JoinColumn(name = "appartament_id",
                     nullable = false, updatable = false) })
-    public List<AppartamentEntity> getAppartaments() {
+    public List<ApartmentEntity> getAppartaments() {
         return appartaments;
     }
 
-    public void setAppartaments(List<AppartamentEntity> appartaments) {
+    public void setAppartaments(List<ApartmentEntity> appartaments) {
         this.appartaments = appartaments;
     }
 
