@@ -15,7 +15,6 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = OsbbApplicationRunner.class)
-@Rollback
 @Transactional
 public class HouseEntityDAOTest {
 
@@ -57,7 +56,7 @@ public class HouseEntityDAOTest {
     }
 
 
-    @Test
+    @Test()
     public void testFindAll(){
 
         HouseEntity [] houses = {new HouseEntity("1"), new HouseEntity("2"), new HouseEntity("3")};
