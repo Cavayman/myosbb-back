@@ -15,7 +15,7 @@ public class ApartmentEntity {
     private Integer ownerId;
     private HouseEntity houseByHouseId;
     private UserEntity userByOwnerId;
-    private Collection<ApartamentUserEntity> apartmentUsersByApartmentId;
+    private Collection<ApartamentUserEntity>  apartmentUsersByApartmentId;
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
