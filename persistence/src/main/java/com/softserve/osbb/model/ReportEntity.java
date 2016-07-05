@@ -15,7 +15,7 @@ public class ReportEntity {
     private Integer reportId;
     private String name;
     private String description;
-    private LocalDate datecreation;
+    private Date datecreation;
     private String filepath;
     private OsbbEntity osbbByOsbbId;
 
@@ -50,12 +50,13 @@ public class ReportEntity {
     }
 
     @Basic
+    @Temporal(TemporalType.DATE)
     @Column(name = "datecreation")
-    public LocalDate getDatecreation() {
+    public Date getDatecreation() {
         return datecreation;
     }
 
-    public void setDatecreation(LocalDate datecreation) {
+    public void setDatecreation(Date datecreation) {
         this.datecreation = datecreation;
     }
 
@@ -103,5 +104,17 @@ public class ReportEntity {
 
     public void setOsbbByOsbbId(OsbbEntity osbbByOsbbId) {
         this.osbbByOsbbId = osbbByOsbbId;
+    }
+
+    @Override
+    public String toString() {
+        return "ReportEntity{" +
+                "reportId=" + reportId +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", datecreation=" + datecreation +
+                ", filepath='" + filepath + '\'' +
+                ", osbbByOsbbId=" + osbbByOsbbId +
+                '}';
     }
 }
