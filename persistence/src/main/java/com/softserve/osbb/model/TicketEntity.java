@@ -14,11 +14,12 @@ public class TicketEntity {
     private String name;
     private String description;
     private String time;
-    private Collection<MassegeEntity> massegesByTicketId;
+    private Collection<MessageEntity> messagesByTicketId;
     private UserEntity users;
 
     @Id
     @Column(name = "ticket_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getTicketId() {
         return ticketId;
     }
@@ -92,11 +93,11 @@ public class TicketEntity {
     }
 
     @OneToMany(mappedBy = "ticketByTicketId")
-    public Collection<MassegeEntity> getMassegesByTicketId() {
-        return massegesByTicketId;
+    public Collection<MessageEntity> getMessagesByTicketId() {
+        return messagesByTicketId;
     }
 
-    public void setMassegesByTicketId(Collection<MassegeEntity> massegesByTicketId) {
-        this.massegesByTicketId = massegesByTicketId;
+    public void setMessagesByTicketId(Collection<MessageEntity> messagesByTicketId) {
+        this.messagesByTicketId = messagesByTicketId;
     }
 }

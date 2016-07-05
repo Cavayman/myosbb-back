@@ -20,7 +20,7 @@ public class UserEntity {
     private String gender;
     private List<VoteEntity> votes;
     private List<ApartmentEntity> appartaments;
-    private List<MassegeEntity> messages;
+    private List<MessageEntity> messages;
     private List<TicketEntity> ticket;
 
     @Id
@@ -127,11 +127,11 @@ public class UserEntity {
     }
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "users")
-    public List<MassegeEntity> getMessages() {
+    public List<MessageEntity> getMessages() {
         return messages;
     }
 
-    public void setMessages(List<MassegeEntity> messages) {
+    public void setMessages(List<MessageEntity> messages) {
         this.messages = messages;
     }
 
