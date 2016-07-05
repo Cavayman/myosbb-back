@@ -19,7 +19,7 @@ public class ApartmentEntity {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "appartament_id")
+    @Column(name = "apartment_id")
     public Integer getApartmentId() {
         return apartmentId;
     }
