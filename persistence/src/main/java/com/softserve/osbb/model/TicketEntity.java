@@ -58,7 +58,7 @@ public class TicketEntity {
     public void setTime(String time) {
         this.time = time;
     }
-
+    @ManyToOne(fetch = FetchType.LAZY)
     public UserEntity getUser() {
         return user;
     }
