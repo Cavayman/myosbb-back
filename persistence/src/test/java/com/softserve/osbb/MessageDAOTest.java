@@ -1,8 +1,7 @@
 package com.softserve.osbb;
 
 import com.softserve.osbb.dao.MessageDAO;
-import com.softserve.osbb.model.MessageEntity;
-
+import com.softserve.osbb.model.MassegeEntity;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
@@ -28,17 +27,17 @@ public class MessageDAOTest {
     @Autowired
     private MessageDAO messageEntityDAO;
 
-    private MessageEntity messageEntity = new MessageEntity();
+    private MassegeEntity messageEntity = new MassegeEntity();
 
 
     @Test
     public void testMessageEntityOperations() {
-        messageEntity.setTime(new Date());
+        messageEntity.setTime("");
         messageEntity.setDescription("my description");
         messageEntity = messageEntityDAO.save(messageEntity);
 
         assertNotNull(messageEntity);
-        assertTrue(messageEntity.getMessageId() != 0);
+        assertTrue(messageEntity.getMassageId() != 0);
 
         int size = messageEntityDAO.findAll().size();
         assertTrue(size == 1);
