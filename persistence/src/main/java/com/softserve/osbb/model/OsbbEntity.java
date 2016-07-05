@@ -93,7 +93,7 @@ public class OsbbEntity {
         this.contractsByOsbbId = contractsByOsbbId;
     }
 
-    @OneToMany(mappedBy = "osbbByOsbbId")
+    @OneToMany(mappedBy = "osbbId")
     public Collection<EventEntity> getEventsByOsbbId() {
         return eventsByOsbbId;
     }
