@@ -19,7 +19,7 @@ public class ReportEntity {
     private String filepath;
     private OsbbEntity osbbByOsbbId;
 
-    protected ReportEntity(){
+    public ReportEntity(){
 
     }
 
