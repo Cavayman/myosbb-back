@@ -11,7 +11,7 @@ import java.util.Collection;
 public class HouseEntity {
     private Integer houseId;
     private String adress;
-    private Collection<AppartamentEntity> appartamentsByHouseId;
+    private Collection<ApartmentEntity> appartamentsByHouseId;
     private OsbbEntity osbbByOsbbId;
 
     @Id @GeneratedValue(strategy =  GenerationType.IDENTITY)
@@ -55,11 +55,11 @@ public class HouseEntity {
     }
 
     @OneToMany(mappedBy = "houseByHouseId")
-    public Collection<AppartamentEntity> getAppartamentsByHouseId() {
+    public Collection<ApartmentEntity> getApartmentsByHouseId() {
         return appartamentsByHouseId;
     }
 
-    public void setAppartamentsByHouseId(Collection<AppartamentEntity> appartamentsByHouseId) {
+    public void setApartmentsByHouseId(Collection<ApartmentEntity> appartamentsByHouseId) {
         this.appartamentsByHouseId = appartamentsByHouseId;
     }
 

@@ -2,6 +2,7 @@ package com.softserve.osbb.model;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Date;
 
 /**
  * Created by cavayman on 05.07.2016.
@@ -11,6 +12,7 @@ import java.util.Collection;
 public class EventEntity {
     private Integer eventId;
     private String name;
+    private Date date;
     private String description;
     private String author;
     private OsbbEntity osbbByOsbbId;
@@ -34,6 +36,16 @@ public class EventEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Basic
+    @Column(name = "date")
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     @Basic
