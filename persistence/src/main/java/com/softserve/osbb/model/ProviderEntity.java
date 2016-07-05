@@ -16,6 +16,7 @@ public class ProviderEntity {
     private Collection<ContractEntity> contractsByProviderId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "provider_id")
     public Integer getProviderId() {
         return providerId;
@@ -23,6 +24,15 @@ public class ProviderEntity {
 
     public void setProviderId(Integer providerId) {
         this.providerId = providerId;
+    }
+
+    @OneToMany(mappedBy = "providerByProviderId")
+    public Collection<ContractEntity> getContractsByProviderId() {
+        return contractsByProviderId;
+    }
+
+    public void setContractsByProviderId(Collection<ContractEntity> contractsByProviderId) {
+        this.contractsByProviderId = contractsByProviderId;
     }
 
     @Basic
@@ -79,12 +89,5 @@ public class ProviderEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "providerByProviderId")
-    public Collection<ContractEntity> getContractsByProviderId() {
-        return contractsByProviderId;
-    }
 
-    public void setContractsByProviderId(Collection<ContractEntity> contractsByProviderId) {
-        this.contractsByProviderId = contractsByProviderId;
-    }
 }
