@@ -15,6 +15,7 @@ public class TicketEntity {
     private String description;
     private String time;
     private Collection<MassegeEntity> massegesByTicketId;
+    private UserEntity user;
 
     @Id
     @Column(name = "ticket_id")
@@ -56,6 +57,14 @@ public class TicketEntity {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
     @Override
