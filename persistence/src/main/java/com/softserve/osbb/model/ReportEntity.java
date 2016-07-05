@@ -19,6 +19,21 @@ public class ReportEntity {
     private String filepath;
     private OsbbEntity osbbByOsbbId;
 
+    protected ReportEntity(){
+
+    }
+
+    public ReportEntity(String name, String description){
+        this(name, description, new Date(),"no");
+    }
+
+    public ReportEntity(String name, String description, Date dateOfCreation, String filepath) {
+        this.name = name;
+        this.description = description;
+        this.datecreation = dateOfCreation;
+        this.filepath = filepath;
+    }
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "report_id")
     public Integer getReportId() {

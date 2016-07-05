@@ -14,7 +14,7 @@ public class HouseEntity {
     private Collection<ApartmentEntity> appartamentsByHouseId;
     private OsbbEntity osbbByOsbbId;
 
-    public HouseEntity() {
+    protected HouseEntity() {
         //default
     }
 
