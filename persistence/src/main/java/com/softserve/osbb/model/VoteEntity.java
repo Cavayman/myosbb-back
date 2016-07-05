@@ -6,12 +6,13 @@ import javax.persistence.*;
  * Created by cavayman on 05.07.2016.
  */
 @Entity
-@Table(name = "vote", schema = "public", catalog = "myosbb")
+@Table(name = "vote")
 public class VoteEntity {
     private Integer voteId;
     private Short voteValue;
     private String time;
     private EventEntity eventByEventId;
+    private UserEntity users;
 
     @Id
     @Column(name = "vote_id")
@@ -41,6 +42,14 @@ public class VoteEntity {
 
     public void setTime(String time) {
         this.time = time;
+    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    public UserEntity getUsers() {
+        return users;
+    }
+
+    public void setUsers(UserEntity users) {
+        this.users = users;
     }
 
     @Override

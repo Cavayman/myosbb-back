@@ -7,7 +7,7 @@ import java.math.BigDecimal;
  * Created by cavayman on 05.07.2016.
  */
 @Entity
-@Table(name = "contract", schema = "public", catalog = "myosbb")
+@Table(name = "contract")
 public class ContractEntity {
     private Integer contractId;
     private String datestart;

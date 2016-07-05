@@ -6,13 +6,14 @@ import javax.persistence.*;
  * Created by cavayman on 05.07.2016.
  */
 @Entity
-@Table(name = "massege", schema = "public", catalog = "myosbb")
+@Table(name = "messege")
 public class MassegeEntity {
     private Integer massageId;
     private String time;
     private String massage;
     private String description;
     private TicketEntity ticketByTicketId;
+    private UserEntity users;
 
     @Id
     @Column(name = "massage_id")
@@ -42,6 +43,15 @@ public class MassegeEntity {
 
     public void setMassage(String massage) {
         this.massage = massage;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    public UserEntity getUsers() {
+        return users;
+    }
+
+    public void setUsers(UserEntity users) {
+        this.users = users;
     }
 
     @Override
@@ -83,4 +93,5 @@ public class MassegeEntity {
     public void setTicketByTicketId(TicketEntity ticketByTicketId) {
         this.ticketByTicketId = ticketByTicketId;
     }
+
 }
