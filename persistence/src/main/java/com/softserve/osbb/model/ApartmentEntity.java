@@ -2,6 +2,7 @@ package com.softserve.osbb.model;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by cavayman on 05.07.2016.
@@ -15,7 +16,9 @@ public class ApartmentEntity {
     private Integer ownerId;
     private HouseEntity houseByHouseId;
     private UserEntity userByOwnerId;
-    private Collection<ApartamentUserEntity>  apartmentUsersByApartmentId;
+
+
+    private List<UserEntity> users;
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -104,11 +107,13 @@ public class ApartmentEntity {
     }
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "apartments")
-    public Collection<ApartamentUserEntity> getApartmentUsersByApartmentId() {
-        return apartmentUsersByApartmentId;
+    public List<UserEntity> getUsers() {
+        return users;
     }
 
-    public void setApartmentUsersByApartmentId(Collection<ApartamentUserEntity> apartmentUsersByApartmentId) {
-        this.apartmentUsersByApartmentId = apartmentUsersByApartmentId;
+    public void setUsers(List<UserEntity> users) {
+        this.users = users;
     }
+
+
 }
