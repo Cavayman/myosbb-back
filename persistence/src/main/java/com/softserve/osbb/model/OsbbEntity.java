@@ -7,7 +7,7 @@ import java.util.Collection;
  * Created by cavayman on 05.07.2016.
  */
 @Entity
-@Table(name = "osbb", schema = "public", catalog = "myosbb")
+@Table(name = "osbb")
 public class OsbbEntity {
     private Integer osbbId;
     private String name;
@@ -20,6 +20,7 @@ public class OsbbEntity {
     private Collection<StaffEntity> staffsByOsbbId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "osbb_id")
     public Integer getOsbbId() {
         return osbbId;

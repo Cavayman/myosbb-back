@@ -8,7 +8,7 @@ import java.util.List;
  * Created by cavayman on 05.07.2016.
  */
 @Entity
-@Table(name = "apartment", schema = "public", catalog = "myosbb")
+@Table(name = "apartment")
 public class ApartmentEntity {
     private Integer apartmentId;
     private Integer number;

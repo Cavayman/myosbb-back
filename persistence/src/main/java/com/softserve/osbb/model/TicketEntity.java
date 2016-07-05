@@ -8,14 +8,14 @@ import java.util.Date;
  * Created by cavayman on 05.07.2016.
  */
 @Entity
-@Table(name = "ticket", schema = "public", catalog = "myosbb")
+@Table(name = "ticket")
 public class TicketEntity {
     private Integer ticketId;
     private String name;
     private String description;
     private String time;
     private Collection<MassegeEntity> massegesByTicketId;
-    private UserEntity user;
+    private UserEntity users;
 
     @Id
     @Column(name = "ticket_id")
@@ -59,12 +59,12 @@ public class TicketEntity {
         this.time = time;
     }
     @ManyToOne(fetch = FetchType.LAZY)
-    public UserEntity getUser() {
-        return user;
+    public UserEntity getUsers() {
+        return users;
     }
 
-    public void setUser(UserEntity user) {
-        this.user = user;
+    public void setUsers(UserEntity users) {
+        this.users = users;
     }
 
     @Override

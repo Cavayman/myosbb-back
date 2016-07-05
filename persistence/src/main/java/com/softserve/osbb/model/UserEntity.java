@@ -8,7 +8,7 @@ import java.util.List;
  * Created by cavayman on 05.07.2016.
  */
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class UserEntity {
     private Integer userId;
     private String firstname;
@@ -104,7 +104,7 @@ public class UserEntity {
         this.gender = gender;
     }
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "users")
     public List<VoteEntity> getVotes() {
         return votes;
     }
@@ -114,9 +114,9 @@ public class UserEntity {
     }
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "user_appartament", joinColumns = {
+    @JoinTable(name = "user_apartment", joinColumns = {
             @JoinColumn(name = "user_id", nullable = false) },
-            inverseJoinColumns = { @JoinColumn(name = "appartament_id",
+            inverseJoinColumns = { @JoinColumn(name = "apartment_id",
                     nullable = false, updatable = false) })
     public List<ApartmentEntity> getApartments() {
         return appartaments;
@@ -126,7 +126,7 @@ public class UserEntity {
         this.appartaments = appartaments;
     }
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "users")
     public List<MassegeEntity> getMessages() {
         return messages;
     }
@@ -135,7 +135,7 @@ public class UserEntity {
         this.messages = messages;
     }
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "users")
     public List<TicketEntity> getTicket() {
         return ticket;
     }
