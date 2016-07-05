@@ -12,6 +12,7 @@ public class VoteEntity {
     private Short voteValue;
     private String time;
     private EventEntity eventByEventId;
+    private UserEntity user;
 
     @Id
     @Column(name = "vote_id")
@@ -41,6 +42,14 @@ public class VoteEntity {
 
     public void setTime(String time) {
         this.time = time;
+    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
     @Override
