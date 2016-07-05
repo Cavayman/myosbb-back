@@ -12,11 +12,8 @@ import java.util.List;
 public class ApartmentEntity {
     private Integer apartmentId;
     private Integer number;
-    private Integer ownerId;
     private HouseEntity houseByHouseId;
     private UserEntity userByOwnerId;
-
-
     private List<UserEntity> users;
 
     @Id
@@ -40,16 +37,6 @@ public class ApartmentEntity {
         this.number = number;
     }
 
-    @Basic
-    @Column(name = "owner_id")
-    public Integer getOwnerId() {
-        return ownerId;
-    }
-
-    public void setOwnerId(Integer ownerId) {
-        this.ownerId = ownerId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -60,7 +47,6 @@ public class ApartmentEntity {
         if (getApartmentId() != null ? !getApartmentId().equals(that.getApartmentId()) : that.getApartmentId() != null)
             return false;
         if (getNumber() != null ? !getNumber().equals(that.getNumber()) : that.getNumber() != null) return false;
-        if (getOwnerId() != null ? !getOwnerId().equals(that.getOwnerId()) : that.getOwnerId() != null) return false;
         if (getHouseByHouseId() != null ? !getHouseByHouseId().equals(that.getHouseByHouseId()) : that.getHouseByHouseId() != null)
             return false;
         if (getUserByOwnerId() != null ? !getUserByOwnerId().equals(that.getUserByOwnerId()) : that.getUserByOwnerId() != null)
@@ -73,7 +59,6 @@ public class ApartmentEntity {
     public int hashCode() {
         int result = getApartmentId() != null ? getApartmentId().hashCode() : 0;
         result = 31 * result + (getNumber() != null ? getNumber().hashCode() : 0);
-        result = 31 * result + (getOwnerId() != null ? getOwnerId().hashCode() : 0);
         result = 31 * result + (getHouseByHouseId() != null ? getHouseByHouseId().hashCode() : 0);
         result = 31 * result + (getUserByOwnerId() != null ? getUserByOwnerId().hashCode() : 0);
         result = 31 * result + (getUsers() != null ? getUsers().hashCode() : 0);
