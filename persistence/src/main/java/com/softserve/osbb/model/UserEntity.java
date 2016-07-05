@@ -118,11 +118,11 @@ public class UserEntity {
             @JoinColumn(name = "user_id", nullable = false) },
             inverseJoinColumns = { @JoinColumn(name = "appartament_id",
                     nullable = false, updatable = false) })
-    public List<ApartmentEntity> getAppartaments() {
+    public List<ApartmentEntity> getApartments() {
         return appartaments;
     }
 
-    public void setAppartaments(List<ApartmentEntity> appartaments) {
+    public void setApartments(List<ApartmentEntity> appartaments) {
         this.appartaments = appartaments;
     }
 
