@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface HouseDAO extends JpaRepository<HouseEntity, Long> {
+public interface HouseDAO extends JpaRepository<HouseEntity, Integer> {
 }
