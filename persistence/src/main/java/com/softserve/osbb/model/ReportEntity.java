@@ -1,6 +1,9 @@
 package com.softserve.osbb.model;
 
+import org.springframework.cglib.core.Local;
+
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -12,7 +15,7 @@ public class ReportEntity {
     private Integer reportId;
     private String name;
     private String description;
-    private Date datecreation;
+    private LocalDate datecreation;
     private String filepath;
     private OsbbEntity osbbByOsbbId;
 
@@ -48,11 +51,11 @@ public class ReportEntity {
 
     @Basic
     @Column(name = "datecreation")
-    public Date getDatecreation() {
+    public LocalDate getDatecreation() {
         return datecreation;
     }
 
-    public void setDatecreation(Date datecreation) {
+    public void setDatecreation(LocalDate datecreation) {
         this.datecreation = datecreation;
     }
 

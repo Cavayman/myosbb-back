@@ -63,7 +63,7 @@ public class HouseEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "houseByHouseId")
+    @OneToMany(mappedBy = "houseByHouseId", cascade = CascadeType.ALL)
     public Collection<ApartmentEntity> getApartmentsByHouseId() {
         return appartamentsByHouseId;
     }

@@ -5,11 +5,15 @@ import com.softserve.osbb.model.HouseEntity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
@@ -19,7 +23,6 @@ import static org.junit.Assert.*;
 public class HouseEntityDAOTest {
 
     private static final String TEST_ADDRESS_NAME = "Horodocka str. 110";
-
 
     @Autowired
     HouseDAO houseDAO;
@@ -53,19 +56,23 @@ public class HouseEntityDAOTest {
 
         assertFalse(houseDAO.exists(house.getHouseId()));
 
+
     }
 
 
-    @Test()
+    @Test
     public void testFindAll(){
 
-        HouseEntity [] houses = {new HouseEntity("1"), new HouseEntity("2"), new HouseEntity("3")};
+        HouseEntity [] houses = {new HouseEntity("1"),
+                new HouseEntity("2"),
+                new HouseEntity("3"),
+                new HouseEntity("4"),
+                new HouseEntity("5")
+                };
 
-        for(HouseEntity house: houses){
-            houseDAO.save(house);
-        }
+        houseDAO.save(Arrays.asList(houses));
 
-        assertTrue(houseDAO.findAll().size() == 3);
+        assertTrue(houseDAO.findAll().size() == 5);
 
     }
 
