@@ -8,12 +8,24 @@ import java.util.Collection;
  */
 @Entity
 @Table(name = "provider", schema = "public", catalog = "myosbb")
-public class ProviderEntity {
+public class ProviderEntity implements Comparable{
     private Integer providerId;
     private String name;
     private String description;
     private String logourl;
     private Collection<ContractEntity> contractsByProviderId;
+
+    public ProviderEntity() {
+    }
+
+    public ProviderEntity(String name) {
+        this.name = name;
+    }
+
+    public ProviderEntity(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,13 +38,14 @@ public class ProviderEntity {
         this.providerId = providerId;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "providerByProviderId")
-    public Collection<ContractEntity> getContractsByProviderId() {
-        return contractsByProviderId;
+    @Basic
+    @Column(name = "logourl")
+    public String getLogourl() {
+        return logourl;
     }
 
-    public void setContractsByProviderId(Collection<ContractEntity> contractsByProviderId) {
-        this.contractsByProviderId = contractsByProviderId;
+    public void setLogourl(String logourl) {
+        this.logourl = logourl;
     }
 
     @Basic
@@ -55,14 +68,13 @@ public class ProviderEntity {
         this.description = description;
     }
 
-    @Basic
-    @Column(name = "logourl")
-    public String getLogourl() {
-        return logourl;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "providerByProviderId")
+    public Collection<ContractEntity> getContractsByProviderId() {
+        return contractsByProviderId;
     }
 
-    public void setLogourl(String logourl) {
-        this.logourl = logourl;
+    public void setContractsByProviderId(Collection<ContractEntity> contractsByProviderId) {
+        this.contractsByProviderId = contractsByProviderId;
     }
 
     @Override
@@ -90,4 +102,9 @@ public class ProviderEntity {
     }
 
 
+    //natural order by provider's names
+    @Override
+    public int compareTo(Object o) {
+        return name.compareTo(((ProviderEntity) o).getName());
+    }
 }
