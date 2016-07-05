@@ -13,6 +13,7 @@ public class StaffEntity {
     private RoleEntity roleByRoleId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "staff_id")
     public Integer getStaffId() {
         return staffId;
