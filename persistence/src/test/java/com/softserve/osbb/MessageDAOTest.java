@@ -30,7 +30,7 @@ public class MessageDAOTest {
         userEntity.setLastname("Popov");
         userEntity.setGender("man");
 
-        messageEntity.setUser(userEntity);
+        messageEntity.setUsers(userEntity);
         messageEntity.setMessage("Hi! This is a first message in our database.");
         messageEntity.setDescription("some description");
         messageEntity.setTime("some date");

@@ -6,14 +6,14 @@ import javax.persistence.*;
  * Created by Kris on 05.07.2016.
  */
 @Entity
-@Table(name = "message", schema = "public", catalog = "myosbb")
+@Table(name = "message")
 public class MessageEntity {
     private Integer messageId;
     private String time;
     private String message;
     private String description;
     private TicketEntity ticketByTicketId;
-    private UserEntity user;
+    private UserEntity users;
 
     @Id
     @Column(name = "message_id")
@@ -47,12 +47,13 @@ public class MessageEntity {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    public UserEntity getUser() {
-        return user;
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    public UserEntity getUsers() {
+        return users;
     }
 
-    public void setUser(UserEntity user) {
-        this.user = user;
+    public void setUsers(UserEntity users) {
+        this.users = users;
     }
 
     @Override

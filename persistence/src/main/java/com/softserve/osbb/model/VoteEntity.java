@@ -44,6 +44,7 @@ public class VoteEntity {
         this.time = time;
     }
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     public UserEntity getUsers() {
         return users;
     }

@@ -2,7 +2,6 @@ package com.softserve.osbb.model;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.Date;
 
 /**
  * Created by cavayman on 05.07.2016.
@@ -60,6 +59,7 @@ public class TicketEntity {
         this.time = time;
     }
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     public UserEntity getUsers() {
         return users;
     }
