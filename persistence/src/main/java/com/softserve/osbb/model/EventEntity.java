@@ -3,9 +3,10 @@ package com.softserve.osbb.model;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
- * Created by cavayman on 05.07.2016.
+ * Created by nkharabaruk on 05.07.2016.
  */
 @Entity
 @Table(name = "event")
@@ -15,10 +16,11 @@ public class EventEntity {
     private Date date;
     private String description;
     private String author;
-    private OsbbEntity osbbByOsbbId;
-    private Collection<VoteEntity> votesByEventId;
+    private OsbbEntity osbbId;
+    private List<VoteEntity> votesByEventId;
 
     @Id
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     @Column(name = "event_id")
     public Integer getEventId() {
         return eventId;
@@ -94,12 +96,12 @@ public class EventEntity {
 
     @ManyToOne
     @JoinColumn(name = "osbb_id", referencedColumnName = "osbb_id")
-    public OsbbEntity getOsbbByOsbbId() {
-        return osbbByOsbbId;
+    public OsbbEntity getOsbbId() {
+        return osbbId;
     }
 
-    public void setOsbbByOsbbId(OsbbEntity osbbByOsbbId) {
-        this.osbbByOsbbId = osbbByOsbbId;
+    public void setOsbbId(OsbbEntity osbbId) {
+        this.osbbId = osbbId;
     }
 
     @OneToMany(mappedBy = "eventByEventId")
@@ -107,7 +109,7 @@ public class EventEntity {
         return votesByEventId;
     }
 
-    public void setVotesByEventId(Collection<VoteEntity> votesByEventId) {
+    public void setVotesByEventId(List<VoteEntity> votesByEventId) {
         this.votesByEventId = votesByEventId;
     }
 }
