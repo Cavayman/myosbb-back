@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
-    <artifactId>services</artifactId>
+    <artifactId>service</artifactId>
     <dependencies>
         <dependency>
             <groupId>com.softserve.edu.ita</groupId>

@@ -13,7 +13,7 @@
     <dependencies>
         <dependency>
             <groupId>com.softserve.edu.ita</groupId>
-            <artifactId>services</artifactId>
+            <artifactId>service</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <!-- dependencies for jersey restful webservice-->
