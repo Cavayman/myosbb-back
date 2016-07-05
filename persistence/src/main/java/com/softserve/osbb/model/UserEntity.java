@@ -112,6 +112,7 @@ public class UserEntity {
     public void setVotes(List<VoteEntity> votes) {
         this.votes = votes;
     }
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "user_appartament", joinColumns = {
             @JoinColumn(name = "user_id", nullable = false) },
