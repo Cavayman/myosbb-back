@@ -1,5 +1,5 @@
 package com.softserve.osbb;
-
+/*
 import com.softserve.osbb.dao.TicketDAO;
 import com.softserve.osbb.model.TicketEntity;
 import org.junit.Test;

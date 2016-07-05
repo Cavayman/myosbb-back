@@ -1,5 +1,5 @@
 package com.softserve.osbb;
-
+/*
 import com.softserve.osbb.dao.HouseDAO;
 import com.softserve.osbb.model.HouseEntity;
 import org.junit.Test;

@@ -1,6 +1,7 @@
 package com.softserve.osbb.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by cavayman on 05.07.2016.
@@ -11,7 +12,7 @@ public class ReportEntity {
     private Integer reportId;
     private String name;
     private String description;
-    private String datecreation;
+    private Date datecreation;
     private String filepath;
     private OsbbEntity osbbByOsbbId;
 
@@ -47,11 +48,11 @@ public class ReportEntity {
 
     @Basic
     @Column(name = "datecreation")
-    public String getDatecreation() {
+    public Date getDatecreation() {
         return datecreation;
     }
 
-    public void setDatecreation(String datecreation) {
+    public void setDatecreation(Date datecreation) {
         this.datecreation = datecreation;
     }
 

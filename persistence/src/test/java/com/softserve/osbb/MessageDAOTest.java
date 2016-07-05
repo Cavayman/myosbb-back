@@ -1,5 +1,5 @@
 package com.softserve.osbb;
-
+/*
 import com.softserve.osbb.dao.MessageDAO;
 import com.softserve.osbb.model.MassegeEntity;
 import static org.junit.Assert.*;
