@@ -18,6 +18,7 @@ import java.util.Date;
 /**
  * Created by Kris on 03.07.2016.
  */
+/*
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = OsbbApplicationRunner.class)
 @Rollback
@@ -53,3 +54,4 @@ public class MessageDAOTest {
 
 
 }
+*/
