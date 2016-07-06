@@ -1,4 +1,4 @@
-package com.softserve.osbb;
+package com.softserve.osbb.repository;
 
 
 /**

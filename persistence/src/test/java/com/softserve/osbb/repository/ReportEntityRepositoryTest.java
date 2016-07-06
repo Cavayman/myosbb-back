@@ -1,6 +1,7 @@
-package com.softserve.osbb;
+package com.softserve.osbb.repository;
 
-import com.softserve.osbb.dao.ReportRepository;
+import com.softserve.osbb.OsbbApplicationRunner;
+import com.softserve.osbb.repository.ReportRepository;
 import com.softserve.osbb.model.ReportEntity;
 import org.junit.Before;
 import org.junit.Test;

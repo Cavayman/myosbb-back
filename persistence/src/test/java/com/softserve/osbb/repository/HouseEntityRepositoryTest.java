@@ -1,6 +1,7 @@
-package com.softserve.osbb;
+package com.softserve.osbb.repository;
 
-import com.softserve.osbb.dao.HouseRepository;
+import com.softserve.osbb.OsbbApplicationRunner;
+import com.softserve.osbb.repository.HouseRepository;
 import com.softserve.osbb.model.HouseEntity;
 import org.junit.Before;
 import org.junit.Test;

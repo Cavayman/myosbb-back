@@ -1,6 +1,7 @@
-package com.softserve.osbb;
+package com.softserve.osbb.repository;
 
-import com.softserve.osbb.dao.ApartmentRepository;
+import com.softserve.osbb.OsbbApplicationRunner;
+import com.softserve.osbb.repository.ApartmentRepository;
 import com.softserve.osbb.model.ApartmentEntity;
 import org.junit.Assert;
 import org.junit.Test;

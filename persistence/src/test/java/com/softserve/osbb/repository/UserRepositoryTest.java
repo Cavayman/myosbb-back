@@ -1,6 +1,7 @@
-package com.softserve.osbb;
+package com.softserve.osbb.repository;
 
-import com.softserve.osbb.dao.UserRepository;
+import com.softserve.osbb.OsbbApplicationRunner;
+import com.softserve.osbb.repository.UserRepository;
 import com.softserve.osbb.model.UserEntity;
 import org.junit.Assert;
 import org.junit.Before;
