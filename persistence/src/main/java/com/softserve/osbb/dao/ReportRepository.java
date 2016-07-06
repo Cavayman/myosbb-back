@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface ReportDAO extends JpaRepository<ReportEntity, Integer> {
+public interface ReportRepository extends JpaRepository<ReportEntity, Integer> {
 }
