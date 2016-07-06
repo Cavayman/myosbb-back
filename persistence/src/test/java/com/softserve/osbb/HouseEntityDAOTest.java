@@ -1,15 +1,12 @@
 package com.softserve.osbb;
 
-import com.softserve.osbb.dao.HouseDAO;
+import com.softserve.osbb.dao.HouseRepository;
 import com.softserve.osbb.model.HouseEntity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +22,7 @@ public class HouseEntityDAOTest {
     private static final String TEST_ADDRESS_NAME = "Horodocka str. 110";
 
     @Autowired
-    HouseDAO houseDAO;
+    HouseRepository houseRepository;
 
 
     private HouseEntity house;
@@ -40,7 +37,7 @@ public class HouseEntityDAOTest {
     @Test
     public void testSaveAndDelete() {
 
-        house = houseDAO.save(house);
+        house = houseRepository.save(house);
 
         assertNotNull(house);
 
@@ -48,13 +45,13 @@ public class HouseEntityDAOTest {
 
         assertEquals(TEST_ADDRESS_NAME, house.getAdress());
 
-        boolean houseExistsVal = houseDAO.exists(house.getHouseId());
+        boolean houseExistsVal = houseRepository.exists(house.getHouseId());
 
         assertTrue(houseExistsVal);
 
-        houseDAO.delete(house);
+        houseRepository.delete(house);
 
-        assertFalse(houseDAO.exists(house.getHouseId()));
+        assertFalse(houseRepository.exists(house.getHouseId()));
 
 
     }
@@ -70,9 +67,9 @@ public class HouseEntityDAOTest {
                 new HouseEntity("5")
                 };
 
-        houseDAO.save(Arrays.asList(houses));
+        houseRepository.save(Arrays.asList(houses));
 
-        assertTrue(houseDAO.findAll().size() == 5);
+        assertTrue(houseRepository.findAll().size() == 5);
 
     }
 
