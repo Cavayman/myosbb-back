@@ -2,6 +2,7 @@ package com.softserve.osbb;
 
 import com.softserve.osbb.dao.ProviderDAO;
 import com.softserve.osbb.model.ProviderEntity;
+import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -27,8 +28,8 @@ public class ProviderDAOTest extends AbstractTestNGSpringContextTests {
     private ProviderEntity providerEntity;
 
 
-    @BeforeTest
-    void init() {
+    @Before
+    public void init() {
         providerEntity = new ProviderEntity();
         providerEntity.setName("Garbage collector");
         providerEntity.setDescription("Remove trash");
@@ -39,7 +40,7 @@ public class ProviderDAOTest extends AbstractTestNGSpringContextTests {
     ProviderDAO providerDAO;
 
 
-    @Test
+    @org.junit.Test
     public void testSave() {
         Assert.assertNotNull(providerDAO.save(providerEntity));
         TreeSet<ProviderEntity> providers = new TreeSet<>();
