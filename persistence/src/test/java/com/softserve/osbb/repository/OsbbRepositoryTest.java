@@ -1,6 +1,6 @@
-package com.softserve.osbb;
+package com.softserve.osbb.repository;
 
-import com.softserve.osbb.dao.OsbbDAO;
+import com.softserve.osbb.OsbbApplicationRunner;
 import com.softserve.osbb.model.OsbbEntity;
 import org.junit.Assert;
 import org.junit.Before;
@@ -17,12 +17,12 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = OsbbApplicationRunner.class)
 @Transactional
-public class OsbbDAOTest {
+public class OsbbRepositoryTest {
 
     private OsbbEntity osbbEntity;
 
     @Autowired
-    OsbbDAO osbbDAO;
+    OsbbRepository osbbRepository;
 
     @Before
     public void init() {
@@ -34,7 +34,7 @@ public class OsbbDAOTest {
 
     @Test
     public void testSave(){
-        OsbbEntity savedOsbb = osbbDAO.save(osbbEntity);
+        OsbbEntity savedOsbb = osbbRepository.save(osbbEntity);
         Assert.assertNotNull(savedOsbb);
         Assert.assertNotEquals(0, (long)osbbEntity.getOsbbId());
         Assert.assertEquals("Lviv_osbb",osbbEntity.getName());

@@ -1,6 +1,6 @@
-package com.softserve.osbb;
+package com.softserve.osbb.repository;
 
-import com.softserve.osbb.dao.VoteDAO;
+import com.softserve.osbb.OsbbApplicationRunner;
 import com.softserve.osbb.model.VoteEntity;
 import org.junit.Assert;
 import org.junit.Before;
@@ -21,12 +21,12 @@ import static org.junit.Assert.assertTrue;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = OsbbApplicationRunner.class)
 @Transactional
-public class VoteDAOTest {
+public class VoteRepositoryTest {
 
     private VoteEntity voteEntity;
 
     @Autowired
-    VoteDAO voteDAO;
+    VoteRepository voteRepository;
 
     @Before
     public void init() {
@@ -37,34 +37,34 @@ public class VoteDAOTest {
 
     @Test
     public void testSave() {
-        VoteEntity savedVote= voteDAO.save(voteEntity);
+        VoteEntity savedVote= voteRepository.save(voteEntity);
         Assert.assertNotNull(savedVote);
-        Assert.assertTrue(voteDAO.exists(savedVote.getVoteId()));
+        Assert.assertTrue(voteRepository.exists(savedVote.getVoteId()));
     }
 
     @Test
     public void testGetVoteById() {
-        VoteEntity savedVote = voteDAO.save(voteEntity);
-        Assert.assertEquals(savedVote.getVoteId(), voteDAO.getOne(savedVote.getVoteId()).getVoteId());
+        VoteEntity savedVote = voteRepository.save(voteEntity);
+        Assert.assertEquals(savedVote.getVoteId(), voteRepository.getOne(savedVote.getVoteId()).getVoteId());
     }
 
     @Test
     public void testDeleteByVoteEntity() {
-        voteEntity = voteDAO.save(voteEntity);
-        voteDAO.delete(voteEntity);
-        Assert.assertFalse(voteDAO.exists(voteEntity.getVoteId()));
+        voteEntity = voteRepository.save(voteEntity);
+        voteRepository.delete(voteEntity);
+        Assert.assertFalse(voteRepository.exists(voteEntity.getVoteId()));
     }
 
     @Test
     public void testDeleteByVoteId() {
-        voteEntity = voteDAO.save(voteEntity);
-        voteDAO.delete(voteEntity.getVoteId());
-        Assert.assertFalse(voteDAO.exists(voteEntity.getVoteId()));
+        voteEntity = voteRepository.save(voteEntity);
+        voteRepository.delete(voteEntity.getVoteId());
+        Assert.assertFalse(voteRepository.exists(voteEntity.getVoteId()));
     }
 
     @Test
     public void testDeleteAllVotes(){
-        voteDAO.deleteAll();
-        assertTrue(voteDAO.findAll().isEmpty());
+        voteRepository.deleteAll();
+        assertTrue(voteRepository.findAll().isEmpty());
     }
 }
