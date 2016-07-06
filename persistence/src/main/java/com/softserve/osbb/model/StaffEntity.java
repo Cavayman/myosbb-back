@@ -23,7 +23,7 @@ public class StaffEntity {
         this.staffId = staffId;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "osbb_id", referencedColumnName = "osbb_id")
     public OsbbEntity getOsbbByOsbbId() {
         return osbbByOsbbId;
@@ -33,7 +33,7 @@ public class StaffEntity {
         this.osbbByOsbbId = osbbByOsbbId;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
     public RoleEntity getRoleByRoleId() {
         return roleByRoleId;

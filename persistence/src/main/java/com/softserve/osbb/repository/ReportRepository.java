@@ -1,4 +1,4 @@
-package com.softserve.osbb.dao;
+package com.softserve.osbb.repository;
 
 
 import com.softserve.osbb.model.ReportEntity;
@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface ReportDAO extends JpaRepository<ReportEntity, Integer> {
+public interface ReportRepository extends JpaRepository<ReportEntity, Integer> {
 }

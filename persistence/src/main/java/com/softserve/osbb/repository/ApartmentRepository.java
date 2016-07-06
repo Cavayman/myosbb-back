@@ -1,4 +1,4 @@
-package com.softserve.osbb.dao;
+package com.softserve.osbb.repository;
 
 
 import com.softserve.osbb.model.ApartmentEntity;
@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface ApartmentDAO extends JpaRepository<ApartmentEntity, Integer> {
+public interface ApartmentRepository extends JpaRepository<ApartmentEntity, Integer> {
 }

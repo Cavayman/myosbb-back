@@ -1,12 +1,11 @@
-package com.softserve.osbb;
+package com.softserve.osbb.repository;
 
-import com.softserve.osbb.dao.ReportDAO;
+import com.softserve.osbb.OsbbApplicationRunner;
+import com.softserve.osbb.repository.ReportRepository;
 import com.softserve.osbb.model.ReportEntity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -14,12 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
+
 
 
 /**
@@ -28,10 +27,10 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = OsbbApplicationRunner.class)
 @Transactional
-public class ReportEntityDAOTest {
+public class ReportEntityRepositoryTest {
 
     @Autowired
-    private ReportDAO reportDAO;
+    private ReportRepository reportRepository;
 
     private ReportEntity reportEntity;
 
@@ -57,23 +56,23 @@ public class ReportEntityDAOTest {
     @Test
     public void testSaveReport(){
 
-        reportEntity = reportDAO.save(reportEntity);
+        reportEntity = reportRepository.save(reportEntity);
 
         assertNotNull(reportEntity);
 
-        assertTrue(reportDAO.exists(reportEntity.getReportId()));
+        assertTrue(reportRepository.exists(reportEntity.getReportId()));
 
     }
 
     @Test
     public void testUpdateReport(){
 
-        reportEntity = reportDAO.save(reportEntity);
+        reportEntity = reportRepository.save(reportEntity);
 
         reportEntity.setName("баланс ЧЕРВ/2016 2.0");
 
         ReportEntity updatedReportEntity;
-        updatedReportEntity = reportDAO.saveAndFlush(reportEntity);
+        updatedReportEntity = reportRepository.saveAndFlush(reportEntity);
 
         assertSame(reportEntity.getReportId(), updatedReportEntity.getReportId());
     }
@@ -82,11 +81,11 @@ public class ReportEntityDAOTest {
     @Test
     public void testDeleteReport(){
 
-        reportEntity = reportDAO.save(reportEntity);
+        reportEntity = reportRepository.save(reportEntity);
 
-        reportDAO.delete(reportEntity);
+        reportRepository.delete(reportEntity);
 
-        assertFalse(reportDAO.exists(reportEntity.getReportId()));
+        assertFalse(reportRepository.exists(reportEntity.getReportId()));
 
 
     }
@@ -100,18 +99,18 @@ public class ReportEntityDAOTest {
         reportEntities.add(new ReportEntity("баланс СЕР/2016", "фін. звіт за серпень"));
         reportEntities.add(new ReportEntity("баланс ВЕР/2016", "фін. звіт за вересень"));
 
-        reportDAO.save(reportEntities);
+        reportRepository.save(reportEntities);
 
-        assertTrue(reportDAO.findAll().size() == reportEntities.size());
+        assertTrue(reportRepository.findAll().size() == reportEntities.size());
 
     }
 
     @Test
     public void testDeleteAllReports(){
 
-        reportDAO.deleteAll();
+        reportRepository.deleteAll();
 
-        assertTrue(reportDAO.findAll().isEmpty());
+        assertTrue(reportRepository.findAll().isEmpty());
 
     }
 

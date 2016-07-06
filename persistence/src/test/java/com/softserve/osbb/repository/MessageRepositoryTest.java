@@ -1,6 +1,6 @@
-package com.softserve.osbb;
+package com.softserve.osbb.repository;
 
-import com.softserve.osbb.dao.MessageDAO;
+import com.softserve.osbb.repository.MessageRepository;
 import com.softserve.osbb.model.MessageEntity;
 import com.softserve.osbb.model.UserEntity;
 import org.junit.Assert;
@@ -9,16 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
+
 /**
  * Created by Kris on 05.07.2016.
  */
-public class MessageDAOTest {
+public class MessageRepositoryTest {
 
     private MessageEntity messageEntity = new MessageEntity();
 
     private UserEntity userEntity = new UserEntity();
     @Autowired
-    MessageDAO messageDAO;
+    MessageRepository messageRepository;
 
     @Test
 
@@ -35,7 +36,7 @@ public class MessageDAOTest {
         messageEntity.setDescription("some description");
         messageEntity.setTime("some date");
 
-        messageDAO.save(messageEntity);
+        messageRepository.save(messageEntity);
         Assert.assertNotNull(messageEntity.getMessageId());
 
     }
