@@ -1,4 +1,4 @@
-package com.softserve.osbb.dao;
+package com.softserve.osbb.repository;
 
 import com.softserve.osbb.model.TicketEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

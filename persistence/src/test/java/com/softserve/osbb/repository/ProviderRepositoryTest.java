@@ -1,6 +1,7 @@
-package com.softserve.osbb;
+package com.softserve.osbb.repository;
 
-import com.softserve.osbb.dao.ProviderRepository;
+import com.softserve.osbb.OsbbApplicationRunner;
+import com.softserve.osbb.repository.ProviderRepository;
 import com.softserve.osbb.model.ProviderEntity;
 import org.junit.Before;
 import org.junit.runner.RunWith;
