@@ -1,9 +1,7 @@
 package com.softserve.osbb.repository;
 
 import com.softserve.osbb.OsbbApplicationRunner;
-import com.softserve.osbb.repository.ProviderRepository;
 import com.softserve.osbb.model.ProviderEntity;
-import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -12,6 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import java.util.List;
 import java.util.TreeSet;
@@ -29,7 +28,7 @@ public class ProviderRepositoryTest extends AbstractTestNGSpringContextTests {
     private ProviderEntity providerEntity;
 
 
-    @Before
+    @BeforeTest
     public void init() {
         providerEntity = new ProviderEntity();
         providerEntity.setName("Garbage collector");
@@ -41,7 +40,7 @@ public class ProviderRepositoryTest extends AbstractTestNGSpringContextTests {
     ProviderRepository providerRepository;
 
 
-    @org.junit.Test
+    @Test
     public void testSave() {
         Assert.assertNotNull(providerRepository.save(providerEntity));
         TreeSet<ProviderEntity> providers = new TreeSet<>();

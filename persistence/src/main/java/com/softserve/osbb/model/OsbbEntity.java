@@ -12,7 +12,7 @@ public class OsbbEntity {
     private Integer osbbId;
     private String name;
     private String description;
-    private Short creatorId;
+    private Integer creatorId;
     private Collection<ContractEntity> contractsByOsbbId;
     private Collection<EventEntity> eventsByOsbbId;
     private Collection<HouseEntity> housesByOsbbId;
@@ -52,11 +52,11 @@ public class OsbbEntity {
 
     @Basic
     @Column(name = "creator_id")
-    public Short getCreatorId() {
+    public Integer getCreatorId() {
         return creatorId;
     }
 
-    public void setCreatorId(Short creatorId) {
+    public void setCreatorId(Integer creatorId) {
         this.creatorId = creatorId;
     }
 
@@ -82,6 +82,21 @@ public class OsbbEntity {
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (creatorId != null ? creatorId.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "OsbbEntity{" +
+                "osbbId=" + osbbId +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", creatorId=" + creatorId +
+                ", contractsByOsbbId=" + contractsByOsbbId +
+                ", eventsByOsbbId=" + eventsByOsbbId +
+                ", housesByOsbbId=" + housesByOsbbId +
+                ", reportsByOsbbId=" + reportsByOsbbId +
+                ", staffsByOsbbId=" + staffsByOsbbId +
+                '}';
     }
 
     @OneToMany(mappedBy = "osbbByOsbbId")

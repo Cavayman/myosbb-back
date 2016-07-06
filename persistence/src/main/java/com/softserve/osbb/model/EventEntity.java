@@ -14,10 +14,24 @@ public class EventEntity {
     private Integer eventId;
     private String name;
     private Date date;
+    private enum Repeat {EVERY_DAY(), EVERY_WEEK(), EVERY_MONTH(), EVERY_YEAR(), NEVER()};
     private String description;
     private String author;
     private OsbbEntity osbbId;
     private List<VoteEntity> votesByEventId;
+
+    @Enumerated(EnumType.STRING)
+    private Repeat repeat;
+
+    @Basic
+    @Column(name = "repeat")
+    public Repeat getRepeat() {
+        return repeat;
+    }
+
+    public void setRepeat(Repeat repeat) {
+        this.repeat = repeat;
+    }
 
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
