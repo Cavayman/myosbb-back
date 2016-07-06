@@ -1,10 +1,11 @@
 package com.softserve.osbb.dao;
 
-import com.softserve.osbb.model.OsbbEntity;
+
+import com.softserve.osbb.model.ApartmentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface OsbbDAO extends JpaRepository<OsbbEntity, Integer> {
+public interface ApartmentRepository extends JpaRepository<ApartmentEntity, Integer> {
 }

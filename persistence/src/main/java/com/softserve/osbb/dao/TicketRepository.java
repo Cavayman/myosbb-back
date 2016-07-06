@@ -1,11 +1,10 @@
 package com.softserve.osbb.dao;
 
-
-import com.softserve.osbb.model.ReportEntity;
+import com.softserve.osbb.model.TicketEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface ReportDAO extends JpaRepository<ReportEntity, Integer> {
+public interface TicketRepository extends JpaRepository<TicketEntity, Integer> {
 }
