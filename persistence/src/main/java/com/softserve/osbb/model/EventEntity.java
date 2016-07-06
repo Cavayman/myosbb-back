@@ -1,7 +1,6 @@
 package com.softserve.osbb.model;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -11,30 +10,20 @@ import java.util.List;
 @Entity
 @Table(name = "event")
 public class EventEntity {
+
+    public enum Repeat {EVERY_DAY, EVERY_WEEK, EVERY_MONTH, EVERY_YEAR, NEVER}
+
     private Integer eventId;
     private String name;
     private Date date;
-    private enum Repeat {EVERY_DAY(), EVERY_WEEK(), EVERY_MONTH(), EVERY_YEAR(), NEVER()};
     private String description;
     private String author;
-    private OsbbEntity osbbId;
+    private OsbbEntity osbb;
     private List<VoteEntity> votesByEventId;
-
-    @Enumerated(EnumType.STRING)
     private Repeat repeat;
 
-    @Basic
-    @Column(name = "repeat")
-    public Repeat getRepeat() {
-        return repeat;
-    }
-
-    public void setRepeat(Repeat repeat) {
-        this.repeat = repeat;
-    }
-
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "event_id")
     public Integer getEventId() {
         return eventId;
@@ -84,46 +73,60 @@ public class EventEntity {
         this.author = author;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        EventEntity that = (EventEntity) o;
-
-        if (eventId != null ? !eventId.equals(that.eventId) : that.eventId != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (description != null ? !description.equals(that.description) : that.description != null) return false;
-        if (author != null ? !author.equals(that.author) : that.author != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = eventId != null ? eventId.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (author != null ? author.hashCode() : 0);
-        return result;
-    }
-
     @ManyToOne
     @JoinColumn(name = "osbb_id", referencedColumnName = "osbb_id")
-    public OsbbEntity getOsbbId() {
-        return osbbId;
+    public OsbbEntity getOsbb() {
+        return osbb;
     }
 
-    public void setOsbbId(OsbbEntity osbbId) {
-        this.osbbId = osbbId;
+    public void setOsbb(OsbbEntity osbb) {
+        this.osbb = osbb;
     }
 
     @OneToMany(mappedBy = "eventByEventId")
-    public Collection<VoteEntity> getVotesByEventId() {
+    public List<VoteEntity> getVotesByEventId() {
         return votesByEventId;
     }
 
     public void setVotesByEventId(List<VoteEntity> votesByEventId) {
         this.votesByEventId = votesByEventId;
+    }
+
+    @Basic
+    @Column(name = "repeat")
+    @Enumerated(EnumType.STRING)
+    public Repeat getRepeat() {
+        return repeat;
+    }
+
+    public void setRepeat(Repeat repeat) {
+        this.repeat = repeat;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        EventEntity entity = (EventEntity) o;
+
+        if (!eventId.equals(entity.eventId)) return false;
+        if (name != null ? !name.equals(entity.name) : entity.name != null) return false;
+        if (date != null ? date.compareTo(entity.date) != 0 : entity.date != null) return false;
+        if (description != null ? !description.equals(entity.description) : entity.description != null) return false;
+        if (author != null ? !author.equals(entity.author) : entity.author != null) return false;
+        return repeat == entity.repeat;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = eventId.hashCode();
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (date != null ? date.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (author != null ? author.hashCode() : 0);
+        result = 31 * result + (repeat != null ? repeat.hashCode() : 0);
+        return result;
     }
 }
