@@ -14,7 +14,16 @@ public class HouseEntity {
     private Collection<ApartmentEntity> appartamentsByHouseId;
     private OsbbEntity osbbByOsbbId;
 
-    @Id @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    public HouseEntity() {
+        //default
+    }
+
+    public HouseEntity(String address) {
+        this.adress = address;
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "house_id")
     public Integer getHouseId() {
         return houseId;
@@ -54,7 +63,7 @@ public class HouseEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "houseByHouseId")
+    @OneToMany(mappedBy = "houseByHouseId", cascade = CascadeType.ALL)
     public Collection<ApartmentEntity> getApartmentsByHouseId() {
         return appartamentsByHouseId;
     }

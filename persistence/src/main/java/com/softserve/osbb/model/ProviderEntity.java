@@ -7,7 +7,7 @@ import java.util.Collection;
  * Created by cavayman on 05.07.2016.
  */
 @Entity
-@Table(name = "provider", schema = "public", catalog = "myosbb")
+@Table(name = "provider")
 public class ProviderEntity implements Comparable{
     private Integer providerId;
     private String name;

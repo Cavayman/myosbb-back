@@ -1,57 +1,42 @@
 package com.softserve.osbb;
 
 import com.softserve.osbb.dao.MessageDAO;
-import com.softserve.osbb.model.MassegeEntity;
-import static org.junit.Assert.*;
-
+import com.softserve.osbb.model.MessageEntity;
+import com.softserve.osbb.model.UserEntity;
+import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
 /**
- * Created by Kris on 03.07.2016.
+ * Created by Kris on 05.07.2016.
  */
-/*
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = OsbbApplicationRunner.class)
-@Rollback
-@Transactional
 public class MessageDAOTest {
 
+    private MessageEntity messageEntity = new MessageEntity();
+
+    private UserEntity userEntity = new UserEntity();
     @Autowired
-    private MessageDAO messageEntityDAO;
-
-    private MassegeEntity messageEntity = new MassegeEntity();
-
+    MessageDAO messageDAO;
 
     @Test
-    public void testMessageEntityOperations() {
-        messageEntity.setTime("");
-        messageEntity.setDescription("my description");
-        messageEntity = messageEntityDAO.save(messageEntity);
 
-        assertNotNull(messageEntity);
-        assertTrue(messageEntity.getMassageId() != 0);
+    public void testFindAll(){
+        Assert.assertNull(messageEntity.getMessageId());
+        userEntity.setBirthdate(new Date());
+        userEntity.setEmail("blabla@gmail.com");
+        userEntity.setFirstname("Vanya");
+        userEntity.setLastname("Popov");
+        userEntity.setGender("man");
 
-        int size = messageEntityDAO.findAll().size();
-        assertTrue(size == 1);
+        messageEntity.setUsers(userEntity);
+        messageEntity.setMessage("Hi! This is a first message in our database.");
+        messageEntity.setDescription("some description");
+        messageEntity.setTime("some date");
+
+        messageDAO.save(messageEntity);
+        Assert.assertNotNull(messageEntity.getMessageId());
 
     }
-
-    @Test(expected = InvalidDataAccessApiUsageException.class)
-    public void testSaveNullMessageEntity(){
-        messageEntity = null;
-        messageEntityDAO.save(messageEntity);
-
-    }
-
-
 }
-*/

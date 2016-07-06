@@ -2,23 +2,23 @@ package com.softserve.osbb.model;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.Date;
 
 /**
  * Created by cavayman on 05.07.2016.
  */
 @Entity
-@Table(name = "ticket", schema = "public", catalog = "myosbb")
+@Table(name = "ticket")
 public class TicketEntity {
     private Integer ticketId;
     private String name;
     private String description;
     private String time;
-    private Collection<MassegeEntity> massegesByTicketId;
-    private UserEntity user;
+    private Collection<MessageEntity> messagesByTicketId;
+    private UserEntity users;
 
     @Id
     @Column(name = "ticket_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getTicketId() {
         return ticketId;
     }
@@ -59,12 +59,13 @@ public class TicketEntity {
         this.time = time;
     }
     @ManyToOne(fetch = FetchType.LAZY)
-    public UserEntity getUser() {
-        return user;
+    @JoinColumn(name = "user_id")
+    public UserEntity getUsers() {
+        return users;
     }
 
-    public void setUser(UserEntity user) {
-        this.user = user;
+    public void setUsers(UserEntity users) {
+        this.users = users;
     }
 
     @Override
@@ -92,11 +93,11 @@ public class TicketEntity {
     }
 
     @OneToMany(mappedBy = "ticketByTicketId")
-    public Collection<MassegeEntity> getMassegesByTicketId() {
-        return massegesByTicketId;
+    public Collection<MessageEntity> getMessagesByTicketId() {
+        return messagesByTicketId;
     }
 
-    public void setMassegesByTicketId(Collection<MassegeEntity> massegesByTicketId) {
-        this.massegesByTicketId = massegesByTicketId;
+    public void setMessagesByTicketId(Collection<MessageEntity> messagesByTicketId) {
+        this.messagesByTicketId = messagesByTicketId;
     }
 }

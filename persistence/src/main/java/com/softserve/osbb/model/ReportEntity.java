@@ -1,6 +1,10 @@
 package com.softserve.osbb.model;
 
+import org.springframework.cglib.core.Local;
+
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * Created by cavayman on 05.07.2016.
@@ -11,9 +15,24 @@ public class ReportEntity {
     private Integer reportId;
     private String name;
     private String description;
-    private String datecreation;
+    private Date datecreation;
     private String filepath;
     private OsbbEntity osbbByOsbbId;
+
+    public ReportEntity(){
+
+    }
+
+    public ReportEntity(String name, String description){
+        this(name, description, new Date(),"no");
+    }
+
+    public ReportEntity(String name, String description, Date dateOfCreation, String filepath) {
+        this.name = name;
+        this.description = description;
+        this.datecreation = dateOfCreation;
+        this.filepath = filepath;
+    }
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "report_id")
@@ -46,12 +65,13 @@ public class ReportEntity {
     }
 
     @Basic
+    @Temporal(TemporalType.DATE)
     @Column(name = "datecreation")
-    public String getDatecreation() {
+    public Date getDatecreation() {
         return datecreation;
     }
 
-    public void setDatecreation(String datecreation) {
+    public void setDatecreation(Date datecreation) {
         this.datecreation = datecreation;
     }
 
@@ -99,5 +119,17 @@ public class ReportEntity {
 
     public void setOsbbByOsbbId(OsbbEntity osbbByOsbbId) {
         this.osbbByOsbbId = osbbByOsbbId;
+    }
+
+    @Override
+    public String toString() {
+        return "ReportEntity{" +
+                "reportId=" + reportId +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", datecreation=" + datecreation +
+                ", filepath='" + filepath + '\'' +
+                ", osbbByOsbbId=" + osbbByOsbbId +
+                '}';
     }
 }

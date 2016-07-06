@@ -2,16 +2,17 @@ package com.softserve.osbb.model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
- * Created by cavayman on 05.07.2016.
+ * Created by Roma on 05.07.2016.
  */
 @Entity
-@Table(name = "contract", schema = "public", catalog = "myosbb")
+@Table(name = "contract")
 public class ContractEntity {
     private Integer contractId;
-    private String datestart;
-    private String datefinish;
+    private Date datestart;
+    private Date datefinish;
     private String text;
     private BigDecimal price;
     private String document;
@@ -30,21 +31,21 @@ public class ContractEntity {
 
     @Basic
     @Column(name = "datestart")
-    public String getDatestart() {
+    public Date getDatestart() {
         return datestart;
     }
 
-    public void setDatestart(String datestart) {
+    public void setDatestart(Date datestart) {
         this.datestart = datestart;
     }
 
     @Basic
     @Column(name = "datefinish")
-    public String getDatefinish() {
+    public Date getDatefinish() {
         return datefinish;
     }
 
-    public void setDatefinish(String datefinish) {
+    public void setDatefinish(Date datefinish) {
         this.datefinish = datefinish;
     }
 
