@@ -1,9 +1,8 @@
 package com.softserve.osbb;
 
-import com.softserve.osbb.dao.ContractDAO;
+import com.softserve.osbb.dao.ContractRepository;
 
 import com.softserve.osbb.model.ContractEntity;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,16 +14,17 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
 /**
  * Created by Roma on 06/07/2016.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration (classes = OsbbApplicationRunner.class)
 @Transactional
-public class ContractDAOTest {
+public class ContractRepositoryTest {
 
     @Autowired
-    private ContractDAO contractDAO;
+    private ContractRepository contractRepository;
 
     private ContractEntity contractEntity;
 

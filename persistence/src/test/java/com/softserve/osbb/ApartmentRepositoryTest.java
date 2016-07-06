@@ -1,6 +1,6 @@
 package com.softserve.osbb;
 
-import com.softserve.osbb.dao.ApartmentDAO;
+import com.softserve.osbb.dao.ApartmentRepository;
 import com.softserve.osbb.model.ApartmentEntity;
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,6 +11,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+
 /**
  * Created by Oleg on 05.07.2016.
  */
@@ -18,20 +19,20 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringApplicationConfiguration(classes = OsbbApplicationRunner.class)
 @Rollback
 @Transactional
-public class ApartmentDAOTest {
+public class ApartmentRepositoryTest {
 public static final Integer APPNUMBER = 111;
 private ApartmentEntity apartmentEntity = new ApartmentEntity();
     @Autowired
-    ApartmentDAO apartmentDAO;
+    ApartmentRepository apartmentRepository;
 
     @Test
     public void testSave(){
         apartmentEntity.setNumber(APPNUMBER);
-        apartmentDAO.save(apartmentEntity);
+        apartmentRepository.save(apartmentEntity);
         Assert.assertNotNull(apartmentEntity);
         Assert.assertEquals(APPNUMBER, apartmentEntity.getNumber());
-        apartmentDAO.delete(apartmentEntity.getApartmentId());
-        Assert.assertFalse(apartmentDAO.exists(apartmentEntity.getApartmentId()));
+        apartmentRepository.delete(apartmentEntity.getApartmentId());
+        Assert.assertFalse(apartmentRepository.exists(apartmentEntity.getApartmentId()));
     }
 
 }

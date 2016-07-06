@@ -1,8 +1,7 @@
 package com.softserve.osbb;
 
-import com.softserve.osbb.dao.UserDAO;
+import com.softserve.osbb.dao.UserRepository;
 import com.softserve.osbb.model.UserEntity;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,15 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+
 /**
  * Created by cavayman on 05.07.2016.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = OsbbApplicationRunner.class)
-public class UserDAOTest extends Assert {
+public class UserRepositoryTest extends Assert {
     private UserEntity user;
     @Autowired
-    private UserDAO userDAO;
+    private UserRepository userRepository;
 
     @Before
     public void setUpToUserEntityObject() {
@@ -37,9 +37,9 @@ public class UserDAOTest extends Assert {
 
     @Test
     public void testToHexString() {
-        assertEquals(0,userDAO.findAll().size());
-        userDAO.save(user);
-        assertEquals(1,userDAO.findAll().size());
+        assertEquals(0, userRepository.findAll().size());
+        userRepository.save(user);
+        assertEquals(1, userRepository.findAll().size());
 
     }
 }

@@ -14,10 +14,11 @@ import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = OsbbApplicationRunner.class)
 @Transactional
-public class HouseEntityDAOTest {
+public class HouseEntityRepositoryTest {
 
     private static final String TEST_ADDRESS_NAME = "Horodocka str. 110";
 

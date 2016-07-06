@@ -19,13 +19,14 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 
+
 /**
  * Created by nazar.dovhyy on 04.07.2016.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = OsbbApplicationRunner.class)
 @Transactional
-public class ReportEntityDAOTest {
+public class ReportEntityRepositoryTest {
 
     @Autowired
     private ReportRepository reportRepository;
