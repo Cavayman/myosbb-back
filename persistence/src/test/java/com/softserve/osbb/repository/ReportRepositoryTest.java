@@ -1,7 +1,6 @@
 package com.softserve.osbb.repository;
 
 import com.softserve.osbb.OsbbApplicationRunner;
-import com.softserve.osbb.repository.ReportRepository;
 import com.softserve.osbb.model.ReportEntity;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +26,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = OsbbApplicationRunner.class)
 @Transactional
-public class ReportEntityRepositoryTest {
+public class ReportRepositoryTest {
 
     @Autowired
     private ReportRepository reportRepository;

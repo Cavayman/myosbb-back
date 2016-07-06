@@ -1,7 +1,6 @@
 package com.softserve.osbb.repository;
 
 import com.softserve.osbb.OsbbApplicationRunner;
-import com.softserve.osbb.repository.HouseRepository;
 import com.softserve.osbb.model.HouseEntity;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +18,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = OsbbApplicationRunner.class)
 @Transactional
-public class HouseEntityRepositoryTest {
+public class HouseRepositoryTest {
 
     private static final String TEST_ADDRESS_NAME = "Horodocka str. 110";
 
