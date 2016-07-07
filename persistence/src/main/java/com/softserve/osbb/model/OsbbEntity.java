@@ -91,11 +91,13 @@ public class OsbbEntity {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", creatorId=" + creatorId +
-                ", contractsByOsbbId=" + contractsByOsbbId +
-                ", eventsByOsbbId=" + eventsByOsbbId +
-                ", housesByOsbbId=" + housesByOsbbId +
-                ", reportsByOsbbId=" + reportsByOsbbId +
-                ", staffsByOsbbId=" + staffsByOsbbId +
+
+//                Do not use fields with lazy initialization in toString()
+//                ", contractsByOsbbId=" + contractsByOsbbId +
+//                ", eventsByOsbbId=" + eventsByOsbbId +
+//                ", housesByOsbbId=" + housesByOsbbId +
+//                ", reportsByOsbbId=" + reportsByOsbbId +
+//                ", staffsByOsbbId=" + staffsByOsbbId +
                 '}';
     }
 

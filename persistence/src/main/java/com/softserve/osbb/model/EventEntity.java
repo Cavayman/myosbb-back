@@ -112,7 +112,7 @@ public class EventEntity {
 
         if (!eventId.equals(entity.eventId)) return false;
         if (name != null ? !name.equals(entity.name) : entity.name != null) return false;
-        if (date != null ? date.compareTo(entity.date) != 0 : entity.date != null) return false;
+        if (date != null ? date.getTime() != entity.date.getTime() : entity.date != null) return false;
         if (description != null ? !description.equals(entity.description) : entity.description != null) return false;
         if (author != null ? !author.equals(entity.author) : entity.author != null) return false;
         return repeat == entity.repeat;
