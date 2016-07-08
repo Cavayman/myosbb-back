@@ -1,8 +1,7 @@
 package com.softserve.osbb.repository;
 
 import com.softserve.osbb.OsbbApplicationRunner;
-import com.softserve.osbb.repository.ApartmentRepository;
-import com.softserve.osbb.model.ApartmentEntity;
+import com.softserve.osbb.model.Apartment;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,18 +21,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ApartmentRepositoryTest {
 public static final Integer APPNUMBER = 111;
-private ApartmentEntity apartmentEntity = new ApartmentEntity();
+private Apartment apartment = new Apartment();
     @Autowired
     ApartmentRepository apartmentRepository;
 
     @Test
     public void testSave(){
-        apartmentEntity.setNumber(APPNUMBER);
-        apartmentRepository.save(apartmentEntity);
-        Assert.assertNotNull(apartmentEntity);
-        Assert.assertEquals(APPNUMBER, apartmentEntity.getNumber());
-        apartmentRepository.delete(apartmentEntity.getApartmentId());
-        Assert.assertFalse(apartmentRepository.exists(apartmentEntity.getApartmentId()));
+        apartment.setNumber(APPNUMBER);
+        apartmentRepository.save(apartment);
+        Assert.assertNotNull(apartment);
+        Assert.assertEquals(APPNUMBER, apartment.getNumber());
+        apartmentRepository.delete(apartment.getApartmentId());
+        Assert.assertFalse(apartmentRepository.exists(apartment.getApartmentId()));
     }
 
 }

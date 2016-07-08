@@ -7,10 +7,10 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "staff")
-public class StaffEntity {
+public class Staff {
     private Integer staffId;
-    private OsbbEntity osbbByOsbbId;
-    private RoleEntity roleByRoleId;
+    private Osbb osbbByOsbbId;
+    private Role roleByRoleId;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,21 +25,21 @@ public class StaffEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "osbb_id", referencedColumnName = "osbb_id")
-    public OsbbEntity getOsbbByOsbbId() {
+    public Osbb getOsbbByOsbbId() {
         return osbbByOsbbId;
     }
 
-    public void setOsbbByOsbbId(OsbbEntity osbbByOsbbId) {
+    public void setOsbbByOsbbId(Osbb osbbByOsbbId) {
         this.osbbByOsbbId = osbbByOsbbId;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
-    public RoleEntity getRoleByRoleId() {
+    public Role getRoleByRoleId() {
         return roleByRoleId;
     }
 
-    public void setRoleByRoleId(RoleEntity roleByRoleId) {
+    public void setRoleByRoleId(Role roleByRoleId) {
         this.roleByRoleId = roleByRoleId;
     }
 
@@ -48,7 +48,7 @@ public class StaffEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        StaffEntity that = (StaffEntity) o;
+        Staff that = (Staff) o;
 
         if (staffId != null ? !staffId.equals(that.staffId) : that.staffId != null) return false;
 

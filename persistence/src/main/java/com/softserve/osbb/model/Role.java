@@ -8,10 +8,10 @@ import java.util.Collection;
  */
 @Entity
 @Table(name = "role")
-public class RoleEntity {
+public class Role {
     private Integer roleId;
     private String name;
-    private Collection<StaffEntity> staffsByRoleId;
+    private Collection<Staff> staffsByRoleId;
 
     @Id
     @Column(name = "role_id")
@@ -38,7 +38,7 @@ public class RoleEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        RoleEntity that = (RoleEntity) o;
+        Role that = (Role) o;
 
         if (roleId != null ? !roleId.equals(that.roleId) : that.roleId != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
@@ -54,11 +54,11 @@ public class RoleEntity {
     }
 
     @OneToMany(mappedBy = "roleByRoleId")
-    public Collection<StaffEntity> getStaffsByRoleId() {
+    public Collection<Staff> getStaffsByRoleId() {
         return staffsByRoleId;
     }
 
-    public void setStaffsByRoleId(Collection<StaffEntity> staffsByRoleId) {
+    public void setStaffsByRoleId(Collection<Staff> staffsByRoleId) {
         this.staffsByRoleId = staffsByRoleId;
     }
 }

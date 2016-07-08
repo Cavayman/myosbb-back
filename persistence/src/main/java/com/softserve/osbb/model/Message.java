@@ -7,13 +7,13 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "message")
-public class MessageEntity {
+public class Message {
     private Integer messageId;
     private String time;
     private String message;
     private String description;
-    private TicketEntity ticketByTicketId;
-    private UserEntity users;
+    private Ticket ticketByTicketId;
+    private User users;
 
     @Id
     @Column(name = "message_id")
@@ -48,11 +48,11 @@ public class MessageEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    public UserEntity getUsers() {
+    public User getUsers() {
         return users;
     }
 
-    public void setUsers(UserEntity users) {
+    public void setUsers(User users) {
         this.users = users;
     }
 
@@ -61,7 +61,7 @@ public class MessageEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        MessageEntity that = (MessageEntity) o;
+        Message that = (Message) o;
 
         if (messageId != null ? !messageId.equals(that.messageId) : that.messageId != null) return false;
         if (time != null ? !time.equals(that.time) : that.time != null) return false;
@@ -88,11 +88,11 @@ public class MessageEntity {
 
     @ManyToOne
     @JoinColumn(name = "ticket_id", referencedColumnName = "ticket_id")
-    public TicketEntity getTicketByTicketId() {
+    public Ticket getTicketByTicketId() {
         return ticketByTicketId;
     }
 
-    public void setTicketByTicketId(TicketEntity ticketByTicketId) {
+    public void setTicketByTicketId(Ticket ticketByTicketId) {
         this.ticketByTicketId = ticketByTicketId;
     }
 }

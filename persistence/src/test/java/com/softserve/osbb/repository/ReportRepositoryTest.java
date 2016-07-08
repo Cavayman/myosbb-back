@@ -1,7 +1,7 @@
 package com.softserve.osbb.repository;
 
 import com.softserve.osbb.OsbbApplicationRunner;
-import com.softserve.osbb.model.ReportEntity;
+import com.softserve.osbb.model.Report;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,12 +31,12 @@ public class ReportRepositoryTest {
     @Autowired
     private ReportRepository reportRepository;
 
-    private ReportEntity reportEntity;
+    private Report report;
 
     @Before
     public void init(){
 
-        reportEntity = new ReportEntity();
+        report = new Report();
 
         Date dateCreation = null;
         try {
@@ -46,45 +46,45 @@ public class ReportRepositoryTest {
             dateCreation = new Date();
         }
 
-        reportEntity = new ReportEntity();
-        reportEntity.setName("баланс ЧЕРВ/2016");
-        reportEntity.setDatecreation(dateCreation);
+        report = new Report();
+        report.setName("баланс ЧЕРВ/2016");
+        report.setDatecreation(dateCreation);
     }
 
 
     @Test
     public void testSaveReport(){
 
-        reportEntity = reportRepository.save(reportEntity);
+        report = reportRepository.save(report);
 
-        assertNotNull(reportEntity);
+        assertNotNull(report);
 
-        assertTrue(reportRepository.exists(reportEntity.getReportId()));
+        assertTrue(reportRepository.exists(report.getReportId()));
 
     }
 
     @Test
     public void testUpdateReport(){
 
-        reportEntity = reportRepository.save(reportEntity);
+        report = reportRepository.save(report);
 
-        reportEntity.setName("баланс ЧЕРВ/2016 2.0");
+        report.setName("баланс ЧЕРВ/2016 2.0");
 
-        ReportEntity updatedReportEntity;
-        updatedReportEntity = reportRepository.saveAndFlush(reportEntity);
+        Report updatedReport;
+        updatedReport = reportRepository.saveAndFlush(report);
 
-        assertSame(reportEntity.getReportId(), updatedReportEntity.getReportId());
+        assertSame(report.getReportId(), updatedReport.getReportId());
     }
 
 
     @Test
     public void testDeleteReport(){
 
-        reportEntity = reportRepository.save(reportEntity);
+        report = reportRepository.save(report);
 
-        reportRepository.delete(reportEntity);
+        reportRepository.delete(report);
 
-        assertFalse(reportRepository.exists(reportEntity.getReportId()));
+        assertFalse(reportRepository.exists(report.getReportId()));
 
 
     }
@@ -92,11 +92,11 @@ public class ReportRepositoryTest {
     @Test
     public void testGetAllReports(){
 
-        List<ReportEntity> reportEntities = new ArrayList<>();
+        List<Report> reportEntities = new ArrayList<>();
 
-        reportEntities.add(new ReportEntity("баланс ЛИП/2016", "фін. звіт за липень"));
-        reportEntities.add(new ReportEntity("баланс СЕР/2016", "фін. звіт за серпень"));
-        reportEntities.add(new ReportEntity("баланс ВЕР/2016", "фін. звіт за вересень"));
+        reportEntities.add(new Report("баланс ЛИП/2016", "фін. звіт за липень"));
+        reportEntities.add(new Report("баланс СЕР/2016", "фін. звіт за серпень"));
+        reportEntities.add(new Report("баланс ВЕР/2016", "фін. звіт за вересень"));
 
         reportRepository.save(reportEntities);
 

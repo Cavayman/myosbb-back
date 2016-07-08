@@ -1,8 +1,8 @@
 package com.softserve.osbb.repository;
 
 import com.softserve.osbb.OsbbApplicationRunner;
-import com.softserve.osbb.model.EventEntity;
-import com.softserve.osbb.model.OsbbEntity;
+import com.softserve.osbb.model.Event;
+import com.softserve.osbb.model.Osbb;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,104 +32,104 @@ public class EventRepositoryTest {
     @Autowired
     private OsbbRepository osbbRepository;
 
-    private EventEntity eventEntity;
-    private EventEntity eventEntity1;
+    private Event event;
+    private Event event1;
 
     @Before
     public void init() {
 
-        OsbbEntity osbb = new OsbbEntity();
+        Osbb osbb = new Osbb();
         osbb.setName("Test OSBB");
         osbbRepository.save(osbb);
 
-        eventEntity = new EventEntity();
-        eventEntity.setName("Trash droping.");
-        eventEntity.setAuthor("Main OSBB");
-        eventEntity.setOsbb(osbb);
-        eventEntity.setDescription("Simple repeatable trash recycling.");
-        eventEntity.setRepeat(EventEntity.Repeat.EVERY_WEEK);
-        eventEntity.setDate(new Date());
+        event = new Event();
+        event.setName("Trash droping.");
+        event.setAuthor("Main OSBB");
+        event.setOsbb(osbb);
+        event.setDescription("Simple repeatable trash recycling.");
+        event.setRepeat(Event.Repeat.EVERY_WEEK);
+        event.setDate(new Date());
 
-        eventEntity1 = new EventEntity();
-        eventEntity1.setName("Charity festival.");
-        eventEntity1.setAuthor("City Council");
-        eventEntity1.setOsbb(osbb);
-        eventEntity1.setDescription("Charity festival for homelesspeople.");
-        eventEntity1.setRepeat(EventEntity.Repeat.NEVER);
-        eventEntity1.setDate(new Date());
+        event1 = new Event();
+        event1.setName("Charity festival.");
+        event1.setAuthor("City Council");
+        event1.setOsbb(osbb);
+        event1.setDescription("Charity festival for homelesspeople.");
+        event1.setRepeat(Event.Repeat.NEVER);
+        event1.setDate(new Date());
     }
 
     @Test
     public void testSave() {
-        eventRepository.save(eventEntity);
-        assertEquals(eventEntity, eventRepository.findOne(eventEntity.getEventId()));
+        eventRepository.save(event);
+        assertEquals(event, eventRepository.findOne(event.getEventId()));
     }
 
     @Test
     public void testSaveList() {
-        List<EventEntity> list = new ArrayList<>();
-        list.add(eventEntity);
-        list.add(eventEntity1);
+        List<Event> list = new ArrayList<>();
+        list.add(event);
+        list.add(event1);
         eventRepository.save(list);
         assertEquals(list, eventRepository.findAll());
     }
 
     @Test
     public void testFindOne() {
-        eventRepository.save(eventEntity);
-        assertEquals(eventEntity, eventRepository.findOne(eventEntity.getEventId()));
+        eventRepository.save(event);
+        assertEquals(event, eventRepository.findOne(event.getEventId()));
     }
 
     @Test
     public void testFindAllByIDs() {
-        List<EventEntity> list = new ArrayList<>();
-        list.add(eventEntity1);
-        list.add(eventEntity);
+        List<Event> list = new ArrayList<>();
+        list.add(event1);
+        list.add(event);
         eventRepository.save(list);
         List<Integer> ids = new ArrayList<>();
-        ids.add(eventEntity.getEventId());
-        ids.add(eventEntity1.getEventId());
+        ids.add(event.getEventId());
+        ids.add(event1.getEventId());
         assertTrue(eventRepository.findAll(ids).containsAll(list));
     }
 
     @Test
     public void testFindAll() {
-        List<EventEntity> list = new ArrayList<>();
-        list.add(eventEntity);
-        list.add(eventEntity1);
+        List<Event> list = new ArrayList<>();
+        list.add(event);
+        list.add(event1);
         eventRepository.save(list);
         assertTrue(eventRepository.findAll().containsAll(list));
     }
 
     @Test
     public void testDelete() {
-        eventRepository.save(eventEntity);
-        eventRepository.delete(eventEntity);
-        assertFalse(eventRepository.exists(eventEntity.getEventId()));
+        eventRepository.save(event);
+        eventRepository.delete(event);
+        assertFalse(eventRepository.exists(event.getEventId()));
     }
 
     @Test
     public void testDeleteById() {
-        eventRepository.save(eventEntity);
-        eventRepository.delete(eventEntity.getEventId());
-        assertFalse(eventRepository.exists(eventEntity.getEventId()));
+        eventRepository.save(event);
+        eventRepository.delete(event.getEventId());
+        assertFalse(eventRepository.exists(event.getEventId()));
     }
 
     @Test
     public void testDeleteList() {
-        List<EventEntity> list = new ArrayList<>();
-        list.add(eventEntity);
-        list.add(eventEntity1);
+        List<Event> list = new ArrayList<>();
+        list.add(event);
+        list.add(event1);
         eventRepository.save(list);
         eventRepository.delete(list);
-        assertFalse(eventRepository.exists(eventEntity.getEventId()));
-        assertFalse(eventRepository.exists(eventEntity1.getEventId()));
+        assertFalse(eventRepository.exists(event.getEventId()));
+        assertFalse(eventRepository.exists(event1.getEventId()));
     }
 
     @Test
     public void testDeleteAll() {
-        eventRepository.save(eventEntity);
-        eventRepository.save(eventEntity1);
+        eventRepository.save(event);
+        eventRepository.save(event1);
         eventRepository.deleteAll();
         assertTrue(eventRepository.findAll().isEmpty());
     }
@@ -137,14 +137,14 @@ public class EventRepositoryTest {
     @Test
     public void testCount() {
         int before = eventRepository.findAll().size();
-        eventRepository.save(eventEntity);
-        eventRepository.save(eventEntity1);
+        eventRepository.save(event);
+        eventRepository.save(event1);
         assertEquals(before + 2, eventRepository.count());
     }
 
     @Test
     public void testExists() {
-        eventRepository.save(eventEntity);
-        assertTrue(eventRepository.exists(eventEntity.getEventId()));
+        eventRepository.save(event);
+        assertTrue(eventRepository.exists(event.getEventId()));
     }
 }

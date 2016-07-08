@@ -1,7 +1,7 @@
 package com.softserve.osbb.repository;
 
 import com.softserve.osbb.OsbbApplicationRunner;
-import com.softserve.osbb.model.VoteEntity;
+import com.softserve.osbb.model.Vote;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,43 +23,43 @@ import static org.junit.Assert.assertTrue;
 @Transactional
 public class VoteRepositoryTest {
 
-    private VoteEntity voteEntity;
+    private Vote vote;
 
     @Autowired
     VoteRepository voteRepository;
 
     @Before
     public void init() {
-        voteEntity = new VoteEntity();
-        voteEntity.setIventId(2);
-        voteEntity.setVoteValue(20);
+        vote = new Vote();
+        vote.setIventId(2);
+        vote.setVoteValue(20);
     }
 
     @Test
     public void testSave() {
-        VoteEntity savedVote= voteRepository.save(voteEntity);
+        Vote savedVote= voteRepository.save(vote);
         Assert.assertNotNull(savedVote);
         Assert.assertTrue(voteRepository.exists(savedVote.getVoteId()));
     }
 
     @Test
     public void testGetVoteById() {
-        VoteEntity savedVote = voteRepository.save(voteEntity);
+        Vote savedVote = voteRepository.save(vote);
         Assert.assertEquals(savedVote.getVoteId(), voteRepository.getOne(savedVote.getVoteId()).getVoteId());
     }
 
     @Test
     public void testDeleteByVoteEntity() {
-        voteEntity = voteRepository.save(voteEntity);
-        voteRepository.delete(voteEntity);
-        Assert.assertFalse(voteRepository.exists(voteEntity.getVoteId()));
+        vote = voteRepository.save(vote);
+        voteRepository.delete(vote);
+        Assert.assertFalse(voteRepository.exists(vote.getVoteId()));
     }
 
     @Test
     public void testDeleteByVoteId() {
-        voteEntity = voteRepository.save(voteEntity);
-        voteRepository.delete(voteEntity.getVoteId());
-        Assert.assertFalse(voteRepository.exists(voteEntity.getVoteId()));
+        vote = voteRepository.save(vote);
+        voteRepository.delete(vote.getVoteId());
+        Assert.assertFalse(voteRepository.exists(vote.getVoteId()));
     }
 
     @Test

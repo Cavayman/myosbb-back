@@ -8,17 +8,17 @@ import java.util.Collection;
  */
 @Entity
 @Table(name = "house")
-public class HouseEntity {
+public class House {
     private Integer houseId;
     private String adress;
-    private Collection<ApartmentEntity> appartamentsByHouseId;
-    private OsbbEntity osbbByOsbbId;
+    private Collection<Apartment> appartamentsByHouseId;
+    private Osbb osbbByOsbbId;
 
-    public HouseEntity() {
+    public House() {
         //default
     }
 
-    public HouseEntity(String address) {
+    public House(String address) {
         this.adress = address;
     }
 
@@ -48,7 +48,7 @@ public class HouseEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        HouseEntity that = (HouseEntity) o;
+        House that = (House) o;
 
         if (houseId != null ? !houseId.equals(that.houseId) : that.houseId != null) return false;
         if (adress != null ? !adress.equals(that.adress) : that.adress != null) return false;
@@ -64,21 +64,21 @@ public class HouseEntity {
     }
 
     @OneToMany(mappedBy = "houseByHouseId", cascade = CascadeType.ALL)
-    public Collection<ApartmentEntity> getApartmentsByHouseId() {
+    public Collection<Apartment> getApartmentsByHouseId() {
         return appartamentsByHouseId;
     }
 
-    public void setApartmentsByHouseId(Collection<ApartmentEntity> appartamentsByHouseId) {
+    public void setApartmentsByHouseId(Collection<Apartment> appartamentsByHouseId) {
         this.appartamentsByHouseId = appartamentsByHouseId;
     }
 
     @ManyToOne
     @JoinColumn(name = "osbb_id", referencedColumnName = "osbb_id")
-    public OsbbEntity getOsbbByOsbbId() {
+    public Osbb getOsbbByOsbbId() {
         return osbbByOsbbId;
     }
 
-    public void setOsbbByOsbbId(OsbbEntity osbbByOsbbId) {
+    public void setOsbbByOsbbId(Osbb osbbByOsbbId) {
         this.osbbByOsbbId = osbbByOsbbId;
     }
 }
