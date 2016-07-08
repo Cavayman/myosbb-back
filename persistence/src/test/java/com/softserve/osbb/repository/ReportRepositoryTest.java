@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +26,6 @@ import static org.junit.Assert.*;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = PersistenceConfiguration.class)
-@Transactional
 public class ReportRepositoryTest {
 
     @Autowired
@@ -37,15 +37,7 @@ public class ReportRepositoryTest {
     public void init(){
 
         report = new Report();
-
-        Date dateCreation = null;
-        try {
-            dateCreation = new SimpleDateFormat("yyyy-mm-dd")
-                    .parse("2016-01-22");
-        } catch (ParseException e) {
-            dateCreation = new Date();
-        }
-
+        LocalDateTime dateCreation = LocalDateTime.now();
         report = new Report();
         report.setName("баланс ЧЕРВ/2016");
         report.setCreationDate(dateCreation);

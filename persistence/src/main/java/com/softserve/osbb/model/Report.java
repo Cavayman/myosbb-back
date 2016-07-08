@@ -4,10 +4,11 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
- * Created by cavayman on 05.07.2016.
+ * Created by Nazar Dovhyi
  */
 @Entity
 @Table(name = "report")
@@ -15,7 +16,7 @@ public class Report {
     private Integer reportId;
     private String name;
     private String description;
-    private Date creationDate;
+    private LocalDateTime creationDate;
     private String filePath;
     private Osbb osbb;
 
@@ -24,10 +25,10 @@ public class Report {
     }
 
     public Report(String name, String description){
-        this(name, description, new Date(),"no");
+        this(name, description, LocalDateTime.now(),"no");
     }
 
-    public Report(String name, String description, Date dateOfCreation, String filePath) {
+    public Report(String name, String description, LocalDateTime dateOfCreation, String filePath) {
         this.name = name;
         this.description = description;
         this.creationDate = dateOfCreation;
@@ -65,13 +66,12 @@ public class Report {
     }
 
     @Basic
-    @Temporal(TemporalType.DATE)
     @Column(name = "creationDate")
-    public Date getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
 

@@ -16,7 +16,6 @@ public class WebAppConfiguration {
 
     public static void main(String[] args) {
         SpringApplication.run(new Object[]{
-                WebAppConfiguration.class,
-                PersistenceConfiguration.class}, args);
+                WebAppConfiguration.class}, args);
     }
 }
