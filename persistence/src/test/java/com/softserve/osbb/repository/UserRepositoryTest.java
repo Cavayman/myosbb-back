@@ -1,6 +1,6 @@
 package com.softserve.osbb.repository;
 
-import com.softserve.osbb.OsbbApplicationRunner;
+import com.softserve.osbb.PersistenceConfiguration;
 import com.softserve.osbb.model.User;
 import org.junit.Assert;
 import org.junit.Before;
@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * Created by cavayman on 05.07.2016.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = OsbbApplicationRunner.class)
+@SpringApplicationConfiguration(classes = PersistenceConfiguration.class)
 public class UserRepositoryTest extends Assert {
     private User user;
     @Autowired

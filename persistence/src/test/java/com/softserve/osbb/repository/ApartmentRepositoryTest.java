@@ -1,6 +1,6 @@
 package com.softserve.osbb.repository;
 
-import com.softserve.osbb.OsbbApplicationRunner;
+import com.softserve.osbb.PersistenceConfiguration;
 import com.softserve.osbb.model.Apartment;
 import org.junit.Assert;
 import org.junit.Test;
@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Created by Oleg on 05.07.2016.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = OsbbApplicationRunner.class)
+@SpringApplicationConfiguration(classes = PersistenceConfiguration.class)
 @Rollback
 @Transactional
 public class ApartmentRepositoryTest {

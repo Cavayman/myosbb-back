@@ -1,6 +1,6 @@
 package com.softserve.osbb.repository;
 
-import com.softserve.osbb.OsbbApplicationRunner;
+import com.softserve.osbb.PersistenceConfiguration;
 import com.softserve.osbb.model.Contract;
 
 import org.junit.Test;
@@ -19,7 +19,7 @@ import java.util.Date;
  * Created by Roma on 06/07/2016.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration (classes = OsbbApplicationRunner.class)
+@SpringApplicationConfiguration (classes = PersistenceConfiguration.class)
 @Transactional
 public class ContractRepositoryTest {
 

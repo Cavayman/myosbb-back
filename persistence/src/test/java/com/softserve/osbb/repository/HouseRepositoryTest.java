@@ -1,6 +1,6 @@
 package com.softserve.osbb.repository;
 
-import com.softserve.osbb.OsbbApplicationRunner;
+import com.softserve.osbb.PersistenceConfiguration;
 import com.softserve.osbb.model.House;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = OsbbApplicationRunner.class)
+@SpringApplicationConfiguration(classes = PersistenceConfiguration.class)
 @Transactional
 public class HouseRepositoryTest {
 

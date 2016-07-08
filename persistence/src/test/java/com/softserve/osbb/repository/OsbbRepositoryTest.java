@@ -1,6 +1,6 @@
 package com.softserve.osbb.repository;
 
-import com.softserve.osbb.OsbbApplicationRunner;
+import com.softserve.osbb.PersistenceConfiguration;
 import com.softserve.osbb.model.Osbb;
 import org.junit.Assert;
 import org.junit.Before;
@@ -18,7 +18,7 @@ import java.util.List;
  * Created by Roman on 06.07.2016.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = OsbbApplicationRunner.class)
+@SpringApplicationConfiguration(classes = PersistenceConfiguration.class)
 @Transactional
 public class OsbbRepositoryTest {
 

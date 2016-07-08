@@ -1,6 +1,6 @@
 package com.softserve.osbb.repository;
 
-import com.softserve.osbb.OsbbApplicationRunner;
+import com.softserve.osbb.PersistenceConfiguration;
 import com.softserve.osbb.model.Provider;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import java.util.TreeSet;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = OsbbApplicationRunner.class)
+@SpringApplicationConfiguration(classes = PersistenceConfiguration.class)
 @Rollback
 @Transactional
 public class ProviderRepositoryTest extends AbstractTestNGSpringContextTests {

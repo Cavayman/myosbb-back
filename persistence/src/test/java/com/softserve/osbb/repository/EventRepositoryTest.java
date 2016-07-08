@@ -1,6 +1,6 @@
 package com.softserve.osbb.repository;
 
-import com.softserve.osbb.OsbbApplicationRunner;
+import com.softserve.osbb.PersistenceConfiguration;
 import com.softserve.osbb.model.Osbb;
 import com.softserve.osbb.model.Event;
 import org.junit.Before;
@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
 
 @Rollback
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = OsbbApplicationRunner.class)
+@SpringApplicationConfiguration(classes = PersistenceConfiguration.class)
 @Transactional
 public class EventRepositoryTest {
 
