@@ -9,7 +9,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "event")
-public class EventEntity {
+public class Event {
 
     public enum Repeat {EVERY_DAY, EVERY_WEEK, EVERY_MONTH, EVERY_YEAR, NEVER}
 
@@ -18,8 +18,8 @@ public class EventEntity {
     private Date date;
     private String description;
     private String author;
-    private OsbbEntity osbb;
-    private List<VoteEntity> votesByEventId;
+    private Osbb osbb;
+    private List<Vote> votesByEventId;
     private Repeat repeat;
 
     @Id
@@ -75,20 +75,20 @@ public class EventEntity {
 
     @ManyToOne
     @JoinColumn(name = "osbb_id", referencedColumnName = "osbb_id")
-    public OsbbEntity getOsbb() {
+    public Osbb getOsbb() {
         return osbb;
     }
 
-    public void setOsbb(OsbbEntity osbb) {
+    public void setOsbb(Osbb osbb) {
         this.osbb = osbb;
     }
 
     @OneToMany(mappedBy = "eventByEventId")
-    public List<VoteEntity> getVotesByEventId() {
+    public List<Vote> getVotesByEventId() {
         return votesByEventId;
     }
 
-    public void setVotesByEventId(List<VoteEntity> votesByEventId) {
+    public void setVotesByEventId(List<Vote> votesByEventId) {
         this.votesByEventId = votesByEventId;
     }
 
@@ -108,7 +108,7 @@ public class EventEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        EventEntity entity = (EventEntity) o;
+        Event entity = (Event) o;
 
         if (!eventId.equals(entity.eventId)) return false;
         if (name != null ? !name.equals(entity.name) : entity.name != null) return false;

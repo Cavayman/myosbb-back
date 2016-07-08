@@ -1,7 +1,7 @@
 package com.softserve.osbb.repository;
 
 import com.softserve.osbb.OsbbApplicationRunner;
-import com.softserve.osbb.model.ProviderEntity;
+import com.softserve.osbb.model.Provider;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -25,15 +25,15 @@ import java.util.TreeSet;
 @Rollback
 @Transactional
 public class ProviderRepositoryTest extends AbstractTestNGSpringContextTests {
-    private ProviderEntity providerEntity;
+    private Provider provider;
 
 
     @BeforeTest
     public void init() {
-        providerEntity = new ProviderEntity();
-        providerEntity.setName("Garbage collector");
-        providerEntity.setDescription("Remove trash");
-        providerEntity.setLogourl("empty-logo");
+        provider = new Provider();
+        provider.setName("Garbage collector");
+        provider.setDescription("Remove trash");
+        provider.setLogourl("empty-logo");
     }
 
     @Autowired
@@ -42,14 +42,14 @@ public class ProviderRepositoryTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testSave() {
-        Assert.assertNotNull(providerRepository.save(providerEntity));
-        TreeSet<ProviderEntity> providers = new TreeSet<>();
-        providers.add(providerEntity);
-        providers.add(new ProviderEntity("A"));
-        providers.add(new ProviderEntity("C"));
-        providers.add(new ProviderEntity("B"));
+        Assert.assertNotNull(providerRepository.save(provider));
+        TreeSet<Provider> providers = new TreeSet<>();
+        providers.add(provider);
+        providers.add(new Provider("A"));
+        providers.add(new Provider("C"));
+        providers.add(new Provider("B"));
         providerRepository.flush();
-        Assert.assertNotNull(providerRepository.saveAndFlush(providerEntity));
+        Assert.assertNotNull(providerRepository.saveAndFlush(provider));
         Assert.assertNotNull(providerRepository.save(providers));
     }
 
@@ -60,16 +60,16 @@ public class ProviderRepositoryTest extends AbstractTestNGSpringContextTests {
 
     @Test(dependsOnMethods = {"testCount"})
     public void testFindAndDelete() {
-        Integer providerID = providerRepository.save(providerEntity).getProviderId();
+        Integer providerID = providerRepository.save(provider).getProviderId();
         Assert.assertTrue(providerRepository.exists(providerID));
         Assert.assertNotNull(providerRepository.findOne(providerID));
         Assert.assertNotNull(providerRepository.getOne(providerID));
-        List<ProviderEntity> providers = providerRepository.findAll();
+        List<Provider> providers = providerRepository.findAll();
         Assert.assertNotNull(providers);
         providerRepository.delete(providerID);
         Assert.assertFalse(providerRepository.exists(providerID));
         providerRepository.delete(providers);
-        for (ProviderEntity p: providers) {
+        for (Provider p: providers) {
             Assert.assertFalse(providerRepository.exists(p.getProviderId()));
         }
         providerRepository.deleteAll();

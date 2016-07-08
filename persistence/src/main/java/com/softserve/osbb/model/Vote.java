@@ -8,13 +8,13 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "vote")
-public class VoteEntity {
+public class Vote {
     private Integer voteId;
     private Integer iventId;
     private Integer voteValue;
     private Date time;
-    private EventEntity eventByEventId;
-    private UserEntity users;
+    private Event eventByEventId;
+    private User users;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,11 +59,11 @@ public class VoteEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    public UserEntity getUsers() {
+    public User getUsers() {
         return users;
     }
 
-    public void setUsers(UserEntity users) {
+    public void setUsers(User users) {
         this.users = users;
     }
 
@@ -72,7 +72,7 @@ public class VoteEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        VoteEntity that = (VoteEntity) o;
+        Vote that = (Vote) o;
 
         if (voteId != null ? !voteId.equals(that.voteId) : that.voteId != null) return false;
         if (iventId != null ? !iventId.equals(that.iventId) : that.iventId != null) return false;
@@ -97,7 +97,7 @@ public class VoteEntity {
 
     @Override
     public String toString() {
-        return "VoteEntity{" +
+        return "Vote{" +
                 "voteId=" + voteId +
                 ", iventId=" + iventId +
                 ", voteValue=" + voteValue +
@@ -109,11 +109,11 @@ public class VoteEntity {
 
     @ManyToOne
     @JoinColumn(name = "event_id", referencedColumnName = "event_id")
-    public EventEntity getEventByEventId() {
+    public Event getEventByEventId() {
         return eventByEventId;
     }
 
-    public void setEventByEventId(EventEntity eventByEventId) {
+    public void setEventByEventId(Event eventByEventId) {
         this.eventByEventId = eventByEventId;
     }
 }

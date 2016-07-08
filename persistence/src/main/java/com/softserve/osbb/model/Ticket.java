@@ -8,13 +8,13 @@ import java.util.Collection;
  */
 @Entity
 @Table(name = "ticket")
-public class TicketEntity {
+public class Ticket {
     private Integer ticketId;
     private String name;
     private String description;
     private String time;
-    private Collection<MessageEntity> messagesByTicketId;
-    private UserEntity users;
+    private Collection<Message> messagesByTicketId;
+    private User users;
 
     @Id
     @Column(name = "ticket_id")
@@ -60,11 +60,11 @@ public class TicketEntity {
     }
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    public UserEntity getUsers() {
+    public User getUsers() {
         return users;
     }
 
-    public void setUsers(UserEntity users) {
+    public void setUsers(User users) {
         this.users = users;
     }
 
@@ -73,7 +73,7 @@ public class TicketEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        TicketEntity that = (TicketEntity) o;
+        Ticket that = (Ticket) o;
 
         if (ticketId != null ? !ticketId.equals(that.ticketId) : that.ticketId != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
@@ -93,11 +93,11 @@ public class TicketEntity {
     }
 
     @OneToMany(mappedBy = "ticketByTicketId")
-    public Collection<MessageEntity> getMessagesByTicketId() {
+    public Collection<Message> getMessagesByTicketId() {
         return messagesByTicketId;
     }
 
-    public void setMessagesByTicketId(Collection<MessageEntity> messagesByTicketId) {
+    public void setMessagesByTicketId(Collection<Message> messagesByTicketId) {
         this.messagesByTicketId = messagesByTicketId;
     }
 }

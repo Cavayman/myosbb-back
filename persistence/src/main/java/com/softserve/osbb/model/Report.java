@@ -1,9 +1,6 @@
 package com.softserve.osbb.model;
 
-import org.springframework.cglib.core.Local;
-
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -11,23 +8,23 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "report")
-public class ReportEntity {
+public class Report {
     private Integer reportId;
     private String name;
     private String description;
     private Date datecreation;
     private String filepath;
-    private OsbbEntity osbbByOsbbId;
+    private Osbb osbbByOsbbId;
 
-    public ReportEntity(){
+    public Report(){
 
     }
 
-    public ReportEntity(String name, String description){
+    public Report(String name, String description){
         this(name, description, new Date(),"no");
     }
 
-    public ReportEntity(String name, String description, Date dateOfCreation, String filepath) {
+    public Report(String name, String description, Date dateOfCreation, String filepath) {
         this.name = name;
         this.description = description;
         this.datecreation = dateOfCreation;
@@ -90,7 +87,7 @@ public class ReportEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ReportEntity that = (ReportEntity) o;
+        Report that = (Report) o;
 
         if (reportId != null ? !reportId.equals(that.reportId) : that.reportId != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
@@ -113,17 +110,17 @@ public class ReportEntity {
 
     @ManyToOne
     @JoinColumn(name = "osbb_id", referencedColumnName = "osbb_id")
-    public OsbbEntity getOsbbByOsbbId() {
+    public Osbb getOsbbByOsbbId() {
         return osbbByOsbbId;
     }
 
-    public void setOsbbByOsbbId(OsbbEntity osbbByOsbbId) {
+    public void setOsbbByOsbbId(Osbb osbbByOsbbId) {
         this.osbbByOsbbId = osbbByOsbbId;
     }
 
     @Override
     public String toString() {
-        return "ReportEntity{" +
+        return "Report{" +
                 "reportId=" + reportId +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +

@@ -1,7 +1,7 @@
 package com.softserve.osbb.repository;
 
 import com.softserve.osbb.OsbbApplicationRunner;
-import com.softserve.osbb.model.OsbbEntity;
+import com.softserve.osbb.model.Osbb;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,40 +22,40 @@ import java.util.List;
 @Transactional
 public class OsbbRepositoryTest {
 
-    private OsbbEntity osbbEntity;
+    private Osbb osbb;
 
     @Autowired
     OsbbRepository osbbRepository;
 
     @Before
     public void init() {
-        osbbEntity = new OsbbEntity();
-        osbbEntity.setName("Lviv_osbb");
-        osbbEntity.setDescription("osbb for people");
-        osbbEntity.setCreatorId(5);
+        osbb = new Osbb();
+        osbb.setName("Lviv_osbb");
+        osbb.setDescription("osbb for people");
+        osbb.setCreatorId(5);
     }
 
     @Before
     public void addIntoDB() {
-        osbbEntity = osbbRepository.save(osbbEntity);
+        osbb = osbbRepository.save(osbb);
     }
 
     @Test
     public void testSave(){
-        OsbbEntity savedOsbb = osbbRepository.save(osbbEntity);
+        Osbb savedOsbb = osbbRepository.save(osbb);
         Assert.assertNotNull(savedOsbb);
         Assert.assertEquals("Lviv_osbb",savedOsbb.getName());
     }
 
     @Test
     public void testGetOsbbById() {
-        OsbbEntity savedOsbb = osbbRepository.save(osbbEntity);
+        Osbb savedOsbb = osbbRepository.save(osbb);
         Assert.assertEquals(osbbRepository.getOne(savedOsbb.getOsbbId()),savedOsbb);
     }
 
     @Test
     public void testGetAllOsbb() {
-        List<OsbbEntity> list = Arrays.asList(new OsbbEntity(), new OsbbEntity(), new OsbbEntity());
+        List<Osbb> list = Arrays.asList(new Osbb(), new Osbb(), new Osbb());
         osbbRepository.deleteAll();
         osbbRepository.save(list);
         Assert.assertTrue(list.size() == osbbRepository.findAll().size());
@@ -63,14 +63,14 @@ public class OsbbRepositoryTest {
 
     @Test
     public void testDeleteOsbbById() {
-        osbbRepository.delete(osbbEntity.getOsbbId());
-        Assert.assertFalse(osbbRepository.exists(osbbEntity.getOsbbId()));
+        osbbRepository.delete(osbb.getOsbbId());
+        Assert.assertFalse(osbbRepository.exists(osbb.getOsbbId()));
     }
 
     @Test
     public void testDeleteOsbbByOsbbEntity() {
-        osbbRepository.delete(osbbEntity);
-        Assert.assertFalse(osbbRepository.exists(osbbEntity.getOsbbId()));
+        osbbRepository.delete(osbb);
+        Assert.assertFalse(osbbRepository.exists(osbb.getOsbbId()));
     }
 
     @Test

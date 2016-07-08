@@ -1,7 +1,6 @@
 package com.softserve.osbb.model;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -9,12 +8,12 @@ import java.util.List;
  */
 @Entity
 @Table(name = "apartment")
-public class ApartmentEntity {
+public class Apartment {
     private Integer apartmentId;
     private Integer number;
-    private HouseEntity houseByHouseId;
-    private UserEntity userByOwnerId;
-    private List<UserEntity> users;
+    private House houseByHouseId;
+    private User userByOwnerId;
+    private List<User> users;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,9 +39,9 @@ public class ApartmentEntity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ApartmentEntity)) return false;
+        if (!(o instanceof Apartment)) return false;
 
-        ApartmentEntity that = (ApartmentEntity) o;
+        Apartment that = (Apartment) o;
 
         if (getApartmentId() != null ? !getApartmentId().equals(that.getApartmentId()) : that.getApartmentId() != null)
             return false;
@@ -67,30 +66,30 @@ public class ApartmentEntity {
 
     @ManyToOne
     @JoinColumn(name = "house_id", referencedColumnName = "house_id")
-    public HouseEntity getHouseByHouseId() {
+    public House getHouseByHouseId() {
         return houseByHouseId;
     }
 
-    public void setHouseByHouseId(HouseEntity houseByHouseId) {
+    public void setHouseByHouseId(House houseByHouseId) {
         this.houseByHouseId = houseByHouseId;
     }
 
     @ManyToOne
     @JoinColumn(name = "owner_id", referencedColumnName = "user_id")
-    public UserEntity getUserByOwnerId() {
+    public User getUserByOwnerId() {
         return userByOwnerId;
     }
 
-    public void setUserByOwnerId(UserEntity userByOwnerId) {
+    public void setUserByOwnerId(User userByOwnerId) {
         this.userByOwnerId = userByOwnerId;
     }
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "apartments")
-    public List<UserEntity> getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
-    public void setUsers(List<UserEntity> users) {
+    public void setUsers(List<User> users) {
         this.users = users;
     }
 

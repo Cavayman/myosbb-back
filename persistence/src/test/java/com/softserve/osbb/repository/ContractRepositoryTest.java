@@ -1,9 +1,8 @@
 package com.softserve.osbb.repository;
 
 import com.softserve.osbb.OsbbApplicationRunner;
-import com.softserve.osbb.repository.ContractRepository;
 
-import com.softserve.osbb.model.ContractEntity;
+import com.softserve.osbb.model.Contract;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +26,11 @@ public class ContractRepositoryTest {
     @Autowired
     private ContractRepository contractRepository;
 
-    private ContractEntity contractEntity;
+    private Contract contract;
 
     @Test
     public void init(){
-        contractEntity = new ContractEntity();
+        contract = new Contract();
 
         Date dateStart = null;
         try {
@@ -41,8 +40,8 @@ public class ContractRepositoryTest {
             dateStart = new Date();
         }
 
-        contractEntity = new ContractEntity();
-        contractEntity.setDatestart(dateStart);
+        contract = new Contract();
+        contract.setDatestart(dateStart);
 
 
 

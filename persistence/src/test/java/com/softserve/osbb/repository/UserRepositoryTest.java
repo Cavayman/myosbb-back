@@ -1,8 +1,7 @@
 package com.softserve.osbb.repository;
 
 import com.softserve.osbb.OsbbApplicationRunner;
-import com.softserve.osbb.repository.UserRepository;
-import com.softserve.osbb.model.UserEntity;
+import com.softserve.osbb.model.User;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,13 +17,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = OsbbApplicationRunner.class)
 public class UserRepositoryTest extends Assert {
-    private UserEntity user;
+    private User user;
     @Autowired
     private UserRepository userRepository;
 
     @Before
     public void setUpToUserEntityObject() {
-       user=new UserEntity();
+       user=new User();
         user.setFirstname("Oleg");
         user.setLastname("Kotsik");
         user.setEmail("cavayman@gmail.com");

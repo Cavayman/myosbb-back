@@ -1,7 +1,7 @@
 package com.softserve.osbb.repository;
 
 import com.softserve.osbb.OsbbApplicationRunner;
-import com.softserve.osbb.model.HouseEntity;
+import com.softserve.osbb.model.House;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,11 +26,11 @@ public class HouseRepositoryTest {
     HouseRepository houseRepository;
 
 
-    private HouseEntity house;
+    private House house;
 
     @Before
     public void init(){
-        house = new HouseEntity();
+        house = new House();
         house.setAdress(TEST_ADDRESS_NAME);
     }
 
@@ -61,11 +61,11 @@ public class HouseRepositoryTest {
     @Test
     public void testFindAll(){
 
-        HouseEntity [] houses = {new HouseEntity("1"),
-                new HouseEntity("2"),
-                new HouseEntity("3"),
-                new HouseEntity("4"),
-                new HouseEntity("5")
+        House[] houses = {new House("1"),
+                new House("2"),
+                new House("3"),
+                new House("4"),
+                new House("5")
                 };
 
         houseRepository.save(Arrays.asList(houses));
