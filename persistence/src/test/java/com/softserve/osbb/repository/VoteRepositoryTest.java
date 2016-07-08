@@ -49,7 +49,7 @@ public class VoteRepositoryTest {
     }
 
     @Test
-    public void testDeleteByVoteEntity() {
+    public void testDeleteByVote() {
         vote = voteRepository.save(vote);
         voteRepository.delete(vote);
         Assert.assertFalse(voteRepository.exists(vote.getVoteId()));

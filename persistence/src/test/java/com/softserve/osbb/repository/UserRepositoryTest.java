@@ -22,7 +22,7 @@ public class UserRepositoryTest extends Assert {
     private UserRepository userRepository;
 
     @Before
-    public void setUpToUserEntityObject() {
+    public void setUpToUserObject() {
        user=new User();
         user.setFirstname("Oleg");
         user.setLastname("Kotsik");

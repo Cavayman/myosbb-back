@@ -68,7 +68,7 @@ public class OsbbRepositoryTest {
     }
 
     @Test
-    public void testDeleteOsbbByOsbbEntity() {
+    public void testDeleteOsbbByOsbb() {
         osbbRepository.delete(osbb);
         Assert.assertFalse(osbbRepository.exists(osbb.getOsbbId()));
     }
