@@ -86,7 +86,7 @@ public class Event {
         this.osbb = osbb;
     }
 
-    @OneToMany(mappedBy = "eventByEventId")
+    @OneToMany(mappedBy = "event")
     public List<Vote> getVotes() {
         return votes;
     }

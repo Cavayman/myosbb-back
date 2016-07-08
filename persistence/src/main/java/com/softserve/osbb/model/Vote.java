@@ -13,7 +13,6 @@ import java.util.Date;
 @Table(name = "vote")
 public class Vote {
     private Integer voteId;
-    private Integer eventId;
     private Integer voteValue;
     private Date time;
     private Event event;
@@ -28,16 +27,6 @@ public class Vote {
 
     public void setVoteId(Integer voteId) {
         this.voteId = voteId;
-    }
-
-    @Basic
-    @Column(name = "event_id")
-    public Integer getEventId() {
-        return eventId;
-    }
-
-    public void setEventId(Integer eventId) {
-        this.eventId = eventId;
     }
 
     @Basic
@@ -84,7 +73,6 @@ public class Vote {
     public String toString() {
         return "Vote{" +
                 "voteId=" + voteId +
-                ", eventId=" + eventId +
                 ", voteValue=" + voteValue +
                 ", time=" + time +
                 ", event=" + event +

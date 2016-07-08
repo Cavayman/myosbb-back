@@ -31,7 +31,7 @@ public class VoteRepositoryTest {
     @Before
     public void init() {
         vote = new Vote();
-        vote.setEventId(2);
+       // vote.setEventId(2);
         vote.setVoteValue(20);
     }
 
