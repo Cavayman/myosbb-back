@@ -15,7 +15,6 @@ public class PersistenceConfiguration {
 	{
 		SpringApplication.run(PersistenceConfiguration.class, args);
 
-
 	}
 
 
