@@ -72,6 +72,12 @@
 			<version>${testng.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- org.apache.commons.lang3.builder.EqualsBuilder;  for generate methods equals and hashCode-->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.4</version>
+		</dependency>
 
 	</dependencies>
 	
