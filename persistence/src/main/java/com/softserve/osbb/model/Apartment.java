@@ -1,5 +1,8 @@
 package com.softserve.osbb.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -37,31 +40,13 @@ public class Apartment {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Apartment)) return false;
-
-        Apartment that = (Apartment) o;
-
-        if (getApartmentId() != null ? !getApartmentId().equals(that.getApartmentId()) : that.getApartmentId() != null)
-            return false;
-        if (getNumber() != null ? !getNumber().equals(that.getNumber()) : that.getNumber() != null) return false;
-        if (getHouseByHouseId() != null ? !getHouseByHouseId().equals(that.getHouseByHouseId()) : that.getHouseByHouseId() != null)
-            return false;
-        if (getUserByOwnerId() != null ? !getUserByOwnerId().equals(that.getUserByOwnerId()) : that.getUserByOwnerId() != null)
-            return false;
-        return getUsers() != null ? getUsers().equals(that.getUsers()) : that.getUsers() == null;
-
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
     }
 
     @Override
     public int hashCode() {
-        int result = getApartmentId() != null ? getApartmentId().hashCode() : 0;
-        result = 31 * result + (getNumber() != null ? getNumber().hashCode() : 0);
-        result = 31 * result + (getHouseByHouseId() != null ? getHouseByHouseId().hashCode() : 0);
-        result = 31 * result + (getUserByOwnerId() != null ? getUserByOwnerId().hashCode() : 0);
-        result = 31 * result + (getUsers() != null ? getUsers().hashCode() : 0);
-        return result;
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 
     @ManyToOne

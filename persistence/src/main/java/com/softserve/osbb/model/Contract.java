@@ -1,5 +1,8 @@
 package com.softserve.osbb.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -80,31 +83,13 @@ public class Contract {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Contract that = (Contract) o;
-
-        if (contractId != null ? !contractId.equals(that.contractId) : that.contractId != null) return false;
-        if (datestart != null ? !datestart.equals(that.datestart) : that.datestart != null) return false;
-        if (datefinish != null ? !datefinish.equals(that.datefinish) : that.datefinish != null) return false;
-        if (text != null ? !text.equals(that.text) : that.text != null) return false;
-        if (price != null ? !price.equals(that.price) : that.price != null) return false;
-        if (document != null ? !document.equals(that.document) : that.document != null) return false;
-
-        return true;
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
     }
 
     @Override
     public int hashCode() {
-        int result = contractId != null ? contractId.hashCode() : 0;
-        result = 31 * result + (datestart != null ? datestart.hashCode() : 0);
-        result = 31 * result + (datefinish != null ? datefinish.hashCode() : 0);
-        result = 31 * result + (text != null ? text.hashCode() : 0);
-        result = 31 * result + (price != null ? price.hashCode() : 0);
-        result = 31 * result + (document != null ? document.hashCode() : 0);
-        return result;
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 
     @ManyToOne

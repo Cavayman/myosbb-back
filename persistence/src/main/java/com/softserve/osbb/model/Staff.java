@@ -1,5 +1,8 @@
 package com.softserve.osbb.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import javax.persistence.*;
 
 /**
@@ -44,20 +47,13 @@ public class Staff {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Staff that = (Staff) o;
-
-        if (staffId != null ? !staffId.equals(that.staffId) : that.staffId != null) return false;
-
-        return true;
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
     }
 
     @Override
     public int hashCode() {
-        return staffId != null ? staffId.hashCode() : 0;
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 
 }

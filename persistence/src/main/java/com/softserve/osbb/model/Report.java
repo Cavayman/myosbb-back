@@ -1,5 +1,8 @@
 package com.softserve.osbb.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -83,29 +86,13 @@ public class Report {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Report that = (Report) o;
-
-        if (reportId != null ? !reportId.equals(that.reportId) : that.reportId != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (description != null ? !description.equals(that.description) : that.description != null) return false;
-        if (datecreation != null ? !datecreation.equals(that.datecreation) : that.datecreation != null) return false;
-        if (filepath != null ? !filepath.equals(that.filepath) : that.filepath != null) return false;
-
-        return true;
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
     }
 
     @Override
     public int hashCode() {
-        int result = reportId != null ? reportId.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (datecreation != null ? datecreation.hashCode() : 0);
-        result = 31 * result + (filepath != null ? filepath.hashCode() : 0);
-        return result;
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 
     @ManyToOne

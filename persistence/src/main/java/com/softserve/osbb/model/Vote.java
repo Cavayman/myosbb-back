@@ -1,5 +1,8 @@
 package com.softserve.osbb.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -68,31 +71,13 @@ public class Vote {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Vote that = (Vote) o;
-
-        if (voteId != null ? !voteId.equals(that.voteId) : that.voteId != null) return false;
-        if (iventId != null ? !iventId.equals(that.iventId) : that.iventId != null) return false;
-        if (voteValue != null ? !voteValue.equals(that.voteValue) : that.voteValue != null) return false;
-        if (time != null ? !time.equals(that.time) : that.time != null) return false;
-        if (eventByEventId != null ? !eventByEventId.equals(that.eventByEventId) : that.eventByEventId != null)
-            return false;
-        return users != null ? users.equals(that.users) : that.users == null;
-
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
     }
 
     @Override
     public int hashCode() {
-        int result = voteId != null ? voteId.hashCode() : 0;
-        result = 31 * result + (iventId != null ? iventId.hashCode() : 0);
-        result = 31 * result + (voteValue != null ? voteValue.hashCode() : 0);
-        result = 31 * result + (time != null ? time.hashCode() : 0);
-        result = 31 * result + (eventByEventId != null ? eventByEventId.hashCode() : 0);
-        result = 31 * result + (users != null ? users.hashCode() : 0);
-        return result;
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 
     @Override

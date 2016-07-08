@@ -1,5 +1,8 @@
 package com.softserve.osbb.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import javax.persistence.*;
 
 /**
@@ -56,19 +59,6 @@ public class Message {
         this.users = users;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Message that = (Message) o;
-
-        if (messageId != null ? !messageId.equals(that.messageId) : that.messageId != null) return false;
-        if (time != null ? !time.equals(that.time) : that.time != null) return false;
-        if (message != null ? !message.equals(that.message) : that.message != null) return false;
-
-        return true;
-    }
     @Column(name = "description")
     public String getDescription() {
         return description;
@@ -78,12 +68,15 @@ public class Message {
         this.description = description;
     }
 
+
+    @Override
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
+    }
+
     @Override
     public int hashCode() {
-        int result = messageId != null ? messageId.hashCode() : 0;
-        result = 31 * result + (time != null ? time.hashCode() : 0);
-        result = 31 * result + (message != null ? message.hashCode() : 0);
-        return result;
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 
     @ManyToOne

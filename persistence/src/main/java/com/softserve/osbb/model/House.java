@@ -1,5 +1,8 @@
 package com.softserve.osbb.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -44,23 +47,13 @@ public class House {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        House that = (House) o;
-
-        if (houseId != null ? !houseId.equals(that.houseId) : that.houseId != null) return false;
-        if (adress != null ? !adress.equals(that.adress) : that.adress != null) return false;
-
-        return true;
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
     }
 
     @Override
     public int hashCode() {
-        int result = houseId != null ? houseId.hashCode() : 0;
-        result = 31 * result + (adress != null ? adress.hashCode() : 0);
-        return result;
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 
     @OneToMany(mappedBy = "houseByHouseId", cascade = CascadeType.ALL)

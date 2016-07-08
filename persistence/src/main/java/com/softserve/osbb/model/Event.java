@@ -1,5 +1,8 @@
 package com.softserve.osbb.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -104,29 +107,12 @@ public class Event {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Event entity = (Event) o;
-
-        if (!eventId.equals(entity.eventId)) return false;
-        if (name != null ? !name.equals(entity.name) : entity.name != null) return false;
-        if (date != null ? date.getTime() != entity.date.getTime() : entity.date != null) return false;
-        if (description != null ? !description.equals(entity.description) : entity.description != null) return false;
-        if (author != null ? !author.equals(entity.author) : entity.author != null) return false;
-        return repeat == entity.repeat;
-
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
     }
 
     @Override
     public int hashCode() {
-        int result = eventId.hashCode();
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (date != null ? date.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (author != null ? author.hashCode() : 0);
-        result = 31 * result + (repeat != null ? repeat.hashCode() : 0);
-        return result;
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 }
