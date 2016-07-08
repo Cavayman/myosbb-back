@@ -1,8 +1,8 @@
 package com.softserve.osbb.repository;
 
 import com.softserve.osbb.OsbbApplicationRunner;
-import com.softserve.osbb.model.Event;
 import com.softserve.osbb.model.Osbb;
+import com.softserve.osbb.model.Event;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
