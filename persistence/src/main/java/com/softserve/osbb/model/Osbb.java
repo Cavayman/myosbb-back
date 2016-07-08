@@ -16,11 +16,11 @@ public class Osbb {
     private String name;
     private String description;
     private Integer creatorId;
-    private Collection<Contract> contractsByOsbbId;
-    private Collection<Event> eventsByOsbbId;
-    private Collection<House> housesByOsbbId;
-    private Collection<Report> reportsByOsbbId;
-    private Collection<Staff> staffsByOsbbId;
+    private Collection<Contract> contracts;
+    private Collection<Event> events;
+    private Collection<House> houses;
+    private Collection<Report> reports;
+    private Collection<Staff> staffs;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -82,56 +82,56 @@ public class Osbb {
                 ", creatorId=" + creatorId +
 
 //                Do not use fields with lazy initialization in toString()
-//                ", contractsByOsbbId=" + contractsByOsbbId +
-//                ", eventsByOsbbId=" + eventsByOsbbId +
-//                ", housesByOsbbId=" + housesByOsbbId +
-//                ", reportsByOsbbId=" + reportsByOsbbId +
-//                ", staffsByOsbbId=" + staffsByOsbbId +
+//                ", contracts=" + contracts +
+//                ", events=" + events +
+//                ", houses=" + houses +
+//                ", reports=" + reports +
+//                ", staffs=" + staffs +
                 '}';
     }
 
-    @OneToMany(mappedBy = "osbbByOsbbId")
-    public Collection<Contract> getContractsByOsbbId() {
-        return contractsByOsbbId;
+    @OneToMany(mappedBy = "osbb")
+    public Collection<Contract> getContracts() {
+        return contracts;
     }
 
-    public void setContractsByOsbbId(Collection<Contract> contractsByOsbbId) {
-        this.contractsByOsbbId = contractsByOsbbId;
+    public void setContracts(Collection<Contract> contracts) {
+        this.contracts = contracts;
     }
 
     @OneToMany(mappedBy = "osbb")
-    public Collection<Event> getEventsByOsbbId() {
-        return eventsByOsbbId;
+    public Collection<Event> getEvents() {
+        return events;
     }
 
-    public void setEventsByOsbbId(Collection<Event> eventsByOsbbId) {
-        this.eventsByOsbbId = eventsByOsbbId;
+    public void setEvents(Collection<Event> events) {
+        this.events = events;
     }
 
-    @OneToMany(mappedBy = "osbbByOsbbId")
-    public Collection<House> getHousesByOsbbId() {
-        return housesByOsbbId;
+    @OneToMany(mappedBy = "osbb")
+    public Collection<House> getHouses() {
+        return houses;
     }
 
-    public void setHousesByOsbbId(Collection<House> housesByOsbbId) {
-        this.housesByOsbbId = housesByOsbbId;
+    public void setHouses(Collection<House> houses) {
+        this.houses = houses;
     }
 
-    @OneToMany(mappedBy = "osbbByOsbbId")
-    public Collection<Report> getReportsByOsbbId() {
-        return reportsByOsbbId;
+    @OneToMany(mappedBy = "osbb")
+    public Collection<Report> getReports() {
+        return reports;
     }
 
-    public void setReportsByOsbbId(Collection<Report> reportsByOsbbId) {
-        this.reportsByOsbbId = reportsByOsbbId;
+    public void setReports(Collection<Report> reports) {
+        this.reports = reports;
     }
 
-    @OneToMany(mappedBy = "osbbByOsbbId")
-    public Collection<Staff> getStaffsByOsbbId() {
-        return staffsByOsbbId;
+    @OneToMany(mappedBy = "osbb")
+    public Collection<Staff> getStaffs() {
+        return staffs;
     }
 
-    public void setStaffsByOsbbId(Collection<Staff> staffsByOsbbId) {
-        this.staffsByOsbbId = staffsByOsbbId;
+    public void setStaffs(Collection<Staff> staffs) {
+        this.staffs = staffs;
     }
 }

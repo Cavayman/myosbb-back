@@ -14,13 +14,13 @@ import java.util.Date;
 @Table(name = "contract")
 public class Contract {
     private Integer contractId;
-    private Date datestart;
-    private Date datefinish;
+    private Date dateStart;
+    private Date dateFinish;
     private String text;
     private BigDecimal price;
     private String document;
-    private Osbb osbbByOsbbId;
-    private Provider providerByProviderId;
+    private Osbb osbb;
+    private Provider provider;
 
     @Id
     @Column(name = "contract_id")
@@ -33,23 +33,23 @@ public class Contract {
     }
 
     @Basic
-    @Column(name = "datestart")
-    public Date getDatestart() {
-        return datestart;
+    @Column(name = "dateStart")
+    public Date getDateStart() {
+        return dateStart;
     }
 
-    public void setDatestart(Date datestart) {
-        this.datestart = datestart;
+    public void setDateStart(Date dateStart) {
+        this.dateStart = dateStart;
     }
 
     @Basic
-    @Column(name = "datefinish")
-    public Date getDatefinish() {
-        return datefinish;
+    @Column(name = "dateFinish")
+    public Date getDateFinish() {
+        return dateFinish;
     }
 
-    public void setDatefinish(Date datefinish) {
-        this.datefinish = datefinish;
+    public void setDateFinish(Date dateFinish) {
+        this.dateFinish = dateFinish;
     }
 
     @Basic
@@ -94,21 +94,21 @@ public class Contract {
 
     @ManyToOne
     @JoinColumn(name = "osbb_id", referencedColumnName = "osbb_id")
-    public Osbb getOsbbByOsbbId() {
-        return osbbByOsbbId;
+    public Osbb getOsbb() {
+        return osbb;
     }
 
-    public void setOsbbByOsbbId(Osbb osbbByOsbbId) {
-        this.osbbByOsbbId = osbbByOsbbId;
+    public void setOsbb(Osbb osbb) {
+        this.osbb = osbb;
     }
 
     @ManyToOne
     @JoinColumn(name = "provider_id", referencedColumnName = "provider_id")
-    public Provider getProviderByProviderId() {
-        return providerByProviderId;
+    public Provider getProvider() {
+        return provider;
     }
 
-    public void setProviderByProviderId(Provider providerByProviderId) {
-        this.providerByProviderId = providerByProviderId;
+    public void setProvider(Provider provider) {
+        this.provider = provider;
     }
 }

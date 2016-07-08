@@ -15,9 +15,9 @@ public class Report {
     private Integer reportId;
     private String name;
     private String description;
-    private Date datecreation;
-    private String filepath;
-    private Osbb osbbByOsbbId;
+    private Date creationDate;
+    private String filePath;
+    private Osbb osbb;
 
     public Report(){
 
@@ -27,11 +27,11 @@ public class Report {
         this(name, description, new Date(),"no");
     }
 
-    public Report(String name, String description, Date dateOfCreation, String filepath) {
+    public Report(String name, String description, Date dateOfCreation, String filePath) {
         this.name = name;
         this.description = description;
-        this.datecreation = dateOfCreation;
-        this.filepath = filepath;
+        this.creationDate = dateOfCreation;
+        this.filePath = filePath;
     }
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,23 +66,23 @@ public class Report {
 
     @Basic
     @Temporal(TemporalType.DATE)
-    @Column(name = "datecreation")
-    public Date getDatecreation() {
-        return datecreation;
+    @Column(name = "creationDate")
+    public Date getCreationDate() {
+        return creationDate;
     }
 
-    public void setDatecreation(Date datecreation) {
-        this.datecreation = datecreation;
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     @Basic
-    @Column(name = "filepath")
-    public String getFilepath() {
-        return filepath;
+    @Column(name = "filePath")
+    public String getFilePath() {
+        return filePath;
     }
 
-    public void setFilepath(String filepath) {
-        this.filepath = filepath;
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
     @Override
@@ -97,12 +97,12 @@ public class Report {
 
     @ManyToOne
     @JoinColumn(name = "osbb_id", referencedColumnName = "osbb_id")
-    public Osbb getOsbbByOsbbId() {
-        return osbbByOsbbId;
+    public Osbb getOsbb() {
+        return osbb;
     }
 
-    public void setOsbbByOsbbId(Osbb osbbByOsbbId) {
-        this.osbbByOsbbId = osbbByOsbbId;
+    public void setOsbb(Osbb osbb) {
+        this.osbb = osbb;
     }
 
     @Override
@@ -111,9 +111,9 @@ public class Report {
                 "reportId=" + reportId +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", datecreation=" + datecreation +
-                ", filepath='" + filepath + '\'' +
-                ", osbbByOsbbId=" + osbbByOsbbId +
+                ", creationDate=" + creationDate +
+                ", filePath='" + filePath + '\'' +
+                ", osbb=" + osbb +
                 '}';
     }
 }

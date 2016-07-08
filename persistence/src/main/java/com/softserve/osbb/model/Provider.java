@@ -15,8 +15,8 @@ public class Provider implements Comparable{
     private Integer providerId;
     private String name;
     private String description;
-    private String logourl;
-    private Collection<Contract> contractsByProviderId;
+    private String logoUrl;
+    private Collection<Contract> contracts;
 
     public Provider() {
     }
@@ -42,13 +42,13 @@ public class Provider implements Comparable{
     }
 
     @Basic
-    @Column(name = "logourl")
-    public String getLogourl() {
-        return logourl;
+    @Column(name = "logoUrl")
+    public String getLogoUrl() {
+        return logoUrl;
     }
 
-    public void setLogourl(String logourl) {
-        this.logourl = logourl;
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
     }
 
     @Basic
@@ -71,13 +71,13 @@ public class Provider implements Comparable{
         this.description = description;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "providerByProviderId")
-    public Collection<Contract> getContractsByProviderId() {
-        return contractsByProviderId;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "provider")
+    public Collection<Contract> getContracts() {
+        return contracts;
     }
 
-    public void setContractsByProviderId(Collection<Contract> contractsByProviderId) {
-        this.contractsByProviderId = contractsByProviderId;
+    public void setContracts(Collection<Contract> contracts) {
+        this.contracts = contracts;
     }
 
     @Override

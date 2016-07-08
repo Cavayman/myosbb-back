@@ -24,13 +24,13 @@ public class UserRepositoryTest extends Assert {
     @Before
     public void setUpToUserObject() {
        user=new User();
-        user.setFirstname("Oleg");
-        user.setLastname("Kotsik");
+        user.setFirstName("Oleg");
+        user.setLastName("Kotsik");
         user.setEmail("cavayman@gmail.com");
         user.setPassword("1111");
         user.setGender("JuniorJavaDev");
-        user.setPhonenumber("+380679167305");
-        user.setBirthdate(new java.util.Date(System.currentTimeMillis()));
+        user.setPhoneNumber("+380679167305");
+        user.setBirthDate(new java.util.Date(System.currentTimeMillis()));
     }
 
 

@@ -22,7 +22,7 @@ public class Event {
     private String description;
     private String author;
     private Osbb osbb;
-    private List<Vote> votesByEventId;
+    private List<Vote> votes;
     private Repeat repeat;
 
     @Id
@@ -87,12 +87,12 @@ public class Event {
     }
 
     @OneToMany(mappedBy = "eventByEventId")
-    public List<Vote> getVotesByEventId() {
-        return votesByEventId;
+    public List<Vote> getVotes() {
+        return votes;
     }
 
-    public void setVotesByEventId(List<Vote> votesByEventId) {
-        this.votesByEventId = votesByEventId;
+    public void setVotes(List<Vote> votes) {
+        this.votes = votes;
     }
 
     @Basic

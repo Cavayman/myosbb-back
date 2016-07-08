@@ -33,7 +33,7 @@ public class ProviderRepositoryTest extends AbstractTestNGSpringContextTests {
         provider = new Provider();
         provider.setName("Garbage collector");
         provider.setDescription("Remove trash");
-        provider.setLogourl("empty-logo");
+        provider.setLogoUrl("empty-logo");
     }
 
     @Autowired

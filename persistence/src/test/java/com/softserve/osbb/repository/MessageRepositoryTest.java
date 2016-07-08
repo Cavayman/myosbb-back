@@ -31,10 +31,10 @@ public class MessageRepositoryTest {
     @Test
     public void testFindAll(){
         Assert.assertNull(message.getMessageId());
-        user.setBirthdate(new Date());
+        user.setBirthDate(new Date());
         user.setEmail("blabla@gmail.com");
-        user.setFirstname("Vanya");
-        user.setLastname("Popov");
+        user.setFirstName("Vanya");
+        user.setLastName("Popov");
         user.setGender("man");
 
         message.setUsers(user);
