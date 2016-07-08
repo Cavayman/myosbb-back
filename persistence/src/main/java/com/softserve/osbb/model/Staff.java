@@ -12,8 +12,8 @@ import javax.persistence.*;
 @Table(name = "staff")
 public class Staff {
     private Integer staffId;
-    private Osbb osbbByOsbbId;
-    private Role roleByRoleId;
+    private Osbb osbb;
+    private Role role;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,22 +28,22 @@ public class Staff {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "osbb_id", referencedColumnName = "osbb_id")
-    public Osbb getOsbbByOsbbId() {
-        return osbbByOsbbId;
+    public Osbb getOsbb() {
+        return osbb;
     }
 
-    public void setOsbbByOsbbId(Osbb osbbByOsbbId) {
-        this.osbbByOsbbId = osbbByOsbbId;
+    public void setOsbb(Osbb osbb) {
+        this.osbb = osbb;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
-    public Role getRoleByRoleId() {
-        return roleByRoleId;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoleByRoleId(Role roleByRoleId) {
-        this.roleByRoleId = roleByRoleId;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override

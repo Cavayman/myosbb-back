@@ -15,7 +15,7 @@ public class Message {
     private String time;
     private String message;
     private String description;
-    private Ticket ticketByTicketId;
+    private Ticket ticket;
     private User users;
 
     @Id
@@ -81,11 +81,11 @@ public class Message {
 
     @ManyToOne
     @JoinColumn(name = "ticket_id", referencedColumnName = "ticket_id")
-    public Ticket getTicketByTicketId() {
-        return ticketByTicketId;
+    public Ticket getTicket() {
+        return ticket;
     }
 
-    public void setTicketByTicketId(Ticket ticketByTicketId) {
-        this.ticketByTicketId = ticketByTicketId;
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
     }
 }

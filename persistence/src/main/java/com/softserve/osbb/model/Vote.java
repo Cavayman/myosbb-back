@@ -13,10 +13,10 @@ import java.util.Date;
 @Table(name = "vote")
 public class Vote {
     private Integer voteId;
-    private Integer iventId;
+    private Integer eventId;
     private Integer voteValue;
     private Date time;
-    private Event eventByEventId;
+    private Event event;
     private User users;
 
     @Id
@@ -31,13 +31,13 @@ public class Vote {
     }
 
     @Basic
-    @Column(name = "ivent_id")
-    public Integer getIventId() {
-        return iventId;
+    @Column(name = "event_id")
+    public Integer getEventId() {
+        return eventId;
     }
 
-    public void setIventId(Integer iventId) {
-        this.iventId = iventId;
+    public void setEventId(Integer eventId) {
+        this.eventId = eventId;
     }
 
     @Basic
@@ -84,21 +84,21 @@ public class Vote {
     public String toString() {
         return "Vote{" +
                 "voteId=" + voteId +
-                ", iventId=" + iventId +
+                ", eventId=" + eventId +
                 ", voteValue=" + voteValue +
                 ", time=" + time +
-                ", eventByEventId=" + eventByEventId +
+                ", event=" + event +
                 ", userEntity=" + users +
                 '}';
     }
 
     @ManyToOne
     @JoinColumn(name = "event_id", referencedColumnName = "event_id")
-    public Event getEventByEventId() {
-        return eventByEventId;
+    public Event getEvent() {
+        return event;
     }
 
-    public void setEventByEventId(Event eventByEventId) {
-        this.eventByEventId = eventByEventId;
+    public void setEvent(Event event) {
+        this.event = event;
     }
 }

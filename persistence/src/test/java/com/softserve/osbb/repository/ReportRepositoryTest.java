@@ -48,7 +48,7 @@ public class ReportRepositoryTest {
 
         report = new Report();
         report.setName("баланс ЧЕРВ/2016");
-        report.setDatecreation(dateCreation);
+        report.setCreationDate(dateCreation);
     }
 
 

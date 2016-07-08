@@ -14,8 +14,8 @@ import java.util.List;
 public class Apartment {
     private Integer apartmentId;
     private Integer number;
-    private House houseByHouseId;
-    private User userByOwnerId;
+    private House house;
+    private User user;
     private List<User> users;
 
     @Id
@@ -51,22 +51,22 @@ public class Apartment {
 
     @ManyToOne
     @JoinColumn(name = "house_id", referencedColumnName = "house_id")
-    public House getHouseByHouseId() {
-        return houseByHouseId;
+    public House getHouse() {
+        return house;
     }
 
-    public void setHouseByHouseId(House houseByHouseId) {
-        this.houseByHouseId = houseByHouseId;
+    public void setHouse(House house) {
+        this.house = house;
     }
 
     @ManyToOne
     @JoinColumn(name = "owner_id", referencedColumnName = "user_id")
-    public User getUserByOwnerId() {
-        return userByOwnerId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserByOwnerId(User userByOwnerId) {
-        this.userByOwnerId = userByOwnerId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "apartments")

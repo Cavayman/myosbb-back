@@ -41,7 +41,7 @@ public class ContractRepositoryTest {
         }
 
         contract = new Contract();
-        contract.setDatestart(dateStart);
+        contract.setDateStart(dateStart);
 
 
 

@@ -14,17 +14,17 @@ import java.util.List;
 @Table(name = "users")
 public class User {
     private Integer userId;
-    private String firstname;
-    private String lastname;
-    private Date birthdate;
+    private String firstName;
+    private String lastName;
+    private Date birthDate;
     private String email;
-    private String phonenumber;
+    private String phoneNumber;
     private String password;
     private String gender;
     private List<Vote> votes;
-    private List<Apartment> appartaments;
+    private List<Apartment> apartments;
     private List<Message> messages;
-    private List<Ticket> ticket;
+    private List<Ticket> tickets;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,33 +38,33 @@ public class User {
     }
 
     @Basic
-    @Column(name = "firstname")
-    public String getFirstname() {
-        return firstname;
+    @Column(name = "firstName")
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    @Basic
-    @Column(name = "lastname")
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     @Basic
-    @Column(name = "birthdate")
-    public Date getBirthdate() {
-        return birthdate;
+    @Column(name = "lastName")
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setBirthdate(Date birthdate) {
-        this.birthdate = birthdate;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @Basic
+    @Column(name = "birthDate")
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 
     @Basic
@@ -78,13 +78,13 @@ public class User {
     }
 
     @Basic
-    @Column(name = "phonenumber")
-    public String getPhonenumber() {
-        return phonenumber;
+    @Column(name = "phoneNumber")
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhonenumber(String phonenumber) {
-        this.phonenumber = phonenumber;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @Basic
@@ -122,11 +122,11 @@ public class User {
             inverseJoinColumns = { @JoinColumn(name = "apartment_id",
                     nullable = false, updatable = false) })
     public List<Apartment> getApartments() {
-        return appartaments;
+        return apartments;
     }
 
     public void setApartments(List<Apartment> appartaments) {
-        this.appartaments = appartaments;
+        this.apartments = appartaments;
     }
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "users")
@@ -139,12 +139,12 @@ public class User {
     }
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "users")
-    public List<Ticket> getTicket() {
-        return ticket;
+    public List<Ticket> getTickets() {
+        return tickets;
     }
 
-    public void setTicket(List<Ticket> ticket) {
-        this.ticket = ticket;
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
     }
 
     @Override

@@ -13,16 +13,16 @@ import java.util.Collection;
 @Table(name = "house")
 public class House {
     private Integer houseId;
-    private String adress;
-    private Collection<Apartment> appartamentsByHouseId;
-    private Osbb osbbByOsbbId;
+    private String address;
+    private Collection<Apartment> apartments;
+    private Osbb osbb;
 
     public House() {
         //default
     }
 
     public House(String address) {
-        this.adress = address;
+        this.address = address;
     }
 
     @Id
@@ -37,13 +37,13 @@ public class House {
     }
 
     @Basic
-    @Column(name = "adress")
-    public String getAdress() {
-        return adress;
+    @Column(name = "address")
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     @Override
@@ -56,22 +56,22 @@ public class House {
         return HashCodeBuilder.reflectionHashCode(this);
     }
 
-    @OneToMany(mappedBy = "houseByHouseId", cascade = CascadeType.ALL)
-    public Collection<Apartment> getApartmentsByHouseId() {
-        return appartamentsByHouseId;
+    @OneToMany(mappedBy = "house", cascade = CascadeType.ALL)
+    public Collection<Apartment> getApartments() {
+        return apartments;
     }
 
-    public void setApartmentsByHouseId(Collection<Apartment> appartamentsByHouseId) {
-        this.appartamentsByHouseId = appartamentsByHouseId;
+    public void setApartments(Collection<Apartment> appartaments) {
+        this.apartments = appartaments;
     }
 
     @ManyToOne
     @JoinColumn(name = "osbb_id", referencedColumnName = "osbb_id")
-    public Osbb getOsbbByOsbbId() {
-        return osbbByOsbbId;
+    public Osbb getOsbb() {
+        return osbb;
     }
 
-    public void setOsbbByOsbbId(Osbb osbbByOsbbId) {
-        this.osbbByOsbbId = osbbByOsbbId;
+    public void setOsbb(Osbb osbb) {
+        this.osbb = osbb;
     }
 }

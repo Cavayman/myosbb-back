@@ -16,7 +16,7 @@ public class Ticket {
     private String name;
     private String description;
     private String time;
-    private Collection<Message> messagesByTicketId;
+    private Collection<Message> messages;
     private User users;
 
     @Id
@@ -81,12 +81,12 @@ public class Ticket {
         return HashCodeBuilder.reflectionHashCode(this);
     }
 
-    @OneToMany(mappedBy = "ticketByTicketId")
-    public Collection<Message> getMessagesByTicketId() {
-        return messagesByTicketId;
+    @OneToMany(mappedBy = "ticket")
+    public Collection<Message> getMessages() {
+        return messages;
     }
 
-    public void setMessagesByTicketId(Collection<Message> messagesByTicketId) {
-        this.messagesByTicketId = messagesByTicketId;
+    public void setMessages(Collection<Message> messages) {
+        this.messages = messages;
     }
 }

@@ -14,7 +14,7 @@ import java.util.Collection;
 public class Role {
     private Integer roleId;
     private String name;
-    private Collection<Staff> staffsByRoleId;
+    private Collection<Staff> staffs;
 
     @Id
     @Column(name = "role_id")
@@ -46,12 +46,12 @@ public class Role {
         return HashCodeBuilder.reflectionHashCode(this);
     }
 
-    @OneToMany(mappedBy = "roleByRoleId")
-    public Collection<Staff> getStaffsByRoleId() {
-        return staffsByRoleId;
+    @OneToMany(mappedBy = "role")
+    public Collection<Staff> getStaffs() {
+        return staffs;
     }
 
-    public void setStaffsByRoleId(Collection<Staff> staffsByRoleId) {
-        this.staffsByRoleId = staffsByRoleId;
+    public void setStaffs(Collection<Staff> staffs) {
+        this.staffs = staffs;
     }
 }
