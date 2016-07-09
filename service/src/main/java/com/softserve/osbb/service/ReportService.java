@@ -16,7 +16,7 @@ public interface ReportService {
 
     Report getReportById(Integer reportId) throws Exception;
 
-    Report getReportByName(String name) throws Exception;
+    Report getOneReportBySearchTerm(String name) throws Exception;
 
     List<Report> getAllReportsBySearchTerm(String searchTerm) throws Exception;
 

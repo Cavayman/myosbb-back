@@ -61,7 +61,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public Report getReportByName(String name) {
+    public Report getOneReportBySearchTerm(String name) {
         return reportRepository.getAllReportsBySearchParam(name == null ? "" : name)
                 .stream()
                 .findFirst()
