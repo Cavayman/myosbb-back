@@ -1,0 +1,1276 @@
+{ "databaseChangeLog": [
+  {
+    "changeSet": {
+      "id": "1468076575510-1",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createSequence": {
+            "sequenceName": "apartment_apartment_id_seq"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-2",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createSequence": {
+            "sequenceName": "event_event_id_seq"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-3",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createSequence": {
+            "sequenceName": "house_house_id_seq"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-4",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createSequence": {
+            "sequenceName": "message_message_id_seq"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-5",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createSequence": {
+            "sequenceName": "osbb_osbb_id_seq"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-6",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createSequence": {
+            "sequenceName": "provider_provider_id_seq"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-7",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createSequence": {
+            "sequenceName": "report_report_id_seq"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-8",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createSequence": {
+            "sequenceName": "staff_staff_id_seq"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-9",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createSequence": {
+            "sequenceName": "ticket_ticket_id_seq"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-10",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createSequence": {
+            "sequenceName": "users_user_id_seq"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-11",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createSequence": {
+            "sequenceName": "vote_vote_id_seq"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-12",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "autoIncrement": true,
+                  "constraints": {
+                    "primaryKey": true,
+                    "primaryKeyName": "apartment_pkey"
+                  },
+                  "name": "apartment_id",
+                  "type": "SERIAL"
+                }
+              },
+              {
+                "column": {
+                  "name": "number",
+                  "type": "INT"
+                }
+              },
+              {
+                "column": {
+                  "name": "house_id",
+                  "type": "INT"
+                }
+              },
+              {
+                "column": {
+                  "name": "owner_id",
+                  "type": "INT"
+                }
+              }]
+            ,
+            "tableName": "apartment"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-13",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "constraints": {
+                    "nullable": false
+                  },
+                  "name": "contract_id",
+                  "type": "INT"
+                }
+              },
+              {
+                "column": {
+                  "name": "date_finish",
+                  "type": "TIMESTAMP(6) WITHOUT TIME ZONE"
+                }
+              },
+              {
+                "column": {
+                  "name": "date_start",
+                  "type": "TIMESTAMP(6) WITHOUT TIME ZONE"
+                }
+              },
+              {
+                "column": {
+                  "name": "document",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "price",
+                  "type": "numeric(19, 2)"
+                }
+              },
+              {
+                "column": {
+                  "name": "text",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "osbb_id",
+                  "type": "INT"
+                }
+              },
+              {
+                "column": {
+                  "name": "provider_id",
+                  "type": "INT"
+                }
+              }]
+            ,
+            "tableName": "contract"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-14",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "autoIncrement": true,
+                  "constraints": {
+                    "primaryKey": true,
+                    "primaryKeyName": "event_pkey"
+                  },
+                  "name": "event_id",
+                  "type": "SERIAL"
+                }
+              },
+              {
+                "column": {
+                  "name": "author",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "date",
+                  "type": "TIMESTAMP(6) WITHOUT TIME ZONE"
+                }
+              },
+              {
+                "column": {
+                  "name": "description",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "name",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "repeat",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "osbb_id",
+                  "type": "INT"
+                }
+              }]
+            ,
+            "tableName": "event"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-15",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "autoIncrement": true,
+                  "constraints": {
+                    "primaryKey": true,
+                    "primaryKeyName": "house_pkey"
+                  },
+                  "name": "house_id",
+                  "type": "SERIAL"
+                }
+              },
+              {
+                "column": {
+                  "name": "address",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "osbb_id",
+                  "type": "INT"
+                }
+              }]
+            ,
+            "tableName": "house"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-16",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "autoIncrement": true,
+                  "constraints": {
+                    "primaryKey": true,
+                    "primaryKeyName": "message_pkey"
+                  },
+                  "name": "message_id",
+                  "type": "SERIAL"
+                }
+              },
+              {
+                "column": {
+                  "name": "description",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "message",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "time",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "ticket_id",
+                  "type": "INT"
+                }
+              },
+              {
+                "column": {
+                  "name": "user_id",
+                  "type": "INT"
+                }
+              }]
+            ,
+            "tableName": "message"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-17",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "autoIncrement": true,
+                  "constraints": {
+                    "primaryKey": true,
+                    "primaryKeyName": "osbb_pkey"
+                  },
+                  "name": "osbb_id",
+                  "type": "SERIAL"
+                }
+              },
+              {
+                "column": {
+                  "name": "creator_id",
+                  "type": "INT"
+                }
+              },
+              {
+                "column": {
+                  "name": "description",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "name",
+                  "type": "VARCHAR(255)"
+                }
+              }]
+            ,
+            "tableName": "osbb"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-18",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "autoIncrement": true,
+                  "constraints": {
+                    "primaryKey": true,
+                    "primaryKeyName": "provider_pkey"
+                  },
+                  "name": "provider_id",
+                  "type": "SERIAL"
+                }
+              },
+              {
+                "column": {
+                  "name": "description",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "logo_url",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "name",
+                  "type": "VARCHAR(255)"
+                }
+              }]
+            ,
+            "tableName": "provider"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-19",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "autoIncrement": true,
+                  "constraints": {
+                    "primaryKey": true,
+                    "primaryKeyName": "report_pkey"
+                  },
+                  "name": "report_id",
+                  "type": "SERIAL"
+                }
+              },
+              {
+                "column": {
+                  "name": "creation_date",
+                  "type": "TIMESTAMP(6) WITHOUT TIME ZONE"
+                }
+              },
+              {
+                "column": {
+                  "name": "description",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "file_path",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "name",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "osbb_id",
+                  "type": "INT"
+                }
+              }]
+            ,
+            "tableName": "report"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-20",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "constraints": {
+                    "nullable": false
+                  },
+                  "name": "role_id",
+                  "type": "INT"
+                }
+              },
+              {
+                "column": {
+                  "name": "name",
+                  "type": "VARCHAR(255)"
+                }
+              }]
+            ,
+            "tableName": "role"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-21",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "autoIncrement": true,
+                  "constraints": {
+                    "primaryKey": true,
+                    "primaryKeyName": "staff_pkey"
+                  },
+                  "name": "staff_id",
+                  "type": "SERIAL"
+                }
+              },
+              {
+                "column": {
+                  "name": "osbb_id",
+                  "type": "INT"
+                }
+              },
+              {
+                "column": {
+                  "name": "role_id",
+                  "type": "INT"
+                }
+              }]
+            ,
+            "tableName": "staff"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-22",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "autoIncrement": true,
+                  "constraints": {
+                    "primaryKey": true,
+                    "primaryKeyName": "ticket_pkey"
+                  },
+                  "name": "ticket_id",
+                  "type": "SERIAL"
+                }
+              },
+              {
+                "column": {
+                  "name": "description",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "name",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "time",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "user_id",
+                  "type": "INT"
+                }
+              }]
+            ,
+            "tableName": "ticket"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-23",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "constraints": {
+                    "nullable": false
+                  },
+                  "name": "user_id",
+                  "type": "INT"
+                }
+              },
+              {
+                "column": {
+                  "constraints": {
+                    "nullable": false
+                  },
+                  "name": "apartment_id",
+                  "type": "INT"
+                }
+              }]
+            ,
+            "tableName": "user_apartment"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-24",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "autoIncrement": true,
+                  "constraints": {
+                    "primaryKey": true,
+                    "primaryKeyName": "users_pkey"
+                  },
+                  "name": "user_id",
+                  "type": "SERIAL"
+                }
+              },
+              {
+                "column": {
+                  "name": "birth_date",
+                  "type": "TIMESTAMP(6) WITHOUT TIME ZONE"
+                }
+              },
+              {
+                "column": {
+                  "name": "email",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "first_name",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "gender",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "last_name",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "password",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "phone_number",
+                  "type": "VARCHAR(255)"
+                }
+              }]
+            ,
+            "tableName": "users"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-25",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "autoIncrement": true,
+                  "constraints": {
+                    "primaryKey": true,
+                    "primaryKeyName": "vote_pkey"
+                  },
+                  "name": "vote_id",
+                  "type": "SERIAL"
+                }
+              },
+              {
+                "column": {
+                  "name": "time",
+                  "type": "TIMESTAMP(6) WITHOUT TIME ZONE"
+                }
+              },
+              {
+                "column": {
+                  "name": "vote_value",
+                  "type": "INT"
+                }
+              },
+              {
+                "column": {
+                  "name": "event_id",
+                  "type": "INT"
+                }
+              },
+              {
+                "column": {
+                  "name": "user_id",
+                  "type": "INT"
+                }
+              }]
+            ,
+            "tableName": "vote"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-26",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addPrimaryKey": {
+            "columnNames": "contract_id",
+            "constraintName": "contract_pkey",
+            "tableName": "contract"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-27",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addPrimaryKey": {
+            "columnNames": "role_id",
+            "constraintName": "role_pkey",
+            "tableName": "role"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-28",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "provider_id",
+            "baseTableName": "contract",
+            "constraintName": "fk_66kfo4kfkseyqcngxer7m6eiu",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "provider_id",
+            "referencedTableName": "provider"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-29",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "user_id",
+            "baseTableName": "user_apartment",
+            "constraintName": "fk_6mrf4xbpgnwak62o08goi303j",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "user_id",
+            "referencedTableName": "users"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-30",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "event_id",
+            "baseTableName": "vote",
+            "constraintName": "fk_ac7arpjav19h18v8ii3ddtl95",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "event_id",
+            "referencedTableName": "event"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-31",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "apartment_id",
+            "baseTableName": "user_apartment",
+            "constraintName": "fk_affd3r40dn34gkys47ivss9d2",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "apartment_id",
+            "referencedTableName": "apartment"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-32",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "osbb_id",
+            "baseTableName": "staff",
+            "constraintName": "fk_c70sx2xd4bcbgm49csovv5cp3",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "osbb_id",
+            "referencedTableName": "osbb"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-33",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "user_id",
+            "baseTableName": "vote",
+            "constraintName": "fk_dx2u8pwxfq611f6nsatwu44p0",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "user_id",
+            "referencedTableName": "users"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-34",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "user_id",
+            "baseTableName": "message",
+            "constraintName": "fk_f80s4splfik51j2ja555ygvws",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "user_id",
+            "referencedTableName": "users"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-35",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "osbb_id",
+            "baseTableName": "event",
+            "constraintName": "fk_frgiwew0ub3bpino6ylxxpmqq",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "osbb_id",
+            "referencedTableName": "osbb"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-36",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "user_id",
+            "baseTableName": "ticket",
+            "constraintName": "fk_i0i7rws9vvh121bg8mibj73pe",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "user_id",
+            "referencedTableName": "users"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-37",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "owner_id",
+            "baseTableName": "apartment",
+            "constraintName": "fk_i2fi31t7l0ioqrn48mh6hp0b4",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "user_id",
+            "referencedTableName": "users"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-38",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "role_id",
+            "baseTableName": "staff",
+            "constraintName": "fk_kcbkem9hbgutpt0b3u5jgyf5",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "role_id",
+            "referencedTableName": "role"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-39",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "house_id",
+            "baseTableName": "apartment",
+            "constraintName": "fk_ll3v7heihb44y1c3cfkpg0boq",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "house_id",
+            "referencedTableName": "house"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-40",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "osbb_id",
+            "baseTableName": "report",
+            "constraintName": "fk_ouop11i495cmthixnqjlc26kh",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "osbb_id",
+            "referencedTableName": "osbb"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-41",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "osbb_id",
+            "baseTableName": "contract",
+            "constraintName": "fk_p7hhasg46crhxe11ixq3q2h5x",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "osbb_id",
+            "referencedTableName": "osbb"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-42",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "ticket_id",
+            "baseTableName": "message",
+            "constraintName": "fk_silcrotpni3aa4d6g86bturlu",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "ticket_id",
+            "referencedTableName": "ticket"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1468076575510-43",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "osbb_id",
+            "baseTableName": "house",
+            "constraintName": "fk_trh6nruaq2hc93m8s3f0brk8h",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "osbb_id",
+            "referencedTableName": "osbb"
+          }
+        }]
+      
+    }
+  }
+  
+]}
