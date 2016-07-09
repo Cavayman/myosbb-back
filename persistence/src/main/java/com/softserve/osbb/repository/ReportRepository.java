@@ -2,24 +2,11 @@ package com.softserve.osbb.repository;
 
 
 import com.softserve.osbb.model.Report;
-import com.softserve.osbb.model.Report_;
-import org.springframework.data.jpa.convert.threetenbp.ThreeTenBackPortJpaConverters;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.Generated;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import javax.persistence.metamodel.SingularAttribute;
-import javax.persistence.metamodel.StaticMetamodel;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
 
 
@@ -32,7 +19,7 @@ public interface ReportRepository extends JpaRepository<Report, Integer>, JpaSpe
     @Override
     long count(Specification<Report> specification);
 
-
+/*
     class ReportSpecifications {
 
          private ReportSpecifications(){
@@ -72,4 +59,6 @@ public interface ReportRepository extends JpaRepository<Report, Integer>, JpaSpe
             return "%" + searchTerm + "%";
         }
     }
+
+    */
 }
