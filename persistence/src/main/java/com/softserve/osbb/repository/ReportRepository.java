@@ -27,7 +27,7 @@ public interface ReportRepository extends JpaRepository<Report, Integer>, JpaSpe
 
     @Query("Select r From Report r where LOWER(r.name) LIKE LOWER(CONCAT('%',:searchParam,'%'))" +
             " OR LOWER(r.description) LIKE LOWER(CONCAT('%',:searchParam,'%'))")
-    List<Report> getAllReportsBySearchParam(@Param("searchTerm") String searchTerm);
+    List<Report> getAllReportsBySearchParam(@Param("searchParam") String searchTerm);
 
 
 /*
