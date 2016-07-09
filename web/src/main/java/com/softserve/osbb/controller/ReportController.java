@@ -65,7 +65,7 @@ public class ReportController {
         return new ResponseEntity<Report>(report, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/report", method = RequestMethod.GET)
+    @RequestMapping(value = "/report/find", method = RequestMethod.GET)
     public ResponseEntity<List<Report>> getReportsByName(@RequestParam("searchParam") String searchParam) {
 
         List<Report> reportsBySearchTerm = reportService.getAllReportsBySearchTerm(searchParam);
@@ -78,5 +78,16 @@ public class ReportController {
         return new ResponseEntity<List<Report>>(reportsBySearchTerm, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/report/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Report> deleteReportById(@PathVariable("id") Integer reportId) {
+        reportService.deleteReportById(reportId);
+        return new ResponseEntity<Report>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/report", method = RequestMethod.DELETE)
+    public ResponseEntity<Report> deleteAllReports() {
+        reportService.deleteAll();
+        return new ResponseEntity<Report>(HttpStatus.OK);
+    }
 
 }
