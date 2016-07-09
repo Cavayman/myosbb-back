@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by nazar.dovhyy on 09.07.2016.
@@ -15,7 +15,9 @@ import java.util.List;
 @Service
 public class ReportServiceImpl implements ReportService {
 
-    private static final List<Report> EMPTY_LIST = new ArrayList<Report>();
+    private static final List<Report> EMPTY_LIST = new CopyOnWriteArrayList<>();
+    private static final Report EMPTY_REPORT = new Report();
+
     @Autowired
     private ReportRepository reportRepository;
 
@@ -38,16 +40,16 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public Report updateReport(Report report) throws Exception {
+    public Report updateReport(Integer reportId, Report report) throws Exception {
 
-        return report == null? null: updateReportIfExists(report);
+        return report == null ? null : updateReportIfExists(reportId, report);
     }
 
-    private Report updateReportIfExists(Report report) throws Exception {
+    private Report updateReportIfExists(Integer reportId, Report report) throws Exception {
 
-        boolean isExisted = reportRepository.equals(report);
+        boolean isExisted = reportRepository.exists(reportId);
 
-        if(!isExisted){
+        if (!isExisted) {
             throw new Exception("report under id: " + report.getReportId() + " doesn't exist and thus" +
                     " cannot be updated");
 
@@ -63,21 +65,18 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public Report getOneReportBySearchTerm(String name) {
-        return reportRepository.getAllReportsBySearchParam(name == null ? "" : name)
-                .stream()
-                .findFirst()
-                .get();
+    public Report getOneReportBySearchTerm(String searchTerm) {
+        return (searchTerm != null || !searchTerm.isEmpty()) ?
+                reportRepository.getAllReportsBySearchParam(searchTerm)
+                        .stream()
+                        .findFirst()
+                        .get() : EMPTY_REPORT;
     }
 
     @Override
     public List<Report> getAllReportsBySearchTerm(String searchTerm) {
-
-        if(searchTerm == null || searchTerm.isEmpty()){
-            return EMPTY_LIST;
-        }
-
-        return reportRepository.getAllReportsBySearchParam(searchTerm);
+        return (searchTerm == null || searchTerm.isEmpty()) ? EMPTY_LIST :
+                reportRepository.getAllReportsBySearchParam(searchTerm);
     }
 
     @Override
