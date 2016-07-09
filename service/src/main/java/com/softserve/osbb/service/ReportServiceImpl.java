@@ -18,28 +18,65 @@ public class ReportServiceImpl implements ReportService {
     private ReportRepository reportRepository;
 
     @Override
-    public Report addReport(Report report) {
-        return null;
+    public Report addReport(Report report) throws Exception {
+
+        return report == null ? null : addReportIfNotExists(report);
+    }
+
+    private Report addReportIfNotExists(Report report) throws Exception {
+
+        boolean isExisted = reportRepository.exists(report.getReportId());
+
+        if (isExisted) {
+            throw new Exception("report under id: " + report.getReportId() + " already exists");
+        }
+
+        return reportRepository.save(report);
+
     }
 
     @Override
+    public Report updateReport(Report report) throws Exception {
+
+        return report == null? null: updateReportIfExists(report);
+    }
+
+    private Report updateReportIfExists(Report report) throws Exception {
+
+        boolean isExisted = reportRepository.equals(report);
+
+        if(!isExisted){
+            throw new Exception("report under id: " + report.getReportId() + " down not exist and thus" +
+                    " cannot be updated");
+
+        }
+        return reportRepository.save(report);
+
+    }
+
+
+    @Override
     public Report getReportById(Integer reportId) {
-        return null;
+        return reportRepository.findOne(reportId);
     }
 
     @Override
     public Report getReportByName(String name) {
-        return null;
+        return reportRepository.getAllReportsBySearchParam(name == null ? "" : name)
+                .stream()
+                .findFirst()
+                .get();
     }
 
     @Override
     public List<Report> getAllReportsBySearchTerm(String searchTerm) {
-        return null;
+        return reportRepository.getAllReportsBySearchParam(searchTerm == null ? "" : searchTerm);
     }
 
     @Override
     public List<Report> getAllReportsBetweenDates(LocalDateTime from, LocalDateTime to) {
-        return null;
+        return reportRepository.gerAllReportsBetweenDates(from == null ? LocalDateTime.now() : from,
+                to == null ? LocalDateTime.now() : to);
     }
 
     @Override
@@ -54,11 +91,12 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public void deleteAll() {
+        reportRepository.deleteAll();
 
     }
 
     @Override
     public void deleteReportById(Integer reportId) {
-
+        reportRepository.delete(reportId);
     }
 }

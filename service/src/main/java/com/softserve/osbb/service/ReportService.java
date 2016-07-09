@@ -10,23 +10,25 @@ import java.util.List;
  */
 public interface ReportService {
 
-    Report addReport(Report report);
+    Report addReport(Report report) throws Exception;
 
-    Report getReportById(Integer reportId);
+    Report updateReport(Report report) throws Exception;
 
-    Report getReportByName(String name);
+    Report getReportById(Integer reportId) throws Exception;
 
-    List<Report> getAllReportsBySearchTerm(String searchTerm);
+    Report getReportByName(String name) throws Exception;
 
-    List<Report> getAllReportsBetweenDates(LocalDateTime from, LocalDateTime to);
+    List<Report> getAllReportsBySearchTerm(String searchTerm) throws Exception;
 
-    List<Report> getAllReports();
+    List<Report> getAllReportsBetweenDates(LocalDateTime from, LocalDateTime to) throws Exception;
 
-    List<Report> showLatestRepors();
+    List<Report> getAllReports() throws Exception;
 
-    void deleteAll();
+    List<Report> showLatestRepors() throws Exception;
 
-    void deleteReportById(Integer reportId);
+    void deleteAll() throws Exception;
+
+    void deleteReportById(Integer reportId) throws Exception;
 
 
 
