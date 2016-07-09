@@ -5,8 +5,11 @@ import com.softserve.osbb.model.Report;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -18,6 +21,13 @@ public interface ReportRepository extends JpaRepository<Report, Integer>, JpaSpe
 
     @Override
     long count(Specification<Report> specification);
+
+    @Query("Select r From Report r where r.creationDate >= ?1 and r.creationDate <= ?2")
+    List<Report> gerAllReportsBetweenDates(LocalDateTime from, LocalDateTime to);
+
+    @Query("Select r From Report r where LOWER(r.name) LIKE LOWER(CONCAT('%',:searchParam,'%'))" +
+            " OR LOWER(r.description) LIKE LOWER(CONCAT('%',:searchParam,'%'))")
+    List<Report> getAllReportsBySearchParam(@Param("searchTerm") String searchTerm);
 
 /*
     class ReportSpecifications {
