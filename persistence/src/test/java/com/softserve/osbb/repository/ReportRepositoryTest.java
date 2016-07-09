@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +19,6 @@ import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
-
 
 
 /**
@@ -34,7 +34,7 @@ public class ReportRepositoryTest {
     private Report report;
 
     @Before
-    public void init(){
+    public void init() {
 
         report = new Report();
         LocalDateTime dateCreation = LocalDateTime.now();
@@ -45,7 +45,7 @@ public class ReportRepositoryTest {
 
 
     @Test
-    public void testSaveReport(){
+    public void testSaveReport() {
 
         report = reportRepository.save(report);
 
@@ -56,7 +56,7 @@ public class ReportRepositoryTest {
     }
 
     @Test
-    public void testUpdateReport(){
+    public void testUpdateReport() {
 
         report = reportRepository.save(report);
 
@@ -70,7 +70,7 @@ public class ReportRepositoryTest {
 
 
     @Test
-    public void testDeleteReport(){
+    public void testDeleteReport() {
 
         report = reportRepository.save(report);
 
@@ -82,7 +82,7 @@ public class ReportRepositoryTest {
     }
 
     @Test
-    public void testGetAllReports(){
+    public void testGetAllReports() {
 
         List<Report> reportEntities = new ArrayList<>();
 
@@ -97,12 +97,14 @@ public class ReportRepositoryTest {
     }
 
     @Test
-    public void testDeleteAllReports(){
+    public void testDeleteAllReports() {
 
         reportRepository.deleteAll();
 
         assertTrue(reportRepository.findAll().isEmpty());
 
     }
+
+
 
 }

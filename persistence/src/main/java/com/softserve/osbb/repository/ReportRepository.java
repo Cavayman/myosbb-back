@@ -2,12 +2,14 @@ package com.softserve.osbb.repository;
 
 
 import com.softserve.osbb.model.Report;
+import com.softserve.osbb.model.Report_;
 import org.springframework.data.jpa.convert.threetenbp.ThreeTenBackPortJpaConverters;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Generated;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -27,13 +29,8 @@ public interface ReportRepository extends JpaRepository<Report, Integer>, JpaSpe
     @Override
     List<Report> findAll(Specification specification);
 
-
-    @StaticMetamodel(Report.class)
-    class Report_ {
-        public static volatile SingularAttribute<Report, String> name;
-        public static volatile SingularAttribute<Report, String> description;
-        public static volatile SingularAttribute<Report, LocalDateTime> creationDate;
-    }
+    @Override
+    long count(Specification<Report> specification);
 
 
     class ReportSpecifications {
