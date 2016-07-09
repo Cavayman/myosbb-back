@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ import java.util.List;
 @Service
 public class ReportServiceImpl implements ReportService {
 
+    private static final List<Report> EMPTY_LIST = new ArrayList<Report>();
     @Autowired
     private ReportRepository reportRepository;
 
@@ -70,7 +72,12 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public List<Report> getAllReportsBySearchTerm(String searchTerm) {
-        return reportRepository.getAllReportsBySearchParam(searchTerm == null ? "" : searchTerm);
+
+        if(searchTerm == null || searchTerm.isEmpty()){
+            return EMPTY_LIST;
+        }
+
+        return reportRepository.getAllReportsBySearchParam(searchTerm);
     }
 
     @Override
