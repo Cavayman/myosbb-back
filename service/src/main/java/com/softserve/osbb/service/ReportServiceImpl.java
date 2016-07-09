@@ -46,7 +46,7 @@ public class ReportServiceImpl implements ReportService {
         boolean isExisted = reportRepository.equals(report);
 
         if(!isExisted){
-            throw new Exception("report under id: " + report.getReportId() + " down not exist and thus" +
+            throw new Exception("report under id: " + report.getReportId() + " doesn't exist and thus" +
                     " cannot be updated");
 
         }
