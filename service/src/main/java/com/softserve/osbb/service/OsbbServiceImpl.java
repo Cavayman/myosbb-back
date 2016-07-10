@@ -72,7 +72,7 @@ public class OsbbServiceImpl implements OsbbService {
     }
 
     @Override
-    public void deleteAll() throws Exception{
+    public void deleteAllOsbb() throws Exception{
 
         osbbRepository.deleteAll();
     }

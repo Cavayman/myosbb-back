@@ -21,6 +21,6 @@ public interface OsbbService {
 
     void deleteOsbbById(Integer id)  throws Exception;
 
-    void deleteAll()  throws Exception;
+    void deleteAllOsbb()  throws Exception;
 
 }
