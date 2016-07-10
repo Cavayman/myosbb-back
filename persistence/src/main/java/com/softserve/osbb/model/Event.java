@@ -1,5 +1,6 @@
 package com.softserve.osbb.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -78,6 +79,7 @@ public class Event {
 
     @ManyToOne
     @JoinColumn(name = "osbb_id", referencedColumnName = "osbb_id")
+    @JsonManagedReference
     public Osbb getOsbb() {
         return osbb;
     }

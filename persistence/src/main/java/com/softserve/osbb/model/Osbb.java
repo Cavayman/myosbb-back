@@ -1,5 +1,6 @@
 package com.softserve.osbb.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -100,6 +101,7 @@ public class Osbb {
     }
 
     @OneToMany(mappedBy = "osbb")
+    @JsonBackReference
     public Collection<Event> getEvents() {
         return events;
     }
