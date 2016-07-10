@@ -5,6 +5,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Created by cavayman on 05.07.2016.
@@ -18,6 +19,7 @@ public class Ticket {
     private String time;
     private Collection<Message> messages;
     private User users;
+    private Collection<Attachment> attachments;
 
     @Id
     @Column(name = "ticket_id")
@@ -57,10 +59,10 @@ public class Ticket {
     }
 
 
-
     public void setTime(String time) {
         this.time = time;
     }
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     public User getUsers() {
@@ -88,5 +90,14 @@ public class Ticket {
 
     public void setMessages(Collection<Message> messages) {
         this.messages = messages;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "ticket")
+    public Collection<Attachment> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(Collection<Attachment> attachments) {
+        this.attachments = attachments;
     }
 }
