@@ -25,12 +25,12 @@ public class Report {
     private String filePath;
     private Osbb osbb;
 
-    public Report(){
+    public Report() {
 
     }
 
-    public Report(String name, String description){
-        this(name, description, LocalDateTime.now(),"no");
+    public Report(String name, String description) {
+        this(name, description, LocalDateTime.now(), "no");
     }
 
     public Report(String name, String description, LocalDateTime dateOfCreation, String filePath) {
@@ -40,10 +40,11 @@ public class Report {
         this.filePath = filePath;
     }
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "report_id")
     public Integer getReportId() {
-        return reportId;
+        return reportId == null? new Integer(0): reportId;
     }
 
     public void setReportId(Integer reportId) {
