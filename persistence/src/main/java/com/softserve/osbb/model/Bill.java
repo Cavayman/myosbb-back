@@ -65,12 +65,12 @@ public class Bill {
 
     @Basic
     @Column(name = "to_pay")
-    public Float getTo_pay() {
+    public Float getToPay() {
         return toPay;
     }
 
-    public void setTo_pay(Float to_pay) {
-        this.toPay = to_pay;
+    public void setToPay(Float toPay) {
+        this.toPay = toPay;
     }
 
     @Basic
