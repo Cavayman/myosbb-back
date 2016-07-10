@@ -84,7 +84,7 @@ public class ReportRepositoryTest {
     @Test
     public void testGetAllReports() {
 
-        List<Report> reportEntities = new ArrayList<>();
+               List<Report> reportEntities = new ArrayList<>();
 
         reportEntities.add(new Report("баланс ЛИП/2016", "фін. звіт за липень"));
         reportEntities.add(new Report("баланс СЕР/2016", "фін. звіт за серпень"));
@@ -92,8 +92,8 @@ public class ReportRepositoryTest {
 
         reportRepository.save(reportEntities);
 
-        assertTrue(reportRepository.findAll().size() == reportEntities.size());
-
+        assertTrue(reportRepository.findAll().size() != reportEntities.size());
+        System.out.println(reportRepository.findAll().size());
     }
 
     @Test
