@@ -17,62 +17,63 @@ public class OsbbServiceImpl implements OsbbService {
     OsbbRepository osbbRepository;
 
     @Override
-    public Osbb addOsbb(Osbb osbb) {
+    public Osbb addOsbb(Osbb osbb) throws Exception{
+
         return osbbRepository.saveAndFlush(osbb);
     }
 
     @Override
-    public Osbb getOsbbByName(String name) {
+    public Osbb getOsbbByName(String name) throws Exception{
+
         return osbbRepository.getByName(name);
     }
 
     @Override
-    public Osbb getOsbbById(Integer id) {
+    public Osbb getOsbbById(Integer id) throws Exception{
+
         return osbbRepository.getOne(id);
     }
 
     @Override
-    public List<Osbb> getAllOsbb() {
+    public List<Osbb> getAllOsbb() throws Exception{
+
         return osbbRepository.findAll();
     }
 
-    private Osbb compareAndAddChange(Osbb old_osbb, Osbb new_osbb) {
-        if (!old_osbb.getName().equals(new_osbb.getName())) {
-            old_osbb.setName(new_osbb.getName());
-        }
-        if (!old_osbb.getDescription().equals(new_osbb.getDescription())) {
-            old_osbb.setDescription(new_osbb.getDescription());
-        }
-        if (!old_osbb.getContracts().equals(new_osbb.getContracts())) {
-            old_osbb.setContracts(new_osbb.getContracts());
-        }
-        if (!old_osbb.getEvents().equals(new_osbb.getEvents())) {
-            old_osbb.setEvents(new_osbb.getEvents());
-        }
-        if (!old_osbb.getHouses().equals(new_osbb.getHouses())) {
-            old_osbb.setHouses(new_osbb.getHouses());
-        }
-        if (!old_osbb.getReports().equals(new_osbb.getReports())) {
-            old_osbb.setReports(new_osbb.getReports());
-        }
-        if (!old_osbb.getStaffs().equals(new_osbb.getStaffs())) {
-            old_osbb.setStaffs(new_osbb.getStaffs());
-        }
-        return old_osbb;
-    }
-
     @Override
-    public Osbb updateOsbb(Osbb osbb) {
-        Osbb updatedOsbb = this.getOsbbById(osbb.getOsbbId());
-        if(osbb.equals(updatedOsbb)) {
-            return osbb;
+    public Osbb updateOsbb(Osbb osbb) throws Exception{                            // XXX
+
+        int osbbId = osbb.getOsbbId();
+
+        if(osbbRepository.exists(osbbId)) {
+
+            Osbb updatedOsbb = osbbRepository.getOne(osbbId);
+            updatedOsbb.setName(osbb.getName());
+            updatedOsbb.setDescription(osbb.getDescription());
+            updatedOsbb.setCreatorId(osbb.getCreatorId());
+            updatedOsbb.setContracts(osbb.getContracts());
+            updatedOsbb.setEvents(osbb.getEvents());
+            updatedOsbb.setHouses(osbb.getHouses());
+            updatedOsbb.setReports(osbb.getReports());
+            updatedOsbb.setStaffs(osbb.getStaffs());
+            return updatedOsbb;
+
         } else {
-            return osbbRepository.saveAndFlush(compareAndAddChange(updatedOsbb, osbb));
+
+            throw new Exception("Osbb with id=" + osbbId
+                    + " doesn't exist. First try to add this osbb.");
         }
     }
 
     @Override
-    public void removeOsbbById(Integer id) {
+    public void deleteOsbbById(Integer id) throws Exception{
+
         osbbRepository.delete(id);
+    }
+
+    @Override
+    public void deleteAll() throws Exception{
+
+        osbbRepository.deleteAll();
     }
 }

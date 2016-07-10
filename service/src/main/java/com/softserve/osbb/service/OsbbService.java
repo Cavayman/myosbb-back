@@ -8,10 +8,19 @@ import java.util.List;
  * Created by Roman on 08.07.2016.
  */
 public interface OsbbService {
-    Osbb addOsbb(Osbb osbb);
-    Osbb getOsbbByName(String name);
-    Osbb getOsbbById(Integer id);
-    List<Osbb> getAllOsbb();
-    Osbb updateOsbb(Osbb osbb);
-    void removeOsbbById(Integer id);
+
+    Osbb addOsbb(Osbb osbb) throws Exception;
+
+    Osbb getOsbbByName(String name)  throws Exception;
+
+    Osbb getOsbbById(Integer id)  throws Exception;
+
+    List<Osbb> getAllOsbb()  throws Exception;
+
+    Osbb updateOsbb(Osbb osbb)  throws Exception;
+
+    void deleteOsbbById(Integer id)  throws Exception;
+
+    void deleteAll()  throws Exception;
+
 }
