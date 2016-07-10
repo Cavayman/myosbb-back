@@ -12,7 +12,7 @@ public interface ReportService {
 
     Report addReport(Report report) throws Exception;
 
-    Report updateReport(Report report) throws Exception;
+    Report updateReport(Integer reportId, Report report) throws Exception;
 
     Report getReportById(Integer reportId) throws Exception;
 
