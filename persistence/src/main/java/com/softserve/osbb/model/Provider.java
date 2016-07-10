@@ -17,6 +17,7 @@ public class Provider implements Comparable{
     private String description;
     private String logoUrl;
     private Collection<Contract> contracts;
+    private Collection<Bill> bills;
 
     public Provider() {
     }
@@ -78,6 +79,15 @@ public class Provider implements Comparable{
 
     public void setContracts(Collection<Contract> contracts) {
         this.contracts = contracts;
+    }
+
+    @OneToMany(mappedBy = "provider")
+    public Collection<Bill> getBills() {
+        return bills;
+    }
+
+    public void setBills(Collection<Bill> bills) {
+        this.bills = bills;
     }
 
     @Override
