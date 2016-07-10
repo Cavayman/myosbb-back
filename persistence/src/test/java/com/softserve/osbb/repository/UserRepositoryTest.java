@@ -2,6 +2,7 @@ package com.softserve.osbb.repository;
 
 import com.softserve.osbb.PersistenceConfiguration;
 import com.softserve.osbb.model.User;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,9 +38,13 @@ public class UserRepositoryTest extends Assert {
 
     @Test
     public void testToHexString() {
-        assertEquals(0, userRepository.findAll().size());
-        userRepository.save(user);
         assertEquals(1, userRepository.findAll().size());
+        userRepository.save(user);
+        assertEquals(2, userRepository.findAll().size());
 
+    }
+    @After
+    public void afterTest(){
+    userRepository.delete(user);
     }
 }

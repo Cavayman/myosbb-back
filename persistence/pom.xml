@@ -25,7 +25,9 @@
         <spring-boot-starter-data-jpa>1.3.6.RELEASE</spring-boot-starter-data-jpa>
         <postgresql.version>9.4.1208</postgresql.version>
         <liquibase-core.version>3.5.1</liquibase-core.version>
-        <!--<liquibase-maven-plugin.version>3.5.1</liquibase-maven-plugin.version>-->
+        <liquibase-maven-plugin.version>3.5.1</liquibase-maven-plugin.version>
+		<jackson-annotations.version>2.3.3</jackson-annotations.version>
+        <liquibase-maven-plugin.version>3.5.1</liquibase-maven-plugin.version>
 	</properties>
 
 	<build>
@@ -69,16 +71,24 @@
 				</dependencies>
 			</plugin>
 
-            <!-- liquibase maven plugin (use for generateChangeLog) -->
+             <!--liquibase maven plugin (use for generateChangeLog)-->
             <!--<plugin>-->
                 <!--<groupId>org.liquibase</groupId>-->
                 <!--<artifactId>liquibase-maven-plugin</artifactId>-->
                 <!--<version>${liquibase-maven-plugin.version}</version>-->
                 <!--<configuration>-->
-                    <!--<outputChangeLogFile>db.changelog-master.json</outputChangeLogFile>-->
+					<!--<changeLogFile>src/main/resources/db/changelog/db.changelog-master.json</changeLogFile>-->
+					<!--<outputChangeLogFile>src/main/resources/db/changelog/db.changelog-master.json</outputChangeLogFile>-->
+                    <!--<diffChangeLogFile>src/main/resources/db/changelog/db.changelog-diff.json</diffChangeLogFile>-->
                     <!--<url>jdbc:postgresql://localhost:5432/myosbb</url>-->
-                    <!--<username>postgres</username>-->
+                    <!--<username>root</username>-->
                     <!--<password>root</password>-->
+                    <!--&lt;!&ndash;<referenceUrl>jdbc:postgresql://localhost:5432/myosbb</referenceUrl>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<referenceUsername>root</referenceUsername>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<referencePassword>root</referencePassword>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<url>jdbc:postgresql://fizzy-cherry.db.elephantsql.com:5432/aqzreszw</url>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<username>aqzreszw</username>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<password>Fi8O8oJfDiGcIkASAL8fR6snko57_S_T</password>&ndash;&gt;-->
                 <!--</configuration>-->
                 <!--<executions>-->
                     <!--<execution>-->
@@ -126,7 +136,7 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
-			<version>2.3.3</version>
+			<version>${jackson-annotations.version}</version>
 		</dependency>
 
 		<!-- TestNG -->
