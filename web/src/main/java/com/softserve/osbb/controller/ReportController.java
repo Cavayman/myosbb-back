@@ -1,7 +1,7 @@
 package com.softserve.osbb.controller;
 
 import com.softserve.osbb.model.Report;
-import com.softserve.osbb.service.ReportServiceImpl;
+import com.softserve.osbb.service.impl.ReportServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
