@@ -2,13 +2,16 @@ package com.softserve.osbb.controller;
 
 import com.softserve.osbb.model.Report;
 import com.softserve.osbb.service.ReportServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
@@ -20,6 +23,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 public class ReportController {
 
     private static final Resource<Report> EMPTY_REPORT_LINK = new Resource<>(new Report());
+    private static Logger logger = LoggerFactory.getLogger(ReportController.class);
 
     @Autowired
     private ReportServiceImpl reportService;
@@ -29,12 +33,14 @@ public class ReportController {
 
         List<Report> reportList = reportService.getAllReports();
 
+        logger.info("getting all reports: " + reportList);
+
         if (reportList.isEmpty()) {
-            System.out.println("no reportList were found in the list");
+            logger.warn("no reportList were found in the list: " + reportList);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        final List<Resource<Report>> resourceReportList = new CopyOnWriteArrayList<>();
+        final List<Resource<Report>> resourceReportList = new ArrayList<>();
 
         reportList.stream().forEach((report) -> resourceReportList.add(addResourceLinkToReport(report)));
 
@@ -47,13 +53,13 @@ public class ReportController {
         Resource<Report> reportResource;
         try {
 
-            System.out.println("saving: "+report);
+            logger.info("saving report object " + report);
             report = reportService.addReport(report);
 
             reportResource = addResourceLinkToReport(report);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
@@ -62,6 +68,8 @@ public class ReportController {
 
     @RequestMapping(value = "/report/{id}", method = RequestMethod.GET)
     public ResponseEntity<Resource<Report>> getReportById(@PathVariable("id") Integer reportId) {
+
+        logger.info("fetching report by id: " + reportId);
 
         Report report = reportService.getReportById(reportId);
 
@@ -86,17 +94,21 @@ public class ReportController {
     }
 
     @RequestMapping(value = "/report/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Resource<Report>> updateReport(@PathVariable("id") Integer reportId, @RequestBody Report report) {
+    public ResponseEntity<Resource<Report>> updateReport(@PathVariable("id") Integer reportId,
+                                                         @RequestBody Report report) {
 
         Resource<Report> reportResource;
 
         try {
+
+            logger.info("updating report by id: " + reportId);
+
             report = reportService.updateReport(reportId, report);
 
             reportResource = addResourceLinkToReport(report);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
@@ -104,17 +116,19 @@ public class ReportController {
     }
 
     @RequestMapping(value = "/report/find", method = RequestMethod.GET)
-    public ResponseEntity<List<Resource<Report>>> getReportsByName(@RequestParam(value = "searchParam", required = true)
+    public ResponseEntity<List<Resource<Report>>> getReportsByName(@RequestParam(value = "searchParam",
+            required = true)
                                                                    String searchParam) {
 
+        logger.info("fetching report by search parameter: " + searchParam);
         List<Report> reportsBySearchTerm = reportService.getAllReportsBySearchTerm(searchParam);
 
         if (reportsBySearchTerm.isEmpty()) {
-            System.out.println("no reports were found");
+            logger.warn("no reports were found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        List<Resource<Report>> resourceReportList = new CopyOnWriteArrayList<>();
+        List<Resource<Report>> resourceReportList = new ArrayList<>();
 
         reportsBySearchTerm.stream().forEach((report) -> resourceReportList.add(addResourceLinkToReport(report)));
 
@@ -123,12 +137,14 @@ public class ReportController {
 
     @RequestMapping(value = "/report/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Report> deleteReportById(@PathVariable("id") Integer reportId) {
+        logger.info("removing report by id: " + reportId);
         reportService.deleteReportById(reportId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/report", method = RequestMethod.DELETE)
     public ResponseEntity<Report> deleteAllReports() {
+        logger.info("removing all reports");
         reportService.deleteAll();
         return new ResponseEntity<>(HttpStatus.OK);
     }
