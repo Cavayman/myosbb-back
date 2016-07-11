@@ -1,5 +1,6 @@
 package com.softserve.osbb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.softserve.osbb.utils.CustomLocalDateTimeDeserializer;
@@ -20,8 +21,6 @@ public class Report {
     private Integer reportId;
     private String name;
     private String description;
-    @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
-    @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
     private LocalDate creationDate;
     private String filePath;
     private Osbb osbb;
@@ -73,11 +72,13 @@ public class Report {
     }
 
     @Basic
+    @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
     @Column(name = "creationDate")
     public LocalDate getCreationDate() {
         return creationDate;
     }
 
+    @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
@@ -103,6 +104,7 @@ public class Report {
     }
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "osbb_id", referencedColumnName = "osbb_id")
     public Osbb getOsbb() {
         return osbb;

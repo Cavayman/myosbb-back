@@ -1,7 +1,8 @@
-package com.softserve.osbb.service;
+package com.softserve.osbb.service.impl;
 
 import com.softserve.osbb.model.Report;
 import com.softserve.osbb.repository.ReportRepository;
+import com.softserve.osbb.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
