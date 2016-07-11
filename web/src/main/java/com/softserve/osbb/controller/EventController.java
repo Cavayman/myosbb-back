@@ -20,9 +20,19 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
-    @RequestMapping(value = "/event", method = RequestMethod.GET)
+    @RequestMapping(value = "/events", method = RequestMethod.GET)
     public List<Event> findAllEvents() {
         return eventService.findAllEvents();
+    }
+
+    @RequestMapping(value = "/event/{ids}", method = RequestMethod.GET)
+    public List<Event> findEvent(List<Integer> ids) {
+        return eventService.findAllEventsByIDs(ids);
+    }
+
+    @RequestMapping(value = "/event/{id}", method = RequestMethod.GET)
+    public Event findOneEvent(Integer id) {
+        return eventService.findOneEventByID(id);
     }
 }
 

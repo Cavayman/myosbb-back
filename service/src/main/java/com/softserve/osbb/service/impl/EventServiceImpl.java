@@ -1,7 +1,8 @@
-package com.softserve.osbb.service;
+package com.softserve.osbb.service.impl;
 
 import com.softserve.osbb.model.Event;
 import com.softserve.osbb.repository.EventRepository;
+import com.softserve.osbb.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * Created by nataliia on 10.07.16.
  */
 @Service
-public class EventServiceImpl implements EventService{
+public class EventServiceImpl implements EventService {
 
     @Autowired
     EventRepository eventRepository;
@@ -47,7 +48,7 @@ public class EventServiceImpl implements EventService{
     }
 
     @Override
-    public void deleteByID(Integer id) {
+    public void deleteEventByID(Integer id) {
         eventRepository.delete(id);
     }
 
