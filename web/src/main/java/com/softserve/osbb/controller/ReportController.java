@@ -46,6 +46,8 @@ public class ReportController {
 
         Resource<Report> reportResource;
         try {
+
+            System.out.println("saving: "+report);
             report = reportService.addReport(report);
 
             reportResource = addResourceLinkToReport(report);

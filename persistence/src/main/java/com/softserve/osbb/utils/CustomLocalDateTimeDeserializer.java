@@ -5,24 +5,30 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import java.io.IOException;
+import java.text.ParseException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
  * Created by nazar.dovhyy on 10.07.2016.
  */
-public class CustomLocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
+public class CustomLocalDateTimeDeserializer extends JsonDeserializer<LocalDate> {
 
     private static DateTimeFormatter dateTimeFormatter =
-            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 
     @Override
-    public LocalDateTime deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
+    public LocalDate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
             throws IOException, JsonProcessingException {
+        try {
+            String date = jsonParser.getText();
 
-        String date = jsonParser.getText();
+            return LocalDate.parse(date, dateTimeFormatter);
 
-        return LocalDateTime.parse(date, dateTimeFormatter);
+        }catch(IOException e){
+            throw new IOException(e.getMessage());
+        }
     }
 }

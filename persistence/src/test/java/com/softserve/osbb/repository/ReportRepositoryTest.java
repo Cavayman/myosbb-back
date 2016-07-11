@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,7 +38,7 @@ public class ReportRepositoryTest {
     public void init() {
 
         report = new Report();
-        LocalDateTime dateCreation = LocalDateTime.now();
+        LocalDate dateCreation = LocalDate.now();
         report = new Report();
         report.setName("баланс ЧЕРВ/2016");
         report.setCreationDate(dateCreation);

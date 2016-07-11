@@ -2,21 +2,22 @@ package com.softserve.osbb.utils;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  * Created by nazar.dovhyy on 09.07.2016.
  */
 @Converter(autoApply = true)
-public class LocalDateTimeConverter implements AttributeConverter<LocalDateTime, Timestamp> {
+public class LocalDateTimeConverter implements AttributeConverter<LocalDate, Date> {
+
     @Override
-    public Timestamp convertToDatabaseColumn(LocalDateTime localDateTime) {
-        return (localDateTime == null) ? null : Timestamp.valueOf(localDateTime);
+    public Date convertToDatabaseColumn(LocalDate localDate) {
+        return (localDate == null) ? null : Date.valueOf(localDate);
     }
 
     @Override
-    public LocalDateTime convertToEntityAttribute(Timestamp timestamp) {
-        return timestamp == null? null : timestamp.toLocalDateTime();
+    public LocalDate convertToEntityAttribute(Date date) {
+        return date == null? null : date.toLocalDate();
     }
 }

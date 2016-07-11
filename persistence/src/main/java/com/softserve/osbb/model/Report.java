@@ -8,6 +8,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -21,7 +22,7 @@ public class Report {
     private String description;
     @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
     @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
-    private LocalDateTime creationDate;
+    private LocalDate creationDate;
     private String filePath;
     private Osbb osbb;
 
@@ -30,10 +31,10 @@ public class Report {
     }
 
     public Report(String name, String description) {
-        this(name, description, LocalDateTime.now(), "no");
+        this(name, description, LocalDate.now(), "no");
     }
 
-    public Report(String name, String description, LocalDateTime dateOfCreation, String filePath) {
+    public Report(String name, String description, LocalDate dateOfCreation, String filePath) {
         this.name = name;
         this.description = description;
         this.creationDate = dateOfCreation;
@@ -73,11 +74,11 @@ public class Report {
 
     @Basic
     @Column(name = "creationDate")
-    public LocalDateTime getCreationDate() {
+    public LocalDate getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDateTime creationDate) {
+    public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
 
