@@ -27,6 +27,7 @@ import static org.junit.Assert.*;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = PersistenceConfiguration.class)
+@Transactional
 public class ReportRepositoryTest {
 
     @Autowired

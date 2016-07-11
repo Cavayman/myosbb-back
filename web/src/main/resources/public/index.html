@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>MyOsbb</title>
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+        <script src="js/jquery-min.js"></script>
+        <script src="js/bootstrap-datepicker.js"></script>
+        <script src="js/module/app.js"></script>
+        <script src="js/service/report_service.js"></script>
+        <script src="js/controller/report_controller.js"></script>
+        <link rel="stylesheet" href="/css/datepicker.css">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/stylish-portfolio.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body ng-app="osbbApp">
+
+    <!-- Navigation -->
+    <a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle"><i class="fa fa-bars"></i></a>
+    <nav id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right toggle"><i class="fa fa-times"></i></a>
+            <li class="sidebar-brand">
+                <a href="#top" onclick=$ ( "#menu-close").click();>MyOsbb</a>
+            </li>
+            <li>
+                <a href="#apartment" onclick=$ ( "#menu-close").click();>Apartment</a>
+            </li>
+            <li>
+                <a href="#contact" onclick=$ ( "#menu-close").click();>Contact</a>
+            </li>
+            <li>
+                <a href="#event" onclick=$ ( "#menu-close").click();>Event</a>
+            </li>
+            <li>
+                <a href="#house" onclick=$ ( "#menu-close").click();>House</a>
+            </li>
+            <li>
+                <a href="#message" onclick=$ ( "#menu-close").click();>Message</a>
+            </li>
+            <li>
+                <a href="#osbb" onclick=$ ( "#menu-close").click();>Osbb</a>
+            </li>
+            <li>
+                <a href="#provider" onclick=$ ( "#menu-close").click();>Provider</a>
+            </li>
+            <li>
+                <a href="#report" onclick=$ ( "#menu-close").click();>Report</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <header id="top" class="header">
+        <div class="text-vertical-center">
+            <h1></h1>
+            <h3></h3>
+            <br>
+        </div>
+    </header>
+
+    <!-- Apartment -->
+    <section id="apartment" class="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                   <h1>Apartment table.....</h1>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+
+    <!-- Contact -->
+    <section id="contact" class="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                   <h1>Contact table.....</h1>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+
+    <!-- Ebent -->
+    <section id="event" class="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                   <h1>Event table.....</h1>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+
+    <!-- House -->
+    <section id="house" class="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                   <h1>House table.....</h1>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+
+    <!-- Message -->
+    <section id="message" class="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                   <h1>Message table.....</h1>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+
+    <!-- Osbb -->
+    <section id="osbb" class="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                   <h1>Osbb table.....</h1>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+
+    <!-- Provider -->
+    <section id="provider" class="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                   <h1>Provider table.....</h1>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+
+    <!-- Report -->
+    <section id="report" class="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                   <h1>Report table.....</h1>
+                
+
+        <div class="container" ng-controller="ReportController as rc">
+            <div class="panel">
+                <div class="panel-heading"><span class="lead"></span>
+                </div>
+                    <div class="hero-unit">
+                    <div class="row">
+                    <div class="col-md-6">
+                        <div class="formcontainer">
+                    <form ng-submit="rc.submit()" name="reportForm">
+                        <input type="hidden" ng-model="rc.report.reportId" id="rid">
+                            <div class="row">
+                                <div class ="form-group col-md-8 ">
+                                    <label class="col-md-3 control-lable" for="rname">name</label>
+                                        <div class="col-md-6">
+                                            <input type="text" ng-model="rc.report.name" id="rname" class="form-control" placeholder="report name">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                            <div class ="form-group col-md-8">
+                                <label class="col-md-3 control-lable" for="rdescription">description</label>
+                                <div class="col-md-6">
+                                    <input type="text"  ng-model="rc.report.description" id="rdescription" class="form-control input-sm" placeholder="report description">
+                                </div>
+                            </div>
+                            </div>
+
+                            <div class="row">
+                            <div class ="form-group col-md-8 ">
+                                <label class="col-md-3 control-lable" >date</label>
+                                <div class="col-md-6">
+                                    <input  type="text" ng-model="rc.report.creationDate" placeholder="date...." class="form-control" >
+                                </div>
+                            </div>
+                            </div>
+
+                            <div class="row">
+                            <div class ="form-group col-md-8 ">
+                                <label class="col-md-3 control-lable" for="rpath">path</label>
+                                <div class="col-md-6">
+                                    <input  type="text" ng-model="rc.report.filePath" class="form-control" id = "rpath" placeholder="path...">
+                                </div>
+                            </div>
+                            </div>
+                            
+                            <div class="row">
+                            <div class="form-group col-md-8">
+                                <div class="col-md-3">
+                                    <input type="submit" value="{{!rc.report.reportId ? 'Add' : 'Update'}}" class="btn btn-primary btn-sm" ng-disabled="osbbForm.$invalid">
+                                    <!--<button type="button" ng-click="rc.reset()" class = "btn btn-warning btn-sm" ng-disabled ="reportForm.$pristine">Reset</button>-->
+
+                                </div>
+                            </div>    
+                    </div>
+                    </form>
+                    </div>
+
+
+                </div>
+
+                <div class="col-md-6" >
+                    <div class="tablecontainer" style="overflow:auto; height:300px; width:100% ">
+                        
+                    <table class="table table-striped">
+
+                     <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                            <th>Path</th>
+                            <th width="40%"></th>
+
+                        </tr>
+                         
+
+                     </thead>
+
+                     <tbody >
+                            <tr ng-repeat="r in rc.reports">
+                                <td><span class="small" ng-bind="r.reportId"></span></td>
+                                <td><span class="small" ng-bind="r.name"></span></td>
+                                <td><span class="small" ng-bind="r.description"></span></td>
+                                <td><span class="small" ng-bind="r.creationDate"></span></td>
+                                <td><a><span class="small" ng-bind="r.filePath"></span></a></td>
+                                <td><button type="button" ng-click="rc.edit(r.reportId)"
+                                class="btn btn-success btn-sm">Edit</button>
+                                <button type="button" ng-click="rc.remove(r.reportId)"
+                                class="btn btn-warning btn-sm">Delete</button>
+                                </td>
+                            </tr>
+                     </tbody>
+
+     
+                    </table>
+
+
+                    </div>
+
+            </div>  
+    
+            </div>
+
+             </div>   
+
+            </div>
+            </div>
+                
+               </div> 
+        </div>
+
+
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+    
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1 text-center">
+                   
+                </div>
+            </div>
+        </div>
+        <a id="to-top" href="#top" class="btn btn-dark btn-lg"><i class="fa fa-chevron-up fa-fw fa-1x"></i></a>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+
+            // When the document is ready
+            $(document).ready(function () {
+
+                $('#example1').datepicker({
+                    format: "yyyy-mm-dd"
+                });  
+            
+            });
+        </script>
+
+    <!-- Custom Theme JavaScript -->
+    <script>
+    // Closes the sidebar menu
+    $("#menu-close").click(function(e) {
+        e.preventDefault();
+        $("#sidebar-wrapper").toggleClass("active");
+    });
+    // Opens the sidebar menu
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#sidebar-wrapper").toggleClass("active");
+    });
+    // Scrolls to the selected menu item on the page
+    $(function() {
+        $('a[href*=#]:not([href=#])').click(function() {
+            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                if (target.length) {
+                    $('html,body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                    return false;
+                }
+            }
+        });
+    });
+    //#to-top button appears after scrolling
+    var fixed = false;
+    $(document).scroll(function() {
+        if ($(this).scrollTop() > 250) {
+            if (!fixed) {
+                fixed = true;
+                // $('#to-top').css({position:'fixed', display:'block'});
+                $('#to-top').show("slow", function() {
+                    $('#to-top').css({
+                        position: 'fixed',
+                        display: 'block'
+                    });
+                });
+            }
+        } else {
+            if (fixed) {
+                fixed = false;
+                $('#to-top').hide("slow", function() {
+                    $('#to-top').css({
+                        display: 'none'
+                    });
+                });
+            }
+        }
+    });
+    // Disable Google Maps scrolling
+    // See http://stackoverflow.com/a/25904582/1607849
+    // Disable scroll zooming and bind back the click event
+    var onMapMouseleaveHandler = function(event) {
+        var that = $(this);
+        that.on('click', onMapClickHandler);
+        that.off('mouseleave', onMapMouseleaveHandler);
+        that.find('iframe').css("pointer-events", "none");
+    }
+    var onMapClickHandler = function(event) {
+            var that = $(this);
+            // Disable the click handler until the user leaves the map area
+            that.off('click', onMapClickHandler);
+            // Enable scrolling zoom
+            that.find('iframe').css("pointer-events", "auto");
+            // Handle the mouse leave event
+            that.on('mouseleave', onMapMouseleaveHandler);
+        }
+        // Enable map zooming with mouse scroll when the user clicks the map
+    $('.map').on('click', onMapClickHandler);
+    </script>
+
+</body>
+
+</html>
