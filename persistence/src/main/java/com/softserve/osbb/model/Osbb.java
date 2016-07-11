@@ -1,5 +1,6 @@
 package com.softserve.osbb.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -7,7 +8,7 @@ import javax.persistence.*;
 import java.util.Collection;
 
 /**
- * Created by cavayman on 05.07.2016.
+ * Created by Roman on 05.07.2016.
  */
 @Entity
 @Table(name = "osbb")

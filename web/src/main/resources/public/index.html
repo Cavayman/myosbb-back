@@ -18,7 +18,7 @@
         <script src="js/module/app.js"></script>
         <script src="js/service/report_service.js"></script>
         <script src="js/controller/report_controller.js"></script>
-        <link rel="stylesheet" href="/css/datepicker.css">
+        <link rel="stylesheet" href="css/datepicker.css">
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -188,27 +188,28 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                   <h1>Report table.....</h1>
+                   <h1>Report table</h1>
                 
 
         <div class="container" ng-controller="ReportController as rc">
-            <div class="panel">
-                <div class="panel-heading"><span class="lead"></span>
+              <div class="panel-heading"><span class="lead"></span>
                 </div>
-                    <div class="hero-unit">
+                    <div class="jumbotron">
+               
                     <div class="row">
                     <div class="col-md-6">
                         <div class="formcontainer">
-                    <form ng-submit="rc.submit()" name="reportForm">
-                        <input type="hidden" ng-model="rc.report.reportId" id="rid">
-                            <div class="row">
-                                <div class ="form-group col-md-8 ">
-                                    <label class="col-md-3 control-lable" for="rname">name</label>
-                                        <div class="col-md-6">
-                                            <input type="text" ng-model="rc.report.name" id="rname" class="form-control" placeholder="report name">
+                        <br>
+                        <form ng-submit="rc.submit()" name="reportForm">
+                            <input type="hidden" ng-model="rc.report.reportId" id="rid">
+                                <div class="row">
+                                    <div class ="form-group col-md-8 ">
+                                        <label class="col-md-3 control-lable" for="rname">name</label>
+                                            <div class="col-md-6">
+                                                <input type="text" ng-model="rc.report.name" id="rname" class="form-control" placeholder="report name">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
                             <div class="row">
                             <div class ="form-group col-md-8">
@@ -298,7 +299,6 @@
 
              </div>   
 
-            </div>
             </div>
                 
                </div> 

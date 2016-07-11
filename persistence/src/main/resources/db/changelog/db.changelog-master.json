@@ -1,173 +1,8 @@
 { "databaseChangeLog": [
   {
     "changeSet": {
-      "id": "1468076575510-1",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "createSequence": {
-            "sequenceName": "apartment_apartment_id_seq"
-          }
-        }]
-      
-    }
-  },
-  
-  {
-    "changeSet": {
-      "id": "1468076575510-2",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "createSequence": {
-            "sequenceName": "event_event_id_seq"
-          }
-        }]
-      
-    }
-  },
-  
-  {
-    "changeSet": {
-      "id": "1468076575510-3",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "createSequence": {
-            "sequenceName": "house_house_id_seq"
-          }
-        }]
-      
-    }
-  },
-  
-  {
-    "changeSet": {
-      "id": "1468076575510-4",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "createSequence": {
-            "sequenceName": "message_message_id_seq"
-          }
-        }]
-      
-    }
-  },
-  
-  {
-    "changeSet": {
-      "id": "1468076575510-5",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "createSequence": {
-            "sequenceName": "osbb_osbb_id_seq"
-          }
-        }]
-      
-    }
-  },
-  
-  {
-    "changeSet": {
-      "id": "1468076575510-6",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "createSequence": {
-            "sequenceName": "provider_provider_id_seq"
-          }
-        }]
-      
-    }
-  },
-  
-  {
-    "changeSet": {
-      "id": "1468076575510-7",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "createSequence": {
-            "sequenceName": "report_report_id_seq"
-          }
-        }]
-      
-    }
-  },
-  
-  {
-    "changeSet": {
-      "id": "1468076575510-8",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "createSequence": {
-            "sequenceName": "staff_staff_id_seq"
-          }
-        }]
-      
-    }
-  },
-  
-  {
-    "changeSet": {
-      "id": "1468076575510-9",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "createSequence": {
-            "sequenceName": "ticket_ticket_id_seq"
-          }
-        }]
-      
-    }
-  },
-  
-  {
-    "changeSet": {
-      "id": "1468076575510-10",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "createSequence": {
-            "sequenceName": "users_user_id_seq"
-          }
-        }]
-      
-    }
-  },
-  
-  {
-    "changeSet": {
-      "id": "1468076575510-11",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "createSequence": {
-            "sequenceName": "vote_vote_id_seq"
-          }
-        }]
-      
-    }
-  },
-  
-  {
-    "changeSet": {
-      "id": "1468076575510-12",
-      "author": "nataliia",
+      "id": "2016/07/10-1",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -212,8 +47,112 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-13",
-      "author": "nataliia",
+      "id": "2016/07/10-2",
+      "author": "nataliia (generated)",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "autoIncrement": true,
+                  "constraints": {
+                    "primaryKey": true,
+                    "primaryKeyName": "attachment_pkey"
+                  },
+                  "name": "attachment_id",
+                  "type": "SERIAL"
+                }
+              },
+              {
+                "column": {
+                  "name": "path",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "ticket_id",
+                  "type": "INT"
+                }
+              }]
+            ,
+            "tableName": "attachment"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "2016/07/10-3",
+      "author": "nataliia (generated)",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "autoIncrement": true,
+                  "constraints": {
+                    "primaryKey": true,
+                    "primaryKeyName": "bill_pkey"
+                  },
+                  "name": "bill_id",
+                  "type": "SERIAL"
+                }
+              },
+              {
+                "column": {
+                  "name": "date",
+                  "type": "TIMESTAMP(6) WITHOUT TIME ZONE"
+                }
+              },
+              {
+                "column": {
+                  "name": "paid",
+                  "type": "FLOAT4"
+                }
+              },
+              {
+                "column": {
+                  "name": "tariff",
+                  "type": "FLOAT4"
+                }
+              },
+              {
+                "column": {
+                  "name": "to_pay",
+                  "type": "FLOAT4"
+                }
+              },
+              {
+                "column": {
+                  "name": "apartment_id",
+                  "type": "INT"
+                }
+              },
+              {
+                "column": {
+                  "name": "provider_id",
+                  "type": "INT"
+                }
+              }]
+            ,
+            "tableName": "bill"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "2016/07/10-4",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -280,8 +219,8 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-14",
-      "author": "nataliia",
+      "id": "2016/07/10-5",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -344,8 +283,8 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-15",
-      "author": "nataliia",
+      "id": "2016/07/10-6",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -384,8 +323,8 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-16",
-      "author": "nataliia",
+      "id": "2016/07/10-7",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -442,8 +381,8 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-17",
-      "author": "nataliia",
+      "id": "2016/07/10-8",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -488,8 +427,8 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-18",
-      "author": "nataliia",
+      "id": "2016/07/10-9",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -534,8 +473,8 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-19",
-      "author": "nataliia",
+      "id": "2016/07/10-10",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -592,8 +531,8 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-20",
-      "author": "nataliia",
+      "id": "2016/07/10-11",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -624,8 +563,8 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-21",
-      "author": "nataliia",
+      "id": "2016/07/10-12",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -664,8 +603,8 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-22",
-      "author": "nataliia",
+      "id": "2016/07/10-13",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -716,8 +655,8 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-23",
-      "author": "nataliia",
+      "id": "2016/07/10-14",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -751,8 +690,8 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-24",
-      "author": "nataliia",
+      "id": "2016/07/10-15",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -821,8 +760,8 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-25",
-      "author": "nataliia",
+      "id": "2016/07/10-16",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -873,8 +812,8 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-26",
-      "author": "nataliia",
+      "id": "2016/07/10-17",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -890,8 +829,8 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-27",
-      "author": "nataliia",
+      "id": "2016/07/10-18",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -907,8 +846,8 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-28",
-      "author": "nataliia",
+      "id": "2016/07/10-19",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -930,8 +869,8 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-29",
-      "author": "nataliia",
+      "id": "2016/07/10-20",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -953,8 +892,31 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-30",
-      "author": "nataliia",
+      "id": "2016/07/10-21",
+      "author": "nataliia (generated)",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "provider_id",
+            "baseTableName": "bill",
+            "constraintName": "fk_9owd7fyvy602xgw3rlowyp8ie",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "provider_id",
+            "referencedTableName": "provider"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "2016/07/10-22",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -976,8 +938,8 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-31",
-      "author": "nataliia",
+      "id": "2016/07/10-23",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -999,8 +961,8 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-32",
-      "author": "nataliia",
+      "id": "2016/07/10-24",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -1022,8 +984,8 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-33",
-      "author": "nataliia",
+      "id": "2016/07/10-25",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -1045,8 +1007,8 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-34",
-      "author": "nataliia",
+      "id": "2016/07/10-26",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -1068,8 +1030,31 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-35",
-      "author": "nataliia",
+      "id": "2016/07/10-27",
+      "author": "nataliia (generated)",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "apartment_id",
+            "baseTableName": "bill",
+            "constraintName": "fk_fbn4j90nmy01iojt59n92ifp",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "apartment_id",
+            "referencedTableName": "apartment"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "2016/07/10-28",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -1091,8 +1076,8 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-36",
-      "author": "nataliia",
+      "id": "2016/07/10-29",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -1114,8 +1099,8 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-37",
-      "author": "nataliia",
+      "id": "2016/07/10-30",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -1137,8 +1122,31 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-38",
-      "author": "nataliia",
+      "id": "2016/07/10-31",
+      "author": "nataliia (generated)",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "ticket_id",
+            "baseTableName": "attachment",
+            "constraintName": "fk_jbxheeburvg8rm16ixtyg1e8f",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "ticket_id",
+            "referencedTableName": "ticket"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "2016/07/10-32",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -1160,8 +1168,8 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-39",
-      "author": "nataliia",
+      "id": "2016/07/10-33",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -1183,8 +1191,8 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-40",
-      "author": "nataliia",
+      "id": "2016/07/10-34",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -1206,8 +1214,8 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-41",
-      "author": "nataliia",
+      "id": "2016/07/10-35",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -1229,8 +1237,8 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-42",
-      "author": "nataliia",
+      "id": "2016/07/10-36",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -1252,8 +1260,8 @@
   
   {
     "changeSet": {
-      "id": "1468076575510-43",
-      "author": "nataliia",
+      "id": "2016/07/10-37",
+      "author": "nataliia (generated)",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -1272,5 +1280,4 @@
       
     }
   }
-  
 ]}

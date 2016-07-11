@@ -4,6 +4,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -17,6 +18,7 @@ public class Apartment {
     private House house;
     private User user;
     private List<User> users;
+    private Collection<Bill> bills;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -78,5 +80,12 @@ public class Apartment {
         this.users = users;
     }
 
+    @OneToMany(mappedBy = "apartment")
+    public Collection<Bill> getBills() {
+        return bills;
+    }
 
+    public void setBills(Collection<Bill> bills) {
+        this.bills = bills;
+    }
 }

@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Created by cavayman on 05.07.2016.
+ * Created by Roman on 05.07.2016.
  */
 @Entity
 @Table(name = "vote")
