@@ -1,0 +1,33 @@
+package com.softserve.osbb.service;
+
+import com.softserve.osbb.model.Bill;
+
+import java.util.List;
+
+/**
+ * Created by nataliia on 11.07.16.
+ */
+public interface BillService {
+
+    void saveBill(Bill bill);
+
+    void saveBillList(List<Bill> list);
+
+    Bill findOneBillByID(Integer id);
+
+    List<Bill> findAllBillsByIDs(List<Integer> ids);
+
+    List<Bill> findAllBills();
+
+    void deleteBill(Bill bill);
+
+    void deleteBillByID(Integer id);
+
+    void deleteListBills(List<Bill> list);
+
+    void deleteAllBills();
+
+    long countBills();
+
+    boolean exitsBill(Integer id);
+}

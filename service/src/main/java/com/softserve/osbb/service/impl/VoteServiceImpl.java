@@ -1,7 +1,8 @@
-package com.softserve.osbb.service;
+package com.softserve.osbb.service.impl;
 
 import com.softserve.osbb.model.Vote;
 import com.softserve.osbb.repository.VoteRepository;
+import com.softserve.osbb.service.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

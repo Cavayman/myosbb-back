@@ -21,7 +21,7 @@ public interface EventService {
 
     void deleteEvent(Event event);
 
-    void deleteByID(Integer id);
+    void deleteEventByID(Integer id);
 
     void deleteListEvents(List<Event> list);
 

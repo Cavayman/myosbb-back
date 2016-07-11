@@ -1,14 +1,13 @@
 package com.softserve.osbb.controller;
 
 import com.softserve.osbb.model.Report;
-import com.softserve.osbb.service.ReportServiceImpl;
+import com.softserve.osbb.service.impl.ReportServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
