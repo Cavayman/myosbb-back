@@ -27,6 +27,12 @@
               },
               {
                 "column": {
+                  "name": "square",
+                  "type": "INT"
+                }
+              },
+              {
+                "column": {
                   "name": "house_id",
                   "type": "INT"
                 }
