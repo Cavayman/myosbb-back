@@ -329,7 +329,7 @@
                     <div class="jumbotron">
                
                     <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <div class="formcontainer">
                         <br>
                         <form ng-submit="uc.submit()" name="userForm">
@@ -337,7 +337,7 @@
                                 <div class="row">
                                     <div class ="form-group col-md-12 ">
                                         <label class="col-md-3 control-lable" for="rname">Ім'я</label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-9">
                                                 <input type="text" ng-model="uc.user.firstName" id="rname" class="form-control" placeholder="User name">
                                         </div>
                                     </div>
@@ -346,7 +346,7 @@
                             <div class="row">
                             <div class ="form-group col-md-12">
                                 <label class="col-md-3 control-lable" f>Фамілія</label>
-                                <div class="col-md-6">
+                                <div class="col-md-9">
                                     <input type="text"  ng-model="uc.user.lastName" id="ulast" class="form-control input-sm" placeholder="User lastName">
                                 </div>
                             </div>
@@ -356,7 +356,7 @@
                             <div class="row">
                             <div class ="form-group col-md-12 ">
                                 <label class="col-md-3 control-lable" >Birdth</label>
-                                <div class="col-md-6">
+                                <div class="col-md-9">
                                     <input  type="text" ng-model="uc.user.birthDate" placeholder="date..." class="form-control" >
                                 </div>
                             </div>
@@ -365,7 +365,7 @@
 <div class="row">
                             <div class ="form-group col-md-12">
                                 <label class="col-md-3 control-lable" for="rdescription">Телефон</label>
-                                <div class="col-md-6">
+                                <div class="col-md-9">
                                     <input type="text"  ng-model="uc.user.phoneNumber" id="uNumber" class="form-control input-sm" placeholder="phone...">
                                 </div>
                             </div>
@@ -373,7 +373,7 @@
                             <div class="row">
                             <div class ="form-group col-md-12">
                                 <label class="col-md-3 control-lable" for="rdescription">e-mail</label>
-                                <div class="col-md-6">
+                                <div class="col-md-9">
                                     <input type="text"  ng-model="uc.user.email" id="uemail" class="form-control input-sm" placeholder="report description">
                                 </div>
                             </div>
@@ -383,7 +383,7 @@
                             <div class="row">
                             <div class="form-group col-md-12">
                                 <div class="col-md-9">
-                                    <input id="userAdd" type="submit" value="{{!uc.user.userId ? 'Add' : 'Update'}}" class="btn col-md-12 btn-primary btn-sm" ng-disabled="osbbForm.$invalid">
+                                    <input id="userAdd" type="submit" value="Add" class="btn col-md-12 btn-primary btn-sm" ng-disabled="osbbForm.$invalid">
                                 </div>
                             </div>    
                     </div>
@@ -393,7 +393,7 @@
 
                 </div>
 
-                <div class="col-md-6" >
+                <div class="col-md-9" >
                     <div class="tablecontainer" style="overflow:auto; height:300px; width:100% ">
                         
                     <table class="table table-striped">
@@ -406,15 +406,17 @@
                             <th>Birth Date</th>
                             <th>Phone number</th>
                             <th>email</th>
-                            <th width="40%"></th>
-
+                            <th>Password</th>
+                            <th>Gender</th>
+                            <th width="40%">Delete</th>
+                            <th width="40%">Edit</th>
                         </tr>
                          
 
                      </thead>
 
-                     <tbody >
-                            <tr ng-repeat="r in rc.reports">
+                     <tbody id="tablecont" >
+                            <tr >
                                 <td><span class="small" ng-bind="r.reportId"></span></td>
                                 <td><span class="small" ng-bind="r.name"></span></td>
                                 <td><span class="small" ng-bind="r.description"></span></td>
