@@ -5,12 +5,14 @@ import com.softserve.osbb.repository.MessageRepository;
 import com.softserve.osbb.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by Kris on 10.07.2016.
  */
+@Service
 public class MessageServiceImpl implements MessageService {
 
     @Autowired
