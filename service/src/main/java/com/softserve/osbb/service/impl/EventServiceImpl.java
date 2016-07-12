@@ -68,7 +68,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public boolean exitsEvent(Integer id) {
+    public boolean existsEvent(Integer id) {
         return eventRepository.exists(id);
     }
 }

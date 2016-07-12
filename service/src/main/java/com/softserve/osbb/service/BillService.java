@@ -29,5 +29,5 @@ public interface BillService {
 
     long countBills();
 
-    boolean exitsBill(Integer id);
+    boolean existsBill(Integer id);
 }

@@ -29,6 +29,6 @@ public interface EventService {
 
     long countEvents();
 
-    boolean exitsEvent(Integer id);
+    boolean existsEvent(Integer id);
 
 }

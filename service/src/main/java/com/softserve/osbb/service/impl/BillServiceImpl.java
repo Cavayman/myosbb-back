@@ -69,7 +69,7 @@ public class BillServiceImpl implements BillService{
     }
 
     @Override
-    public boolean exitsBill(Integer id) {
+    public boolean existsBill(Integer id) {
         return billRepository.exists(id);
     }
 }

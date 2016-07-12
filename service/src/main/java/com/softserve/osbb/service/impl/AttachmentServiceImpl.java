@@ -69,7 +69,7 @@ public class AttachmentServiceImpl implements AttachmentService{
     }
 
     @Override
-    public boolean exitsAttachment(Integer id) {
+    public boolean existsAttachment(Integer id) {
         return attachmentRepository.exists(id);
     }
 }
