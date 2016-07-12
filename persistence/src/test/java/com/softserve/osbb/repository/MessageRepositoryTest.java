@@ -2,7 +2,6 @@ package com.softserve.osbb.repository;
 
 import com.softserve.osbb.PersistenceConfiguration;
 import com.softserve.osbb.model.Message;
-import com.softserve.osbb.model.Osbb;
 import com.softserve.osbb.model.User;
 import org.junit.Assert;
 import org.junit.Before;
@@ -76,8 +75,10 @@ public class MessageRepositoryTest {
         Assert.assertTrue(list.size() == messageRepository.findAll().size());
 
     }
+
     @Test
     public void testDeleteByMessage() {
+        messageRepository.save(message);
         messageRepository.delete(message);
         Assert.assertFalse(messageRepository.exists(message.getMessageId()));
     }
