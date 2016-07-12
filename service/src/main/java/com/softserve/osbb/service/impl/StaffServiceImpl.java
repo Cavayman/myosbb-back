@@ -4,12 +4,14 @@ import com.softserve.osbb.model.Staff;
 import com.softserve.osbb.repository.StaffRepository;
 import com.softserve.osbb.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by Aska on 12.07.2016.
  */
+@Service
 public class StaffServiceImpl implements StaffService{
 
     @Autowired

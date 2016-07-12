@@ -31,4 +31,8 @@ public interface ProviderService {
 
     boolean existsProvider(Integer id);
 
+    Provider updateProvider(Integer providerId, Provider provider) throws Exception;
+
+    List<Provider> findProvidersByName(String name);
+
 }

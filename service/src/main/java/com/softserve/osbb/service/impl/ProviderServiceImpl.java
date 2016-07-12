@@ -4,12 +4,14 @@ import com.softserve.osbb.model.Provider;
 import com.softserve.osbb.repository.ProviderRepository;
 import com.softserve.osbb.service.ProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by Aska on 12.07.2016.
  */
+@Service
 public class ProviderServiceImpl implements ProviderService {
 
     @Autowired
@@ -69,4 +71,22 @@ public class ProviderServiceImpl implements ProviderService {
     public boolean existsProvider(Integer id) {
         return providerRepository.exists(id);
     }
+
+    @Override
+    public Provider updateProvider(Integer providerId, Provider provider) throws Exception {
+        boolean isExisted = providerRepository.exists(providerId);
+
+        if (!isExisted) {
+            throw new Exception("provider under id: " + provider.getProviderId() + " doesn't exist and thus" +
+                    " cannot be updated");
+        }
+        return providerRepository.save(provider);
+    }
+
+    @Override
+    public List<Provider> findProvidersByName(String name) {
+        return providerRepository.findProvidersByName(name);
+    }
+
+
 }
