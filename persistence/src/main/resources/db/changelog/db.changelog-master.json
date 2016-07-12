@@ -1280,6 +1280,7 @@
       
     }
   },
+
   {
     "changeSet": {
       "id": "addColumn-example",
@@ -1287,7 +1288,7 @@
       "changes": [
         {
           "addColumn": {
-            "catalogName": "osbb",
+            "catalogName": "aqzreszw",
             "columns": [
               {
                 "column": {
@@ -1303,4 +1304,5 @@
 
     }
   }
+
 ]}
