@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OsbbRepository extends JpaRepository<Osbb, Integer> {
 
-//    @Query("SELECT o FROM osbb o where o.name = :name")
-    public Osbb getByName(/*@Param("name") */String name);
+    @Query("select o from Osbb o where o.name = :name")
+    public Osbb getByName(@Param("name") String name);
+
 }

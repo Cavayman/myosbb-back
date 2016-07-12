@@ -9,18 +9,22 @@ import java.util.List;
  */
 public interface OsbbService {
 
-    Osbb addOsbb(Osbb osbb) throws Exception;
+    Osbb addOsbb(Osbb osbb);
 
-    Osbb getOsbbByName(String name)  throws Exception;
+    void deleteOsbbById(Integer id);
 
-    Osbb getOsbbById(Integer id)  throws Exception;
+    Osbb getOsbbByName(String name);
 
-    List<Osbb> getAllOsbb()  throws Exception;
+    List<Osbb> getAllOsbb();
 
-    Osbb updateOsbb(Osbb osbb)  throws Exception;
+    long countOsbb();
 
-    void deleteOsbbById(Integer id)  throws Exception;
+    boolean existsOsbb(Integer id);
 
-    void deleteAllOsbb()  throws Exception;
+    Osbb getOsbbById(Integer id);
+
+    Osbb updateOsbb(Osbb osbb);
+
+    void deleteAllOsbb();
 
 }
