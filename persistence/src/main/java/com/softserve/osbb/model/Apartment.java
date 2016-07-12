@@ -16,6 +16,7 @@ public class Apartment {
     private Integer apartmentId;
     private Integer number;
     private House house;
+    private Integer square;
     private User user;
     private List<User> users;
     private Collection<Bill> bills;
@@ -39,6 +40,12 @@ public class Apartment {
 
     public void setNumber(Integer number) {
         this.number = number;
+    }
+
+    @Basic
+    @Column(name = "square")
+    public Integer getSquare() {
+        return square;
     }
 
     @Override
