@@ -27,16 +27,17 @@
 
     <!-- Custom CSS -->
     <link href="css/stylish-portfolio.css" rel="stylesheet">
-
+<!--Custom js-->
+    <script src="js/usertable.js"></script>
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
     <![endif]-->
 
 </head>
@@ -313,19 +314,144 @@
         <!-- /.container -->
     </section>
 
+
     <!-- User -->
-    <section id="User" class="about">
+    <section id="report" class="about">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h1>User table.....</h1>
+                   <h1>User table</h1>
+                
+
+        <div class="container" ng-controller="UserController as uc">
+              <div class="panel-heading"><span class="lead"></span>
                 </div>
+                    <div class="jumbotron">
+               
+                    <div class="row">
+                    <div class="col-md-6">
+                        <div class="formcontainer">
+                        <br>
+                        <form ng-submit="uc.submit()" name="userForm">
+                            <input type="hidden" ng-model="uc.userr.userId" id="uid">
+                                <div class="row">
+                                    <div class ="form-group col-md-12 ">
+                                        <label class="col-md-3 control-lable" for="rname">Ім'я</label>
+                                            <div class="col-md-6">
+                                                <input type="text" ng-model="uc.user.firstName" id="rname" class="form-control" placeholder="User name">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <div class="row">
+                            <div class ="form-group col-md-12">
+                                <label class="col-md-3 control-lable" f>Фамілія</label>
+                                <div class="col-md-6">
+                                    <input type="text"  ng-model="uc.user.lastName" id="ulast" class="form-control input-sm" placeholder="User lastName">
+                                </div>
+                            </div>
+                            </div>
+                            
+
+                            <div class="row">
+                            <div class ="form-group col-md-12 ">
+                                <label class="col-md-3 control-lable" >Birdth</label>
+                                <div class="col-md-6">
+                                    <input  type="text" ng-model="uc.user.birthDate" placeholder="date..." class="form-control" >
+                                </div>
+                            </div>
+                            </div>
+
+<div class="row">
+                            <div class ="form-group col-md-12">
+                                <label class="col-md-3 control-lable" for="rdescription">Телефон</label>
+                                <div class="col-md-6">
+                                    <input type="text"  ng-model="uc.user.phoneNumber" id="uNumber" class="form-control input-sm" placeholder="phone...">
+                                </div>
+                            </div>
+                            </div>
+                            <div class="row">
+                            <div class ="form-group col-md-12">
+                                <label class="col-md-3 control-lable" for="rdescription">e-mail</label>
+                                <div class="col-md-6">
+                                    <input type="text"  ng-model="uc.user.email" id="uemail" class="form-control input-sm" placeholder="report description">
+                                </div>
+                            </div>
+                            </div>
+
+                            
+                            <div class="row">
+                            <div class="form-group col-md-12">
+                                <div class="col-md-9">
+                                    <input id="userAdd" type="submit" value="{{!uc.user.userId ? 'Add' : 'Update'}}" class="btn col-md-12 btn-primary btn-sm" ng-disabled="osbbForm.$invalid">
+                                </div>
+                            </div>    
+                    </div>
+                    </form>
+                    </div>
+
+
+                </div>
+
+                <div class="col-md-6" >
+                    <div class="tablecontainer" style="overflow:auto; height:300px; width:100% ">
+                        
+                    <table class="table table-striped">
+
+                     <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>FirstName</th>
+                            <th>LastName</th>
+                            <th>Birth Date</th>
+                            <th>Phone number</th>
+                            <th>email</th>
+                            <th width="40%"></th>
+
+                        </tr>
+                         
+
+                     </thead>
+
+                     <tbody >
+                            <tr ng-repeat="r in rc.reports">
+                                <td><span class="small" ng-bind="r.reportId"></span></td>
+                                <td><span class="small" ng-bind="r.name"></span></td>
+                                <td><span class="small" ng-bind="r.description"></span></td>
+                                <td><span class="small" ng-bind="r.creationDate"></span></td>
+                                <td><a><span class="small" ng-bind="r.filePath"></span></a></td>
+                                <td><a><span class="small" ng-bind="r.filePath"></span></a></td>
+                                <td><button type="button" ng-click="rc.edit(r.reportId)"
+                                class="btn btn-success btn-sm">Edit</button>
+                                <button type="button" ng-click="rc.remove(r.reportId)"
+                                class="btn btn-warning btn-sm">Delete</button>
+                                </td>
+                            </tr>
+                     </tbody>
+
+     
+                    </table>
+
+
+                    </div>
+
+            </div>  
+    
+            </div>
+
+             </div>   
+
+            </div>
+                
+               </div> 
+        </div>
+
+
             </div>
             <!-- /.row -->
         </div>
         <!-- /.container -->
     </section>
-
 
     <!-- Report -->
     <section id="report" class="about">
