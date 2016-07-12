@@ -27,12 +27,6 @@
               },
               {
                 "column": {
-                  "name": "square",
-                  "type": "INT"
-                }
-              },
-              {
-                "column": {
                   "name": "house_id",
                   "type": "INT"
                 }
@@ -50,7 +44,7 @@
       
     }
   },
-  
+
   {
     "changeSet": {
       "id": "2016/07/10-2",
@@ -1285,5 +1279,29 @@
         }]
       
     }
+  },
+
+  {
+    "changeSet": {
+      "id": "2016/07/12-1",
+      "author": "Oleg",
+      "changes": [
+        {
+          "addColumn": {
+            "catalogName": "aqzreszw",
+            "columns": [
+              {
+                "column": {
+                  "name": "square",
+                  "type": "INT"
+                }
+              }]
+          ,
+            "tableName": "apartment"
+          }
+        }]
+
+    }
   }
+
 ]}

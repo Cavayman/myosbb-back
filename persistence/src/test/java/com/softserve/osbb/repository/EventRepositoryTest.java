@@ -12,6 +12,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -50,7 +51,7 @@ public class EventRepositoryTest {
         event.setOsbb(osbb);
         event.setDescription("Simple repeatable trash recycling.");
         event.setRepeat(Event.Repeat.EVERY_WEEK);
-        event.setDate(new Date());
+        event.setDate(LocalDate.now());
 
         event1 = new Event();
         event1.setName("Charity festival.");
@@ -58,7 +59,7 @@ public class EventRepositoryTest {
         event1.setOsbb(osbb);
         event1.setDescription("Charity festival for homelesspeople.");
         event1.setRepeat(Event.Repeat.NEVER);
-        event1.setDate(new Date());
+        event1.setDate(LocalDate.now());
     }
 
     @Test
