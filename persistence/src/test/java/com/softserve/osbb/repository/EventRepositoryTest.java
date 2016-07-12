@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -74,7 +73,7 @@ public class EventRepositoryTest {
         list.add(event);
         list.add(event1);
         eventRepository.save(list);
-        assertEquals(list, eventRepository.findAll());
+        assertTrue(eventRepository.findAll().containsAll(list));
     }
 
     @Test
@@ -100,7 +99,8 @@ public class EventRepositoryTest {
         List<Event> list = new ArrayList<>();
         list.add(event);
         list.add(event1);
-        eventRepository.save(list);
+        eventRepository.save(event);
+        eventRepository.save(event1);
         assertTrue(eventRepository.findAll().containsAll(list));
     }
 

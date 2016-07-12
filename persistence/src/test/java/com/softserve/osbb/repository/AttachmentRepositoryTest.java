@@ -66,7 +66,7 @@ public class AttachmentRepositoryTest {
         list.add(attachment);
         list.add(attachment1);
         attachmentRepository.save(list);
-        assertEquals(list, attachmentRepository.findAll());
+        assertTrue(attachmentRepository.findAll().containsAll(list));
     }
 
     @Test
@@ -92,7 +92,8 @@ public class AttachmentRepositoryTest {
         List<Attachment> list = new ArrayList<>();
         list.add(attachment);
         list.add(attachment1);
-        attachmentRepository.save(list);
+        attachmentRepository.save(attachment);
+        attachmentRepository.save(attachment1);
         assertTrue(attachmentRepository.findAll().containsAll(list));
     }
 

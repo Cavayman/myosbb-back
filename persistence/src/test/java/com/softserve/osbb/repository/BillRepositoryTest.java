@@ -81,7 +81,7 @@ public class BillRepositoryTest {
         list.add(bill);
         list.add(bill1);
         billRepository.save(list);
-        assertEquals(list, billRepository.findAll());
+        assertTrue(billRepository.findAll().containsAll(list));
     }
 
     @Test
@@ -107,7 +107,8 @@ public class BillRepositoryTest {
         List<Bill> list = new ArrayList<>();
         list.add(bill);
         list.add(bill1);
-        billRepository.save(list);
+        billRepository.save(bill);
+        billRepository.save(bill1);
         assertTrue(billRepository.findAll().containsAll(list));
     }
 
