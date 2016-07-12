@@ -17,6 +17,8 @@ public interface UserService  {
 
     public User findOne(Integer integer) ;
 
+    public User findOne(String id) ;
+
     public boolean exists(Integer integer) ;
 
     public List<User> findAll() ;
