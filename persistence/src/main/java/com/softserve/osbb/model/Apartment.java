@@ -48,10 +48,6 @@ public class Apartment {
         return square;
     }
 
-    public void setSquare(Integer square) {
-        this.square = square;
-    }
-
     @Override
     public boolean equals(Object obj) {
         return EqualsBuilder.reflectionEquals(this, obj);
