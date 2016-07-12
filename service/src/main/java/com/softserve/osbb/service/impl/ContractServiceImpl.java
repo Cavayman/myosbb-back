@@ -12,6 +12,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 /**
  * Created by Roma on 12/07/2016.
  */
+
 public class ContractServiceImpl implements ContractService {
 
     private static final List<Contract> EMPTY_LIST = new CopyOnWriteArrayList<>();
@@ -35,6 +36,7 @@ public class ContractServiceImpl implements ContractService {
         return contractRepository.save(contract);
 
     }
+
 
     @Override
     public Contract updateContract(Integer contractId, Contract contract) throws Exception {
@@ -61,23 +63,17 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public Contract getOneContractBySearchTerm(String searchTerm) throws Exception {
-        return (searchTerm != null || !searchTerm.isEmpty()) ?
-                contractRepository.getAllContractsBySearchParam(searchTerm)
-                        .stream()
-                        .findFirst()
-                        .get() : EMPTY_REPORT;
+        return null;
     }
 
     @Override
     public List<Contract> getAllContractsBySearchTerm(String searchTerm) throws Exception {
-        return (searchTerm == null || searchTerm.isEmpty()) ? EMPTY_LIST :
-                contractRepository.getAllContractsBySearchParam(searchTerm);
+        return null;
     }
 
     @Override
     public List<Contract> getAllContractsBetweenDates(LocalDateTime from, LocalDateTime to) throws Exception {
-        return contractRepository.getAllContractsBetweenDates(from == null ? LocalDateTime.now() : from,
-                to == null ? LocalDateTime.now() : to);
+        return null;
     }
 
     @Override

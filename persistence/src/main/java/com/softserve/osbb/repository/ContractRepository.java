@@ -17,17 +17,6 @@ import java.util.List;
 @Repository
 public interface ContractRepository extends JpaRepository <Contract, Integer>, JpaSpecificationExecutor<Contract> {
 
-    @Override
-    List<Contract> findAll(Specification specification);
 
-    @Override
-    long count(Specification<Contract> specification);
-
-    @Query("Select r From Contract r where r.creationDate >= ?1 and r.creationDate <= ?2")
-    List<Contract> getAllContractsBetweenDates(LocalDateTime from, LocalDateTime to);
-
-    @Query("Select r From Contract r where LOWER(r.name) LIKE LOWER(CONCAT('%',:searchParam,'%'))" +
-            " OR LOWER(r.description) LIKE LOWER(CONCAT('%',:searchParam,'%'))")
-    List<Contract> getAllContractsBySearchParam(@Param("searchParam") String searchTerm);
 
 }
