@@ -4,12 +4,14 @@ import com.softserve.osbb.model.Provider;
 import com.softserve.osbb.repository.ProviderRepository;
 import com.softserve.osbb.service.ProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by Aska on 12.07.2016.
  */
+@Service
 public class ProviderServiceImpl implements ProviderService {
 
     @Autowired
