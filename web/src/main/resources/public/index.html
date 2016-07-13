@@ -12,16 +12,18 @@
     <title>MyOsbb</title>
 
 
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+        <script src="js/angular.js"></script>
+        <script src="http://code.angularjs.org/1.2.5/angular.js" data-semver="1.2.5" data-require="angular.js@1.2.5"></script>
         <script src="js/jquery-min.js"></script>
         <script src="js/bootstrap-datepicker.js"></script>
         <script src="js/module/app.js"></script>
         <script src="js/service/report_service.js"></script>
         <script src="js/controller/report_controller.js"></script>
-        <link rel="stylesheet" href="css/datepicker.css">
+        <script src="js/select.js"></script>
+        <link rel="stylesheet" href="css/datepicker.css"/>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="css/stylish-portfolio.css" rel="stylesheet">
@@ -200,48 +202,48 @@
                     <div class="col-md-6">
                         <div class="formcontainer">
                         <br>
-                        <form ng-submit="rc.submit()" name="reportForm">
+                        <form ng-submit="rc.submit()" name="reportForm" novalidate>
                             <input type="hidden" ng-model="rc.report.reportId" id="rid">
                                 <div class="row">
-                                    <div class ="form-group col-md-8 ">
-                                        <label class="col-md-3 control-lable" for="rname">name</label>
-                                            <div class="col-md-6">
-                                                <input type="text" ng-model="rc.report.name" id="rname" class="form-control" placeholder="report name">
+                                    <div class ="form-group" ng-class="{'has-error' : reportForm.rname.$invalid $$ reportForm.rname.$dirty}" show-errors>
+                                        <div class="col-md-6">
+                                                <label class="control-lable col-md-3" for="rname">name</label>
+                                                <input type="text" ng-model="rc.report.name" name="rname" id="rname" class="form-control" placeholder="report name" required ng-minlength="3">
                                         </div>
                                     </div>
                                 </div>
 
                             <div class="row">
-                            <div class ="form-group col-md-8">
-                                <label class="col-md-3 control-lable" for="rdescription">description</label>
+                            <div class ="form-group" ng-class="{'has-error' : reportForm.descr.$invalid $$ reportForm.descr.$dirty}" show-errors>
                                 <div class="col-md-6">
-                                    <input type="text"  ng-model="rc.report.description" id="rdescription" class="form-control input-sm" placeholder="report description">
+                                    <label class="control-lable col-md-3"  for="rdescription">description</label>
+                                    <input type="text"  ng-model="rc.report.description" name="descr" id="rdescription" class="form-control" placeholder="report description" required>
                                 </div>
                             </div>
                             </div>
 
                             <div class="row">
-                            <div class ="form-group col-md-8 ">
-                                <label class="col-md-3 control-lable" >date</label>
+                            <div class ="form-group">
                                 <div class="col-md-6">
+                                    <label class="control-lable col-md-3" >date</label>
                                     <input  type="text" ng-model="rc.report.creationDate" placeholder="date...." class="form-control" >
                                 </div>
                             </div>
                             </div>
 
                             <div class="row">
-                            <div class ="form-group col-md-8 ">
-                                <label class="col-md-3 control-lable" for="rpath">path</label>
+                            <div class ="form-group ">
                                 <div class="col-md-6">
+                                    <label class="control-lable col-md-3" for="rpath">path</label>
                                     <input  type="text" ng-model="rc.report.filePath" class="form-control" id = "rpath" placeholder="path...">
                                 </div>
                             </div>
                             </div>
                             
                             <div class="row">
-                            <div class="form-group col-md-8">
-                                <div class="col-md-3">
-                                    <input type="submit" value="{{!rc.report.reportId ? 'Add' : 'Update'}}" class="btn btn-primary btn-sm" ng-disabled="osbbForm.$invalid">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <input type="submit" value="{{!rc.report.reportId ? 'Add' : 'Update'}}" class="btn btn-primary btn-sm" ng-disabled="reportForm.$invalid">
                                     <!--<button type="button" ng-click="rc.reset()" class = "btn btn-warning btn-sm" ng-disabled ="reportForm.$pristine">Reset</button>-->
 
                                 </div>
@@ -254,7 +256,7 @@
                 </div>
 
                 <div class="col-md-6" >
-                    <div class="tablecontainer" style="overflow:auto; height:300px; width:100% ">
+                    <div class="tablecontainer" style="overflow:auto; height:400px; width:100% ">
                         
                     <table class="table table-striped">
 
@@ -278,11 +280,13 @@
                                 <td><span class="small" ng-bind="r.name"></span></td>
                                 <td><span class="small" ng-bind="r.description"></span></td>
                                 <td><span class="small" ng-bind="r.creationDate"></span></td>
-                                <td><a><span class="small" ng-bind="r.filePath"></span></a></td>
-                                <td><button type="button" ng-click="rc.edit(r.reportId)"
-                                class="btn btn-success btn-sm">Edit</button>
-                                <button type="button" ng-click="rc.remove(r.reportId)"
-                                class="btn btn-warning btn-sm">Delete</button>
+                                <td><a href="{{r.filePath}}"/>{{r.filePath.length==0?"":r.name}}</td>
+                                <td><div class="row">
+                                    <button type="button" ng-click="rc.edit(r.reportId)"
+                                            class="btn btn-success btn-sm">Edit</button>
+                                    <button type="button" ng-click="rc.remove(r.reportId)"
+                                            class="btn btn-warning btn-sm">Delete</button>
+                                    </div>
                                 </td>
                             </tr>
                      </tbody>

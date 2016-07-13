@@ -44,6 +44,7 @@ public class ReportController {
 
         reportList.stream().forEach((report) -> resourceReportList.add(addResourceLinkToReport(report)));
 
+
         return new ResponseEntity<>(resourceReportList, HttpStatus.OK);
     }
 
