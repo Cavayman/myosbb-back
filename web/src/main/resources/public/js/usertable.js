@@ -43,35 +43,29 @@ function deleteUserById() {
     show();
 };
 
-// $('#userAdd').click(addUser());
-//
-// function addUser(){
-//
-//     var value = $( '#firstNameId' ).attr("val");
-//     var value32 = $( '#firstNameId' ).attr('value');
-//     alert($('#firstNameId').val());
-//     alert($('#firstNameId').text());
-//     alert($("#firstNameId").val());
-//     alert($("#firstNameId").text());
-//
-// //         var json={
-// //         "firstName": $('#firstName').val(),
-// //         "lastName": $('#lastName').val(),
-// //         "birthDate":new Date(),
-// //         "email": $('#uemail').val(),
-// //         "phoneNumber": $('#uNumber').val(),
-// //         "password": $('#firstName').val(),
-// //         "gender": $('#lastName').val(),
-// //     };
-// //
-// //     $.ajax({
-// //         url : "user/",
-// //         type : 'POST',
-// //         data : JSON.stringify(json),
-// //         contentType : "application/json",
-// //         success : function() {
-// //         console.log("OK");
-// //     }
-// // });
-// // show();
-// }
+$('#userAdd').click(addUser());
+
+function addUser(){
+    if($('#firstNameId').val().length>0) {
+        var json = {
+            "firstName": $('#firstNameId').val(),
+            "lastName": $('#lastName').val(),
+            "birthDate": new Date(),
+            "email": $('#uemail').val(),
+            "phoneNumber": $('#uNumber').val(),
+            "password": $('#firstNameId').val(),
+            "gender": $('#lastName').val(),
+        };
+
+        $.ajax({
+            url: "user/",
+            type: 'POST',
+            data: JSON.stringify(json),
+            contentType: "application/json",
+            success: function () {
+                console.log("OK");
+            }
+        });
+        show();
+    }
+}
