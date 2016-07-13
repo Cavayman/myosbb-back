@@ -27,8 +27,7 @@
 
     <!-- Custom CSS -->
     <link href="css/stylish-portfolio.css" rel="stylesheet">
-<!--Custom js-->
-    <script src="js/usertable.js"></script>
+
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
@@ -316,7 +315,7 @@
 
 
     <!-- User -->
-    <section id="report" class="about">
+    <section id="user" class="about">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -336,18 +335,18 @@
                             <input type="hidden" ng-model="uc.userr.userId" id="uid">
                                 <div class="row">
                                     <div class ="form-group col-md-12 ">
-                                        <label class="col-md-3 control-lable" for="rname">Ім'я</label>
-                                            <div class="col-md-9">
-                                                <input type="text" ng-model="uc.user.firstName" id="rname" class="form-control" placeholder="User name">
+                                        <label class="col-md-4 control-lable" for="rname">Ім'я</label>
+                                            <div class="col-md-8">
+                                                <input type="text"  id="firstNameId" class="form-control" placeholder="User name">
                                         </div>
                                     </div>
                                 </div>
 
                             <div class="row">
                             <div class ="form-group col-md-12">
-                                <label class="col-md-3 control-lable" f>Фамілія</label>
-                                <div class="col-md-9">
-                                    <input type="text"  ng-model="uc.user.lastName" id="ulast" class="form-control input-sm" placeholder="User lastName">
+                                <label class="col-md-4 control-lable" f>Фамілія</label>
+                                <div class="col-md-8">
+                                    <input type="text"  id="lastName" class="form-control" placeholder="User lastName">
                                 </div>
                             </div>
                             </div>
@@ -355,26 +354,26 @@
 
                             <div class="row">
                             <div class ="form-group col-md-12 ">
-                                <label class="col-md-3 control-lable" >Birdth</label>
-                                <div class="col-md-9">
-                                    <input  type="text" ng-model="uc.user.birthDate" placeholder="date..." class="form-control" >
+                                <label class="col-md-4 control-lable" >Birdth</label>
+                                <div class="col-md-8">
+                                    <input  type="text" placeholder="date..." class="form-control" >
                                 </div>
                             </div>
                             </div>
 
 <div class="row">
                             <div class ="form-group col-md-12">
-                                <label class="col-md-3 control-lable" for="rdescription">Телефон</label>
-                                <div class="col-md-9">
-                                    <input type="text"  ng-model="uc.user.phoneNumber" id="uNumber" class="form-control input-sm" placeholder="phone...">
+                                <label class="col-md-4 control-lable" for="rdescription">Телефон</label>
+                                <div class="col-md-8">
+                                    <input type="text" id="uNumber" class="form-control " placeholder="phone...">
                                 </div>
                             </div>
                             </div>
                             <div class="row">
                             <div class ="form-group col-md-12">
-                                <label class="col-md-3 control-lable" for="rdescription">e-mail</label>
-                                <div class="col-md-9">
-                                    <input type="text"  ng-model="uc.user.email" id="uemail" class="form-control input-sm" placeholder="report description">
+                                <label class="col-md-4 control-lable" for="rdescription">e-mail</label>
+                                <div class="col-md-8">
+                                    <input type="text" id="uemail" class="form-control" placeholder="report description">
                                 </div>
                             </div>
                             </div>
@@ -382,8 +381,8 @@
                             
                             <div class="row">
                             <div class="form-group col-md-12">
-                                <div class="col-md-9">
-                                    <input id="userAdd" type="submit" value="Add" class="btn col-md-12 btn-primary btn-sm" ng-disabled="osbbForm.$invalid">
+                                <div class="col-md-12">
+                                    <input id="userAdd" type="submit" value="Add" class="btn col-md-12 btn-primary "">
                                 </div>
                             </div>    
                     </div>
@@ -603,17 +602,7 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
-    <script type="text/javascript">
 
-            // When the document is ready
-            $(document).ready(function () {
-
-                $('#example1').datepicker({
-                    format: "yyyy-mm-dd"
-                });  
-            
-            });
-        </script>
 
     <!-- Custom Theme JavaScript -->
     <script>
@@ -667,28 +656,9 @@
             }
         }
     });
-    // Disable Google Maps scrolling
-    // See http://stackoverflow.com/a/25904582/1607849
-    // Disable scroll zooming and bind back the click event
-    var onMapMouseleaveHandler = function(event) {
-        var that = $(this);
-        that.on('click', onMapClickHandler);
-        that.off('mouseleave', onMapMouseleaveHandler);
-        that.find('iframe').css("pointer-events", "none");
-    }
-    var onMapClickHandler = function(event) {
-            var that = $(this);
-            // Disable the click handler until the user leaves the map area
-            that.off('click', onMapClickHandler);
-            // Enable scrolling zoom
-            that.find('iframe').css("pointer-events", "auto");
-            // Handle the mouse leave event
-            that.on('mouseleave', onMapMouseleaveHandler);
-        }
-        // Enable map zooming with mouse scroll when the user clicks the map
-    $('.map').on('click', onMapClickHandler);
     </script>
-
+    <!--Custom js-->
+    <script src="js/usertable.js"></script>
 </body>
 
 </html>
