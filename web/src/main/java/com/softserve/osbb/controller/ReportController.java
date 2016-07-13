@@ -101,7 +101,7 @@ public class ReportController {
         List<Report> reportsBySearchTerm = reportService.getAllReportsBySearchTerm(searchParam);
         if (reportsBySearchTerm.isEmpty()) {
             logger.warn("no reports were found");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(EMPTY_LIST, HttpStatus.OK);
         }
         List<Resource<Report>> resourceReportList = new ArrayList<>();
         reportsBySearchTerm.stream().forEach((report) -> resourceReportList.add(addResourceLinkToReport(report)));
@@ -109,10 +109,15 @@ public class ReportController {
     }
 
     @RequestMapping(value = "/report/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Report> deleteReportById(@PathVariable("id") Integer reportId) {
-        logger.info("removing report by id: " + reportId);
-        reportService.deleteReportById(reportId);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Resource<Report>> deleteReportById(@PathVariable("id") Integer reportId) {
+        Report reportToDelete = reportService.getReportById(reportId);
+        if (reportToDelete != null) {
+            logger.info("removing report by id: " + reportId);
+            reportService.deleteReportById(reportId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        logger.warn("no report was found under the id: " + reportId);
+        return new ResponseEntity<>(EMPTY_REPORT_LINK, HttpStatus.NOT_MODIFIED);
     }
 
     @RequestMapping(value = "/report", method = RequestMethod.DELETE)
