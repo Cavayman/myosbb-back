@@ -24,6 +24,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
  * Created by cavayman on 12.07.2016.
  */
 @RestController
+@RequestMapping(value="restful/")
 public class UserController {
 
     private static Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -85,8 +86,6 @@ public class UserController {
 
         Resource<User> resource = new Resource<User>(user);
         resource.add(linkTo(methodOn(UserController.class).getUser(user.getUserId().toString())).withSelfRel());
-
-
         return resource;
 
     }
