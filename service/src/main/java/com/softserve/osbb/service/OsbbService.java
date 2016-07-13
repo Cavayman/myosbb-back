@@ -11,9 +11,9 @@ public interface OsbbService {
 
     Osbb addOsbb(Osbb osbb);
 
-    void deleteOsbbById(Integer id);
+    Osbb getOsbb(Integer id);
 
-    Osbb getOsbbByName(String name);
+    Osbb getOsbb(String name);
 
     List<Osbb> getAllOsbb();
 
@@ -21,9 +21,11 @@ public interface OsbbService {
 
     boolean existsOsbb(Integer id);
 
-    Osbb getOsbbById(Integer id);
-
     Osbb updateOsbb(Osbb osbb);
+
+    void deleteOsbb(Integer id);
+
+    void deleteOsbb(Osbb osbb);
 
     void deleteAllOsbb();
 

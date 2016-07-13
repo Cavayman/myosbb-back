@@ -18,22 +18,27 @@ public class VoteServiceImpl implements VoteService {
     VoteRepository voteRepository;
 
     @Override
-    public Vote addVote(Vote vote) throws Exception {
+    public Vote addVote(Vote vote) {
         return voteRepository.saveAndFlush(vote);
     }
 
     @Override
-    public Vote getVoteById(Integer id) throws Exception {
+    public Vote getVoteById(Integer id) {
         return voteRepository.getOne(id);
     }
 
     @Override
-    public List<Vote> getAllVotes() throws Exception {
+    public List<Vote> getAllVotes() {
         return voteRepository.findAll();
     }
 
     @Override
-    public Vote updateVote(Vote vote) throws Exception {
+    public boolean existsVote(Integer id) {
+        return voteRepository.exists(id);
+    }
+
+    @Override
+    public Vote updateVote(Vote vote) {
 
         int voteId = vote.getVoteId();
 
@@ -48,18 +53,28 @@ public class VoteServiceImpl implements VoteService {
 
         } else {
 
-            throw new Exception("Vote with id=" + voteId
+            throw new IllegalArgumentException("Vote with id=" + voteId
                     + " doesn't exist.");
         }
     }
 
     @Override
-    public void deleteVoteById(Integer id) throws Exception {
+    public void deleteVote(Integer id) {
         voteRepository.delete(id);
     }
 
     @Override
-    public void deleteAllVotes() throws Exception {
+    public void deleteVote(Vote vote) {
+        voteRepository.delete(vote);
+    }
+
+    @Override
+    public void deleteAllVotes() {
         voteRepository.deleteAll();
+    }
+
+    @Override
+    public long countVotes() {
+        return voteRepository.count();
     }
 }

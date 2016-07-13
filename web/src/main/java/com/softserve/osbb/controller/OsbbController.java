@@ -23,7 +23,7 @@ public class OsbbController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Osbb getOsbbById(@PathVariable("id") Integer osbbId) {
 
-        return osbbService.getOsbbById(osbbId);
+        return osbbService.getOsbb(osbbId);
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)

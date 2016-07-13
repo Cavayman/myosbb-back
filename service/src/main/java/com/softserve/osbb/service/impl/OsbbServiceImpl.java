@@ -24,11 +24,22 @@ public class OsbbServiceImpl implements OsbbService {
     }
 
     @Override
-    public Osbb getOsbbByName(String name) {
+    public Osbb getOsbb(Integer id) {
+
+        return osbbRepository.getOne(id);
+    }
+
+    @Override
+    public Osbb getOsbb(String name) {
 
         return osbbRepository.getByName(name);
     }
 
+    @Override
+    public List<Osbb> getAllOsbb() {
+
+        return osbbRepository.findAll();
+    }
 
     @Override
     public long countOsbb() {
@@ -40,18 +51,6 @@ public class OsbbServiceImpl implements OsbbService {
     public boolean existsOsbb(Integer id) {
 
         return osbbRepository.exists(id);
-    }
-
-    @Override
-    public Osbb getOsbbById(Integer id) {
-
-        return osbbRepository.getOne(id);
-    }
-
-    @Override
-    public List<Osbb> getAllOsbb() {
-
-        return osbbRepository.findAll();
     }
 
     @Override
@@ -80,9 +79,15 @@ public class OsbbServiceImpl implements OsbbService {
     }
 
     @Override
-    public void deleteOsbbById(Integer id) {
+    public void deleteOsbb(Integer id) {
 
         osbbRepository.delete(id);
+    }
+
+    @Override
+    public void deleteOsbb(Osbb osbb) {
+
+        osbbRepository.delete(osbb);
     }
 
     @Override
