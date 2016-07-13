@@ -4,95 +4,121 @@ import com.softserve.osbb.model.Contract;
 import com.softserve.osbb.repository.ContractRepository;
 import com.softserve.osbb.service.ContractService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * Created by Roma on 12/07/2016.
+ * Created by Roma on 13/07/2016.
  */
-
+@Service
 public class ContractServiceImpl implements ContractService {
 
-    private static final List<Contract> EMPTY_LIST = new CopyOnWriteArrayList<>();
-    private static final Contract EMPTY_REPORT = new Contract();
-
     @Autowired
-    private ContractRepository contractRepository;
+    ContractRepository contractRepository;
 
     @Override
-    public Contract addContract(Contract contract) throws Exception {
-        return contract == null ? null : addContractIfNotExists(contract);
-    }
-    private Contract addContractIfNotExists(Contract contract) throws Exception {
-
-        boolean isExisted = contractRepository.exists(contract.getContractId());
-
-        if (isExisted) {
-            throw new Exception("contract under id: " + contract.getContractId() + " already exists");
-        }
-
+    public Contract save(Contract contract) {
         return contractRepository.save(contract);
-
     }
-
 
     @Override
-    public Contract updateContract(Integer contractId, Contract contract) throws Exception {
-        return contract == null ? null : updateContractIfExists(contractId, contract);
+    public Contract findOne(Integer integer) {
+        return contractRepository.findOne(integer);
     }
 
-    private Contract updateContractIfExists(Integer contractId, Contract contract) throws Exception {
-
-        boolean isExisted = contractRepository.exists(contractId);
-
-        if (!isExisted) {
-            throw new Exception("contract under id: " + contract.getContractId() + " doesn't exist and thus" +
-                    " cannot be updated");
-
+    @Override
+    public Contract findOne(String id) {
+        try {
+            return contractRepository.findOne(Integer.parseInt(id));
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
         }
-        return contractRepository.save(contract);
-
-    }
-
-    @Override
-    public Contract getContractById(Integer contractId) throws Exception {
-        return contractRepository.findOne(contractId);
-    }
-
-    @Override
-    public Contract getOneContractBySearchTerm(String searchTerm) throws Exception {
         return null;
     }
 
     @Override
-    public List<Contract> getAllContractsBySearchTerm(String searchTerm) throws Exception {
-        return null;
+    public boolean exists(Integer integer) {
+        return contractRepository.exists(integer);
     }
 
     @Override
-    public List<Contract> getAllContractsBetweenDates(LocalDateTime from, LocalDateTime to) throws Exception {
-        return null;
-    }
-
-    @Override
-    public List<Contract> getAllContracts() throws Exception {
+    public List<Contract> findAll() {
         return contractRepository.findAll();
     }
 
     @Override
-    public List<Contract> showLatestContracts() throws Exception {
-        return null;
+    public List<Contract> findAll(Sort sort) {
+        return contractRepository.findAll(sort);
     }
 
     @Override
-    public void deleteAll() throws Exception {
+    public Page<Contract> findAll(Pageable pageable) {
+        return contractRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Contract> findAll(Iterable<Integer> iterable) {
+        return contractRepository.findAll(iterable);
+    }
+
+    @Override
+    public long count() {
+        return contractRepository.count();
+    }
+
+    @Override
+    public void delete(Integer integer) {
+        contractRepository.delete(integer);
+    }
+
+    @Override
+    public void delete(Contract contract) {
+        contractRepository.delete(contract);
+    }
+
+    @Override
+    public void delete(Iterable<? extends Contract> iterable) {
+            contractRepository.delete(iterable);
+    }
+
+    @Override
+    public void deleteAll() {
         contractRepository.deleteAll();
     }
 
     @Override
-    public void deleteContractById(Integer contractId) throws Exception {
-        contractRepository.delete(contractId);
+    public void flush() {
+        contractRepository.flush();
     }
+
+    @Override
+    public void deleteInBatch(Iterable<Contract> iterable) {
+        contractRepository.deleteInBatch(iterable);
+    }
+
+    @Override
+    public void deleteAllInBatch() {
+        contractRepository.deleteAllInBatch();
+    }
+
+    @Override
+    public Contract getOne(Integer integer) {
+        return contractRepository.getOne(integer);
+    }
+
+    @Override
+    public Contract saveAndFlush(Contract contract) {
+        return contractRepository.saveAndFlush(contract);
+    }
+
+    @Override
+    public List<Contract> save(Iterable<Contract> iterable) {
+        return contractRepository.save(iterable);
+    }
+
+
 }

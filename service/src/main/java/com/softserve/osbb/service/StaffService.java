@@ -2,6 +2,7 @@ package com.softserve.osbb.service;
 
 import com.softserve.osbb.model.Staff;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 /**
@@ -29,4 +30,6 @@ public interface StaffService {
     long countStaffs();
 
     boolean existsStaff(Integer id);
+
+    Staff updateStaff(Integer id, Staff staff) throws EntityNotFoundException;
 }

@@ -2,6 +2,9 @@ package com.softserve.osbb.repository;
 
 import com.softserve.osbb.PersistenceConfiguration;
 import com.softserve.osbb.model.Provider;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -9,15 +12,12 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.transaction.annotation.Transactional;
-import org.testng.Assert;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
 import java.util.List;
 import java.util.TreeSet;
 
 
 /**
- * Created by Aska on 05.07.2016.
+ * Created by Anastasiia Fedorak on 05.07.2016.
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,7 +28,7 @@ public class ProviderRepositoryTest extends AbstractTestNGSpringContextTests {
     private Provider provider;
 
 
-    @BeforeTest
+    @Before
     public void init() {
         provider = new Provider();
         provider.setName("Garbage collector");
@@ -53,12 +53,18 @@ public class ProviderRepositoryTest extends AbstractTestNGSpringContextTests {
         Assert.assertNotNull(providerRepository.save(providers));
     }
 
-    @Test(dependsOnMethods = {"testSave"})
+    @Test
     public void testCount() {
+        TreeSet<Provider> providers = new TreeSet<>();
+        providers.add(provider);
+        providers.add(new Provider("A"));
+        providers.add(new Provider("C"));
+        providers.add(new Provider("B"));
+        providerRepository.save(providers);
         Assert.assertTrue(providerRepository.count()>3);
     }
 
-    @Test(dependsOnMethods = {"testCount"})
+    @Test
     public void testFindAndDelete() {
         Integer providerID = providerRepository.save(provider).getProviderId();
         Assert.assertTrue(providerRepository.exists(providerID));
@@ -74,6 +80,11 @@ public class ProviderRepositoryTest extends AbstractTestNGSpringContextTests {
         }
         providerRepository.deleteAll();
         Assert.assertTrue(providerRepository.count()==0);
+    }
+
+    @Test
+    public void testFindProvidersByNameOrDescription(){
+        Assert.assertFalse(providerRepository.findProvidersByNameOrDescription("Garbage").isEmpty());
     }
 
 }
