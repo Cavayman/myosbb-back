@@ -21,7 +21,19 @@
               },
               {
                 "column": {
-                  "name": "address",
+                  "name": "street",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column":{
+                  "name": "city",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column":{
+                  "name":"zip_code",
                   "type": "VARCHAR(255)"
                 }
               },

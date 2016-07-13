@@ -13,7 +13,9 @@ import java.util.Collection;
 @Table(name = "house")
 public class House {
     private Integer houseId;
-    private String address;
+    private String city;
+    private String street;
+    private String zipCode;
     private Collection<Apartment> apartments;
     private Osbb osbb;
 
@@ -21,8 +23,8 @@ public class House {
         //default
     }
 
-    public House(String address) {
-        this.address = address;
+    public House(String street) {
+        this.street = street;
     }
 
     @Id
@@ -37,13 +39,33 @@ public class House {
     }
 
     @Basic
-    @Column(name = "address")
-    public String getAddress() {
-        return address;
+    @Column(name = "street")
+    public String getStreet() {
+        return street;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setStreet(String address) {
+        this.street = address;
+    }
+
+    @Basic
+    @Column(name = "city")
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    @Basic
+    @Column(name = "zip_code")
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 
     @Override

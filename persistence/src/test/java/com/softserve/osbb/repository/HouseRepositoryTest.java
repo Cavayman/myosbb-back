@@ -31,7 +31,7 @@ public class HouseRepositoryTest {
     @Before
     public void init(){
         house = new House();
-        house.setAddress(TEST_ADDRESS_NAME);
+        house.setStreet(TEST_ADDRESS_NAME);
     }
 
 
@@ -44,7 +44,7 @@ public class HouseRepositoryTest {
 
         assertNotEquals(0, (long) house.getHouseId());
 
-        assertEquals(TEST_ADDRESS_NAME, house.getAddress());
+        assertEquals(TEST_ADDRESS_NAME, house.getStreet());
 
         boolean houseExistsVal = houseRepository.exists(house.getHouseId());
 
