@@ -33,6 +33,6 @@ public interface ProviderService {
 
     Provider updateProvider(Integer providerId, Provider provider) throws Exception;
 
-    List<Provider> findProvidersByName(String name);
+    List<Provider> findProvidersByNameOrDescription(String name);
 
 }

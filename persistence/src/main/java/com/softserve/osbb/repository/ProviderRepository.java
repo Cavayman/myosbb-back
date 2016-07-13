@@ -15,7 +15,8 @@ import java.util.List;
 @Repository
 public interface ProviderRepository extends JpaRepository<Provider, Integer>{
 
-    @Query("Select provider From Provider provider where LOWER(provider.name) LIKE LOWER(CONCAT('%',:name,'%'))")
-    List<Provider> findProvidersByName(@Param("name") String name);
+    @Query("Select provider From Provider provider where LOWER(provider.name) LIKE LOWER(CONCAT('%',:search,'%'))" +
+            " or LOWER(provider.description) LIKE LOWER(CONCAT('%',:search,'%'))")
+    List<Provider> findProvidersByNameOrDescription(@Param("search") String search);
 }
 
