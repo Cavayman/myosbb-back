@@ -6,6 +6,7 @@ import com.softserve.osbb.service.ProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 /**
@@ -73,11 +74,11 @@ public class ProviderServiceImpl implements ProviderService {
     }
 
     @Override
-    public Provider updateProvider(Integer providerId, Provider provider) throws Exception {
+    public Provider updateProvider(Integer providerId, Provider provider) throws EntityNotFoundException {
         boolean isExisted = providerRepository.exists(providerId);
 
         if (!isExisted) {
-            throw new Exception("provider under id: " + provider.getProviderId() + " doesn't exist and thus" +
+            throw new EntityNotFoundException("provider under id: " + provider.getProviderId() + " doesn't exist and " +
                     " cannot be updated");
         }
         return providerRepository.save(provider);
