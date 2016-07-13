@@ -19,6 +19,10 @@ public class OsbbServiceImpl implements OsbbService {
 
     @Override
     public Osbb addOsbb(Osbb osbb) {
+
+        if(osbb == null) {
+            return null;
+        }
         return osbbRepository.saveAndFlush(osbb);
     }
 
@@ -48,25 +52,11 @@ public class OsbbServiceImpl implements OsbbService {
     }
 
     @Override
-    public Osbb updateOsbb(Osbb osbb){
-
-        int osbbId = osbb.getOsbbId();
-
+    public Osbb updateOsbb(Integer osbbId, Osbb osbb){
         if(osbbRepository.exists(osbbId)) {
-
-            Osbb updatedOsbb = osbbRepository.getOne(osbbId);
-            updatedOsbb.setName(osbb.getName());
-            updatedOsbb.setDescription(osbb.getDescription());
-            updatedOsbb.setCreatorId(osbb.getCreatorId());
-            updatedOsbb.setContracts(osbb.getContracts());
-            updatedOsbb.setEvents(osbb.getEvents());
-            updatedOsbb.setHouses(osbb.getHouses());
-            updatedOsbb.setReports(osbb.getReports());
-            updatedOsbb.setStaffs(osbb.getStaffs());
-            return updatedOsbb;
-
+            osbb.setOsbbId(osbbId);
+            return osbbRepository.save(osbb);
         } else {
-
             throw new IllegalArgumentException("Osbb with id=" + osbbId
                     + " doesn't exist. First try to add this osbb.");
         }
@@ -74,19 +64,16 @@ public class OsbbServiceImpl implements OsbbService {
 
     @Override
     public void deleteOsbb(Integer id) {
-
         osbbRepository.delete(id);
     }
 
     @Override
     public void deleteOsbb(Osbb osbb) {
-
         osbbRepository.delete(osbb);
     }
 
     @Override
     public void deleteAllOsbb() {
-
         osbbRepository.deleteAll();
     }
 }
