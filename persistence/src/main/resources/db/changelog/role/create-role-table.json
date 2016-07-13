@@ -11,6 +11,7 @@
               {
                 "column": {
                   "constraints": {
+                    "primaryKey": true,
                     "nullable": false
                   },
                   "name": "role_id",
@@ -24,23 +25,6 @@
                 }
               }]
           ,
-            "tableName": "role"
-          }
-        }]
-
-    }
-  },
-
-  {
-    "changeSet": {
-      "id": "2016/07/10-18",
-      "author": "nataliia (generated)",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "addPrimaryKey": {
-            "columnNames": "role_id",
-            "constraintName": "role_pkey",
             "tableName": "role"
           }
         }]

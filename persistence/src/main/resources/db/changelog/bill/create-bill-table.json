@@ -61,28 +61,5 @@
         }]
 
     }
-  },
-
-  {
-    "changeSet": {
-      "id": "2016/07/10-27",
-      "author": "nataliia (generated)",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "addForeignKeyConstraint": {
-            "baseColumnNames": "apartment_id",
-            "baseTableName": "bill",
-            "constraintName": "fk_fbn4j90nmy01iojt59n92ifp",
-            "deferrable": false,
-            "initiallyDeferred": false,
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "referencedColumnNames": "apartment_id",
-            "referencedTableName": "apartment"
-          }
-        }]
-
-    }
   }]
 }

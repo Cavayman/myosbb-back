@@ -37,51 +37,5 @@
         }]
 
     }
-  },
-
-  {
-    "changeSet": {
-      "id": "2016/07/10-24",
-      "author": "nataliia (generated)",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "addForeignKeyConstraint": {
-            "baseColumnNames": "osbb_id",
-            "baseTableName": "staff",
-            "constraintName": "fk_c70sx2xd4bcbgm49csovv5cp3",
-            "deferrable": false,
-            "initiallyDeferred": false,
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "referencedColumnNames": "osbb_id",
-            "referencedTableName": "osbb"
-          }
-        }]
-
-    }
-  },
-
-  {
-    "changeSet": {
-      "id": "2016/07/10-32",
-      "author": "nataliia (generated)",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "addForeignKeyConstraint": {
-            "baseColumnNames": "role_id",
-            "baseTableName": "staff",
-            "constraintName": "fk_kcbkem9hbgutpt0b3u5jgyf5",
-            "deferrable": false,
-            "initiallyDeferred": false,
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "referencedColumnNames": "role_id",
-            "referencedTableName": "role"
-          }
-        }]
-
-    }
   }]
 }
