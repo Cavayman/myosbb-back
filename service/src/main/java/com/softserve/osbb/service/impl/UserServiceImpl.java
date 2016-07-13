@@ -22,16 +22,30 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
-        return userRepository.save(user);
+
+            return userRepository.save(user);
     }
+
 
     @Override
     public User findOne(Integer integer) {
+
         return userRepository.findOne(integer);
     }
 
     @Override
+    public User findOne(String id) {
+        try {
+            return userRepository.findOne(Integer.parseInt(id));
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public boolean exists(Integer integer) {
+
         return userRepository.exists(integer);
     }
 
@@ -61,13 +75,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(Integer integer) {
+    public void delete(Integer integer)
+    {   if(exists(integer))
         userRepository.delete(integer);
+
+
     }
 
     @Override
     public void delete(User user) {
-        userRepository.delete(user);
+        if(exists(user.getUserId()))
+            userRepository.delete(user.getUserId());
+
     }
 
     @Override

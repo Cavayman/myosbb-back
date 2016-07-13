@@ -1,6 +1,5 @@
 package com.softserve.osbb.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -81,13 +80,6 @@ public class Osbb {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", creatorId=" + creatorId +
-
-//                Do not use fields with lazy initialization in toString()
-//                ", contracts=" + contracts +
-//                ", events=" + events +
-//                ", houses=" + houses +
-//                ", reports=" + reports +
-//                ", staffs=" + staffs +
                 '}';
     }
 

@@ -1,11 +1,15 @@
 package com.softserve.osbb.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.softserve.osbb.utils.CustomLocalDateTimeDeserializer;
+import com.softserve.osbb.utils.CustomLocalDateTimeSerializer;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -19,7 +23,7 @@ public class Event {
 
     private Integer eventId;
     private String name;
-    private Date date;
+    private LocalDate date;
     private String description;
     private String author;
     private Osbb osbb;
@@ -48,12 +52,14 @@ public class Event {
     }
 
     @Basic
+    @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
     @Column(name = "date")
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -78,6 +84,7 @@ public class Event {
     }
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "osbb_id", referencedColumnName = "osbb_id")
     public Osbb getOsbb() {
         return osbb;

@@ -2,6 +2,7 @@ package com.softserve.osbb.service;
 
 import com.softserve.osbb.model.Event;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -9,19 +10,27 @@ import java.util.List;
  */
 public interface EventService {
 
-    void saveEvent(Event event);
+    Event addEvent(Event event);
 
-    void saveEventList(List<Event> list);
+    List<Event> addEvents(List<Event> list);
 
-    Event findOneEventByID(Integer id);
+    Event getEventById(Integer id);
 
-    List<Event> findAllEventsByIDs(List<Integer> ids);
+    List<Event> getListEvents(List<Integer> ids);
 
-    List<Event> findAllEvents();
+    Event getOneEventBySearchTerm(String searchTerm);
+
+    List<Event> getAllEventsBySearchTerm(String searchTerm);
+
+    List<Event> getAllEventsBetweenDates(LocalDateTime from, LocalDateTime to);
+
+    List<Event> getAllEvents();
+
+    Event updateEvent(Integer id, Event event) throws Exception;
 
     void deleteEvent(Event event);
 
-    void deleteEventByID(Integer id);
+    void deleteEventById(Integer id);
 
     void deleteListEvents(List<Event> list);
 
@@ -29,6 +38,6 @@ public interface EventService {
 
     long countEvents();
 
-    boolean exitsEvent(Integer id);
+    boolean existsEvent(Integer id);
 
 }

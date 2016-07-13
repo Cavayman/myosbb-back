@@ -28,5 +28,5 @@ public interface AttachmentService {
 
     long countAttachments();
 
-    boolean exitsAttachment(Integer id);
+    boolean existsAttachment(Integer id);
 }

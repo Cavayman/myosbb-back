@@ -3,7 +3,6 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.softserve.edu.ita</groupId>
 	<artifactId>persistence</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
@@ -28,6 +27,7 @@
 		<jackson-annotations>2.3.3</jackson-annotations>
 		<jackson-databind>2.6.7</jackson-databind>
         <!--<liquibase-maven-plugin.version>3.5.1</liquibase-maven-plugin.version>-->
+		<mockito.version>1.10.19</mockito.version>
 	</properties>
 
 	<build>
@@ -78,9 +78,10 @@
                 <!--<version>${liquibase-maven-plugin.version}</version>-->
                 <!--<configuration>-->
                     <!--<outputChangeLogFile>db.changelog-master.json</outputChangeLogFile>-->
-                    <!--<url>jdbc:postgresql://localhost:5432/myosbb</url>-->
-                    <!--<username>postgres</username>-->
-                    <!--<password>root</password>-->
+                    <!--<diffChangeLogFile>db.changelog-master-1.json</diffChangeLogFile>-->
+                    <!--<url>jdbc:postgresql://fizzy-cherry.db.elephantsql.com:5432/aqzreszw</url>-->
+                    <!--<username>aqzreszw</username>-->
+                    <!--<password>Fi8O8oJfDiGcIkASAL8fR6snko57_S_T</password>-->
                 <!--</configuration>-->
                 <!--<executions>-->
                     <!--<execution>-->
@@ -90,18 +91,18 @@
                         <!--</goals>-->
                     <!--</execution>-->
                 <!--</executions>-->
+				<!--<dependencies>-->
+					<!--<dependency>-->
+					<!--<groupId>org.liquibase</groupId>-->
+					<!--<artifactId>liquibase-maven-plugin</artifactId>-->
+					<!--<version>${liquibase-maven-plugin.version}</version>-->
+					<!--</dependency>-->
+				<!--</dependencies>-->
             <!--</plugin>-->
 		</plugins>
 	</build>
 
 	<dependencies>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-            <version>${spring-boot-starter-data-jpa}</version>
-		</dependency>
-
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
@@ -113,14 +114,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
             <version>${spring-boot-starter-test.version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<!-- JUnit -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -137,15 +130,6 @@
 			<version>${jackson-databind}</version>
 		</dependency>
 
-
-		<!-- TestNG -->
-		<dependency>
-			<groupId>org.testng</groupId>
-			<artifactId>testng</artifactId>
-			<version>${testng.version}</version>
-			<scope>test</scope>
-		</dependency>
-
 		<!-- EqualsBuilder - for generate methods equals and hashCode -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -160,11 +144,13 @@
 			<version>${liquibase-core.version}</version>
 		</dependency>
 
-		<!--<dependency>-->
-			<!--<groupId>org.liquibase</groupId>-->
-			<!--<artifactId>liquibase-maven-plugin</artifactId>-->
-			<!--<version>${liquibase-maven-plugin.version}</version>-->
-		<!--</dependency>-->
+		<!-- Mockito -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>${mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
 
 	</dependencies>
 

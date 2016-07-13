@@ -1,0 +1,47 @@
+{ "databaseChangeLog": [
+  {
+    "changeSet": {
+      "id": "2016/07/10-9",
+      "author": "nataliia (generated)",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "autoIncrement": true,
+                  "constraints": {
+                    "primaryKey": true,
+                    "primaryKeyName": "provider_pkey"
+                  },
+                  "name": "provider_id",
+                  "type": "SERIAL"
+                }
+              },
+              {
+                "column": {
+                  "name": "description",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "logo_url",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "name",
+                  "type": "VARCHAR(255)"
+                }
+              }]
+          ,
+            "tableName": "provider"
+          }
+        }]
+
+    }
+  }]
+}

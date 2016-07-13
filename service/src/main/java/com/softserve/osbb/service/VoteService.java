@@ -10,15 +10,21 @@ import java.util.List;
  */
 public interface VoteService {
 
-    Vote addVote(Vote vote) throws Exception;
+    Vote addVote(Vote vote);
 
-    Vote getVoteById(Integer id)  throws Exception;
+    Vote getVoteById(Integer id);
 
-    List<Vote> getAllVotes()  throws Exception;
+    List<Vote> getAllVotes();
 
-    Vote updateVote(Vote vote)  throws Exception;
+    boolean existsVote(Integer id);
 
-    void deleteVoteById(Integer id)  throws Exception;
+    Vote updateVote(Vote vote);
 
-    void deleteAllVotes()  throws Exception;
+    void deleteVote(Integer id);
+
+    void deleteVote(Vote vote);
+
+    void deleteAllVotes();
+
+    long countVotes();
 }

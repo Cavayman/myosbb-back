@@ -1,0 +1,41 @@
+{ "databaseChangeLog": [
+  {
+    "changeSet": {
+      "id": "2016/07/10-2",
+      "author": "nataliia (generated)",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "autoIncrement": true,
+                  "constraints": {
+                    "primaryKey": true,
+                    "primaryKeyName": "attachment_pkey"
+                  },
+                  "name": "attachment_id",
+                  "type": "SERIAL"
+                }
+              },
+              {
+                "column": {
+                  "name": "path",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "ticket_id",
+                  "type": "INT"
+                }
+              }]
+          ,
+            "tableName": "attachment"
+          }
+        }]
+
+    }
+  }]
+}

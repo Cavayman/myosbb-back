@@ -6,7 +6,9 @@ import com.softserve.osbb.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by nataliia on 10.07.16.
@@ -14,32 +16,74 @@ import java.util.List;
 @Service
 public class EventServiceImpl implements EventService {
 
+    private static final List<Event> EMPTY_LIST = new CopyOnWriteArrayList<>();
+    private static final Event EMPTY_EVENT = new Event();
+
     @Autowired
     EventRepository eventRepository;
 
     @Override
-    public void saveEvent(Event event) {
-        eventRepository.save(event);
+    public Event addEvent(Event event) {
+        return eventRepository.save(event);
     }
 
     @Override
-    public void saveEventList(List<Event> list) {
-        eventRepository.save(list);
+    public List<Event> addEvents(List<Event> list) {
+        return eventRepository.save(list);
     }
 
     @Override
-    public Event findOneEventByID(Integer id) {
+    public Event getEventById(Integer id) {
         return eventRepository.findOne(id);
     }
 
     @Override
-    public List<Event> findAllEventsByIDs(List<Integer> ids) {
+    public List<Event> getListEvents(List<Integer> ids) {
         return eventRepository.findAll(ids);
     }
 
     @Override
-    public List<Event> findAllEvents() {
+    public Event getOneEventBySearchTerm(String searchTerm) {
+        return (searchTerm != null || !searchTerm.isEmpty()) ?
+                eventRepository.getAllEventsBySearchParam(searchTerm)
+                        .stream()
+                        .findFirst()
+                        .get() : EMPTY_EVENT;
+    }
+
+    @Override
+    public List<Event> getAllEventsBySearchTerm(String searchTerm) {
+        return (searchTerm == null || searchTerm.isEmpty()) ? EMPTY_LIST :
+                eventRepository.getAllEventsBySearchParam(searchTerm);
+    }
+
+    @Override
+    public List<Event> getAllEventsBetweenDates(LocalDateTime from, LocalDateTime to) {
+        return eventRepository.getAllEventsBetweenDates(from == null ? LocalDateTime.now() : from,
+                to == null ? LocalDateTime.now() : to);
+    }
+
+    @Override
+    public List<Event> getAllEvents() {
         return eventRepository.findAll();
+    }
+
+    @Override
+    public Event updateEvent(Integer id, Event event) throws Exception {
+        return event == null ? null : updateEventIfExists(id, event);
+    }
+
+    private Event updateEventIfExists(Integer id, Event event) throws Exception {
+
+        boolean isExisted = eventRepository.exists(id);
+
+        if (!isExisted) {
+            throw new Exception("event under id: " + event.getEventId() + " doesn't exist and thus" +
+                    " cannot be updated");
+
+        }
+        return eventRepository.save(event);
+
     }
 
     @Override
@@ -48,7 +92,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void deleteEventByID(Integer id) {
+    public void deleteEventById(Integer id) {
         eventRepository.delete(id);
     }
 
@@ -68,7 +112,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public boolean exitsEvent(Integer id) {
+    public boolean existsEvent(Integer id) {
         return eventRepository.exists(id);
     }
 }
