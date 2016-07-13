@@ -1,0 +1,47 @@
+{ "databaseChangeLog": [
+  {
+    "changeSet": {
+      "id": "2016/07/10-8",
+      "author": "nataliia (generated)",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "autoIncrement": true,
+                  "constraints": {
+                    "primaryKey": true,
+                    "primaryKeyName": "osbb_pkey"
+                  },
+                  "name": "osbb_id",
+                  "type": "SERIAL"
+                }
+              },
+              {
+                "column": {
+                  "name": "creator_id",
+                  "type": "INT"
+                }
+              },
+              {
+                "column": {
+                  "name": "description",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "name",
+                  "type": "VARCHAR(255)"
+                }
+              }]
+          ,
+            "tableName": "osbb"
+          }
+        }]
+
+    }
+  }]
+}

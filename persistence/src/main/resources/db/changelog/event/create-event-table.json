@@ -1,0 +1,65 @@
+{ "databaseChangeLog": [
+  {
+    "changeSet": {
+      "id": "2016/07/10-5",
+      "author": "nataliia (generated)",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "autoIncrement": true,
+                  "constraints": {
+                    "primaryKey": true,
+                    "primaryKeyName": "event_pkey"
+                  },
+                  "name": "event_id",
+                  "type": "SERIAL"
+                }
+              },
+              {
+                "column": {
+                  "name": "author",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "date",
+                  "type": "TIMESTAMP(6) WITHOUT TIME ZONE"
+                }
+              },
+              {
+                "column": {
+                  "name": "description",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "name",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "repeat",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "osbb_id",
+                  "type": "INT"
+                }
+              }]
+          ,
+            "tableName": "event"
+          }
+        }]
+
+    }
+  }]
+}

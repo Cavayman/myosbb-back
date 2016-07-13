@@ -1,0 +1,53 @@
+{ "databaseChangeLog": [
+  {
+    "changeSet": {
+      "id": "2016/07/10-16",
+      "author": "nataliia (generated)",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "autoIncrement": true,
+                  "constraints": {
+                    "primaryKey": true,
+                    "primaryKeyName": "vote_pkey"
+                  },
+                  "name": "vote_id",
+                  "type": "SERIAL"
+                }
+              },
+              {
+                "column": {
+                  "name": "time",
+                  "type": "TIMESTAMP(6) WITHOUT TIME ZONE"
+                }
+              },
+              {
+                "column": {
+                  "name": "vote_value",
+                  "type": "INT"
+                }
+              },
+              {
+                "column": {
+                  "name": "event_id",
+                  "type": "INT"
+                }
+              },
+              {
+                "column": {
+                  "name": "user_id",
+                  "type": "INT"
+                }
+              }]
+          ,
+            "tableName": "vote"
+          }
+        }]
+
+    }
+  }]
+}
