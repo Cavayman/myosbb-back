@@ -5,16 +5,16 @@
 App.controller('EventController', ['$scope', 'EventService',
 
     function ($scope, EventService) {
-        var eventService = this;
+        var eventController = this;
 
-        eventService.event = {eventId: null, name: '', description: '', creationDate: '', filePath: ''};
-        eventService.events = [];
+        eventController.event = {eventId: null, name: '', description: '', creationDate: '', filePath: ''};
+        eventController.events = [];
 
-        eventService.getAllEvents = function () {
+        eventController.getAllEvents = function () {
             EventService.getAllEvents()
                 .then(
                     function (data) {
-                        eventService.events = data;
+                        eventController.events = data;
                     },
                     function (errResponse) {
                         console.error('error while fetching events');
@@ -22,7 +22,7 @@ App.controller('EventController', ['$scope', 'EventService',
                 );
         };
 
-        eventService.createEvent = function (event) {
+        eventController.createEvent = function (event) {
             if (event.creationDate == null || event.creationDate.length == 0) {
                 console.log('specifying date');
                 event.creationDate = new Date().toJSON().slice(0, 10);
@@ -30,66 +30,76 @@ App.controller('EventController', ['$scope', 'EventService',
             }
             EventService.createEvent(event)
                 .then(
-                    eventService.getAllEvents,
+                    eventController.getAllEvents,
                     function (errResponse) {
                         console.error('error while creating event');
                     }
                 );
         };
 
-        eventService.updateEvent = function (event, eventId) {
+        eventController.updateEvent = function (event, eventId) {
             EventService.updateEvent(event, eventId)
                 .then(
-                    eventService.getAllEvents,
+                    eventController.getAllEvents,
                     function (errResponse) {
                         console.error('error while updating event');
                     }
                 );
         };
 
-        eventService.deleteEvent = function (eventId) {
+        eventController.deleteEvent = function (eventId) {
             EventService.deleteEvent(eventId)
                 .then(
-                    eventService.getAllEvents,
+                    eventController.getAllEvents,
                     function (errResponse) {
                         console.error('error while deleting event');
                     }
                 );
         };
 
-        eventService.getAllEvents();
-
-        eventService.submit = function () {
-            if (eventService.event.eventId === null) {
-                console.log('saving new event', eventService.event);
-                eventService.createEvent(eventService.event);
-            } else {
-                var eventId = parseInt(eventService.event.eventId);
-                console.log('updating event', eventService.event);
-                eventService.updateEvent(eventService.event, eventId);
-            }
-            eventService.reset();
+        eventController.deleteAllEvents = function () {
+            EventService.deleteAllEvents()
+                .then(
+                    eventController.getAllEvents,
+                    function (errResponse) {
+                        console.error('error while deleting events');
+                    }
+                );
         };
 
-        eventService.edit = function (eventId) {
+        eventController.getAllEvents();
+
+        eventController.submit = function () {
+            if (eventController.event.eventId === null) {
+                console.log('saving new event', eventController.event);
+                eventController.createEvent(eventController.event);
+            } else {
+                var eventId = parseInt(eventController.event.eventId);
+                console.log('updating event', eventController.event);
+                eventController.updateEvent(eventController.event, eventId);
+            }
+            eventController.reset();
+        };
+
+        eventController.edit = function (eventId) {
             console.log('id to be edited: ' + eventId);
-            for (var i = 0; i < eventService.events.length; i++) {
-                if (eventService.events[i].eventId === eventId) {
-                    eventService.event = angular.copy(eventService.events[i]);
+            for (var i = 0; i < eventController.events.length; i++) {
+                if (eventController.events[i].eventId === eventId) {
+                    eventController.event = angular.copy(eventController.events[i]);
                     break;
                 }
             }
         };
 
-        eventService.remove = function (eventId) {
-            if (eventService.event.eventId === eventId) {
-                eventService.reset();
+        eventController.remove = function (eventId) {
+            if (eventController.event.eventId === eventId) {
+                eventController.reset();
             }
-            eventService.deleteEvent(eventId);
+            eventController.deleteEvent(eventId);
         };
 
-        eventService.reset = function () {
-            eventService.event = {eventId: null, name: '', description: '', creationDate: '', filePath: ''};
+        eventController.reset = function () {
+            eventController.event = {eventId: null, name: '', description: '', creationDate: '', filePath: ''};
             $scope.eventForm.$setPristine();
         }
     }

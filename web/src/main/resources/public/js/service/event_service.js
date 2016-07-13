@@ -56,6 +56,19 @@ App.factory('EventService', ['$http', '$q', function ($http, $q) {
                         return $q.reject(errResponse);
                     }
                 );
+        },
+
+        deleteAllEvents: function () {
+            return $http.delete('/restful/event/')
+                .then(
+                    function (response) {
+                        return response.data;
+                    },
+                    function (errResponse) {
+                        console.error('Error while deleting events');
+                        return $q.reject(errResponse);
+                    }
+                );
         }
     };
 }]);
