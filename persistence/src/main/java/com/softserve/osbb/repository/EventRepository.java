@@ -13,6 +13,6 @@ import java.util.List;
 
 
 @Repository
-public interface EventRepository extends JpaRepository<Event, Integer>/*, JpaSpecificationExecutor<Event>*/ {
+public interface EventRepository extends JpaRepository<Event, Integer> {
 
 }

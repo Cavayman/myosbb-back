@@ -22,7 +22,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
  */
 
 @RestController
-//@RequestMapping("/restful")
+@RequestMapping("/restful")
 public class EventController {
 
     private static Logger logger = LoggerFactory.getLogger(EventController.class);

@@ -2,88 +2,60 @@
  * Created by nataliia on 12.07.16.
  */
 
-App.factory('EventService', [ '$http', '$q', function($http, $q){
+App.factory('EventService', ['$http', '$q', function ($http, $q) {
 
-    return{
+    return {
 
-
-        getAllEvents: function(){
-
-            return $http.get('http://localhost:52430/event/')
+        getAllEvents: function () {
+            return $http.get('/restful/event/')
                 .then(
-                    function(response){
+                    function (response) {
                         return response.data;
                     },
-                    function(errResponse){
+                    function (errResponse) {
                         console.error('Error while fetching events');
                         return $q.reject(errResponse);
                     }
                 );
-
-
-
         },
 
-
-        createEvent : function(event){
-
-
-            return $http.post('http://localhost:52430/event/', event)
+        createEvent: function (event) {
+            return $http.post('/restful/event/', event)
                 .then(
-                    function(response){
+                    function (response) {
                         return response.data;
                     },
-                    function(errResponse){
+                    function (errResponse) {
                         console.error('Error while creating event');
                         return $q.reject(errResponse);
                     }
                 );
-
-
         },
 
-
-        updateEvent: function(event, eventId){
-
-            return $http.put('http://localhost:52430/event/'+eventId, event)
+        updateEvent: function (event, eventId) {
+            return $http.put('/restful/event/' + eventId, event)
                 .then(
-                    function(response){
+                    function (response) {
                         return response.data;
                     },
-                    function(errResponse){
+                    function (errResponse) {
                         console.error('Error while updating event');
                         return $q.reject(errResponse);
                     }
                 );
-
         },
 
-
-        deleteEvent: function(eventId){
-
-            return $http.delete('http://localhost:52430/event/'+eventId)
+        deleteEvent: function (eventId) {
+            return $http.delete('/restful/event/' + eventId)
                 .then(
-
-                    function(response){
+                    function (response) {
                         return response.data;
                     },
-                    function(errResponse){
+                    function (errResponse) {
                         console.error('Error while deleting event');
                         return $q.reject(errResponse);
                     }
-
-
-
                 );
-
-
-        },
-
-
+        }
     };
-
-
-
-}
-
-])
+}]);
