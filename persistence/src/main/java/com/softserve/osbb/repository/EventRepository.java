@@ -13,18 +13,6 @@ import java.util.List;
 
 
 @Repository
-public interface EventRepository extends JpaRepository<Event, Integer>, JpaSpecificationExecutor<Event> {
+public interface EventRepository extends JpaRepository<Event, Integer> {
 
-    @Override
-    List<Event> findAll(Specification specification);
-
-    @Override
-    long count(Specification<Event> specification);
-
-    @Query("Select e From Event e where e.date >= ?1 and e.date <= ?2")
-    List<Event> getAllEventsBetweenDates(LocalDateTime from, LocalDateTime to);
-
-    @Query("Select e From Event e where LOWER(e.name) LIKE LOWER(CONCAT('%',:searchParam,'%'))" +
-            " OR LOWER(e.description) LIKE LOWER(CONCAT('%',:searchParam,'%'))")
-    List<Event> getAllEventsBySearchParam(@Param("searchParam") String searchTerm);
 }
