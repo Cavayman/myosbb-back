@@ -10,23 +10,17 @@ import java.util.List;
  */
 public interface EventService {
 
-    Event addEvent(Event event);
+    Event saveEvent(Event event);
 
-    List<Event> addEvents(List<Event> list);
+    Event findEventById(Integer id);
 
-    Event getEventById(Integer id);
+    List<Event> findEvents(List<Event> list);
 
-    List<Event> getListEvents(List<Integer> ids);
+    List<Event> findEventsByIds(List<Integer> ids);
 
-    Event getOneEventBySearchTerm(String searchTerm);
+    List<Event> findAllEvents();
 
-    List<Event> getAllEventsBySearchTerm(String searchTerm);
-
-    List<Event> getAllEventsBetweenDates(LocalDateTime from, LocalDateTime to);
-
-    List<Event> getAllEvents();
-
-    Event updateEvent(Integer id, Event event) throws Exception;
+    Event updateEvent(Integer id, Event event);
 
     void deleteEvent(Event event);
 
