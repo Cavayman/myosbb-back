@@ -2,6 +2,7 @@ package com.softserve.osbb.repository;
 
 import com.softserve.osbb.PersistenceConfiguration;
 import com.softserve.osbb.model.Report;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,16 +34,22 @@ public class ReportRepositoryTest {
 
     @Autowired
     private ReportRepository reportRepository;
-
     private Report report;
+    private List<Report> reportList;
 
     @Before
     public void init() {
-        report = new Report();
-        LocalDate dateCreation = LocalDate.now();
+        reportList = new ArrayList<>();
         report = new Report();
         report.setName("баланс ЧЕРВ/2016");
+        LocalDate dateCreation = LocalDate.now();
         report.setCreationDate(dateCreation);
+    }
+
+    @After
+    public void destroy(){
+        reportList.clear();
+        reportList=null;
     }
 
 
@@ -72,12 +79,11 @@ public class ReportRepositoryTest {
 
     @Test
     public void testGetAllReports() {
-        List<Report> reports = new ArrayList<>();
-        reports.add(new Report("баланс ЛИП/2016", "фін. звіт за липень"));
-        reports.add(new Report("баланс СЕР/2016", "фін. звіт за серпень"));
-        reports.add(new Report("баланс ВЕР/2016", "фін. звіт за вересень"));
-        List<Report> savedReports = reportRepository.save(reports);
-        assertTrue(savedReports.size()==reports.size());
+        reportList.add(new Report("баланс ЛИП/2016", "фін. звіт за липень"));
+        reportList.add(new Report("баланс СЕР/2016", "фін. звіт за серпень"));
+        reportList.add(new Report("баланс ВЕР/2016", "фін. звіт за вересень"));
+        List<Report> savedReports = reportRepository.save(reportList);
+        assertSame(savedReports.size(), reportList.size());
     }
 
     @Test
@@ -89,7 +95,6 @@ public class ReportRepositoryTest {
 
     @Test
     public void testGetAllReportsByYear() {
-        List<Report> reportList = new ArrayList<>();
         Report reportOne = new Report();
         reportOne.setName("report1");
         reportOne.setCreationDate(LocalDate.now().minusYears(2));
@@ -109,5 +114,27 @@ public class ReportRepositoryTest {
         assertTrue(reportsByYear.size() == 2);
     }
 
+    @Test
+    public void testFindDistinctNameReports(){
+        reportList.add(new Report("marchReport2016", "some march report"));
+        reportList.add(new Report("juneReport2015", "some march report"));
+        reportList.add(new Report("marchReport2016", "march report updated"));
+        reportList.add(new Report("juneReport2016", "june report updated"));
+        reportRepository.save(reportList);
+        List<Report> savedDistinctReports = reportRepository.findDistinctByName("marchReport2016");
+        assertTrue(savedDistinctReports.size()==2);
+
+    }
+
+    @Test
+    public void testCountByName(){
+        reportList.add(new Report("marchReport2016", "some march report"));
+        reportList.add(new Report("juneReport2015", "some march report"));
+        reportList.add(new Report("marchReport2016", "march report updated"));
+        reportList.add(new Report("juneReport2016", "june report updated"));
+        reportRepository.save(reportList);
+        long countByName = reportRepository.countByName("marchReport2016");
+        assertTrue(countByName==2);
+    }
 
 }
