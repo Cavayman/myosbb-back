@@ -4,9 +4,10 @@ import com.softserve.osbb.model.Apartment;
 import com.softserve.osbb.repository.ApartmentRepository;
 import com.softserve.osbb.service.ApartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class ApartmentServiceImpl implements ApartmentService {
 @Autowired
     ApartmentRepository apartmentRepository;
