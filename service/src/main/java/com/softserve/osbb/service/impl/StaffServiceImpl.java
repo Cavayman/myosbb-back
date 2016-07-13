@@ -6,6 +6,7 @@ import com.softserve.osbb.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 /**
@@ -30,6 +31,13 @@ public class StaffServiceImpl implements StaffService{
     @Override
     public Staff findOneStaffById(Integer id) {
         return staffRepository.findOne(id);
+    }
+
+    @Override
+    public Staff updateStaff(Integer id, Staff staff) throws EntityNotFoundException {
+        if (!staffRepository.exists(id)) throw new EntityNotFoundException("Staff with id "+
+        id + " doesn't exist and cannot be updated");
+        return staffRepository.save(staff);
     }
 
     @Override
