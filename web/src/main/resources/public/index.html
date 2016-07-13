@@ -207,7 +207,7 @@
                                 <div class="row">
                                     <div class ="form-group" ng-class="{'has-error' : reportForm.rname.$invalid $$ reportForm.rname.$dirty}" show-errors>
                                         <div class="col-md-6">
-                                                <label class="control-lable col-md-3" for="rname">name</label>
+                                                <label class="control-lable" for="rname">name</label>
                                                 <input type="text" ng-model="rc.report.name" name="rname" id="rname" class="form-control" placeholder="report name" required ng-minlength="3">
                                         </div>
                                     </div>
@@ -216,7 +216,7 @@
                             <div class="row">
                             <div class ="form-group" ng-class="{'has-error' : reportForm.descr.$invalid $$ reportForm.descr.$dirty}" show-errors>
                                 <div class="col-md-6">
-                                    <label class="control-lable col-md-3"  for="rdescription">description</label>
+                                    <label class="control-lable"  for="rdescription">description</label>
                                     <input type="text"  ng-model="rc.report.description" name="descr" id="rdescription" class="form-control" placeholder="report description" required>
                                 </div>
                             </div>
@@ -225,7 +225,7 @@
                             <div class="row">
                             <div class ="form-group">
                                 <div class="col-md-6">
-                                    <label class="control-lable col-md-3" >date</label>
+                                    <label class="control-lable" >date</label>
                                     <input  type="text" ng-model="rc.report.creationDate" placeholder="date...." class="form-control" >
                                 </div>
                             </div>
@@ -234,7 +234,7 @@
                             <div class="row">
                             <div class ="form-group ">
                                 <div class="col-md-6">
-                                    <label class="control-lable col-md-3" for="rpath">path</label>
+                                    <label class="control-lable" for="rpath">path</label>
                                     <input  type="text" ng-model="rc.report.filePath" class="form-control" id = "rpath" placeholder="path...">
                                 </div>
                             </div>
@@ -290,25 +290,14 @@
                                 </td>
                             </tr>
                      </tbody>
-
-     
                     </table>
-
-
                     </div>
-
-            </div>  
-    
             </div>
-
-             </div>   
-
             </div>
-                
+             </div>
+            </div>
                </div> 
         </div>
-
-
             </div>
             <!-- /.row -->
         </div>
