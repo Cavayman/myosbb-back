@@ -82,4 +82,9 @@ public class ProviderRepositoryTest extends AbstractTestNGSpringContextTests {
         Assert.assertTrue(providerRepository.count()==0);
     }
 
+    @Test
+    public void testFindProvidersByNameOrDescription(){
+        Assert.assertFalse(providerRepository.findProvidersByNameOrDescription("Garbage").isEmpty());
+    }
+
 }
