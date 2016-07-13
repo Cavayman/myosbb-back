@@ -223,10 +223,10 @@
                             </div>
 
                             <div class="row">
-                            <div class ="form-group">
+                            <div class ="form-group" ng-class="{'has-error' : reportForm.date.$invalid $$ reportForm.date.$dirty}">
                                 <div class="col-md-6">
                                     <label class="control-lable" >date</label>
-                                    <input  type="text" ng-model="rc.report.creationDate" placeholder="date...." class="form-control" >
+                                    <input  type="text" name="date" ng-model="rc.report.creationDate" ng-pattern="/^\d{4}-\d{1,2}-\d{1,2}$/" placeholder="date...." class="form-control" >
                                 </div>
                             </div>
                             </div>
