@@ -1,6 +1,8 @@
 package com.softserve.osbb.controller;
 
 import com.softserve.osbb.model.Report;
+import com.softserve.osbb.service.exe.NotFoundEntityException;
+import com.softserve.osbb.service.exe.OnCreateEntityException;
 import com.softserve.osbb.service.impl.ReportServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,7 +52,7 @@ public class ReportController {
             logger.info("saving report object " + report);
             report = reportService.addReport(report);
             reportResource = addResourceLinkToReport(report);
-        } catch (Exception e) {
+        } catch (OnCreateEntityException e) {
             logger.error(e.getMessage());
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
@@ -66,16 +68,6 @@ public class ReportController {
                 : new ResponseEntity<>(reportResource, HttpStatus.OK);
     }
 
-    private Resource<Report> addResourceLinkToReport(Report report) {
-        if (report == null) {
-            return EMPTY_REPORT_LINK;
-        }
-        Resource<Report> reportResource = new Resource<>(report);
-        reportResource.add(linkTo(methodOn(ReportController.class)
-                .getReportById(report.getReportId()))
-                .withSelfRel());
-        return reportResource;
-    }
 
     @RequestMapping(value = "/report/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Resource<Report>> updateReport(@PathVariable("id") Integer reportId,
@@ -85,20 +77,31 @@ public class ReportController {
             logger.info("updating report by id: " + reportId);
             report = reportService.updateReport(reportId, report);
             reportResource = addResourceLinkToReport(report);
-        } catch (Exception e) {
+        } catch (NotFoundEntityException e) {
             logger.error(e.getMessage());
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(EMPTY_REPORT_LINK, HttpStatus.OK);
         }
         return new ResponseEntity<>(reportResource, HttpStatus.OK);
     }
 
+    private Resource<Report> addResourceLinkToReport(Report report) {
+        if (report == Report.EMPTY_REPORT) {
+            logger.warn("report is empty so empty link object was returned");
+            return EMPTY_REPORT_LINK;
+        }
+        Resource<Report> reportResource = new Resource<>(report);
+        reportResource.add(linkTo(methodOn(ReportController.class)
+                .getReportById(report.getReportId()))
+                .withSelfRel());
+        return reportResource;
+    }
+
     @RequestMapping(value = "/report/find", method = RequestMethod.GET)
     public ResponseEntity<List<Resource<Report>>> getReportsByName(@RequestParam(value = "searchParam",
-            required = true)
-                                                                   String searchParam) {
+            required = true) String searchParam) {
 
         logger.info("fetching report by search parameter: " + searchParam);
-        List<Report> reportsBySearchTerm = reportService.getAllReportsBySearchTerm(searchParam);
+        List<Report> reportsBySearchTerm = reportService.getAlReportsBySearchParameter(searchParam);
         if (reportsBySearchTerm.isEmpty()) {
             logger.warn("no reports were found");
             return new ResponseEntity<>(EMPTY_LIST, HttpStatus.OK);
@@ -110,14 +113,14 @@ public class ReportController {
 
     @RequestMapping(value = "/report/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Resource<Report>> deleteReportById(@PathVariable("id") Integer reportId) {
-        Report reportToDelete = reportService.getReportById(reportId);
-        if (reportToDelete != null) {
+        try {
             logger.info("removing report by id: " + reportId);
             reportService.deleteReportById(reportId);
-            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NotFoundEntityException e) {
+            logger.error("no report was found under id: " + reportId);
+            return new ResponseEntity<>(EMPTY_REPORT_LINK, HttpStatus.OK);
         }
-        logger.warn("no report was found under the id: " + reportId);
-        return new ResponseEntity<>(EMPTY_REPORT_LINK, HttpStatus.NOT_MODIFIED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/report", method = RequestMethod.DELETE)

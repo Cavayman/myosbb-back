@@ -1,6 +1,6 @@
 
 
-App.controller('ReportController', ['$scope', 'ReportService', 
+App.controller('ReportController', ['$scope', 'ReportService',
 
 	function($scope, ReportService){
 

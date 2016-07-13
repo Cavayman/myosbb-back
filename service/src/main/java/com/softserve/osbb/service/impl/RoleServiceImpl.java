@@ -4,7 +4,6 @@ import com.softserve.osbb.model.Role;
 
 import com.softserve.osbb.repository.RoleRepository;
 import com.softserve.osbb.service.RoleService;
-import com.sun.xml.internal.ws.developer.Serialization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

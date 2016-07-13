@@ -19,18 +19,17 @@ public interface ReportService {
 
     Report getOneReportBySearchTerm(String name) throws Exception;
 
-    List<Report> getAllReportsBySearchTerm(String searchTerm) throws Exception;
+    List<Report> getAlReportsBySearchParameter(String searchTerm) throws Exception;
 
     List<Report> getAllReportsBetweenDates(LocalDate from, LocalDate to) throws Exception;
 
     List<Report> getAllReports() throws Exception;
 
-    List<Report> showLatestRepors() throws Exception;
+    List<Report> findByDate(LocalDate dateToFind);
 
     void deleteAll() throws Exception;
 
     void deleteReportById(Integer reportId) throws Exception;
-
 
 
 }

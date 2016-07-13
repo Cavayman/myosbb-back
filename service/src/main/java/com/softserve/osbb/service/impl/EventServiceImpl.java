@@ -16,74 +16,37 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @Service
 public class EventServiceImpl implements EventService {
 
-    private static final List<Event> EMPTY_LIST = new CopyOnWriteArrayList<>();
-    private static final Event EMPTY_EVENT = new Event();
-
     @Autowired
     EventRepository eventRepository;
 
     @Override
-    public Event addEvent(Event event) {
+    public Event saveEvent(Event event) {
         return eventRepository.save(event);
     }
 
     @Override
-    public List<Event> addEvents(List<Event> list) {
+    public List<Event> findEvents(List<Event> list) {
         return eventRepository.save(list);
     }
 
     @Override
-    public Event getEventById(Integer id) {
+    public Event findEventById(Integer id) {
         return eventRepository.findOne(id);
     }
 
     @Override
-    public List<Event> getListEvents(List<Integer> ids) {
+    public List<Event> findEventsByIds(List<Integer> ids) {
         return eventRepository.findAll(ids);
     }
 
     @Override
-    public Event getOneEventBySearchTerm(String searchTerm) {
-        return (searchTerm != null || !searchTerm.isEmpty()) ?
-                eventRepository.getAllEventsBySearchParam(searchTerm)
-                        .stream()
-                        .findFirst()
-                        .get() : EMPTY_EVENT;
-    }
-
-    @Override
-    public List<Event> getAllEventsBySearchTerm(String searchTerm) {
-        return (searchTerm == null || searchTerm.isEmpty()) ? EMPTY_LIST :
-                eventRepository.getAllEventsBySearchParam(searchTerm);
-    }
-
-    @Override
-    public List<Event> getAllEventsBetweenDates(LocalDateTime from, LocalDateTime to) {
-        return eventRepository.getAllEventsBetweenDates(from == null ? LocalDateTime.now() : from,
-                to == null ? LocalDateTime.now() : to);
-    }
-
-    @Override
-    public List<Event> getAllEvents() {
+    public List<Event> findAllEvents() {
         return eventRepository.findAll();
     }
 
     @Override
-    public Event updateEvent(Integer id, Event event) throws Exception {
-        return event == null ? null : updateEventIfExists(id, event);
-    }
-
-    private Event updateEventIfExists(Integer id, Event event) throws Exception {
-
-        boolean isExisted = eventRepository.exists(id);
-
-        if (!isExisted) {
-            throw new Exception("event under id: " + event.getEventId() + " doesn't exist and thus" +
-                    " cannot be updated");
-
-        }
-        return eventRepository.save(event);
-
+    public Event updateEvent(Integer id, Event event) {
+        return eventRepository.exists(id) ? eventRepository.save(event) : null;
     }
 
     @Override
