@@ -19,37 +19,31 @@ public class OsbbServiceImpl implements OsbbService {
 
     @Override
     public Osbb addOsbb(Osbb osbb) {
-
         return osbbRepository.saveAndFlush(osbb);
     }
 
     @Override
     public Osbb getOsbb(Integer id) {
-
-        return osbbRepository.getOne(id);
+        return osbbRepository.findOne(id);
     }
 
     @Override
     public Osbb getOsbb(String name) {
-
         return osbbRepository.getByName(name);
     }
 
     @Override
     public List<Osbb> getAllOsbb() {
-
         return osbbRepository.findAll();
     }
 
     @Override
     public long countOsbb() {
-
         return osbbRepository.count();
     }
 
     @Override
     public boolean existsOsbb(Integer id) {
-
         return osbbRepository.exists(id);
     }
 

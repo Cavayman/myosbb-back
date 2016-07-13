@@ -6,7 +6,9 @@ import com.softserve.osbb.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -16,7 +18,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @Service
 public class ReportServiceImpl implements ReportService {
 
-    private static final List<Report> EMPTY_LIST = new CopyOnWriteArrayList<>();
+    private static final List<Report> EMPTY_LIST = new ArrayList<>(0);
     private static final Report EMPTY_REPORT = new Report();
 
     @Autowired
@@ -24,41 +26,31 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public Report addReport(Report report) throws Exception {
-
         return report == null ? null : addReportIfNotExists(report);
     }
 
     private Report addReportIfNotExists(Report report) throws Exception {
-
         boolean isExisted = reportRepository.exists(report.getReportId());
-
         if (isExisted) {
             throw new Exception("report under id: " + report.getReportId() + " already exists");
         }
-
         return reportRepository.save(report);
-
     }
 
     @Override
     public Report updateReport(Integer reportId, Report report) throws Exception {
-
         return report == null ? null : updateReportIfExists(reportId, report);
     }
 
     private Report updateReportIfExists(Integer reportId, Report report) throws Exception {
-
         boolean isExisted = reportRepository.exists(reportId);
-
         if (!isExisted) {
             throw new Exception("report under id: " + report.getReportId() + " doesn't exist and thus" +
                     " cannot be updated");
-
         }
         return reportRepository.save(report);
 
     }
-
 
     @Override
     public Report getReportById(Integer reportId) {
@@ -81,10 +73,10 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public List<Report> getAllReportsBetweenDates(LocalDateTime from, LocalDateTime to) {
-        return reportRepository.gerAllReportsBetweenDates(from == null ? LocalDateTime.now() : from,
-                to == null ? LocalDateTime.now() : to);
+    public List<Report> getAllReportsBetweenDates(LocalDate from, LocalDate to) throws Exception {
+        return reportRepository.gerAllReportsBetweenDates(from, to);
     }
+
 
     @Override
     public List<Report> getAllReports() {

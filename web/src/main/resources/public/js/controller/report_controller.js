@@ -4,12 +4,9 @@ App.controller('ReportController', ['$scope', 'ReportService',
 
 	function($scope, ReportService){
 
-
 			var rs = this;
-
 			rs.report = {reportId:null, name:'', description:'', creationDate: '', filePath:''};
 			rs.reports =[];
-
 
 			rs.getAllReports = function(){
 
@@ -27,7 +24,6 @@ App.controller('ReportController', ['$scope', 'ReportService',
 
 
 					);
-
 
 			};
 

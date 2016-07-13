@@ -12,18 +12,20 @@
     <title>MyOsbb</title>
 
 
+        <script src="js/angular.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
         <script src="js/jquery-min.js"></script>
         <script src="js/bootstrap-datepicker.js"></script>
         <script src="js/module/app.js"></script>
         <script src="js/service/report_service.js"></script>
         <script src="js/controller/report_controller.js"></script>
+        <script src="js/select.js"></script>
         <script src="js/service/event_service.js"></script>
         <script src="js/controller/event_controller.js"></script>
-        <link rel="stylesheet" href="css/datepicker.css">
+        <link rel="stylesheet" href="css/datepicker.css"/>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="css/stylish-portfolio.css" rel="stylesheet">
@@ -31,12 +33,12 @@
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
 </head>
@@ -277,13 +279,115 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                   <h1>Message table.....</h1>
+                    <h1>Message table</h1>
+                    <div class="container" ng-controller="MessageController as ec">
+                        <div class="panel-heading"><span class="lead"></span>
+                        </div>
+                        <div class="jumbotron">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="formcontainer">
+                                        <br>
+                                        <form ng-submit="ec.submit()" name="messageForm">
+                                            <input type="hidden" ng-model="ec.message.messageId" id="eid">
+                                            <div class="row">
+                                                <div class ="form-group col-md-8 ">
+                                                    <label class="col-md-3 control-lable" for="rname"></label>
+                                                    <div class="col-md-6">
+                                                        <input type="text" ng-model="ec.message.description" id="description" class="form-control" placeholder="message description">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class ="form-group col-md-8 ">
+                                                    <label class="col-md-3 control-lable" >message text</label>
+                                                    <div class="col-md-6">
+                                                        <input  type="text" ng-model="ec.message.messag" placeholder="message text" class="form-control" >
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="row">
+                                                <div class ="form-group col-md-8 ">
+                                                    <label class="col-md-3 control-label" >date</label>
+                                                    <div class="col-md-6">
+                                                        <input  type="text" ng-model="ec.message.date" placeholder="date...." class="form-control" >
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="row">
+                                                <div class="form-group col-md-8">
+                                                    <div class="col-md-3">
+                                                        <input type="submit" value="{{!ec.message.messageId ? 'Add' : 'Update'}}" class="btn btn-primary btn-sm" ng-disabled="osbbForm.$invalid">
+                                                        <!--<button type="button" ng-click="ec.reset()" class = "btn btn-warning btn-sm" ng-disabled ="eventForm.$pristine">Reset</button>-->
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-md-6" >
+                                    <div class="tablecontainer" style="overflow:auto; height:300px; width:100% ">
+
+                                        <table class="table table-striped">
+
+                                            <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Description</th>
+                                                <th>Message</th>
+                                                <th>Date</th>
+                                                <th width="40%"></th>
+                                            </tr>
+
+
+                                            </thead>
+
+                                            <tbody >
+                                            <tr ng-repeat="e in ec.messages">
+                                                <td><span class="small" ng-bind="e.messageId"></span></td>
+                                                <td><span class="small" ng-bind="e.description"></span></td>
+                                                <td><span class="small" ng-bind="e.message"></span></td>
+                                                <td><span class="small" ng-bind="e.date"></span></td>
+                                                <td><button type="button" ng-click="ec.edit(e.massageId)"
+                                                            class="btn btn-success btn-sm">Edit</button>
+                                                    <button type="button" ng-click="ec.remove(e.massageId)"
+                                                            class="btn btn-warning btn-sm">Delete</button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+
+
+                                        </table>
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
                 </div>
             </div>
             <!-- /.row -->
         </div>
         <!-- /.container -->
     </section>
+
 
 
     <!-- Osbb -->
@@ -314,145 +418,131 @@
     </section>
 
 
-    <!-- User -->
     <section id="user" class="about">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                   <h1>User table</h1>
-                
+                    <h1>User table</h1>
 
-        <div class="container">
-              <div class="panel-heading"><span class="lead"></span>
-                </div>
-                    <div class="jumbotron">
-               
-                    <div class="row">
-                    <div class="col-md-3">
-                        <div class="formcontainer">
-                        <br>
-                        <form ng-submit="uc.submit()" name="userForm">
-                            <input type="hidden" ng-model="uc.userr.userId" id="uid">
-                                <div class="row">
-                                    <div class ="form-group col-md-12 ">
-                                        <label class="col-md-4 control-lable" for="rname">Ім'я</label>
-                                            <div class="col-md-8">
-                                                <input type="text"  id="firstNameId" class="form-control" placeholder="User name">
-                                        </div>
+
+                    <div class="container">
+                        <div class="panel-heading"><span class="lead"></span>
+                        </div>
+                        <div class="jumbotron">
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="formcontainer">
+                                        <br>
+                                        <form ng-submit="uc.submit()" name="userForm">
+                                            <input type="hidden" ng-model="uc.userr.userId" id="uid">
+                                            <div class="row">
+                                                <div class ="form-group col-md-12 ">
+                                                    <label class="col-md-4 control-lable" for="rname">Ім'я</label>
+                                                    <div class="col-md-8">
+                                                        <input type="text"  id="firstNameId" class="form-control" placeholder="User name">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class ="form-group col-md-12">
+                                                    <label class="col-md-4 control-lable" f>Фамілія</label>
+                                                    <div class="col-md-8">
+                                                        <input type="text"  id="lastName" class="form-control" placeholder="User lastName">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="row">
+                                                <div class ="form-group col-md-12 ">
+                                                    <label class="col-md-4 control-lable" >Birdth</label>
+                                                    <div class="col-md-8">
+                                                        <input  type="text" placeholder="date..." class="form-control" >
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class ="form-group col-md-12">
+                                                    <label class="col-md-4 control-lable" for="rdescription">Телефон</label>
+                                                    <div class="col-md-8">
+                                                        <input type="text" id="uNumber" class="form-control " placeholder="phone...">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class ="form-group col-md-12">
+                                                    <label class="col-md-4 control-lable" for="rdescription">e-mail</label>
+                                                    <div class="col-md-8">
+                                                        <input type="text" id="uemail" class="form-control" placeholder="report description">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="row">
+                                                <div class="form-group col-md-12">
+                                                    <div class="col-md-12">
+                                                        <input id="userAdd" type="submit" value="Add" class="btn col-md-12 btn-primary ">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-md-9" >
+                                    <div class="tablecontainer" style="overflow:auto; height:300px; width:100% ">
+
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>FirstName</th>
+                                                <th>LastName</th>
+                                                <th>Birth Date</th>
+                                                <th>Phone number</th>
+                                                <th>email</th>
+                                                <th>Password</th>
+                                                <th>Gender</th>
+                                                <th width="40%">Delete</th>
+                                                <th width="40%">Edit</th>
+                                            </tr>
+
+                                            </thead>
+                                            <tbody id="tablecont" >
+                                            <tr >
+                                                <td><span class="small" ng-bind="r.reportId"></span></td>
+                                                <td><span class="small" ng-bind="r.name"></span></td>
+                                                <td><span class="small" ng-bind="r.description"></span></td>
+                                                <td><span class="small" ng-bind="r.creationDate"></span></td>
+                                                <td><a><span class="small" ng-bind="r.filePath"></span></a></td>
+                                                <td><a><span class="small" ng-bind="r.filePath"></span></a></td>
+                                                <td><button type="button" ng-click="rc.edit(r.reportId)"
+                                                            class="btn btn-success btn-sm">Edit</button>
+                                                    <button type="button" ng-click="rc.remove(r.reportId)"
+                                                            class="btn btn-warning btn-sm">Delete</button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+
+                                        </table>
                                     </div>
                                 </div>
 
-                            <div class="row">
-                            <div class ="form-group col-md-12">
-                                <label class="col-md-4 control-lable" f>Фамілія</label>
-                                <div class="col-md-8">
-                                    <input type="text"  id="lastName" class="form-control" placeholder="User lastName">
-                                </div>
                             </div>
-                            </div>
-                            
-
-                            <div class="row">
-                            <div class ="form-group col-md-12 ">
-                                <label class="col-md-4 control-lable" >Birdth</label>
-                                <div class="col-md-8">
-                                    <input  type="text" placeholder="date..." class="form-control" >
-                                </div>
-                            </div>
-                            </div>
-
-<div class="row">
-                            <div class ="form-group col-md-12">
-                                <label class="col-md-4 control-lable" for="rdescription">Телефон</label>
-                                <div class="col-md-8">
-                                    <input type="text" id="uNumber" class="form-control " placeholder="phone...">
-                                </div>
-                            </div>
-                            </div>
-                            <div class="row">
-                            <div class ="form-group col-md-12">
-                                <label class="col-md-4 control-lable" for="rdescription">e-mail</label>
-                                <div class="col-md-8">
-                                    <input type="text" id="uemail" class="form-control" placeholder="report description">
-                                </div>
-                            </div>
-                            </div>
-
-                            
-                            <div class="row">
-                            <div class="form-group col-md-12">
-                                <div class="col-md-12">
-                                    <input id="userAdd" type="submit" value="Add" class="btn col-md-12 btn-primary "">
-                                </div>
-                            </div>    
+                        </div>
                     </div>
-                    </form>
-                    </div>
-
 
                 </div>
-
-                <div class="col-md-9" >
-                    <div class="tablecontainer" style="overflow:auto; height:300px; width:100% ">
-                        
-                    <table class="table table-striped">
-
-                     <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>FirstName</th>
-                            <th>LastName</th>
-                            <th>Birth Date</th>
-                            <th>Phone number</th>
-                            <th>email</th>
-                            <th>Password</th>
-                            <th>Gender</th>
-                            <th width="40%">Delete</th>
-                            <th width="40%">Edit</th>
-                        </tr>
-                         
-
-                     </thead>
-
-                     <tbody id="tablecont" >
-                            <tr >
-                                <td><span class="small" ng-bind="r.reportId"></span></td>
-                                <td><span class="small" ng-bind="r.name"></span></td>
-                                <td><span class="small" ng-bind="r.description"></span></td>
-                                <td><span class="small" ng-bind="r.creationDate"></span></td>
-                                <td><a><span class="small" ng-bind="r.filePath"></span></a></td>
-                                <td><a><span class="small" ng-bind="r.filePath"></span></a></td>
-                                <td><button type="button" ng-click="rc.edit(r.reportId)"
-                                class="btn btn-success btn-sm">Edit</button>
-                                <button type="button" ng-click="rc.remove(r.reportId)"
-                                class="btn btn-warning btn-sm">Delete</button>
-                                </td>
-                            </tr>
-                     </tbody>
-
-     
-                    </table>
-
-
-                    </div>
-
-            </div>  
-    
             </div>
-
-             </div>   
-
-            </div>
-                
-               </div> 
         </div>
-
-
-            </div>
-            <!-- /.row -->
+        <!-- /.row -->
         </div>
         <!-- /.container -->
     </section>
+
 
     <!-- Report -->
     <section id="report" class="about">
@@ -460,63 +550,63 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                    <h1>Report table</h1>
-                
+
 
         <div class="container" ng-controller="ReportController as rc">
               <div class="panel-heading"><span class="lead"></span>
                 </div>
                     <div class="jumbotron">
-               
+
                     <div class="row">
                     <div class="col-md-6">
                         <div class="formcontainer">
                         <br>
-                        <form ng-submit="rc.submit()" name="reportForm">
+                        <form ng-submit="rc.submit()" name="reportForm" novalidate>
                             <input type="hidden" ng-model="rc.report.reportId" id="rid">
                                 <div class="row">
-                                    <div class ="form-group col-md-8 ">
-                                        <label class="col-md-3 control-lable" for="rname">name</label>
-                                            <div class="col-md-6">
-                                                <input type="text" ng-model="rc.report.name" id="rname" class="form-control" placeholder="report name">
+                                    <div class ="form-group" ng-class="{'has-error' : reportForm.rname.$invalid && reportForm.rname.$dirty}" show-errors>
+                                        <div class="col-md-6">
+                                                <label class="control-lable" for="rname">name</label>
+                                                <input type="text" ng-model="rc.report.name" name="rname" id="rname" class="form-control" placeholder="report name" required ng-minlength="3">
                                         </div>
                                     </div>
                                 </div>
 
                             <div class="row">
-                            <div class ="form-group col-md-8">
-                                <label class="col-md-3 control-lable" for="rdescription">description</label>
+                            <div class ="form-group" ng-class="{'has-error' : reportForm.descr.$invalid && reportForm.descr.$dirty}" show-errors>
                                 <div class="col-md-6">
-                                    <input type="text"  ng-model="rc.report.description" id="rdescription" class="form-control input-sm" placeholder="report description">
+                                    <label class="control-lable"  for="rdescription">description</label>
+                                    <input type="text"  ng-model="rc.report.description" name="descr" id="rdescription" class="form-control" placeholder="report description" required>
                                 </div>
                             </div>
                             </div>
 
                             <div class="row">
-                            <div class ="form-group col-md-8 ">
-                                <label class="col-md-3 control-lable" >date</label>
+                            <div class ="form-group" ng-class="{'has-error' : reportForm.date.$invalid && reportForm.date.$dirty}">
                                 <div class="col-md-6">
-                                    <input  type="text" ng-model="rc.report.creationDate" placeholder="date...." class="form-control" >
+                                    <label class="control-lable" >date</label>
+                                    <input  type="text" name="date" ng-model="rc.report.creationDate" ng-pattern="/^\d{4}-\d{1,2}-\d{1,2}$/" placeholder="date...." class="form-control" >
                                 </div>
                             </div>
                             </div>
 
                             <div class="row">
-                            <div class ="form-group col-md-8 ">
-                                <label class="col-md-3 control-lable" for="rpath">path</label>
+                            <div class ="form-group ">
                                 <div class="col-md-6">
+                                    <label class="control-lable" for="rpath">path</label>
                                     <input  type="text" ng-model="rc.report.filePath" class="form-control" id = "rpath" placeholder="path...">
                                 </div>
                             </div>
                             </div>
-                            
+
                             <div class="row">
-                            <div class="form-group col-md-8">
-                                <div class="col-md-3">
-                                    <input type="submit" value="{{!rc.report.reportId ? 'Add' : 'Update'}}" class="btn btn-primary btn-sm" ng-disabled="osbbForm.$invalid">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <input type="submit" value="{{!rc.report.reportId ? 'Add' : 'Update'}}" class="btn btn-primary btn-sm" ng-disabled="reportForm.$invalid">
                                     <!--<button type="button" ng-click="rc.reset()" class = "btn btn-warning btn-sm" ng-disabled ="reportForm.$pristine">Reset</button>-->
 
                                 </div>
-                            </div>    
+                            </div>
                     </div>
                     </form>
                     </div>
@@ -525,8 +615,8 @@
                 </div>
 
                 <div class="col-md-6" >
-                    <div class="tablecontainer" style="overflow:auto; height:300px; width:100% ">
-                        
+                    <div class="tablecontainer" style="overflow:auto; height:400px; width:100% ">
+
                     <table class="table table-striped">
 
                      <thead>
@@ -539,7 +629,7 @@
                             <th width="40%"></th>
 
                         </tr>
-                         
+
 
                      </thead>
 
@@ -549,47 +639,38 @@
                                 <td><span class="small" ng-bind="r.name"></span></td>
                                 <td><span class="small" ng-bind="r.description"></span></td>
                                 <td><span class="small" ng-bind="r.creationDate"></span></td>
-                                <td><a><span class="small" ng-bind="r.filePath"></span></a></td>
-                                <td><button type="button" ng-click="rc.edit(r.reportId)"
-                                class="btn btn-success btn-sm">Edit</button>
-                                <button type="button" ng-click="rc.remove(r.reportId)"
-                                class="btn btn-warning btn-sm">Delete</button>
+                                <td><a href="{{r.filePath}}"/>{{r.filePath.length==0?"":r.name}}</td>
+                                <td><div class="row">
+                                    <button type="button" ng-click="rc.edit(r.reportId)"
+                                            class="btn btn-success btn-sm">Edit</button>
+                                    <button type="button" ng-click="rc.remove(r.reportId)"
+                                            class="btn btn-warning btn-sm">Delete</button>
+                                    </div>
                                 </td>
                             </tr>
                      </tbody>
-
-     
                     </table>
-
-
                     </div>
-
-            </div>  
-    
             </div>
-
-             </div>   
-
             </div>
-                
-               </div> 
+             </div>
+            </div>
+               </div>
         </div>
-
-
             </div>
             <!-- /.row -->
         </div>
         <!-- /.container -->
     </section>
 
-    
+
 
     <!-- Footer -->
     <footer>
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 col-lg-offset-1 text-center">
-                    Housing cooperative © 2016
+
                 </div>
             </div>
         </div>
@@ -602,7 +683,17 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
+    <script type="text/javascript">
 
+            // When the document is ready
+            $(document).ready(function () {
+
+                $('#example1').datepicker({
+                    format: "yyyy-mm-dd"
+                });
+
+            });
+        </script>
 
     <!-- Custom Theme JavaScript -->
     <script>
@@ -656,9 +747,28 @@
             }
         }
     });
+    // Disable Google Maps scrolling
+    // See http://stackoverflow.com/a/25904582/1607849
+    // Disable scroll zooming and bind back the click event
+    var onMapMouseleaveHandler = function(event) {
+        var that = $(this);
+        that.on('click', onMapClickHandler);
+        that.off('mouseleave', onMapMouseleaveHandler);
+        that.find('iframe').css("pointer-events", "none");
+    }
+    var onMapClickHandler = function(event) {
+            var that = $(this);
+            // Disable the click handler until the user leaves the map area
+            that.off('click', onMapClickHandler);
+            // Enable scrolling zoom
+            that.find('iframe').css("pointer-events", "auto");
+            // Handle the mouse leave event
+            that.on('mouseleave', onMapMouseleaveHandler);
+        }
+        // Enable map zooming with mouse scroll when the user clicks the map
+    $('.map').on('click', onMapClickHandler);
     </script>
-    <!--Custom js-->
-    <script src="js/usertable.js"></script>
+
 </body>
 
 </html>

@@ -17,6 +17,7 @@ public class Role {
     private Collection<Staff> staffs;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "role_id")
     public Integer getRoleId() {
         return roleId;
