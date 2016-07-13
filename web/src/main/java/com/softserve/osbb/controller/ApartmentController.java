@@ -42,7 +42,7 @@ public class ApartmentController {
     }
     @RequestMapping(value="apartment/{id}",method = RequestMethod.PUT)
     public Apartment updateApartment(@PathVariable("id") Integer idAppartment, @RequestBody Apartment apartment){
-        apartmentService.updateApartment(apartment);
+        apartmentService.saveApartment(apartment);
         return apartment;
 }
 
