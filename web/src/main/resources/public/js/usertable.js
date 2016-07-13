@@ -1,4 +1,4 @@
-$(document).ready(show);
+$(document).ready(show());
 function show() {
     $('#tablecont').html("");
     $.ajax({
@@ -18,10 +18,11 @@ function show() {
                 var button = $('<button>')
                     .attr("class", "btn btn-success btn-sm")
                     .text("Edit").attr("bid", data[index].userId.toString())
-                    .attr('id', data[index].userId)
-                    .click(deleteById);
+
                 var sbutton = $('<button>')
-                    .attr("class", "btn btn-warning btn-sm").text("Delete").attr("bid", data[index].userId.toString());
+                    .attr("class", "btn btn-warning btn-sm").text("Delete").attr("bid", data[index].userId.toString())
+                    .attr('id', data[index].userId)
+                    .click(deleteUserById);;
 
                 var tdButton = $('<td>').append(button);
                 var tdSButton = $('<td>').append(sbutton);
@@ -33,7 +34,7 @@ function show() {
     })
 };
 
-function deleteById() {
+function deleteUserById() {
     $.ajax({
         url: "user/" + $(this).attr('id'),
 
@@ -41,3 +42,36 @@ function deleteById() {
     })
     show();
 };
+
+// $('#userAdd').click(addUser());
+//
+// function addUser(){
+//
+//     var value = $( '#firstNameId' ).attr("val");
+//     var value32 = $( '#firstNameId' ).attr('value');
+//     alert($('#firstNameId').val());
+//     alert($('#firstNameId').text());
+//     alert($("#firstNameId").val());
+//     alert($("#firstNameId").text());
+//
+// //         var json={
+// //         "firstName": $('#firstName').val(),
+// //         "lastName": $('#lastName').val(),
+// //         "birthDate":new Date(),
+// //         "email": $('#uemail').val(),
+// //         "phoneNumber": $('#uNumber').val(),
+// //         "password": $('#firstName').val(),
+// //         "gender": $('#lastName').val(),
+// //     };
+// //
+// //     $.ajax({
+// //         url : "user/",
+// //         type : 'POST',
+// //         data : JSON.stringify(json),
+// //         contentType : "application/json",
+// //         success : function() {
+// //         console.log("OK");
+// //     }
+// // });
+// // show();
+// }
