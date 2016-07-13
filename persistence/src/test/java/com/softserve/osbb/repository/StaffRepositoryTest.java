@@ -32,8 +32,6 @@ public class StaffRepositoryTest extends AbstractTestNGSpringContextTests {
     @Before
     public void init() {
         staff = new Staff();
-        staff.setRole(new Role());
-        staff.setOsbb(new Osbb());
     }
     
     @Test
