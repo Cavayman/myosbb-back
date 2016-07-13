@@ -1,0 +1,88 @@
+{ "databaseChangeLog": [
+  {
+    "changeSet": {
+      "id": "2016/07/10-4",
+      "author": "nataliia (generated)",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "constraints": {
+                    "nullable": false
+                  },
+                  "name": "contract_id",
+                  "type": "INT"
+                }
+              },
+              {
+                "column": {
+                  "name": "date_finish",
+                  "type": "TIMESTAMP(6) WITHOUT TIME ZONE"
+                }
+              },
+              {
+                "column": {
+                  "name": "date_start",
+                  "type": "TIMESTAMP(6) WITHOUT TIME ZONE"
+                }
+              },
+              {
+                "column": {
+                  "name": "document",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "price",
+                  "type": "numeric(19, 2)"
+                }
+              },
+              {
+                "column": {
+                  "name": "text",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "osbb_id",
+                  "type": "INT"
+                }
+              },
+              {
+                "column": {
+                  "name": "provider_id",
+                  "type": "INT"
+                }
+              }]
+          ,
+            "tableName": "contract"
+          }
+        }]
+
+    }
+  },
+
+  {
+    "changeSet": {
+      "id": "2016/07/10-17",
+      "author": "nataliia (generated)",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addPrimaryKey": {
+            "columnNames": "contract_id",
+            "constraintName": "contract_pkey",
+            "tableName": "contract"
+          }
+        }]
+
+    }
+  }
+
+]
+}

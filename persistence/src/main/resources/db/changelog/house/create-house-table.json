@@ -1,0 +1,64 @@
+{ "databaseChangeLog": [
+  {
+    "changeSet": {
+      "id": "2016/07/10-6",
+      "author": "nataliia (generated)",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "autoIncrement": true,
+                  "constraints": {
+                    "primaryKey": true,
+                    "primaryKeyName": "house_pkey"
+                  },
+                  "name": "house_id",
+                  "type": "SERIAL"
+                }
+              },
+              {
+                "column": {
+                  "name": "address",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "osbb_id",
+                  "type": "INT"
+                }
+              }]
+          ,
+            "tableName": "house"
+          }
+        }]
+
+    }
+  },
+
+  {
+    "changeSet": {
+      "id": "2016/07/10-33",
+      "author": "nataliia (generated)",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "house_id",
+            "baseTableName": "apartment",
+            "constraintName": "fk_ll3v7heihb44y1c3cfkpg0boq",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "house_id",
+            "referencedTableName": "house"
+          }
+        }]
+
+    }
+  }]
+}

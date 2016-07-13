@@ -1,0 +1,99 @@
+{ "databaseChangeLog": [
+  {
+    "changeSet": {
+      "id": "2016/07/10-16",
+      "author": "nataliia (generated)",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "autoIncrement": true,
+                  "constraints": {
+                    "primaryKey": true,
+                    "primaryKeyName": "vote_pkey"
+                  },
+                  "name": "vote_id",
+                  "type": "SERIAL"
+                }
+              },
+              {
+                "column": {
+                  "name": "time",
+                  "type": "TIMESTAMP(6) WITHOUT TIME ZONE"
+                }
+              },
+              {
+                "column": {
+                  "name": "vote_value",
+                  "type": "INT"
+                }
+              },
+              {
+                "column": {
+                  "name": "event_id",
+                  "type": "INT"
+                }
+              },
+              {
+                "column": {
+                  "name": "user_id",
+                  "type": "INT"
+                }
+              }]
+          ,
+            "tableName": "vote"
+          }
+        }]
+
+    }
+  },
+
+  {
+    "changeSet": {
+      "id": "2016/07/10-22",
+      "author": "nataliia (generated)",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "event_id",
+            "baseTableName": "vote",
+            "constraintName": "fk_ac7arpjav19h18v8ii3ddtl95",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "event_id",
+            "referencedTableName": "event"
+          }
+        }]
+
+    }
+  },
+
+  {
+    "changeSet": {
+      "id": "2016/07/10-25",
+      "author": "nataliia (generated)",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "user_id",
+            "baseTableName": "vote",
+            "constraintName": "fk_dx2u8pwxfq611f6nsatwu44p0",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "user_id",
+            "referencedTableName": "users"
+          }
+        }]
+
+    }
+  }]
+}
