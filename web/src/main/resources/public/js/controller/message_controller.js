@@ -14,7 +14,7 @@ App.controller('MessageController', ['$scope', 'MessageService',
 
         mes.getAllMessages = function () {
 
-            MessageService.findAll()
+            MessageService.getAllMessages()
                 .then(
                     function (d) {
                         mes.message = d;
@@ -40,7 +40,7 @@ App.controller('MessageController', ['$scope', 'MessageService',
 
             MessageService.createMessage(message)
                 .then(
-                    mes.getAllMessage,
+                    mes.getAllMessages,
 
                     function (errResponse) {
                         console.error('error while creating event');
@@ -80,7 +80,7 @@ App.controller('MessageController', ['$scope', 'MessageService',
         };
 
 
-        mes.getAllEvents();
+        mes.getAllMessages();
 
 
         mes.submit = function () {
