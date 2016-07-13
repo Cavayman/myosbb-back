@@ -277,7 +277,108 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                   <h1>Message table.....</h1>
+                   <h1>Message table</h1>
+                    <div class="container" ng-controller="MessageController as ec">
+                        <div class="panel-heading"><span class="lead"></span>
+                        </div>
+                        <div class="jumbotron">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="formcontainer">
+                                        <br>
+                                        <form ng-submit="ec.submit()" name="messageForm">
+                                            <input type="hidden" ng-model="ec.message.messageId" id="eid">
+                                            <div class="row">
+                                                <div class ="form-group col-md-8 ">
+                                                    <label class="col-md-3 control-lable" for="rname"></label>
+                                                    <div class="col-md-6">
+                                                        <input type="text" ng-model="ec.message.description" id="description" class="form-control" placeholder="message description">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class ="form-group col-md-8 ">
+                                                    <label class="col-md-3 control-lable" >message text</label>
+                                                    <div class="col-md-6">
+                                                        <input  type="text" ng-model="ec.message.messag" placeholder="message text" class="form-control" >
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="row">
+                                                <div class ="form-group col-md-8 ">
+                                                    <label class="col-md-3 control-label" >date</label>
+                                                    <div class="col-md-6">
+                                                        <input  type="text" ng-model="ec.message.date" placeholder="date...." class="form-control" >
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="row">
+                                                <div class="form-group col-md-8">
+                                                    <div class="col-md-3">
+                                                        <input type="submit" value="{{!ec.message.messageId ? 'Add' : 'Update'}}" class="btn btn-primary btn-sm" ng-disabled="osbbForm.$invalid">
+                                                        <!--<button type="button" ng-click="ec.reset()" class = "btn btn-warning btn-sm" ng-disabled ="eventForm.$pristine">Reset</button>-->
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-md-6" >
+                                    <div class="tablecontainer" style="overflow:auto; height:300px; width:100% ">
+
+                                        <table class="table table-striped">
+
+                                            <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Description</th>
+                                                <th>Message</th>
+                                                <th>Date</th>
+                                                <th width="40%"></th>
+                                            </tr>
+
+
+                                            </thead>
+
+                                            <tbody >
+                                            <tr ng-repeat="e in ec.messages">
+                                                <td><span class="small" ng-bind="e.messageId"></span></td>
+                                                <td><span class="small" ng-bind="e.description"></span></td>
+                                                <td><span class="small" ng-bind="e.message"></span></td>
+                                                <td><span class="small" ng-bind="e.date"></span></td>
+                                                <td><button type="button" ng-click="ec.edit(e.massageId)"
+                                                            class="btn btn-success btn-sm">Edit</button>
+                                                    <button type="button" ng-click="ec.remove(e.massageId)"
+                                                            class="btn btn-warning btn-sm">Delete</button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+
+
+                                        </table>
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
                 </div>
             </div>
             <!-- /.row -->
@@ -320,13 +421,13 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                    <h1>User table</h1>
-                
+
 
         <div class="container">
               <div class="panel-heading"><span class="lead"></span>
                 </div>
                     <div class="jumbotron">
-               
+
                     <div class="row">
                     <div class="col-md-3">
                         <div class="formcontainer">
@@ -350,7 +451,7 @@
                                 </div>
                             </div>
                             </div>
-                            
+
 
                             <div class="row">
                             <div class ="form-group col-md-12 ">
@@ -378,13 +479,13 @@
                             </div>
                             </div>
 
-                            
+
                             <div class="row">
                             <div class="form-group col-md-12">
                                 <div class="col-md-12">
-                                    <input id="userAdd" type="submit" value="Add" class="btn col-md-12 btn-primary "">
+                                    <input id="userAdd" type="submit" value="Add" class="btn col-md-12 btn-primary ">
                                 </div>
-                            </div>    
+                            </div>
                     </div>
                     </form>
                     </div>
@@ -394,7 +495,7 @@
 
                 <div class="col-md-9" >
                     <div class="tablecontainer" style="overflow:auto; height:300px; width:100% ">
-                        
+
                     <table class="table table-striped">
 
                      <thead>
@@ -410,7 +511,7 @@
                             <th width="40%">Delete</th>
                             <th width="40%">Edit</th>
                         </tr>
-                         
+
 
                      </thead>
 
@@ -430,21 +531,21 @@
                             </tr>
                      </tbody>
 
-     
+
                     </table>
 
 
                     </div>
 
-            </div>  
-    
             </div>
 
-             </div>   
+            </div>
+
+             </div>
 
             </div>
-                
-               </div> 
+
+               </div>
         </div>
 
 
@@ -460,13 +561,13 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                    <h1>Report table</h1>
-                
+
 
         <div class="container" ng-controller="ReportController as rc">
               <div class="panel-heading"><span class="lead"></span>
                 </div>
                     <div class="jumbotron">
-               
+
                     <div class="row">
                     <div class="col-md-6">
                         <div class="formcontainer">
@@ -508,7 +609,7 @@
                                 </div>
                             </div>
                             </div>
-                            
+
                             <div class="row">
                             <div class="form-group col-md-8">
                                 <div class="col-md-3">
@@ -516,7 +617,7 @@
                                     <!--<button type="button" ng-click="rc.reset()" class = "btn btn-warning btn-sm" ng-disabled ="reportForm.$pristine">Reset</button>-->
 
                                 </div>
-                            </div>    
+                            </div>
                     </div>
                     </form>
                     </div>
@@ -526,7 +627,7 @@
 
                 <div class="col-md-6" >
                     <div class="tablecontainer" style="overflow:auto; height:300px; width:100% ">
-                        
+
                     <table class="table table-striped">
 
                      <thead>
@@ -539,7 +640,7 @@
                             <th width="40%"></th>
 
                         </tr>
-                         
+
 
                      </thead>
 
@@ -558,21 +659,21 @@
                             </tr>
                      </tbody>
 
-     
+
                     </table>
 
 
                     </div>
 
-            </div>  
-    
             </div>
 
-             </div>   
+            </div>
+
+             </div>
 
             </div>
-                
-               </div> 
+
+               </div>
         </div>
 
 
@@ -582,7 +683,7 @@
         <!-- /.container -->
     </section>
 
-    
+
 
     <!-- Footer -->
     <footer>
