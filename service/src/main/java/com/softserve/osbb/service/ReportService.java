@@ -2,6 +2,7 @@ package com.softserve.osbb.service;
 
 import com.softserve.osbb.model.Report;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public interface ReportService {
 
     List<Report> getAllReportsBySearchTerm(String searchTerm) throws Exception;
 
-    List<Report> getAllReportsBetweenDates(LocalDateTime from, LocalDateTime to) throws Exception;
+    List<Report> getAllReportsBetweenDates(LocalDate from, LocalDate to) throws Exception;
 
     List<Report> getAllReports() throws Exception;
 
