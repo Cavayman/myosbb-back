@@ -84,8 +84,8 @@ public class ProviderServiceImpl implements ProviderService {
     }
 
     @Override
-    public List<Provider> findProvidersByName(String name) {
-        return providerRepository.findProvidersByName(name);
+    public List<Provider> findProvidersByNameOrDescription(String name) {
+        return providerRepository.findProvidersByNameOrDescription(name);
     }
 
 

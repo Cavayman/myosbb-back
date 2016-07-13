@@ -31,6 +31,8 @@ public class ProviderServiceTest {
     @Before
     public void init() {
         provider = new Provider();
+        provider.setName("Volya");
+        provider.setDescription("internet provider");
         providers = new ArrayList<>();
         providers.add(provider);
     }
@@ -58,5 +60,11 @@ public class ProviderServiceTest {
         testSaveAndFind();
         Assert.assertTrue(providerService.countProviders() >= 1);
         Assert.assertTrue(providerService.existsProvider(provider.getProviderId()));
+    }
+
+    @Test
+    public void testFindProvidersByNameOrDescription(){
+        testSaveAndFind();
+        Assert.assertFalse(providerService.findProvidersByNameOrDescription("Volya").isEmpty());
     }
 }
