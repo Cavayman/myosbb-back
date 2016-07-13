@@ -13,13 +13,15 @@
 
 
         <script src="js/angular.js"></script>
-        <script src="http://code.angularjs.org/1.2.5/angular.js" data-semver="1.2.5" data-require="angular.js@1.2.5"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
         <script src="js/jquery-min.js"></script>
         <script src="js/bootstrap-datepicker.js"></script>
         <script src="js/module/app.js"></script>
         <script src="js/service/report_service.js"></script>
         <script src="js/controller/report_controller.js"></script>
         <script src="js/select.js"></script>
+        <script src="js/service/event_service.js"></script>
+        <script src="js/controller/event_controller.js"></script>
         <link rel="stylesheet" href="css/datepicker.css"/>
 
     <!-- Bootstrap Core CSS -->
@@ -73,6 +75,9 @@
                 <a href="#provider" onclick=$ ( "#menu-close").click();>Provider</a>
             </li>
             <li>
+                <a href="#user" onclick=$ ( "#menu-close").click();>User</a>
+            </li>
+            <li>
                 <a href="#report" onclick=$ ( "#menu-close").click();>Report</a>
             </li>
         </ul>
@@ -115,15 +120,141 @@
     </section>
 
 
-    <!-- Ebent -->
+    <!-- Event -->
     <section id="event" class="about">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                   <h1>Event table.....</h1>
+                    <h1>Event table</h1>
+
+
+                    <div class="container" ng-controller="EventController as ec">
+                        <div class="panel-heading"><span class="lead"></span>
+                        </div>
+                        <div class="jumbotron">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="formcontainer">
+                                        <br>
+                                        <form ng-submit="ec.submit()" name="eventForm">
+                                            <input type="hidden" ng-model="ec.event.eventId" id="eid">
+                                            <div class="row">
+                                                <div class ="form-group col-md-8 ">
+                                                    <label class="col-md-3 control-lable" for="rname">Name</label>
+                                                    <div class="col-md-6">
+                                                        <input type="text" ng-model="ec.event.name" id="ename" class="form-control" placeholder="event name">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class ="form-group col-md-8 ">
+                                                    <label class="col-md-3 control-lable" >Author</label>
+                                                    <div class="col-md-6">
+                                                        <input  type="text" ng-model="ec.event.author" placeholder="event author" class="form-control" >
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class ="form-group col-md-8">
+                                                    <label class="col-md-3 control-lable" for="edescription">Description</label>
+                                                    <div class="col-md-6">
+                                                        <input type="text"  ng-model="ec.event.description" id="edescription" class="form-control" placeholder="event description">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class ="form-group col-md-8 ">
+                                                    <label class="col-md-3 control-label" >Date</label>
+                                                    <div class="col-md-6">
+                                                        <input  type="text" ng-model="ec.event.date" placeholder="event date" class="form-control" >
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class ="form-group col-md-8 ">
+                                                    <label class="col-md-3 control-lable" >Repeat</label>
+                                                    <div class="col-md-6">
+                                                        <input  type="text" ng-model="ec.event.repeat" placeholder="event repeat" class="form-control" >
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="form-group col-md-8">
+                                                    <div class="col-md-3">
+                                                        <input type="submit" value="{{!ec.event.eventId ? 'Add' : 'Update'}}" class="btn btn-primary btn-sm" ng-disabled="osbbForm.$invalid">
+                                                        <!--<button type="button" ng-click="ec.reset()" class = "btn btn-warning btn-sm" ng-disabled ="eventForm.$pristine">Reset</button>-->
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-md-6" >
+                                    <div class="tablecontainer" style="overflow:auto; height:300px; width:100% ">
+
+                                        <table class="table table-striped">
+
+                                            <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                                <th>Author</th>
+                                                <th>Description</th>
+                                                <th>Date</th>
+                                                <th>Repeat</th>
+                                                <th width="40%"></th>
+
+                                            </tr>
+
+
+                                            </thead>
+
+                                            <tbody >
+                                            <tr ng-repeat="e in ec.events">
+                                                <td><span class="small" ng-bind="e.eventId"></span></td>
+                                                <td><span class="small" ng-bind="e.name"></span></td>
+                                                <td><span class="small" ng-bind="e.author"></span></td>
+                                                <td><span class="small" ng-bind="e.description"></span></td>
+                                                <td><span class="small" ng-bind="e.date"></span></td>
+                                                <td><span class="small" ng-bind="e.repeat"></span></td>
+                                                <td><button type="button" ng-click="ec.edit(e.eventId)"
+                                                            class="btn btn-success btn-sm">Edit</button>
+                                                    <button type="button" ng-click="ec.remove(e.eventId)"
+                                                            class="btn btn-warning btn-sm">Delete</button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+
+
+                                        </table>
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
-            <!-- /.row -->
+
+
+        </div>
+        <!-- /.row -->
         </div>
         <!-- /.container -->
     </section>
@@ -185,6 +316,132 @@
     </section>
 
 
+    <section id="user" class="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1>User table</h1>
+
+
+                    <div class="container">
+                        <div class="panel-heading"><span class="lead"></span>
+                        </div>
+                        <div class="jumbotron">
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="formcontainer">
+                                        <br>
+                                        <form ng-submit="uc.submit()" name="userForm">
+                                            <input type="hidden" ng-model="uc.userr.userId" id="uid">
+                                            <div class="row">
+                                                <div class ="form-group col-md-12 ">
+                                                    <label class="col-md-4 control-lable" for="rname">Ім'я</label>
+                                                    <div class="col-md-8">
+                                                        <input type="text"  id="firstNameId" class="form-control" placeholder="User name">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class ="form-group col-md-12">
+                                                    <label class="col-md-4 control-lable" f>Фамілія</label>
+                                                    <div class="col-md-8">
+                                                        <input type="text"  id="lastName" class="form-control" placeholder="User lastName">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="row">
+                                                <div class ="form-group col-md-12 ">
+                                                    <label class="col-md-4 control-lable" >Birdth</label>
+                                                    <div class="col-md-8">
+                                                        <input  type="text" placeholder="date..." class="form-control" >
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class ="form-group col-md-12">
+                                                    <label class="col-md-4 control-lable" for="rdescription">Телефон</label>
+                                                    <div class="col-md-8">
+                                                        <input type="text" id="uNumber" class="form-control " placeholder="phone...">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class ="form-group col-md-12">
+                                                    <label class="col-md-4 control-lable" for="rdescription">e-mail</label>
+                                                    <div class="col-md-8">
+                                                        <input type="text" id="uemail" class="form-control" placeholder="report description">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="row">
+                                                <div class="form-group col-md-12">
+                                                    <div class="col-md-12">
+                                                        <input id="userAdd" type="submit" value="Add" class="btn col-md-12 btn-primary "">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-md-9" >
+                                    <div class="tablecontainer" style="overflow:auto; height:300px; width:100% ">
+
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>FirstName</th>
+                                                <th>LastName</th>
+                                                <th>Birth Date</th>
+                                                <th>Phone number</th>
+                                                <th>email</th>
+                                                <th>Password</th>
+                                                <th>Gender</th>
+                                                <th width="40%">Delete</th>
+                                                <th width="40%">Edit</th>
+                                            </tr>
+
+                                            </thead>
+                                            <tbody id="tablecont" >
+                                            <tr >
+                                                <td><span class="small" ng-bind="r.reportId"></span></td>
+                                                <td><span class="small" ng-bind="r.name"></span></td>
+                                                <td><span class="small" ng-bind="r.description"></span></td>
+                                                <td><span class="small" ng-bind="r.creationDate"></span></td>
+                                                <td><a><span class="small" ng-bind="r.filePath"></span></a></td>
+                                                <td><a><span class="small" ng-bind="r.filePath"></span></a></td>
+                                                <td><button type="button" ng-click="rc.edit(r.reportId)"
+                                                            class="btn btn-success btn-sm">Edit</button>
+                                                    <button type="button" ng-click="rc.remove(r.reportId)"
+                                                            class="btn btn-warning btn-sm">Delete</button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+
     <!-- Report -->
     <section id="report" class="about">
         <div class="container">
@@ -205,7 +462,7 @@
                         <form ng-submit="rc.submit()" name="reportForm" novalidate>
                             <input type="hidden" ng-model="rc.report.reportId" id="rid">
                                 <div class="row">
-                                    <div class ="form-group" ng-class="{'has-error' : reportForm.rname.$invalid $$ reportForm.rname.$dirty}" show-errors>
+                                    <div class ="form-group" ng-class="{'has-error' : reportForm.rname.$invalid && reportForm.rname.$dirty}" show-errors>
                                         <div class="col-md-6">
                                                 <label class="control-lable" for="rname">name</label>
                                                 <input type="text" ng-model="rc.report.name" name="rname" id="rname" class="form-control" placeholder="report name" required ng-minlength="3">
@@ -214,7 +471,7 @@
                                 </div>
 
                             <div class="row">
-                            <div class ="form-group" ng-class="{'has-error' : reportForm.descr.$invalid $$ reportForm.descr.$dirty}" show-errors>
+                            <div class ="form-group" ng-class="{'has-error' : reportForm.descr.$invalid && reportForm.descr.$dirty}" show-errors>
                                 <div class="col-md-6">
                                     <label class="control-lable"  for="rdescription">description</label>
                                     <input type="text"  ng-model="rc.report.description" name="descr" id="rdescription" class="form-control" placeholder="report description" required>
@@ -223,7 +480,7 @@
                             </div>
 
                             <div class="row">
-                            <div class ="form-group" ng-class="{'has-error' : reportForm.date.$invalid $$ reportForm.date.$dirty}">
+                            <div class ="form-group" ng-class="{'has-error' : reportForm.date.$invalid && reportForm.date.$dirty}">
                                 <div class="col-md-6">
                                     <label class="control-lable" >date</label>
                                     <input  type="text" name="date" ng-model="rc.report.creationDate" ng-pattern="/^\d{4}-\d{1,2}-\d{1,2}$/" placeholder="date...." class="form-control" >
