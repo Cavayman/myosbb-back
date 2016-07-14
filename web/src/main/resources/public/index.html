@@ -291,10 +291,10 @@
                                     <div class="formcontainer">
                                         <br>
                                         <form ng-submit="mc.submit()" name="messageForm">
-                                            <input type="hidden" ng-model="mc.message.messageId" id="eid">
+                                            <input type="hidden" ng-model="mc.message.messageId" id="mid">
                                             <div class="row">
                                                 <div class ="form-group col-md-8 ">
-                                                    <label class="col-md-3 control-lable" for="rname"></label>
+                                                    <label class="col-md-3 control-lable" for="rname">Description</label>
                                                     <div class="col-md-6">
                                                         <input type="text" ng-model="mc.message.description" id="description" class="form-control" placeholder="message description">
                                                     </div>
@@ -303,7 +303,7 @@
 
                                             <div class="row">
                                                 <div class ="form-group col-md-8 ">
-                                                    <label class="col-md-3 control-lable" >message text</label>
+                                                    <label class="col-md-3 control-lable" >Message text</label>
                                                     <div class="col-md-6">
                                                         <input  type="text" ng-model="mc.message.messag" placeholder="message text" class="form-control" >
                                                     </div>
@@ -313,9 +313,9 @@
 
                                             <div class="row">
                                                 <div class ="form-group col-md-8 ">
-                                                    <label class="col-md-3 control-label" >date</label>
+                                                    <label class="col-md-3 control-label" >Date</label>
                                                     <div class="col-md-6">
-                                                        <input  type="text" ng-model="mc.message.date" placeholder="date...." class="form-control" >
+                                                        <input  type="text" ng-model="mc.message.date" placeholder="date" class="form-control" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -405,157 +405,149 @@
     </section>
 
 
-    <!-- Provider -->
-    <section id="provider" class="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                   <h1>Provider table.....</h1>
-                </div>
-            </div>
-            <!-- /.row -->
-        </div>
-        <!-- /.container -->
-    </section>
-
-
-    <section id="user" class="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h1>User table</h1>
-
-
-                    <div class="container">
-                        <div class="panel-heading"><span class="lead"></span>
-                        </div>
-                        <div class="jumbotron">
-
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="formcontainer">
-                                        <br>
-                                        <form ng-submit="uc.submit()" name="userForm">
-                                            <input type="hidden" ng-model="uc.userr.userId" id="uid">
-                                            <div class="row">
-                                                <div class ="form-group col-md-12 ">
-                                                    <label class="col-md-4 control-lable" for="rname">Ім'я</label>
-                                                    <div class="col-md-8">
-                                                        <input type="text"  id="firstNameId" class="form-control" placeholder="User name">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class ="form-group col-md-12">
-                                                    <label class="col-md-4 control-lable" f>Фамілія</label>
-                                                    <div class="col-md-8">
-                                                        <input type="text"  id="lastName" class="form-control" placeholder="User lastName">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="row">
-                                                <div class ="form-group col-md-12 ">
-                                                    <label class="col-md-4 control-lable" >Birdth</label>
-                                                    <div class="col-md-8">
-                                                        <input  type="text" placeholder="date..." class="form-control" >
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class ="form-group col-md-12">
-                                                    <label class="col-md-4 control-lable" for="rdescription">Телефон</label>
-                                                    <div class="col-md-8">
-                                                        <input type="text" id="uNumber" class="form-control " placeholder="phone...">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class ="form-group col-md-12">
-                                                    <label class="col-md-4 control-lable" for="rdescription">e-mail</label>
-                                                    <div class="col-md-8">
-                                                        <input type="text" id="uemail" class="form-control" placeholder="report description">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="row">
-                                                <div class="form-group col-md-12">
-                                                    <div class="col-md-12">
-                                                        <input id="userAdd" type="submit" value="Add" class="btn col-md-12 btn-primary ">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div class="col-md-9" >
-                                    <div class="tablecontainer" style="overflow:auto; height:300px; width:100% ">
-
-                                        <table class="table table-striped">
-                                            <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>FirstName</th>
-                                                <th>LastName</th>
-                                                <th>Birth Date</th>
-                                                <th>Phone number</th>
-                                                <th>email</th>
-                                                <th>Password</th>
-                                                <th>Gender</th>
-                                                <th width="40%">Delete</th>
-                                                <th width="40%">Edit</th>
-                                            </tr>
-
-                                            </thead>
-                                            <tbody id="tablecont" >
-                                            <tr >
-                                                <td><span class="small" ng-bind="r.reportId"></span></td>
-                                                <td><span class="small" ng-bind="r.name"></span></td>
-                                                <td><span class="small" ng-bind="r.description"></span></td>
-                                                <td><span class="small" ng-bind="r.creationDate"></span></td>
-                                                <td><a><span class="small" ng-bind="r.filePath"></span></a></td>
-                                                <td><a><span class="small" ng-bind="r.filePath"></span></a></td>
-                                                <td><button type="button" ng-click="rc.edit(r.reportId)"
-                                                            class="btn btn-success btn-sm">Edit</button>
-                                                    <button type="button" ng-click="rc.remove(r.reportId)"
-                                                            class="btn btn-warning btn-sm">Delete</button>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-
-                                        </table>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+<!-- Provider -->
+<section id="provider" class="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1>Provider table.....</h1>
             </div>
         </div>
         <!-- /.row -->
-        </div>
-        <!-- /.container -->
-    </section>
+    </div>
+    <!-- /.container -->
+</section>
 
 
-    <!-- Report -->
-    <section id="report" class="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                   <h1>Report table</h1>
+<section id="user" class="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1>User table</h1>
 
 
-        <div class="container" ng-controller="ReportController as rc">
-              <div class="panel-heading"><span class="lead"></span>
+                <div class="container">
+                    <div class="panel-heading"><span class="lead"></span>
+                    </div>
+                    <div class="jumbotron">
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="formcontainer">
+                                    <br>
+                                    <form ng-submit="uc.submit()" name="userForm">
+                                        <input type="hidden" ng-model="uc.userr.userId" id="uid">
+                                        <div class="row">
+                                            <div class ="form-group col-md-12 ">
+                                                <label class="col-md-4 control-lable" for="rname">Ім'я</label>
+                                                <div class="col-md-8">
+                                                    <input type="text"  id="firstNameId" class="form-control" placeholder="User name">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class ="form-group col-md-12">
+                                                <label class="col-md-4 control-lable" f>Фамілія</label>
+                                                <div class="col-md-8">
+                                                    <input type="text"  id="lastName" class="form-control" placeholder="User lastName">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class ="form-group col-md-12 ">
+                                                <label class="col-md-4 control-lable" >Birdth</label>
+                                                <div class="col-md-8">
+                                                    <input  type="text" placeholder="date..." class="form-control" >
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class ="form-group col-md-12">
+                                                <label class="col-md-4 control-lable" for="rdescription">Телефон</label>
+                                                <div class="col-md-8">
+                                                    <input type="text" id="uNumber" class="form-control " placeholder="phone...">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class ="form-group col-md-12">
+                                                <label class="col-md-4 control-lable" for="rdescription">e-mail</label>
+                                                <div class="col-md-8">
+                                                    <input type="text" id="uemail" class="form-control" placeholder="report description">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <div class="col-md-12">
+                                                    <input id="userAdd" type="submit" value="Add" class="btn col-md-12 btn-primary "">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-9" >
+                                <div class="tablecontainer" style="overflow:auto; height:300px; width:100% ">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>FirstName</th>
+                                            <th>LastName</th>
+                                            <th>Birth Date</th>
+                                            <th>Phone number</th>
+                                            <th>email</th>
+                                            <th>Password</th>
+                                            <th>Gender</th>
+                                            <th width="40%">Delete</th>
+                                            <th width="40%">Edit</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="tablecont" >
+                                        <tr >
+                                            <td><span class="small" ng-bind="r.reportId"></span></td>
+                                            <td><span class="small" ng-bind="r.name"></span></td>
+                                            <td><span class="small" ng-bind="r.description"></span></td>
+                                            <td><span class="small" ng-bind="r.creationDate"></span></td>
+                                            <td><a><span class="small" ng-bind="r.filePath"></span></a></td>
+                                            <td><a><span class="small" ng-bind="r.filePath"></span></a></td>
+                                            <td><button type="button" ng-click="rc.edit(r.reportId)"
+                                                        class="btn btn-success btn-sm">Edit</button>
+                                                <button type="button" ng-click="rc.remove(r.reportId)"
+                                                        class="btn btn-warning btn-sm">Delete</button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</section>
+<!-- Report -->
+<section id="report" class="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1>Report table</h1>
+
+                <div class="container" ng-controller="ReportController as rc">
+                    <div class="panel-heading"><span class="lead"></span>
+                    </div>
                     <div class="jumbotron">
 
                     <div class="row">

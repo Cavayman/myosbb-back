@@ -43,7 +43,7 @@ App.controller('MessageController', ['$scope', 'MessageService',
                     mes.getAllMessages,
 
                     function (errResponse) {
-                        console.error('error while creating event');
+                        console.error('error while creating message');
                     }
                 );
 
@@ -54,7 +54,7 @@ App.controller('MessageController', ['$scope', 'MessageService',
 
             MessageService.updateMessage(message, messageId)
                 .then(
-                    mes.getAllMessage,
+                    mes.getAllMessages,
 
                     function (errResponse) {
                         console.error('error while updating message');
@@ -68,9 +68,9 @@ App.controller('MessageController', ['$scope', 'MessageService',
         mes.deleteMessage = function (messageId) {
 
 
-            MessageService.deleteEvent(messageId)
+            MessageService.deleteMessage(messageId)
                 .then(
-                    mes.getAllMessage,
+                    mes.getAllMessages,
 
                     function (errResponse) {
                         console.error('error while deleting message');
@@ -87,17 +87,17 @@ App.controller('MessageController', ['$scope', 'MessageService',
 
             if (mes.message.messageId === null) {
 
-                console.log('saving new event', mes.message);
+                console.log('saving new message', mes.message);
 
-                mes.createEvent(rs.message);
+                mes.createMessage(mes.message);
 
             } else {
 
-                var eventId = parseInt(mes.message.messageId);
+                var messageId = parseInt(mes.message.messageId);
 
-                console.log('updating event', mes.message);
+                console.log('updating message', mes.message);
 
-                mes.updateEvent(rs.message, eventId);
+                mes.updateEvent(mes.message, messageId);
 
             }
 
@@ -135,8 +135,8 @@ App.controller('MessageController', ['$scope', 'MessageService',
 
         mes.reset = function () {
 
-            mes.event = {eventId: null, name: '', description: '', creationDate: '', filePath: ''};
-            $scope.eventForm.$setPristine();
+            mes.message = {messageId: null, description: '', message: '', date: ''};
+            $scope.messageForm.$setPristine();
 
         }
 

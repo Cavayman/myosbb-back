@@ -2,6 +2,7 @@ package com.softserve.osbb.controller;
 
 import com.softserve.osbb.model.Message;
 import com.softserve.osbb.service.MessageService;
+import com.softserve.osbb.service.impl.MessageServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +21,16 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
  * Created by Kris on 12.07.2016.
  */
 @RestController
+@RequestMapping("/restful")
 public class MessageController {
 
     private static final Resource<Message> EMPTY_MESSAGE_LINK = new Resource<>(new Message());
+    private static final List<Resource<Message>> MESSAGE_LIST = new ArrayList<>(0);
+
     private static Logger logger = LoggerFactory.getLogger(MessageController.class);
 
     @Autowired
-    MessageService messageService;
+   private MessageServiceImpl messageService;
 
     @RequestMapping(value = "/message", method = RequestMethod.POST)
     public ResponseEntity<Resource<Message>> createMessage(@RequestBody Message message) {
