@@ -23,6 +23,8 @@
         <script src="js/select.js"></script>
         <script src="js/service/event_service.js"></script>
         <script src="js/controller/event_controller.js"></script>
+        <script src="js/service/provider_service.js"></script>
+        <script src="js/controller/provider_controller.js"></script>
         <link rel="stylesheet" href="css/datepicker.css"/>
 
     <!-- Bootstrap Core CSS -->
@@ -410,10 +412,143 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                   <h1>Provider table.....</h1>
+                    <h1>Provider table</h1>
+
+                    <div class="container" ng-controller="ProviderController as pc">
+                        <div class="panel-heading"><span class="lead"></span>
+                        </div>
+                        <div class="jumbotron">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="formcontainer">
+                                        <br>
+                                        <form ng-submit="ec.submit()" name="providerForm">
+                                            <input type="hidden" ng-model="ec.provider.providerId" id="pid">
+                                            <div class="row">
+                                                <div class="form-group col-md-8 ">
+                                                    <label class="col-md-3 control-lable" for="pname">Name</label>
+                                                    <div class="col-md-6">
+                                                        <input type="text" ng-model="pc.provider.name" id="pname"
+                                                               class="form-control" placeholder="provider name">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="form-group col-md-8 ">
+                                                    <label class="col-md-3 control-lable">Description</label>
+                                                    <div class="col-md-6">
+                                                        <input type="text" ng-model="pc.provider.description"
+                                                               placeholder="provider description" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="form-group col-md-8">
+                                                    <label class="col-md-3 control-lable"
+                                                           for="logoUrl">Logo</label>
+                                                    <div class="col-md-6">
+                                                        <input type="text" ng-model="pc.provider.logoUrl" id="logoUrl"
+                                                               class="form-control" placeholder="url">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="form-group col-md-8 ">
+                                                    <label class="col-md-3 control-label">Contracts</label>
+                                                    <div class="col-md-6">
+                                                        <input type="text" ng-model="pc.provider.contracts" placeholder="document number"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="form-group col-md-8 ">
+                                                    <label class="col-md-3 control-lable">Bill</label>
+                                                    <div class="col-md-6">
+                                                        <input type="text" ng-model="pc.provider.bill"
+                                                               placeholder="bill" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="form-group col-md-8">
+                                                    <div class="col-md-3">
+                                                        <input type="submit"
+                                                               value="{{!pc.provider.providerId ? 'Add' : 'Update'}}"
+                                                               class="btn btn-primary btn-sm"
+                                                               ng-disabled="osbbForm.$invalid">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="tablecontainer" style="overflow:auto; height:300px; width:100% ">
+
+                                        <table class="table table-striped">
+
+                                            <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                                <th>Description</th>
+                                                <th>Logo</th>
+                                                <th>Contracts</th>
+                                                <th>Bills</th>
+                                                <th width="40%"></th>
+                                            </tr>
+
+                                            </thead>
+
+                                            <tbody>
+                                            <tr ng-repeat="p in pc.providers">
+                                                <td><span class="small" ng-bind="p.providerId"></span></td>
+                                                <td><span class="small" ng-bind="p.name"></span></td>
+                                                <td><span class="small" ng-bind="p.description"></span></td>
+                                                <td><span class="small" ng-bind="p.logoUrl"></span></td>
+                                                <td><span class="small" ng-bind="p.contracts"></span></td>
+                                                <td><span class="small" ng-bind="p.bills"></span></td>
+                                                <td>
+                                                    <button type="button" ng-click="pc.edit(p.providerId)"
+                                                            class="btn btn-success btn-sm">Edit
+                                                    </button>
+                                                    <button type="button" ng-click="pc.remove(p.providerId)"
+                                                            class="btn btn-warning btn-sm">Delete
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+
+
+                                        </table>
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
-            <!-- /.row -->
+
+
+        </div>
+        <!-- /.row -->
         </div>
         <!-- /.container -->
     </section>
