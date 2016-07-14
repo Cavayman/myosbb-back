@@ -9,7 +9,7 @@ App.factory('MessageService', ['$http', '$q', function ($http, $q) {
 
         getAllMessages: function () {
 
-            return $http.get('restful/message/')
+            return $http.get('/restful/message/')
                 .then(
                     function (response) {
                         return response.data;
@@ -27,7 +27,7 @@ App.factory('MessageService', ['$http', '$q', function ($http, $q) {
         createMessage: function (message) {
 
 
-            return $http.post('restful/message/', message)
+            return $http.post('/restful/message/', message)
                 .then(
                     function (response) {
                         return response.data;
@@ -43,7 +43,7 @@ App.factory('MessageService', ['$http', '$q', function ($http, $q) {
 
         updateMessage: function (message, messageId) {
 
-            return $http.put('restful/message/' + messageId, message)
+            return $http.put('/restful/message/' + messageId, message)
                 .then(
                     function (response) {
                         return response.data;
@@ -59,7 +59,7 @@ App.factory('MessageService', ['$http', '$q', function ($http, $q) {
 
         deleteMessage: function (messageId) {
 
-            return $http.delete('restful/message/' + messageId)
+            return $http.delete('/restful/message/' + messageId)
                 .then(
                     function (response) {
                         return response.data;

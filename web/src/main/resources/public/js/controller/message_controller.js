@@ -85,21 +85,21 @@ App.controller('MessageController', ['$scope', 'MessageService',
 
         mes.submit = function () {
 
-            if (mes.message.messageId === null) {
+            //if (mes.message.messageId === null) {
 
                 console.log('saving new message', mes.message);
 
                 mes.createMessage(mes.message);
 
-            } else {
+            //} else {
 
-                var messageId = parseInt(mes.message.messageId);
+                //var messageId = parseInt(mes.message.messageId);
+                //
+                //console.log('updating message', mes.message);
+                //
+                //mes.updateMessage(mes.message, messageId);
 
-                console.log('updating message', mes.message);
-
-                mes.updateEvent(mes.message, messageId);
-
-            }
+            //}
 
             mes.reset();
 
@@ -110,7 +110,7 @@ App.controller('MessageController', ['$scope', 'MessageService',
 
             console.log('id to be edited: ' + messageId);
 
-            for (var i = 0; i < mes.events.length; i++) {
+            for (var i = 0; i < mes.messages.length; i++) {
 
                 if (mes.messages[i].messageId === messageId) {
                     mes.message = angular.copy(mes.messages[i]);
@@ -135,7 +135,7 @@ App.controller('MessageController', ['$scope', 'MessageService',
 
         mes.reset = function () {
 
-            mes.message = {messageId: null, description: '', message: '', date: ''};
+            mes.message = {messageId: null, description: '', messag: '', date: ''};
             $scope.messageForm.$setPristine();
 
         }
