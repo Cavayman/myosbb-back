@@ -628,12 +628,21 @@
 
                 </div>
 
+
                 <div class="col-md-6" >
-                    <div class="tablecontainer" style="overflow:auto; height:400px; width:100% ">
+                        <div class=""row>
+                        <form class="form-inline" ng-submit="rc.search()">
+                            <div class="form-group col-md-12" >
+                                <input  name="searchParam" style="width: 80%" type="text" ng-model="rc.searchParam" class="form-control input-lg"
+                                       placeholder="search by name, description"/>
+                                <input type="submit" value="Search" class="btn" />
+                            </div>
+                        </form>
+                            </div>
+                    <div class="tablecontainer top-buffer" style="overflow:auto; height:400px; width:100% ">
+                        <table class="table table-striped">
+                            <thead>
 
-                    <table class="table table-striped">
-
-                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
@@ -641,6 +650,7 @@
                             <th>Date</th>
                             <th>Path</th>
                             <th width="40%"></th>
+                            <th><button class="btn btn-default btn-xs" ng-click="rc.getAllReports()" type="submit">Reload</button></th>
 
                         </tr>
 
