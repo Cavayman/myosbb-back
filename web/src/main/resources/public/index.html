@@ -423,7 +423,7 @@
                                 <div class="col-md-6">
                                     <div class="formcontainer">
                                         <br>
-                                        <form ng-submit="ec.submit()" name="providerForm">
+                                        <form ng-submit="pc.submit()" name="providerForm">
                                             <input type="hidden" ng-model="ec.provider.providerId" id="pid">
                                             <div class="row">
                                                 <div class="form-group col-md-8 ">
@@ -515,7 +515,7 @@
                                                 <td><span class="small" ng-bind="p.providerId"></span></td>
                                                 <td><span class="small" ng-bind="p.name"></span></td>
                                                 <td><span class="small" ng-bind="p.description"></span></td>
-                                                <td><span class="small" ng-bind="p.logoUrl"></span></td>
+                                                <td><img src="{{p.logoUrl}}"></td>
                                                 <td><span class="small" ng-bind="p.contracts"></span></td>
                                                 <td><span class="small" ng-bind="p.bills"></span></td>
                                                 <td>

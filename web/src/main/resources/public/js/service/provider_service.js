@@ -3,7 +3,7 @@
 App.factory('ProviderService', [ '$http', '$q', function($http, $q){
 			return{
 					getAllProviders: function(){
-						return $http.get('restful/provider/')
+						return $http.get('restful/provider/all')
                             .then(
                                     function(response){
                                         return response.data;
@@ -58,7 +58,7 @@ App.factory('ProviderService', [ '$http', '$q', function($http, $q){
 
                     searchBy: function(searchParam){
 
-                        return $http.get('restful/provider/find?searchParam='+searchParam)
+                        return $http.get('restful/provider/find?name='+searchParam)
                             .then(
 
                                 function(response){

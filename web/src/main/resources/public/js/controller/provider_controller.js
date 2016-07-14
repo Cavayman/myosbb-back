@@ -5,7 +5,7 @@ App.controller('ProviderController', ['$scope', 'ProviderService',
 	function($scope, ProviderService){
 
 			var rs = this;
-			rs.provider = {providerId:null, name:'', description:'', logoUrl: '', contracts:'', bills:''};
+			rs.provider = {providerId:null, name:'', description:'', logoUrl: '', contracts:[], bills:[]};
 			rs.providers =[];
 			rs.searchParam=null;
 
