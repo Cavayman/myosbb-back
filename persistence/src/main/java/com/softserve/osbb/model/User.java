@@ -1,5 +1,6 @@
 package com.softserve.osbb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -108,6 +109,7 @@ public class User {
     }
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "users")
+    @JsonIgnore
     public List<Vote> getVotes() {
         return votes;
     }
@@ -117,6 +119,7 @@ public class User {
     }
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
     @JoinTable(name = "user_apartment", joinColumns = {
             @JoinColumn(name = "user_id", nullable = false) },
             inverseJoinColumns = { @JoinColumn(name = "apartment_id",
@@ -130,6 +133,7 @@ public class User {
     }
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "users")
+    @JsonIgnore
     public List<Message> getMessages() {
         return messages;
     }
@@ -139,6 +143,7 @@ public class User {
     }
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "users")
+    @JsonIgnore
     public List<Ticket> getTickets() {
         return tickets;
     }
