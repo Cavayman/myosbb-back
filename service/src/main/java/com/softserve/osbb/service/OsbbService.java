@@ -21,7 +21,7 @@ public interface OsbbService {
 
     boolean existsOsbb(Integer id);
 
-    Osbb updateOsbb(Osbb osbb);
+    Osbb updateOsbb(Integer osbbId, Osbb osbb);
 
     void deleteOsbb(Integer id);
 

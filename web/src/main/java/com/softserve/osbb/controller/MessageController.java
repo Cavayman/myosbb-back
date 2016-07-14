@@ -2,6 +2,7 @@ package com.softserve.osbb.controller;
 
 import com.softserve.osbb.model.Message;
 import com.softserve.osbb.service.MessageService;
+import com.softserve.osbb.service.impl.MessageServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,46 +21,42 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
  * Created by Kris on 12.07.2016.
  */
 @RestController
+@RequestMapping("/restful")
 public class MessageController {
 
-    private static final Resource<Message> EMPTY_MESSAGE_LINK = new Resource<>(new Message());
     private static Logger logger = LoggerFactory.getLogger(MessageController.class);
 
     @Autowired
-    MessageService messageService;
+    private MessageService messageService;
 
     @RequestMapping(value = "/message", method = RequestMethod.POST)
     public ResponseEntity<Resource<Message>> createMessage(@RequestBody Message message) {
 
-        Resource<Message> messageResource;
-        try {
-            logger.info("saving message object " + message);
-            message = messageService.save(message);
-            messageResource = addResourceLinkToMessage(message);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
+        logger.info("saving message object " + message);
+        message = messageService.save(message);
+        Resource<Message> messageResource = new Resource<>(message);
+        messageResource.add(linkTo(methodOn(MessageController.class).getMessageById(message.getMessageId())).withSelfRel());
         return new ResponseEntity<>(messageResource, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/message", method = RequestMethod.GET)
     public ResponseEntity<List<Resource<Message>>> listAllMessages() {
-
         List<Message> messageList = messageService.findAll();
-        logger.info("Getting all messages: " + messageList);
-        if (messageList.isEmpty()) {
-            logger.warn("no messagetList were found in the list: " + messageList);
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        logger.info("Getting all messages.");
         final List<Resource<Message>> resourceMessageList = new ArrayList<>();
-        messageList.stream().forEach((message) -> resourceMessageList.add(addResourceLinkToMessage(message)));
+        for (Message e : messageList) {
+            Resource<Message> messageResource = new Resource<>(e);
+            messageResource.add(linkTo(methodOn(MessageController.class)
+                    .getMessageById(e.getMessageId()))
+                    .withSelfRel());
+            resourceMessageList.add(messageResource);
+        }
         return new ResponseEntity<>(resourceMessageList, HttpStatus.OK);
     }
 
     private Resource<Message> addResourceLinkToMessage(Message message) {
         if (message == null) {
-            return EMPTY_MESSAGE_LINK;
+            return null;
         }
         Resource<Message> messageResource = new Resource<>(message);
 
@@ -73,30 +70,20 @@ public class MessageController {
     public ResponseEntity<Resource<Message>> getMessageById(@PathVariable("id") Integer messageId) {
 
         logger.info("fetching message by id: " + messageId);
-
         Message message = messageService.findOne(messageId);
-
         Resource<Message> messageResource = addResourceLinkToMessage(message);
-
-        return messageResource == EMPTY_MESSAGE_LINK ? new ResponseEntity<>(HttpStatus.NOT_FOUND)
-                : new ResponseEntity<>(messageResource, HttpStatus.OK);
+        messageResource.add(linkTo(methodOn(MessageController.class).getMessageById(messageId)).withSelfRel());
+        return new ResponseEntity<>(messageResource, HttpStatus.OK);
     }
 
 
     @RequestMapping(value = "/message/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Resource<Message>> updateMessage(@RequestBody Message message) {
+    public ResponseEntity<Resource<Message>> updateMessage(@PathVariable("id") Integer messageId,@RequestBody Message message) {
 
-        Resource<Message> messageResource;
-
-        try {
-            messageService.update(message);
-            messageResource = addResourceLinkToMessage(message);
-
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
+        logger.info("Updating message by id: " + messageId);
+        message = messageService.update(messageId, message);
+        Resource<Message> messageResource = new Resource<>(message);
+        messageResource.add(linkTo(methodOn(MessageController.class).getMessageById(messageId)).withSelfRel());
         return new ResponseEntity<>(messageResource, HttpStatus.OK);
     }
 

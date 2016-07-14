@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "report")
 public class Report {
+    public static final Report EMPTY_REPORT = new Report();
     private Integer reportId;
     private String name;
     private String description;
@@ -26,7 +27,7 @@ public class Report {
     private Osbb osbb;
 
     public Report() {
-
+        //default constructor needed for Hibernate
     }
 
     public Report(String name, String description) {
@@ -44,7 +45,7 @@ public class Report {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "report_id")
     public Integer getReportId() {
-        return reportId == null? new Integer(0): reportId;
+        return reportId == null ? new Integer(0) : reportId;
     }
 
     public void setReportId(Integer reportId) {

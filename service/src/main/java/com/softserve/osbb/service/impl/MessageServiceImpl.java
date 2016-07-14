@@ -3,9 +3,11 @@ package com.softserve.osbb.service.impl;
 import com.softserve.osbb.model.Message;
 import com.softserve.osbb.repository.MessageRepository;
 import com.softserve.osbb.service.MessageService;
+import org.hibernate.annotations.Target;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,6 +15,7 @@ import java.util.List;
  * Created by Kris on 10.07.2016.
  */
 @Service
+@Transactional
 public class MessageServiceImpl implements MessageService {
 
     @Autowired
@@ -115,5 +118,10 @@ public class MessageServiceImpl implements MessageService {
         messageRepository.save(message);
         return true;
 
+    }
+
+    @Override
+    public Message update(Integer id, Message message) {
+        return messageRepository.exists(id) ? messageRepository.save(message) : null;
     }
 }

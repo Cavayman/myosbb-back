@@ -1,34 +1,52 @@
 package com.softserve.osbb.service;
 
 import com.softserve.osbb.model.Contract;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
-
-import java.time.LocalDateTime;
 import java.util.List;
 
-
 /**
- * Created by Roma on 12/07/2016.
+ * Created by Roma on 13/07/2016.
  */
+
 public interface ContractService {
-    Contract addContract (Contract contract) throws Exception;
+    public Contract save(Contract contract);
 
-    Contract updateContract (Integer contractId, Contract contract ) throws Exception;
+    public Contract findOne(Integer integer);
 
-    Contract getContractById (Integer contractId) throws Exception;
+    public Contract findOne (String id);
 
-    Contract getOneContractBySearchTerm (String name) throws Exception;
+    public boolean exists (Integer integer);
 
-    List<Contract> getAllContractsBySearchTerm(String searchTerm) throws Exception;
+    public List<Contract> findAll();
 
-    List<Contract> getAllContractsBetweenDates(LocalDateTime from, LocalDateTime to) throws Exception;
+    public List<Contract> findAll(Sort sort) ;
 
-    List<Contract> getAllContracts() throws Exception;
+    public Page<Contract> findAll(Pageable pageable) ;
 
-    List<Contract> showLatestContracts() throws Exception;
+    public List<Contract> findAll(Iterable<Integer> iterable) ;
 
-    void deleteAll() throws Exception;
+    public long count() ;
 
-    void deleteContractById(Integer reportId) throws Exception;
+    public void delete(Integer integer) ;
 
+    public void delete(Contract contract) ;
+
+    public void delete(Iterable<? extends Contract> iterable) ;
+
+    public void deleteAll();
+
+    public void flush() ;
+
+    public void deleteInBatch(Iterable<Contract> iterable) ;
+
+    public void deleteAllInBatch() ;
+
+    public Contract getOne(Integer integer);
+
+    public Contract saveAndFlush(Contract contract) ;
+
+    public List<Contract> save(Iterable<Contract> iterable) ;
 }

@@ -6758,3 +6758,19 @@ button.close {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+
+
+.form-group .help-block {
+  display: none;
+}
+
+.form-group.has-error .help-block {
+  display: block;
+  font-size: 10pt;
+}
+
+.top-buffer { margin-top:80px; }
+
+.form-pos{
+  position:absolute;
+}

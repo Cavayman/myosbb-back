@@ -12,9 +12,9 @@ import javax.persistence.*;
 @Table(name = "message")
 public class Message {
     private Integer messageId;
-    private String time;
-    private String message;
     private String description;
+    private String message;
+    private String time;
     private Ticket ticket;
     private User users;
 

@@ -1,15 +1,13 @@
 
 
-App.controller('ReportController', ['$scope', 'ReportService', 
+App.controller('ReportController', ['$scope', 'ReportService',
 
 	function($scope, ReportService){
 
-
 			var rs = this;
-
 			rs.report = {reportId:null, name:'', description:'', creationDate: '', filePath:''};
 			rs.reports =[];
-
+			rs.searchParam=null;
 
 			rs.getAllReports = function(){
 
@@ -27,7 +25,6 @@ App.controller('ReportController', ['$scope', 'ReportService',
 
 
 					);
-
 
 			};
 
@@ -73,6 +70,32 @@ App.controller('ReportController', ['$scope', 'ReportService',
 			};
 
 
+			rs.searchBy = function(searchParam){
+
+				if(searchParam == null || searchParam.trim().length == 0){
+
+					throw e;
+
+				}else{
+
+				ReportService.searchBy(searchParam)
+					.then(
+
+						function(s){
+							rs.reports = s;
+						},
+
+						function(errResponse){
+							console.error("error while searching");
+						}
+					)
+
+				}
+
+
+			};
+
+
 			rs.deleteReport = function(reportId){
 
 
@@ -90,10 +113,17 @@ App.controller('ReportController', ['$scope', 'ReportService',
 
 			};
 
-
 			rs.getAllReports();
 
+			rs.search = function(){
 
+				console.log('passing '+rs.searchParam);
+				try {
+					rs.searchBy(rs.searchParam);
+				}catch(err){
+					console.error('error on search, the searchParam is null or empty');
+				}
+			};
 
 			rs.submit = function(){
 
