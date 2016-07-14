@@ -19,22 +19,22 @@ public class AttachmentServiceImpl implements AttachmentService{
     AttachmentRepository attachmentRepository;
 
     @Override
-    public void saveAttachment(Attachment attachment) {
-        attachmentRepository.save(attachment);
+    public Attachment saveAttachment(Attachment attachment) {
+        return attachmentRepository.save(attachment);
     }
 
     @Override
-    public void saveAttachmentList(List<Attachment> list) {
-        attachmentRepository.save(list);
+    public List<Attachment> findAttachments(List<Attachment> list) {
+        return attachmentRepository.save(list);
     }
 
     @Override
-    public Attachment findOneAttachmentByID(Integer id) {
+    public Attachment findAttachmentById(Integer id) {
         return attachmentRepository.findOne(id);
     }
 
     @Override
-    public List<Attachment> findAllAttachmentsByIDs(List<Integer> ids) {
+    public List<Attachment> findAttachmentsByIds(List<Integer> ids) {
         return attachmentRepository.findAll(ids);
     }
 
@@ -44,12 +44,17 @@ public class AttachmentServiceImpl implements AttachmentService{
     }
 
     @Override
+    public Attachment updateAttachment(Integer id, Attachment attachment) {
+        return attachmentRepository.exists(id) ? attachmentRepository.save(attachment) : null;
+    }
+
+    @Override
     public void deleteAttachment(Attachment attachment) {
         attachmentRepository.delete(attachment);
     }
 
     @Override
-    public void deleteAttachmentByID(Integer id) {
+    public void deleteAttachmentById(Integer id) {
         attachmentRepository.delete(id);
     }
 
