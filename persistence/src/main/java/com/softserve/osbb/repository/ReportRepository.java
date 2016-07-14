@@ -25,4 +25,8 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
 
     List<Report> findByCreationDate(LocalDate localDate);
 
+    List<Report> findDistinctByName(String name);
+
+    long countByName(String name);
+
 }

@@ -55,6 +55,24 @@ App.factory('ReportService', [ '$http', '$q', function($http, $q){
                                 );
 
 							},
+
+                    searchBy: function(searchParam){
+
+                        return $http.get('restful/report/find?searchParam='+searchParam)
+                            .then(
+
+                                function(response){
+                                    return response.data;
+                                },
+
+                                function(errResponse){
+                                    console.error('Error while searching for report');
+                                    return $q.reject(errResponse);
+                                }
+
+
+                            );
+                    }
 					};
 
 			}
