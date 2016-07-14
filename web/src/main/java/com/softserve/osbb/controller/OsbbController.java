@@ -21,7 +21,7 @@ public class OsbbController {
     @Autowired
     private OsbbService osbbService;
 
-    @RequestMapping(value = "/osbb/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/osbb", method = RequestMethod.POST)
     public Osbb addOsbb(@RequestBody Osbb osbb) {
         logger.info("Add osbb" + osbb);
         return osbbService.addOsbb(osbb);
@@ -40,14 +40,14 @@ public class OsbbController {
         return osbbService.getOsbb(name);
     }
 
-    @RequestMapping(value = "/osbb/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/osbb", method = RequestMethod.GET)
     public List<Osbb> getAllOsbb() {
         List<Osbb> list = osbbService.getAllOsbb();
         logger.info("Get all osbb: " + list);
         return list;
     }
 
-    @RequestMapping(value = "/osbb/id={id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/osbb", method = RequestMethod.PUT)
     public Osbb updateOsbb(@PathVariable("id") Integer id,
                            @RequestBody Osbb osbb) {
         System.out.println("TRY *****************************************");

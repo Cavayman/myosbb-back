@@ -25,7 +25,6 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @RequestMapping(value = "/restful/provider")
 public class ProviderController {
 
-    private static final Resource<Provider> EMPTY_PROVIDER_LINK = new Resource<>(new Provider());
     private static Logger logger = LoggerFactory.getLogger(ProviderController.class);
 
     @Autowired

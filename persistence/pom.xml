@@ -26,7 +26,7 @@
         <liquibase-core.version>3.5.1</liquibase-core.version>
 		<jackson-annotations>2.3.3</jackson-annotations>
 		<jackson-databind>2.6.7</jackson-databind>
-        <!--<liquibase-maven-plugin.version>3.5.1</liquibase-maven-plugin.version>-->
+        <liquibase-maven-plugin.version>3.5.1</liquibase-maven-plugin.version>
 		<mockito.version>1.10.19</mockito.version>
 	</properties>
 
@@ -137,12 +137,12 @@
 			<version>${commons-lang3.version}</version>
 		</dependency>
 
-        <!-- Liquibase -->
-		<dependency>
-			<groupId>org.liquibase</groupId>
-			<artifactId>liquibase-core</artifactId>
-			<version>${liquibase-core.version}</version>
-		</dependency>
+        <!--&lt;!&ndash; Liquibase &ndash;&gt;-->
+		<!--<dependency>-->
+			<!--<groupId>org.liquibase</groupId>-->
+			<!--<artifactId>liquibase-core</artifactId>-->
+			<!--<version>${liquibase-core.version}</version>-->
+		<!--</dependency>-->
 
 		<!-- Mockito -->
 		<dependency>
