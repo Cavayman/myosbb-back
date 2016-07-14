@@ -49,5 +49,51 @@
         }]
 
     }
+  },
+
+  {
+    "changeSet": {
+      "id": "2016/07/10-31",
+      "author": "nataliia (generated)",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "ticket_id",
+            "baseTableName": "attachment",
+            "constraintName": "fk_jbxheeburvg8rm16ixtyg1e8f",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "ticket_id",
+            "referencedTableName": "ticket"
+          }
+        }]
+
+    }
+  },
+
+  {
+    "changeSet": {
+      "id": "2016/07/10-36",
+      "author": "nataliia (generated)",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "ticket_id",
+            "baseTableName": "message",
+            "constraintName": "fk_silcrotpni3aa4d6g86bturlu",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "ticket_id",
+            "referencedTableName": "ticket"
+          }
+        }]
+
+    }
   }]
 }

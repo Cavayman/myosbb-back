@@ -43,5 +43,74 @@
         }]
 
     }
+  },
+
+  {
+    "changeSet": {
+      "id": "2016/07/10-28",
+      "author": "nataliia (generated)",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "osbb_id",
+            "baseTableName": "event",
+            "constraintName": "fk_frgiwew0ub3bpino6ylxxpmqq",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "osbb_id",
+            "referencedTableName": "osbb"
+          }
+        }]
+
+    }
+  },
+
+  {
+    "changeSet": {
+      "id": "2016/07/10-35",
+      "author": "nataliia (generated)",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "osbb_id",
+            "baseTableName": "contract",
+            "constraintName": "fk_p7hhasg46crhxe11ixq3q2h5x",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "osbb_id",
+            "referencedTableName": "osbb"
+          }
+        }]
+
+    }
+  },
+
+  {
+    "changeSet": {
+      "id": "2016/07/10-37",
+      "author": "nataliia (generated)",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "osbb_id",
+            "baseTableName": "house",
+            "constraintName": "fk_trh6nruaq2hc93m8s3f0brk8h",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "osbb_id",
+            "referencedTableName": "osbb"
+          }
+        }]
+
+    }
   }]
 }

@@ -49,5 +49,52 @@
         }]
 
     }
-  }]
+  },
+
+  {
+    "changeSet": {
+      "id": "2016/07/10-22",
+      "author": "nataliia (generated)",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "event_id",
+            "baseTableName": "vote",
+            "constraintName": "fk_ac7arpjav19h18v8ii3ddtl95",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "event_id",
+            "referencedTableName": "event"
+          }
+        }]
+
+    }
+  },
+
+  {
+    "changeSet": {
+      "id": "2016/07/10-25",
+      "author": "nataliia (generated)",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "user_id",
+            "baseTableName": "vote",
+            "constraintName": "fk_dx2u8pwxfq611f6nsatwu44p0",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "user_id",
+            "referencedTableName": "users"
+          }
+        }]
+
+    }
+  }
+]
 }
