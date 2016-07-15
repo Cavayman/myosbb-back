@@ -25,6 +25,8 @@
     <script src="js/controller/event_controller.js"></script>
     <script src="js/service/ticket_service.js"></script>
     <script src="js/controller/ticket_controller.js"></script>
+    <script src="js/service/attachment_service.js"></script>
+    <script src="js/controller/attachment_controller.js"></script>
     <script src="js/service/provider_service.js"></script>
     <script src="js/controller/provider_controller.js"></script>
     <link rel="stylesheet" href="css/datepicker.css"/>
@@ -96,8 +98,25 @@
 <!-- Header -->
 <header id="top" class="header">
     <div class="text-vertical-center">
-        <h1></h1>
-        <h3></h3>
+       <div class="container">
+        <div class="coll-xs-12">
+           <div class="container jumbotron">
+            <div class="row">
+
+            <h2 >You are not logged.</h2>
+            <h3>Try this to see more magic on this page</h3>
+
+        </div>
+        <div class="row">
+            <div class="center-block">
+            <a href="/home"><button type="button"
+                                         class="btn btn-warning col-xs-2 col-xs-offset-5"
+                                       >Login</button></a>
+            </div>
+            </div>
+        </div>
+        </div>
+    </dic>
         <br>
     </div>
 </header>
@@ -253,6 +272,108 @@
                                                         class="btn btn-success btn-sm">Edit
                                                 </button>
                                                 <button type="button" ng-click="ec.remove(e.eventId)"
+                                                        class="btn btn-warning btn-sm">Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+
+
+                                    </table>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+    <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</section>
+
+<!-- Attachment -->
+<section id="attachment" class="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1>Attachment table</h1>
+
+
+                <div class="container" ng-controller="AttachmentController as ac">
+                    <div class="panel-heading"><span class="lead"></span>
+                    </div>
+                    <div class="jumbotron">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="formcontainer">
+                                    <br>
+                                    <form ng-submit="ac.submit()" name="attachmentForm">
+                                        <input type="hidden" ng-model="ac.attachment.attachmentId" id="aid">
+                                        <div class="row">
+                                            <div class="form-group col-md-8">
+                                                <label class="col-md-3 control-lable"
+                                                       for="path">Attachment image</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" ng-model="ac.attachment.path" id="path"
+                                                           class="form-control" placeholder="path">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="form-group col-md-8">
+                                                <div class="col-md-10">
+                                                    <input type="submit"
+                                                           value="{{!ec.attachment.attachmentId ? 'Add' : 'Update'}}"
+                                                           class="btn btn-primary btn-sm"
+                                                           ng-disabled="osbbForm.$invalid">
+                                                    <button type="button" ng-click="ac.deleteAllAttachments()"
+                                                            class="btn btn-warning btn-sm">Delete all
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="tablecontainer" style="overflow:auto; height:300px; width:100% ">
+
+                                    <table class="table table-striped">
+
+                                        <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Attachment image</th>
+                                            <th width="40%"></th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        <tr ng-repeat="a in ac.attachments">
+                                            <td><span class="small" ng-bind="a.attachmentId"></span></td>
+                                            <td><img src="{{a.path}}" style="height: 50px; width: 50px"></td>
+                                            <td>
+                                                <button type="button" ng-click="ac.edit(a.attachmentId)"
+                                                        class="btn btn-success btn-sm">Edit
+                                                </button>
+                                                <button type="button" ng-click="ac.remove(a.attachmentId)"
                                                         class="btn btn-warning btn-sm">Delete
                                                 </button>
                                             </td>

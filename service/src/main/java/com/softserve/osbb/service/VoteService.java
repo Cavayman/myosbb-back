@@ -18,7 +18,7 @@ public interface VoteService {
 
     boolean existsVote(Integer id);
 
-    Vote updateVote(Integer voteid, Vote vote);
+    Vote updateVote(Vote vote);
 
     void deleteVote(Integer id);
 
