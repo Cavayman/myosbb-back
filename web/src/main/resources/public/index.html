@@ -23,6 +23,8 @@
     <script src="js/select.js"></script>
     <script src="js/service/event_service.js"></script>
     <script src="js/controller/event_controller.js"></script>
+    <script src="js/service/ticket_service.js"></script>
+    <script src="js/controller/ticket_controller.js"></script>
     <script src="js/service/provider_service.js"></script>
     <script src="js/controller/provider_controller.js"></script>
     <link rel="stylesheet" href="css/datepicker.css"/>
@@ -69,6 +71,9 @@
         </li>
         <li>
             <a href="#house" onclick=$ ( "#menu-close").click();>House</a>
+        </li>
+        <li>
+            <a href="#ticket" onclick=$ ( "#menu-close").click();>Ticket</a>
         </li>
         <li>
             <a href="#message" onclick=$ ( "#menu-close").click();>Message</a>
@@ -292,14 +297,15 @@
     <!-- /.container -->
 </section>
 
-
-<!-- Message -->
-<section id="message" class="about">
-    <div class="container" ng-controller="MessageController as mc">
+<!-- Ticket -->
+<section id="ticket" class="about">
+    <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h1>Message table</h1>
-                <div class="container">
+                <h1>Ticket table</h1>
+
+
+                <div class="container" ng-controller="TicketController as ec">
                     <div class="panel-heading"><span class="lead"></span>
                     </div>
                     <div class="jumbotron">
@@ -308,35 +314,35 @@
                             <div class="col-md-6">
                                 <div class="formcontainer">
                                     <br>
-                                    <form ng-submit="mc.submit()" name="messageForm">
-                                        <input type="hidden" ng-model="mc.message.messageId" id="mid">
+                                    <form ng-submit="ec.submit()" name="ticketForm">
+                                        <input type="hidden" ng-model="ec.ticket.ticketId" id="tid">
                                         <div class="row">
                                             <div class="form-group col-md-8 ">
-                                                <label class="col-md-3 control-lable" for="rname">Description</label>
+                                                <label class="col-md-3 control-lable" for="rname">Name</label>
                                                 <div class="col-md-6">
-                                                    <input type="text" ng-model="mc.message.description"
-                                                           id="description" class="form-control"
-                                                           placeholder="message description">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="form-group col-md-8 ">
-                                                <label class="col-md-3 control-lable">Message text</label>
-                                                <div class="col-md-6">
-                                                    <input type="text" ng-model="mc.message.messag"
-                                                           placeholder="message text" class="form-control">
+                                                    <input type="text" ng-model="ec.ticket.name" id="tname"
+                                                           class="form-control" placeholder="ticket name">
                                                 </div>
                                             </div>
                                         </div>
 
 
                                         <div class="row">
-                                            <div class="form-group col-md-8 ">
-                                                <label class="col-md-3 control-label">Date</label>
+                                            <div class="form-group col-md-8">
+                                                <label class="col-md-3 control-lable"
+                                                       for="edescription">Description</label>
                                                 <div class="col-md-6">
-                                                    <input type="text" ng-model="mc.message.date" placeholder="date"
+                                                    <input type="text" ng-model="ec.ticket.description" id="tdescription"
+                                                           class="form-control" placeholder="ticket description">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-md-8 ">
+                                                <label class="col-md-3 control-label">Time</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" ng-model="ec.ticket.time" placeholder="ticket time"
                                                            class="form-control">
                                                 </div>
                                             </div>
@@ -345,78 +351,181 @@
 
                                         <div class="row">
                                             <div class="form-group col-md-8">
-                                                <div class="col-md-3">
+                                                <div class="col-md-10">
                                                     <input type="submit"
-                                                           value="{{!mc.message.messageId ? 'Add' : 'Update'}}"
+                                                           value="{{!ec.ticket.ticketId ? 'Add' : 'Update'}}"
                                                            class="btn btn-primary btn-sm"
-                                                           ng-disabled="messageForm.$invalid">
-                                                    <!--<button type="button" ng-click="ec.reset()" class = "btn btn-warning btn-sm" ng-disabled ="eventForm.$pristine">Reset</button>-->
-
+                                                           ng-disabled="osbbForm.$invalid">
+                                                    <!--<button type="button" ng-click="ec.reset()" class = "btn btn-warning btn-sm" ng-disabled ="ticketForm.$pristine">Reset</button>-->
+                                                    <button type="button" ng-click="ec.deleteAllTickets()"
+                                                            class="btn btn-warning btn-sm">Delete all
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
-
-
                             </div>
-
                             <div class="col-md-6">
                                 <div class="tablecontainer" style="overflow:auto; height:300px; width:100% ">
-
                                     <table class="table table-striped">
-
                                         <thead>
                                         <tr>
                                             <th>ID</th>
+                                            <th>Name</th>
                                             <th>Description</th>
-                                            <th>Message</th>
-                                            <th>Date</th>
+                                            <th>Time</th>
                                             <th width="40%"></th>
+
                                         </tr>
 
 
                                         </thead>
 
                                         <tbody>
-                                        <tr ng-repeat="m in mc.messages">
-                                            <td><span class="small" ng-bind="m.messageId"></span></td>
-                                            <td><span class="small" ng-bind="m.description"></span></td>
-                                            <td><span class="small" ng-bind="m.message"></span></td>
-                                            <td><span class="small" ng-bind="m.date"></span></td>
+                                        <tr ng-repeat="t in ec.tickets">
+                                            <td><span class="small" ng-bind="t.ticketId"></span></td>
+                                            <td><span class="small" ng-bind="t.name"></span></td>
+                                            <td><span class="small" ng-bind="t.description"></span></td>
+                                            <td><span class="small" ng-bind="t.time"></span></td>
                                             <td>
-                                                <button type="button" ng-click="mc.edit(m.massageId)"
+                                                <button type="button" ng-click="ec.edit(t.ticketId)"
                                                         class="btn btn-success btn-sm">Edit
                                                 </button>
-                                                <button type="button" ng-click="mc.remove(m.massageId)"
+                                                <button type="button" ng-click="ec.remove(t.ticketId)"
                                                         class="btn btn-warning btn-sm">Delete
                                                 </button>
                                             </td>
                                         </tr>
                                         </tbody>
-
-
                                     </table>
-
-
                                 </div>
-
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
-
             </div>
         </div>
-        <!-- /.row -->
+    </div>
+    <!-- /.row -->
     </div>
     <!-- /.container -->
 </section>
 
+
+<!-- Message -->
+<section id="message" class="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1>Message table</h1>
+
+
+                <div class="container" ng-controller="MessageController as ec">
+                    <div class="panel-heading"><span class="lead"></span>
+                    </div>
+                    <div class="jumbotron">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="formcontainer">
+                                    <br>
+                                    <form ng-submit="ec.submit()" name="messageForm">
+                                        <input type="hidden" ng-model="ec.messag.messageId" id="mid"/>
+                                        <div class="row">
+                                            <div class="form-group col-md-8 ">
+                                                <label class="col-md-3 control-lable" for="rname">Description</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" ng-model="ec.messag.description" id="mname"
+                                                           class="form-control" placeholder="description">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-md-8">
+                                                <label class="col-md-3 control-lable"
+                                                       for="edescription">Message text</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" ng-model="ec.messag.message" id="tmessage"
+                                                           class="form-control" placeholder="text">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-md-8 ">
+                                                <label class="col-md-3 control-label">Time</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" ng-model="ec.messag.time" placeholder="date"
+                                                           class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="form-group col-md-8">
+                                                <div class="col-md-10">
+                                                    <input type="submit"
+                                                           value="{{!ec.messag.messageId ? 'Add' : 'Update'}}"
+                                                           class="btn btn-primary btn-sm"
+                                                           ng-disabled="osbbForm.$invalid">
+                                                    <!--<button type="button" ng-click="ec.reset()" class = "btn btn-warning btn-sm" ng-disabled ="ticketForm.$pristine">Reset</button>-->
+                                                    <button type="button" ng-click="ec.deleteAllMessages()"
+                                                            class="btn btn-warning btn-sm">Delete all
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="tablecontainer" style="overflow:auto; height:300px; width:100% ">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Description</th>
+                                            <th>Text</th>
+                                            <th>Time</th>
+                                            <th width="40%"></th>
+
+                                        </tr>
+
+
+                                        </thead>
+
+                                        <tbody>
+                                        <tr ng-repeat="t in ec.messages">
+                                            <td><span class="small" ng-bind="t.messageId"></span></td>
+                                            <td><span class="small" ng-bind="t.description"></span></td>
+                                            <td><span class="small" ng-bind="t.message"></span></td>
+                                            <td><span class="small" ng-bind="t.time"></span></td>
+                                            <td>
+                                                <button type="button" ng-click="ec.edit(t.messageId)"
+                                                        class="btn btn-success btn-sm">Edit
+                                                </button>
+                                                <button type="button" ng-click="ec.remove(t.messageId)"
+                                                        class="btn btn-warning btn-sm">Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</section>
 
 <!-- Osbb -->
 <section id="osbb" class="about">

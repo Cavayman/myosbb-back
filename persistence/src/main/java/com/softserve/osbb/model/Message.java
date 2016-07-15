@@ -88,4 +88,5 @@ public class Message {
     public void setTicket(Ticket ticket) {
         this.ticket = ticket;
     }
+
 }

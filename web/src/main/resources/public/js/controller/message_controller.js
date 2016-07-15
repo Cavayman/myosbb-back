@@ -1,147 +1,106 @@
 /**
- * Created by Kris on 13.07.2016.
+ * Created by Kris on 15.07.2016.
  */
+
 App.controller('MessageController', ['$scope', 'MessageService',
 
     function ($scope, MessageService) {
+        var messageController = this;
 
+        messageController.messag = {messageId: null, description: '', message:'', time: ''};
+        messageController.messages = [];
 
-        var mes = this;
-
-        mes.message = {messageId: null, description: '', messag: '', date: ''};
-        mes.messages = [];
-
-
-        mes.getAllMessages = function () {
-
+        messageController.getAllMessages = function () {
             MessageService.getAllMessages()
                 .then(
-                    function (d) {
-                        mes.message = d;
+                    function (data) {
+                        messageController.messages = data;
                     },
-
-
                     function (errResponse) {
-                        console.error('error while fetching messages');
+                        console.error('error while fetching message');
                     }
                 );
-
-
         };
 
-        mes.createMessage = function (message) {
-
-            if (message.creationDate == null || message.creationDate.length == 0) {
+        messageController.createMessage = function (messag) {
+            if (messag.time == null || messag.time.length == 0) {
                 console.log('specifying date');
-                message.creationDate = new Date().toJSON().slice(0, 10);
-                console.log(message.creationDate);
+                messag.time = new Date().toJSON().slice(0, 10);
+                console.log(messag.time);
             }
-
-
-            MessageService.createMessage(message)
+            MessageService.createMessage(messag)
                 .then(
-                    mes.getAllMessages,
-
+                    messageController.getAllMessages,
                     function (errResponse) {
-                        console.error('error while creating message');
+                        console.error('error while creating messag');
                     }
                 );
-
-
         };
 
-        mes.updateMessage = function (message, messageId) {
-
-            MessageService.updateMessage(message, messageId)
+        messageController.updateMessage = function (messag, messageId) {
+            MessageService.updateMessage(messag, messageId)
                 .then(
-                    mes.getAllMessages,
-
+                    messageController.getAllMessages,
                     function (errResponse) {
-                        console.error('error while updating message');
+                        console.error('error while updating messag');
                     }
                 );
-
-
         };
 
-
-        mes.deleteMessage = function (messageId) {
-
-
+        messageController.deleteMessage = function (messageId) {
             MessageService.deleteMessage(messageId)
                 .then(
-                    mes.getAllMessages,
-
+                    messageController.getAllMessages,
                     function (errResponse) {
-                        console.error('error while deleting message');
+                        console.error('error while deleting messag');
                     }
                 );
-
         };
 
+        messageController.deleteAllMessages = function () {
+            MessageService.deleteAllMessages()
+                .then(
+                    messageController.getAllMessages,
+                    function (errResponse) {
+                        console.error('error while deleting messages');
+                    }
+                );
+        };
+        messageController.getAllMessages();
 
-        mes.getAllMessages();
 
-
-        mes.submit = function () {
-
-            //if (mes.message.messageId === null) {
-
-                console.log('saving new message', mes.message);
-
-                mes.createMessage(mes.message);
-
-            //} else {
-
-                //var messageId = parseInt(mes.message.messageId);
-                //
-                //console.log('updating message', mes.message);
-                //
-                //mes.updateMessage(mes.message, messageId);
-
-            //}
-
-            mes.reset();
-
+        messageController.submit = function () {
+            if (messageController.messag.messageId === null) {
+                console.log('saving new messag', messageController.messag, messageController.messag.messageId);
+                messageController.createMessage(messageController.messag);
+            } else {
+                var messageId = parseInt(messageController.messag.messageId);
+                console.log('updating messag', messageController.messag);
+                messageController.updateMessage(messageController.messag, messageId);
+            }
+            messageController.reset();
         };
 
-
-        mes.edit = function (messageId) {
-
+        messageController.edit = function (messageId) {
             console.log('id to be edited: ' + messageId);
-
-            for (var i = 0; i < mes.messages.length; i++) {
-
-                if (mes.messages[i].messageId === messageId) {
-                    mes.message = angular.copy(mes.messages[i]);
+            for (var i = 0; i < messageController.messages.length; i++) {
+                if (messageController.messages[i].messageId === messageId) {
+                    messageController.messag = angular.copy(messageController.messages[i]);
                     break;
                 }
             }
-
-
         };
 
-        mes.remove = function (messageId) {
-
-
-            if (mes.message.messageId === messageId) {
-                mes.reset();
+        messageController.remove = function (messageId) {
+            if (messageController.messag.messageId === messageId) {
+                messageController.reset();
             }
-
-            mes.deleteMessage(messageId);
-
+            messageController.deleteMessage(messageId);
         };
 
-
-        mes.reset = function () {
-
-            mes.message = {messageId: null, description: '', messag: '', date: ''};
+        messageController.reset = function () {
+            messageController.messag = {messageId: null, name: '', description: '', time: ''};
             $scope.messageForm.$setPristine();
-
         }
-
-
     }
-
-
 ]);

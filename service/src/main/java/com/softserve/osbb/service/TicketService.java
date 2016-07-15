@@ -46,6 +46,6 @@ public interface TicketService {
 
     List<Ticket> save(Iterable<Ticket> iterable);
 
-    boolean update(Ticket ticket);
+    Ticket update(Ticket ticket);
 
 }

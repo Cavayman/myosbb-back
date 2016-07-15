@@ -41,6 +41,6 @@ public interface MessageService {
 
     List<Message> save(Iterable<Message> iterable);
 
-    boolean update(Message message);
-    Message update(Integer id, Message message);
+    Message update(Message message);
+
 }

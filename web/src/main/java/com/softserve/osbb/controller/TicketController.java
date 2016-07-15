@@ -22,15 +22,15 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
  */
 
 @RestController
+@RequestMapping("/restful/ticket")
 public class TicketController {
 
-    private static final Resource<Ticket> EMPTY_TICKET_LINK = new Resource<>(new Ticket());
     private static Logger logger = LoggerFactory.getLogger(TicketController.class);
 
     @Autowired
     TicketService ticketService;
 
-    @RequestMapping(value = "/ticket", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Resource<Ticket>> createMessage(@RequestBody Ticket ticket) {
 
         Resource<Ticket> ticketResource;
@@ -40,29 +40,28 @@ public class TicketController {
             ticketResource = addResourceLinkToTicket(ticket);
         } catch (Exception e) {
             logger.error(e.getMessage());
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(ticketResource, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/ticket", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Resource<Ticket>>> listAllTickets() {
-
-        List<Ticket> ticketList = ticketService.findAll();
-        logger.info("Getting all messages: " + ticketList);
-        if (ticketList.isEmpty()) {
-            logger.warn("no ticketList were found in the list: " + ticketList);
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        List<Ticket> eventList = ticketService.findAll();
+        logger.info("Getting all events.");
+        final List<Resource<Ticket>> resourceEventList = new ArrayList<>();
+        for (Ticket e : eventList) {
+            Resource<Ticket> eventResource = new Resource<>(e);
+            eventResource.add(linkTo(methodOn(EventController.class)
+                    .findEventById(e.getTicketId()))
+                    .withSelfRel());
+            resourceEventList.add(eventResource);
         }
-        final List<Resource<Ticket>> resourceTicketList = new ArrayList<>();
-        ticketList.stream().forEach((ticket) -> resourceTicketList.add(addResourceLinkToTicket(ticket)));
-        return new ResponseEntity<>(resourceTicketList, HttpStatus.OK);
+        return new ResponseEntity<>(resourceEventList, HttpStatus.OK);
     }
 
     private Resource<Ticket> addResourceLinkToTicket(Ticket ticket) {
-        if (ticket == null) {
-            return EMPTY_TICKET_LINK;
-        }
+
         Resource<Ticket> ticketResource = new Resource<>(ticket);
 
         ticketResource.add(linkTo(methodOn(TicketController.class)
@@ -71,45 +70,35 @@ public class TicketController {
         return ticketResource;
     }
 
-    @RequestMapping(value = "/ticket/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Resource<Ticket>> getTicketById(@PathVariable("id") Integer ticketId) {
 
-        logger.info("fetching ticket by id: " + ticketId);
-
-        Ticket ticket = ticketService.findOne(ticketId);
-
-        Resource<Ticket> ticketResource = addResourceLinkToTicket(ticket);
-
-        return ticketResource == EMPTY_TICKET_LINK ? new ResponseEntity<>(HttpStatus.NOT_FOUND)
-                : new ResponseEntity<>(ticketResource, HttpStatus.OK);
+        logger.info("Getting event by id: " + ticketId);
+        Ticket event = ticketService.getOne(ticketId);
+        Resource<Ticket> eventResource = new Resource<>(event);
+        eventResource.add(linkTo(methodOn(EventController.class).findEventById(ticketId)).withSelfRel());
+        return new ResponseEntity<>(eventResource, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/ticket/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Resource<Ticket>> updateTicket(@RequestBody Ticket ticket) {
 
-        Resource<Ticket> ticketResource;
-
-        try {
-            ticketService.update(ticket);
-            ticketResource = addResourceLinkToTicket(ticket);
-
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity<>(ticketResource, HttpStatus.OK);
+        logger.info("Updating ticket by id: " + ticket.getTicketId());
+        ticket = ticketService.update(ticket);
+        Resource<Ticket> eventResource = new Resource<>(ticket);
+        eventResource.add(linkTo(methodOn(TicketController.class).getTicketById(ticket.getTicketId())).withSelfRel());
+        return new ResponseEntity<>(eventResource, HttpStatus.OK);
     }
 
 
-    @RequestMapping(value = "/ticket/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Ticket> deleteTicketById(@PathVariable("id") Integer ticketId) {
         logger.info("removing ticket by id: " + ticketId);
         ticketService.delete(ticketId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/ticket", method = RequestMethod.DELETE)
+    @RequestMapping( method = RequestMethod.DELETE)
     public ResponseEntity<Ticket> deleteAll() {
         logger.info("removing all messages");
         ticketService.deleteAll();

@@ -116,11 +116,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public boolean update(Ticket ticket) {
-        if (!ticketRepository.exists(ticket.getTicketId())) {
-            return false;
-        }
-        ticketRepository.save(ticket);
-        return true;
+    public Ticket update(Ticket ticket) {
+        return ticketRepository.exists(ticket.getTicketId()) ? ticketRepository.save(ticket) : null;
     }
 }
