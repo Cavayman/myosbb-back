@@ -81,7 +81,7 @@ function addUser() {
         var json = {
             "firstName": $('#firstNameId').val(),
             "lastName": $('#lastName').val(),
-            "birthDate": $('#udate').val(),
+            "birthDate": $('#userId').val(),
             "email": $('#uemail').val(),
             "phoneNumber": $('#uNumber').val(),
             "password": $('#upassword').val(),

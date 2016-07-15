@@ -1,6 +1,7 @@
 package com.softserve.osbb.service;
 
 import com.softserve.osbb.model.Attachment;
+
 import java.util.List;
 
 /**
@@ -8,19 +9,21 @@ import java.util.List;
  */
 public interface AttachmentService {
 
-    void saveAttachment(Attachment attachment);
+    Attachment saveAttachment(Attachment attachment);
 
-    void saveAttachmentList(List<Attachment> list);
+    Attachment findAttachmentById(Integer id);
 
-    Attachment findOneAttachmentByID(Integer id);
+    List<Attachment> findAttachments(List<Attachment> list);
 
-    List<Attachment> findAllAttachmentsByIDs(List<Integer> ids);
+    List<Attachment> findAttachmentsByIds(List<Integer> ids);
 
     List<Attachment> findAllAttachments();
 
+    Attachment updateAttachment(Integer id, Attachment attachment);
+
     void deleteAttachment(Attachment attachment);
 
-    void deleteAttachmentByID(Integer id);
+    void deleteAttachmentById(Integer id);
 
     void deleteListAttachments(List<Attachment> list);
 
