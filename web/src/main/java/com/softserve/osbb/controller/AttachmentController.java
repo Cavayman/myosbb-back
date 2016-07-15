@@ -21,7 +21,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
  */
 
 @RestController
-@RequestMapping("/restful")
+@RequestMapping("/restful/attachment")
 public class AttachmentController {
 
     private static Logger logger = LoggerFactory.getLogger(AttachmentController.class);
@@ -29,7 +29,7 @@ public class AttachmentController {
     @Autowired
     private AttachmentService attachmentService;
 
-    @RequestMapping(value = "/attachment", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<Resource<Attachment>> createAttachment(@RequestBody Attachment attachment) {
         logger.info("Saving attachment " + attachment);
         attachment = attachmentService.saveAttachment(attachment);
@@ -38,7 +38,7 @@ public class AttachmentController {
         return new ResponseEntity<>(attachmentResource, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/attachment", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<List<Resource<Attachment>>> findAllAttachments() {
         List<Attachment> attachmentList = attachmentService.findAllAttachments();
         logger.info("Getting all attachments.");
@@ -53,7 +53,7 @@ public class AttachmentController {
         return new ResponseEntity<>(resourceAttachmentList, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/attachment/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Resource<Attachment>> findAttachmentById(@PathVariable("id") Integer attachmentId) {
         logger.info("Getting attachment by id: " + attachmentId);
         Attachment attachment = attachmentService.findAttachmentById(attachmentId);
@@ -62,7 +62,7 @@ public class AttachmentController {
         return new ResponseEntity<>(attachmentResource, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/attachment/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Resource<Attachment>> updateAttachment(@PathVariable("id") Integer attachmentId,
                                                        @RequestBody Attachment attachment) {
         logger.info("Updating attachment by id: " + attachmentId);
@@ -72,14 +72,14 @@ public class AttachmentController {
         return new ResponseEntity<>(attachmentResource, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/attachment/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Attachment> deleteAttachmentById(@PathVariable("id") Integer attachmentId) {
         logger.info("Removing attachment by id: " + attachmentId);
         attachmentService.deleteAttachmentById(attachmentId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/attachment", method = RequestMethod.DELETE)
+    @RequestMapping(value = "", method = RequestMethod.DELETE)
     public ResponseEntity<Attachment> deleteAllAttachments() {
         logger.info("Removing all attachments.");
         attachmentService.deleteAllAttachments();

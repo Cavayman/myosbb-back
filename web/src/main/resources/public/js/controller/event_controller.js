@@ -7,7 +7,7 @@ App.controller('EventController', ['$scope', 'EventService',
     function ($scope, EventService) {
         var eventController = this;
 
-        eventController.event = {eventId: null, name: '', description: '', creationDate: '', filePath: ''};
+        eventController.event = {eventId: null, name: '', author: '', description: '', date: '', repeat: ''};
         eventController.events = [];
 
         eventController.getAllEvents = function () {
@@ -23,10 +23,10 @@ App.controller('EventController', ['$scope', 'EventService',
         };
 
         eventController.createEvent = function (event) {
-            if (event.creationDate == null || event.creationDate.length == 0) {
+            if (event.date == null || event.date.length == 0) {
                 console.log('specifying date');
-                event.creationDate = new Date().toJSON().slice(0, 10);
-                console.log(event.creationDate);
+                event.date = new Date().toJSON().slice(0, 10);
+                console.log(event.date);
             }
             EventService.createEvent(event)
                 .then(
@@ -99,7 +99,7 @@ App.controller('EventController', ['$scope', 'EventService',
         };
 
         eventController.reset = function () {
-            eventController.event = {eventId: null, name: '', description: '', creationDate: '', filePath: ''};
+            eventController.event = {eventId: null, name: '',author:'', description: '', date: '', repeat: ''};
             $scope.eventForm.$setPristine();
         }
     }

@@ -22,7 +22,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
  */
 
 @RestController
-@RequestMapping("/restful")
+@RequestMapping("/restful/event")
 public class EventController {
 
     private static Logger logger = LoggerFactory.getLogger(EventController.class);
@@ -30,7 +30,7 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
-    @RequestMapping(value = "/event", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<Resource<Event>> createEvent(@RequestBody Event event) {
         logger.info("Saving event " + event);
         event = eventService.saveEvent(event);
@@ -39,7 +39,7 @@ public class EventController {
         return new ResponseEntity<>(eventResource, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/event", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<List<Resource<Event>>> findAllEvents() {
         List<Event> eventList = eventService.findAllEvents();
         logger.info("Getting all events.");
@@ -54,7 +54,7 @@ public class EventController {
         return new ResponseEntity<>(resourceEventList, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/event/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Resource<Event>> findEventById(@PathVariable("id") Integer eventId) {
         logger.info("Getting event by id: " + eventId);
         Event event = eventService.findEventById(eventId);
@@ -63,7 +63,7 @@ public class EventController {
         return new ResponseEntity<>(eventResource, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/event/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Resource<Event>> updateEvent(@PathVariable("id") Integer eventId,
                                                        @RequestBody Event event) {
         logger.info("Updating event by id: " + eventId);
@@ -73,14 +73,14 @@ public class EventController {
         return new ResponseEntity<>(eventResource, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/event/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Event> deleteEventById(@PathVariable("id") Integer eventId) {
         logger.info("Removing event by id: " + eventId);
         eventService.deleteEventById(eventId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/event", method = RequestMethod.DELETE)
+    @RequestMapping(value = "", method = RequestMethod.DELETE)
     public ResponseEntity<Event> deleteAllEvents() {
         logger.info("Removing all events.");
         eventService.deleteAllEvents();
