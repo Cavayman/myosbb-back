@@ -38,13 +38,11 @@ public class VoteServiceImpl implements VoteService {
     }
 
     @Override
-    public Vote updateVote(Integer voteId, Vote vote) {
-
-        if(voteRepository.exists(voteId)) {
-            vote.setVoteId(voteId);
+    public Vote updateVote(Vote vote) {
+        if(voteRepository.exists(vote.getVoteId())) {
             return voteRepository.save(vote);
         } else {
-            throw new IllegalArgumentException("Vote with id=" + voteId
+            throw new IllegalArgumentException("Vote with id=" + vote.getVoteId()
                     + " doesn't exist.");
         }
     }

@@ -33,7 +33,7 @@ public class OsbbServiceImpl implements OsbbService {
 
     @Override
     public Osbb getOsbb(String name) {
-        return osbbRepository.getByName(name);
+        return osbbRepository.findByName(name);
     }
 
     @Override
@@ -52,12 +52,11 @@ public class OsbbServiceImpl implements OsbbService {
     }
 
     @Override
-    public Osbb updateOsbb(Integer osbbId, Osbb osbb){
-        if(osbbRepository.exists(osbbId)) {
-            osbb.setOsbbId(osbbId);
+    public Osbb updateOsbb(Osbb osbb){
+        if(osbbRepository.exists(osbb.getOsbbId())) {
             return osbbRepository.save(osbb);
         } else {
-            throw new IllegalArgumentException("Osbb with id=" + osbbId
+            throw new IllegalArgumentException("Osbb with id=" + osbb.getOsbbId()
                     + " doesn't exist. First try to add this osbb.");
         }
     }
