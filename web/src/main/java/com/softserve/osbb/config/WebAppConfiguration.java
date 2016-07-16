@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.Ordered;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -13,7 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * Created by nazar.dovhyy on 08.07.2016.
  */
 @SpringBootApplication
-@Import(PersistenceConfiguration.class)
+@Import({PersistenceConfiguration.class,SecurityWebApplicationInitializer.class})
 @ComponentScan(basePackages = {"com.softserve.osbb"})
 public class WebAppConfiguration extends WebMvcConfigurerAdapter {
 
@@ -34,11 +35,16 @@ public class WebAppConfiguration extends WebMvcConfigurerAdapter {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(new Object[]{
-                WebAppConfiguration.class}, args);
+        SpringApplication.run(new Object[]{WebAppConfiguration.class
+                }, args);
     }
+
+    //for test only will be DELETED in next versions
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/home").setViewName("loginhome.html");
+        registry.addViewController("/login").setViewName("loginhome.html");
+        registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        registry.addViewController("/home").setViewName("index.html");
+
     }
 }
