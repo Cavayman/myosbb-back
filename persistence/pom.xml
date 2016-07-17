@@ -137,12 +137,12 @@
 			<version>${commons-lang3.version}</version>
 		</dependency>
 
-        <!--&lt;!&ndash; Liquibase &ndash;&gt;-->
-		<!--<dependency>-->
-			<!--<groupId>org.liquibase</groupId>-->
-			<!--<artifactId>liquibase-core</artifactId>-->
-			<!--<version>${liquibase-core.version}</version>-->
-		<!--</dependency>-->
+        <!-- Liquibase -->
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+			<version>${liquibase-core.version}</version>
+		</dependency>
 
 		<!-- Mockito -->
 		<dependency>
