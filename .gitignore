@@ -7,3 +7,6 @@
 ### Maven template
 
 target/
+
+### Bower
+/web/src/main/resources/public/assets/bower/

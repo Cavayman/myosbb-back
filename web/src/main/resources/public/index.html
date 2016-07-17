@@ -11,39 +11,43 @@
 
     <title>MyOsbb</title>
 
+    <!-- JS -->
+    <script src="assets/bower/angular/angular.js"></script>
+    <script src="assets/bower/jquery/jquery.js"></script>
+    <script src="assets/bower/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="assets/bower/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="assets/bower/select2/dist/js/select2.js"></script>
+    <script src="app/module/app.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
-    <script src="js/jquery-min.js"></script>
-    <script src="js/bootstrap-datepicker.js"></script>
-    <script src="js/module/app.js"></script>
-    <script src="js/service/report_service.js"></script>
-    <script src="js/controller/report_controller.js"></script>
-    <script src="js/service/message_service.js"></script>
-    <script src="js/controller/message_controller.js"></script>
-    <script src="js/select.js"></script>
-    <script src="js/service/event_service.js"></script>
-    <script src="js/controller/event_controller.js"></script>
-    <script src="js/service/ticket_service.js"></script>
-    <script src="js/controller/ticket_controller.js"></script>
-    <script src="js/service/attachment_service.js"></script>
-    <script src="js/controller/attachment_controller.js"></script>
-	<script src="js/service/osbb_service.js"></script>
-    <script src="js/controller/osbb_controller.js"></script>
-    <script src="js/service/provider_service.js"></script>
-    <script src="js/controller/provider_controller.js"></script>
-    <link rel="stylesheet" href="css/datepicker.css"/>
-    <link rel="stylesheet" href="css/search.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/bower/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="assets/bower/bootstrap-datepicker/dist/css/bootstrap-datepicker.css"/>
+    <link rel="stylesheet" href="assets/bower/select2/dist/css/select2.css"/>
+    <link rel="stylesheet" href="assets/bower/font-awesome/css/font-awesome.css"/>
+    <link href="assets/css/stylish-portfolio.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/css/search.css">
 
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="css/stylish-portfolio.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic"
           rel="stylesheet" type="text/css">
+
+    <!-- Services -->
+    <script src="app/service/attachment_service.js"></script>
+    <script src="app/service/event_service.js"></script>
+    <script src="app/service/message_service.js"></script>
+    <script src="app/service/provider_service.js"></script>
+    <script src="app/service/report_service.js"></script>
+    <script src="app/service/ticket_service.js"></script>
+	<script src="js/service/osbb_service.js"></script>
+
+    <!-- Controllers -->
+    <script src="app/controller/attachment_controller.js"></script>
+    <script src="app/controller/event_controller.js"></script>
+    <script src="app/controller/message_controller.js"></script>
+    <script src="app/controller/provider_controller.js"></script>
+    <script src="app/controller/report_controller.js"></script>
+    <script src="app/controller/ticket_controller.js"></script>
+	<script src="js/controller/osbb_controller.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -1237,10 +1241,6 @@
     <a id="to-top" href="#top" class="btn btn-dark btn-lg"><i class="fa fa-chevron-up fa-fw fa-1x"></i></a>
 </footer>
 
-<!-- jQuery -->
-<script src="js/jquery.js"></script>
-<!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
 <!-- Custom Theme JavaScript -->
 <script>
     // Closes the sidebar menu
