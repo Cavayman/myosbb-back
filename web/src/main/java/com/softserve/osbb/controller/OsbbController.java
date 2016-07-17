@@ -77,7 +77,7 @@ public class OsbbController {
     }
 
     @RequestMapping(value = "/osbb", method = RequestMethod.DELETE)
-    public ResponseEntity<Osbb>  deleteAll() {
+    public ResponseEntity<Osbb>  deleteAllOsbb() {
         logger.info("Delete all osbb.");
         osbbService.deleteAllOsbb();
         return new ResponseEntity<>(HttpStatus.OK);

@@ -27,6 +27,8 @@
     <script src="js/controller/ticket_controller.js"></script>
     <script src="js/service/attachment_service.js"></script>
     <script src="js/controller/attachment_controller.js"></script>
+	<script src="js/service/osbb_service.js"></script>
+    <script src="js/controller/osbb_controller.js"></script>
     <script src="js/service/provider_service.js"></script>
     <script src="js/controller/provider_controller.js"></script>
     <link rel="stylesheet" href="css/datepicker.css"/>
@@ -650,14 +652,113 @@
 
 <!-- Osbb -->
 <section id="osbb" class="about">
-    <div class="container">
+     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h1>Osbb table.....</h1>
+                <h1>Osbb table</h1>
+
+
+                <div class="container" ng-controller="OsbbController as oc">
+                    <div class="panel-heading"><span class="lead"></span>
+                    </div>
+                    <div class="jumbotron">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="formcontainer">
+                                    <br>
+                                    <form ng-submit="oc.submit()" name="osbbForm">
+                                        <input type="hidden" ng-model="oc.osbb.osbbId" id="oid">
+                                        <div class="row">
+                                            <div class="form-group col-md-8 ">
+                                                <label class="col-md-3 control-lable" for="rname">Name</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" ng-model="oc.osbb.name" id="oname"
+                                                           class="form-control" placeholder="osbb name">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-md-8">
+                                                <label class="col-md-3 control-lable"
+                                                       for="odescription">Description</label>
+                                                <div class="col-md-6">
+                                                    <input type="text" ng-model="oc.osbb.description" id="odescription"
+                                                           class="form-control" placeholder="osbb description">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-md-8">
+                                                <div class="col-md-10">
+                                                    <input type="submit"
+                                                           value="{{!oc.osbb.osbbId ? 'Add' : 'Update'}}" 
+                                                           class="btn btn-primary btn-sm"
+                                                           ng-disabled="osbbForm.$invalid">
+                                                    <button type="button" ng-click="oc.deleteAllOsbb()"
+                                                            class="btn btn-warning btn-sm">Delete all
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="tablecontainer" style="overflow:auto; height:300px; width:100% ">
+
+                                    <table class="table table-striped">
+
+                                        <thead>
+											<tr>
+												<th>ID</th>
+												<th>Name</th>
+												<th>Description</th>
+												<th width="40%"></th>
+											</tr>
+                                        </thead>
+
+                                        <tbody>
+                                        <tr ng-repeat="o in oc.allOsbb">
+                                            <td><span class="small" ng-bind="o.osbbId"></span></td>
+                                            <td><span class="small" ng-bind="o.name"></span></td>
+                                            <td><span class="small" ng-bind="o.description"></span></td>
+                                            <td>
+                                                <button type="button" ng-click="oc.edit(o.osbbId)"
+                                                        class="btn btn-success btn-sm">Edit
+                                                </button>
+                                                <button type="button" ng-click="oc.remove(o.osbbId)"
+                                                        class="btn btn-warning btn-sm">Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+
+
+                                    </table>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
         </div>
-        <!-- /.row -->
+
+
     </div>
+    <!-- /.row -->
     <!-- /.container -->
 </section>
 
