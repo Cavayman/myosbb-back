@@ -12,7 +12,7 @@
     <!-- Bootstrap core CSS -->
     <link href="assets/assets/css/bootstrap.css" rel="stylesheet">
     <!--external css-->
-    <link href="assets/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="assets/assets/font-awesome/css/font-awesome.css" rel="stylesheet"/>
 
     <!-- Custom styles for this template -->
     <link href="assets/assets/css/style.css" rel="stylesheet">
@@ -36,17 +36,19 @@ MAIN CONTENT
 
         <form class="form-login" name="f" th:action="@{/login}" method="post">
             <h2 class="form-login-heading">sign in now</h2>
+            <div class="login-wrap">
             <fieldset>
-                <legend>Please Login</legend>
                 <label for="username">Username</label>
-                <input type="text" id="username" class="form-control" name="username"/>
+                <input type="text" id="username" class="form-control" name="username" placeholder="Enter:user"/>
                 <label for="password">Password</label>
-                <input type="password" id="password" class="form-control" name="password"/>
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                <div class="form-actions center-block">
-                    <button type="submit" href="/home" class="btn btn-theme btn-bloc"><i class="fa fa-lock"></i>Log in</button>
+                <input type="password" id="password" class="form-control" name="password" placeholder="Enter:user" />
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                <div class="form-actions center-block checkbox">
+                    <button type="submit" href="/home" class="btn btn-theme btn-block"><i class="fa fa-lock"></i>Log in
+                    </button>
                 </div>
             </fieldset>
+            </div>
         </form>
 
     </div>
