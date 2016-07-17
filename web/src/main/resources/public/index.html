@@ -947,7 +947,7 @@
                                             <div class="form-group col-md-12 ">
                                                 <label class="col-md-4 control-lable">Ім'я</label>
                                                 <div class="col-md-8">
-                                                    <input type="text" id="firstNameId" class="form-control"
+                                                    <input type="text" id="firstName" class="form-control"
                                                            placeholder="User name">
                                                 </div>
                                             </div>
@@ -968,10 +968,10 @@
                                             <div class="form-group col-md-12 ">
                                                 <label class="col-md-4 control-lable">Birdth</label>
                                                 <div class="col-md-8">
-                                                    <input id='userId' type="text" placeholder="date..."
+                                                    <input id='userBirdth' type="text" placeholder="date..."
                                                            class="form-control"
-                                                           pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))
-">
+                                                           pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+                                                >
                                                 </div>
                                             </div>
                                         </div>
@@ -980,7 +980,7 @@
                                             <div class="form-group col-md-12">
                                                 <label class="col-md-4 control-lable">Телефон</label>
                                                 <div class="col-md-8">
-                                                    <input type="text" id="uNumber" class="form-control "
+                                                    <input type="text" id="userNumber" class="form-control "
                                                            placeholder="phone...">
                                                 </div>
                                             </div>
@@ -1059,9 +1059,6 @@
                             </div>
                             <button id="deleteAll" class="btn col-xs-9 btn-danger">Delete All</button>
                         </div>
-
-                    </
-                    >
                 </div>
             </div>
 
@@ -1292,28 +1289,8 @@
             }
         }
     });
-    // Disable Google Maps scrolling
-    // See http://stackoverflow.com/a/25904582/1607849
-    // Disable scroll zooming and bind back the click event
-    var onMapMouseleaveHandler = function (event) {
-        var that = $(this);
-        that.on('click', onMapClickHandler);
-        that.off('mouseleave', onMapMouseleaveHandler);
-        that.find('iframe').css("pointer-events", "none");
-    }
-    var onMapClickHandler = function (event) {
-        var that = $(this);
-        // Disable the click handler until the user leaves the map area
-        that.off('click', onMapClickHandler);
-        // Enable scrolling zoom
-        that.find('iframe').css("pointer-events", "auto");
-        // Handle the mouse leave event
-        that.on('mouseleave', onMapMouseleaveHandler);
-    }
-    // Enable map zooming with mouse scroll when the user clicks the map
-    $('.map').on('click', onMapClickHandler);
 </script>
-
+<scipt src="assets/usertable.js"></scipt>
 </body>
 
 </html>
