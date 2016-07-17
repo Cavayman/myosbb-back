@@ -5,7 +5,7 @@ I believe that after the final demo, we will feel ourselfs real JAVA DEVELOPERS 
 
 HOW TO RUN PROJECT 
 You need to install bower libraries:
-1) install npm
-2) install nodejs
+1) install nodejs
+2) install npm
 3) install bower
 4) run "bower install" in ../myosbb/web
