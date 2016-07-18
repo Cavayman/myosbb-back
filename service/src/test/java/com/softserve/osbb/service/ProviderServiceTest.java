@@ -2,7 +2,7 @@ package com.softserve.osbb.service;
 
 import com.softserve.osbb.config.ServiceApplication;
 import com.softserve.osbb.model.Provider;
-import com.softserve.osbb.service.ProviderService;
+import com.softserve.osbb.model.enums.ProviderType;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +33,7 @@ public class ProviderServiceTest {
     @Before
     public void init() {
         provider = new Provider();
-        provider.setName("Volya");
+        provider.setType(ProviderType.PERMANENT_WEEKLY);
         provider.setDescription("internet provider");
         providers = new ArrayList<>();
         providers.add(provider);

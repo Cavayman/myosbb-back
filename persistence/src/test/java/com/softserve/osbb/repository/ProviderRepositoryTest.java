@@ -32,7 +32,7 @@ public class ProviderRepositoryTest extends AbstractTestNGSpringContextTests {
     @Before
     public void init() {
         provider = new Provider();
-        provider.setName("Garbage collector");
+        provider.setType(ProviderType.ONE_TIME);
         provider.setDescription("Remove trash");
         provider.setLogoUrl("empty-logo");
     }
