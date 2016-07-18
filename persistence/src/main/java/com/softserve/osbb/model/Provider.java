@@ -1,5 +1,6 @@
 package com.softserve.osbb.model;
 
+import com.softserve.osbb.model.enums.ProviderType;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -18,6 +19,7 @@ public class Provider implements Comparable{
     private String logoUrl;
     private Collection<Contract> contracts;
     private Collection<Bill> bills;
+    private ProviderType type;
 
     public Provider() {
     }
@@ -42,7 +44,6 @@ public class Provider implements Comparable{
         this.providerId = providerId;
     }
 
-    @Basic
     @Column(name = "logoUrl")
     public String getLogoUrl() {
         return logoUrl;
@@ -52,7 +53,6 @@ public class Provider implements Comparable{
         this.logoUrl = logoUrl;
     }
 
-    @Basic
     @Column(name = "name")
     public String getName() {
         return name;
@@ -62,7 +62,6 @@ public class Provider implements Comparable{
         this.name = name;
     }
 
-    @Basic
     @Column(name = "description")
     public String getDescription() {
         return description;
@@ -88,6 +87,16 @@ public class Provider implements Comparable{
 
     public void setBills(Collection<Bill> bills) {
         this.bills = bills;
+    }
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
+    public ProviderType getType(){
+        return type;
+    }
+
+    public void setType(ProviderType type){
+        this.type = type;
     }
 
     @Override

@@ -1,8 +1,6 @@
 package com.softserve.osbb.repository;
 
 import com.softserve.osbb.PersistenceConfiguration;
-import com.softserve.osbb.model.*;
-import com.softserve.osbb.model.Osbb;
 import com.softserve.osbb.model.Staff;
 import org.junit.Assert;
 import org.junit.Before;

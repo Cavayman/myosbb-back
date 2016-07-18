@@ -2,6 +2,7 @@ package com.softserve.osbb.repository;
 
 import com.softserve.osbb.PersistenceConfiguration;
 import com.softserve.osbb.model.Provider;
+import com.softserve.osbb.model.enums.ProviderType;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,7 +32,7 @@ public class ProviderRepositoryTest extends AbstractTestNGSpringContextTests {
     @Before
     public void init() {
         provider = new Provider();
-        provider.setName("Garbage collector");
+        provider.setType(ProviderType.ONE_TIME);
         provider.setDescription("Remove trash");
         provider.setLogoUrl("empty-logo");
     }
@@ -85,6 +86,12 @@ public class ProviderRepositoryTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testFindProvidersByNameOrDescription(){
         Assert.assertFalse(providerRepository.findProvidersByNameOrDescription("Garbage").isEmpty());
+    }
+
+    @Test
+    public void testSaveProviderWrithEnumField(){
+        provider.setType(ProviderType.ONE_TIME);
+        providerRepository.save(provider);
     }
 
 }

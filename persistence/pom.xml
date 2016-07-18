@@ -71,6 +71,31 @@
 				</dependencies>
 			</plugin>
 
+
+			<!--Do not rm this plugin, plz!
+			I've liquibase.exception.ValidationFailedException from time to time
+			and need this plugin to clear checksums.
+			USAGE: mvn liquibase:clearCheckSums -->
+			<plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<version>${liquibase-maven-plugin.version}</version>
+				<configuration>
+					<changeLogFile>src/main/resources/db/changelog/db.changelog-master.json</changeLogFile>
+					<driver>org.postgresql.Driver</driver>
+					<url>jdbc:postgresql://fizzy-cherry.db.elephantsql.com:5432/aqzreszw</url>
+					<username>aqzreszw</username>
+					<password>Fi8O8oJfDiGcIkASAL8fR6snko57_S_T</password>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>clearCheckSums</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
             <!-- liquibase maven plugin (use for generateChangeLog) -->
             <!--<plugin>-->
                 <!--<groupId>org.liquibase</groupId>-->
