@@ -149,7 +149,7 @@ public class User {
         this.apartments = appartaments;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     @JsonIgnore
     public List<Message> getMessages() {
         return messages;
