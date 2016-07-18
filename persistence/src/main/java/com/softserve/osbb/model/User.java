@@ -26,6 +26,23 @@ public class User {
     private List<Apartment> apartments;
     private List<Message> messages;
     private List<Ticket> tickets;
+//    private List<Role> roles;
+
+    // For UserDetailService
+    public User(User user) {
+        this.userId = user.getUserId();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.birthDate = user.getBirthDate();
+        this.email = user.getEmail();
+        this.phoneNumber=user.getPhoneNumber();
+        this.password=user.getPassword();
+        this.gender=user.getGender();
+    }
+
+    //    Defoult for JPA
+    public User() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -108,7 +125,7 @@ public class User {
         this.gender = gender;
     }
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "users")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
     @JsonIgnore
     public List<Vote> getVotes() {
         return votes;
@@ -121,9 +138,9 @@ public class User {
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     @JoinTable(name = "user_apartment", joinColumns = {
-            @JoinColumn(name = "user_id", nullable = false) },
-            inverseJoinColumns = { @JoinColumn(name = "apartment_id",
-                    nullable = false, updatable = false) })
+            @JoinColumn(name = "user_id", nullable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "apartment_id",
+                    nullable = false, updatable = false)})
     public List<Apartment> getApartments() {
         return apartments;
     }
@@ -132,7 +149,7 @@ public class User {
         this.apartments = appartaments;
     }
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "users")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
     @JsonIgnore
     public List<Message> getMessages() {
         return messages;
@@ -142,7 +159,7 @@ public class User {
         this.messages = messages;
     }
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "users")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     @JsonIgnore
     public List<Ticket> getTickets() {
         return tickets;
@@ -152,6 +169,19 @@ public class User {
         this.tickets = tickets;
     }
 
+//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JsonIgnore
+//    @JoinTable(name = "user_roles", joinColumns = {
+//            @JoinColumn(name = "user_id", nullable = false)},
+//            inverseJoinColumns = {@JoinColumn(name = "role_id",
+//                    nullable = false, updatable = false)})
+//    public List<Role> getRoles() {
+//        return roles;
+//    }
+//
+//    public void setRoles(List<Role> roles) {
+//        this.roles = roles;
+//    }
     @Override
     public boolean equals(Object obj) {
         return EqualsBuilder.reflectionEquals(this, obj);
@@ -161,4 +191,6 @@ public class User {
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
     }
+
+
 }
