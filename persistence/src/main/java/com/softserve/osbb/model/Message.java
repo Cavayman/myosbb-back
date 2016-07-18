@@ -21,7 +21,7 @@ public class Message {
     private String message;
     private LocalDate time;
     private Ticket ticket;
-    private User users;
+    private User user;
 
     public Message() {
     }
@@ -72,12 +72,12 @@ public class Message {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    public User getUsers() {
-        return users;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsers(User users) {
-        this.users = users;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Column(name = "description")
