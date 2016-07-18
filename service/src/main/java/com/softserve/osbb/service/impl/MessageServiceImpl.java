@@ -111,7 +111,6 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public Message update(Message message) {
-
         return messageRepository.exists(message.getMessageId()) ? messageRepository.save(message) : null;
 
     }

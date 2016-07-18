@@ -7,7 +7,7 @@ App.controller('MessageController', ['$scope', 'MessageService',
     function ($scope, MessageService) {
         var messageController = this;
 
-        messageController.messag = {messageId: null, description: '', message:'', time: ''};
+        messageController.messag = {messageId: null, description: '', message: '', time: ''};
         messageController.messages = [];
 
         messageController.getAllMessages = function () {

@@ -34,7 +34,7 @@
               {
                 "column": {
                   "name": "time",
-                  "type": "VARCHAR(255)"
+                  "type": "TIMESTAMP(6) WITHOUT TIME ZONE"
                 }
               },
               {

@@ -12,6 +12,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -45,7 +46,7 @@ public class MessageRepositoryTest {
         message.setUsers(user);
         message.setMessage("Hi! This is a first message in our database.");
         message.setDescription("some description");
-        message.setTime("some date");
+        message.setTime(LocalDate.now());
 
     }
 

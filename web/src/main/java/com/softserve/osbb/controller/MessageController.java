@@ -2,7 +2,6 @@ package com.softserve.osbb.controller;
 
 import com.softserve.osbb.model.Message;
 import com.softserve.osbb.service.MessageService;
-import com.softserve.osbb.service.impl.MessageServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +33,7 @@ public class MessageController {
 
         Resource<Message> messageResource;
         try {
-            logger.info("saving ticket object " + message);
+            logger.info("Saving message object " + message);
             message = messageService.save(message);
             messageResource = addResourceLinkToMessage(message);
         } catch (Exception e) {
@@ -48,7 +47,7 @@ public class MessageController {
     public ResponseEntity<List<Resource<Message>>> listAllMessages() {
         List<Message> messageList = messageService.findAll();
         logger.info("Getting all messages.");
-        final List<Resource<Message>> resourceMessageList = new ArrayList<>();
+        List<Resource<Message>> resourceMessageList = new ArrayList<>();
         for (Message e : messageList) {
             Resource<Message> messageResource = new Resource<>(e);
             messageResource.add(linkTo(methodOn(MessageController.class)
@@ -74,7 +73,7 @@ public class MessageController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Resource<Message>> getMessageById(@PathVariable("id") Integer messageId) {
 
-        logger.info("fetching message by id: " + messageId);
+        logger.info("Fetching message by id: " + messageId);
         Message message = messageService.findOne(messageId);
         Resource<Message> messageResource = addResourceLinkToMessage(message);
         messageResource.add(linkTo(methodOn(MessageController.class).getMessageById(messageId)).withSelfRel());
@@ -86,22 +85,22 @@ public class MessageController {
     public ResponseEntity<Resource<Message>> updateMessage(@RequestBody Message message) {
         logger.info("Updating message by id: " + message.getMessageId());
         message = messageService.update(message);
-        Resource<Message> eventResource = new Resource<>(message);
-        eventResource.add(linkTo(methodOn(EventController.class).findEventById(message.getMessageId())).withSelfRel());
-        return new ResponseEntity<>(eventResource, HttpStatus.OK);
+        Resource<Message> messageResource = new Resource<>(message);
+        messageResource.add(linkTo(methodOn(MessageController.class).getMessageById(message.getMessageId())).withSelfRel());
+        return new ResponseEntity<>(messageResource, HttpStatus.OK);
     }
 
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Message> deleteMessageById(@PathVariable("id") Integer messageId) {
-        logger.info("removing message by id: " + messageId);
+        logger.info("Removing message by id: " + messageId);
         messageService.delete(messageId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
     public ResponseEntity<Message> deleteAll() {
-        logger.info("removing all messages");
+        logger.info("Removing all messages");
         messageService.deleteAll();
         return new ResponseEntity<>(HttpStatus.OK);
     }

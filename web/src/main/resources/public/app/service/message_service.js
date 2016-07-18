@@ -5,10 +5,7 @@
 App.factory('MessageService', ['$http', '$q', function ($http, $q) {
 
     return {
-
-
         getAllMessages: function () {
-
             return $http.get('/restful/message/')
                 .then(
                     function (response) {
@@ -19,14 +16,9 @@ App.factory('MessageService', ['$http', '$q', function ($http, $q) {
                         return $q.reject(errResponse);
                     }
                 );
-
-
         },
 
-
         createMessage: function (message) {
-
-
             return $http.post('/restful/message/', message)
                 .then(
                     function (response) {
@@ -37,12 +29,9 @@ App.factory('MessageService', ['$http', '$q', function ($http, $q) {
                         return $q.reject(errResponse);
                     }
                 );
-
         },
 
-
         updateMessage: function (message, messageId) {
-
             return $http.put('/restful/message/' + messageId, message)
                 .then(
                     function (response) {
@@ -53,12 +42,9 @@ App.factory('MessageService', ['$http', '$q', function ($http, $q) {
                         return $q.reject(errResponse);
                     }
                 );
-
         },
 
-
         deleteMessage: function (messageId) {
-
             return $http.delete('/restful/message/' + messageId)
                 .then(
                     function (response) {
@@ -69,9 +55,8 @@ App.factory('MessageService', ['$http', '$q', function ($http, $q) {
                         return $q.reject(errResponse);
                     }
                 );
-
-
         },
+
         deleteAllMessages: function () {
             return $http.delete('/restful/message/')
                 .then(
@@ -84,10 +69,6 @@ App.factory('MessageService', ['$http', '$q', function ($http, $q) {
                     }
                 );
         }
-
     };
-
-
 }
-
 ])

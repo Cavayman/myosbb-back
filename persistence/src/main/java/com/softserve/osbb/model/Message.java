@@ -1,9 +1,14 @@
 package com.softserve.osbb.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.softserve.osbb.utils.CustomLocalDateTimeDeserializer;
+import com.softserve.osbb.utils.CustomLocalDateTimeSerializer;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 /**
  * Created by Kris on 05.07.2016.
@@ -14,9 +19,23 @@ public class Message {
     private Integer messageId;
     private String description;
     private String message;
-    private String time;
+    private LocalDate time;
     private Ticket ticket;
     private User users;
+
+    public Message() {
+    }
+
+    public Message(String description, String message) {
+        this.description = description;
+        this.message = message;
+    }
+
+    public Message(String description, String message, LocalDate time) {
+        this.description = description;
+        this.message = message;
+        this.time = time;
+    }
 
     @Id
     @Column(name = "message_id")
@@ -30,12 +49,14 @@ public class Message {
     }
 
     @Basic
+    @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
     @Column(name = "time")
-    public String getTime() {
+    public LocalDate getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
+    public void setTime(LocalDate time) {
         this.time = time;
     }
 

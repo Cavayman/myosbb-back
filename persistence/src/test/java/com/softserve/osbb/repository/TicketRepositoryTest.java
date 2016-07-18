@@ -14,6 +14,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,8 +39,8 @@ public class TicketRepositoryTest {
 
         ticket.setName("some name");
         ticket.setDescription("some description");
-        ticket.setTime("some date");
-        ticket.setUsers(new User());
+        ticket.setTime(LocalDate.now());
+        ticket.setUser(new User());
         ticket.setAttachments(Arrays.asList(new Attachment(), new Attachment()));
     }
 

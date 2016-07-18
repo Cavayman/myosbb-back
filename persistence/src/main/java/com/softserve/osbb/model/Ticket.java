@@ -1,11 +1,13 @@
 package com.softserve.osbb.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.softserve.osbb.utils.CustomLocalDateTimeDeserializer;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Collection;
-import java.util.Collections;
 
 /**
  * Created by cavayman on 05.07.2016.
@@ -16,10 +18,24 @@ public class Ticket {
     private Integer ticketId;
     private String name;
     private String description;
-    private String time;
+    private LocalDate time;
     private Collection<Message> messages;
-    private User users;
+    private User user;
     private Collection<Attachment> attachments;
+
+    public Ticket() {
+    }
+
+    public Ticket(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    public Ticket(String name, String description, User user) {
+        this.name = name;
+        this.description = description;
+        this.user = user;
+    }
 
     @Id
     @Column(name = "ticket_id")
@@ -53,24 +69,25 @@ public class Ticket {
     }
 
     @Basic
+    @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
     @Column(name = "time")
-    public String getTime() {
+    public LocalDate getTime() {
         return time;
     }
 
-
-    public void setTime(String time) {
+    @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
+    public void setTime(LocalDate time) {
         this.time = time;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    public User getUsers() {
-        return users;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsers(User users) {
-        this.users = users;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

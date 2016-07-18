@@ -35,7 +35,7 @@ public class TicketController {
 
         Resource<Ticket> ticketResource;
         try {
-            logger.info("saving ticket object " + ticket);
+            logger.info("Saving ticket object " + ticket);
             ticket = ticketService.save(ticket);
             ticketResource = addResourceLinkToTicket(ticket);
         } catch (Exception e) {
@@ -47,15 +47,15 @@ public class TicketController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Resource<Ticket>>> listAllTickets() {
-        List<Ticket> eventList = ticketService.findAll();
-        logger.info("Getting all events.");
+        List<Ticket> ticketList = ticketService.findAll();
+        logger.info("Getting all tickets");
         final List<Resource<Ticket>> resourceEventList = new ArrayList<>();
-        for (Ticket e : eventList) {
-            Resource<Ticket> eventResource = new Resource<>(e);
-            eventResource.add(linkTo(methodOn(EventController.class)
+        for (Ticket e : ticketList) {
+            Resource<Ticket> ticketResource = new Resource<>(e);
+            ticketResource.add(linkTo(methodOn(EventController.class)
                     .findEventById(e.getTicketId()))
                     .withSelfRel());
-            resourceEventList.add(eventResource);
+            resourceEventList.add(ticketResource);
         }
         return new ResponseEntity<>(resourceEventList, HttpStatus.OK);
     }
@@ -73,11 +73,11 @@ public class TicketController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Resource<Ticket>> getTicketById(@PathVariable("id") Integer ticketId) {
 
-        logger.info("Getting event by id: " + ticketId);
-        Ticket event = ticketService.getOne(ticketId);
-        Resource<Ticket> eventResource = new Resource<>(event);
-        eventResource.add(linkTo(methodOn(EventController.class).findEventById(ticketId)).withSelfRel());
-        return new ResponseEntity<>(eventResource, HttpStatus.OK);
+        logger.info("Getting ticket by id: " + ticketId);
+        Ticket ticket = ticketService.getOne(ticketId);
+        Resource<Ticket> ticketResource = new Resource<>(ticket);
+        ticketResource.add(linkTo(methodOn(TicketController.class).getTicketById(ticketId)).withSelfRel());
+        return new ResponseEntity<>(ticketResource, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
@@ -85,9 +85,9 @@ public class TicketController {
 
         logger.info("Updating ticket by id: " + ticket.getTicketId());
         ticket = ticketService.update(ticket);
-        Resource<Ticket> eventResource = new Resource<>(ticket);
-        eventResource.add(linkTo(methodOn(TicketController.class).getTicketById(ticket.getTicketId())).withSelfRel());
-        return new ResponseEntity<>(eventResource, HttpStatus.OK);
+        Resource<Ticket> ticketResource = new Resource<>(ticket);
+        ticketResource.add(linkTo(methodOn(TicketController.class).getTicketById(ticket.getTicketId())).withSelfRel());
+        return new ResponseEntity<>(ticketResource, HttpStatus.OK);
     }
 
 
@@ -100,7 +100,7 @@ public class TicketController {
 
     @RequestMapping( method = RequestMethod.DELETE)
     public ResponseEntity<Ticket> deleteAll() {
-        logger.info("removing all messages");
+        logger.info("removing all tickets");
         ticketService.deleteAll();
         return new ResponseEntity<>(HttpStatus.OK);
     }

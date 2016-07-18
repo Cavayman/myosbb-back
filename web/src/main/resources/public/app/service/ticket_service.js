@@ -2,9 +2,7 @@
  * Created by Kris on 15.07.2016.
  */
 App.factory('TicketService', ['$http', '$q', function ($http, $q) {
-
     return {
-
         getAllTickets: function () {
             return $http.get('/restful/ticket/')
                 .then(
