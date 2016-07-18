@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Created by nkharabaruk on 05.07.2016.
+ * Created by nataliia on 05.07.2016.
  */
 @Entity
 @Table(name = "event")
