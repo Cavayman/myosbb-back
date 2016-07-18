@@ -11,6 +11,8 @@ public interface AttachmentService {
 
     Attachment saveAttachment(Attachment attachment);
 
+    List<Attachment> saveAttachments(List<Attachment> list);
+
     Attachment findAttachmentById(Integer id);
 
     List<Attachment> findAttachments(List<Attachment> list);
@@ -25,7 +27,7 @@ public interface AttachmentService {
 
     void deleteAttachmentById(Integer id);
 
-    void deleteListAttachments(List<Attachment> list);
+    void deleteAttachments(List<Attachment> list);
 
     void deleteAllAttachments();
 

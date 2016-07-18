@@ -2,12 +2,15 @@ package com.softserve.osbb.service;
 
 import com.softserve.osbb.model.Message;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by Kris on 12.07.2016.
  */
+
+@Service
 public interface MessageService {
     Message save(Message message);
 

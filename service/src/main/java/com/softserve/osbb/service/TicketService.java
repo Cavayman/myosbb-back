@@ -4,12 +4,15 @@ import com.softserve.osbb.model.Ticket;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by Kris on 12.07.2016.
  */
+
+@Service
 public interface TicketService {
 
     Ticket save(Ticket ticket);

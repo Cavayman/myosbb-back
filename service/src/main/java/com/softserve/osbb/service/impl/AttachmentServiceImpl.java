@@ -24,6 +24,11 @@ public class AttachmentServiceImpl implements AttachmentService{
     }
 
     @Override
+    public List<Attachment> saveAttachments(List<Attachment> list) {
+        return attachmentRepository.save(list);
+    }
+
+    @Override
     public List<Attachment> findAttachments(List<Attachment> list) {
         return attachmentRepository.save(list);
     }
@@ -59,7 +64,7 @@ public class AttachmentServiceImpl implements AttachmentService{
     }
 
     @Override
-    public void deleteListAttachments(List<Attachment> list) {
+    public void deleteAttachments(List<Attachment> list) {
         attachmentRepository.delete(list);
     }
 

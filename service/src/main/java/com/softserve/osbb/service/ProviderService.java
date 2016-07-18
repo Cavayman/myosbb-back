@@ -1,12 +1,15 @@
 package com.softserve.osbb.service;
 
 import com.softserve.osbb.model.Provider;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by Aska on 12.07.2016.
  */
+
+@Service
 public interface ProviderService {
 
     void saveProvider(Provider provider);

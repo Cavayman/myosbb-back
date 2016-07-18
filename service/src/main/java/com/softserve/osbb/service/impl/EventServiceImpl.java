@@ -6,9 +6,7 @@ import com.softserve.osbb.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by nataliia on 10.07.16.
@@ -22,6 +20,11 @@ public class EventServiceImpl implements EventService {
     @Override
     public Event saveEvent(Event event) {
         return eventRepository.save(event);
+    }
+
+    @Override
+    public List<Event> saveEvents(List<Event> list) {
+        return eventRepository.save(list);
     }
 
     @Override
@@ -60,7 +63,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void deleteListEvents(List<Event> list) {
+    public void deleteEvents(List<Event> list) {
         eventRepository.delete(list);
     }
 

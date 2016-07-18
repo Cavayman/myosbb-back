@@ -1,12 +1,15 @@
 package com.softserve.osbb.service;
 
 import com.softserve.osbb.model.House;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by nazar.dovhyy on 14.07.2016.
  */
+
+@Service
 public interface HouseService {
 
     House addHouse(House house) throws Exception;

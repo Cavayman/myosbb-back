@@ -1,12 +1,15 @@
 package com.softserve.osbb.service;
 
 import com.softserve.osbb.model.Osbb;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by Roman on 08.07.2016.
  */
+
+@Service
 public interface OsbbService {
 
     Osbb addOsbb(Osbb osbb);

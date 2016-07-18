@@ -1,6 +1,7 @@
 package com.softserve.osbb.service;
 
 import com.softserve.osbb.model.Staff;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -8,6 +9,8 @@ import java.util.List;
 /**
  * Created by Aska on 12.07.2016.
  */
+
+@Service
 public interface StaffService {
     void saveStaff(Staff Staff);
 

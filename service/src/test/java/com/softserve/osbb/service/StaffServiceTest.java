@@ -1,3 +1,5 @@
+package com.softserve.osbb.service;
+
 import com.softserve.osbb.PersistenceConfiguration;
 import com.softserve.osbb.config.ServiceApplication;
 import com.softserve.osbb.model.Staff;

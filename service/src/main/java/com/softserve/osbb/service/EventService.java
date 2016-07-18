@@ -1,16 +1,20 @@
 package com.softserve.osbb.service;
 
 import com.softserve.osbb.model.Event;
+import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
  * Created by nataliia on 10.07.16.
  */
+
+@Service
 public interface EventService {
 
     Event saveEvent(Event event);
+
+    List<Event> saveEvents(List<Event> list);
 
     Event findEventById(Integer id);
 
@@ -26,7 +30,7 @@ public interface EventService {
 
     void deleteEventById(Integer id);
 
-    void deleteListEvents(List<Event> list);
+    void deleteEvents(List<Event> list);
 
     void deleteAllEvents();
 

@@ -1,4 +1,4 @@
-/**
+package com.softserve.osbb.service; /**
  * Created by cavayman on 11.07.2016.
  */
 import com.softserve.osbb.config.ServiceApplication;

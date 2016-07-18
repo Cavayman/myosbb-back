@@ -4,13 +4,15 @@ import com.softserve.osbb.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by cavayman on 11.07.2016.
  */
+
+@Service
 public interface UserService  {
 
     public User save(User user) ;
