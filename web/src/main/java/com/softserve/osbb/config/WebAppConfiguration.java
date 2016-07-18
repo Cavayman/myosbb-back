@@ -45,6 +45,8 @@ public class WebAppConfiguration extends WebMvcConfigurerAdapter {
         registry.addViewController("/login").setViewName("loginhome.html");
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
         registry.addViewController("/home").setViewName("index.html");
+        registry.addViewController("/error").setViewName("loginhome.html");
+
 
     }
 }
