@@ -6,8 +6,9 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import javax.persistence.*;
 
 /**
- * Created by Kris on 09.07.2016.
+ * Created by nataliia on 09.07.2016.
  */
+
 @Entity
 @Table(name = "attachment")
 public class Attachment {
