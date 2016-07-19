@@ -9,7 +9,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 /**
@@ -18,7 +17,7 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = PersistenceConfiguration.class)
 @Transactional
-public class StaffRepositoryTest extends AbstractTestNGSpringContextTests {
+public class StaffRepositoryTest {
     private Staff staff;
     
     @Autowired
