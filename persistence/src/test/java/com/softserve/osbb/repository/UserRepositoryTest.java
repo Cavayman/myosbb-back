@@ -19,6 +19,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringApplicationConfiguration(classes = PersistenceConfiguration.class)
 public class UserRepositoryTest extends Assert {
     private User user;
+    private User user2;
+
     @Autowired
     private UserRepository userRepository;
 
@@ -32,19 +34,44 @@ public class UserRepositoryTest extends Assert {
         user.setGender("JuniorJavaDev");
         user.setPhoneNumber("+380679167305");
         user.setBirthDate(new java.util.Date(System.currentTimeMillis()));
+
+        user2=new User();
+        user2.setFirstName("Oleg");
+        user2.setLastName("Kotsik");
+        user2.setEmail("fuckthisemail@gmail.com");
+        user2.setPassword("1111");
+        user2.setGender("JuniorJavaDev");
+        user2.setPhoneNumber("+380679167305");
+        user2.setBirthDate(new java.util.Date(System.currentTimeMillis()));
+
     }
 
 
 
     @Test
-    public void testToHexString() {
-        assertEquals(1, userRepository.findAll().size());
+    public void saveTest() {
+        assertEquals(0, userRepository.findAll().size());
         userRepository.save(user);
+        assertEquals(1, userRepository.findAll().size());
+        userRepository.save(user2);
         assertEquals(2, userRepository.findAll().size());
+
+    }
+    @Test
+    public void findByEmailTest() {
+        assertEquals(0, userRepository.findAll().size());
+        userRepository.save(user);
+        assertEquals(1, userRepository.findAll().size());
+        userRepository.save(user2);
+        assertEquals(2, userRepository.findAll().size());
+        assertEquals(user2.getEmail(),userRepository.findUserByEmail(user2.getEmail()).getEmail());
+        assertEquals(user.getEmail(),userRepository.findUserByEmail(user.getEmail()).getEmail());
+        assertNotEquals(user.getEmail(),userRepository.findUserByEmail(user2.getEmail()).getEmail());
+
 
     }
     @After
     public void afterTest(){
-    userRepository.delete(user);
+    userRepository.deleteAll();
     }
 }
