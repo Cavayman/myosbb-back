@@ -9,3 +9,7 @@ You need to install bower libraries:
 2) install npm
 3) install bower
 4) run "bower install" in ../myosbb/web
+
+How to install Angular2
+1) need to have installed nodejs and npm
+2) run "nmp install" in ../myosbb/web/src/main/resources/public/assets
