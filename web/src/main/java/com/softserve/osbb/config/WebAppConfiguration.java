@@ -14,7 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * Created by nazar.dovhyy on 08.07.2016.
  */
 @SpringBootApplication
-@Import({PersistenceConfiguration.class/*,SecurityWebApplicationInitializer.class*/})
+@Import(PersistenceConfiguration.class)
 @ComponentScan(basePackages = {"com.softserve.osbb"})
 public class WebAppConfiguration extends WebMvcConfigurerAdapter {
 
@@ -35,7 +35,7 @@ public class WebAppConfiguration extends WebMvcConfigurerAdapter {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(new Object[]{WebAppConfiguration.class
+        SpringApplication.run(new Object[]{WebAppConfiguration.class,SecurityConfig.class
                 }, args);
     }
 
