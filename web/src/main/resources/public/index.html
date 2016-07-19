@@ -14,20 +14,21 @@
     <!-- JS -->
     <script src="assets/bower/angular/angular.js"></script>
     <script src="assets/bower/jquery/jquery.js"></script>
+    <script src="assets/bower/jquery/jquery.min.js"></script>
     <script src="assets/bower/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
     <script src="assets/bower/bootstrap/dist/js/bootstrap.js"></script>
     <script src="assets/bower/select2/dist/js/select2.js"></script>
     <script src="app/module/app.js"></script>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="assets/bower/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="assets/bower/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="assets/bower/bootstrap-datepicker/dist/css/bootstrap-datepicker.css"/>
     <link rel="stylesheet" href="assets/bower/select2/dist/css/select2.css"/>
     <link rel="stylesheet" href="assets/bower/font-awesome/css/font-awesome.css"/>
     <link href="assets/css/stylish-portfolio.css" rel="stylesheet"/>
     <link rel="stylesheet" href="assets/css/search.css">
 
-	
+
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic"
           rel="stylesheet" type="text/css">
 
@@ -38,7 +39,7 @@
     <script src="app/service/provider_service.js"></script>
     <script src="app/service/report_service.js"></script>
     <script src="app/service/ticket_service.js"></script>
-	<script src="app/service/osbb_service.js"></script>
+    <script src="app/service/osbb_service.js"></script>
 
     <!-- Controllers -->
     <script src="app/controller/attachment_controller.js"></script>
@@ -47,7 +48,7 @@
     <script src="app/controller/provider_controller.js"></script>
     <script src="app/controller/report_controller.js"></script>
     <script src="app/controller/ticket_controller.js"></script>
-	<script src="app/controller/osbb_controller.js"></script>
+    <script src="app/controller/osbb_controller.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -107,26 +108,26 @@
 <!-- Header -->
 <header id="top" class="header">
     <div class="text-vertical-center">
-       <div class="container">
-        <div class="coll-xs-12">
-           <div class="container jumbotron">
-            <div class="row">
+        <div class="container">
+            <div class="coll-xs-12">
+                <div class="container jumbotron">
+                    <div class="row">
 
-            <h2 >Congratulations you are logged in!</h2>
-            <h3>Try to log out with  this button</h3>
-        </div>
-        <div class="row">
-            <div class="center-block">
-            <a href="/logout"><button type="button"
-                                         class="btn btn-warning col-xs-2 col-xs-offset-5"
-                                       >Logout</button></a>
+                        <h2 >Congratulations you are logged in!</h2>
+                        <h3>Try to log out with  this button</h3>
+                    </div>
+                    <div class="row">
+                        <div class="center-block">
+                            <a href="/logout"><button type="button"
+                                                      class="btn btn-warning col-xs-2 col-xs-offset-5"
+                            >Logout</button></a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            </div>
+            </dic>
+            <br>
         </div>
-        </div>
-    </dic>
-        <br>
-    </div>
 </header>
 
 <!-- Apartment -->
@@ -658,7 +659,7 @@
 
 <!-- Osbb -->
 <section id="osbb" class="about">
-     <div class="container">
+    <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h1>Osbb table</h1>
@@ -700,7 +701,7 @@
                                             <div class="form-group col-md-8">
                                                 <div class="col-md-10">
                                                     <input type="submit"
-                                                           value="{{!oc.osbb.osbbId ? 'Add' : 'Update'}}" 
+                                                           value="{{!oc.osbb.osbbId ? 'Add' : 'Update'}}"
                                                            class="btn btn-primary btn-sm"
                                                            ng-disabled="osbbForm.$invalid">
                                                     <button type="button" ng-click="oc.deleteAllOsbb()"
@@ -721,12 +722,12 @@
                                     <table class="table table-striped">
 
                                         <thead>
-											<tr>
-												<th>ID</th>
-												<th>Name</th>
-												<th>Description</th>
-												<th width="40%"></th>
-											</tr>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Description</th>
+                                            <th width="40%"></th>
+                                        </tr>
                                         </thead>
 
                                         <tbody>
@@ -974,7 +975,7 @@
                                                     <input id='userBirdth' type="text" placeholder="date..."
                                                            class="form-control"
                                                            pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
-                                                >
+                                                    >
                                                 </div>
                                             </div>
                                         </div>
@@ -1062,11 +1063,11 @@
                             </div>
                             <button id="deleteAll" class="btn col-xs-9 btn-danger">Delete All</button>
                         </div>
+                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
-    </div>
     </div>
     <!-- /.row -->
     </div>

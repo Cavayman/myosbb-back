@@ -21,7 +21,6 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = PersistenceConfiguration.class)
-@Transactional
 public class HouseRepositoryTest {
 
     private static final String TEST_ADDRESS_NAME = "Horodocka str. 110";
@@ -31,6 +30,8 @@ public class HouseRepositoryTest {
 
     @Autowired
     HouseRepository houseRepository;
+    @Autowired
+    ApartmentRepository apartmentRepository;
 
     private House house;
 
@@ -90,7 +91,7 @@ public class HouseRepositoryTest {
                 new House("3"),
                 new House("4"),
                 new House("5")
-                };
+        };
 
         List<House> houseList = houseRepository.save(Arrays.asList(houses));
 
@@ -98,6 +99,17 @@ public class HouseRepositoryTest {
 
     }
 
+    @Test
+    public void testGetAllAppartmentsByHouseid(){
+
+        /*
+        Integer houseId = Integer.valueOf(9);
+        House house = houseRepository.findOne(houseId);
+        System.out.println(house.getApartments());
+        */
+
+        houseRepository.delete(9);
+
+    }
+
 }
-
-

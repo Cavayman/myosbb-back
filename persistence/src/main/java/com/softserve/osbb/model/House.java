@@ -1,9 +1,11 @@
 package com.softserve.osbb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -12,11 +14,12 @@ import java.util.Collection;
 @Entity
 @Table(name = "house")
 public class House {
+    public static final House EMPTY_HOUSE = null;
     private Integer houseId;
     private String city;
     private String street;
     private String zipCode;
-    private Collection<Apartment> apartments;
+    private Collection<Apartment> apartments = new ArrayList<>();
     private Osbb osbb;
 
     public House() {
@@ -78,7 +81,8 @@ public class House {
         return HashCodeBuilder.reflectionHashCode(this);
     }
 
-    @OneToMany(mappedBy = "house", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "house",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JsonIgnore
     public Collection<Apartment> getApartments() {
         return apartments;
     }
@@ -87,7 +91,8 @@ public class House {
         this.apartments = appartaments;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name = "osbb_id", referencedColumnName = "osbb_id")
     public Osbb getOsbb() {
         return osbb;
@@ -95,5 +100,16 @@ public class House {
 
     public void setOsbb(Osbb osbb) {
         this.osbb = osbb;
+    }
+
+    @Override
+    public String toString() {
+        return "House{" +
+                "houseId=" + houseId +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", osbb=" + osbb +
+                '}';
     }
 }

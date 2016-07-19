@@ -43,7 +43,7 @@ public class MessageRepositoryTest {
         user.setGender("man");
         user.setPassword("234qwer");
 
-        message.setUsers(user);
+        message.setUser(user);
         message.setMessage("Hi! This is a first message in our database.");
         message.setDescription("some description");
         message.setTime(LocalDate.now());
