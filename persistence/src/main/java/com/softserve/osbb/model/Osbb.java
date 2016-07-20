@@ -20,7 +20,6 @@ public class Osbb {
     private Collection<Event> events;
     private Collection<House> houses;
     private Collection<Report> reports;
-    private Collection<Staff> staffs;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -119,12 +118,4 @@ public class Osbb {
         this.reports = reports;
     }
 
-    @OneToMany(mappedBy = "osbb")
-    public Collection<Staff> getStaffs() {
-        return staffs;
-    }
-
-    public void setStaffs(Collection<Staff> staffs) {
-        this.staffs = staffs;
-    }
 }
