@@ -1,0 +1,36 @@
+{ "databaseChangeLog": [
+  {
+    "changeSet": {
+      "id": "2016/07/20-1",
+      "author": "anastasiia fedorak",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "autoIncrement": true,
+                  "constraints": {
+                    "primaryKey": true,
+                    "primaryKeyName": "provider_type_pkey"
+                  },
+                  "name": "provider_type_id",
+                  "type": "SERIAL"
+                }
+              },
+              {
+                "column": {
+                  "name": "type_name",
+                  "type": "VARCHAR(255)"
+                }
+              }]
+          ,
+            "tableName": "provider_type"
+          }
+        }]
+
+    }
+  }
+]
+}

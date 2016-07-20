@@ -20,6 +20,8 @@ public class Provider implements Comparable{
     private Collection<Contract> contracts;
     private Collection<Bill> bills;
     private ProviderPeriodicity periodicity;
+    private ProviderType type;
+
 
     public Provider() {
     }
@@ -97,6 +99,17 @@ public class Provider implements Comparable{
 
     public void setPeriodicity(ProviderPeriodicity periodicity){
         this.periodicity = periodicity;
+    }
+
+//    @Column(name = "type")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "type_name")
+    public ProviderType getType() {
+        return type;
+    }
+
+    public void setType(ProviderType type) {
+        this.type = type;
     }
 
     @Override

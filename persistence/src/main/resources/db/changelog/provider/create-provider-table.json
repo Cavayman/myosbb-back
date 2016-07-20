@@ -2,7 +2,7 @@
   {
     "changeSet": {
       "id": "2016/07/10-9",
-      "author": "nataliia (generated)",
+      "author": "anastasiia fedorak",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -54,7 +54,7 @@
   {
     "changeSet": {
       "id": "2016/07/10-19",
-      "author": "nataliia (generated)",
+      "author": "anastasiia fedorak",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -73,11 +73,33 @@
 
     }
   },
+  {
+    "changeSet": {
+      "id": "2016/07/20-2",
+      "author": "anastasiia fedorak",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "provider_id",
+            "baseTableName": "contract",
+            "constraintName": "fk_66kfo4kfkseyqcngxer7m6eiu22",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "provider_id",
+            "referencedTableName": "provider"
+          }
+        }]
+
+    }
+  },
 
   {
     "changeSet": {
       "id": "2016/07/10-21",
-      "author": "nataliia (generated)",
+      "author": "anastasiia fedorak",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -96,5 +118,6 @@
 
     }
   }
+
 ]
 }
