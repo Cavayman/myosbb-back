@@ -2,7 +2,7 @@ package com.softserve.osbb.repository;
 
 import com.softserve.osbb.PersistenceConfiguration;
 import com.softserve.osbb.model.*;
-import com.softserve.osbb.model.enums.ProviderType;
+import com.softserve.osbb.model.enums.ProviderPeriodicity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,7 +46,7 @@ public class BillRepositoryTest {
     public void init() {
 
         Provider provider = new Provider();
-        provider.setType(ProviderType.ONE_TIME);
+        provider.setPeriodicity(ProviderPeriodicity.ONE_TIME);
         providerRepository.save(provider);
 
         Apartment apartment = new Apartment();

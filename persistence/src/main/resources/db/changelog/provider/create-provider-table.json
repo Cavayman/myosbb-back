@@ -33,7 +33,7 @@
               },
               {
                 "column": {
-                  "name": "type",
+                  "name": "periodicity",
                   "type": "VARCHAR(255)"
                 }
               },
