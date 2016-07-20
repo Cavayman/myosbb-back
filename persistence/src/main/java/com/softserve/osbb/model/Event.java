@@ -28,6 +28,7 @@ public class Event {
     private String author;
     private Osbb osbb;
     private Repeat repeat;
+    private List<Attachment> attachments;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -104,6 +105,15 @@ public class Event {
         this.repeat = repeat;
     }
 
+    @OneToMany(fetch = FetchType.LAZY)
+    public List<Attachment> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(List<Attachment> attachments) {
+        this.attachments = attachments;
+    }
+
     @Override
     public boolean equals(Object obj) {
         return EqualsBuilder.reflectionEquals(this, obj);
@@ -113,4 +123,5 @@ public class Event {
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
     }
+
 }
