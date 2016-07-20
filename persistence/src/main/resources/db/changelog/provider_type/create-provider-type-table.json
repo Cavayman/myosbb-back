@@ -13,7 +13,7 @@
                   "autoIncrement": true,
                   "constraints": {
                     "primaryKey": true,
-                    "primaryKeyName": "provider_type_id_pkey"
+                    "primaryKeyName": "provider_type_pkey"
                   },
                   "name": "provider_type_id",
                   "type": "SERIAL"
@@ -27,6 +27,28 @@
               }]
           ,
             "tableName": "provider_type"
+          }
+        }]
+
+    }
+  } ,
+  {
+    "changeSet": {
+      "id": "2016/07/20-4",
+      "author": "anastasiia fedorak",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "provider_type_id",
+            "baseTableName": "provider",
+            "constraintName": "fk_66kfo4kfkseyqcngxer7m6eiukhl652",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "provider_type_id",
+            "referencedTableName": "provider_type"
           }
         }]
 

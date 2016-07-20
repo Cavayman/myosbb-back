@@ -40,7 +40,7 @@
               {
                 "column": {
                   "name": "provider_type_id",
-                  "type": "VARCHAR(255)"
+                  "type": "INTEGER"
                 }
               }]
           ,
@@ -96,5 +96,6 @@
 
     }
   }
+
 ]
 }
