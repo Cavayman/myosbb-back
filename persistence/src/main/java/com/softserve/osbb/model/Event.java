@@ -27,7 +27,6 @@ public class Event {
     private String description;
     private String author;
     private Osbb osbb;
-    private List<Vote> votes;
     private Repeat repeat;
 
     @Id
@@ -92,15 +91,6 @@ public class Event {
 
     public void setOsbb(Osbb osbb) {
         this.osbb = osbb;
-    }
-
-    @OneToMany(mappedBy = "event")
-    public List<Vote> getVotes() {
-        return votes;
-    }
-
-    public void setVotes(List<Vote> votes) {
-        this.votes = votes;
     }
 
     @Basic

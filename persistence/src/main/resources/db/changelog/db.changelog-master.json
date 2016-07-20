@@ -69,12 +69,6 @@
 
   {
     "includeAll" : {
-      "path": "classpath:/db/changelog/staff/"
-    }
-  },
-
-  {
-    "includeAll" : {
       "path": "classpath:/db/changelog/ticket/"
     }
   },

@@ -15,7 +15,6 @@ public class Vote {
     private Integer voteId;
     private Integer voteValue;
     private Date time;
-    private Event event;
     private User users;
 
     @Id
@@ -75,18 +74,7 @@ public class Vote {
                 "voteId=" + voteId +
                 ", voteValue=" + voteValue +
                 ", time=" + time +
-                ", event=" + event +
                 ", userEntity=" + users +
                 '}';
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "event_id", referencedColumnName = "event_id")
-    public Event getEvent() {
-        return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
     }
 }

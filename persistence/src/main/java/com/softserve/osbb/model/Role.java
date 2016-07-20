@@ -14,7 +14,6 @@ import java.util.Collection;
 public class Role {
     private Integer roleId;
     private String name;
-    private Collection<Staff> staffs;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,12 +46,4 @@ public class Role {
         return HashCodeBuilder.reflectionHashCode(this);
     }
 
-    @OneToMany(mappedBy = "role")
-    public Collection<Staff> getStaffs() {
-        return staffs;
-    }
-
-    public void setStaffs(Collection<Staff> staffs) {
-        this.staffs = staffs;
-    }
 }

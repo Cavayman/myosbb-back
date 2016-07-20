@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.TreeSet;
@@ -25,7 +24,7 @@ import java.util.TreeSet;
 @SpringApplicationConfiguration(classes = PersistenceConfiguration.class)
 @Rollback
 @Transactional
-public class ProviderRepositoryTest extends AbstractTestNGSpringContextTests {
+public class ProviderRepositoryTest {
     private Provider provider;
 
 
