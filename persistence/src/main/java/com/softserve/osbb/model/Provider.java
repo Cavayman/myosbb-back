@@ -101,9 +101,8 @@ public class Provider implements Comparable{
         this.periodicity = periodicity;
     }
 
-//    @Column(name = "type")
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "type_name")
+    @JoinColumn(name = "provider_type_id")
     public ProviderType getType() {
         return type;
     }

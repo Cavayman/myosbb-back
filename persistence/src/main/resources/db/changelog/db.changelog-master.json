@@ -51,14 +51,16 @@
 
   {
     "includeAll" : {
-      "path": "classpath:/db/changelog/provider/"
-    }
-  },
-  {
-    "includeAll" : {
       "path": "classpath:/db/changelog/provider_type/"
     }
   },
+
+  {
+    "includeAll" : {
+      "path": "classpath:/db/changelog/provider/"
+    }
+  },
+
 
   {
     "includeAll" : {

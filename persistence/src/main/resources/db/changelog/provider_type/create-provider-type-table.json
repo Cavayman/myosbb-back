@@ -13,7 +13,7 @@
                   "autoIncrement": true,
                   "constraints": {
                     "primaryKey": true,
-                    "primaryKeyName": "provider_type_pkey"
+                    "primaryKeyName": "provider_type_id_pkey"
                   },
                   "name": "provider_type_id",
                   "type": "SERIAL"
