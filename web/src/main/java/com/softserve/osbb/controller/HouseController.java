@@ -70,7 +70,6 @@ public class HouseController {
         return new ResponseEntity<>(houseResource, HttpStatus.OK);
     }
 
-
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Resource<House>> saveHouse(@RequestBody House house) {
         Resource<House> houseResource = null;
