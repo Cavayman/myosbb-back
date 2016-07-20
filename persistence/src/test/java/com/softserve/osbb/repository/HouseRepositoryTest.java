@@ -21,6 +21,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = PersistenceConfiguration.class)
+@Transactional
 public class HouseRepositoryTest {
 
     private static final String TEST_ADDRESS_NAME = "Horodocka str. 110";
@@ -108,7 +109,7 @@ public class HouseRepositoryTest {
         System.out.println(house.getApartments());
         */
 
-        houseRepository.delete(9);
+       // houseRepository.delete(9);
 
     }
 
