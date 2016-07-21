@@ -18,12 +18,13 @@ public class Contract {
     private Date dateFinish;
     private String text;
     private BigDecimal price;
-    private String document;
+    private Attachment attachment;
     private Osbb osbb;
     private Provider provider;
 
     @Id
     @Column(name = "contract_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getContractId() {
         return contractId;
     }
@@ -72,24 +73,14 @@ public class Contract {
         this.price = price;
     }
 
-    @Basic
-    @Column(name = "document")
-    public String getDocument() {
-        return document;
+    @ManyToOne
+    @JoinColumn(name = "attachment_id", referencedColumnName = "attachment_id")
+    public Attachment getAttachment() {
+        return attachment;
     }
 
-    public void setDocument(String document) {
-        this.document = document;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return EqualsBuilder.reflectionEquals(this, obj);
-    }
-
-    @Override
-    public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
+    public void setAttachment(Attachment attachment) {
+        this.attachment = attachment;
     }
 
     @ManyToOne
@@ -110,5 +101,15 @@ public class Contract {
 
     public void setProvider(Provider provider) {
         this.provider = provider;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 }

@@ -15,6 +15,7 @@ import java.util.List;
 /**
  * Created by nataliia on 05.07.2016.
  */
+
 @Entity
 @Table(name = "event")
 public class Event {
