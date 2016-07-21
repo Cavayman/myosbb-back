@@ -3,13 +3,9 @@ package com.softserve.osbb.service.impl;
 import com.softserve.osbb.model.Report;
 import com.softserve.osbb.repository.ReportRepository;
 import com.softserve.osbb.service.ReportService;
-import com.softserve.osbb.service.exe.NotFoundEntityException;
-import com.softserve.osbb.service.exe.OnCreateEntityException;
-import com.softserve.osbb.service.exe.OnDeleteEntityException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,29 +22,23 @@ public class ReportServiceImpl implements ReportService {
     private ReportRepository reportRepository;
 
     @Override
-    public Report addReport(Report report) throws OnCreateEntityException {
-        return report == null ? Report.EMPTY_REPORT : addReportIfNotExists(report);
+    public Report addReport(Report report)  {
+        return report == null ? Report.NO_REPORT : addNotNullReport(report);
     }
 
-    private Report addReportIfNotExists(Report report) throws OnCreateEntityException {
-        boolean isExisted = reportRepository.exists(report.getReportId());
-        if (isExisted) {
-            throw new OnCreateEntityException("report cannot be created under id: " + report.getReportId()
-                    + "as already exists");
-        }
+    private Report addNotNullReport(Report report)  {
         return reportRepository.save(report);
     }
 
     @Override
-    public Report updateReport(Integer reportId, Report report) throws NotFoundEntityException {
-        return report == null ? Report.EMPTY_REPORT : updateReportIfExists(reportId, report);
+    public Report updateReport(Integer reportId, Report report) {
+        return report == null ? Report.NO_REPORT : updateReportIfExists(reportId, report);
     }
 
-    private Report updateReportIfExists(Integer reportId, Report report) throws NotFoundEntityException {
+    private Report updateReportIfExists(Integer reportId, Report report){
         boolean isExisted = reportRepository.exists(reportId);
         if (!isExisted) {
-            throw new NotFoundEntityException("report under id: " + report.getReportId() + " doesn't exist and thus" +
-                    " cannot be updated");
+            return Report.NO_REPORT;
         }
         return reportRepository.save(report);
 
@@ -65,7 +55,7 @@ public class ReportServiceImpl implements ReportService {
                 reportRepository.getAllReportsBySearchParam(searchTerm)
                         .stream()
                         .findFirst()
-                        .get() : Report.EMPTY_REPORT;
+                        .get() : Report.NO_REPORT;
     }
 
     @Override
@@ -94,13 +84,13 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public void deleteReportById(Integer reportId) throws NotFoundEntityException {
+    public boolean deleteReportById(Integer reportId) {
         boolean isExistedReport = reportRepository.exists(reportId);
         if (!isExistedReport) {
-            throw new NotFoundEntityException("the report with id: " + reportId + "" +
-                    " cannot be deleted as wasnt found");
+            return false;
         }
         reportRepository.delete(reportId);
+        return true;
     }
 
     @Override

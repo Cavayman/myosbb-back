@@ -24,12 +24,6 @@
                   "name": "path",
                   "type": "VARCHAR(255)"
                 }
-              },
-              {
-                "column": {
-                  "name": "ticket_id",
-                  "type": "INT"
-                }
               }]
           ,
             "tableName": "attachment"

@@ -1,6 +1,7 @@
 package com.softserve.osbb.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.softserve.osbb.utils.CustomLocalDateTimeDeserializer;
@@ -9,6 +10,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -17,8 +19,8 @@ import java.time.LocalDateTime;
  */
 @Entity
 @Table(name = "report")
-public class Report {
-    public static final Report EMPTY_REPORT = new Report();
+public class Report implements Serializable {
+    public static final Report NO_REPORT = null;
     private Integer reportId;
     private String name;
     private String description;

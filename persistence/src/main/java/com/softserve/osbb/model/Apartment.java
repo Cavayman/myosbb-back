@@ -62,7 +62,7 @@ public class Apartment {
         return HashCodeBuilder.reflectionHashCode(this);
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinColumn(name = "house_id", referencedColumnName = "house_id")
     public House getHouse() {
         return house;
@@ -98,5 +98,17 @@ public class Apartment {
 
     public void setBills(Collection<Bill> bills) {
         this.bills = bills;
+    }
+
+    @Override
+    public String toString() {
+        return "Apartment{" +
+                "apartmentId=" + apartmentId +
+                ", number=" + number +
+                ", square=" + square +
+                ", user=" + user +
+                ", users=" + users +
+                ", bills=" + bills +
+                '}';
     }
 }

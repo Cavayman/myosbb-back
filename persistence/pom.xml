@@ -71,9 +71,6 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-
-
-
             <!-- liquibase maven plugin (use for generateChangeLog and clearCheckSums) -->
             <plugin>
                 <groupId>org.liquibase</groupId>
@@ -105,7 +102,6 @@
 					</dependency>
 				</dependencies>
             </plugin>
-
 		</plugins>
 	</build>
 

@@ -31,7 +31,7 @@ public interface ReportService {
 
     void deleteAll() throws Exception;
 
-    void deleteReportById(Integer reportId) throws Exception;
+    boolean deleteReportById(Integer reportId) throws Exception;
 
 
 }

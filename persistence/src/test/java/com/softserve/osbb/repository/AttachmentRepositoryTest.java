@@ -47,11 +47,9 @@ public class AttachmentRepositoryTest {
 
         attachment = new Attachment();
         attachment.setPath("C://...");
-        attachment.setTicket(ticket);
 
         attachment1 = new Attachment();
         attachment1.setPath("D://...");
-        attachment1.setTicket(ticket);
     }
 
     @Test

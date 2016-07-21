@@ -15,7 +15,6 @@ public class Attachment {
 
     private Integer attachmentId;
     private String path;
-    private Ticket ticket;
 
     @Id
     @Column(name = "attachment_id")
@@ -36,16 +35,6 @@ public class Attachment {
 
     public void setPath(String path) {
         this.path = path;
-    }
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ticket_id", referencedColumnName = "ticket_id")
-    public Ticket getTicket() {
-        return ticket;
-    }
-
-    public void setTicket(Ticket ticket) {
-        this.ticket = ticket;
     }
 
     @Override

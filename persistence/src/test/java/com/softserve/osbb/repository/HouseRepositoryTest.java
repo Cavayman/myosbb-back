@@ -31,6 +31,8 @@ public class HouseRepositoryTest {
 
     @Autowired
     HouseRepository houseRepository;
+    @Autowired
+    ApartmentRepository apartmentRepository;
 
     private House house;
 
@@ -90,7 +92,7 @@ public class HouseRepositoryTest {
                 new House("3"),
                 new House("4"),
                 new House("5")
-                };
+        };
 
         List<House> houseList = houseRepository.save(Arrays.asList(houses));
 
@@ -98,6 +100,17 @@ public class HouseRepositoryTest {
 
     }
 
+    @Test
+    public void testGetAllAppartmentsByHouseid(){
+
+        /*
+        Integer houseId = Integer.valueOf(9);
+        House house = houseRepository.findOne(houseId);
+        System.out.println(house.getApartments());
+        */
+
+       // houseRepository.delete(9);
+
+    }
+
 }
-
-

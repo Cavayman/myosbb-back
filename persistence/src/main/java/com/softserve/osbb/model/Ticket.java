@@ -12,6 +12,7 @@ import java.util.Collection;
 /**
  * Created by cavayman on 05.07.2016.
  */
+
 @Entity
 @Table(name = "ticket")
 public class Ticket {
@@ -109,7 +110,7 @@ public class Ticket {
         this.messages = messages;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "ticket")
+    @OneToMany(fetch = FetchType.LAZY)
     public Collection<Attachment> getAttachments() {
         return attachments;
     }

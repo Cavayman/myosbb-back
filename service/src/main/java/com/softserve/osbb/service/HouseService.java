@@ -1,5 +1,6 @@
 package com.softserve.osbb.service;
 
+import com.softserve.osbb.model.Apartment;
 import com.softserve.osbb.model.House;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +17,10 @@ public interface HouseService {
     House updateHouse(Integer houseId, House house) throws Exception;
     House findHouseById(Integer houseId) throws Exception;
     List<House> getAllHouses() throws Exception;
-    List<House> findAllHousesBySearchParam(String searchParam) throws Exception;
-    void deleteHouseById(Integer id) throws Exception;
+    List<House> findAllByCity(String city) throws Exception;
+    List<House> findAllByStreet(String street);
+    List<Apartment> findAllAppartmentsByHouseId(Integer houseId);
+    boolean deleteHouseById(Integer id) throws Exception;
     void deleteAllHouses() throws Exception;
 
 }
