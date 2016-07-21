@@ -14,6 +14,8 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Created by Anastasiia Fedorak on 7/20/16.
  */
@@ -37,6 +39,13 @@ public class ProviderTypeRepositoryTest {
     @Test
     public void testSave() {
         providerTypeRepository.save(providerType);
-        Assert.assertNotNull(providerTypeRepository.findOne(1));
+        Assert.assertNotNull(providerTypeRepository.findOne(providerType.getProviderTypeId()));
+    }
+
+    @Test
+    public void testFindProviderTypeByName(){
+        testSave();
+        List<ProviderType> providerTypeList = providerTypeRepository.findProviderTypesByName("Internet");
+        Assert.assertNotNull(providerTypeList);
     }
 }
