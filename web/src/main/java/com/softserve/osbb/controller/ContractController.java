@@ -18,15 +18,16 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 /**
  * Created by Roma on 13/07/2016.
+ * Assigned to Anastasiia Fedorak 20/07/2016
  */
-@RestController
+@RequestMapping(value = "/restful/provider")
 public class ContractController {
     private static Logger logger = LoggerFactory.getLogger(ContractController.class);
 
     @Autowired
     ContractService contractService;
 
-    @RequestMapping(value = "/contract", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<Resource<Contract>> getAll() {
 
         logger.info("Getting all contracts from database");
@@ -40,7 +41,7 @@ public class ContractController {
 
     }
 
-    @RequestMapping(value = "/contract/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Resource<Contract> getContract(@PathVariable(value = "id") String id) {
         logger.info("getting contract from database with id=" + id);
         Contract contract = contractService.findOne(id);
@@ -48,26 +49,26 @@ public class ContractController {
     }
 
 
-    @RequestMapping(value = "/contract", method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public Contract putContract(@RequestBody Contract contract) {
         logger.info("Saving contract, sending to service");
         return contractService.save(contract);
     }
 
-    @RequestMapping(value="/contract/{id}",method=RequestMethod.POST)
+    @RequestMapping(value="/{id}",method=RequestMethod.POST)
     public Contract updateContract(@PathVariable Integer id, @RequestBody Contract contract)
     {logger.info("Updating contract id:"+id);
         contract.setContractId(id);
         return contractService.saveAndFlush(contract);
     }
 
-    @RequestMapping(value="/contract",method=RequestMethod.DELETE)
+    @RequestMapping(value="/",method=RequestMethod.DELETE)
     public boolean deleteAllContracts(@RequestBody Contract contract)
     {logger.warn("Deleting all Contracts");
         contractService.deleteAll();
         return true;
     }
-    @RequestMapping(value="/contract/{id}",method=RequestMethod.DELETE)
+    @RequestMapping(value="/{id}",method=RequestMethod.DELETE)
     public boolean deleteContractByID(@PathVariable(value ="id") Integer id)
     {logger.warn("Deleting contract with id:"+id);
         contractService.delete(id);
