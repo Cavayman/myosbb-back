@@ -9,6 +9,7 @@ import java.util.Date;
 
 /**
  * Created by Roma on 05.07.2016.
+ * Assigned to Anastasiia on 20.07.2016
  */
 @Entity
 @Table(name = "contract")

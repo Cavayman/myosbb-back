@@ -20,7 +20,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
  * Created by Roma on 13/07/2016.
  * Assigned to Anastasiia Fedorak 20/07/2016
  */
-@RequestMapping(value = "/restful/provider")
+@RequestMapping(value = "/restful/contract")
 public class ContractController {
     private static Logger logger = LoggerFactory.getLogger(ContractController.class);
 

@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.Collection;
 
 /**
- * Created by cavayman on 05.07.2016.
+ * Created by Anastasiia Fedorak on 05.07.2016.
  */
 @Entity
 @Table(name = "provider")

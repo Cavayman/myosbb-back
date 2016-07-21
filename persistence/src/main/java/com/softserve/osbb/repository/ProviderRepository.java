@@ -9,7 +9,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Created by Aska on 05.07.2016.
+ * Created by Anastasiia Fedorak on 05.07.2016.
+ * Assigned to Anastasiia on 20.07.2016
  */
 
 @Repository

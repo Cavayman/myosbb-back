@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * Created by Roma on 13/07/2016.
+ * Assigned to Anastasiia on 20.07.2016
  */
 
 @Service

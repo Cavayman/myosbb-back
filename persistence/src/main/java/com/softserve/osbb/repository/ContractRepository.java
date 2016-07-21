@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * Created by Roma on 06/07/2016.
+ *
  */
 @Repository
 public interface ContractRepository extends JpaRepository <Contract, Integer>, JpaSpecificationExecutor<Contract>  {
