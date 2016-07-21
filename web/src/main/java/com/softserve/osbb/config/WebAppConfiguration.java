@@ -42,10 +42,10 @@ public class WebAppConfiguration extends WebMvcConfigurerAdapter {
     //for test only will be DELETED in next versions
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/login").setViewName("loginhome.html");
+        registry.addViewController("/login").setViewName("login.html");
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
         registry.addViewController("/home").setViewName("index.html");
-        registry.addViewController("/error").setViewName("loginhome.html");
+        registry.addViewController("/error").setViewName("login.html");
 
 
     }
