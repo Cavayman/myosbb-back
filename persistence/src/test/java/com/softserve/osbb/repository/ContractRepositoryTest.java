@@ -1,6 +1,7 @@
 package com.softserve.osbb.repository;
 
 import com.softserve.osbb.PersistenceConfiguration;
+import com.softserve.osbb.model.Attachment;
 import com.softserve.osbb.model.Contract;
 
 import org.junit.Assert;
@@ -33,15 +34,13 @@ public class ContractRepositoryTest {
     @Autowired
     private ContractRepository contractRepository;
 
-
-
     @Before
     public void init(){
         contract = new Contract();
         contract.setContractId(6);
         contract.setPrice(BigDecimal.valueOf(2016));
         contract.setText("Text");
-        contract.setDocument("Doc");
+        contract.setAttachment(new Attachment());
     }
 
     @Test

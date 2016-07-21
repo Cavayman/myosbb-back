@@ -10,11 +10,13 @@
             "columns": [
               {
                 "column": {
+                  "autoIncrement": true,
                   "constraints": {
-                    "nullable": false
+                    "primaryKey": true,
+                    "primaryKeyName": "contract_pkey"
                   },
                   "name": "contract_id",
-                  "type": "INT"
+                  "type": "SERIAL"
                 }
               },
               {
@@ -31,8 +33,8 @@
               },
               {
                 "column": {
-                  "name": "document",
-                  "type": "VARCHAR(255)"
+                  "name": "attachment_id",
+                  "type": "INT"
                 }
               },
               {
@@ -61,6 +63,29 @@
               }]
           ,
             "tableName": "contract"
+          }
+        }]
+
+    }
+  },
+
+  {
+    "changeSet": {
+      "id": "2016/07/21-1",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "attachment_id",
+            "baseTableName": "contract",
+            "constraintName": "fk_p7hhasg46crhxe11ixq3q2h51",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "attachment_id",
+            "referencedTableName": "attachment"
           }
         }]
 
