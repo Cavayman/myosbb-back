@@ -1,0 +1,32 @@
+<section class="index" id="page-top">
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
+    <div class="container">
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand" [routerLink]="['Landing']"><i class="fa fa-home" aria-hidden="true">НашДвір</i></a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="hidden">
+                    <a href="#page-top"></a>
+                </li>
+                <li class="page-scroll" [ngStyle]="{'display':!getLoginStatusOnRedirect() ? 'none':''}">
+                    <a href="profile.html">Профіль</a>
+                </li>
+                <li class="page-scroll">
+                    <a href="#about">Контакти</a>
+                </li>
+                <li class="page-scroll">
+                    <a  [routerLink]="[!getLoginStatusOnRedirect()?'Login':'Logout']">{{statusMessage}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <router-outlet></router-outlet>
+
+</section>
