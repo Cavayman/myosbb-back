@@ -7,6 +7,6 @@
     "bootstrap": "3.3.6",
     "bootstrap-datepicker": "1.6.1",
     "select2": "4.0.3",
-    "font-awesome": "latest"
+    "font-awesome": "4.6"
   }
 }

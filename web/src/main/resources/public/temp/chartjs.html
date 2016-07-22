@@ -13,11 +13,11 @@
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <!--external css-->
     <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-	<link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">    
         
     <!-- Custom styles for this template -->
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="assets/css/style-responsive.css" rel="stylesheet">
+    
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -38,14 +38,14 @@
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="index.html" class="logo"><b>DASHGUM FREE</b></a>
+            <a href="../templates/index.html" class="logo"><b>DASHGUM FREE</b></a>
             <!--logo end-->
             <div class="nav notify-row" id="top_menu">
                 <!--  notification start -->
                 <ul class="nav top-menu">
                     <!-- settings start -->
                     <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="../templates/index.html#">
                             <i class="fa fa-tasks"></i>
                             <span class="badge bg-theme">4</span>
                         </a>
@@ -55,7 +55,7 @@
                                 <p class="green">You have 4 pending tasks</p>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="../templates/index.html#">
                                     <div class="task-info">
                                         <div class="desc">DashGum Admin Panel</div>
                                         <div class="percent">40%</div>
@@ -68,7 +68,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="../templates/index.html#">
                                     <div class="task-info">
                                         <div class="desc">Database Update</div>
                                         <div class="percent">60%</div>
@@ -81,7 +81,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="../templates/index.html#">
                                     <div class="task-info">
                                         <div class="desc">Product Development</div>
                                         <div class="percent">80%</div>
@@ -94,7 +94,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="../templates/index.html#">
                                     <div class="task-info">
                                         <div class="desc">Payments Sent</div>
                                         <div class="percent">70%</div>
@@ -114,7 +114,7 @@
                     <!-- settings end -->
                     <!-- inbox dropdown start-->
                     <li id="header_inbox_bar" class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="../templates/index.html#">
                             <i class="fa fa-envelope-o"></i>
                             <span class="badge bg-theme">5</span>
                         </a>
@@ -124,7 +124,7 @@
                                 <p class="green">You have 5 new messages</p>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="../templates/index.html#">
                                     <span class="photo"><img alt="avatar" src="assets/img/ui-zac.jpg"></span>
                                     <span class="subject">
                                     <span class="from">Zac Snider</span>
@@ -136,7 +136,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="../templates/index.html#">
                                     <span class="photo"><img alt="avatar" src="assets/img/ui-divya.jpg"></span>
                                     <span class="subject">
                                     <span class="from">Divya Manian</span>
@@ -148,7 +148,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="../templates/index.html#">
                                     <span class="photo"><img alt="avatar" src="assets/img/ui-danro.jpg"></span>
                                     <span class="subject">
                                     <span class="from">Dan Rogers</span>
@@ -160,7 +160,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="../templates/index.html#">
                                     <span class="photo"><img alt="avatar" src="assets/img/ui-sherman.jpg"></span>
                                     <span class="subject">
                                     <span class="from">Dj Sherman</span>
@@ -172,7 +172,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">See all messages</a>
+                                <a href="../templates/index.html#">See all messages</a>
                             </li>
                         </ul>
                     </li>
@@ -201,7 +201,7 @@
               	  <h5 class="centered">Marcel Newman</h5>
               	  	
                   <li class="mt">
-                      <a href="index.html">
+                      <a href="../templates/index.html">
                           <i class="fa fa-dashboard"></i>
                           <span>Dashboard</span>
                       </a>
@@ -282,24 +282,24 @@
       *********************************************************************************************************************************************************** -->
       <!--main content start-->
       <section id="main-content">
-          <section class="wrapper site-min-height">
-          <h3><i class="fa fa-angle-right"></i> Morris Charts</h3>
+          <section class="wrapper">
+          <h3><i class="fa fa-angle-right"></i> Chartjs Charts</h3>
               <!-- page start-->
-              <div id="morris">
+              <div class="tab-pane" id="chartjs">
                   <div class="row mt">
                       <div class="col-lg-6">
                           <div class="content-panel">
-                              <h4><i class="fa fa-angle-right"></i> Chart Example 1</h4>
-                              <div class="panel-body">
-                                  <div id="hero-graph" class="graph"></div>
+							  <h4><i class="fa fa-angle-right"></i> Doughnut</h4>
+                              <div class="panel-body text-center">
+                                  <canvas id="doughnut" height="300" width="400"></canvas>
                               </div>
                           </div>
                       </div>
                       <div class="col-lg-6">
                           <div class="content-panel">
-                              <h4><i class="fa fa-angle-right"></i> Chart Example 2</h4>
-                              <div class="panel-body">
-                                  <div id="hero-bar" class="graph"></div>
+							  <h4><i class="fa fa-angle-right"></i> Line</h4>
+                              <div class="panel-body text-center">
+                                  <canvas id="line" height="300" width="400"></canvas>
                               </div>
                           </div>
                       </div>
@@ -307,24 +307,42 @@
                   <div class="row mt">
                       <div class="col-lg-6">
                           <div class="content-panel">
-                              <h4><i class="fa fa-angle-right"></i> Chart Example 3</h4>
-                              <div class="panel-body">
-                                  <div id="hero-area" class="graph"></div>
+							  <h4><i class="fa fa-angle-right"></i> Radar</h4>
+                              <div class="panel-body text-center">
+                                  <canvas id="radar" height="300" width="400"></canvas>
                               </div>
                           </div>
                       </div>
                       <div class="col-lg-6">
                           <div class="content-panel">
-                              <h4><i class="fa fa-angle-right"></i> Chart Example 4</h4>
-                              <div class="panel-body">
-                                  <div id="hero-donut" class="graph"></div>
+							  <h4><i class="fa fa-angle-right"></i> Polar Area</h4>
+                              <div class="panel-body text-center">
+                                  <canvas id="polarArea" height="300" width="400"></canvas>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row mt">
+                      <div class="col-lg-6">
+                          <div class="content-panel">
+							  <h4><i class="fa fa-angle-right"></i> Bar</h4>
+                              <div class="panel-body text-center">
+                                  <canvas id="bar" height="300" width="400"></canvas>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-6">
+                          <div class="content-panel">
+							  <h4><i class="fa fa-angle-right"></i> Pie</h4>
+                              <div class="panel-body text-center">
+                                  <canvas id="pie" height="300" width="400"></canvas>
                               </div>
                           </div>
                       </div>
                   </div>
               </div>
               <!-- page end-->
-          </section>
+          </section>          
       </section><!-- /MAIN CONTENT -->
 
       <!--main content end-->
@@ -332,7 +350,7 @@
       <footer class="site-footer">
           <div class="text-center">
               2014 - Alvarez.is
-              <a href="morris.html#" class="go-top">
+              <a href="chartjs.html#" class="go-top">
                   <i class="fa fa-angle-up"></i>
               </a>
           </div>
@@ -349,12 +367,11 @@
 
 
     <!--common script for all pages-->
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-	<script src="http://cdn.oesmith.co.uk/morris-0.4.3.min.js"></script>
     <script src="assets/js/common-scripts.js"></script>
 
     <!--script for this page-->
-    <script src="assets/js/morris-conf.js"></script>
+    <script src="assets/js/chart-master/Chart.js"></script>
+    <script src="assets/js/chartjs-conf.js"></script>
     
   <script>
       //custom select box
