@@ -25,7 +25,9 @@ public class User {
     private List<Vote> votes;
     private List<Apartment> apartments;
     private List<Message> messages;
+    private List<Ticket> assigned;
     private List<Ticket> tickets;
+
 //    private List<Role> roles;
 
     // For UserDetailService
@@ -125,7 +127,7 @@ public class User {
         this.gender = gender;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     @JsonIgnore
     public List<Vote> getVotes() {
         return votes;
@@ -169,7 +171,17 @@ public class User {
         this.tickets = tickets;
     }
 
-//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "assigned_to")
+    @JsonIgnore
+    public List<Ticket> getAssigned() {
+        return assigned;
+    }
+
+    public void setAssigned(List<Ticket> assigned) {
+        this.assigned = assigned;
+    }
+
+    //    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //    @JsonIgnore
 //    @JoinTable(name = "user_roles", joinColumns = {
 //            @JoinColumn(name = "user_id", nullable = false)},

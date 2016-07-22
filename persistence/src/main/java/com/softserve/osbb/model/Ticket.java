@@ -19,9 +19,12 @@ public class Ticket {
     private Integer ticketId;
     private String name;
     private String description;
+    private String state;
+    private LocalDate stateTime;
     private LocalDate time;
-    private Collection<Message> messages;
     private User user;
+    private User assignedTo;
+    private Collection<Message> messages;
     private Collection<Attachment> attachments;
 
     public Ticket() {
@@ -89,6 +92,36 @@ public class Ticket {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Basic
+    @Column(name = "state")
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    @Basic
+    @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
+    @Column(name = "state_time")
+    public LocalDate getStateTime() {
+        return stateTime;
+    }
+
+    public void setStateTime(LocalDate stateTime) {
+        this.stateTime = stateTime;
+    }
+
+
+    public User getAssignedTo() {
+        return assignedTo;
+    }
+
+    public void setAssignedTo(User assignedTo) {
+        this.assignedTo = assignedTo;
     }
 
     @Override
