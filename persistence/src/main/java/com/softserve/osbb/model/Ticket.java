@@ -1,6 +1,7 @@
 package com.softserve.osbb.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.softserve.osbb.model.enums.TicketState;
 import com.softserve.osbb.utils.CustomLocalDateTimeDeserializer;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -19,7 +20,7 @@ public class Ticket {
     private Integer ticketId;
     private String name;
     private String description;
-    private String state;
+    private TicketState state;
     private LocalDate stateTime;
     private LocalDate time;
     private User user;
@@ -95,12 +96,13 @@ public class Ticket {
     }
 
     @Basic
+    @Enumerated(EnumType.STRING)
     @Column(name = "state")
-    public String getState() {
+    public TicketState getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(TicketState state) {
         this.state = state;
     }
 
@@ -115,7 +117,8 @@ public class Ticket {
         this.stateTime = stateTime;
     }
 
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "assigned_to")
     public User getAssignedTo() {
         return assignedTo;
     }

@@ -5,6 +5,7 @@ import com.softserve.osbb.PersistenceConfiguration;
 import com.softserve.osbb.model.Attachment;
 import com.softserve.osbb.model.Ticket;
 import com.softserve.osbb.model.User;
+import com.softserve.osbb.model.enums.TicketState;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,6 +40,7 @@ public class TicketRepositoryTest {
 
         ticket.setName("some name");
         ticket.setDescription("some description");
+        ticket.setState(TicketState.NEW);
         ticket.setTime(LocalDate.now());
         ticket.setUser(new User());
         ticket.setAttachments(Arrays.asList(new Attachment(), new Attachment()));

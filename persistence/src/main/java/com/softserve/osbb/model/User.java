@@ -171,7 +171,7 @@ public class User {
         this.tickets = tickets;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "assigned_to")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "assignedTo")
     @JsonIgnore
     public List<Ticket> getAssigned() {
         return assigned;

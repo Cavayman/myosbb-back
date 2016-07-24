@@ -15,7 +15,7 @@ public class Vote {
     private Integer voteId;
     private Integer voteValue;
     private Date time;
-    private User users;
+    private User user;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,12 +50,12 @@ public class Vote {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    public User getUsers() {
-        return users;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsers(User users) {
-        this.users = users;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
@@ -74,7 +74,7 @@ public class Vote {
                 "voteId=" + voteId +
                 ", voteValue=" + voteValue +
                 ", time=" + time +
-                ", userEntity=" + users +
+                ", userEntity=" + user +
                 '}';
     }
 }
