@@ -30,7 +30,7 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Resource<Event>> createEvent(@RequestBody Event event) {
         logger.info("Saving event " + event);
         event = eventService.saveEvent(event);
@@ -39,7 +39,7 @@ public class EventController {
         return new ResponseEntity<>(eventResource, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Resource<Event>>> findAllEvents() {
         List<Event> eventList = eventService.findAllEvents();
         logger.info("Getting all events.");
@@ -80,7 +80,7 @@ public class EventController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.DELETE)
+    @RequestMapping(method = RequestMethod.DELETE)
     public ResponseEntity<Event> deleteAllEvents() {
         logger.info("Removing all events.");
         eventService.deleteAllEvents();

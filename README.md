@@ -20,13 +20,16 @@ How to disable Spring Security
 2) reinstall project
 3) you are fabulous
 
-
 How to use git:
-
 1) git add .
 2) git commit -a (opens a notepad instance --- > enter commit description) ( -m inline comment)
 3) git pull --rebase
-3') If you have conflicts ---> resolve them, git add . ,  git rebase --continue
+3) If you have conflicts ---> resolve them, git add . ,  git rebase --continue
 4) git push
 
 LVJAVAAA-74: Commit Description.
+
+Now project runs with Tomcat8.
+1) install Tomcat8
+2) run project with it
+

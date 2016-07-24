@@ -29,7 +29,7 @@ public class AttachmentController {
     @Autowired
     private AttachmentService attachmentService;
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Resource<Attachment>> createAttachment(@RequestBody Attachment attachment) {
         logger.info("Saving attachment " + attachment);
         attachment = attachmentService.saveAttachment(attachment);
@@ -38,7 +38,7 @@ public class AttachmentController {
         return new ResponseEntity<>(attachmentResource, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Resource<Attachment>>> findAllAttachments() {
         List<Attachment> attachmentList = attachmentService.findAllAttachments();
         logger.info("Getting all attachments.");
@@ -79,7 +79,7 @@ public class AttachmentController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.DELETE)
+    @RequestMapping(method = RequestMethod.DELETE)
     public ResponseEntity<Attachment> deleteAllAttachments() {
         logger.info("Removing all attachments.");
         attachmentService.deleteAllAttachments();
