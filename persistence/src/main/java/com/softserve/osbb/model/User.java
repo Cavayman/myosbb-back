@@ -27,8 +27,9 @@ public class User {
     private List<Message> messages;
     private List<Ticket> assigned;
     private List<Ticket> tickets;
+    private List<Option> options;
 
-//    private List<Role> roles;
+    //    private List<Role> roles;
 
     // For UserDetailService
     public User(User user) {
@@ -194,6 +195,20 @@ public class User {
 //    public void setRoles(List<Role> roles) {
 //        this.roles = roles;
 //    }
+
+    @ManyToMany
+    @JoinTable(name="user_option",
+            joinColumns = @JoinColumn(name="user_id", referencedColumnName="user_id"),
+            inverseJoinColumns = @JoinColumn(name="option_id", referencedColumnName="option_id")
+    )
+    public List<Option> getOptions() {
+        return options;
+    }
+
+    public void setOptions(List<Option> options) {
+        this.options = options;
+    }
+
     @Override
     public boolean equals(Object obj) {
         return EqualsBuilder.reflectionEquals(this, obj);

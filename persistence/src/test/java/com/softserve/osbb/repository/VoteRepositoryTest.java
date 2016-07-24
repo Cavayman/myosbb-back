@@ -32,7 +32,7 @@ public class VoteRepositoryTest {
     public void init() {
         vote = new Vote();
        // vote.setEventId(2);
-        vote.setVoteValue(20);
+        //vote.setVoteValue(20);
     }
 
     @Test

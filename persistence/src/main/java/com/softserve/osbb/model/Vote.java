@@ -5,6 +5,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Roman on 05.07.2016.
@@ -13,9 +14,10 @@ import java.util.Date;
 @Table(name = "vote")
 public class Vote {
     private Integer voteId;
-    private Integer voteValue;
+    private String description;
     private Date time;
     private User user;
+    private List<Option> options;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,13 +31,13 @@ public class Vote {
     }
 
     @Basic
-    @Column(name = "vote_value")
-    public Integer getVoteValue() {
-        return voteValue;
+    @Column(name = "description")
+    public String getDescription() {
+        return description;
     }
 
-    public void setVoteValue(Integer voteValue) {
-        this.voteValue = voteValue;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Basic
@@ -48,7 +50,7 @@ public class Vote {
         this.time = time;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     public User getUser() {
         return user;
@@ -56,6 +58,15 @@ public class Vote {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "vote")
+    public List<Option> getOptions() {
+        return options;
+    }
+
+    public void setOptions(List<Option> options) {
+        this.options = options;
     }
 
     @Override
@@ -72,9 +83,9 @@ public class Vote {
     public String toString() {
         return "Vote{" +
                 "voteId=" + voteId +
-                ", voteValue=" + voteValue +
+                ", description='" + description + '\'' +
                 ", time=" + time +
-                ", userEntity=" + user +
+                ", user=" + user +
                 '}';
     }
 }
