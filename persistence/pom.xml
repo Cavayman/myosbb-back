@@ -10,7 +10,7 @@
 	<parent>
 		<artifactId>osbb</artifactId>
 		<groupId>com.softserve.edu.ita</groupId>
-		<version>${project.version}</version>
+		<version>1.0-SNAPSHOT</version>
 	</parent>
 
 	<name>persistence</name>
@@ -73,7 +73,8 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-            <!-- liquibase maven plugin (use for generateChangeLog and clearCheckSums) -->
+
+            <!-- Liquibase maven plugin (use for generateChangeLog and clearCheckSums) -->
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
@@ -91,8 +92,7 @@
                     <execution>
                         <phase>process-resources</phase>
                         <goals>
-                            <goal>clearCheckSums</goal>
-							<!--<goal>update</goal>-->
+                            <!--<goal>clearCheckSums</goal>-->
                         </goals>
                     </execution>
                 </executions>

@@ -1,9 +1,6 @@
-import {Component} from 'angular2/core';
-import {RouteConfig} from "angular2/router";
-import {LoginComponent} from "./login.component";
-import {ROUTER_DIRECTIVES} from "angular2/router";
-import {OnInit} from "angular2/core";
-import {LandingPageComponent} from "./landing_main.component";
+import {Component, OnInit} from 'angular2/core';
+import {RouteConfig, ROUTER_DIRECTIVES} from "angular2/router";
+import {LoginMainComponent} from "./login_main.component";
 import {LoginRedirectService} from "./services/login_redirect.service";
 import {LogoutComponent} from "./logout.component";
 
@@ -11,14 +8,14 @@ import {LogoutComponent} from "./logout.component";
     selector: 'my-app',
     templateUrl:'templates/nav_main.html',
     directives: [ROUTER_DIRECTIVES],
-    styleUrls:['assets/bower/bootstrap/dist/css/bootstrap.min.css',
-                'assets/css/main.min.css'],
+    styleUrls:[
+        'assets/css/bootstrap.css',
+        'assets/css/style-responsive.css'],
 })
 @RouteConfig(
     [
-        {path:'/landing_main', name:"Landing", component:LandingPageComponent, useAsDefault:true},
-        {path:'/login', name:'Login', component:LoginComponent},
-        {path:'/logout', name:'Logout', component:LogoutComponent}
+        {path:'/login', name:"Login", component:LoginMainComponent, useAsDefault:true},
+
     ]
 )
 export class AppComponent implements OnInit {

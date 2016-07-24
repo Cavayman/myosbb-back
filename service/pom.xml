@@ -7,18 +7,18 @@
     <parent>
         <artifactId>osbb</artifactId>
         <groupId>com.softserve.edu.ita</groupId>
-        <version>${project.version}</version>
+        <version>1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>service</artifactId>
-    <version>${project.version}</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
             <groupId>com.softserve.edu.ita</groupId>
             <artifactId>persistence</artifactId>
-            <version>${project.version}</version>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
