@@ -10,7 +10,7 @@
 	<parent>
 		<artifactId>osbb</artifactId>
 		<groupId>com.softserve.edu.ita</groupId>
-		<version>${project.version}</version>
+		<version>1.0-SNAPSHOT</version>
 	</parent>
 
 	<name>persistence</name>
