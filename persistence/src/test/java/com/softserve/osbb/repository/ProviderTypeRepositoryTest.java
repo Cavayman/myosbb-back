@@ -1,9 +1,7 @@
 package com.softserve.osbb.repository;
 
 import com.softserve.osbb.PersistenceConfiguration;
-import com.softserve.osbb.model.Provider;
 import com.softserve.osbb.model.ProviderType;
-import com.softserve.osbb.model.enums.ProviderPeriodicity;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

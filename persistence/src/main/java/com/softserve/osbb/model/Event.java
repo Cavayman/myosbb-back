@@ -3,6 +3,7 @@ package com.softserve.osbb.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.softserve.osbb.model.enums.Periodicity;
 import com.softserve.osbb.utils.CustomLocalDateTimeDeserializer;
 import com.softserve.osbb.utils.CustomLocalDateTimeSerializer;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -20,15 +21,13 @@ import java.util.List;
 @Table(name = "event")
 public class Event {
 
-    public enum Repeat {EVERY_DAY, EVERY_WEEK, EVERY_MONTH, EVERY_YEAR, NEVER}
-
     private Integer eventId;
     private String name;
     private LocalDate date;
     private String description;
     private String author;
     private Osbb osbb;
-    private Repeat repeat;
+    private Periodicity periodicity;
     private List<Attachment> attachments;
 
     @Id
@@ -98,12 +97,12 @@ public class Event {
     @Basic
     @Column(name = "repeat")
     @Enumerated(EnumType.STRING)
-    public Repeat getRepeat() {
-        return repeat;
+    public Periodicity getPeriodicity() {
+        return periodicity;
     }
 
-    public void setRepeat(Repeat repeat) {
-        this.repeat = repeat;
+    public void setPeriodicity(Periodicity periodicity) {
+        this.periodicity = periodicity;
     }
 
     @OneToMany(fetch = FetchType.LAZY)

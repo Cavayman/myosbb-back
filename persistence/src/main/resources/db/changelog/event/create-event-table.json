@@ -45,7 +45,7 @@
               },
               {
                 "column": {
-                  "name": "repeat",
+                  "name": "periodicity",
                   "type": "VARCHAR(255)"
                 }
               },

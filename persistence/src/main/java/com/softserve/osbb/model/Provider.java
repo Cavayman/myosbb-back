@@ -1,6 +1,6 @@
 package com.softserve.osbb.model;
 
-import com.softserve.osbb.model.enums.ProviderPeriodicity;
+import com.softserve.osbb.model.enums.Periodicity;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -19,7 +19,7 @@ public class Provider implements Comparable{
     private String logoUrl;
     private Collection<Contract> contracts;
     private Collection<Bill> bills;
-    private ProviderPeriodicity periodicity;
+    private Periodicity periodicity;
     private ProviderType type;
 
 
@@ -93,11 +93,11 @@ public class Provider implements Comparable{
 
     @Enumerated(EnumType.STRING)
     @Column(name = "periodicity")
-    public ProviderPeriodicity getPeriodicity(){
+    public Periodicity getPeriodicity(){
         return periodicity;
     }
 
-    public void setPeriodicity(ProviderPeriodicity periodicity){
+    public void setPeriodicity(Periodicity periodicity){
         this.periodicity = periodicity;
     }
 

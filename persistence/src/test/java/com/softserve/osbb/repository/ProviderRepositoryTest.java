@@ -2,7 +2,7 @@ package com.softserve.osbb.repository;
 
 import com.softserve.osbb.PersistenceConfiguration;
 import com.softserve.osbb.model.Provider;
-import com.softserve.osbb.model.enums.ProviderPeriodicity;
+import com.softserve.osbb.model.enums.Periodicity;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,7 +31,7 @@ public class ProviderRepositoryTest {
     @Before
     public void init() {
         provider = new Provider();
-        provider.setPeriodicity(ProviderPeriodicity.ONE_TIME);
+        provider.setPeriodicity(Periodicity.ONE_TIME);
         provider.setDescription("Remove trash");
         provider.setLogoUrl("empty-logo");
     }
@@ -89,7 +89,7 @@ public class ProviderRepositoryTest {
 
     @Test
     public void testSaveProviderWrithEnumField(){
-        provider.setPeriodicity(ProviderPeriodicity.ONE_TIME);
+        provider.setPeriodicity(Periodicity.ONE_TIME);
         providerRepository.save(provider);
     }
 
