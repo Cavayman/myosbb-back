@@ -3,6 +3,7 @@ package com.softserve.osbb.service;
 import com.softserve.osbb.config.ServiceApplication;
 import com.softserve.osbb.model.Event;
 import com.softserve.osbb.model.Osbb;
+import com.softserve.osbb.model.enums.Periodicity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,7 +49,7 @@ public class EventServiceTest {
         event.setAuthor("Main OSBB");
         event.setOsbb(osbb);
         event.setDescription("Simple repeatable trash recycling.");
-        event.setRepeat(Event.Repeat.EVERY_WEEK);
+        event.setPeriodicity(Periodicity.PERMANENT_WEEKLY);
         event.setDate(LocalDate.now());
 
         event1 = new Event();
@@ -56,7 +57,7 @@ public class EventServiceTest {
         event1.setAuthor("City Council");
         event1.setOsbb(osbb);
         event1.setDescription("Charity festival for homelesspeople.");
-        event1.setRepeat(Event.Repeat.NEVER);
+        event1.setPeriodicity(Periodicity.ONE_TIME);
         event1.setDate(LocalDate.now());
     }
 
