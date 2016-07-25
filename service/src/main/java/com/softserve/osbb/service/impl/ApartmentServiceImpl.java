@@ -14,7 +14,6 @@ public class ApartmentServiceImpl implements ApartmentService {
 
     @Override
     public void saveApartment(Apartment apartment) {
-
         apartmentRepository.save(apartment);
     }
 
@@ -66,8 +65,8 @@ public class ApartmentServiceImpl implements ApartmentService {
         apartmentRepository.deleteAll();
     }
     @Override
-    public void updateApartment(Apartment apartment){
-
+    public Apartment updateApartment(Apartment apartment){
+return
         apartmentRepository.save(apartment);
     }
     @Override
@@ -83,7 +82,7 @@ public class ApartmentServiceImpl implements ApartmentService {
     }
 
     @Override
-    public Apartment findOneApartmentByNumber(Integer number){
-        return apartmentRepository.findOneApartmentByNumber(number);
+    public Apartment findApartmentByNumber(Integer number){
+        return apartmentRepository.findApartmentByNumber(number);
     }
 }

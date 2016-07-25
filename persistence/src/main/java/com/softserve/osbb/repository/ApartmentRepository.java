@@ -12,5 +12,5 @@ import org.springframework.stereotype.Repository;
 public interface ApartmentRepository extends JpaRepository<Apartment, Integer> {
 
    @Query("Select ap From Apartment ap where ap.number=:number")
-    Apartment findOneApartmentByNumber (@Param("number") Integer number);
+    Apartment findApartmentByNumber(@Param("number") Integer number);
 }

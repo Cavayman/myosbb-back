@@ -31,7 +31,7 @@ public interface ApartmentService {
 
     boolean existsApartment(Integer id);
 
-    void updateApartment(Apartment apartment);
+    Apartment updateApartment(Apartment apartment);
 
-    Apartment findOneApartmentByNumber(Integer number);
+    Apartment findApartmentByNumber(Integer number);
 }
