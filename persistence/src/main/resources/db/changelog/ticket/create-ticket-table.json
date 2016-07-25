@@ -21,14 +21,26 @@
               },
               {
                 "column": {
+                  "name": "name",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
                   "name": "description",
                   "type": "VARCHAR(255)"
                 }
               },
               {
                 "column": {
-                  "name": "name",
+                  "name": "state",
                   "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "start_time",
+                  "type": "TIMESTAMP(6) WITHOUT TIME ZONE"
                 }
               },
               {
@@ -43,9 +55,38 @@
                   "name": "user_id",
                   "type": "INT"
                 }
+              },
+              {
+                "column": {
+                  "name": "assigned",
+                  "type": "INT"
+                }
               }]
           ,
             "tableName": "ticket"
+          }
+        }]
+
+    }
+  },
+
+  {
+    "changeSet": {
+      "id": "2016/07/25-9",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "ticket_id",
+            "baseTableName": "message",
+            "constraintName": "fk_66kfo8kfkseyqvngver7m6eiukh1652",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "ticket_id",
+            "referencedTableName": "ticket"
           }
         }]
 

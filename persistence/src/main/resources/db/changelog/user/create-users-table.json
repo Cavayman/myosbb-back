@@ -102,6 +102,98 @@
         }]
 
     }
+  },
+
+  {
+    "changeSet": {
+      "id": "2016/07/25-1",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "user_id",
+            "baseTableName": "ticket",
+            "constraintName": "fk_66kfo4kfkseyqvngver7m6eiukhl652",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "user_id",
+            "referencedTableName": "users"
+          }
+        }]
+
+    }
+  },
+
+  {
+    "changeSet": {
+      "id": "2016/07/25-2",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "assigned",
+            "baseTableName": "ticket",
+            "constraintName": "fk_66kfo4kfkseyqvngver7m6eiukh1652",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "user_id",
+            "referencedTableName": "users"
+          }
+        }]
+
+    }
+  },
+
+  {
+    "changeSet": {
+      "id": "2016/07/25-5",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "owner_id",
+            "baseTableName": "apartment",
+            "constraintName": "fk_66kfo2kfkseyqvngver7m6eiukh1652",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "user_id",
+            "referencedTableName": "users"
+          }
+        }]
+
+    }
+  },
+
+  {
+    "changeSet": {
+      "id": "2016/07/25-10",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "user_id",
+            "baseTableName": "message",
+            "constraintName": "fk_66kfo9kfkseyqvngver7m6eiukh1652",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "user_id",
+            "referencedTableName": "users"
+          }
+        }]
+
+    }
   }
 ]
 }

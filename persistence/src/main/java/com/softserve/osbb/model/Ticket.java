@@ -24,7 +24,7 @@ public class Ticket {
     private LocalDate stateTime;
     private LocalDate time;
     private User user;
-    private User assignedTo;
+    private User assigned;
     private Collection<Message> messages;
     private Collection<Attachment> attachments;
 
@@ -118,24 +118,15 @@ public class Ticket {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "assigned_to")
-    public User getAssignedTo() {
-        return assignedTo;
+    @JoinColumn(name = "assigned")
+    public User getAssigned() {
+        return assigned;
     }
 
-    public void setAssignedTo(User assignedTo) {
-        this.assignedTo = assignedTo;
+    public void setAssigned(User assigned) {
+        this.assigned = assigned;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        return EqualsBuilder.reflectionEquals(this, obj);
-    }
-
-    @Override
-    public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
-    }
 
     @OneToMany(mappedBy = "ticket")
     public Collection<Message> getMessages() {
@@ -153,5 +144,15 @@ public class Ticket {
 
     public void setAttachments(Collection<Attachment> attachments) {
         this.attachments = attachments;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 }

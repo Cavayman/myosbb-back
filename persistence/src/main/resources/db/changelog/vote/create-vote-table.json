@@ -33,12 +33,6 @@
               },
               {
                 "column": {
-                  "name": "event_id",
-                  "type": "INT"
-                }
-              },
-              {
-                "column": {
                   "name": "user_id",
                   "type": "INT"
                 }
