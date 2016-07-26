@@ -16,7 +16,6 @@ import java.util.List;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
-
 /**
  * Created by nataliia on 10.07.16.
  */

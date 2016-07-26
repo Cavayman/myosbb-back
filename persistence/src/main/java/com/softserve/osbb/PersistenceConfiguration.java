@@ -1,6 +1,5 @@
 package com.softserve.osbb;
 
-import com.softserve.osbb.repository.ReportRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.orm.jpa.EntityScan;
@@ -16,7 +15,5 @@ public class PersistenceConfiguration {
 		SpringApplication.run(PersistenceConfiguration.class, args);
 
 	}
-
-
 
 }
