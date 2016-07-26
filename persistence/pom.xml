@@ -156,6 +156,11 @@
 			<version>${mockito.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>4.0.4.RELEASE</version>
+		</dependency>
 		<!--Spring Security-->
 		<!--<dependency>-->
 			<!--<groupId>org.springframework.security</groupId>-->
