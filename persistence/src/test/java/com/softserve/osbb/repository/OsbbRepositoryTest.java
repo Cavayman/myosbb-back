@@ -2,6 +2,7 @@ package com.softserve.osbb.repository;
 
 import com.softserve.osbb.PersistenceConfiguration;
 import com.softserve.osbb.model.Osbb;
+import com.softserve.osbb.model.User;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +33,7 @@ public class OsbbRepositoryTest {
         osbb = new Osbb();
         osbb.setName("Lviv_osbb");
         osbb.setDescription("osbb for people");
-        osbb.setCreatorId(5);
+        osbb.setCreator(new User());
     }
 
     @Before

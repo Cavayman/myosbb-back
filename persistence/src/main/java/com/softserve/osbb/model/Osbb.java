@@ -15,7 +15,7 @@ public class Osbb {
     private Integer osbbId;
     private String name;
     private String description;
-    private Integer creatorId;
+    private User creator;
     private Collection<Contract> contracts;
     private Collection<Event> events;
     private Collection<House> houses;
@@ -52,14 +52,24 @@ public class Osbb {
         this.description = description;
     }
 
-    @Basic
-    @Column(name = "creator_id")
-    public Integer getCreatorId() {
-        return creatorId;
+    @OneToOne(optional=true)
+    @JoinColumn(name = "creator_id", referencedColumnName = "user_id")
+    public User getCreator() {
+        return creator;
     }
 
-    public void setCreatorId(Integer creatorId) {
-        this.creatorId = creatorId;
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
+    @Override
+    public String toString() {
+        return "Osbb{" +
+                "osbbId=" + osbbId +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", creator=" + creator +
+                '}';
     }
 
     @Override
@@ -70,16 +80,6 @@ public class Osbb {
     @Override
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
-    }
-
-    @Override
-    public String toString() {
-        return "Osbb{" +
-                "osbbId=" + osbbId +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", creatorId=" + creatorId +
-                '}';
     }
 
     @OneToMany(mappedBy = "osbb")
