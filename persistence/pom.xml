@@ -27,6 +27,8 @@
 		<hibernate.jpamodelgen.version>4.3.8.Final</hibernate.jpamodelgen.version>
 		<maven-processor-plugin.version>2.2.4</maven-processor-plugin.version>
 		<liquibase-maven-plugin.version>3.5.1</liquibase-maven-plugin.version>
+		<jasper-reports>5.0.1</jasper-reports>
+		<apache-poi>3.10-FINAL</apache-poi>
 	</properties>
 
 	<build>
@@ -149,6 +151,20 @@
 			<artifactId>mockito-core</artifactId>
 			<version>${mockito.version}</version>
 			<scope>test</scope>
+		</dependency>
+
+		<!--Jasper Report dependency -->
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>${jasper-reports}</version>
+		</dependency>
+
+		<!-- Enables XLS generation -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>${apache-poi}</version>
 		</dependency>
 	</dependencies>
 
