@@ -19,7 +19,9 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 /**
  * Created by Roman on 12.07.2016.
  */
+
 @RestController
+@CrossOrigin
 @RequestMapping("/restful")
 public class OsbbController {
 
@@ -34,7 +36,6 @@ public class OsbbController {
         osbb = osbbService.addOsbb(osbb);
         return new ResponseEntity<>(addResourceLinkToOsbb(osbb), HttpStatus.OK);
     }
-
 
     @RequestMapping(value = "/osbb/id/{id}", method = RequestMethod.GET)
     public ResponseEntity<Resource<Osbb>> getOsbbById(@PathVariable("id") Integer osbbId) {

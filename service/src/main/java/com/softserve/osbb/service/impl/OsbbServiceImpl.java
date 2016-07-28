@@ -15,7 +15,7 @@ import java.util.List;
 public class OsbbServiceImpl implements OsbbService {
 
     @Autowired
-    OsbbRepository osbbRepository;
+    private OsbbRepository osbbRepository;
 
     @Override
     public Osbb addOsbb(Osbb osbb) {
