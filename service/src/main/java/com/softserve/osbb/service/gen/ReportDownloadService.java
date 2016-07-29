@@ -23,7 +23,7 @@ import java.util.Map;
 public class ReportDownloadService {
 
     protected static Logger logger = LoggerFactory.getLogger(ReportDownloadService.class);
-    public static final String TEMPLATE = "/application.properties";
+    public static final String TEMPLATE = "/reportTemplate/report.jrxml";
 
     @Autowired
     private ReportCreatorDataSource reportCreatorDataSource;

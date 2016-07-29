@@ -37,7 +37,7 @@ public class ReportCreatorDataSource {
         billReportDTO.setBillId(bill.getBillId());
         User owner = bill.getApartment().getUser();
         billReportDTO.setOwnerName(owner.getLastName() + " " + owner.getFirstName());
-        billReportDTO.setAppartmentNumber(bill.getApartment().getNumber());
+        billReportDTO.setApartmentNumber(bill.getApartment().getNumber());
         billReportDTO.setProviderName(bill.getProvider().getName());
         billReportDTO.setAmountToPay(bill.getToPay());
         billReportDTO.setAmountPaid(bill.getPaid());

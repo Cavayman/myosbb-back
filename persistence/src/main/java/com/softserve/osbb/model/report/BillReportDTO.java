@@ -7,7 +7,7 @@ public class BillReportDTO {
 
     private int billId;
     private String ownerName;
-    private Integer appartmentNumber;
+    private Integer apartmentNumber;
     private String providerName;
     private Float amountToPay;
     private Float amountPaid;
@@ -32,12 +32,12 @@ public class BillReportDTO {
         this.ownerName = ownerName;
     }
 
-    public Integer getAppartmentNumber() {
-        return appartmentNumber;
+    public Integer getApartmentNumber() {
+        return apartmentNumber;
     }
 
-    public void setAppartmentNumber(Integer appartmentNumber) {
-        this.appartmentNumber = appartmentNumber;
+    public void setApartmentNumber(Integer apartmentNumber) {
+        this.apartmentNumber = apartmentNumber;
     }
 
     public String getProviderName() {

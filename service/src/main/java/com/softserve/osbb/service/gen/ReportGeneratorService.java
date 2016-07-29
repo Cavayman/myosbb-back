@@ -36,7 +36,7 @@ public class ReportGeneratorService {
                 buildResponse(response, baos, reportTemplate.getFileName());
             }
         } catch (JRException e) {
-            logger.error("failed to export report in pdf");
+            logger.error("failed to export report in " + type);
             throw new RuntimeException(e);
         }
 
