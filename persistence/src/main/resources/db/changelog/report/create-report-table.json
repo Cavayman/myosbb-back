@@ -1,8 +1,8 @@
 { "databaseChangeLog": [
   {
     "changeSet": {
-      "id": "2016/07/10-10",
-      "author": "nataliia (generated)",
+      "id": "2016/08/30-26",
+      "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -59,7 +59,7 @@
 
   {
     "changeSet": {
-      "id": "2016/07/25-11",
+      "id": "2016/08/30-44",
       "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
@@ -67,7 +67,7 @@
           "addForeignKeyConstraint": {
             "baseColumnNames": "osbb_id",
             "baseTableName": "report",
-            "constraintName": "fk_66kfo10kfkseyqvngver7m6eiukh1652",
+            "constraintName": "fk_ouop11i495cmthixnqjlc26kh",
             "deferrable": false,
             "initiallyDeferred": false,
             "onDelete": "NO ACTION",

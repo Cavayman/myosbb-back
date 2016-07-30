@@ -1,8 +1,8 @@
 { "databaseChangeLog": [
   {
     "changeSet": {
-      "id": "2016/07/20-1",
-      "author": "anastasiia fedorak",
+      "id": "2016/08/30-25",
+      "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -31,11 +31,12 @@
         }]
 
     }
-  } ,
+  },
+
   {
     "changeSet": {
-      "id": "2016/07/20-4",
-      "author": "anastasiia fedorak",
+      "id": "2016/08/30-33",
+      "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -54,5 +55,8 @@
 
     }
   }
+
+
+
 ]
 }

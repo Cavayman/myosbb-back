@@ -1,43 +1,8 @@
 { "databaseChangeLog": [
   {
     "changeSet": {
-      "id": "2016/07/10-14",
-      "author": "nataliia (generated)",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "createTable": {
-            "columns": [
-              {
-                "column": {
-                  "constraints": {
-                    "nullable": false
-                  },
-                  "name": "user_id",
-                  "type": "INT"
-                }
-              },
-              {
-                "column": {
-                  "constraints": {
-                    "nullable": false
-                  },
-                  "name": "apartment_id",
-                  "type": "INT"
-                }
-              }]
-          ,
-            "tableName": "user_apartment"
-          }
-        }]
-
-    }
-  },
-
-  {
-    "changeSet": {
-      "id": "2016/07/10-15",
-      "author": "nataliia (generated)",
+      "id": "2016/08/30-30",
+      "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -106,15 +71,15 @@
 
   {
     "changeSet": {
-      "id": "2016/07/25-1",
+      "id": "2016/08/30-34",
       "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
           "addForeignKeyConstraint": {
             "baseColumnNames": "user_id",
-            "baseTableName": "ticket",
-            "constraintName": "fk_66kfo4kfkseyqvngver7m6eiukhl652",
+            "baseTableName": "user_apartment",
+            "constraintName": "fk_6mrf4xbpgnwak62o08goi303j",
             "deferrable": false,
             "initiallyDeferred": false,
             "onDelete": "NO ACTION",
@@ -129,21 +94,21 @@
 
   {
     "changeSet": {
-      "id": "2016/07/25-2",
+      "id": "2016/08/30-36",
       "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
           "addForeignKeyConstraint": {
-            "baseColumnNames": "assigned",
-            "baseTableName": "ticket",
-            "constraintName": "fk_66kfo4kfkseyqvngver7m6eiukh1652",
+            "baseColumnNames": "apartment_id",
+            "baseTableName": "user_apartment",
+            "constraintName": "fk_affd3r40dn34gkys47ivss9d2",
             "deferrable": false,
             "initiallyDeferred": false,
             "onDelete": "NO ACTION",
             "onUpdate": "NO ACTION",
-            "referencedColumnNames": "user_id",
-            "referencedTableName": "users"
+            "referencedColumnNames": "apartment_id",
+            "referencedTableName": "apartment"
           }
         }]
 
@@ -152,30 +117,7 @@
 
   {
     "changeSet": {
-      "id": "2016/07/25-5",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "addForeignKeyConstraint": {
-            "baseColumnNames": "owner_id",
-            "baseTableName": "apartment",
-            "constraintName": "fk_66kfo2kfkseyqvngver7m6eiukh1652",
-            "deferrable": false,
-            "initiallyDeferred": false,
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "referencedColumnNames": "user_id",
-            "referencedTableName": "users"
-          }
-        }]
-
-    }
-  },
-
-  {
-    "changeSet": {
-      "id": "2016/07/25-10",
+      "id": "2016/08/30-38",
       "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
@@ -183,7 +125,7 @@
           "addForeignKeyConstraint": {
             "baseColumnNames": "user_id",
             "baseTableName": "message",
-            "constraintName": "fk_66kfo9kfkseyqvngver7m6eiukh1652",
+            "constraintName": "fk_f80s4splfik51j2ja555ygvws",
             "deferrable": false,
             "initiallyDeferred": false,
             "onDelete": "NO ACTION",
@@ -194,6 +136,51 @@
         }]
 
     }
-  }
-]
+  },
+
+  {
+    "changeSet": {
+      "id": "2016/08/30-41",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "user_id",
+            "baseTableName": "ticket",
+            "constraintName": "fk_i0i7rws9vvh121bg8mibj73pe",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "user_id",
+            "referencedTableName": "users"
+          }
+        }]
+
+    }
+  },
+
+  {
+    "changeSet": {
+      "id": "2016/08/30-42",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "owner_id",
+            "baseTableName": "apartment",
+            "constraintName": "fk_i2fi31t7l0ioqrn48mh6hp0b4",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "user_id",
+            "referencedTableName": "users"
+          }
+        }]
+
+    }
+  }]
 }

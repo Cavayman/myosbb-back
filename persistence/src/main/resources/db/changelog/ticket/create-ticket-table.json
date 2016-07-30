@@ -1,8 +1,8 @@
 { "databaseChangeLog": [
   {
     "changeSet": {
-      "id": "2016/07/10-13",
-      "author": "nataliia (generated)",
+      "id": "2016/08/30-28",
+      "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -21,44 +21,25 @@
               },
               {
                 "column": {
-                  "name": "name",
-                  "type": "VARCHAR(255)"
-                }
-              },
-              {
-                "column": {
                   "name": "description",
                   "type": "VARCHAR(255)"
                 }
               },
               {
                 "column": {
-                  "name": "state",
+                  "name": "name",
                   "type": "VARCHAR(255)"
-                }
-              },
-              {
-                "column": {
-                  "name": "start_time",
-                  "type": "TIMESTAMP(6) WITHOUT TIME ZONE"
                 }
               },
               {
                 "column": {
                   "name": "time",
                   "type": "TIMESTAMP(6) WITHOUT TIME ZONE"
-
                 }
               },
               {
                 "column": {
                   "name": "user_id",
-                  "type": "INT"
-                }
-              },
-              {
-                "column": {
-                  "name": "assigned",
                   "type": "INT"
                 }
               }]
@@ -68,28 +49,7 @@
         }]
 
     }
-  },
 
-  {
-    "changeSet": {
-      "id": "2016/07/25-9",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "addForeignKeyConstraint": {
-            "baseColumnNames": "ticket_id",
-            "baseTableName": "message",
-            "constraintName": "fk_66kfo8kfkseyqvngver7m6eiukh1652",
-            "deferrable": false,
-            "initiallyDeferred": false,
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "referencedColumnNames": "ticket_id",
-            "referencedTableName": "ticket"
-          }
-        }]
 
-    }
   }]
 }

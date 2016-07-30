@@ -1,8 +1,8 @@
 { "databaseChangeLog": [
   {
     "changeSet": {
-      "id": "2016/07/10-6",
-      "author": "nataliia (generated)",
+      "id": "2016/08/30-21",
+      "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -26,14 +26,14 @@
                 }
               },
               {
-                "column":{
+                "column": {
                   "name": "city",
                   "type": "VARCHAR(255)"
                 }
               },
               {
-                "column":{
-                  "name":"zip_code",
+                "column": {
+                  "name": "zip_code",
                   "type": "VARCHAR(255)"
                 }
               },
@@ -53,7 +53,7 @@
 
   {
     "changeSet": {
-      "id": "2016/07/25-4",
+      "id": "2016/08/30-43",
       "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
@@ -61,7 +61,7 @@
           "addForeignKeyConstraint": {
             "baseColumnNames": "house_id",
             "baseTableName": "apartment",
-            "constraintName": "fk_66kfo1kfkseyqvngver7m6eiukh1652",
+            "constraintName": "fk_ll3v7heihb44y1c3cfkpg0boq",
             "deferrable": false,
             "initiallyDeferred": false,
             "onDelete": "NO ACTION",

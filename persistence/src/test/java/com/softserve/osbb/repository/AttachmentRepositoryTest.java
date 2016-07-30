@@ -2,7 +2,6 @@ package com.softserve.osbb.repository;
 
 import com.softserve.osbb.PersistenceConfiguration;
 import com.softserve.osbb.model.Attachment;
-import com.softserve.osbb.model.Ticket;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,18 +31,11 @@ public class AttachmentRepositoryTest {
     @Autowired
     AttachmentRepository attachmentRepository;
 
-    @Autowired
-    TicketRepository ticketRepository;
-
     private Attachment attachment;
     private Attachment attachment1;
 
     @Before
     public void init() {
-
-        Ticket ticket = new Ticket();
-        ticket.setName("Test Ticket");
-        ticketRepository.save(ticket);
 
         attachment = new Attachment();
         attachment.setPath("C://...");

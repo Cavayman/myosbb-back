@@ -1,8 +1,8 @@
 { "databaseChangeLog": [
   {
     "changeSet": {
-      "id": "2016/07/10-9",
-      "author": "anastasiia fedorak",
+      "id": "2016/08/30-24",
+      "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -40,7 +40,7 @@
               {
                 "column": {
                   "name": "provider_type_id",
-                  "type": "INTEGER"
+                  "type": "INT"
                 }
               }]
           ,
@@ -53,8 +53,8 @@
 
   {
     "changeSet": {
-      "id": "2016/07/10-19",
-      "author": "anastasiia fedorak",
+      "id": "2016/08/30-32",
+      "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -76,8 +76,8 @@
 
   {
     "changeSet": {
-      "id": "2016/07/10-21",
-      "author": "anastasiia fedorak",
+      "id": "2016/08/30-35",
+      "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -95,7 +95,5 @@
         }]
 
     }
-  }
-
-]
+  }]
 }
