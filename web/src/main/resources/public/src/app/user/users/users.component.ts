@@ -2,7 +2,6 @@ import {Component,OnInit} from '@angular/core'
 
 
 import {userItem} from './userItem.ts';
-import 
 
 import {HTTP_PROVIDERS, Http} from "@angular/http";
 import {Observable} from 'rxjs/Observable';

@@ -8,7 +8,7 @@ You need to install bower libraries:
 1) install nodejs
 2) install npm
 3) install bower
-4) run "bower install" in ../myosbb/web
+4) run "bower install" in ../myosbb/web/src/main/resources/public/
 
 How to install Angular2 (revised)
 1) make sure to have both nodejs and npm installed on your local computer.
@@ -29,7 +29,7 @@ How to use git:
 
 LVJAVAAA-74: Commit Description.
 
-Now project runs with Tomcat8.
+How to run project with Tomcat8.
 1) install Tomcat8
 2) run project with it
 
