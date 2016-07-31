@@ -1528,7 +1528,6 @@ declare module "fs" {
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function rename(oldPath:string, newPath:string, callback?:(err?:NodeJS.ErrnoException) => void):void;
-
     /**
      * Synchronous rename
      * @param oldPath
@@ -1604,7 +1603,6 @@ declare module "fs" {
     export function realpath(path:string | Buffer, cache:{[path: string]: string}, callback:(err:NodeJS.ErrnoException, resolvedPath:string) => any):void;
 
     export function realpathSync(path:string | Buffer, cache?:{ [path: string]: string }):string;
-
     /*
      * Asynchronous unlink - deletes the file specified in {path}
      *
@@ -1612,14 +1610,12 @@ declare module "fs" {
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function unlink(path:string | Buffer, callback?:(err?:NodeJS.ErrnoException) => void):void;
-
     /*
      * Synchronous unlink - deletes the file specified in {path}
      *
      * @param path
      */
     export function unlinkSync(path:string | Buffer):void;
-
     /*
      * Asynchronous rmdir - removes the directory specified in {path}
      *
@@ -1627,14 +1623,12 @@ declare module "fs" {
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function rmdir(path:string | Buffer, callback?:(err?:NodeJS.ErrnoException) => void):void;
-
     /*
      * Synchronous rmdir - removes the directory specified in {path}
      *
      * @param path
      */
     export function rmdirSync(path:string | Buffer):void;
-
     /*
      * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
      *
@@ -1658,7 +1652,6 @@ declare module "fs" {
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function mkdir(path:string | Buffer, mode:string, callback?:(err?:NodeJS.ErrnoException) => void):void;
-
     /*
      * Synchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
      *
@@ -1675,7 +1668,6 @@ declare module "fs" {
      * @param callback No arguments other than a possible exception are given to the completion callback.
      */
     export function mkdirSync(path:string | Buffer, mode?:string):void;
-
     /*
      * Asynchronous mkdtemp - Creates a unique temporary directory. Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
      *
@@ -1683,7 +1675,6 @@ declare module "fs" {
      * @param callback The created folder path is passed as a string to the callback's second parameter.
      */
     export function mkdtemp(prefix:string, callback?:(err:NodeJS.ErrnoException, folder:string) => void):void;
-
     /*
      * Synchronous mkdtemp - Creates a unique temporary directory. Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
      *
@@ -1735,7 +1726,6 @@ declare module "fs" {
     export function read(fd:number, buffer:Buffer, offset:number, length:number, position:number, callback?:(err:NodeJS.ErrnoException, bytesRead:number, buffer:Buffer) => void):void;
 
     export function readSync(fd:number, buffer:Buffer, offset:number, length:number, position:number):number;
-
     /*
      * Asynchronous readFile - Asynchronously reads the entire contents of a file.
      *
@@ -1767,7 +1757,6 @@ declare module "fs" {
      * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
      */
     export function readFile(filename:string, callback:(err:NodeJS.ErrnoException, data:Buffer) => void):void;
-
     /*
      * Synchronous readFile - Synchronously reads the entire contents of a file.
      *
@@ -1816,7 +1805,6 @@ declare module "fs" {
     export function exists(path:string | Buffer, callback?:(exists:boolean) => void):void;
 
     export function existsSync(path:string | Buffer):boolean;
-
     /** Constant for fs.access(). File is visible to the calling process. */
     export var F_OK:number;
     /** Constant for fs.access(). File can be read by the calling process. */
@@ -1825,11 +1813,9 @@ declare module "fs" {
     export var W_OK:number;
     /** Constant for fs.access(). File can be executed by the calling process. */
     export var X_OK:number;
-
     /** Tests a user's permissions for the file specified by path. */
     export function access(path:string | Buffer, callback:(err:NodeJS.ErrnoException) => void):void;
     export function access(path:string | Buffer, mode:number, callback:(err:NodeJS.ErrnoException) => void):void;
-
     /** Synchronous version of fs.access. This throws if any accessibility checks fail, and does nothing otherwise. */
     export function accessSync(path:string | Buffer, mode ?:number):void;
 
@@ -1886,7 +1872,6 @@ declare module "path" {
      * @param p string path to normalize.
      */
     export function normalize(p:string):string;
-
     /**
      * Join all arguments together and normalize the resulting path.
      * Arguments must be strings. In v0.8, non-string arguments were silently ignored. In v0.10 and up, an exception is thrown.
@@ -1901,7 +1886,6 @@ declare module "path" {
      * @param paths string paths to join.
      */
     export function join(...paths:string[]):string;
-
     /**
      * The right-most parameter is considered {to}.  Other parameters are considered an array of {from}.
      *
@@ -1912,14 +1896,12 @@ declare module "path" {
      * @param pathSegments string paths to join.  Non-string arguments are ignored.
      */
     export function resolve(...pathSegments:any[]):string;
-
     /**
      * Determines whether {path} is an absolute path. An absolute path will always resolve to the same location, regardless of the working directory.
      *
      * @param path path to test.
      */
     export function isAbsolute(path:string):boolean;
-
     /**
      * Solve the relative path from {from} to {to}.
      * At times we have two absolute paths, and we need to derive the relative path from one to the other. This is actually the reverse transform of path.resolve.
@@ -1928,14 +1910,12 @@ declare module "path" {
      * @param to
      */
     export function relative(from:string, to:string):string;
-
     /**
      * Return the directory name of a path. Similar to the Unix dirname command.
      *
      * @param p the path to evaluate.
      */
     export function dirname(p:string):string;
-
     /**
      * Return the last portion of a path. Similar to the Unix basename command.
      * Often used to extract the file name from a fully qualified path.
@@ -1944,7 +1924,6 @@ declare module "path" {
      * @param ext optionally, an extension to remove from the result.
      */
     export function basename(p:string, ext?:string):string;
-
     /**
      * Return the extension of the path, from the last '.' to end of string in the last portion of the path.
      * If there is no '.' in the last portion of the path or the first character of it is '.', then it returns an empty string
@@ -1952,7 +1931,6 @@ declare module "path" {
      * @param p the path to evaluate.
      */
     export function extname(p:string):string;
-
     /**
      * The platform-specific file separator. '\\' or '/'.
      */
@@ -1961,14 +1939,12 @@ declare module "path" {
      * The platform-specific file delimiter. ';' or ':'.
      */
     export var delimiter:string;
-
     /**
      * Returns an object from a path string - the opposite of format().
      *
      * @param pathString path to evaluate.
      */
     export function parse(pathString:string):ParsedPath;
-
     /**
      * Returns a path string from an object - the opposite of parse().
      *
@@ -2086,11 +2062,10 @@ declare module "tls" {
     export class TLSSocket extends stream.Duplex {
         /**
          * Returns the bound address, the address family name and port of the underlying socket as reported by
-         * the operating system.
+         * the operating system. 
          * @returns {any} - An object with three properties, e.g. { port: 12346, family: 'IPv4', address: '127.0.0.1' }.
          */
         address():{ port: number; family: string; address: string };
-
         /**
          * A boolean that is true if the peer certificate was signed by one of the specified CAs, otherwise false.
          */
@@ -2105,14 +2080,12 @@ declare module "tls" {
          * May be used to distinguish TLS sockets from regular ones.
          */
         encrypted:boolean;
-
         /**
          * Returns an object representing the cipher name and the SSL/TLS protocol version of the current connection.
          * @returns {CipherNameAndProtocol} - Returns an object representing the cipher name
          * and the SSL/TLS protocol version of the current connection.
          */
         getCipher():CipherNameAndProtocol;
-
         /**
          * Returns an object representing the peer's certificate.
          * The returned object has some properties corresponding to the field of the certificate.
@@ -2132,20 +2105,17 @@ declare module "tls" {
             fingerprint: string;
             serialNumber: string;
         };
-
         /**
          * Could be used to speed up handshake establishment when reconnecting to the server.
          * @returns {any} - ASN.1 encoded TLS session or undefined if none was negotiated.
          */
         getSession():any;
-
         /**
          * NOTE: Works only with client TLS sockets.
          * Useful only for debugging, for session reuse provide session option to tls.connect().
          * @returns {any} - TLS session ticket or undefined if none was negotiated.
          */
         getTLSTicket():any;
-
         /**
          * The string representation of the local IP address.
          */
@@ -2167,10 +2137,9 @@ declare module "tls" {
          * The numeric representation of the remote port. For example, 443.
          */
         remotePort:number;
-
         /**
          * Initiate TLS renegotiation process.
-         *
+         *  
          * NOTE: Can be used to request peer's certificate after the secure connection has been established.
          * ANOTHER NOTE: When running as the server, socket will be destroyed with an error after handshakeTimeout timeout.
          * @param {TlsOptions} options - The options may contain the following fields: rejectUnauthorized,
@@ -2179,7 +2148,6 @@ declare module "tls" {
          * is successfully completed.
          */
         renegotiate(options:TlsOptions, callback:(err:Error) => any):any;
-
         /**
          * Set maximum TLS fragment size (default and maximum value is: 16384, minimum is: 512).
          * Smaller fragment size decreases buffering latency on the client: large fragments are buffered by
@@ -2302,7 +2270,6 @@ declare module "crypto" {
 
     export function createHmac(algorithm:string, key:string):Hmac;
     export function createHmac(algorithm:string, key:Buffer):Hmac;
-
     export interface Hash {
         update(data:any, input_encoding?:string): Hash;
         digest(encoding:'buffer'): Buffer;
@@ -2318,7 +2285,6 @@ declare module "crypto" {
     export function createCipher(algorithm:string, password:any):Cipher;
 
     export function createCipheriv(algorithm:string, key:any, iv:any):Cipher;
-
     export interface Cipher extends NodeJS.ReadWriteStream {
         update(data:Buffer): Buffer;
         update(data:string, input_encoding:"utf8"|"ascii"|"binary"): Buffer;
@@ -2332,7 +2298,6 @@ declare module "crypto" {
     export function createDecipher(algorithm:string, password:any):Decipher;
 
     export function createDecipheriv(algorithm:string, key:any, iv:any):Decipher;
-
     export interface Decipher extends NodeJS.ReadWriteStream {
         update(data:Buffer): Buffer;
         update(data:string, input_encoding:"binary"|"base64"|"hex"): Buffer;
@@ -2344,20 +2309,17 @@ declare module "crypto" {
         setAuthTag(tag:Buffer): void;
     }
     export function createSign(algorithm:string):Signer;
-
     export interface Signer extends NodeJS.WritableStream {
         update(data:any): void;
         sign(private_key:string, output_format:string): string;
     }
     export function createVerify(algorith:string):Verify;
-
     export interface Verify extends NodeJS.WritableStream {
         update(data:any): void;
         verify(object:string, signature:string, signature_format?:string): boolean;
     }
     export function createDiffieHellman(prime_length:number):DiffieHellman;
     export function createDiffieHellman(prime:number, encoding?:string):DiffieHellman;
-
     export interface DiffieHellman {
         generateKeys(encoding?:string): string;
         computeSecret(other_public_key:string, input_encoding?:string, output_encoding?:string): string;
@@ -2381,7 +2343,6 @@ declare module "crypto" {
 
     export function pseudoRandomBytes(size:number):Buffer;
     export function pseudoRandomBytes(size:number, callback:(err:Error, buf:Buffer) =>void):void;
-
     export interface RsaPublicKey {
         key: string;
         padding?: any;
@@ -2558,7 +2519,6 @@ declare module "util" {
 
 declare module "assert" {
     function internal(value:any, message?:string):void;
-
     namespace internal {
         export class AssertionError implements Error {
             name:string;
@@ -2616,7 +2576,6 @@ declare module "tty" {
     import * as net from "net";
 
     export function isatty(fd:number):boolean;
-
     export interface ReadStream extends net.Socket {
         isRaw: boolean;
         setRawMode(mode:boolean): void;

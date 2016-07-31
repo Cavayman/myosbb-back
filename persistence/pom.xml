@@ -27,7 +27,7 @@
 		<hibernate.jpamodelgen.version>4.3.8.Final</hibernate.jpamodelgen.version>
 		<maven-processor-plugin.version>2.2.4</maven-processor-plugin.version>
 		<liquibase-maven-plugin.version>3.5.1</liquibase-maven-plugin.version>
-		<jasper-reports>5.0.1</jasper-reports>
+		<jasper-reports>5.5.1</jasper-reports>
 		<apache-poi>3.10-FINAL</apache-poi>
 	</properties>
 

@@ -1,11 +1,15 @@
 package com.softserve.osbb.model.report;
 
+import com.softserve.osbb.model.Apartment;
+import com.softserve.osbb.model.Provider;
+import com.softserve.osbb.model.User;
+
 /**
  * Created by nazar.dovhyy on 29.07.2016.
  */
 public class BillReportDTO {
 
-    private int billId;
+    private Integer billId;
     private String ownerName;
     private Integer apartmentNumber;
     private String providerName;
@@ -16,51 +20,71 @@ public class BillReportDTO {
 
     }
 
-    public int getBillId() {
+    public Integer getBillId() {
         return billId;
     }
 
-    public void setBillId(int billId) {
-        this.billId = billId;
+    public static BillReportDTO setBillId(Integer billId) {
+        BillReportDTO billReportDTO = new BillReportDTO();
+        billReportDTO.billId = billId;
+        return billReportDTO;
+    }
+
+    public BillReportDTO setApartmentNumber(Apartment apartment) {
+        if (apartment != null) {
+            this.apartmentNumber = apartment.getNumber();
+        }
+        return this;
+    }
+
+    public BillReportDTO setOwnerName(User user) {
+        if (user != null) {
+            this.ownerName = user.getFirstName() + " " + user.getLastName();
+        }
+        return this;
+    }
+
+    public BillReportDTO setProviderName(Provider provider) {
+        if (provider != null) {
+            this.providerName = provider.getDescription();
+        }
+        return this;
+    }
+
+    public BillReportDTO setAmountToPay(Float amountToPay) {
+        this.amountToPay = (amountToPay != null) ?
+                amountToPay : 0.0f;
+        return this;
+    }
+
+    public BillReportDTO setAmountPaid(Float amountPaid) {
+        this.amountPaid = (amountPaid != null) ?
+                amountPaid : 0.0f;
+        return this;
     }
 
     public String getOwnerName() {
         return ownerName;
     }
 
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
-    }
 
     public Integer getApartmentNumber() {
         return apartmentNumber;
     }
 
-    public void setApartmentNumber(Integer apartmentNumber) {
-        this.apartmentNumber = apartmentNumber;
-    }
 
     public String getProviderName() {
         return providerName;
     }
 
-    public void setProviderName(String providerName) {
-        this.providerName = providerName;
-    }
 
     public Float getAmountToPay() {
         return amountToPay;
     }
 
-    public void setAmountToPay(Float amountToPay) {
-        this.amountToPay = amountToPay;
-    }
 
     public Float getAmountPaid() {
         return amountPaid;
     }
 
-    public void setAmountPaid(Float amountPaid) {
-        this.amountPaid = amountPaid;
-    }
 }

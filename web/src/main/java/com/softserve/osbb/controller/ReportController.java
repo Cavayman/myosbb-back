@@ -2,6 +2,7 @@ package com.softserve.osbb.controller;
 
 import com.softserve.osbb.model.Osbb;
 import com.softserve.osbb.model.Report;
+import com.softserve.osbb.service.gen.ReportDownloadService;
 import com.softserve.osbb.service.impl.ReportServiceImpl;
 import com.softserve.osbb.util.ResourceNotFoundException;
 import org.slf4j.Logger;
@@ -12,11 +13,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static com.softserve.osbb.util.ResourceUtil.*;
-
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.softserve.osbb.util.ResourceUtil.toResource;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
@@ -32,6 +33,9 @@ public class ReportController {
 
     @Autowired
     private ReportServiceImpl reportService;
+
+    @Autowired
+    private ReportDownloadService reportDownloadService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<List<Resource<Report>>> listAllReports() {
@@ -120,6 +124,14 @@ public class ReportController {
         logger.info("removing all reports");
         reportService.deleteAll();
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/download", method = RequestMethod.GET)
+    public void download(@RequestParam(value = "type", required = true) String type,
+                         HttpServletResponse httpServletResponse) {
+        logger.info("preparing download");
+        reportDownloadService.download(type, httpServletResponse);
+
     }
 
 }

@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core'
 import {ROUTER_DIRECTIVES} from '@angular/router'
 import {UserComponent} from "../user/user.component";
+import {HeaderComponent} from "../header/header.component";
 
 @Component({
     selector: 'app-home',
     templateUrl: 'src/app/home/home.html',
-    directives: [ROUTER_DIRECTIVES, UserComponent],
+    directives: [ROUTER_DIRECTIVES, UserComponent, HeaderComponent],
     inputs: ['isLoggedIn'],
     outputs: ['isLoggedIn']
 })
