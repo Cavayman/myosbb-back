@@ -4,10 +4,12 @@ import com.softserve.osbb.model.Osbb;
 import com.softserve.osbb.model.Report;
 import com.softserve.osbb.service.gen.ReportDownloadService;
 import com.softserve.osbb.service.impl.ReportServiceImpl;
+import com.softserve.osbb.util.PageCreator;
 import com.softserve.osbb.util.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,6 +51,31 @@ public class ReportController {
         reportList.stream().forEach((report) -> resourceReportList.add(getLink(toResource(report))));
         return new ResponseEntity<>(resourceReportList, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public ResponseEntity<PageCreator<Resource<Report>>> listAllReports(
+            @RequestParam(value = "pageNumber", required = true) Integer pageNumber) {
+        logger.info("get all report by page number: " + pageNumber);
+        Page<Report> reportsByPage = reportService.getAllReports(pageNumber);
+
+        int currentPage = reportsByPage.getNumber() + 1;
+        int begin = Math.max(1, currentPage - 5);
+        int totalPages = reportsByPage.getTotalPages();
+        int end = Math.min(currentPage + 5, totalPages);
+
+        List<Resource<Report>> resourceList = new ArrayList<>();
+        reportsByPage.forEach((report) -> resourceList.add(getLink(toResource(report))));
+
+        PageCreator<Resource<Report>> pageCreator = new PageCreator<>();
+        pageCreator.setRows(resourceList);
+        pageCreator.setCurrentPage(Integer.valueOf(currentPage).toString());
+        pageCreator.setBeginPage(Integer.valueOf(begin).toString());
+        pageCreator.setEndPage(Integer.valueOf(end).toString());
+        pageCreator.setTotalPages(Integer.valueOf(totalPages).toString());
+
+        return new ResponseEntity<>(pageCreator, HttpStatus.OK);
+    }
+
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<Resource<Report>> createReport(@RequestBody Report report) {

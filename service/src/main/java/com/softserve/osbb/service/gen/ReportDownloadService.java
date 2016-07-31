@@ -60,12 +60,11 @@ public class ReportDownloadService {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             reportExporterService.exportToOutputStream(type, jp, response, baos);
 
-            String outputDir = "C://" + "reports"; // temporary solution
+            String outputDir = "C:\\" + "reports"; // temporary solution
             File outputFileDir = new File(outputDir);
             if (!outputFileDir.exists()) {
                 outputFileDir.mkdir();
             }
-            outputDir = File.separator + outputDir;
             logger.info("save file directory: " + outputDir);
             String filePath = reportExporterService.exportToFile(jp, type, outputDir);
 

@@ -4,6 +4,8 @@ import com.softserve.osbb.model.Report;
 import com.softserve.osbb.repository.ReportRepository;
 import com.softserve.osbb.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -17,16 +19,17 @@ import java.util.List;
 public class ReportServiceImpl implements ReportService {
 
     private static final List<Report> EMPTY_LIST = new ArrayList<>(0);
+    private static final int DEF_ROWS = 10;
 
     @Autowired
     private ReportRepository reportRepository;
 
     @Override
-    public Report addReport(Report report)  {
+    public Report addReport(Report report) {
         return report == null ? Report.NO_REPORT : addNotNullReport(report);
     }
 
-    private Report addNotNullReport(Report report)  {
+    private Report addNotNullReport(Report report) {
         return reportRepository.save(report);
     }
 
@@ -35,7 +38,7 @@ public class ReportServiceImpl implements ReportService {
         return report == null ? Report.NO_REPORT : updateReportIfExists(reportId, report);
     }
 
-    private Report updateReportIfExists(Integer reportId, Report report){
+    private Report updateReportIfExists(Integer reportId, Report report) {
         boolean isExisted = reportRepository.exists(reportId);
         if (!isExisted) {
             return Report.NO_REPORT;
@@ -65,7 +68,6 @@ public class ReportServiceImpl implements ReportService {
     }
 
 
-
     @Override
     public List<Report> getAllReports() {
         return reportRepository.findAll();
@@ -73,7 +75,7 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public List<Report> findByDate(LocalDate dateToFind) {
-        return (dateToFind == null)? EMPTY_LIST : reportRepository.findByCreationDate(dateToFind);
+        return (dateToFind == null) ? EMPTY_LIST : reportRepository.findByCreationDate(dateToFind);
     }
 
 
@@ -94,7 +96,15 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
+    public Page<Report> getAllReports(Integer pageNumber) {
+        PageRequest pageRequest = new PageRequest(pageNumber - 1, DEF_ROWS);
+        return reportRepository.findAll(pageRequest);
+    }
+
+    @Override
     public List<Report> getAllReportsBetweenDates(LocalDate from, LocalDate to) throws Exception {
         return reportRepository.gerAllReportsBetweenDates(from, to);
     }
+
+
 }
