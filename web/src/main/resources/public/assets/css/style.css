@@ -396,9 +396,15 @@ ul.sidebar-menu li a.active i {
 }
 
 /* MAIN CONTENT CONFIGURATION */
-#main-content {
+/*First is general*/
+my-app>#main-content {
+    margin-top: 60px;
+}
+/*second is for content under profile*/
+my-user>#main-content {
     margin-left: 210px;
 }
+
 
 .header, .footer {
     min-height: 60px;

@@ -1,8 +1,8 @@
 { "databaseChangeLog": [
   {
     "changeSet": {
-      "id": "2016/07/10-2",
-      "author": "nataliia (generated)",
+      "id": "2016/08/30-17",
+      "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
         {
@@ -31,5 +31,7 @@
         }]
 
     }
+
+
   }]
 }

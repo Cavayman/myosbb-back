@@ -6,6 +6,7 @@ import {UserApartmentComponent} from "./apartment/user.apartment.component";
 import {UserBillComponent} from "./bills/user.bill.component";
 import {UserMessageComponent} from "./message/user.message.component";
 import {UserEventComponent} from "./event/user.event.component";
+import {UsersComponent} from "./users/users.component";
 export const userRoutes:RouterConfig = [
     {
         path: 'home/user',
@@ -20,6 +21,7 @@ export const userRoutes:RouterConfig = [
             {path: 'event', component: UserEventComponent},
             {path: 'bill', component: UserBillComponent},
             {path: 'message', component: UserMessageComponent},
+            {path: 'users', component: UsersComponent},
         ]
 
     }
