@@ -23,7 +23,7 @@ export class FileDownloaderComponent {
 
     private pending:boolean = false;
     public toasterconfig:ToasterConfig =
-        new ToasterConfig({timeout: 5000});
+        new ToasterConfig({timeout: 10000});
 
     constructor(private _toasterService:ToasterService) {
     }

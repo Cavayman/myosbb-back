@@ -34,5 +34,5 @@ public interface ReportService {
 
     boolean deleteReportById(Integer reportId) throws Exception;
 
-    Page<Report> getAllReports(Integer pageNumber);
+    Page<Report> getAllReports(Integer pageNumber, String sortedBy, Boolean ascOrder);
 }

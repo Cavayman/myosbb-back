@@ -54,9 +54,11 @@ public class ReportController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<PageCreator<Resource<Report>>> listAllReports(
-            @RequestParam(value = "pageNumber", required = true) Integer pageNumber) {
+            @RequestParam(value = "pageNumber", required = true) Integer pageNumber,
+            @RequestParam(value = "sortedBy", required = false) String sortedBy,
+            @RequestParam(value = "asc", required = false) Boolean ascOrder) {
         logger.info("get all report by page number: " + pageNumber);
-        Page<Report> reportsByPage = reportService.getAllReports(pageNumber);
+        Page<Report> reportsByPage = reportService.getAllReports(pageNumber, sortedBy, ascOrder);
 
         int currentPage = reportsByPage.getNumber() + 1;
         int begin = Math.max(1, currentPage - 5);

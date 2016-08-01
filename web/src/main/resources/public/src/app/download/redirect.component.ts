@@ -13,7 +13,7 @@ export class RedirectComponent {
     }
 
     reroute() {
-        this._router.navigate(['home']);
+        this._router.navigate(['home/user/report']);
     }
 
 }

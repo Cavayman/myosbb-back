@@ -59,17 +59,8 @@ public class ReportDownloadService {
             //create stream where the object will be written
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             reportExporterService.exportToOutputStream(type, jp, response, baos);
-
-            String outputDir = "C:\\" + "reports"; // temporary solution
-            File outputFileDir = new File(outputDir);
-            if (!outputFileDir.exists()) {
-                outputFileDir.mkdir();
-            }
-            logger.info("save file directory: " + outputDir);
-            String filePath = reportExporterService.exportToFile(jp, type, outputDir);
-
+            String filePath = reportExporterService.exportToFile(jp, type, createServerFileFolder());
             saveFileToDataBase(filePath);
-
             //write to response
             write(response, baos, type);
         } catch (JRException e) {
@@ -77,6 +68,17 @@ public class ReportDownloadService {
             e.printStackTrace();
         }
 
+    }
+
+    public String createServerFileFolder() {
+        String serverDir = System.getProperty("catalina.home"); // server location
+        File outputFileDir = new File(serverDir + File.separator + "reports");
+        if (!outputFileDir.exists()) {
+            outputFileDir.mkdir();
+        }
+        String outputFilePath = outputFileDir.getAbsolutePath();
+        logger.info("save file to server directory: " + outputFilePath);
+        return outputFilePath;
     }
 
     private void saveFileToDataBase(String fileName) {

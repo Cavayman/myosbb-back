@@ -6,17 +6,23 @@
     // map tells the System loader where to look for things
     var map = {
         'bin': 'bin', // 'dist',
+        'moment': 'node_modules/moment',
         '@angular': 'node_modules/@angular',
         'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
         'rxjs': 'node_modules/rxjs',
-        'angular2-toaster': 'node_modules/angular2-toaster'
+        'angular2-toaster': 'node_modules/angular2-toaster',
+        'ng2-bs3-modal': 'node_modules/ng2-bs3-modal',
+        'ng2-bootstrap': 'node_modules/ng2-bootstrap'
     };
     // packages tells the System loader how to load when no filename and/or no extension
     var packages = {
         'bin': {main: 'boot.js', defaultExtension: 'js'},
         'rxjs': {defaultExtension: 'js'},
         'angular2-in-memory-web-api': {main: 'index.js', defaultExtension: 'js'},
-        'angular2-toaster': {main: 'angular2-toaster.js', defaultExtension: 'js'}
+        'angular2-toaster': {main: 'angular2-toaster.js', defaultExtension: 'js'},
+        'ng2-bs3-modal': {main: 'ng2-bs3-modal.js', defaultExtension: 'js'},
+        'moment': {main: 'moment.js', defaultExtension: 'js'},
+        'ng2-bootstrap': {main: 'ng2-bootstrap.js', defaultExtension: 'js'}
     };
     var ngPackageNames = [
         'common',
