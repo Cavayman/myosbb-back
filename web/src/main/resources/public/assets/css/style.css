@@ -2373,3 +2373,20 @@ label {
     top: -50px;
 }
 
+    .lang-nav {
+        margin-top: 10px;
+        float: right;
+
+    }
+
+    .lang-item {
+        text-transform: uppercase;
+        color: white;
+        font-size: 12px;
+        font-weight: 500;
+        margin-right: 5px;
+    }
+
+    .selectedLang {
+        color: grey;
+    }

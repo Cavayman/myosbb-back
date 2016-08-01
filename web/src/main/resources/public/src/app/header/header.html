@@ -3,8 +3,16 @@
         <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
     </div>
     <!--logo start-->
-    <a [routerLink]="['']" class="logo"><i class="fa fa-home fa-lg" aria-hidden="true"><b>Наш Двір</b></i></a>
+    <a [routerLink]="['']" class="logo"><i class="fa fa-home fa-lg" aria-hidden="true"><b>{{ 'title' | translate:{value:param} }}</b></i></a>
     <!--logo end-->
+
+    <div class="lang-nav">
+        <div>
+            | <a class="lang-item" *ngFor="let lang of languages" (click)="onSelect(lang)" [class.selectedLang] = "lang == selectedLang"> {{lang | uppercase}} |</a>
+        </div>
+    </div>
+
+
     <div class="nav notify-row" id="top_menu">
         <!--  notification start -->
         <ul class="nav top-menu" [ngStyle]="{'display': 'none'}">
