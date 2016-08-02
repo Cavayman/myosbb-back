@@ -8,20 +8,22 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
-@Component ({
-	selector:'my-users',
-	templateUrl:'src/app/user/users/users.table.html',
-	providers:[HTTP_PROVIDERS],
-	styleUrls:['src/app/user/users/users.css']
+@Component({
+    selector: 'my-users',
+    templateUrl: 'src/app/user/users/users.table.html',
+    providers: [HTTP_PROVIDERS],
+    styleUrls: ['src/app/user/users/users.css']
 })
 export class UsersComponent {
 
-userItem:userItem[];	
+    userItem:userItem[];
 
-	 constructor(private http:Http) {
+    constructor(private http:Http) {
         this.http.get('./src/app/user/users/data.json')
-               .map(response => response.json())
-               .subscribe((data) => {this.userItem = data});
-               console.log("USERSAREHERE!!!");
+            .map(response => response.json())
+            .subscribe((data) => {
+                this.userItem = data
+            });
+        console.log("USERSAREHERE!!!");
     }
 }

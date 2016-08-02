@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {HeaderComponent} from "./header/header.component";
 import {LoginStat} from "../shared/services/login.stats";
-import {Component, ViewContainerRef} from '@angular/core';
+import {ViewContainerRef} from '@angular/core';
 
 @Component({
     selector: 'my-app',

@@ -35,7 +35,7 @@ export class ReportService {
         console.log('delete report by id: ' + reportId);
         return this._http.delete(url, {headers: headers})
             .toPromise()
-            .catch(this.handleError);
+            .catch((error)=>console.error(error));
 
     }
 

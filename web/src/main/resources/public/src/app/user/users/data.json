@@ -1,22 +1,22 @@
 [
-    {  
-        "firstName" : "Oleg", 
-        "lastName": "Kotsik",
-        "phoneNumber":"3806791467"
-    },
-    {  
-        "firstName" : "Nestor", 
-        "lastName": "Luxolat",
-        "phoneNumber":"8-800-555-35-36"
-    },
-    {  
-        "firstName" : "Ruslan", 
-        "lastName": "Lopotyak",
-        "phoneNumber":"8-800-555-35-35"
-    },
-    {  
-        "firstName" : "Oksana", 
-        "lastName": "Yarema",
-        "phoneNumber":"3805554321"
-    }
+  {
+    "firstName": "Oleg",
+    "lastName": "Kotsik",
+    "phoneNumber": "3806791467"
+  },
+  {
+    "firstName": "Nestor",
+    "lastName": "Luxolat",
+    "phoneNumber": "8-800-555-35-36"
+  },
+  {
+    "firstName": "Ruslan",
+    "lastName": "Lopotyak",
+    "phoneNumber": "8-800-555-35-35"
+  },
+  {
+    "firstName": "Oksana",
+    "lastName": "Yarema",
+    "phoneNumber": "3805554321"
+  }
 ]

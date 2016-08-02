@@ -4,8 +4,8 @@
   "scripts": {
     "lite": "lite-server",
     "postinstall": "typings install",
-    "tsc": "tsc",
-    "tsc:w": "tsc -w",
+    "tsc": "gulp",
+    "tsc:w": "gulp",
     "typings": "typings",
     "gulp": "gulp",
     "start": "concurrent \"npm run gulp\" \"npm run lite\" "

@@ -18,11 +18,10 @@ import {ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
 export class UserReportComponent implements OnInit, OnDestroy {
 
     private reports:Report[];
-    private selectedReport:Report = {name: '', description: '', creationDate: '', filePath: ''};
-    private subscriber:Observable<any>;
+    private selectedReport:Report = {reportId: null, name: '', description: '', creationDate: '', filePath: ''};
     private pageCreator:PageCreator<Report>;
     private pageNumber:number = 1;
-    private pageList:Array<number> = new Array<number>();
+    private pageList:Array<number> = [];
     private totalPages:number;
     @ViewChild('delModal') public delModal:ModalDirective;
     @ViewChild('editModal') public editModal:ModalDirective;
@@ -72,7 +71,7 @@ export class UserReportComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit():any {
-        this.subscriber = this.getReportsByPageNum(this.pageNumber);
+        this.getReportsByPageNum(this.pageNumber);
     }
 
     getReportsByPageNum(pageNumber:number) {

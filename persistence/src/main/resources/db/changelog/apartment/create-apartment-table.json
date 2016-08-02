@@ -50,8 +50,9 @@
 
     }
   },
-
-  "changeSet": {
+  "changeSet"
+  :
+  {
     "id": "2016/08/30-29",
     "author": "nataliia",
     "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
@@ -76,13 +77,12 @@
                 "name": "apartment_id",
                 "type": "INT"
               }
-            }]
-        ,
+            }
+          ],
           "tableName": "user_apartment"
         }
-      }]
-
+      }
+    ]
   }
-
 ]
 }

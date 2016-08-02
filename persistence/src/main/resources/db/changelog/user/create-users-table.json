@@ -110,11 +110,10 @@
             "referencedColumnNames": "apartment_id",
             "referencedTableName": "apartment"
           }
-        }]
-
+        }
+      ]
     }
   },
-
   {
     "changeSet": {
       "id": "2016/08/30-38",
@@ -182,5 +181,6 @@
         }]
 
     }
-  }]
+  }
+]
 }
