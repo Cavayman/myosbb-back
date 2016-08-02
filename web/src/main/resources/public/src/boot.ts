@@ -7,21 +7,17 @@ import {disableDeprecatedForms, provideForms} from '@angular/forms';
 import {TranslateService, TranslateLoader, TranslateStaticLoader} from "ng2-translate/ng2-translate";
 
 bootstrap(AppComponent,
-[HTTP_PROVIDERS, APP_ROUTER_PROVIDERS,
-ROUTER_DIRECTIVES,
-disableDeprecatedForms(),
-provideForms(),
+    [HTTP_PROVIDERS,
+        APP_ROUTER_PROVIDERS,
+        ROUTER_DIRECTIVES,
+        TranslateService,
 
-// not required, but recommended to have 1 unique instance of your service
-{
-provide: TranslateLoader,
-useFactory: (http: Http) => new TranslateStaticLoader(http, 'assets/i18n', '.json'),
-deps: [Http]
-},
+        {
+        provide: TranslateLoader,
+        useFactory: (http: Http) => new TranslateStaticLoader(http, 'assets/i18n', '.json'),
+        deps: [Http]
+        },
 
-// use TranslateService here, and not TRANSLATE_PROVIDERS (which will define a default TranslateStaticLoader)
-TranslateService]);
-
-//    .catch(err => console.error(err));
-
-
+        disableDeprecatedForms(),
+        provideForms()])
+    .catch(err => console.error(err));
