@@ -8,6 +8,7 @@ import {UserMessageComponent} from "./message/user.message.component";
 import {UserEventComponent} from "./event/user.event.component";
 import {UserReportComponent} from "./report/user.report.component";
 import {UsersComponent} from './users/users.component'
+import {OsbbComponent} from "./osbb/osbb.component";
 export const userRoutes:RouterConfig = [
     {
         path: 'home/user',
@@ -24,6 +25,7 @@ export const userRoutes:RouterConfig = [
             {path: 'message', component: UserMessageComponent},
             {path: 'report', component: UserReportComponent},
             {path: 'users', component: UsersComponent},
+            {path: 'osbb', component: OsbbComponent},
         ]
 
     }
