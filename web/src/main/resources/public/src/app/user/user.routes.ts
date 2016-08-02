@@ -7,6 +7,7 @@ import {UserBillComponent} from "./bills/user.bill.component";
 import {UserMessageComponent} from "./message/user.message.component";
 import {UserEventComponent} from "./event/user.event.component";
 import {UserReportComponent} from "./report/user.report.component";
+import {UsersComponent} from './users/users.component'
 export const userRoutes:RouterConfig = [
     {
         path: 'home/user',
@@ -22,6 +23,7 @@ export const userRoutes:RouterConfig = [
             {path: 'bill', component: UserBillComponent},
             {path: 'message', component: UserMessageComponent},
             {path: 'report', component: UserReportComponent},
+            {path: 'users', component: UsersComponent},
         ]
 
     }

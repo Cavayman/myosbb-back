@@ -1,88 +1,89 @@
-{ "databaseChangeLog": [
-  {
-    "changeSet": {
-      "id": "2016/08/30-16",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "createTable": {
-            "columns": [
-              {
-                "column": {
-                  "autoIncrement": true,
-                  "constraints": {
-                    "primaryKey": true,
-                    "primaryKeyName": "apartment_pkey"
-                  },
-                  "name": "apartment_id",
-                  "type": "SERIAL"
-                }
-              },
-              {
-                "column": {
-                  "name": "number",
-                  "type": "INT"
-                }
-              },
-              {
-                "column": {
-                  "name": "house_id",
-                  "type": "INT"
-                }
-              },
-              {
-                "column": {
-                  "name": "owner_id",
-                  "type": "INT"
-                }
-              },
-              {
-                "column": {
-                  "name": "square",
-                  "type": "INT"
-                }
-              }]
-          ,
-            "tableName": "apartment"
-          }
-        }]
-
-    }
-  },
-  "changeSet"
-  :
-  {
-    "id": "2016/08/30-29",
-    "author": "nataliia",
-    "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-    "changes": [
-      {
-        "createTable": {
-          "columns": [
-            {
-              "column": {
-                "constraints": {
-                  "nullable": false
+{
+  "databaseChangeLog": [
+    {
+      "changeSet": {
+        "id": "2016/08/30-16",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "createTable": {
+              "columns": [
+                {
+                  "column": {
+                    "autoIncrement": true,
+                    "constraints": {
+                      "primaryKey": true,
+                      "primaryKeyName": "apartment_pkey"
+                    },
+                    "name": "apartment_id",
+                    "type": "SERIAL"
+                  }
                 },
-                "name": "user_id",
-                "type": "INT"
-              }
-            },
-            {
-              "column": {
-                "constraints": {
-                  "nullable": false
+                {
+                  "column": {
+                    "name": "number",
+                    "type": "INT"
+                  }
                 },
-                "name": "apartment_id",
-                "type": "INT"
-              }
+                {
+                  "column": {
+                    "name": "house_id",
+                    "type": "INT"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "owner_id",
+                    "type": "INT"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "square",
+                    "type": "INT"
+                  }
+                }
+              ],
+              "tableName": "apartment"
             }
-          ],
-          "tableName": "user_apartment"
-        }
+          }
+        ]
       }
-    ]
-  }
-]
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/30-29",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "createTable": {
+              "columns": [
+                {
+                  "column": {
+                    "constraints": {
+                      "nullable": false
+                    },
+                    "name": "user_id",
+                    "type": "INT"
+                  }
+                },
+                {
+                  "column": {
+                    "constraints": {
+                      "nullable": false
+                    },
+                    "name": "apartment_id",
+                    "type": "INT"
+                  }
+                }
+              ],
+              "tableName": "user_apartment"
+            }
+          }
+        ]
+      }
+    }
+  ]
 }
