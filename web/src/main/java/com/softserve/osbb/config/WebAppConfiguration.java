@@ -15,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * Created by nazar.dovhyy on 08.07.2016.
  */
 @SpringBootApplication
-@Import(PersistenceConfiguration.class)
+@Import(ServiceApplication.class)
 @ComponentScan(basePackages = {"com.softserve.osbb"})
 public class WebAppConfiguration extends WebMvcConfigurerAdapter {
 
@@ -47,7 +47,5 @@ public class WebAppConfiguration extends WebMvcConfigurerAdapter {
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
         registry.addViewController("/home").setViewName("index.html");
         registry.addViewController("/error").setViewName("login.html");
-
-
     }
 }

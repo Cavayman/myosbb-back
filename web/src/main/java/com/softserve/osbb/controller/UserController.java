@@ -25,6 +25,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
  * Created by cavayman on 12.07.2016.
  */
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping(value = "restful/")
 public class UserController {
 

@@ -2,28 +2,34 @@ import {Component,OnInit} from '@angular/core'
 
 
 import {userItem} from './userItem.ts';
+import {UsersService} from "./users.service";
+import {Router} from '@angular/router';
 
-import {HTTP_PROVIDERS, Http} from "@angular/http";
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/toPromise';
-
-@Component({
-    selector: 'my-users',
-    templateUrl: 'src/app/user/users/users.table.html',
-    providers: [HTTP_PROVIDERS],
-    styleUrls: ['src/app/user/users/users.css']
+@Component ({
+	selector:'my-users',
+	templateUrl:'src/app/user/users/users.table.html',
+	providers:[UsersService],
+	styleUrls:['src/app/user/users/users.css']
 })
-export class UsersComponent {
+export class UsersComponent implements OnInit{
+	userList:userItem[];
 
-    userItem:userItem[];
+	 constructor(private _userService:UsersService,private router: Router){
+		 console.log('constructore');
+		 this.userList=[];
+	 }
 
-    constructor(private http:Http) {
-        this.http.get('./src/app/user/users/data.json')
-            .map(response => response.json())
-            .subscribe((data) => {
-                this.userItem = data
-            });
-        console.log("USERSAREHERE!!!");
-    }
+	ngOnInit():any {
+		console.log('init');
+		this._userService.getAllUsers().subscribe(data => this.userList = data,error=>console.error(error));
+     	console.log('get out of service');
+	}
+	updateUser(user:userItem){
+		this._userService.updateUser(user).subscribe(()=>this.router.navigate(['/users']))
+	}
+	deleteUser(user:userItem){
+		this._userService.deleteUser(user)
+		this.router.navigate(['/users']);
+	}
+
 }
