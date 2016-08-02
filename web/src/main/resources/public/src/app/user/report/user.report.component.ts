@@ -7,7 +7,6 @@ import {PageCreator} from "../../../shared/services/page.creator.interface";
 import 'rxjs/Rx';
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS} from 'ng2-bootstrap/ng2-bootstrap';
 import {ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
-import * as moment from 'moment';
 
 @Component({
     selector: 'my-report',
@@ -35,7 +34,6 @@ export class UserReportComponent implements OnInit, OnDestroy {
     constructor(private _reportService:ReportService) {
     }
 
-
     openEditModal(report:Report) {
         this.selectedReport = report;
         console.log('selected report: ' + this.selectedReport);
@@ -43,7 +41,7 @@ export class UserReportComponent implements OnInit, OnDestroy {
     }
 
     isDateValid(date:string):boolean {
-        return moment(date, 'yyyy-mm-dd').isValid();
+        return /\d{4}-\d{2}-\d{2}/.test(date);
     }
 
     onEditReportSubmit() {
@@ -134,7 +132,9 @@ export class UserReportComponent implements OnInit, OnDestroy {
                 });
     }
 
+
     ngOnDestroy():any {
         //this.subscriber.unsubscribe();
     }
+
 }

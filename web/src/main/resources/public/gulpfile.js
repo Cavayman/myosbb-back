@@ -32,8 +32,6 @@ gulp.task('build-html', function () {
 
 gulp.task('watch', function () {
     gulp.watch(appDev + '**/*.ts', ['build-ts']);
-    gulp.watch(appDev + '**/*.html', ['build-html']);
-
 });
 
-gulp.task('default', ['watch', 'build-ts', 'build-html']);
+gulp.task('default', ['watch', 'build-ts']);
