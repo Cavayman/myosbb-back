@@ -1,3 +1,4 @@
+<app-header></app-header>
 <div class="container">
     <div class="row">
         <div class="col-md-6">
@@ -7,7 +8,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            <form class="form-login" name="f" th:action="@{/login}" method="POST">
+            <form class="form-login" name="f" th:action="@{/login}" method="GET">
                 <h2 class="form-login-heading">sign in now</h2>
                 <div class="login-wrap">
                     <input type="text" id="username" class="form-control" name="username" placeholder="User" autofocus>

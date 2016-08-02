@@ -9,9 +9,9 @@ import "rxjs/add/operator/toPromise";
 @Injectable()
 export class ReportService {
 
-    private getReportUr = '/restful/report?pageNumber=';
-    private delReportUrl = '/restful/report/';
-    private updateReportUrl = '/restful/report/';
+    private getReportUr = 'http://localhost:52430/restful/report?pageNumber=';
+    private delReportUrl = 'http://localhost:52430/restful/report/';
+    private updateReportUrl = 'http://localhost:52430/restful/report/';
 
     constructor(private _http:Http) {
     }

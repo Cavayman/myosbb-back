@@ -150,9 +150,7 @@
         </ul>
         <!--  notification end -->
     </div>
-    <div class="top-menu">
-        <ul class="nav pull-right top-menu">
-            <li *ngIf="isLoggedIn"><a [routerLink]="['user']" class="top">Profile</a></li>
-        </ul>
+    <div class="pull-right top" [ngStyle]="{'display': isLoggedIn ?'': 'none'}">
+        <p><a [routerLink]="['user/main']" role="button" class="btn btn-lg btn-success">Profile</a></p>
     </div>
 </header>
