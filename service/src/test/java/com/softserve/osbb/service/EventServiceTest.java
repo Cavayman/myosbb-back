@@ -64,7 +64,7 @@ public class EventServiceTest {
     @Test
     public void testSave() {
         eventService.saveEvent(event);
-        assertEquals(event, eventService.findEventById(event.getEventId()));
+        assertEquals(event, eventService.getEventById(event.getEventId()));
     }
 
     @Test
@@ -73,13 +73,13 @@ public class EventServiceTest {
         list.add(event);
         list.add(event1);
         eventService.saveEvents(list);
-        assertTrue(eventService.findAllEvents().containsAll(list));
+        assertTrue(eventService.getAllEvents().containsAll(list));
     }
 
     @Test
     public void testFindOne() {
         eventService.saveEvent(event);
-        assertEquals(event, eventService.findEventById(event.getEventId()));
+        assertEquals(event, eventService.getEventById(event.getEventId()));
     }
 
     @Test
@@ -88,7 +88,7 @@ public class EventServiceTest {
         list.add(event1);
         list.add(event);
         eventService.saveEvents(list);
-        assertTrue(eventService.findEvents(list).containsAll(list));
+        assertTrue(eventService.getEvents(list).containsAll(list));
     }
 
     @Test
@@ -100,7 +100,7 @@ public class EventServiceTest {
         List<Integer> ids = new ArrayList<>();
         ids.add(event.getEventId());
         ids.add(event1.getEventId());
-        assertTrue(eventService.findEventsByIds(ids).containsAll(list));
+        assertTrue(eventService.getEventsByIds(ids).containsAll(list));
     }
 
     @Test
@@ -110,7 +110,7 @@ public class EventServiceTest {
         list.add(event1);
         eventService.saveEvent(event);
         eventService.saveEvent(event1);
-        assertTrue(eventService.findAllEvents().containsAll(list));
+        assertTrue(eventService.getAllEvents().containsAll(list));
     }
 
     @Test
@@ -143,12 +143,12 @@ public class EventServiceTest {
         eventService.saveEvent(event);
         eventService.saveEvent(event1);
         eventService.deleteAllEvents();
-        assertTrue(eventService.findAllEvents().isEmpty());
+        assertTrue(eventService.getAllEvents().isEmpty());
     }
 
     @Test
     public void testCount() {
-        int before = eventService.findAllEvents().size();
+        int before = eventService.getAllEvents().size();
         eventService.saveEvent(event);
         eventService.saveEvent(event1);
         assertEquals(before + 2, eventService.countEvents());

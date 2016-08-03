@@ -1,0 +1,59 @@
+import {Injectable} from '@angular/core'
+import {Headers,Http} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import {Attachment} from "./attachment.interface";
+import 'rxjs/add/operator/toPromise';
+
+
+@Injectable()
+export class AttachmentService {
+
+    private getAttachmentUr = '/restful/attachment?pageNumber=';
+    private delAttachmentUrl = '/restful/attachment/';
+    private updateAttachmentUrl = '/restful/attachment/';
+
+    constructor(private _http:Http) {
+    }
+
+    getAllAttachments(pageNumber:number):Observable<any> {
+        return this._http.get(this.getAttachmentUr + pageNumber)
+            .map((response)=> response.json())
+            .catch((error)=>Observable.throw(error));
+    }
+
+    getAllAttachmentsSorted(pageNumber:number, name:string, order:boolean):Observable<any> {
+        return this._http.get(this.getAttachmentUr + pageNumber + '&&sortedBy=' + name + '&&asc=' + order)
+            .map((response)=> response.json())
+            .catch((error)=>Observable.throw(error));
+    }
+
+    deleteAttachmentById(attachmentId:number) {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        let url = this.delAttachmentUrl + attachmentId;
+        console.log('delete attachment by id: ' + attachmentId);
+        return this._http.delete(url, {headers: headers})
+            .toPromise()
+            .catch((error)=>console.error(error));
+
+    }
+
+    editAndSave(attachment:Attachment) {
+        if (attachment.attachmentId) {
+            console.log('updating attachment with id: ' + attachment.attachmentId);
+            this.put(attachment);
+        }
+    }
+
+    put(attachment:Attachment) {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this._http.put(this.updateAttachmentUrl, JSON.stringify(attachment), {headers: headers})
+            .toPromise()
+            .then(()=>attachment)
+            .catch((error)=>console.error(error));
+    }
+
+
+}

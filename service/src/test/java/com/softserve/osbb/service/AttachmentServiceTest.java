@@ -2,8 +2,6 @@ package com.softserve.osbb.service;
 
 import com.softserve.osbb.config.ServiceApplication;
 import com.softserve.osbb.model.Attachment;
-import com.softserve.osbb.model.Osbb;
-import com.softserve.osbb.model.Ticket;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +11,6 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,15 +32,8 @@ public class AttachmentServiceTest {
     @Autowired
     private AttachmentService attachmentService;
 
-    @Autowired
-    private TicketService ticketService;
-
-
     @Before
     public void init() {
-        Ticket ticket = new Ticket();
-        ticket.setName("Test Ticket");
-        ticketService.save(ticket);
 
         attachment = new Attachment();
         attachment.setPath("C://...");
@@ -55,7 +45,7 @@ public class AttachmentServiceTest {
     @Test
     public void testSave() {
         attachmentService.saveAttachment(attachment);
-        assertEquals(attachment, attachmentService.findAttachmentById(attachment.getAttachmentId()));
+        assertEquals(attachment, attachmentService.getAttachmentById(attachment.getAttachmentId()));
     }
 
     @Test
@@ -64,13 +54,13 @@ public class AttachmentServiceTest {
         list.add(attachment);
         list.add(attachment1);
         attachmentService.saveAttachments(list);
-        assertTrue(attachmentService.findAllAttachments().containsAll(list));
+        assertTrue(attachmentService.getAllAttachments().containsAll(list));
     }
 
     @Test
     public void testFindOne() {
         attachmentService.saveAttachment(attachment);
-        assertEquals(attachment, attachmentService.findAttachmentById(attachment.getAttachmentId()));
+        assertEquals(attachment, attachmentService.getAttachmentById(attachment.getAttachmentId()));
     }
 
     @Test
@@ -79,7 +69,7 @@ public class AttachmentServiceTest {
         list.add(attachment1);
         list.add(attachment);
         attachmentService.saveAttachments(list);
-        assertTrue(attachmentService.findAttachments(list).containsAll(list));
+        assertTrue(attachmentService.getAttachments(list).containsAll(list));
     }
 
     @Test
@@ -91,7 +81,7 @@ public class AttachmentServiceTest {
         List<Integer> ids = new ArrayList<>();
         ids.add(attachment.getAttachmentId());
         ids.add(attachment1.getAttachmentId());
-        assertTrue(attachmentService.findAttachmentsByIds(ids).containsAll(list));
+        assertTrue(attachmentService.getAttachmentsByIds(ids).containsAll(list));
     }
 
     @Test
@@ -101,7 +91,7 @@ public class AttachmentServiceTest {
         list.add(attachment1);
         attachmentService.saveAttachment(attachment);
         attachmentService.saveAttachment(attachment1);
-        assertTrue(attachmentService.findAllAttachments().containsAll(list));
+        assertTrue(attachmentService.getAllAttachments().containsAll(list));
     }
 
     @Test
@@ -134,12 +124,12 @@ public class AttachmentServiceTest {
         attachmentService.saveAttachment(attachment);
         attachmentService.saveAttachment(attachment1);
         attachmentService.deleteAllAttachments();
-        assertTrue(attachmentService.findAllAttachments().isEmpty());
+        assertTrue(attachmentService.getAllAttachments().isEmpty());
     }
 
     @Test
     public void testCount() {
-        int before = attachmentService.findAllAttachments().size();
+        int before = attachmentService.getAllAttachments().size();
         attachmentService.saveAttachment(attachment);
         attachmentService.saveAttachment(attachment1);
         assertEquals(before + 2, attachmentService.countAttachments());

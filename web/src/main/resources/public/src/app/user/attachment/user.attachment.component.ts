@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {CORE_DIRECTIVES} from '@angular/common';
-import {Event} from "./event.interface";
-import {EventService} from "./event.service";
+import {Attachment} from "./attachment.interface";
+import {AttachmentService} from "./attachment.service";
 import {Observable} from 'rxjs/Observable';
 import {PageCreator} from "../../../shared/services/page.creator.interface";
 import 'rxjs/Rx';
@@ -9,17 +9,17 @@ import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS} from 'ng2-bootstrap/ng2-bootstrap';
 import {ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
 
 @Component({
-    selector: 'my-event',
-    templateUrl: 'src/app/user/event/event.html',
-    providers: [EventService],
+    selector: 'my-attachment',
+    templateUrl: 'src/app/user/attachment/attachment.html',
+    providers: [AttachmentService],
     directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES],
     viewProviders: [BS_VIEW_PROVIDERS]
 })
-export class UserEventComponent implements OnInit, OnDestroy {
+export class UserAttachmentComponent implements OnInit, OnDestroy {
 
-    private events:Event[];
-    private selectedEvent:Event = {eventId: null, name: '', author: '', description: '', date: '', path: ''};
-    private pageCreator:PageCreator<Event>;
+    private attachments:Attachment[];
+    private selectedAttachment:Attachment = {attachmentId: null, path: ''};
+    private pageCreator:PageCreator<Attachment>;
     private pageNumber:number = 1;
     private pageList:Array<number> = [];
     private totalPages:number;
@@ -28,14 +28,14 @@ export class UserEventComponent implements OnInit, OnDestroy {
     active:boolean = true;
     order:boolean = true;
 
-    private eventId:number;
+    private attachmentId:number;
 
-    constructor(private _eventService:EventService) {
+    constructor(private _attachmentService:AttachmentService) {
     }
 
-    openEditModal(event:Event) {
-        this.selectedEvent = event;
-        console.log('selected event: ' + this.selectedEvent);
+    openEditModal(attachment:Attachment) {
+        this.selectedAttachment = attachment;
+        console.log('selected attachment: ' + this.selectedAttachment);
         this.editModal.show();
     }
 
@@ -43,11 +43,11 @@ export class UserEventComponent implements OnInit, OnDestroy {
         return /\d{4}-\d{2}-\d{2}/.test(date);
     }
 
-    onEditEventSubmit() {
+    onEditAttachmentSubmit() {
         this.active = false;
-        console.log('saving event: ' + this.selectedEvent);
-        this._eventService.editAndSave(this.selectedEvent);
-        this._eventService.getAllEvents(this.pageNumber);
+        console.log('saving attachment: ' + this.selectedAttachment);
+        this._attachmentService.editAndSave(this.selectedAttachment);
+        this._attachmentService.getAllAttachments(this.pageNumber);
         this.editModal.hide();
         setTimeout(() => this.active = true, 0);
     }
@@ -58,29 +58,29 @@ export class UserEventComponent implements OnInit, OnDestroy {
     }
 
     openDelModal(id:number) {
-        this.eventId = id;
-        console.log('show', this.eventId);
+        this.attachmentId = id;
+        console.log('show', this.attachmentId);
         this.delModal.show();
     }
 
     closeDelModal() {
-        console.log('delete', this.eventId);
-        this._eventService.deleteEventById(this.eventId);
-        this.getEventsByPageNum(this.pageNumber);
+        console.log('delete', this.attachmentId);
+        this._attachmentService.deleteAttachmentById(this.attachmentId);
+        this.getAttachmentsByPageNum(this.pageNumber);
         this.delModal.hide();
     }
 
     ngOnInit():any {
-        this.getEventsByPageNum(this.pageNumber);
+        this.getAttachmentsByPageNum(this.pageNumber);
     }
 
-    getEventsByPageNum(pageNumber:number) {
+    getAttachmentsByPageNum(pageNumber:number) {
         this.pageNumber = +pageNumber;
         this.emptyArray();
-        return this._eventService.getAllEvents(this.pageNumber)
+        return this._attachmentService.getAllAttachments(this.pageNumber)
             .subscribe((data) => {
                     this.pageCreator = data;
-                    this.events = data.rows;
+                    this.attachments = data.rows;
                     this.preparePageList(+this.pageCreator.beginPage,
                         +this.pageCreator.endPage);
                     this.totalPages = +data.totalPages;
@@ -92,12 +92,12 @@ export class UserEventComponent implements OnInit, OnDestroy {
 
     prevPage() {
         this.pageNumber = this.pageNumber - 1;
-        this.getEventsByPageNum(this.pageNumber)
+        this.getAttachmentsByPageNum(this.pageNumber)
     }
 
     nextPage() {
         this.pageNumber = this.pageNumber + 1;
-        this.getEventsByPageNum(this.pageNumber)
+        this.getAttachmentsByPageNum(this.pageNumber)
     }
 
     emptyArray() {
@@ -118,10 +118,10 @@ export class UserEventComponent implements OnInit, OnDestroy {
         this.order = !this.order;
         console.log('order by asc', this.order);
         this.emptyArray();
-        this._eventService.getAllEventsSorted(this.pageNumber, name, this.order)
+        this._attachmentService.getAllAttachmentsSorted(this.pageNumber, name, this.order)
             .subscribe((data) => {
                     this.pageCreator = data;
-                    this.events = data.rows;
+                    this.attachments = data.rows;
                     this.preparePageList(+this.pageCreator.beginPage,
                         +this.pageCreator.endPage);
                     this.totalPages = +data.totalPages;

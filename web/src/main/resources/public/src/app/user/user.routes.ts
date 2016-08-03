@@ -6,6 +6,7 @@ import {UserApartmentComponent} from "./apartment/user.apartment.component";
 import {UserBillComponent} from "./bills/user.bill.component";
 import {UserMessageComponent} from "./message/user.message.component";
 import {UserEventComponent} from "./event/user.event.component";
+import {UserAttachmentComponent} from "./attachment/user.attachment.component";
 import {UserReportComponent} from "./report/user.report.component";
 import {UsersComponent} from './users/users.component'
 import {OsbbComponent} from "./osbb/osbb.component";
@@ -23,6 +24,7 @@ export const userRoutes:RouterConfig = [
             {path: 'house', component: UserHouseComponent},
             {path: 'apartment', component: UserApartmentComponent},
             {path: 'event', component: UserEventComponent},
+            {path: 'attachment', component: UserAttachmentComponent},
             {path: 'bill', component: UserBillComponent},
             {path: 'message', component: UserMessageComponent},
             {path: 'report', component: UserReportComponent},
