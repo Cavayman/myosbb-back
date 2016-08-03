@@ -1,7 +1,7 @@
 { "databaseChangeLog": [
   {
     "changeSet": {
-      "id": "2016/08/30-25",
+      "id": "2016/08/03-28",
       "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
@@ -24,18 +24,18 @@
                   "name": "type_name",
                   "type": "VARCHAR(255)"
                 }
-              }]
-          ,
+              }
+            ],
             "tableName": "provider_type"
           }
-        }]
-
+        }
+      ]
     }
   },
 
   {
     "changeSet": {
-      "id": "2016/08/30-33",
+      "id": "2016/08/03-56",
       "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
@@ -43,7 +43,7 @@
           "addForeignKeyConstraint": {
             "baseColumnNames": "provider_type_id",
             "baseTableName": "provider",
-            "constraintName": "fk_66kfo4kfkseyqcngxer7m6eiukhl652",
+            "constraintName": "fk_lev8k7fepwx7k6likx5t3cmt2",
             "deferrable": false,
             "initiallyDeferred": false,
             "onDelete": "NO ACTION",

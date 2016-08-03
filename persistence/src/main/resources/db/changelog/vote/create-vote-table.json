@@ -1,7 +1,7 @@
 { "databaseChangeLog": [
   {
     "changeSet": {
-      "id": "2016/08/30-31",
+      "id": "2016/08/03-36",
       "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
@@ -21,20 +21,14 @@
               },
               {
                 "column": {
+                  "name": "description",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
                   "name": "time",
                   "type": "TIMESTAMP(6) WITHOUT TIME ZONE"
-                }
-              },
-              {
-                "column": {
-                  "name": "vote_value",
-                  "type": "INT"
-                }
-              },
-              {
-                "column": {
-                  "name": "event_id",
-                  "type": "INT"
                 }
               },
               {
@@ -42,18 +36,17 @@
                   "name": "user_id",
                   "type": "INT"
                 }
-              }]
-          ,
+              }
+            ],
             "tableName": "vote"
           }
-        }]
-
+        }
+      ]
     }
   },
-
   {
     "changeSet": {
-      "id": "2016/08/30-37",
+      "id": "2016/08/03-45",
       "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
@@ -68,6 +61,29 @@
             "onUpdate": "NO ACTION",
             "referencedColumnNames": "user_id",
             "referencedTableName": "users"
+          }
+        }
+      ]
+    }
+  },
+
+  {
+    "changeSet": {
+      "id": "2016/08/03-59",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "vote_id",
+            "baseTableName": "option",
+            "constraintName": "fk_me04lw6cdgepfey8p2ov0rv6c",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "vote_id",
+            "referencedTableName": "vote"
           }
         }]
 

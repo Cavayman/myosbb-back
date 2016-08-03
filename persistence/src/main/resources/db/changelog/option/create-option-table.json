@@ -1,7 +1,7 @@
 { "databaseChangeLog": [
   {
     "changeSet": {
-      "id": "2016/08/03-24",
+      "id": "2016/08/03-25",
       "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
@@ -13,9 +13,9 @@
                   "autoIncrement": true,
                   "constraints": {
                     "primaryKey": true,
-                    "primaryKeyName": "message_pkey"
+                    "primaryKeyName": "option_pkey"
                   },
-                  "name": "message_id",
+                  "name": "option_id",
                   "type": "SERIAL"
                 }
               },
@@ -27,30 +27,12 @@
               },
               {
                 "column": {
-                  "name": "message",
-                  "type": "VARCHAR(255)"
-                }
-              },
-              {
-                "column": {
-                  "name": "time",
-                  "type": "date"
-                }
-              },
-              {
-                "column": {
-                  "name": "ticket_id",
-                  "type": "INT"
-                }
-              },
-              {
-                "column": {
-                  "name": "user_id",
+                  "name": "vote_id",
                   "type": "INT"
                 }
               }]
           ,
-            "tableName": "message"
+            "tableName": "option"
           }
         }]
 

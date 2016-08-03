@@ -2,7 +2,7 @@
   "databaseChangeLog": [
     {
       "changeSet": {
-        "id": "2016/08/30-16",
+        "id": "2016/08/03-17",
         "author": "nataliia",
         "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
         "changes": [
@@ -28,6 +28,12 @@
                 },
                 {
                   "column": {
+                    "name": "square",
+                    "type": "INT"
+                  }
+                },
+                {
+                  "column": {
                     "name": "house_id",
                     "type": "INT"
                   }
@@ -37,52 +43,12 @@
                     "name": "owner_id",
                     "type": "INT"
                   }
-                },
-                {
-                  "column": {
-                    "name": "square",
-                    "type": "INT"
-                  }
-                }
-              ],
+                }]
+            ,
               "tableName": "apartment"
             }
-          }
-        ]
-      }
-    },
-    {
-      "changeSet": {
-        "id": "2016/08/30-29",
-        "author": "nataliia",
-        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-        "changes": [
-          {
-            "createTable": {
-              "columns": [
-                {
-                  "column": {
-                    "constraints": {
-                      "nullable": false
-                    },
-                    "name": "user_id",
-                    "type": "INT"
-                  }
-                },
-                {
-                  "column": {
-                    "constraints": {
-                      "nullable": false
-                    },
-                    "name": "apartment_id",
-                    "type": "INT"
-                  }
-                }
-              ],
-              "tableName": "user_apartment"
-            }
-          }
-        ]
+          }]
+
       }
     }
   ]
