@@ -40,7 +40,6 @@ public class ReportDownloadService {
     @Autowired
     private ReportRepository reportRepository;
 
-    @Autowired
     ServletContext servletContext;
 
 

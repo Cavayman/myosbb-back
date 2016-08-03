@@ -3,7 +3,6 @@ package com.softserve.osbb.repository;
 import com.softserve.osbb.PersistenceConfiguration;
 import com.softserve.osbb.model.Attachment;
 import com.softserve.osbb.model.Contract;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,10 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 

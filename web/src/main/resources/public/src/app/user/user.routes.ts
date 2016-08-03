@@ -1,4 +1,4 @@
-import { provideRouter, RouterConfig } from '@angular/router';
+import {RouterConfig} from "@angular/router";
 import {UserComponent} from "../user/user.component";
 import {UserMainComponent} from "./main/user.main.component";
 import {UserHouseComponent} from "./house/user.house.component";
@@ -8,7 +8,7 @@ import {UserMessageComponent} from "./message/user.message.component";
 import {UserEventComponent} from "./event/user.event.component";
 import {UserAttachmentComponent} from "./attachment/user.attachment.component";
 import {UserReportComponent} from "./report/user.report.component";
-import {UsersComponent} from './users/users.component'
+import {UsersComponent} from "./users/users.component";
 import {OsbbComponent} from "./osbb/osbb.component";
 import {RoleComponent} from "./role/role.component";
 

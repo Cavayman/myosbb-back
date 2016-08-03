@@ -1,5 +1,4 @@
-import {Injectable} from '@angular/core';
-import {BrowserXhr} from '@angular/http';
+import {Injectable} from "@angular/core";
 
 let reportDownloadUrl = 'restful/report/download';
 

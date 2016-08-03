@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core'
-import {Headers,Http} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import {Injectable} from "@angular/core";
+import {Headers, Http} from "@angular/http";
+import {Observable} from "rxjs/Observable";
+import "rxjs/add/operator/map";
 import {Report} from "./report.interface";
-import 'rxjs/add/operator/toPromise';
+import "rxjs/add/operator/toPromise";
 
 
 @Injectable()

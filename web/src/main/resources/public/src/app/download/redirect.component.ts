@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {ROUTER_DIRECTIVES, Router} from '@angular/router';
+import {Component} from "@angular/core";
+import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 
 @Component({
     selector: 'my-redirect',

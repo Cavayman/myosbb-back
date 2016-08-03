@@ -1,8 +1,7 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ROUTER_DIRECTIVES, ActivatedRoute} from '@angular/router';
-import 'rxjs/Rx';
+import {Component, OnInit, OnDestroy} from "@angular/core";
+import {ROUTER_DIRECTIVES, ActivatedRoute} from "@angular/router";
+import "rxjs/Rx";
 import {LoginStat} from "../../shared/services/login.stats";
-import {LoginComponent} from "../login/login.component";
 
 @Component({
     selector: 'app-header',

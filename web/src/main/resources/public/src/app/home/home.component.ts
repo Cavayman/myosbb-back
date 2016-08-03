@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core'
-import {ROUTER_DIRECTIVES} from '@angular/router'
+import {Component, OnInit} from "@angular/core";
+import {ROUTER_DIRECTIVES} from "@angular/router";
 import {UserComponent} from "../user/user.component";
 import {HeaderComponent} from "../home/header/header.component";
 import {SidebarMenuComponent} from "../home/sidebar_menu/sidebar_menu.component";

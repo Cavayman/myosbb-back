@@ -1,6 +1,7 @@
 package com.softserve.osbb.util.resources;
 
 import org.springframework.hateoas.Resource;
+
 import java.util.ArrayList;
 
 /**

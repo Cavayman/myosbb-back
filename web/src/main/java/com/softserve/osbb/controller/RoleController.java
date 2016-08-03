@@ -2,7 +2,6 @@ package com.softserve.osbb.controller;
 
 import com.softserve.osbb.model.Role;
 import com.softserve.osbb.service.RoleService;
-import com.softserve.osbb.service.impl.RoleServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,12 +1,10 @@
-import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
-import {CORE_DIRECTIVES} from '@angular/common';
+import {Component, OnInit, OnDestroy, ViewChild} from "@angular/core";
+import {CORE_DIRECTIVES} from "@angular/common";
 import {Event} from "./event.interface";
 import {EventService} from "./event.service";
-import {Observable} from 'rxjs/Observable';
 import {PageCreator} from "../../../shared/services/page.creator.interface";
-import 'rxjs/Rx';
-import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS} from 'ng2-bootstrap/ng2-bootstrap';
-import {ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
+import "rxjs/Rx";
+import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS, ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
 
 @Component({
     selector: 'my-event',

@@ -1,9 +1,8 @@
-import {Injectable} from '@angular/core';
-import {HTTP_PROVIDERS, Http, Headers} from "@angular/http";
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/toPromise';
-
-import {IRole} from './role';
+import {Injectable} from "@angular/core";
+import {Http, Headers} from "@angular/http";
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/toPromise";
+import {IRole} from "./role";
 
 @Injectable()
 export class RoleService { 

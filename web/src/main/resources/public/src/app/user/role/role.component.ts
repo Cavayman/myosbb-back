@@ -1,12 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {HTTP_PROVIDERS} from "@angular/http";
-import { MODAL_DIRECTIVES} from 'ng2-bs3-modal/ng2-bs3-modal';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/toPromise';
-
-import {IRole} from './role';
-import { RoleService } from './role.service';
-import { RoleFormComponent } from './role-form.component';
+import {MODAL_DIRECTIVES} from "ng2-bs3-modal/ng2-bs3-modal";
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/toPromise";
+import {IRole} from "./role";
+import {RoleService} from "./role.service";
+import {RoleFormComponent} from "./role-form.component";
 
 @Component({
     selector: 'role',

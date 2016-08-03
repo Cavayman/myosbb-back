@@ -1,6 +1,6 @@
-import { Component, Output, Input, EventEmitter, OnInit, ViewChild } from '@angular/core';
-import { MODAL_DIRECTIVES, ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
-import { IRole, Role} from './role';
+import {Component, Output, Input, EventEmitter, OnInit, ViewChild} from "@angular/core";
+import {MODAL_DIRECTIVES, ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
+import {IRole, Role} from "./role";
 
 @Component({
     selector: 'role-form',

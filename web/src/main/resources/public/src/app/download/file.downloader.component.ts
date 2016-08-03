@@ -1,7 +1,12 @@
-import {Component} from '@angular/core'
+import {Component} from "@angular/core";
 import {FileDownloaderService} from "./file.downloader.service";
-import {ToasterContainerComponent,Toast, ToasterService, ToasterConfig} from "angular2-toaster/angular2-toaster";
-import {BodyOutputType} from 'angular2-toaster/angular2-toaster';
+import {
+    ToasterContainerComponent,
+    Toast,
+    ToasterService,
+    ToasterConfig,
+    BodyOutputType
+} from "angular2-toaster/angular2-toaster";
 import {RedirectComponent} from "./redirect.component";
 
 let reportDownloadUrl = 'restful/report/download';

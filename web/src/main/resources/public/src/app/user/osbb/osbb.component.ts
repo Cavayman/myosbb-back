@@ -1,12 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {HTTP_PROVIDERS} from "@angular/http";
-import { MODAL_DIRECTIVES} from 'ng2-bs3-modal/ng2-bs3-modal';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/toPromise';
-
-import {IOsbb} from './osbb';
-import { OsbbService } from './osbb.service';
-import { OsbbFormComponent } from './osbb-form.component';
+import {MODAL_DIRECTIVES} from "ng2-bs3-modal/ng2-bs3-modal";
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/toPromise";
+import {IOsbb} from "./osbb";
+import {OsbbService} from "./osbb.service";
+import {OsbbFormComponent} from "./osbb-form.component";
 
 @Component({
     selector: 'osbb',

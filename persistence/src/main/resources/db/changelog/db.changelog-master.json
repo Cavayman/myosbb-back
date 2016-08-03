@@ -1,100 +1,84 @@
-{ "databaseChangeLog": [
-
-  {
-    "includeAll": {
-      "path": "classpath:/db/changelog/apartment/"
+{
+  "databaseChangeLog": [
+    {
+      "includeAll": {
+        "path": "classpath:/db/changelog/apartment/"
+      }
+    },
+    {
+      "includeAll": {
+        "path": "classpath:/db/changelog/attachment/"
+      }
+    },
+    {
+      "includeAll": {
+        "path": "classpath:/db/changelog/bill/"
+      }
+    },
+    {
+      "includeAll": {
+        "path": "classpath:/db/changelog/contract/"
+      }
+    },
+    {
+      "includeAll": {
+        "path": "classpath:/db/changelog/event/"
+      }
+    },
+    {
+      "includeAll": {
+        "path": "classpath:/db/changelog/house/"
+      }
+    },
+    {
+      "includeAll": {
+        "path": "classpath:/db/changelog/message/"
+      }
+    },
+    {
+      "includeAll": {
+        "path": "classpath:/db/changelog/option/"
+      }
+    },
+    {
+      "includeAll": {
+        "path": "classpath:/db/changelog/osbb/"
+      }
+    },
+    {
+      "includeAll": {
+        "path": "classpath:/db/changelog/provider/"
+      }
+    },
+    {
+      "includeAll": {
+        "path": "classpath:/db/changelog/provider_type/"
+      }
+    },
+    {
+      "includeAll": {
+        "path": "classpath:/db/changelog/report/"
+      }
+    },
+    {
+      "includeAll": {
+        "path": "classpath:/db/changelog/role/"
+      }
+    },
+    {
+      "includeAll": {
+        "path": "classpath:/db/changelog/ticket/"
+      }
+    },
+    {
+      "includeAll": {
+        "path": "classpath:/db/changelog/user/"
+      }
+    },
+    {
+      "includeAll": {
+        "path": "classpath:/db/changelog/vote/"
+      }
     }
-  },
-
-  {
-    "includeAll" : {
-      "path": "classpath:/db/changelog/attachment/"
-    }
-  },
-
-  {
-    "includeAll" : {
-      "path": "classpath:/db/changelog/bill/"
-    }
-  },
-
-
-  {
-    "includeAll" : {
-      "path": "classpath:/db/changelog/contract/"
-    }
-  },
-
-  {
-    "includeAll" : {
-      "path": "classpath:/db/changelog/event/"
-    }
-  },
-
-  {
-    "includeAll" : {
-      "path": "classpath:/db/changelog/house/"
-    }
-  },
-
-  {
-    "includeAll" : {
-      "path": "classpath:/db/changelog/message/"
-    }
-  },
-
-  {
-    "includeAll" : {
-      "path": "classpath:/db/changelog/option/"
-    }
-  },
-
-  {
-    "includeAll" : {
-      "path": "classpath:/db/changelog/osbb/"
-    }
-  },
-
-  {
-    "includeAll" : {
-      "path": "classpath:/db/changelog/provider/"
-    }
-  },
-
-  {
-    "includeAll" : {
-      "path": "classpath:/db/changelog/provider_type/"
-    }
-  },
-
-  {
-    "includeAll" : {
-      "path": "classpath:/db/changelog/report/"
-    }
-  },
-
-  {
-    "includeAll" : {
-      "path": "classpath:/db/changelog/role/"
-    }
-  },
-
-  {
-    "includeAll" : {
-      "path": "classpath:/db/changelog/ticket/"
-    }
-  },
-
-  {
-    "includeAll" : {
-      "path": "classpath:/db/changelog/user/"
-    }
-  },
-
-  {
-    "includeAll" : {
-      "path": "classpath:/db/changelog/vote/"
-    }
-  }
-
-]}
+  ]
+}

@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewContainerRef} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {HeaderComponent} from "./header/header.component";
 import {LoginStat} from "../shared/services/login.stats";
-import {ViewContainerRef} from '@angular/core';
 
 @Component({
     selector: 'my-app',
@@ -12,12 +11,12 @@ import {ViewContainerRef} from '@angular/core';
 })
 export class AppComponent implements OnInit {
 
-    isLoggedIn:boolean;
+    isLoggedIn: boolean;
 
-    constructor(private _loginStat:LoginStat, private viewContainerRef:ViewContainerRef) {
+    constructor(private _loginStat: LoginStat, private viewContainerRef: ViewContainerRef) {
     }
 
-    ngOnInit():any {
+    ngOnInit(): any {
 
     }
 }

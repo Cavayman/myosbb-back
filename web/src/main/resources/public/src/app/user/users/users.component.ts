@@ -1,10 +1,8 @@
-import {Component,OnInit} from '@angular/core'
-
-
-import {userItem} from './userItem.ts';
+import {Component, OnInit} from "@angular/core";
+import {userItem} from "./userItem.ts";
 import {UsersService} from "./users.service";
-import {Router} from '@angular/router';
-import { REACTIVE_FORM_DIRECTIVES, FormBuilder, Validators } from '@angular/forms';
+import {Router} from "@angular/router";
+import {REACTIVE_FORM_DIRECTIVES, FormBuilder, Validators} from "@angular/forms";
 
 
 @Component ({
