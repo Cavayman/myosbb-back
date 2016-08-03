@@ -27,7 +27,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
  * Created by nazar.dovhyy on 09.07.2016.
  */
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin()
 @RequestMapping("/restful/report")
 public class ReportController {
 

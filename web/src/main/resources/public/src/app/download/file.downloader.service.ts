@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 
-let reportDownloadUrl = 'restful/report/download';
+let reportDownloadUrl = 'http://localhost:52430/restful/report/download';
 
 declare var saveAs:any;
 
