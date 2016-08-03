@@ -19,10 +19,6 @@ export class OsbbService {
     private putUrl:string = 'http://localhost:52430/myosbb/restful/osbb';
     private getUrl:string = 'http://localhost:52430/myosbb/restful/osbb';
 */
-
-   // private postUrl:string = 'http://fizzy-cherry.db.elephantsql.com:5432/aqzreszw';
-   // private getUrl:string = 'http://fizzy-cherry.db.elephantsql.com:5432/aqzreszw';
-
     constructor(private http: Http) { }
 
     getAllOsbb(): Promise<IOsbb[]> {

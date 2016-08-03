@@ -22,6 +22,7 @@ export class OsbbComponent implements OnInit {
     constructor( private osbbService: OsbbService) { 
         this.osbbArr = [];
     }
+
     ngOnInit() {
         this.osbbService.getAllOsbb().then(osbbArr => this.osbbArr = osbbArr);
     }

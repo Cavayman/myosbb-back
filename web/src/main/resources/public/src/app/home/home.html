@@ -1,10 +1,7 @@
-<div class="container">
+<osbb-sidebar-menu></osbb-sidebar-menu>
+<osbb-header [isLoggedIn]="isLoggedIn"></osbb-header>
 
-    <app-header [isLoggedIn]="isLoggedIn"></app-header>
-    <div class="jumbotron">
-        <h1>Головна сторінка</h1>
-        <p class="lead"></p>
-        <p><a [routerLink]="['user/main']" class="btn btn-lg btn-success" role="button">Профіль</a></p>
-    </div>
-
+<div class=" wrapper">
+        <div class="info-box"></div>
+        <div class="content-box"></div>
 </div>
