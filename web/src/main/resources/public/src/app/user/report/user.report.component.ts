@@ -6,12 +6,14 @@ import {PageCreator} from "../../../shared/services/page.creator.interface";
 import "rxjs/Rx";
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS, ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
 
+
 @Component({
     selector: 'my-report',
     templateUrl: 'src/app/user/report/report.html',
     providers: [ReportService],
     directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES],
-    viewProviders: [BS_VIEW_PROVIDERS]
+    viewProviders: [BS_VIEW_PROVIDERS],
+    //styleUrls:['src/app/user/report/report.css', 'assets/']
 })
 export class UserReportComponent implements OnInit, OnDestroy {
 

@@ -14,7 +14,7 @@ import java.util.Collection;
 @Entity
 @Table(name = "house")
 public class House {
-    public static final House EMPTY_HOUSE = null;
+    public static final House EMPTY_HOUSE = new House();
     private Integer houseId;
     private String city;
     private String street;

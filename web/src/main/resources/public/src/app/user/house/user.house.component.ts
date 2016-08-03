@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {HouseService} from "./house.service";
 import {HousePageObject} from "./house.page.object";
+
 
 @Component({
     selector: 'my-user-house',
