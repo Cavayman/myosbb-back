@@ -1,0 +1,46 @@
+<div class="ui segment form">
+    <style>
+        .btn-primary{
+            background-color:  #68DFF0;
+            border-color: #68DFF0 ;
+        }
+        .btn-primary:hover{
+            background-color:  #3CB3C4;
+            border-color: #3CB3C4;
+        }
+
+    </style>
+    <button  class="btn btn-primary btn-lg btn-block" ><i
+                (click)="createModal.open()" >Add Role</i></button>
+
+    <modal #createModal [keyboard]="false" [backdrop]="'static'">
+        <modal-header [show-close]="false">
+            <h4 class="modal-title">Створити нову роль</h4>
+        </modal-header>
+        <modal-body> 
+
+            <input type="text" class="form-control" name="name"  placeholder="Введіть імя" #nameInput>
+
+        </modal-body>
+        <modal-footer >
+            <button type="button" class="btn btn-default" data-dismiss="modal" (click)="nameInput.value='';createModal.dismiss()">Cancel</button>
+            <button type="button" class="btn btn-primary" (click)="createRole(nameInput.value);nameInput.value='';createModal.close()">Save</button>
+        </modal-footer>
+    </modal>
+
+    <!-- UPDATE MODAL WINDOW -->
+     <modal #updateModal [keyboard]="false" [backdrop]="'static'">
+        <modal-header [show-close]="false">
+            <h4 class="modal-title">{{role.name}}</h4>
+        </modal-header>
+        <modal-body> 
+
+            <input type="text" class="form-control" name="name"  placeholder="Введіть нове імя" #updateNameInput value={{role.name}}>
+
+        </modal-body>
+        <modal-footer >
+            <button type="button" class="btn btn-default" data-dismiss="modal" (click)="updateModal.dismiss()">Cancel</button>
+            <button type="button" class="btn btn-primary" (click)="editRole(updateNameInput.value);updateModal.close()">Save</button>
+        </modal-footer>
+    </modal>
+</div>
