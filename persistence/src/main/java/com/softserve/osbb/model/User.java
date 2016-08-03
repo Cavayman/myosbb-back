@@ -196,7 +196,7 @@ public class User {
 //        this.roles = roles;
 //    }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name="user_option",
             joinColumns = @JoinColumn(name="user_id", referencedColumnName="user_id"),
             inverseJoinColumns = @JoinColumn(name="option_id", referencedColumnName="option_id")
