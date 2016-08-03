@@ -201,6 +201,7 @@ public class User {
             joinColumns = @JoinColumn(name="user_id", referencedColumnName="user_id"),
             inverseJoinColumns = @JoinColumn(name="option_id", referencedColumnName="option_id")
     )
+    @JsonIgnore
     public List<Option> getOptions() {
         return options;
     }
