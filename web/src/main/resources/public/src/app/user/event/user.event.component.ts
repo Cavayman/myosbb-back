@@ -17,11 +17,13 @@ export class UserEventComponent implements OnInit, OnDestroy {
 
     private events:Event[];
     private selectedEvent:Event = {eventId: null, name: '', author: '', description: '', date: '', path: ''};
+    private newEvent:Event = {eventId: null, name: '', author: '', description: '', date: '', path: ''};
     private pageCreator:PageCreator<Event>;
     private pageNumber:number = 1;
     private pageList:Array<number> = [];
     private totalPages:number;
     @ViewChild('delModal') public delModal:ModalDirective;
+    @ViewChild('createModal') public createModal:ModalDirective;
     @ViewChild('editModal') public editModal:ModalDirective;
     active:boolean = true;
     order:boolean = true;
@@ -51,7 +53,25 @@ export class UserEventComponent implements OnInit, OnDestroy {
     }
 
     closeEditModal() {
-        console.log('closing edt modal');
+        console.log('closing edit modal');
+        this.editModal.hide();
+    }
+
+    openCreateModal() {
+        this.createModal.show();
+    }
+
+    onCreateEventSubmit() {
+        this.active = false;
+        console.log('creating event');
+        this._eventService.addEvent(this.newEvent);
+        this._eventService.getAllEvents(this.pageNumber);
+        this.createModal.hide();
+        setTimeout(() => this.active = true, 0);
+    }
+
+    closeCreareModal() {
+        console.log('closing create modal');
         this.editModal.hide();
     }
 

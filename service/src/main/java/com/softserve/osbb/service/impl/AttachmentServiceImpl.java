@@ -91,7 +91,7 @@ public class AttachmentServiceImpl implements AttachmentService{
     @Override
     public Page<Attachment> getAllAttachments(Integer pageNumber, String sortBy, Boolean order) {
         PageRequest pageRequest = new PageRequest(pageNumber - 1, DEF_ROWS,
-                getSortingOrder(order), sortBy == null ? "date" : sortBy);
+                getSortingOrder(order), sortBy == null ? "path" : sortBy);
         return attachmentRepository.findAll(pageRequest);
     }
 

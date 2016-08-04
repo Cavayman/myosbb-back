@@ -5,25 +5,25 @@ import "rxjs/add/operator/map";
 import {Event} from "./event.interface";
 import "rxjs/add/operator/toPromise";
 
-
 @Injectable()
 export class EventService {
 
-    private getEventUr = '/restful/event?pageNumber=';
-    private delEventUrl = '/restful/event/';
-    private updateEventUrl = '/restful/event/';
+    private getEventUrl = 'http://localhost:52430/restful/event?pageNumber=';
+    private delEventUrl = 'http://localhost:52430/restful/event/';
+    private updateEventUrl = 'http://localhost:52430/restful/event/';
+    private postEventUrl = 'http://localhost:52430/restful/event';
 
     constructor(private _http:Http) {
     }
 
     getAllEvents(pageNumber:number):Observable<any> {
-        return this._http.get(this.getEventUr + pageNumber)
+        return this._http.get(this.getEventUrl + pageNumber)
             .map((response)=> response.json())
             .catch((error)=>Observable.throw(error));
     }
 
     getAllEventsSorted(pageNumber:number, name:string, order:boolean):Observable<any> {
-        return this._http.get(this.getEventUr + pageNumber + '&&sortedBy=' + name + '&&asc=' + order)
+        return this._http.get(this.getEventUrl + pageNumber + '&&sortedBy=' + name + '&&asc=' + order)
             .map((response)=> response.json())
             .catch((error)=>Observable.throw(error));
     }
@@ -55,5 +55,13 @@ export class EventService {
             .catch((error)=>console.error(error));
     }
 
+    addEvent(event:Event): Promise<Event> {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this._http.post(this.postEventUrl, JSON.stringify(event), {headers: headers})
+            .toPromise()
+            .then(()=>event)
+            .catch((error)=>console.error(error));
+    }
 
 }

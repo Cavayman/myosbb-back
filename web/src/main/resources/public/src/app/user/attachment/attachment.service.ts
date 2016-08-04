@@ -9,21 +9,21 @@ import "rxjs/add/operator/toPromise";
 @Injectable()
 export class AttachmentService {
 
-    private getAttachmentUr = '/restful/attachment?pageNumber=';
-    private delAttachmentUrl = '/restful/attachment/';
-    private updateAttachmentUrl = '/restful/attachment/';
+    private getAttachmentUrl = 'http://localhost:52430/restful/attachment?pageNumber=';
+    private delAttachmentUrl = 'http://localhost:52430/restful/attachment/';
+    private updateAttachmentUrl = 'http://localhost:52430/restful/attachment/';
 
     constructor(private _http:Http) {
     }
 
     getAllAttachments(pageNumber:number):Observable<any> {
-        return this._http.get(this.getAttachmentUr + pageNumber)
+        return this._http.get(this.getAttachmentUrl + pageNumber)
             .map((response)=> response.json())
             .catch((error)=>Observable.throw(error));
     }
 
     getAllAttachmentsSorted(pageNumber:number, name:string, order:boolean):Observable<any> {
-        return this._http.get(this.getAttachmentUr + pageNumber + '&&sortedBy=' + name + '&&asc=' + order)
+        return this._http.get(this.getAttachmentUrl + pageNumber + '&&sortedBy=' + name + '&&asc=' + order)
             .map((response)=> response.json())
             .catch((error)=>Observable.throw(error));
     }

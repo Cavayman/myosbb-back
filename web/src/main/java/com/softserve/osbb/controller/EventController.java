@@ -33,7 +33,7 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
-    @RequestMapping(value="/", method = RequestMethod.POST)
+    @RequestMapping(value="", method = RequestMethod.POST)
     public ResponseEntity<Resource<Event>> createEvent(@RequestBody Event event) {
         logger.info("Saving event " + event);
         event = eventService.saveEvent(event);
@@ -66,13 +66,12 @@ public class EventController {
         return new ResponseEntity<>(eventResource, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Resource<Event>> updateEvent(@PathVariable("id") Integer eventId,
-                                                       @RequestBody Event event) {
-        logger.info("Updating event by id: " + eventId);
-        event = eventService.updateEvent(eventId, event);
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    public ResponseEntity<Resource<Event>> updateEvent(@RequestBody Event event) {
+        logger.info("Updating event by id: " + event.getEventId());
+        event = eventService.updateEvent(event.getEventId(), event);
         Resource<Event> eventResource = new Resource<>(event);
-        eventResource.add(linkTo(methodOn(EventController.class).findEventById(eventId)).withSelfRel());
+        eventResource.add(linkTo(methodOn(EventController.class).findEventById(event.getEventId())).withSelfRel());
         return new ResponseEntity<>(eventResource, HttpStatus.OK);
     }
 

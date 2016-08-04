@@ -65,13 +65,12 @@ public class AttachmentController {
         return new ResponseEntity<>(attachmentResource, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Resource<Attachment>> updateAttachment(@PathVariable("id") Integer attachmentId,
-                                                       @RequestBody Attachment attachment) {
-        logger.info("Updating attachment by id: " + attachmentId);
-        attachment = attachmentService.updateAttachment(attachmentId, attachment);
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    public ResponseEntity<Resource<Attachment>> updateAttachment(@RequestBody Attachment attachment) {
+        logger.info("Updating attachment by id: " + attachment.getAttachmentId());
+        attachment = attachmentService.updateAttachment(attachment.getAttachmentId(), attachment);
         Resource<Attachment> attachmentResource = new Resource<>(attachment);
-        attachmentResource.add(linkTo(methodOn(AttachmentController.class).findAttachmentById(attachmentId)).withSelfRel());
+        attachmentResource.add(linkTo(methodOn(AttachmentController.class).findAttachmentById(attachment.getAttachmentId())).withSelfRel());
         return new ResponseEntity<>(attachmentResource, HttpStatus.OK);
     }
 
@@ -90,7 +89,6 @@ public class AttachmentController {
     }
 
     private Resource<Attachment> getLink(Resource<Attachment> attachmentResource) {
-        //adding self-link
         attachmentResource.add(linkTo(methodOn(AttachmentController.class)
                 .findAttachmentById(attachmentResource.getContent().getAttachmentId()))
                 .withSelfRel());
