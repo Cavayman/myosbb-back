@@ -1,5 +1,28 @@
 {
   "HELLO": "privet",
-  "title": "НАШ ДВІР"
+  "title": "НАШ ДВІР",
+  "providers" : "провайдери",
+  "сompany":"компанія",
+  "type":"тип",
+  "price":"ціна",
+  "from":"від",
+  "to":"до",
+  "details":"деталі",
+  "periodicity":"періодичність",
+  "search":"пошук",
+  "description":"опис",
+  "edit":"редагуватти",
+  "delete":"видалити",
+  "GoToProviderPage":"Перейти на сторінку провайдера",
+  "required":"обов'язково",
+  "save":"зберегти",
+  "confirmDelete" : "Ви дійсно бажаєте видалити цей запис?",
+  "yes": "так",
+  "no":"ні",
+  "removing":"видалення",
+  "options":"опції",
+  "logo":"лого",
+  "type": "тип",
+  "PERMANENT_MONTHLY":"щомісячний"
 }
 

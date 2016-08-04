@@ -2390,3 +2390,17 @@ label {
     .selectedLang {
         color: grey;
     }
+
+
+    .red {
+        color: indianred;
+    }
+
+
+    .yellow {
+        color: sandybrown;
+    }
+
+    .highlight:hover{
+        color: cornflowerblue;
+    }
