@@ -1,10 +1,12 @@
 package com.softserve.osbb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.softserve.osbb.model.enums.Periodicity;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 
 /**
@@ -12,7 +14,7 @@ import java.util.Collection;
  */
 @Entity
 @Table(name = "provider")
-public class Provider implements Comparable{
+public class Provider implements Serializable {
     private Integer providerId;
     private String name;
     private String description;
@@ -74,6 +76,7 @@ public class Provider implements Comparable{
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "provider")
+    @JsonIgnore
     public Collection<Contract> getContracts() {
         return contracts;
     }
@@ -83,6 +86,7 @@ public class Provider implements Comparable{
     }
 
     @OneToMany(mappedBy = "provider")
+    @JsonIgnore
     public Collection<Bill> getBills() {
         return bills;
     }
@@ -103,6 +107,7 @@ public class Provider implements Comparable{
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "provider_type_id")
+    @JsonIgnore
     public ProviderType getType() {
         return type;
     }
@@ -119,12 +124,5 @@ public class Provider implements Comparable{
     @Override
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
-    }
-
-
-    //natural order by provider's names
-    @Override
-    public int compareTo(Object o) {
-        return name.compareTo(((Provider) o).getName());
     }
 }

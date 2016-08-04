@@ -12,22 +12,18 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-
+import java.util.HashSet;
 import java.util.List;
-import java.util.TreeSet;
-
 
 /**
  * Created by Anastasiia Fedorak on 05.07.2016.
  */
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = PersistenceConfiguration.class)
 @Rollback
 @Transactional
 public class ProviderRepositoryTest {
     private Provider provider;
-
 
     @Before
     public void init() {
@@ -40,11 +36,10 @@ public class ProviderRepositoryTest {
     @Autowired
     ProviderRepository providerRepository;
 
-
     @Test
     public void testSave() {
         Assert.assertNotNull(providerRepository.save(provider));
-        TreeSet<Provider> providers = new TreeSet<>();
+        HashSet<Provider> providers = new HashSet<>();
         providers.add(provider);
         providers.add(new Provider("A"));
         providers.add(new Provider("C"));
@@ -56,7 +51,7 @@ public class ProviderRepositoryTest {
 
     @Test
     public void testCount() {
-        TreeSet<Provider> providers = new TreeSet<>();
+        HashSet<Provider> providers = new HashSet<>();
         providers.add(provider);
         providers.add(new Provider("A"));
         providers.add(new Provider("C"));
