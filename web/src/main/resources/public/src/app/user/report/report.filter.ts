@@ -7,12 +7,12 @@ import {Report} from "./report.interface";
 export class ReportFilter implements PipeTransform {
 
 
-    transform(value: Report[], args: string): any {
+    transform(value: Report[], args: string[]): any {
 
         let result = [];
 
         for (let val of value) {
-            if (val.creationDate.match('^.*' + args + '.*?')) {
+            if (val.creationDate.match('^.*' + args[0] + '.*?')) {
                 result.push(val);
             }
         }

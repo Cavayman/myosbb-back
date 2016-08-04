@@ -1,3 +1,4 @@
 .top-report-panel {
-    top: 50px;
+    position: relative;
+    top: -40px;
 }

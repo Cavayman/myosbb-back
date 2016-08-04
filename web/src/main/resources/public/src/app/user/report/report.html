@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel panel-default top-report-panel">
     <div class="panel-heading">
         <div class="row">
             <div class="col-xs-6">
@@ -36,7 +36,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let report of reports | reportFilter:filter.value">
+                <tr *ngFor="let report of reports">
                     <td>{{report.name}}</td>
                     <td>{{report.creationDate}}</td>
                     <td><a href="{{report.filePath}}">file</a></td>
