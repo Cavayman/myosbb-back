@@ -82,7 +82,7 @@ public class EventController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/",  method = RequestMethod.DELETE)
+    @RequestMapping(value = "",  method = RequestMethod.DELETE)
     public ResponseEntity<Event> deleteAllEvents() {
         logger.info("Removing all events.");
         eventService.deleteAllEvents();

@@ -76,6 +76,31 @@
                 </div>
             </div>
 
+            <!-- DeleteAll Modal-->
+            <div bsModal #delAllModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+                 aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" aria-label="Close"
+                                    (click)="delAllModal.hide()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title">Видалення....</h4>
+                        </div>
+                        <div class="modal-body">
+                            <h5>Ви дійсно бажаєте видалити всі події?</h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" (click)="delAllModal.hide()">Ні
+                            </button>
+                            <button type="button" class="btn btn-primary" (click)="closeDelAllModal()">Так
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!--Edit Modal -->
             <div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
                  aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -221,7 +246,7 @@
                 </li>
             </ul>
         </nav>
-
+        <button type="button" class="btn btn-success" (click)="openCreateModal()">Створити</button>
+        <button type="button" class="btn btn-danger" (click)="openDelAllModal()">Видалити всі</button>
     </div>
-    <button type="button" class="btn btn-success" (click)="openCreateModal()">Створити</button>
 </div>

@@ -10,6 +10,7 @@ export class EventService {
 
     private getEventUrl = 'http://localhost:52430/restful/event?pageNumber=';
     private delEventUrl = 'http://localhost:52430/restful/event/';
+    private delAllEventUrl = 'http://localhost:52430/restful/event/';
     private updateEventUrl = 'http://localhost:52430/restful/event/';
     private postEventUrl = 'http://localhost:52430/restful/event';
 
@@ -36,7 +37,13 @@ export class EventService {
         return this._http.delete(url, {headers: headers})
             .toPromise()
             .catch((error)=>console.error(error));
+    }
 
+    deleteAllEvents() {
+        console.log('delete all events');
+        return this._http.delete(this.delAllEventUrl)
+            .toPromise()
+            .catch((error)=>console.error(error));
     }
 
     editAndSave(event:Event) {

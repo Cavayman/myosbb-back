@@ -23,6 +23,7 @@ export class UserEventComponent implements OnInit, OnDestroy {
     private pageList:Array<number> = [];
     private totalPages:number;
     @ViewChild('delModal') public delModal:ModalDirective;
+    @ViewChild('delAllModal') public delAllModal:ModalDirective;
     @ViewChild('createModal') public createModal:ModalDirective;
     @ViewChild('editModal') public editModal:ModalDirective;
     active:boolean = true;
@@ -66,13 +67,14 @@ export class UserEventComponent implements OnInit, OnDestroy {
         console.log('creating event');
         this._eventService.addEvent(this.newEvent);
         this._eventService.getAllEvents(this.pageNumber);
+        this.getEventsByPageNum(this.pageNumber);
         this.createModal.hide();
         setTimeout(() => this.active = true, 0);
     }
 
-    closeCreareModal() {
+    closeCreateModal() {
         console.log('closing create modal');
-        this.editModal.hide();
+        this.createModal.hide();
     }
 
     openDelModal(id:number) {
@@ -86,6 +88,17 @@ export class UserEventComponent implements OnInit, OnDestroy {
         this._eventService.deleteEventById(this.eventId);
         this.getEventsByPageNum(this.pageNumber);
         this.delModal.hide();
+    }
+
+    openDelAllModal() {
+        this.delAllModal.show();
+    }
+
+    closeDelAllModal() {
+        console.log('delete all');
+        this._eventService.deleteAllEvents();
+        this.getEventsByPageNum(this.pageNumber);
+        this.delAllModal.hide();
     }
 
     ngOnInit():any {
