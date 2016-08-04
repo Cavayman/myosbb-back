@@ -1,30 +1,31 @@
-import {Component, OnInit, Output, EventEmitter} from "@angular/core";
-import {Router} from "@angular/router";
-import {LoginStat} from "../../shared/services/login.stats";
+import {Component, OnInit, Output} from '@angular/core'
+import {EventEmitter} from '@angular/core';
+import {User} from "../user/users/User";
+import {RegisterService} from "./register.service";
 
 @Component({
-    selector: 'app-login',
+    selector: 'app-register',
     templateUrl: 'src/app/registration/registration.html',
-    styleUrls:['assets/css/registration/registration.css']
+    styleUrls:['assets/css/registration/registration.css'],
+    providers:[RegisterService]
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationComponent  {
+    newUser:User=new User();
 
-    isLoggedIn:boolean;
-    @Output() private loggedIn = new EventEmitter();
-
-    constructor(private _router:Router, private _loginStat:LoginStat) {
-    }
-
-    ngOnInit():any {
+    constructor(private registerService:RegisterService) {
 
     }
 
-    onUserLoginClick() {
-        this.isLoggedIn = true;
-        this.loggedIn.emit(this.isLoggedIn);
-        this._loginStat.setLoginStat(this.isLoggedIn);
-        this._router.navigate(['home']);
-
+    onSubmit(){
+        this.registerService.sendUser(this.newUser).subscribe(
+            data => {
+               //this.registered=true;
+                this.newUser=new User();
+            },
+            error=>console.log(error)
+        );
     }
+
+
 
 }

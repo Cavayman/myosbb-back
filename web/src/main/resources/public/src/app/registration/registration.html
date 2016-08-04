@@ -1,35 +1,72 @@
-<div class="container">
-<div class="registration-form  col-xs-12 ">
-    <div class="form-header">
-   <h3>Registration </h3>
-    </div>
-    <div class="form-container col-xs-6">
-        <div class="row">
-            <label>Ім'я</label> <input class="form-control placeholder-no-fix" type="text" required >
-        </div>
-        <div class="row">
-            <label>Фамілія</label> <input class="form-control placeholder-no-fix" type="text" required>
-        </div>
-        <div class="row">
-            <label>e-mail</label> <input class="form-control placeholder-no-fix" type="text" required>
-        </div>
-        <div class="row">
-            <label>Номер телефону</label> <input class="form-control placeholder-no-fix" type="text" required>
-        </div>
-        <div class="row">
-            <label>Гендер</label> <input class="form-control placeholder-no-fix" type="text" required>
-        </div>
-        <div class="row">
-            <label>Дата народження</label> <input class="form-control placeholder-no-fix" type="text" required>
-        </div>
-    </div>
-    <div class="form-footer col-xs-12 row ">
-            <div clas="col-xs-3">
-            <a class="btn btn-danger" href="/">Назад</a>
+<div class="container " xmlns:javascript="http://www.w3.org/1999/xhtml">
+    <div class="registration-form  col-xs-12 ">
+        <form class="ui form " (ngSubmit)="onSubmit()" #registerForm="ngForm">
+            <div class="form-header">
+            <h3>Registration </h3>
             </div>
-        <div clas="col-xs-3">
-            <a class="btn btn-primary" href="/home">Готово</a>
-        </div>
+            <div class="form-container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label>Ім'я</label>
+                        <input class="form-control placeholder-no-fix" name="firstName"[(ngModel)]="newUser.firstName" type="text" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label>Фамілія</label>
+                        <input class="form-control placeholder-no-fix" name="lastName"[(ngModel)]="newUser.lastName" type="text" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label>Емейл</label>
+
+                        <input class="form-control placeholder-no-fix"name="email" [(ngModel)]="newUser.email" type="text" required>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-xs-12">
+                        <label>Номер телефону</label>
+                        <input class="form-control placeholder-no-fix" name="phoneNumber" [(ngModel)]="newUser.phoneNumber" type="text" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label>Стать</label>
+                        <input class="form-control placeholder-no-fix"name="phoneNumber" [(ngModel)]="newUser.gender" type="text" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+
+                        <label>Дата народження</label>
+                    <input class="form-control placeholder-no-fix"name="birthDate" [(ngModel)]="newUser.birthDate" type="text" required>
+                </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xs-6">
+                    <label>Пароль</label> <input class="form-control placeholder-no-fix col-xs-6"name="password" [(ngModel)]="newUser.password" type="password" required>
+                    </div>
+                    <div class="col-xs-6">
+                      <label>Підтвердіть пароль</label> <input class="form-control placeholder-no-fix col-xs-6" type="password" required>
+                    </div>
+                </div>
+                <br>
+                <hr>
+            </div>
+
+                    <div class="row form-footer">
+                        <div class="col-xs-6">
+                        <a class="btn btn-danger col-xs-12" href="javascript:history.back()">Назад</a>
+                        </div>
+                        <div class="col-xs-6">
+                            <button class="btn btn-primary col-xs-12"  type='submit'>Готово</button>
+                            </div>
+                    </div>
+
+        </form>
     </div>
 </div>
-    </div>
+
