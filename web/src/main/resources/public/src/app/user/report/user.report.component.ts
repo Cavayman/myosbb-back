@@ -6,6 +6,7 @@ import {PageCreator} from "../../../shared/services/page.creator.interface";
 import "rxjs/Rx";
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS, ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
 import {ReportFilter} from "./report.filter";
+import {DomSanitizationService} from "@angular/platform-browser";
 
 
 @Component({
@@ -20,28 +21,29 @@ import {ReportFilter} from "./report.filter";
 export class UserReportComponent implements OnInit, OnDestroy {
 
     private reports: Report[] = [];
-    private selectedReport:Report = {reportId: null, name: '', description: '', creationDate: '', filePath: ''};
-    private pageCreator:PageCreator<Report>;
-    private pageNumber:number = 1;
-    private pageList:Array<number> = [];
-    private totalPages:number;
-    @ViewChild('delModal') public delModal:ModalDirective;
-    @ViewChild('editModal') public editModal:ModalDirective;
-    active:boolean = true;
-    order:boolean = true;
+    private selectedReport: Report = {reportId: null, name: '', description: '', creationDate: '', filePath: ''};
+    private pageCreator: PageCreator<Report>;
+    private pageNumber: number = 1;
+    private pageList: Array<number> = [];
+    private totalPages: number;
+    @ViewChild('delModal') public delModal: ModalDirective;
+    @ViewChild('editModal') public editModal: ModalDirective;
+    active: boolean = true;
+    order: boolean = true;
 
-    private reportId:number;
+    private reportId: number;
 
-    constructor(private _reportService:ReportService) {
+    constructor(private _reportService: ReportService, private sanitizer: DomSanitizationService) {
+
     }
 
-    openEditModal(report:Report) {
+    openEditModal(report: Report) {
         this.selectedReport = report;
         console.log('selected report: ' + this.selectedReport);
         this.editModal.show();
     }
 
-    isDateValid(date:string):boolean {
+    isDateValid(date: string): boolean {
         return /\d{4}-\d{2}-\d{2}/.test(date);
     }
 
@@ -59,7 +61,7 @@ export class UserReportComponent implements OnInit, OnDestroy {
         this.editModal.hide();
     }
 
-    openDelModal(id:number) {
+    openDelModal(id: number) {
         this.reportId = id;
         console.log('show', this.reportId);
         this.delModal.show();
@@ -72,17 +74,17 @@ export class UserReportComponent implements OnInit, OnDestroy {
         this.delModal.hide();
     }
 
-    ngOnInit():any {
+    ngOnInit(): any {
         this.getReportsByPageNum(this.pageNumber);
     }
 
-    getReportsByPageNum(pageNumber:number) {
+    getReportsByPageNum(pageNumber: number) {
         this.pageNumber = +pageNumber;
         this.emptyArray();
         return this._reportService.getAllReports(this.pageNumber)
             .subscribe((data) => {
                     this.pageCreator = data;
-                    this.reports = data.rows;
+                    this.reports = this.sanitizeUrlData(data.rows);
                     this.preparePageList(+this.pageCreator.beginPage,
                         +this.pageCreator.endPage);
                     this.totalPages = +data.totalPages;
@@ -91,6 +93,18 @@ export class UserReportComponent implements OnInit, OnDestroy {
                     console.error(error)
                 });
     };
+
+    sanitizeUrlData(reports: Report[]): Report[] {
+        let safeUrlReports = [];
+
+        for (var report of reports) {
+            report.filePath = this.sanitizer.bypassSecurityTrustUrl(report.filePath).toString();
+            safeUrlReports.push(report);
+        }
+
+        return safeUrlReports;
+    }
+
 
     prevPage() {
         this.pageNumber = this.pageNumber - 1;
@@ -108,14 +122,14 @@ export class UserReportComponent implements OnInit, OnDestroy {
         }
     }
 
-    preparePageList(start:number, end:number) {
+    preparePageList(start: number, end: number) {
         for (let i = start; i <= end; i++) {
             this.pageList.push(i);
         }
     }
 
 
-    sortBy(name:string) {
+    sortBy(name: string) {
         console.log('sorted by ', name);
         this.order = !this.order;
         console.log('order by asc', this.order);
@@ -134,7 +148,7 @@ export class UserReportComponent implements OnInit, OnDestroy {
     }
 
 
-    ngOnDestroy():any {
+    ngOnDestroy(): any {
         //this.subscriber.unsubscribe();
     }
 

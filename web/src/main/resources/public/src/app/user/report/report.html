@@ -39,7 +39,7 @@
                 <tr *ngFor="let report of reports | reportFilter:filter.value">
                     <td>{{report.name}}</td>
                     <td>{{report.creationDate}}</td>
-                    <td><a href="{{report.filePath}}">file</a></td>
+                    <td><a href="{{report.filePath}}"><i class="fa fa-file" aria-hidden="true"></i></a></td>
                     <td>{{report.description}}</td>
                     <td>
                         <div class="dropdown">
