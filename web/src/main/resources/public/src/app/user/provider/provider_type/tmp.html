@@ -1,0 +1,12 @@
+<div class="form-control">
+    <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownProviderType"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownProviderType">
+            <li *ngFor="let type of types"><a style="cursor: pointer"  (click)="onSelect(type)" ></a></li>
+        </ul>
+    </div>
+</div>

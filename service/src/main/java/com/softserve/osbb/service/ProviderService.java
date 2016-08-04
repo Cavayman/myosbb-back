@@ -1,6 +1,7 @@
 package com.softserve.osbb.service;
 
 import com.softserve.osbb.model.Provider;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,5 +38,7 @@ public interface ProviderService {
     Provider updateProvider(Integer providerId, Provider provider) throws Exception;
 
     List<Provider> findProvidersByNameOrDescription(String name);
+
+    Page<Provider> getProviders(Integer pageNumber, String sortBy, Boolean order);
 
 }
