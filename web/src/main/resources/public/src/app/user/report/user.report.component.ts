@@ -5,6 +5,7 @@ import {ReportService} from "./report.service";
 import {PageCreator} from "../../../shared/services/page.creator.interface";
 import "rxjs/Rx";
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS, ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
+import {ReportFilter} from "./report.filter";
 
 
 @Component({
@@ -13,7 +14,8 @@ import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS, ModalDirective} from "ng2-bootstrap
     providers: [ReportService],
     directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES],
     viewProviders: [BS_VIEW_PROVIDERS],
-    styleUrls: ['src/app/user/report/report.css']
+    styleUrls: ['src/app/user/report/report.css'],
+    pipes: [ReportFilter]
 })
 export class UserReportComponent implements OnInit, OnDestroy {
 

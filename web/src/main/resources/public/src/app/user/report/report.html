@@ -36,7 +36,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let report of reports">
+                <tr *ngFor="let report of reports | reportFilter:filter.value">
                     <td>{{report.name}}</td>
                     <td>{{report.creationDate}}</td>
                     <td><a href="{{report.filePath}}">file</a></td>

@@ -6,7 +6,7 @@ import {ROUTER_DIRECTIVES} from "@angular/router";
     // inputs: ['userName'],
     directives: [ROUTER_DIRECTIVES]
 })
-export class SidebarMenuComponent {
+export class SideBarMenuComponent {
 
     userName:string;
 

@@ -5,7 +5,7 @@ import {FileDownloaderComponent} from "../../download/file.downloader.component"
     selector: 'my-user-bill',
     templateUrl: 'src/app/user/bills/bill.html',
     directives: [FileDownloaderComponent],
-    styleUrls: ['src/app/user/bill/bill.css']
+    styleUrls: ['src/app/user/bills/bill.css']
 })
 export class UserBillComponent {
 
