@@ -1,17 +1,23 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit} from '@angular/core';
+import {CORE_DIRECTIVES} from '@angular/common';
 import {HTTP_PROVIDERS} from "@angular/http";
-import {MODAL_DIRECTIVES} from "ng2-bs3-modal/ng2-bs3-modal";
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/toPromise";
-import {IOsbb} from "./osbb";
-import {OsbbService} from "./osbb.service";
-import {OsbbFormComponent} from "./osbb-form.component";
+import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS} from 'ng2-bootstrap/ng2-bootstrap';
+import {ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/Rx';
+
+import {IOsbb} from './osbb';
+import { OsbbService } from './osbb.service';
+import { OsbbAddFormComponent } from './osbb_form/osbb-add-form.component';
+import { OsbbEditFormComponent } from './osbb_form/osbb-edit-form.component';
+import { OsbbDelFormComponent } from './osbb_form/osbb-del-form.component';
 
 @Component({
     selector: 'osbb',
     templateUrl: './src/app/user/osbb/osbb.component.html',
-    directives:[OsbbFormComponent, MODAL_DIRECTIVES],
-    providers: [HTTP_PROVIDERS, OsbbService]
+     providers: [HTTP_PROVIDERS, OsbbService],
+    directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, OsbbAddFormComponent, OsbbEditFormComponent, OsbbDelFormComponent],
+    viewProviders: [BS_VIEW_PROVIDERS]
 })
 export class OsbbComponent implements OnInit { 
     
@@ -30,25 +36,23 @@ export class OsbbComponent implements OnInit {
         this.updatedOsbb = osbb;
     }
 
-    onOsbbCreated(osbb:IOsbb): void {
+    createOsbb(osbb:IOsbb): void {
         this.osbbService.addOsbb(osbb).then(osbb => this.addOsbb(osbb));
     }
 
-    onOsbbEdited(osbb:IOsbb): void {
+    editOsbb(osbb:IOsbb): void {
         this.osbbService.editOsbb(osbb);
     }
 
-    onOsbbDeleted(osbb:IOsbb): void {
-        if(confirm("Are you sure?")) {
-            this.osbbService.deleteOsbb(osbb).then(osbb => this.deleteOsbb(osbb));
-        }
+    deleteOsbb(osbb:IOsbb): void {
+        this.osbbService.deleteOsbb(osbb).then(osbb => this.deleteOsbbFromArr(osbb));
     }
 
     private addOsbb(osbb: IOsbb): void {
         this.osbbArr.push(osbb);
     }
 
-     private deleteOsbb(osbb: IOsbb): void {
+     private deleteOsbbFromArr(osbb: IOsbb): void {
          let index = this.osbbArr.indexOf(osbb);
          if(index > -1) {
             this.osbbArr.splice(index, 1);
