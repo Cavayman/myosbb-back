@@ -35,8 +35,6 @@ export class ProviderService {
     }
 
 
-
-
     getSortedProviders(pageNumber:number, name:string, order:boolean):Observable<any> {
         return this._http.get(this.urlWithParams + pageNumber + '&&sortedBy=' + name + '&&asc=' + order)
             .map((res)=> res.json())
