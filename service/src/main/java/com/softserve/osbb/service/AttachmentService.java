@@ -2,13 +2,19 @@ package com.softserve.osbb.service;
 
 import com.softserve.osbb.model.Attachment;
 import org.springframework.data.domain.Page;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
  * Created by nataliia on 11.07.16.
  */
 public interface AttachmentService {
+
+    void uploadFile(MultipartFile file) throws IOException;
+
+    Attachment downloadFile(String filename);
 
     Attachment saveAttachment(Attachment attachment);
 

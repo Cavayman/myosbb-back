@@ -1,192 +1,188 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
-<!-- 2016-07-30T22:13:31 -->
-<jasperReport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xmlns="http://jasperreports.sourceforge.net/jasperreports"
+<!-- 2016-08-04T00:29:35 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
               name="users" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20"
               rightMargin="20" topMargin="20" bottomMargin="20" uuid="46cb9164-5924-42c6-acc2-7f894315f80d">
-    <property name="ireport.zoom" value="1.0"/>
-    <property name="ireport.x" value="0"/>
-    <property name="ireport.y" value="0"/>
-    <style name="Title" fontName="Arial" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
-    <style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
-    <style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
-    <style name="Detail" fontName="Arial" fontSize="12"/>
-    <style name="Row" mode="Transparent">
-        <conditionalStyle>
-            <conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
-            <style backcolor="#E6DAC3"/>
-        </conditionalStyle>
-    </style>
-    <field name="billId" class="java.lang.Integer"/>
-    <field name="ownerName" class="java.lang.String"/>
-    <field name="apartmentNumber" class="java.lang.Integer"/>
-    <field name="providerName" class="java.lang.String"/>
-    <field name="amountToPay" class="java.lang.Float">
-        <fieldDescription><![CDATA[]]></fieldDescription>
-    </field>
-    <field name="amountPaid" class="java.lang.Float"/>
-    <variable name="amountPaid1" class="java.lang.Float" resetType="Group" resetGroup="Group2" calculation="Sum">
-        <variableExpression><![CDATA[$F{amountPaid}]]></variableExpression>
-    </variable>
-    <variable name="amountPaid2" class="java.lang.Float" resetType="Group" resetGroup="Group2" calculation="First">
-        <variableExpression><![CDATA[$F{amountPaid}]]></variableExpression>
-    </variable>
-    <variable name="amountPaid3" class="java.lang.Float" resetType="Group" resetGroup="Group1" calculation="Sum">
-        <variableExpression><![CDATA[$F{amountPaid}]]></variableExpression>
-    </variable>
-    <variable name="amountToPay1" class="java.lang.Float" resetType="Group" resetGroup="Group1" calculation="Sum">
-        <variableExpression><![CDATA[$F{amountToPay}]]></variableExpression>
-    </variable>
-    <group name="Group1">
-        <groupExpression><![CDATA[(int)($V{REPORT_COUNT}/15)]]></groupExpression>
-        <groupHeader>
-            <band/>
-        </groupHeader>
-        <groupFooter>
-            <band height="68">
-                <textField>
-                    <reportElement x="580" y="0" width="100" height="20" uuid="7090c4b7-5594-4aee-8560-cb8f7090c7fe"/>
-                    <textFieldExpression><![CDATA[$V{amountPaid3}]]></textFieldExpression>
-                </textField>
-                <staticText>
-                    <reportElement x="79" y="0" width="101" height="20" uuid="b9bf077b-7adf-4dc4-a1ac-f29b63c1949f"/>
-                    <text><![CDATA[Sum:]]></text>
-                </staticText>
-                <staticText>
-                    <reportElement x="80" y="41" width="99" height="18" uuid="914c01d7-e66b-49b7-8221-1fb8d70f145a"/>
-                    <text><![CDATA[Debt:]]></text>
-                </staticText>
-                <textField>
-                    <reportElement x="480" y="0" width="100" height="20" uuid="72ecd8cb-16b1-42c7-918e-461eb20fa37f"/>
-                    <textFieldExpression><![CDATA[$V{amountToPay1}]]></textFieldExpression>
-                </textField>
-                <textField>
-                    <reportElement x="180" y="40" width="100" height="20" uuid="8a3e8cde-d2fa-4477-b807-33c69d684f25"/>
-                    <textFieldExpression>
-                        <![CDATA[$V{PAGE_NUMBER}.sum($V{amountPaid3}.intValue(), -$V{amountToPay1} .intValue())]]></textFieldExpression>
-                </textField>
-                <line>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<field name="billId" class="java.lang.Integer"/>
+	<field name="ownerName" class="java.lang.String"/>
+	<field name="apartmentNumber" class="java.lang.Integer"/>
+	<field name="providerName" class="java.lang.String"/>
+	<field name="amountToPay" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="amountPaid" class="java.lang.Float"/>
+	<variable name="amountPaid1" class="java.lang.Float" resetType="Group" resetGroup="Group2" calculation="Sum">
+		<variableExpression><![CDATA[$F{amountPaid}]]></variableExpression>
+	</variable>
+	<variable name="amountPaid2" class="java.lang.Float" resetType="Group" resetGroup="Group2" calculation="First">
+		<variableExpression><![CDATA[$F{amountPaid}]]></variableExpression>
+	</variable>
+	<variable name="amountPaid3" class="java.lang.Float" resetType="Group" resetGroup="Group1" calculation="Sum">
+		<variableExpression><![CDATA[$F{amountPaid}]]></variableExpression>
+	</variable>
+	<variable name="amountToPay1" class="java.lang.Float" resetType="Group" resetGroup="Group1" calculation="Sum">
+		<variableExpression><![CDATA[$F{amountToPay}]]></variableExpression>
+	</variable>
+	<group name="Group1">
+		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/15)]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+            <band height="76">
+				<line>
                     <reportElement positionType="FixRelativeToBottom" x="80" y="38" width="601" height="1"
                                    uuid="080c1a31-c930-4ba8-9d16-659510124473"/>
-                    <graphicElement>
-                        <pen lineWidth="0.5" lineColor="#999999"/>
-                    </graphicElement>
-                </line>
-            </band>
-        </groupFooter>
-    </group>
-    <group name="Group2">
-        <groupExpression><![CDATA[(int)($V{REPORT_COUNT}/5)]]></groupExpression>
-        <groupHeader>
-            <band height="4"/>
-        </groupHeader>
-    </group>
-    <background>
-        <band splitType="Stretch"/>
-    </background>
-    <title>
-        <band height="143" splitType="Stretch">
-            <textField pattern="MMMMM dd, yyyy">
-                <reportElement x="510" y="50" width="170" height="30" uuid="8654221a-b195-468d-b3b1-bd9e77133c00"/>
-                <textElement>
-                    <font size="14"/>
-                </textElement>
-                <textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-            </textField>
-            <staticText>
+					<graphicElement>
+						<pen lineWidth="0.5" lineColor="#999999"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Group2">
+		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/5)]]></groupExpression>
+		<groupHeader>
+			<band height="4"/>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="143" splitType="Stretch">
+			<textField pattern="MMMMM dd, yyyy">
+                <reportElement x="560" y="60" width="120" height="22" uuid="8654221a-b195-468d-b3b1-bd9e77133c00"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
                 <reportElement style="Title" x="80" y="49" width="190" height="33"
                                uuid="876c0ef2-4c5a-4e15-bc2c-14aa4ca049b4"/>
-                <textElement verticalAlignment="Middle">
-                    <font fontName="Arial" size="16"/>
-                </textElement>
-                <text><![CDATA[Report]]></text>
-            </staticText>
-        </band>
-    </title>
-    <pageHeader>
-        <band splitType="Stretch"/>
-    </pageHeader>
-    <columnHeader>
-        <band height="26" splitType="Stretch">
-            <staticText>
-                <reportElement x="80" y="1" width="100" height="19" uuid="64a56c14-f8cf-4844-8b8f-e5ca74ef5aec"/>
-                <text><![CDATA[#]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="180" y="1" width="100" height="19" uuid="66e0f9f0-b580-4cc5-8cd8-7c494c950209"/>
-                <text><![CDATA[Name]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="280" y="1" width="100" height="18" uuid="e0f689bc-d2c1-46d4-a8eb-d78298a6591b"/>
-                <text><![CDATA[Apartment #]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="380" y="1" width="100" height="20" uuid="0f765db8-66e2-41bd-9732-cf6f7bc0d56a"/>
-                <text><![CDATA[Provider/Service]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="480" y="1" width="100" height="19" uuid="0440740f-2e38-40ad-aa3e-eeb84c937d13"/>
-                <text><![CDATA[amount to pay]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="580" y="0" width="100" height="20" uuid="6bb914c6-0462-448b-a287-fb1954935595"/>
-                <text><![CDATA[amount paid]]></text>
-            </staticText>
-            <line>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="16"/>
+				</textElement>
+				<text><![CDATA[Report]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement x="80" y="1" width="100" height="19" uuid="64a56c14-f8cf-4844-8b8f-e5ca74ef5aec"/>
+				<text><![CDATA[#]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="1" width="100" height="19" uuid="66e0f9f0-b580-4cc5-8cd8-7c494c950209"/>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="1" width="100" height="18" uuid="e0f689bc-d2c1-46d4-a8eb-d78298a6591b"/>
+				<text><![CDATA[Apartment #]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="1" width="100" height="20" uuid="0f765db8-66e2-41bd-9732-cf6f7bc0d56a"/>
+				<text><![CDATA[Provider/Service]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="1" width="100" height="19" uuid="0440740f-2e38-40ad-aa3e-eeb84c937d13"/>
+				<text><![CDATA[amount to pay]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="580" y="0" width="100" height="20" uuid="6bb914c6-0462-448b-a287-fb1954935595"/>
+				<text><![CDATA[amount paid]]></text>
+			</staticText>
+			<line>
                 <reportElement positionType="FixRelativeToBottom" x="80" y="19" width="600" height="1"
                                uuid="a957bc54-5f41-4199-838b-78302b658f68"/>
-                <graphicElement>
-                    <pen lineWidth="0.5" lineColor="#999999"/>
-                </graphicElement>
-            </line>
-        </band>
-    </columnHeader>
-    <detail>
-        <band height="23" splitType="Stretch">
-            <frame>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<frame>
                 <reportElement style="Row" mode="Opaque" x="80" y="1" width="600" height="20"
                                uuid="3d2ab116-872e-4068-bb1c-9ed3e593b787"/>
-                <textField>
-                    <reportElement x="-1" y="0" width="100" height="20" uuid="41f7198f-99bb-4329-bcce-472dd649792a"/>
-                    <textFieldExpression><![CDATA[$F{billId}]]></textFieldExpression>
-                </textField>
-                <textField>
-                    <reportElement x="100" y="0" width="100" height="20" uuid="f2c4827f-fe52-45fc-bd14-018bfad2624d"/>
-                    <textFieldExpression><![CDATA[$F{ownerName}]]></textFieldExpression>
-                </textField>
-                <textField>
-                    <reportElement x="200" y="0" width="100" height="20" uuid="03b8739a-a798-4f44-bdc0-addbd889c86c"/>
-                    <textFieldExpression><![CDATA[$F{apartmentNumber}]]></textFieldExpression>
-                </textField>
-                <textField>
-                    <reportElement x="300" y="0" width="100" height="20" uuid="aaca8f20-dd6d-4788-86f3-3ef1d29ce30d"/>
-                    <textFieldExpression><![CDATA[$F{providerName}]]></textFieldExpression>
-                </textField>
-                <textField>
-                    <reportElement x="400" y="0" width="100" height="20" uuid="2855ec39-d884-4954-8b9e-3f9696a6e654"/>
-                    <textFieldExpression><![CDATA[$F{amountToPay}]]></textFieldExpression>
-                </textField>
-                <textField>
-                    <reportElement x="500" y="0" width="100" height="20" uuid="66dcca48-e4ac-4028-a046-3916d21a6e31"/>
-                    <textFieldExpression><![CDATA[$F{amountPaid}]]></textFieldExpression>
-                </textField>
-            </frame>
-        </band>
-    </detail>
-    <columnFooter>
-        <band splitType="Stretch"/>
-    </columnFooter>
-    <pageFooter>
-        <band height="44" splitType="Stretch">
-            <textField>
-                <reportElement x="580" y="0" width="100" height="30" uuid="3ccfab9d-0f2c-40ad-b39f-d3328c56785d"/>
-                <textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
-            </textField>
-        </band>
+				<textField>
+					<reportElement x="-1" y="0" width="100" height="20" uuid="41f7198f-99bb-4329-bcce-472dd649792a"/>
+					<textFieldExpression><![CDATA[$F{billId}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="100" y="0" width="100" height="20" uuid="f2c4827f-fe52-45fc-bd14-018bfad2624d"/>
+					<textFieldExpression><![CDATA[$F{ownerName}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="200" y="0" width="100" height="20" uuid="03b8739a-a798-4f44-bdc0-addbd889c86c"/>
+					<textFieldExpression><![CDATA[$F{apartmentNumber}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="300" y="0" width="100" height="20" uuid="aaca8f20-dd6d-4788-86f3-3ef1d29ce30d"/>
+					<textFieldExpression><![CDATA[$F{providerName}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="400" y="0" width="100" height="20" uuid="2855ec39-d884-4954-8b9e-3f9696a6e654"/>
+					<textFieldExpression><![CDATA[$F{amountToPay}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="500" y="0" width="100" height="20" uuid="66dcca48-e4ac-4028-a046-3916d21a6e31"/>
+					<textFieldExpression><![CDATA[$F{amountPaid}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+        <band height="44" splitType="Stretch"/>
     </pageFooter>
     <summary>
-        <band splitType="Stretch"/>
-    </summary>
+        <band height="20" splitType="Stretch">
+			<textField>
+                <reportElement x="580" y="0" width="100" height="16" uuid="7090c4b7-5594-4aee-8560-cb8f7090c7fe"/>
+                <textFieldExpression><![CDATA[$V{amountPaid3}]]></textFieldExpression>
+			</textField>
+            <textField>
+                <reportElement x="480" y="0" width="100" height="16" uuid="72ecd8cb-16b1-42c7-918e-461eb20fa37f"/>
+                <textFieldExpression><![CDATA[$V{amountToPay1}]]></textFieldExpression>
+            </textField>
+            <textField evaluationTime="Report">
+                <reportElement x="180" y="0" width="100" height="14" uuid="f4fbf442-d68a-4512-b476-1e5253ddfdfe"/>
+                <textFieldExpression>
+                    <![CDATA[$V{PAGE_NUMBER}.sum($V{amountPaid3}.intValue(), -$V{amountToPay1} .intValue())]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="80" y="1" width="99" height="14" uuid="914c01d7-e66b-49b7-8221-1fb8d70f145a"/>
+                <text><![CDATA[Debt:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="380" y="0" width="101" height="20" uuid="b9bf077b-7adf-4dc4-a1ac-f29b63c1949f"/>
+                <text><![CDATA[Sum:]]></text>
+            </staticText>
+		</band>
+	</summary>
 </jasperReport>

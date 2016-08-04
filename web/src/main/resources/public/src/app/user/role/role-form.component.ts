@@ -30,7 +30,7 @@ export class RoleFormComponent implements OnInit{
 
     ngOnInit() {
         if(this.role === undefined){
-            this.role = new Role("", "");
+            this.role = new Role("");
         }
     }
 

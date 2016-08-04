@@ -9,6 +9,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import org.springframework.web.multipart.MultipartFile;
+import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,7 +30,49 @@ public class AttachmentServiceImpl implements AttachmentService{
     @Autowired
     AttachmentRepository attachmentRepository;
 
+    public static final String ROOT = "upload-dir";
+
     private static final int DEF_ROWS = 10;
+
+    @Override
+    public void uploadFile(MultipartFile file) throws IOException {
+        Path attachmentPath = saveFile(getFilePathWithSubDir(file), file);
+        Attachment attachment = new Attachment();
+        attachment.setPath(attachmentPath.toString().replaceFirst(ROOT, ""));
+        saveAttachment(attachment);
+    }
+
+    private Path getFilePathWithSubDir(MultipartFile file) throws IOException {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Path path = Paths.get(ROOT + "/" + dateFormat.format(new Date()));
+        Files.createDirectories(path);
+        return Paths.get(String.valueOf(path) + "/" + file.getOriginalFilename());
+    }
+
+    private Path saveFile(Path newFilePath, MultipartFile file) throws IOException {
+        if (!Files.exists(newFilePath)) {
+            Files.copy(file.getInputStream(), newFilePath);
+            return newFilePath;
+        } else {
+            int i = 0;
+            Path tempPath = newFilePath;
+            while (true) {
+                try {
+                    Files.copy(file.getInputStream(), tempPath);
+                    return tempPath;
+                } catch (FileAlreadyExistsException ex) {
+                    String filePathWithoutExtension = newFilePath.toString().substring(0, newFilePath.toString().lastIndexOf("."));
+                    String fileExtension = newFilePath.toString().substring(newFilePath.toString().lastIndexOf("."));
+                    tempPath = Paths.get(filePathWithoutExtension + "(" + ++i + ")" + fileExtension);
+                }
+            }
+        }
+    }
+
+    @Override
+    public Attachment downloadFile(String filename) {
+        return attachmentRepository.findByPath(filename);
+    }
 
     @Override
     public Attachment saveAttachment(Attachment attachment) {

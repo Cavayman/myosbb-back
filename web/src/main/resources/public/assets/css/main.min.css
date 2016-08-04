@@ -187,8 +187,7 @@ header .intro-text .skills {
 }
 
 section {
-    padding: 60px 0 0;
-    margin:0;
+    padding: 100px 0
 }
 
 section h2 {
@@ -510,6 +509,11 @@ footer .footer-below {
 
 .top {
     margin-top: 10px;
+}
+
+.profile_btn {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
 }
 
 

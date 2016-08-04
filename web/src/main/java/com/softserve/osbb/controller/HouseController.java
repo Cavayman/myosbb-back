@@ -1,5 +1,7 @@
 package com.softserve.osbb.controller;
 
+import com.softserve.osbb.dto.HousePageDTO;
+import com.softserve.osbb.dto.HousePageDTOMapper;
 import com.softserve.osbb.model.Apartment;
 import com.softserve.osbb.model.House;
 import com.softserve.osbb.service.HouseService;
@@ -23,12 +25,27 @@ import static com.softserve.osbb.util.ResourceUtil.toResource;
  * Created by nazar.dovhyy on 19.07.2016.
  */
 @RestController
+@CrossOrigin()
 @RequestMapping("/restful/house")
 public class HouseController {
 
     @Autowired
     HouseService houseService;
     private static Logger logger = LoggerFactory.getLogger(HouseController.class);
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<EntityResourceList<HousePageDTO>> listAllHouses() {
+        final EntityResourceList<HousePageDTO> housePageDTOEntityResourceList = new HouseResourceList();
+        List<House> houseList = houseService.getAllHouses();
+        logger.info("retrieve all houses: " + houseList);
+        houseList.forEach((house) -> {
+            HousePageDTO housePageDTO = HousePageDTOMapper.mapHouseEntityToDTO(house);
+            Resource<HousePageDTO> housePageDTOResource = housePageDTOEntityResourceList.createLink(toResource(housePageDTO));
+            housePageDTOEntityResourceList.add(housePageDTOResource);
+        });
+
+        return new ResponseEntity<EntityResourceList<HousePageDTO>>(housePageDTOEntityResourceList, HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/{id}/apartments", method = RequestMethod.GET)
     public ResponseEntity<EntityResourceList<Apartment>> getAllApartmentsByHouseId(@PathVariable("id") Integer houseId) {
@@ -54,22 +71,25 @@ public class HouseController {
 
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Resource<House>> getHouseById(@PathVariable("id") Integer houseId) {
+    public ResponseEntity<Resource<HousePageDTO>> getHouseById(@PathVariable("id") Integer houseId) {
         House house;
-        Resource<House> houseResource = null;
+        HousePageDTO housePageDTO;
+        Resource<HousePageDTO> houseResource = null;
         try {
             house = houseService.findHouseById(houseId);
-            ResourceLinkCreator<House> houseResourceLinkCreator = new HouseResourceList();
-            houseResource = houseResourceLinkCreator.createLink(toResource(house));
+            housePageDTO = HousePageDTOMapper.mapHouseEntityToDTO(house);
+            ResourceLinkCreator<HousePageDTO> houseResourceLinkCreator = new HouseResourceList();
+            houseResource = houseResourceLinkCreator.createLink(toResource(housePageDTO));
 
         } catch (Exception e) {
-            logger.error("error finding house by id: ",  houseId);
+            logger.error("error finding house by id: ", houseId);
             e.printStackTrace();
         }
-        return new ResponseEntity<>(houseResource, HttpStatus.OK);
+        return new ResponseEntity(houseResource, HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    /*
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<Resource<House>> saveHouse(@RequestBody House house) {
         Resource<House> houseResource = null;
         try {
@@ -82,6 +102,6 @@ public class HouseController {
         }
         return new ResponseEntity<>(houseResource, HttpStatus.OK);
     }
-
+*/
 
 }

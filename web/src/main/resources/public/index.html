@@ -23,6 +23,7 @@
     <link rel="stylesheet" type="text/css" href="assets/css/zabuto_calendar.css">
     <link rel="stylesheet" type="text/css" href="assets/js/gritter/css/jquery.gritter.css"/>
     <link rel="stylesheet" type="text/css" href="assets/lineicons/style.css">
+    <link href="assets/bower/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles -->
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="assets/css/style-responsive.css" rel="stylesheet">
@@ -38,11 +39,14 @@
     <script src="assets/js/jquery.sparkline.js"></script>
     <link rel="stylesheet" type="text/css" href="node_modules/angular2-toaster/lib/toaster.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2014-11-29/FileSaver.min.js"></script>
+    <!-- for ng2-bs3-modal  -->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.js"></script>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.js"></script>-->
 
     <!-- 2. Configure SystemJS -->
     <script src="systemjs.js"></script>
     <script>
-        System.import('bin').catch(function (err) {
+        System.import('bin/boot').catch(function (err) {
             console.error(err);
         });
     </script>

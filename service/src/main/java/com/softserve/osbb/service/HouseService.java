@@ -13,14 +13,20 @@ import java.util.List;
 @Service
 public interface HouseService {
 
-    House addHouse(House house) throws Exception;
-    House updateHouse(Integer houseId, House house) throws Exception;
-    House findHouseById(Integer houseId) throws Exception;
-    List<House> getAllHouses() throws Exception;
-    List<House> findAllByCity(String city) throws Exception;
+    House addHouse(House house);
+
+    House updateHouse(Integer houseId, House house);
+
+    House findHouseById(Integer houseId);
+
+    List<House> getAllHouses();
+
+    List<House> findAllByCity(String city);
     List<House> findAllByStreet(String street);
     List<Apartment> findAllAppartmentsByHouseId(Integer houseId);
-    boolean deleteHouseById(Integer id) throws Exception;
-    void deleteAllHouses() throws Exception;
+
+    boolean deleteHouseById(Integer id);
+
+    void deleteAllHouses();
 
 }

@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface AttachmentRepository extends JpaRepository<Attachment, Integer> {
+    Attachment findByPath(String path);
 }

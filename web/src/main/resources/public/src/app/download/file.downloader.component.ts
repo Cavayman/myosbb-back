@@ -9,7 +9,7 @@ import {
 } from "angular2-toaster/angular2-toaster";
 import {RedirectComponent} from "./redirect.component";
 
-let reportDownloadUrl = 'restful/report/download';
+let reportDownloadUrl = 'http://localhost:52430/restful/report/download';
 
 declare var saveAs:any;
 
@@ -27,6 +27,7 @@ const CSV_MIME_TYPE = 'text/csv';
 export class FileDownloaderComponent {
 
     private pending:boolean = false;
+    private hasError: boolean = false;
     public toasterconfig:ToasterConfig =
         new ToasterConfig({timeout: 10000});
 
@@ -47,6 +48,7 @@ export class FileDownloaderComponent {
 
         xhr.onreadystatechange = function () {
             setTimeout(() => {
+                self.pending = false;
                 console.log('inside service: ' + self.pending);
             }, 0);
 
@@ -54,17 +56,17 @@ export class FileDownloaderComponent {
                 let mimeType = setContentType(docType);
                 var blob = new Blob([this.response], {type: mimeType});
                 saveAs(blob, setFileName(docType));
-                self.pending = false;
             } else if (xhr.status === 404) {
                 console.error('could not find resource');
                 self.pending = true;
+                self.hasError = true;
 
             }
         };
 
         xhr.send();
         setTimeout(()=> {
-                if (self.pending == false)
+            if (!self.pending || !self.hasError)
                     self._toasterService.pop(stoast);
                 else {
                     self._toasterService.pop(etoast);

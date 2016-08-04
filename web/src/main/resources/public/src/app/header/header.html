@@ -3,7 +3,7 @@
         <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
     </div>
     <!--logo start-->
-    <a [routerLink]="['login']" class="logo"><i class="fa fa-home fa-lg" aria-hidden="true"><b>Наш Двір</b></i></a>
+    <a [routerLink]="['']" class="logo"><i class="fa fa-home fa-lg" aria-hidden="true"><b>Наш Двір</b></i></a>
     <!--logo end-->
     <div class="nav notify-row" id="top_menu">
         <!--  notification start -->
@@ -150,9 +150,7 @@
         </ul>
         <!--  notification end -->
     </div>
-    <div class="top-menu">
-        <ul class="nav pull-right top-menu">
-            <li *ngIf="isLoggedIn"><a [routerLink]="['user']" class="top">Profile</a></li>
-        </ul>
+    <div class="pull-right top" [ngStyle]="{'display': isLoggedIn ?'': 'none'}">
+        <p><a [routerLink]="['user/main']" role="button" class="btn btn-lg btn-success profile_btn">Профіль</a></p>
     </div>
 </header>

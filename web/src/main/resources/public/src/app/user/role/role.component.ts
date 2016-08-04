@@ -1,17 +1,21 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit} from '@angular/core';
+import {CORE_DIRECTIVES} from '@angular/common';
 import {HTTP_PROVIDERS} from "@angular/http";
-import {MODAL_DIRECTIVES} from "ng2-bs3-modal/ng2-bs3-modal";
+import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS} from 'ng2-bootstrap/ng2-bootstrap';
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/toPromise";
-import {IRole} from "./role";
-import {RoleService} from "./role.service";
-import {RoleFormComponent} from "./role-form.component";
+import {IRole} from './role';
+import { RoleService } from './role.service';
+import { RoleAddFormComponent } from './role_form/role-add-form.component';
+import { RoleEditFormComponent } from './role_form/role-edit-form.component';
+import { RoleDelFormComponent } from './role_form/role-del-form.component';
 
 @Component({
     selector: 'role',
     templateUrl: './src/app/user/role/role.component.html',
-    directives:[RoleFormComponent, MODAL_DIRECTIVES],
-    providers: [HTTP_PROVIDERS, RoleService]
+    providers: [HTTP_PROVIDERS, RoleService],
+    directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, RoleAddFormComponent, RoleEditFormComponent, RoleDelFormComponent],
+    viewProviders: [BS_VIEW_PROVIDERS]
 })
 export class RoleComponent implements OnInit {
     
@@ -29,28 +33,26 @@ export class RoleComponent implements OnInit {
         this.updatedRole = role;
     }
 
-    onRoleCreated(role:IRole): void {
+    createRole(role:IRole): void {
         this.roleService.addRole(role).then(role => this.addRole(role));
     }
 
-    onRoleEdited(role:IRole): void {
+    editRole(role:IRole): void {
         this.roleService.editRole(role);
     }
 
-    onRoleDeleted(role:IRole): void {
-        if(confirm("Are you sure?")) {
-            this.roleService.deleteRole(role).then(role => this.deleteRole(role));
-        }
+    deleteRole(role:IRole): void {
+        this.roleService.deleteRole(role).then(role => this.deleteRoleFromArr(role));
     }
 
     private addRole(role: IRole): void {
         this.roleArr.push(role);
     }
 
-     private deleteRole(role: IRole): void {
-         let index = this.roleArr.indexOf(role);
-         if(index > -1) {
+    private deleteRoleFromArr(role: IRole): void {
+        let index = this.roleArr.indexOf(role);
+        if(index > -1) {
             this.roleArr.splice(index, 1);
-         }
+        }
     }
 }

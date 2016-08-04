@@ -1,9 +1,9 @@
-import {Injectable} from "@angular/core";
-import {userItem} from "./userItem";
-import {Http, Headers, Response} from "@angular/http";
-import {Observable} from "rxjs/Observable";
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/toPromise";
+import {Injectable} from '@angular/core'
+import {User} from "./User";
+import {HTTP_PROVIDERS, Http,Headers,Response} from "@angular/http";
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class UsersService {
@@ -19,14 +19,24 @@ export class UsersService {
             .map(response => response.json());
     }
 
-    updateUser(user:userItem):Observable<userItem>{
+    updateUser(user:User):Observable<User>{
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         return this.http.post(this._pathUrl+user.userId,JSON.stringify(user),{headers:headers})
-            .map((res:Response) => {return new userItem(res.json())});
+            .map((res:Response) => {return new User(res.json())});
     }
-    deleteUser(user:userItem){
+
+    deleteUser(user:User){
         return this.http.delete(this._pathUrl+user.userId)
             .map(response => response.json());
+    }
+
+    saveUser(user:User):Observable<User>{
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(this._pathUrl,JSON.stringify(user),{headers:headers})
+            .map((res:Response) => {return new User(res.json())});
+
+
     }
 }

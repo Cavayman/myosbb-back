@@ -24,7 +24,7 @@ public class HouseServiceImpl implements HouseService {
     private HouseRepository houseRepository;
 
     @Override
-    public House addHouse(House house) throws Exception {
+    public House addHouse(House house) {
         return house == null ? House.EMPTY_HOUSE : addHouseIfNotNull(house);
     }
 
@@ -34,7 +34,7 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public House updateHouse(Integer houseId, House house) throws Exception {
+    public House updateHouse(Integer houseId, House house) {
         return house == null ? House.EMPTY_HOUSE : updateHouseIfExists(house);
     }
 
@@ -52,7 +52,7 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public List<House> getAllHouses() throws Exception {
+    public List<House> getAllHouses() {
         return houseRepository.findAll();
     }
 
@@ -76,7 +76,7 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public boolean deleteHouseById(Integer id) throws Exception {
+    public boolean deleteHouseById(Integer id) {
         final boolean houseExists = houseRepository.exists(id);
         if (!houseExists) {
             return false;
@@ -87,7 +87,7 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public void deleteAllHouses() throws Exception {
+    public void deleteAllHouses() {
         houseRepository.deleteAll();
     }
 }
