@@ -32,7 +32,7 @@ public class AttachmentController {
     @Autowired
     private AttachmentService attachmentService;
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<Resource<Attachment>> createAttachment(@RequestBody Attachment attachment) {
         logger.info("Saving attachment " + attachment);
         attachment = attachmentService.saveAttachment(attachment);
@@ -81,7 +81,7 @@ public class AttachmentController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.DELETE)
+    @RequestMapping(value = "", method = RequestMethod.DELETE)
     public ResponseEntity<Attachment> deleteAllAttachments() {
         logger.info("Removing all attachments.");
         attachmentService.deleteAllAttachments();

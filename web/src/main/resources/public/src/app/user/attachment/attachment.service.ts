@@ -11,7 +11,9 @@ export class AttachmentService {
 
     private getAttachmentUrl = 'http://localhost:52430/restful/attachment?pageNumber=';
     private delAttachmentUrl = 'http://localhost:52430/restful/attachment/';
+    private delAllAttachmentUrl = 'http://localhost:52430/restful/attachment/';
     private updateAttachmentUrl = 'http://localhost:52430/restful/attachment/';
+    private postAttachmentUrl = 'http://localhost:52430/restful/attachment';
 
     constructor(private _http:Http) {
     }
@@ -39,6 +41,13 @@ export class AttachmentService {
 
     }
 
+    deleteAllAttachments() {
+        console.log('delete all attachments');
+        return this._http.delete(this.delAllAttachmentUrl)
+            .toPromise()
+            .catch((error)=>console.error(error));
+    }
+
     editAndSave(attachment:Attachment) {
         if (attachment.attachmentId) {
             console.log('updating attachment with id: ' + attachment.attachmentId);
@@ -55,5 +64,12 @@ export class AttachmentService {
             .catch((error)=>console.error(error));
     }
 
-
+    addAttachment(attachment:Attachment): Promise<Attachment> {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this._http.post(this.postAttachmentUrl, JSON.stringify(attachment), {headers: headers})
+            .toPromise()
+            .then(()=>attachment)
+            .catch((error)=>console.error(error));
+    }
 }

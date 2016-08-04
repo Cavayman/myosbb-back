@@ -17,11 +17,14 @@ export class UserAttachmentComponent implements OnInit, OnDestroy {
 
     private attachments:Attachment[];
     private selectedAttachment:Attachment = {attachmentId: null, path: ''};
+    private newAttachment:Attachment = {attachmentId: null, path: ''};
     private pageCreator:PageCreator<Attachment>;
     private pageNumber:number = 1;
     private pageList:Array<number> = [];
     private totalPages:number;
     @ViewChild('delModal') public delModal:ModalDirective;
+    @ViewChild('delAllModal') public delAllModal:ModalDirective;
+    @ViewChild('createModal') public createModal:ModalDirective;
     @ViewChild('editModal') public editModal:ModalDirective;
     active:boolean = true;
     order:boolean = true;
@@ -51,8 +54,27 @@ export class UserAttachmentComponent implements OnInit, OnDestroy {
     }
 
     closeEditModal() {
-        console.log('closing edt modal');
+        console.log('closing edit modal');
         this.editModal.hide();
+    }
+
+    openCreateModal() {
+        this.createModal.show();
+    }
+
+    onCreateAttachmentSubmit() {
+        this.active = false;
+        console.log('creating attachment');
+        this._attachmentService.addAttachment(this.newAttachment);
+        this._attachmentService.getAllAttachments(this.pageNumber);
+        this.getAttachmentsByPageNum(this.pageNumber);
+        this.createModal.hide();
+        setTimeout(() => this.active = true, 0);
+    }
+
+    closeCreateModal() {
+        console.log('closing create modal');
+        this.createModal.hide();
     }
 
     openDelModal(id:number) {
@@ -66,6 +88,17 @@ export class UserAttachmentComponent implements OnInit, OnDestroy {
         this._attachmentService.deleteAttachmentById(this.attachmentId);
         this.getAttachmentsByPageNum(this.pageNumber);
         this.delModal.hide();
+    }
+
+    openDelAllModal() {
+        this.delAllModal.show();
+    }
+
+    closeDelAllModal() {
+        console.log('delete all');
+        this._attachmentService.deleteAllAttachments();
+        this.getAttachmentsByPageNum(this.pageNumber);
+        this.delAllModal.hide();
     }
 
     ngOnInit():any {
