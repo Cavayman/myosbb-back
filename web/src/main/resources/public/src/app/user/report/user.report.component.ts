@@ -84,7 +84,7 @@ export class UserReportComponent implements OnInit, OnDestroy {
         return this._reportService.getAllReports(this.pageNumber)
             .subscribe((data) => {
                     this.pageCreator = data;
-                    this.reports = this.sanitizeUrlData(data.rows);
+                    this.reports = data.rows;
                     this.preparePageList(+this.pageCreator.beginPage,
                         +this.pageCreator.endPage);
                     this.totalPages = +data.totalPages;
