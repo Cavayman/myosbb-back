@@ -12,7 +12,8 @@
         'rxjs': 'node_modules/rxjs',
         'angular2-toaster': 'node_modules/angular2-toaster',
         'ng2-bs3-modal': 'node_modules/ng2-bs3-modal',
-        'ng2-bootstrap': 'node_modules/ng2-bootstrap'
+        'ng2-bootstrap': 'node_modules/ng2-bootstrap',
+        'ng2-file-upload': 'node_modules/ng2-file-upload'
     };
     // packages tells the System loader how to load when no filename and/or no extension
     var packages = {
@@ -22,7 +23,8 @@
         'angular2-toaster': {main: 'angular2-toaster.js', defaultExtension: 'js'},
         'ng2-bs3-modal': {main: 'ng2-bs3-modal.js', defaultExtension: 'js'},
         'moment': {main: 'moment.js', defaultExtension: 'js'},
-        'ng2-bootstrap': {main: 'ng2-bootstrap.js', defaultExtension: 'js'}
+        'ng2-bootstrap': {main: 'ng2-bootstrap.js', defaultExtension: 'js'},
+        'ng2-file-upload': {main: 'ng2-file-upload.js', defaultExtension: 'js'}
     };
     var ngPackageNames = [
         'common',

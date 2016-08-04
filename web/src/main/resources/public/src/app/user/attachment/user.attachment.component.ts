@@ -5,15 +5,29 @@ import {AttachmentService} from "./attachment.service";
 import {PageCreator} from "../../../shared/services/page.creator.interface";
 import "rxjs/Rx";
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS, ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
+import {FileSelectDirective, FileDropDirective, FileUploader} from 'ng2-file-upload/ng2-file-upload';
+
+const attachmentDownloadUrl = 'http://localhost:52430/restful/attachment/';
+declare var saveAs:any;
 
 @Component({
     selector: 'my-attachment',
     templateUrl: 'src/app/user/attachment/attachment.html',
     providers: [AttachmentService],
-    directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES],
+    directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, FileSelectDirective, FileDropDirective],
     viewProviders: [BS_VIEW_PROVIDERS]
 })
 export class UserAttachmentComponent implements OnInit, OnDestroy {
+
+    public uploader:FileUploader = new FileUploader({url: attachmentDownloadUrl});
+    public hasBaseDropZoneOver:boolean = false;
+    public hasAnotherDropZoneOver:boolean = false;
+    public fileOverBase(e:any):void {
+        this.hasBaseDropZoneOver = e;
+    }
+    public fileOverAnother(e:any):void {
+        this.hasAnotherDropZoneOver = e;
+    }
 
     private attachments:Attachment[];
     private selectedAttachment:Attachment = {attachmentId: null, path: ''};
@@ -24,10 +38,12 @@ export class UserAttachmentComponent implements OnInit, OnDestroy {
     private totalPages:number;
     @ViewChild('delModal') public delModal:ModalDirective;
     @ViewChild('delAllModal') public delAllModal:ModalDirective;
-    @ViewChild('createModal') public createModal:ModalDirective;
+    // @ViewChild('createModal') public createModal:ModalDirective;
+    @ViewChild('downloadModal') public downloadModal:ModalDirective;
     @ViewChild('editModal') public editModal:ModalDirective;
     active:boolean = true;
     order:boolean = true;
+    private pending:boolean = false;
 
     private attachmentId:number;
 
@@ -58,23 +74,44 @@ export class UserAttachmentComponent implements OnInit, OnDestroy {
         this.editModal.hide();
     }
 
-    openCreateModal() {
-        this.createModal.show();
+    openDownloadModal() {
+        this.downloadModal.show();
     }
 
-    onCreateAttachmentSubmit() {
-        this.active = false;
-        console.log('creating attachment');
-        this._attachmentService.addAttachment(this.newAttachment);
-        this._attachmentService.getAllAttachments(this.pageNumber);
-        this.getAttachmentsByPageNum(this.pageNumber);
-        this.createModal.hide();
-        setTimeout(() => this.active = true, 0);
+    closeDownloadModal() {
+        console.log('closing download modal');
+        this.downloadModal.hide();
     }
 
-    closeCreateModal() {
-        console.log('closing create modal');
-        this.createModal.hide();
+
+    public download(attachmentPath:string) {
+
+        let self = this;
+        this.pending = true;
+
+        let xhr = new XMLHttpRequest();
+        let url = attachmentDownloadUrl + attachmentPath;
+        xhr.open('GET', url, true);
+        xhr.responseType = 'blob';
+        console.log('preparing download...');
+
+        xhr.onreadystatechange = function () {
+            setTimeout(() => {
+                console.log('inside service: ' + self.pending);
+            }, 0);
+
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var blob = new Blob([this.response]);
+                saveAs(blob, attachmentPath);
+                self.pending = false;
+            } else if (xhr.status === 404) {
+                console.error('could not find resource');
+                self.pending = true;
+
+            }
+        };
+
+        xhr.send();
     }
 
     openDelModal(id:number) {
@@ -143,7 +180,6 @@ export class UserAttachmentComponent implements OnInit, OnDestroy {
         }
     }
 
-
     sortBy(name:string) {
         console.log('sorted by ', name);
         this.order = !this.order;
@@ -161,7 +197,6 @@ export class UserAttachmentComponent implements OnInit, OnDestroy {
                     console.error(error)
                 });
     }
-
 
     ngOnDestroy():any {
         //this.subscriber.unsubscribe();
