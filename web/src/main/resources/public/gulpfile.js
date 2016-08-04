@@ -14,6 +14,7 @@ var typescript = require('gulp-typescript');
 
 var tsProject = typescript.createProject('tsconfig.json');
 
+
 gulp.task('build-ts', function () {
     return gulp.src(appDev + '**/*.ts')
         .pipe(sourcemaps.init())
@@ -23,6 +24,7 @@ gulp.task('build-ts', function () {
         .pipe(gulp.dest(appProd));
 });
 
+
 gulp.task('build-html', function () {
     return gulp.src(appDev + '**/*.html')
         .pipe(gulp.dest(appProd));
@@ -30,7 +32,6 @@ gulp.task('build-html', function () {
 
 gulp.task('watch', function () {
     gulp.watch(appDev + '**/*.ts', ['build-ts']);
-
 });
 
 gulp.task('default', ['watch', 'build-ts']);

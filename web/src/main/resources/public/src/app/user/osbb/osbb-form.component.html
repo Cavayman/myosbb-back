@@ -1,0 +1,33 @@
+<div class="ui segment form">
+    <button  class="btn btn-success btn-xs"><i class="fa fa-check" 
+                (click)="createModal.open()">Add Osbb</i></button>
+
+     <modal #createModal [keyboard]="false" [backdrop]="'static'">
+        <modal-header [show-close]="false">
+            <h4 class="modal-title">Створити нове ОСББ</h4>
+        </modal-header>
+        <modal-body> 
+           <input type="text" name="name" placeholder="enter name"  #nameInput ><br><br>
+           <input type="text" name="description" placeholder="enter description" #descriptionInput>
+        </modal-body>
+        <modal-footer >
+            <button type="button" class="btn btn-default" data-dismiss="modal" (click)="nameInput.value='';descriptionInput.value='';createModal.dismiss()">Cancel</button>
+            <button type="button" class="btn btn-primary" (click)="createOsbb(nameInput.value, descriptionInput.value);nameInput.value='';descriptionInput.value='';createModal.close()">Save</button>
+        </modal-footer>
+    </modal>
+
+    <!-- UPDATE MODAL WINDOW -->
+     <modal #updateModal [keyboard]="false" [backdrop]="'static'">
+        <modal-header [show-close]="false">
+            <h4 class="modal-title">{{osbb.name}}</h4>
+        </modal-header>
+        <modal-body> 
+           <input type="text" name="name" #updateNameInput value={{osbb.name}}><br><br>
+           <input type="text" name="description" #updateDescriptionInput value={{osbb.description}}>
+        </modal-body>
+        <modal-footer >
+            <button type="button" class="btn btn-default" data-dismiss="modal" (click)="updateModal.dismiss()">Cancel</button>
+            <button type="button" class="btn btn-primary" (click)="editOsbb(updateNameInput.value, updateDescriptionInput.value);updateModal.close()">Save</button>
+        </modal-footer>
+    </modal>
+</div>

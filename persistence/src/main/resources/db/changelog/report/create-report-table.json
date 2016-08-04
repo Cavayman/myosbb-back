@@ -1,7 +1,7 @@
 { "databaseChangeLog": [
   {
     "changeSet": {
-      "id": "2016/08/30-26",
+      "id": "2016/08/03-29",
       "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
@@ -22,7 +22,7 @@
               {
                 "column": {
                   "name": "creation_date",
-                  "type": "TIMESTAMP(6) WITHOUT TIME ZONE"
+                  "type": "date"
                 }
               },
               {
@@ -48,18 +48,18 @@
                   "name": "osbb_id",
                   "type": "INT"
                 }
-              }]
-          ,
+              }
+            ],
             "tableName": "report"
           }
-        }]
-
+        }
+      ]
     }
   },
 
   {
     "changeSet": {
-      "id": "2016/08/30-44",
+      "id": "2016/08/03-60",
       "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [

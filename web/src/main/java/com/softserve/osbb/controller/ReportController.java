@@ -2,21 +2,24 @@ package com.softserve.osbb.controller;
 
 import com.softserve.osbb.model.Osbb;
 import com.softserve.osbb.model.Report;
+import com.softserve.osbb.service.gen.ReportDownloadService;
 import com.softserve.osbb.service.impl.ReportServiceImpl;
+import com.softserve.osbb.util.PageCreator;
 import com.softserve.osbb.util.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static com.softserve.osbb.util.ResourceUtil.*;
-
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.softserve.osbb.util.ResourceUtil.toResource;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
@@ -33,6 +36,9 @@ public class ReportController {
     @Autowired
     private ReportServiceImpl reportService;
 
+    @Autowired
+    private ReportDownloadService reportDownloadService;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<List<Resource<Report>>> listAllReports() {
         List<Report> reportList = reportService.getAllReports();
@@ -45,6 +51,33 @@ public class ReportController {
         reportList.stream().forEach((report) -> resourceReportList.add(getLink(toResource(report))));
         return new ResponseEntity<>(resourceReportList, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public ResponseEntity<PageCreator<Resource<Report>>> listAllReports(
+            @RequestParam(value = "pageNumber", required = true) Integer pageNumber,
+            @RequestParam(value = "sortedBy", required = false) String sortedBy,
+            @RequestParam(value = "asc", required = false) Boolean ascOrder) {
+        logger.info("get all report by page number: " + pageNumber);
+        Page<Report> reportsByPage = reportService.getAllReports(pageNumber, sortedBy, ascOrder);
+
+        int currentPage = reportsByPage.getNumber() + 1;
+        int begin = Math.max(1, currentPage - 5);
+        int totalPages = reportsByPage.getTotalPages();
+        int end = Math.min(currentPage + 5, totalPages);
+
+        List<Resource<Report>> resourceList = new ArrayList<>();
+        reportsByPage.forEach((report) -> resourceList.add(getLink(toResource(report))));
+
+        PageCreator<Resource<Report>> pageCreator = new PageCreator<>();
+        pageCreator.setRows(resourceList);
+        pageCreator.setCurrentPage(Integer.valueOf(currentPage).toString());
+        pageCreator.setBeginPage(Integer.valueOf(begin).toString());
+        pageCreator.setEndPage(Integer.valueOf(end).toString());
+        pageCreator.setTotalPages(Integer.valueOf(totalPages).toString());
+
+        return new ResponseEntity<>(pageCreator, HttpStatus.OK);
+    }
+
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<Resource<Report>> createReport(@RequestBody Report report) {
@@ -120,6 +153,14 @@ public class ReportController {
         logger.info("removing all reports");
         reportService.deleteAll();
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/download", method = RequestMethod.GET)
+    public void download(@RequestParam(value = "type", required = true) String type,
+                         HttpServletResponse httpServletResponse) {
+        logger.info("preparing download");
+        reportDownloadService.download(type, httpServletResponse);
+
     }
 
 }

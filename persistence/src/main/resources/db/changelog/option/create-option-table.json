@@ -1,0 +1,41 @@
+{ "databaseChangeLog": [
+  {
+    "changeSet": {
+      "id": "2016/08/03-25",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "autoIncrement": true,
+                  "constraints": {
+                    "primaryKey": true,
+                    "primaryKeyName": "option_pkey"
+                  },
+                  "name": "option_id",
+                  "type": "SERIAL"
+                }
+              },
+              {
+                "column": {
+                  "name": "description",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "vote_id",
+                  "type": "INT"
+                }
+              }]
+          ,
+            "tableName": "option"
+          }
+        }]
+
+    }
+  }]
+}

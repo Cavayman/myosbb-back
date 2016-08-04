@@ -2,9 +2,6 @@ package com.softserve.osbb.util;
 
 import org.springframework.hateoas.Resource;
 
-import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
-
 /**
  * Created by nazar.dovhyy on 19.07.2016.
  */

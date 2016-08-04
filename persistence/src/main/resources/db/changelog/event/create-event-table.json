@@ -1,7 +1,7 @@
 { "databaseChangeLog": [
   {
     "changeSet": {
-      "id": "2016/08/30-20",
+      "id": "2016/08/03-21",
       "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
@@ -28,7 +28,7 @@
               {
                 "column": {
                   "name": "date",
-                  "type": "TIMESTAMP(6) WITHOUT TIME ZONE"
+                  "type": "date"
                 }
               },
               {
@@ -54,14 +54,107 @@
                   "name": "osbb_id",
                   "type": "INT"
                 }
-              }]
-          ,
+              }
+            ],
             "tableName": "event"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "changeSet": {
+      "id": "2016/08/03-22",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "constraints": {
+                    "nullable": false
+                  },
+                  "name": "event",
+                  "type": "INT"
+                }
+              },
+              {
+                "column": {
+                  "constraints": {
+                    "nullable": false
+                  },
+                  "name": "attachments",
+                  "type": "INT"
+                }
+              }
+            ],
+            "tableName": "event_attachments"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "changeSet": {
+      "id": "2016/08/03-38",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addUniqueConstraint": {
+            "columnNames": "attachments",
+            "constraintName": "uk_lhpd3rdk724n2et3ac7cb7ykd",
+            "tableName": "event_attachments"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "changeSet": {
+      "id": "2016/08/03-50",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "event",
+            "baseTableName": "event_attachments",
+            "constraintName": "fk_ght0wa64x3i2j9pq7ektb4bp3",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "event_id",
+            "referencedTableName": "event"
+          }
+        }
+      ]
+    }
+  },
+
+  {
+    "changeSet": {
+      "id": "2016/08/03-57",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "attachments",
+            "baseTableName": "event_attachments",
+            "constraintName": "fk_lhpd3rdk724n2et3ac7cb7ykd",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "attachment_id",
+            "referencedTableName": "attachment"
           }
         }]
 
     }
-
-
   }]
 }

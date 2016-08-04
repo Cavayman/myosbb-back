@@ -1,6 +1,7 @@
 package com.softserve.osbb.service;
 
 import com.softserve.osbb.model.Attachment;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -13,13 +14,13 @@ public interface AttachmentService {
 
     List<Attachment> saveAttachments(List<Attachment> list);
 
-    Attachment findAttachmentById(Integer id);
+    Attachment getAttachmentById(Integer id);
 
-    List<Attachment> findAttachments(List<Attachment> list);
+    List<Attachment> getAttachments(List<Attachment> list);
 
-    List<Attachment> findAttachmentsByIds(List<Integer> ids);
+    List<Attachment> getAttachmentsByIds(List<Integer> ids);
 
-    List<Attachment> findAllAttachments();
+    List<Attachment> getAllAttachments();
 
     Attachment updateAttachment(Integer id, Attachment attachment);
 
@@ -34,4 +35,6 @@ public interface AttachmentService {
     long countAttachments();
 
     boolean existsAttachment(Integer id);
+
+    Page<Attachment> getAllAttachments(Integer pageNumber, String sortedBy, Boolean ascOrder);
 }

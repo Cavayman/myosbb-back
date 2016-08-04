@@ -6,17 +6,36 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 
 /**
  * Created by nazar.dovhyy on 29.07.2016.
  */
 public class PdfReportTemplate extends ReportTemplate {
+
+    public PdfReportTemplate() {
+        this.setFileName(buildDestinationFileName(getFileExtension()));
+    }
+
     @Override
-    public void export(JasperPrint jp, ByteArrayOutputStream baos) throws JRException {
-        this.fileName = "user_bill.pdf";
+    public void saveToOutputStream(JasperPrint jp, ByteArrayOutputStream baos) throws JRException {
         JRPdfExporter jrPdfExporter = new JRPdfExporter();
         jrPdfExporter.setParameter(JRExporterParameter.OUTPUT_STREAM, baos);
         jrPdfExporter.setParameter(JRExporterParameter.JASPER_PRINT, jp);
         jrPdfExporter.exportReport();
     }
+
+    @Override
+    public String saveToFile(JasperPrint jasperPrint, String outputDir) throws JRException {
+        String outputFileName = outputDir + File.separator + getFileName();
+        if (jasperPrint != null) {
+            JRPdfExporter jrException = new JRPdfExporter();
+            jrException.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            jrException.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, outputFileName);
+            jrException.exportReport();
+        }
+        return outputFileName;
+    }
+
+
 }

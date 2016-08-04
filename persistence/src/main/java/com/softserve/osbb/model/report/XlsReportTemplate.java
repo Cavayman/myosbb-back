@@ -7,14 +7,19 @@ import net.sf.jasperreports.engine.export.JRXlsAbstractExporterParameter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 
 /**
  * Created by nazar.dovhyy on 29.07.2016.
  */
 public class XlsReportTemplate extends ReportTemplate {
+
+    public XlsReportTemplate() {
+        setFileName(buildDestinationFileName(getFileExtension()));
+    }
+
     @Override
-    public void export(JasperPrint jp, ByteArrayOutputStream baos) throws JRException {
-        this.fileName = "user_bill.xls";
+    public void saveToOutputStream(JasperPrint jp, ByteArrayOutputStream baos) throws JRException {
         // create jasper to xls instance object
         JRXlsExporter jrXlsExporter = new JRXlsExporter();
         //passing required parameters
@@ -25,5 +30,17 @@ public class XlsReportTemplate extends ReportTemplate {
         jrXlsExporter.setParameter(JRXlsAbstractExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
         jrXlsExporter.setParameter(JRXlsAbstractExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
         jrXlsExporter.exportReport();
+    }
+
+    @Override
+    public String saveToFile(JasperPrint jasperPrint, String outputDir) throws JRException {
+        String destFileName = outputDir + File.separator + getFileName();
+        JRXlsExporter exporter = new JRXlsExporter();
+        exporter.setParameter(JRExporterParameter.JASPER_PRINT,
+                jasperPrint);
+        exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME,
+                destFileName);
+        exporter.exportReport();
+        return destFileName;
     }
 }

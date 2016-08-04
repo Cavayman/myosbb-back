@@ -1,7 +1,7 @@
 { "databaseChangeLog": [
   {
     "changeSet": {
-      "id": "2016/08/30-21",
+      "id": "2016/08/03-23",
       "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
@@ -21,13 +21,13 @@
               },
               {
                 "column": {
-                  "name": "street",
+                  "name": "city",
                   "type": "VARCHAR(255)"
                 }
               },
               {
                 "column": {
-                  "name": "city",
+                  "name": "street",
                   "type": "VARCHAR(255)"
                 }
               },
@@ -42,18 +42,18 @@
                   "name": "osbb_id",
                   "type": "INT"
                 }
-              }]
-          ,
+              }
+            ],
             "tableName": "house"
           }
-        }]
-
+        }
+      ]
     }
   },
 
   {
     "changeSet": {
-      "id": "2016/08/30-43",
+      "id": "2016/08/03-58",
       "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [

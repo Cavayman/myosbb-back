@@ -1,8 +1,8 @@
 package com.softserve.osbb.repository;
 
 import com.softserve.osbb.PersistenceConfiguration;
-import com.softserve.osbb.model.Osbb;
 import com.softserve.osbb.model.Event;
+import com.softserve.osbb.model.Osbb;
 import com.softserve.osbb.model.enums.Periodicity;
 import org.junit.Before;
 import org.junit.Test;

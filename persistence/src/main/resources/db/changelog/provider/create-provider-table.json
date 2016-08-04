@@ -1,7 +1,7 @@
 { "databaseChangeLog": [
   {
     "changeSet": {
-      "id": "2016/08/30-24",
+      "id": "2016/08/03-27",
       "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
@@ -33,6 +33,12 @@
               },
               {
                 "column": {
+                  "name": "name",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
                   "name": "periodicity",
                   "type": "VARCHAR(255)"
                 }
@@ -42,18 +48,17 @@
                   "name": "provider_type_id",
                   "type": "INT"
                 }
-              }]
-          ,
+              }
+            ],
             "tableName": "provider"
           }
-        }]
-
+        }
+      ]
     }
   },
-
   {
     "changeSet": {
-      "id": "2016/08/30-32",
+      "id": "2016/08/03-40",
       "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
@@ -69,14 +74,14 @@
             "referencedColumnNames": "provider_id",
             "referencedTableName": "provider"
           }
-        }]
-
+        }
+      ]
     }
   },
 
   {
     "changeSet": {
-      "id": "2016/08/30-35",
+      "id": "2016/08/03-42",
       "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
@@ -95,5 +100,6 @@
         }]
 
     }
-  }]
+  }
+]
 }

@@ -3,7 +3,6 @@ package com.softserve.osbb.service.impl;
 import com.softserve.osbb.model.Message;
 import com.softserve.osbb.repository.MessageRepository;
 import com.softserve.osbb.service.MessageService;
-import org.hibernate.annotations.Target;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;

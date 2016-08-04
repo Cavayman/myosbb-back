@@ -8,7 +8,7 @@
             <h5 class="centered">{{userName}}</h5>
 
             <li class="sub-menu">
-                <a [routerLink]="['main']" href="javascript:;">
+                <a [routerLink]="['main']">
                     <i class="fa fa-user"></i>
                     <span>Головна</span>
                 </a>
@@ -34,6 +34,12 @@
                 </a>
             </li>
             <li class="sub-menu">
+                <a [routerLink]="['attachment']">
+                    <i class="fa fa-bookmark"></i>
+                    <span>Вкладення</span>
+                </a>
+            </li>
+            <li class="sub-menu">
                 <a [routerLink]="['message']">
                     <i class="fa fa-comments"></i>
                     <span>Повідомлення</span>
@@ -42,16 +48,34 @@
             <li class="sub-menu">
                 <a [routerLink]="['bill']">
                     <i class="fa fa-credit-card-alt"></i>
-                    <span>Рахунки та звіти</span>
+                    <span>Рахунки</span>
                 </a>
             </li>
-             <li class="sub-menu">
+
+            <li class="sub-menu">
+                <a [routerLink]="['report']">
+                    <i class="fa fa-credit-card-alt"></i>
+                    <span>Звіти</span>
+                </a>
+            </li>
+            <li class="sub-menu">
                 <a [routerLink]="['users']">
                     <i class="fa fa-users"></i>
                     <span>Юзвери</span>
                 </a>
             </li>
-
+            <li class="sub-menu">
+                <a [routerLink]="['osbb']">
+                    <i class="fa fa-users"></i>
+                    <span>ОСББ</span>
+                </a>
+            </li>
+            <li class="sub-menu">
+                <a [routerLink]="['role']">
+                    <i class="fa fa-user"></i>
+                    <span>Ролі</span>
+                </a>
+            </li>
         </ul>
         <!-- sidebar menu end-->
     </div>

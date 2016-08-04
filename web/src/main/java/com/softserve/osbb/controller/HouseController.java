@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static com.softserve.osbb.util.ResourceUtil.toResource;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 /**
  * Created by nazar.dovhyy on 19.07.2016.

@@ -1,25 +1,95 @@
+
 <div class="myuserstable">
-                           <h4><i class="fa fa-angle-right"></i> Users </h4>
-                          <table class="table table-striped table-advance table-hover">
+    <div class="table-top ">
+                           <h3> Users </h3>
+        </div>
+    <div class="table-content ">
+        <div class=" container" *ngIf="userList.length ==0" >
+            <h4>List is empthy...</h4>
+        </div>
+        <table class="table table-striped table-advance table-hover" *ngIf="userList.length>0">
                               <thead>
                                     <tr>
                                         <th> First name</th>
                                         <th class="hidden-phone">Second name</th>
                                         <th>Phone number</th>
+                                        <th>e-mail</th>
+                                        <th>gender</th>
                                         <th></th>
                                     </tr>
                               </thead>
                               <tbody>
-                                    <tr *ngFor = "let item of userItem">
-                                        <td><a href="basic_table.html#">{{item.firstName}}</a></td>
+                                    <tr *ngFor = "let item of userList">
+                                        <td><a href="basic_table.html">{{item.firstName}}</a></td>
                                         <td class="hidden-phone">{{item.lastName}}</td>
                                         <td class="hidden-phone">{{item.phoneNumber}}</td>
+                                        <td class="hidden-phone">{{item.email}}</td>
+                                        <td class="hidden-phone">{{item.gender}}</td>
                                         <td>
-                                            <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
-                                            <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                                            <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
+                                            <button class="btn btn-primary btn-xs" (click)="updateUser(item)"><i class="fa fa-pencil"></i></button>
+                                            <button class="btn btn-danger btn-xs"(click)="deleteUser(item)"><i class="fa fa-trash-o "></i></button>
                                         </td>
                                     </tr>
                               </tbody>
                           </table>
-     </div>
+
+        </div>
+    <a type="button" class="btn btn-info btn-lg" href="javascript:history.back()" >Назад</a>
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Добавити Когось</button>
+
+</div>
+<div id="myModal" class="modal fade" role="dialog">
+
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Створи собі подібного</h4>
+            </div>
+            <form  [formGroup]="userForm" (submit)="saveUser()">
+            <div class="modal-body">
+
+                        <div class="form-container col-xs-12 row">
+                            <div class="">
+                                <label>Ім'я</label>
+                                <input formControlName="name"  class="form-control placeholder-no-fix" type="text" required >
+                            </div>
+                            <div class="">
+                                <label>Фамілія</label>
+                                <input ngControl="lastName"  class="form-control placeholder-no-fix" type="text" required>
+                            </div>
+                            <div class="">
+                                <label>e-mail</label>
+                                <input formControlName="name" id="name" type="email" class="form-control placeholder-no-fix"  />
+                            </div>
+
+                            <div class="">
+                                <label>Номер телефону</label>
+                                <input ngControl="phone" class="form-control placeholder-no-fix" type="text" required>
+                            </div>
+                            <div class="">
+                                <label>Гендер</label>
+                                <input ngControl="gender" class="form-control placeholder-no-fix" type="text" required>
+                            </div>
+                            <div class="">
+                                <label>Дата народження</label>
+                                <input ngControl="birthDate" class="form-control placeholder-no-fix" type="text" required>
+                            </div>
+                            <div class="">
+                                <label>Пароль</label>
+                                <input ngControl="password" class="form-control placeholder-no-fix" type="text" required>
+                            </div>
+                        </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"  type="submit">Ok</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            </form>
+        </div>
+    </div>
+
+</div>

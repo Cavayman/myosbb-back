@@ -1,5 +1,7 @@
 package com.softserve.osbb.service.gen;
 
+import com.softserve.osbb.model.Report;
+import com.softserve.osbb.repository.ReportRepository;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
@@ -8,13 +10,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by nazar.dovhyy on 29.07.2016.
@@ -29,7 +35,12 @@ public class ReportDownloadService {
     private ReportCreatorDataSource reportCreatorDataSource;
 
     @Autowired
-    private ReportGeneratorService reportGeneratorService;
+    private ReportExporterService reportExporterService;
+
+    @Autowired
+    private ReportRepository reportRepository;
+
+    ServletContext servletContext;
 
 
     public void download(String type, HttpServletResponse response) {
@@ -42,12 +53,15 @@ public class ReportDownloadService {
             InputStream is = this.getClass().getResourceAsStream(TEMPLATE);
             JasperDesign jd = JRXmlLoader.load(is);
             JasperReport jr = JasperCompileManager.compileReport(jd);
-            JasperPrint jp = JasperFillManager.fillReport(jr, params, reportCreatorDataSource.getDataSource());
+            JRDataSource dataSource = reportCreatorDataSource.getDataSource();
+            JasperPrint jp = JasperFillManager.fillReport(jr, params, dataSource);
             //create stream where the object will be written
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            reportGeneratorService.export(type, jp, response, baos);
+            reportExporterService.exportToOutputStream(type, jp, response, baos);
+            String filePath = reportExporterService.exportToFile(jp, type, createServerFileFolder());
+            saveFileToDataBase(filePath);
             //write to response
-            write(response, baos);
+            write(response, baos, type);
         } catch (JRException e) {
             logger.error("unable to process download");
             e.printStackTrace();
@@ -55,8 +69,28 @@ public class ReportDownloadService {
 
     }
 
+    public String createServerFileFolder() {
+        String serverDir = System.getProperty("catalina.home"); // server location
+        File outputFileDir = new File(serverDir + File.separator + "reports");
+        if (!outputFileDir.exists()) {
+            outputFileDir.mkdir();
+        }
+        String outputFilePath = outputFileDir.getAbsolutePath();
+        logger.info("save file to server directory: " + outputFilePath);
+        return outputFilePath;
+    }
+
+    private void saveFileToDataBase(String fileName) {
+        Report report = new Report();
+        report.setName("report " + UUID.randomUUID().toString());
+        report.setCreationDate(LocalDate.now());
+        report.setFilePath(fileName);
+        reportRepository.save(report);
+        logger.info("saved report :" + report.getName() + " to database");
+    }
+
     //write report to the output stream
-    private void write(HttpServletResponse response, ByteArrayOutputStream baos) {
+    private void write(HttpServletResponse response, ByteArrayOutputStream baos, String type) {
 
         try {
             ServletOutputStream servletOutputStream = response.getOutputStream();

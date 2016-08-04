@@ -15,33 +15,50 @@ import java.io.ByteArrayOutputStream;
  * Created by nazar.dovhyy on 29.07.2016.
  */
 @Service
-public class ReportGeneratorService {
+public class ReportExporterService {
 
     public static final String MEDIA_TYPE_EXCEL = "application/vnd.ms-excel";
     public static final String MEDIA_TYPE_PDF = "application/pdf";
     public static final String MEDIA_TYPE_CSV = "text/csv";
 
-    private static Logger logger = LoggerFactory.getLogger(ReportGeneratorService.class);
+    private static Logger logger = LoggerFactory.getLogger(ReportExporterService.class);
 
 
-    public HttpServletResponse export(String type,
-                                      JasperPrint jp,
-                                      HttpServletResponse response,
-                                      ByteArrayOutputStream baos) {
+    public HttpServletResponse exportToOutputStream(String type,
+                                                    JasperPrint jp,
+                                                    HttpServletResponse response,
+                                                    ByteArrayOutputStream baos) {
         ReportTemplate reportTemplate = ReportGenFactory.generate(type);
         try {
             if (reportTemplate != null) {
-                reportTemplate.export(jp, baos);
-                logger.info("exporting report in " + type);
+                reportTemplate.saveToOutputStream(jp, baos);
+                logger.info("exporting report output stream in " + type);
                 buildResponse(response, baos, reportTemplate.getFileName());
             }
         } catch (JRException e) {
-            logger.error("failed to export report in " + type);
+            logger.error("failed to save report in " + type);
             throw new RuntimeException(e);
         }
 
         return response;
     }
+
+    public String exportToFile(JasperPrint jp, String type, String outputDir) {
+        String destFileName = "";
+        ReportTemplate reportTemplate = ReportGenFactory.generate(type);
+        if (reportTemplate != null) {
+            try {
+                destFileName = reportTemplate.saveToFile(jp, outputDir);
+                logger.info("exporting report to file in " + type);
+            } catch (JRException e) {
+                logger.error("failed to save report to file in " + type);
+                throw new RuntimeException(e);
+            }
+        }
+
+        return destFileName;
+    }
+
 
     private void buildResponse(HttpServletResponse response, ByteArrayOutputStream baos, String fileName) {
         response.setHeader("Content-disposition", ", inline; fileName= " + fileName);

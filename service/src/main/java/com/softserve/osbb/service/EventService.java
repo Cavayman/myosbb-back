@@ -1,6 +1,7 @@
 package com.softserve.osbb.service;
 
 import com.softserve.osbb.model.Event;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,13 +17,13 @@ public interface EventService {
 
     List<Event> saveEvents(List<Event> list);
 
-    Event findEventById(Integer id);
+    Event getEventById(Integer id);
 
-    List<Event> findEvents(List<Event> list);
+    List<Event> getEvents(List<Event> list);
 
-    List<Event> findEventsByIds(List<Integer> ids);
+    List<Event> getEventsByIds(List<Integer> ids);
 
-    List<Event> findAllEvents();
+    List<Event> getAllEvents();
 
     Event updateEvent(Integer id, Event event);
 
@@ -38,4 +39,5 @@ public interface EventService {
 
     boolean existsEvent(Integer id);
 
+    Page<Event> getAllEvents(Integer pageNumber, String sortedBy, Boolean ascOrder);
 }

@@ -1,7 +1,7 @@
 { "databaseChangeLog": [
   {
     "changeSet": {
-      "id": "2016/08/30-18",
+      "id": "2016/08/03-19",
       "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
@@ -54,18 +54,18 @@
                   "name": "provider_id",
                   "type": "INT"
                 }
-              }]
-          ,
+              }
+            ],
             "tableName": "bill"
           }
-        }]
-
+        }
+      ]
     }
   },
 
   {
     "changeSet": {
-      "id": "2016/08/30-39",
+      "id": "2016/08/03-47",
       "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [

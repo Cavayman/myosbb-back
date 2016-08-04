@@ -1,6 +1,7 @@
 package com.softserve.osbb.service;
 
 import com.softserve.osbb.model.Report;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -33,5 +34,5 @@ public interface ReportService {
 
     boolean deleteReportById(Integer reportId) throws Exception;
 
-
+    Page<Report> getAllReports(Integer pageNumber, String sortedBy, Boolean ascOrder);
 }

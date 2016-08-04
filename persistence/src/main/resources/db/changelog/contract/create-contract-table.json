@@ -1,7 +1,7 @@
 { "databaseChangeLog": [
   {
     "changeSet": {
-      "id": "2016/08/30-19",
+      "id": "2016/08/03-20",
       "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
@@ -33,12 +33,6 @@
               },
               {
                 "column": {
-                  "name": "attachment_id",
-                  "type": "INT"
-                }
-              },
-              {
-                "column": {
                   "name": "price",
                   "type": "numeric(19, 2)"
                 }
@@ -47,6 +41,12 @@
                 "column": {
                   "name": "text",
                   "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "attachment_id",
+                  "type": "INT"
                 }
               },
               {
@@ -60,18 +60,18 @@
                   "name": "provider_id",
                   "type": "INT"
                 }
-              }]
-          ,
+              }
+            ],
             "tableName": "contract"
           }
-        }]
-
+        }
+      ]
     }
   },
 
   {
     "changeSet": {
-      "id": "2016/08/30-45",
+      "id": "2016/08/03-62",
       "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
@@ -79,7 +79,7 @@
           "addForeignKeyConstraint": {
             "baseColumnNames": "attachment_id",
             "baseTableName": "contract",
-            "constraintName": "fk_p7hhasg46crhxe11ixq3q2h51",
+            "constraintName": "fk_rdqtdh5wqlwkiryfy8lsp44ee",
             "deferrable": false,
             "initiallyDeferred": false,
             "onDelete": "NO ACTION",
@@ -90,5 +90,6 @@
         }]
 
     }
-  }]
+  }
+]
 }

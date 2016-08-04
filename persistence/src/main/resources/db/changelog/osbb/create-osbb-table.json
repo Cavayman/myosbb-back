@@ -1,7 +1,7 @@
 { "databaseChangeLog": [
   {
     "changeSet": {
-      "id": "2016/08/30-23",
+      "id": "2016/08/03-26",
       "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
@@ -21,12 +21,6 @@
               },
               {
                 "column": {
-                  "name": "creator_id",
-                  "type": "INT"
-                }
-              },
-              {
-                "column": {
                   "name": "description",
                   "type": "VARCHAR(255)"
                 }
@@ -36,18 +30,23 @@
                   "name": "name",
                   "type": "VARCHAR(255)"
                 }
-              }]
-          ,
+              },
+              {
+                "column": {
+                  "name": "creator_id",
+                  "type": "INT"
+                }
+              }
+            ],
             "tableName": "osbb"
           }
-        }]
-
+        }
+      ]
     }
   },
-
   {
     "changeSet": {
-      "id": "2016/08/30-40",
+      "id": "2016/08/03-48",
       "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
@@ -63,14 +62,13 @@
             "referencedColumnNames": "osbb_id",
             "referencedTableName": "osbb"
           }
-        }]
-
+        }
+      ]
     }
   },
-
   {
     "changeSet": {
-      "id": "2016/08/30-46",
+      "id": "2016/08/03-61",
       "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
@@ -86,14 +84,14 @@
             "referencedColumnNames": "osbb_id",
             "referencedTableName": "osbb"
           }
-        }]
-
+        }
+      ]
     }
   },
 
   {
     "changeSet": {
-      "id": "2016/08/30-47",
+      "id": "2016/08/03-64",
       "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [

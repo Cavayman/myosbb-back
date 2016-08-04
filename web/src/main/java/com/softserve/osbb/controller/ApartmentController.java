@@ -1,7 +1,6 @@
 package com.softserve.osbb.controller;
 
 import com.softserve.osbb.model.Apartment;
-import com.softserve.osbb.model.Attachment;
 import com.softserve.osbb.service.ApartmentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

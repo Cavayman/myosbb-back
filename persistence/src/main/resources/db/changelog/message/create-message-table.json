@@ -1,7 +1,7 @@
 { "databaseChangeLog": [
   {
     "changeSet": {
-      "id": "2016/08/30-22",
+      "id": "2016/08/03-24",
       "author": "nataliia",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
@@ -34,7 +34,7 @@
               {
                 "column": {
                   "name": "time",
-                  "type": "TIMESTAMP(6) WITHOUT TIME ZONE"
+                  "type": "date"
                 }
               },
               {
@@ -55,7 +55,5 @@
         }]
 
     }
-
-
   }]
 }

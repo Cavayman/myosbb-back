@@ -1,16 +1,15 @@
 package com.softserve.osbb.service; /**
  * Created by cavayman on 11.07.2016.
  */
+
 import com.softserve.osbb.config.ServiceApplication;
 import com.softserve.osbb.model.User;
-import com.softserve.osbb.service.UserService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.assertEquals;

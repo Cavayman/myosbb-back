@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="col-xs-12 col-md-offset-0">
+        <div class="row mt">
+                  <div class="col-md-12 mt">
+                      <div class="content-panel">
+                           <h4><i class="fa fa-angle-right"></i> OSBB Table</h4>
+                          <table class="table table-striped table-advance table-hover">
+                              <thead>
+                                    <tr>
+                                        <th> Name</th>
+                                        <th class="hidden-phone"> Description</th>
+                                        <th></th>
+                                    </tr>
+                              </thead>
+                              <tbody>
+                                    <tr *ngFor = "let item of osbbArr">
+                                        <td><a href="basic_table.html#">{{item.name}}</a></td>
+                                        <td class="hidden-phone">{{item.description}}</td>
+                                        <td>
+                                            <button class="btn btn-primary btn-xs"><i class="fa fa-pencil" (click)="initUpdatedOsbb(item); form.openUpdateModal()"></i></button>
+                                            <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "  (click)="onOsbbDeleted(item)"></i></button>
+                                        </td>
+                                    </tr>
+                              </tbody>
+                              <div>
+                                  <osbb-form [osbb]="updatedOsbb" (created)="onOsbbCreated($event)" (updated)="onOsbbEdited($event)" #form></osbb-form>                                
+                              </div>
+                          </table>
+                      </div><!-- /content-panel -->
+                  </div><!-- /col-md-12 -->
+              </div><!-- /row -->
+      </div>
+</div>
