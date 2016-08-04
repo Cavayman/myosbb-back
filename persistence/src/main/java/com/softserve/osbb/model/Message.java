@@ -1,5 +1,6 @@
 package com.softserve.osbb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.softserve.osbb.utils.CustomLocalDateTimeDeserializer;
@@ -100,6 +101,7 @@ public class Message {
         return HashCodeBuilder.reflectionHashCode(this);
     }
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "ticket_id", referencedColumnName = "ticket_id")
     public Ticket getTicket() {

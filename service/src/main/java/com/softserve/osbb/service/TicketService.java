@@ -51,4 +51,7 @@ public interface TicketService {
 
     Ticket update(Ticket ticket);
 
+    public Page<Ticket> getAllTickets(Integer pageNumber, String sortBy, Boolean order);
+
+
 }

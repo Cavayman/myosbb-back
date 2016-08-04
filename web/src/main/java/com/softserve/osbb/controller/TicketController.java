@@ -1,11 +1,14 @@
 package com.softserve.osbb.controller;
 
 
+import com.softserve.osbb.model.Osbb;
 import com.softserve.osbb.model.Ticket;
 import com.softserve.osbb.service.TicketService;
+import com.softserve.osbb.util.PageCreator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +25,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
  */
 
 @RestController
+@CrossOrigin
 @RequestMapping("/restful/ticket")
 public class TicketController {
 
@@ -80,7 +84,7 @@ public class TicketController {
         return new ResponseEntity<>(ticketResource, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<Resource<Ticket>> updateTicket(@RequestBody Ticket ticket) {
 
         logger.info("Updating ticket by id: " + ticket.getTicketId());
@@ -104,4 +108,5 @@ public class TicketController {
         ticketService.deleteAll();
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }

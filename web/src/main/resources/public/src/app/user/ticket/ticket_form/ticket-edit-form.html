@@ -1,0 +1,27 @@
+<div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+      aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	            <button type="button" class="close" aria-label="Close" (click)="editModal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Обновити обговорення</h4>
+             </div>
+             <div class="modal-body">
+                <div class="form-group">
+                	<input class="form-control" type="text" name="name" #updateNameInput value={{ticket.name}}><br><br>
+                    <input class="form-control" type="text" name="description" #updateDescriptionInput value={{ticket.description}}>
+                    <select name="state" #updateStateInput >
+        <option  *ngFor="let key of states"  value={{key}} >{{key}}</option>
+      </select>
+                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" (click)="editTicket(updateNameInput.value, updateDescriptionInput.value,updateStateInput.value);editModal.hide()" class="btn btn-default">
+                    Зберегти
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

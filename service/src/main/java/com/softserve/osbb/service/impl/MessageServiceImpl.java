@@ -1,6 +1,7 @@
 package com.softserve.osbb.service.impl;
 
 import com.softserve.osbb.model.Message;
+import com.softserve.osbb.model.Ticket;
 import com.softserve.osbb.repository.MessageRepository;
 import com.softserve.osbb.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,7 +112,11 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public Message update(Message message) {
         return messageRepository.exists(message.getMessageId()) ? messageRepository.save(message) : null;
+    }
 
+    @Override
+    public List<Message> findMessagesByTicket(Ticket ticket) {
+        return messageRepository.findByTicket(ticket);
     }
 
 }

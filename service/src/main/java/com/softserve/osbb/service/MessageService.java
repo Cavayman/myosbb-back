@@ -1,6 +1,7 @@
 package com.softserve.osbb.service;
 
 import com.softserve.osbb.model.Message;
+import com.softserve.osbb.model.Ticket;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -45,5 +46,7 @@ public interface MessageService {
     List<Message> save(Iterable<Message> iterable);
 
     Message update(Message message);
+
+    List<Message> findMessagesByTicket(Ticket ticket);
 
 }

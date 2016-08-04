@@ -3,7 +3,8 @@ import {UserComponent} from "../user/user.component";
 import {UserMainComponent} from "./main/user.main.component";
 import {UserApartmentComponent} from "./apartment/user.apartment.component";
 import {UserBillComponent} from "./bills/user.bill.component";
-import {UserMessageComponent} from "./message/user.message.component";
+import {TicketComponent} from "./ticket/ticket.component";
+//import {UserMessageComponent} from "./message/message.component";
 import {UserEventComponent} from "./event/user.event.component";
 import {UserAttachmentComponent} from "./attachment/user.attachment.component";
 import {UserReportComponent} from "./report/user.report.component";
@@ -24,7 +25,8 @@ export const userRoutes:RouterConfig = [
             {path: 'event', component: UserEventComponent},
             {path: 'attachment', component: UserAttachmentComponent},
             {path: 'bill', component: UserBillComponent},
-            {path: 'message', component: UserMessageComponent},
+            {path: 'ticket', component: TicketComponent},
+           // {path: 'message', component: UserMessageComponent},
             {path: 'report', component: UserReportComponent},
             {path: 'users', component: UsersComponent},
             {path: 'osbb', component: OsbbComponent},

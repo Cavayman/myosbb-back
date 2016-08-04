@@ -1,5 +1,6 @@
 package com.softserve.osbb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.softserve.osbb.model.enums.TicketState;
 import com.softserve.osbb.utils.CustomLocalDateTimeDeserializer;
@@ -8,6 +9,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -25,7 +27,7 @@ public class Ticket {
     private LocalDate time;
     private User user;
     private User assigned;
-    private Collection<Message> messages;
+    private Collection<Message> messages = new ArrayList<>();
     private Collection<Attachment> attachments;
 
     public Ticket() {
@@ -34,12 +36,17 @@ public class Ticket {
     public Ticket(String name, String description) {
         this.name = name;
         this.description = description;
+//        stateTime = time = LocalDate.now();
+        state = TicketState.NEW;
     }
 
     public Ticket(String name, String description, User user) {
         this.name = name;
         this.description = description;
         this.user = user;
+//        stateTime = time = LocalDate.now();
+        state = TicketState.NEW;
+
     }
 
     @Id
@@ -127,8 +134,7 @@ public class Ticket {
         this.assigned = assigned;
     }
 
-
-    @OneToMany(mappedBy = "ticket")
+    @OneToMany(mappedBy = "ticket",fetch = FetchType.EAGER)
     public Collection<Message> getMessages() {
         return messages;
     }

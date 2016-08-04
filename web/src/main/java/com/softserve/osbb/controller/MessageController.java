@@ -1,7 +1,9 @@
 package com.softserve.osbb.controller;
 
 import com.softserve.osbb.model.Message;
+import com.softserve.osbb.model.Ticket;
 import com.softserve.osbb.service.MessageService;
+import com.softserve.osbb.service.TicketService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +28,22 @@ public class MessageController {
     private static Logger logger = LoggerFactory.getLogger(MessageController.class);
 
     @Autowired
+    private TicketService ticketService;
+
+    @Autowired
     private MessageService messageService;
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Resource<Message>> createMessage(@RequestBody Message message) {
+    @RequestMapping(value = "/ticket/{id}",method = RequestMethod.POST)
+    public ResponseEntity<Resource<Message>> createMessage(@RequestBody Message message, @PathVariable("id")Integer ticketId) {
 
         Resource<Message> messageResource;
         try {
             logger.info("Saving message object " + message);
+            Ticket ticket = ticketService.findOne(ticketId);
+            ticket.getMessages().add(message);
+            message.setTicket(ticket);
             message = messageService.save(message);
+            ticketService.update(ticket);
             messageResource = addResourceLinkToMessage(message);
         } catch (Exception e) {
             logger.error(e.getMessage());
@@ -103,5 +112,23 @@ public class MessageController {
         logger.info("Removing all messages");
         messageService.deleteAll();
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/comments/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<Resource<Message>>>  getMessageByTicketId(@PathVariable("id")Integer ticketId) {
+
+        logger.info("message by ticket: " + ticketId);
+        Ticket ticket = ticketService.findOne(ticketId);
+        List<Message> messages = messageService.findMessagesByTicket(ticket);
+
+        List<Resource<Message>> resourceMessageList = new ArrayList<>();
+        for (Message e : messages) {
+            Resource<Message> messageResource = new Resource<>(e);
+            messageResource.add(linkTo(methodOn(MessageController.class)
+                    .getMessageById(e.getMessageId()))
+                    .withSelfRel());
+            resourceMessageList.add(messageResource);
+        }
+        return new ResponseEntity<>(resourceMessageList, HttpStatus.OK);
     }
 }

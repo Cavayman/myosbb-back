@@ -5,6 +5,7 @@ import com.softserve.osbb.repository.TicketRepository;
 import com.softserve.osbb.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,8 @@ import java.util.List;
  */
 @Service
 public class TicketServiceImpl implements TicketService {
+
+    private static final int DEF_ROWS = 10;
 
     @Autowired
     TicketRepository ticketRepository;
@@ -118,5 +121,19 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public Ticket update(Ticket ticket) {
         return ticketRepository.exists(ticket.getTicketId()) ? ticketRepository.save(ticket) : null;
+    }
+
+    @Override
+    public Page<Ticket> getAllTickets(Integer pageNumber, String sortBy, Boolean order) {
+        PageRequest pageRequest = new PageRequest(pageNumber - 1, DEF_ROWS,
+                getSortingOrder(order), sortBy == null ? "date" : sortBy);
+        return ticketRepository.findAll(pageRequest);
+    }
+
+    public Sort.Direction getSortingOrder(Boolean order) {
+        if (order == null) {
+            return Sort.Direction.DESC;
+        }
+        return order == true ? Sort.Direction.ASC : Sort.Direction.DESC;
     }
 }
