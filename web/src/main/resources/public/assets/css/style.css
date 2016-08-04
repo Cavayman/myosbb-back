@@ -235,6 +235,25 @@ ul.top-menu > li > .logout {
     position: fixed;
     background: #424a5d;
     top: 0px;
+
+}
+#sidebar{
+    overflow-y: scroll;
+}
+#sidebar::-webkit-scrollbar
+{
+    width: 12px;  /* for vertical scrollbars */
+    height: 12px; /* for horizontal scrollbars */
+}
+
+#sidebar::-webkit-scrollbar-track
+{
+    background: rgba(0, 0, 0, 0.1);
+}
+
+#sidebar::-webkit-scrollbar-thumb
+{
+    background: rgba(0, 0, 0, 0.5);
 }
 
 #sidebar h5 {
