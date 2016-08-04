@@ -5,6 +5,9 @@ import com.softserve.osbb.model.House;
 import com.softserve.osbb.repository.HouseRepository;
 import com.softserve.osbb.service.HouseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +23,7 @@ public class HouseServiceImpl implements HouseService {
 
     private static final List<House> EMPTY_HOUSE_LIST = new ArrayList<>(0);
     private static final List<Apartment> EMPTY_APPARTMENT_LIST = new ArrayList<>(0);
+    private static final int DEF_ROWS = 10;
     @Autowired
     private HouseRepository houseRepository;
 
@@ -48,7 +52,7 @@ public class HouseServiceImpl implements HouseService {
 
     @Override
     public House findHouseById(Integer houseId) {
-        return houseRepository.exists(houseId)?houseRepository.findOne(houseId):House.EMPTY_HOUSE;
+        return houseRepository.exists(houseId) ? houseRepository.findOne(houseId) : House.EMPTY_HOUSE;
     }
 
     @Override
@@ -90,4 +94,22 @@ public class HouseServiceImpl implements HouseService {
     public void deleteAllHouses() {
         houseRepository.deleteAll();
     }
+
+    @Override
+    public Page<House> getAllHouses(Integer pageNumber, String sortedBy, Boolean order) {
+        PageRequest pageRequest = new PageRequest(pageNumber - 1, DEF_ROWS,
+                getSortingOrder(order), sortedBy == null ? "street" : sortedBy);
+        return houseRepository.findAll(pageRequest);
+    }
+
+    private Sort.Direction getSortingOrder(Boolean order) {
+
+        if (order == null) {
+            return Sort.Direction.DESC;
+        }
+
+        return order == true ? Sort.Direction.ASC : Sort.Direction.DESC;
+    }
+
+
 }

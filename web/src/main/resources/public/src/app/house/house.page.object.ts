@@ -1,18 +1,11 @@
 export class HousePageObject {
     houseId: number;
-    city: string = '';
-    street: string = '';
-    zipCode: string = '';
-    head: {
-        firstName: string,
-        lastName: string,
-        email: string,
-        phoneNumber: string
+    city: string;
+    street: string;
+    zipCode: string;
+    headFirstName: string;
+    headLastName: string;
+    phoneNumber: string;
+    email: string;
 
-    } = {
-        firstName: '',
-        lastName: '',
-        email: '',
-        phoneNumber: ''
-    };
 }

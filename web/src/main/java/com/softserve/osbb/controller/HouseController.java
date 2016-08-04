@@ -1,10 +1,11 @@
 package com.softserve.osbb.controller;
 
-import com.softserve.osbb.dto.HousePageDTO;
-import com.softserve.osbb.dto.HousePageDTOMapper;
+import com.softserve.osbb.dto.HouseDTO;
+import com.softserve.osbb.dto.HouseDTOMapper;
 import com.softserve.osbb.model.Apartment;
 import com.softserve.osbb.model.House;
 import com.softserve.osbb.service.HouseService;
+import com.softserve.osbb.util.PageCreator;
 import com.softserve.osbb.util.resources.ApartmentResourceList;
 import com.softserve.osbb.util.resources.EntityResourceList;
 import com.softserve.osbb.util.resources.HouseResourceList;
@@ -12,11 +13,13 @@ import com.softserve.osbb.util.resources.ResourceLinkCreator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.softserve.osbb.util.ResourceUtil.toResource;
@@ -33,18 +36,51 @@ public class HouseController {
     HouseService houseService;
     private static Logger logger = LoggerFactory.getLogger(HouseController.class);
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<EntityResourceList<HousePageDTO>> listAllHouses() {
-        final EntityResourceList<HousePageDTO> housePageDTOEntityResourceList = new HouseResourceList();
-        List<House> houseList = houseService.getAllHouses();
-        logger.info("retrieve all houses: " + houseList);
-        houseList.forEach((house) -> {
-            HousePageDTO housePageDTO = HousePageDTOMapper.mapHouseEntityToDTO(house);
-            Resource<HousePageDTO> housePageDTOResource = housePageDTOEntityResourceList.createLink(toResource(housePageDTO));
-            housePageDTOEntityResourceList.add(housePageDTOResource);
-        });
+//    @RequestMapping(method = RequestMethod.GET)
+//    public ResponseEntity<EntityResourceList<HouseDTO>> listAllHouses() {
+//        final EntityResourceList<HouseDTO> houseDTOEntityResourceList = new HouseResourceList();
+//        List<House> houseList = houseService.getAllHouses();
+//        logger.info("retrieve all houses: " + houseList);
+//        houseList.forEach((house) -> {
+//            HouseDTO houseDTO = HouseDTOMapper.mapHouseEntityToDTO(house);
+//            Resource<HouseDTO> housePageDTOResource = houseDTOEntityResourceList.createLink(toResource(houseDTO));
+//            houseDTOEntityResourceList.add(housePageDTOResource);
+//        });
+//
+//        return new ResponseEntity<>(houseDTOEntityResourceList, HttpStatus.OK);
+//    }
 
-        return new ResponseEntity<EntityResourceList<HousePageDTO>>(housePageDTOEntityResourceList, HttpStatus.OK);
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<PageCreator<Resource<HouseDTO>>> listAllHouses(
+            @RequestParam(value = "pageNumber", required = true) Integer pageNumber,
+            @RequestParam(value = "sortedBy", required = false) String sortedBy,
+            @RequestParam(value = "order", required = false) Boolean order) {
+        logger.info("get all report by page number: " + pageNumber);
+        Page<House> housesByPage = houseService.getAllHouses(pageNumber, sortedBy, order);
+
+        int currentPage = housesByPage.getNumber() + 1;
+        int begin = Math.max(1, currentPage - 5);
+        int totalPages = housesByPage.getTotalPages();
+        int end = Math.min(currentPage + 5, totalPages);
+
+        List<HouseDTO> houseDTOs = new ArrayList<>();
+        EntityResourceList<HouseDTO> houseDTOEntityResourceList = new HouseResourceList();
+
+        housesByPage.forEach(house -> {
+                    HouseDTO houseDTO = HouseDTOMapper.mapHouseEntityToDTO(house);
+                    houseDTOEntityResourceList
+                            .add(houseDTOEntityResourceList
+                                    .createLink(toResource(houseDTO)));
+                }
+        );
+        PageCreator<Resource<HouseDTO>> houseDTOPageCreator = new PageCreator<>();
+        houseDTOPageCreator.setRows(houseDTOEntityResourceList);
+        houseDTOPageCreator.setCurrentPage(Integer.valueOf(currentPage).toString());
+        houseDTOPageCreator.setBeginPage(Integer.valueOf(begin).toString());
+        houseDTOPageCreator.setEndPage(Integer.valueOf(end).toString());
+        houseDTOPageCreator.setTotalPages(Integer.valueOf(totalPages).toString());
+
+        return new ResponseEntity<>(houseDTOPageCreator, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}/apartments", method = RequestMethod.GET)
@@ -71,15 +107,15 @@ public class HouseController {
 
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Resource<HousePageDTO>> getHouseById(@PathVariable("id") Integer houseId) {
+    public ResponseEntity<Resource<HouseDTO>> getHouseById(@PathVariable("id") Integer houseId) {
         House house;
-        HousePageDTO housePageDTO;
-        Resource<HousePageDTO> houseResource = null;
+        HouseDTO houseDTO;
+        Resource<HouseDTO> houseResource = null;
         try {
             house = houseService.findHouseById(houseId);
-            housePageDTO = HousePageDTOMapper.mapHouseEntityToDTO(house);
-            ResourceLinkCreator<HousePageDTO> houseResourceLinkCreator = new HouseResourceList();
-            houseResource = houseResourceLinkCreator.createLink(toResource(housePageDTO));
+            houseDTO = HouseDTOMapper.mapHouseEntityToDTO(house);
+            ResourceLinkCreator<HouseDTO> houseResourceLinkCreator = new HouseResourceList();
+            houseResource = houseResourceLinkCreator.createLink(toResource(houseDTO));
 
         } catch (Exception e) {
             logger.error("error finding house by id: ", houseId);

@@ -8,7 +8,8 @@ import {HeaderComponent} from "../header/header.component";
     selector: 'my-user-house',
     templateUrl: 'src/app/house/house.html',
     providers: [HouseService],
-    directives: [HeaderComponent]
+    directives: [HeaderComponent],
+    styleUrls: ['src/app/house/house.css']
 })
 export class HouseShowComponent implements OnInit {
 

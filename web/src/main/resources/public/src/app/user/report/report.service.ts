@@ -24,7 +24,7 @@ export class ReportService {
     }
 
     getAllReportsSorted(pageNumber:number, name:string, order:boolean):Observable<any> {
-        return this._http.get(this.getReportUr + pageNumber + '&&sortedBy=' + name + '&&asc=' + order)
+        return this._http.get(this.getReportUr + pageNumber + '&&sortedBy=' + name + '&&order=' + order)
             .map((response)=> response.json())
             .catch((error)=>Observable.throw(error));
     }

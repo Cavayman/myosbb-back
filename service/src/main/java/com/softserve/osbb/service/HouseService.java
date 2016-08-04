@@ -2,6 +2,7 @@ package com.softserve.osbb.service;
 
 import com.softserve.osbb.model.Apartment;
 import com.softserve.osbb.model.House;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,11 +23,14 @@ public interface HouseService {
     List<House> getAllHouses();
 
     List<House> findAllByCity(String city);
+
     List<House> findAllByStreet(String street);
+
     List<Apartment> findAllAppartmentsByHouseId(Integer houseId);
 
     boolean deleteHouseById(Integer id);
 
     void deleteAllHouses();
 
+    Page<House> getAllHouses(Integer pageNumber, String sortedBy, Boolean order);
 }
