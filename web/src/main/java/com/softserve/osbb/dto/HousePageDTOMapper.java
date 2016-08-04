@@ -1,6 +1,8 @@
 package com.softserve.osbb.dto;
 
 import com.softserve.osbb.model.House;
+import com.softserve.osbb.model.Osbb;
+import com.softserve.osbb.model.User;
 
 /**
  * Created by nazar.dovhyy on 03.08.2016.
@@ -15,7 +17,11 @@ public class HousePageDTOMapper {
             housePageDTO.setCity(house.getCity());
             housePageDTO.setStreet(house.getStreet());
             housePageDTO.setZipCode(house.getZipCode());
-            housePageDTO.setHead(house.getOsbb().getCreator());
+            Osbb osbb = house.getOsbb();
+            if (osbb != null) {
+                User creator = osbb.getCreator();
+                housePageDTO.setHead(creator);
+            }
         }
         return housePageDTO;
     }

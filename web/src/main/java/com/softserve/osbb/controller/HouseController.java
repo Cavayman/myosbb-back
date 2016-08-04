@@ -33,6 +33,20 @@ public class HouseController {
     HouseService houseService;
     private static Logger logger = LoggerFactory.getLogger(HouseController.class);
 
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<EntityResourceList<HousePageDTO>> listAllHouses() {
+        final EntityResourceList<HousePageDTO> housePageDTOEntityResourceList = new HouseResourceList();
+        List<House> houseList = houseService.getAllHouses();
+        logger.info("retrieve all houses: " + houseList);
+        houseList.forEach((house) -> {
+            HousePageDTO housePageDTO = HousePageDTOMapper.mapHouseEntityToDTO(house);
+            Resource<HousePageDTO> housePageDTOResource = housePageDTOEntityResourceList.createLink(toResource(housePageDTO));
+            housePageDTOEntityResourceList.add(housePageDTOResource);
+        });
+
+        return new ResponseEntity<EntityResourceList<HousePageDTO>>(housePageDTOEntityResourceList, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/{id}/apartments", method = RequestMethod.GET)
     public ResponseEntity<EntityResourceList<Apartment>> getAllApartmentsByHouseId(@PathVariable("id") Integer houseId) {
         final House house;
@@ -68,10 +82,10 @@ public class HouseController {
             houseResource = houseResourceLinkCreator.createLink(toResource(housePageDTO));
 
         } catch (Exception e) {
-            logger.error("error finding house by id: ",  houseId);
+            logger.error("error finding house by id: ", houseId);
             e.printStackTrace();
         }
-        return new ResponseEntity<>(houseResource, HttpStatus.OK);
+        return new ResponseEntity(houseResource, HttpStatus.OK);
     }
 
     /*
