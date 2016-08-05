@@ -25,9 +25,9 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 /**
  * Created by Anastasiia Fedorak on 12.07.2016.
  */
-@CrossOrigin
 @RestController
 @RequestMapping(value = "/restful/provider")
+@CrossOrigin
 public class ProviderController {
 
     private static Logger logger = LoggerFactory.getLogger(ProviderController.class);

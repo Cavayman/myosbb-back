@@ -4,25 +4,22 @@
 import {Injectable} from "@angular/core";
 import {Http, Response, Headers} from "@angular/http";
 import {Observable} from "rxjs/Rx";
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
 import {ProviderType} from "../../../../../shared/models/provider.type.interface";
 
 
 @Injectable()
 export class ProviderTypeService {
-   private url = '/restful/providertype/';
-   //  private url = 'http://localhost:52430/restful/providertype/';
+   // private url = '/restful/providertype/';
+    private url = 'http://localhost:52430/restful/providertype/';
 
     constructor(private _http:Http){
     }
 
-
-    // getProviderTypes(): Promise<ProviderType[]> {
-    //     return this._http.get(this.url)
-    //         .toPromise()
-    //         .then(res => res.json())
-    // }
-
     getProviderTypes() : Observable<any>{
+        console.log("get all provider types inside service");
+        console.log("sending http GET");
         return  this._http.get(this.url)
             .map(res => res.json())
             .catch((err)=>Observable.throw(err));

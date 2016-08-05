@@ -12,6 +12,8 @@ import {UsersComponent} from "./users/users.component";
 import {OsbbComponent} from "./osbb/osbb.component";
 import {RoleComponent} from "./role/role.component";
 import {ProviderComponent} from "./provider/provider.component";
+import {ProviderHomeComponent} from "./provider/provider-home-page.component";
+import {ContractComponent} from "./contract/contract.component";
 export const userRoutes:RouterConfig = [
     {
         path: 'home/user',
@@ -31,7 +33,8 @@ export const userRoutes:RouterConfig = [
             {path: 'users', component: UsersComponent},
             {path: 'osbb', component: OsbbComponent},
             {path: 'role', component: RoleComponent},
-            {path: 'provider', component: ProviderComponent}
+            {path: 'provider', component: ProviderComponent},
+            {path: 'contract', component: ContractComponent}
         ]
 
     }

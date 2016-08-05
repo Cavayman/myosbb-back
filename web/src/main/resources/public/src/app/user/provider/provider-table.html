@@ -38,18 +38,10 @@
                         <tbody>
                         <tr *ngFor="let provider of providers">
                             <td>{{ provider.name }} <img style="max-height: 30px; max-width: 30px" src="{{provider.logoUrl}}"></td>
-                            <td>{{ provider.type }}</td>
+                            <td>{{ provider.typeDisplay }}</td>
                             <td>{{ provider.periodicity }}</td>
                             <td> {{ provider.description }}</td>
                             <td>
-                                <!--<div class="dropdown">-->
-                                    <!--<div class="dropdown-toggle" id="dropdownMenuProvider"> <i class=" fa fa-share highlight"></i> </div>-->
-                                    <!--<div class="dropdown-menu" aria-labelledby="dropdownMenuProvider">-->
-                                        <!--<a style="padding: 5px" class="dropdown-item yellow" (click)="openEditModal(provider)" > {{ 'edit' | translate:{value:param} | capitalize }} </a><br>-->
-                                        <!--<a style="padding: 5px" class="dropdown-item red"  (click)="openDelModal(provider.providerId)"> {{ 'detele' | translate:{value:param} | capitalize }} </a><br>-->
-                                        <!--<a style="padding: 5px" class="dropdown-item"> {{ 'GoToProviderPage' | translate:{value:param} }} </a><br>-->
-                                    <!--</div>-->
-                                <!--</div>-->
                                 <div class="dropdown">
                                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownProvider"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -62,7 +54,6 @@
                                         <li><a style="cursor: pointer"> {{ 'GoToProviderPage' | translate:{value:param} | capitalize }}</a></li>
                                     </ul>
                                 </div>
-
                             </td>
                         </tr>
                         </tbody>
@@ -117,7 +108,7 @@
                                                 {{ 'required' | translate:{value:param} | capitalize }}
                                             </div>
                                         </div> <!-- Company -->
-                                        <!--<provider-type (typeChanged)="setType($event)"></provider-type> &lt;!&ndash; Type &ndash;&gt;-->
+                                        <provider-type (typeChanged)="setType($event)"></provider-type> <!-- Type -->
 
                                         <div class="form-group">
                                             <label> {{ 'periodicity' | translate:{value:param} | capitalize }}</label>

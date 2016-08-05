@@ -5,8 +5,8 @@ import {Component, OnInit, ViewChild} from "@angular/core";
 import {CapitalizeFirstLetterPipe} from "../../../shared/pipes/capitalize-first-letter";
 import {TranslatePipe} from "ng2-translate/ng2-translate";
 import {DROPDOWN_DIRECTIVES} from "ng2-bs-dropdown/dropdown";
-import {ProviderService} from "./service/provider-service";
-import {Provider} from "../../../shared/models/profider.interface";
+import {ContractService} from "./service/contract-service";
+import {Contract} from "../../../shared/models/contract.interface";
 import {PageCreator} from "../../../shared/services/page.creator.interface";
 import {Observable} from 'rxjs/Observable';
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS} from 'ng2-bootstrap/ng2-bootstrap';
@@ -14,64 +14,58 @@ import {ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
 import {CORE_DIRECTIVES} from "@angular/common";
 import {RouteConfig} from "@angular/router-deprecated";
 import {ROUTER_DIRECTIVES} from "@angular/router";
-import {ProviderTypeComponent} from "./provider_type/provider-type.component";
-import {ProviderType} from "../../../shared/models/provider.type.interface";
-import {ProviderTypeService} from "./provider_type/service/provider-type.service";
+import "rxjs/Rx";
+import {Http} from "@angular/http";
 
 
 @Component({
-    selector: 'myosbb-provider',
-    templateUrl: 'src/app/user/provider/provider-table.html',
+    selector: 'myosbb-contract',
+    templateUrl: 'src/app/user/contract/contract-table.html',
     pipes: [TranslatePipe, CapitalizeFirstLetterPipe],
     directives: [DROPDOWN_DIRECTIVES],
-    providers: [ProviderService],
-    directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, ROUTER_DIRECTIVES, ProviderTypeComponent],
-    viewProviders: [BS_VIEW_PROVIDERS]
+    providers: [ContractService, Http],
+    directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, ROUTER_DIRECTIVES],
+    viewContracts: [BS_VIEW_PROVIDERS]
 })
-export class ProviderComponent implements OnInit{
-    private providers :  Provider[];
-    private selected : Provider =  {providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:null};
+export class ContractComponent implements OnInit{
+    private contracts :  Contract[];
+    private selected : Contract =  {contractId: null, provider:'', dateStart:'', dateFinish:'', text: '', price:null, attachment: ''};
+    private newContract : Contract =  {contractId: null, provider:'', dateStart:'', dateFinish:'', text: '', price:null, attachment: ''};
     private typeDisplay : string;
-    private pageCreator:PageCreator<Provider>;
+    private pageCreator:PageCreator<Contract>;
     private pageNumber:number = 1;
     private pageList:Array<number> = [];
     private totalPages:number;
     @ViewChild('delModal') public delModal:ModalDirective;
     @ViewChild('editModal') public editModal:ModalDirective;
+    @ViewChild('createModal') public createModal:ModalDirective;
+
     active:boolean = true;
     order:boolean = true;
 
-    private providerId:number;
+    private contractId:number;
     
-    constructor(private _providerService:ProviderService){
+    constructor(private _contractService:ContractService){
 
-    }
-
-    setType(event){
-        console.log("set type" + event);
-        this.selected.type = event.id;
-        console.log("selected.type=" + this.selected.type + JSON.stringify(this.selected));
-        this.typeDisplay = event.type;
-        console.log("name: " + this.typeDisplay)
     }
 
     ngOnInit():any {
-        console.log("init provider cmp");
-        this.getProvidersByPageNum(this.pageNumber);
+        console.log("init contract cmp");
+        this.getContractsByPageNum(this.pageNumber);
 
     }
 
-    openEditModal(provider:Provider) {
-        this.selected = provider;
-        console.log('selected provider: ' + this.selected.name);
+    openEditModal(contract:Contract) {
+        this.selected = contract;
+        console.log('selected contract: ' + this.selected.provider);
         this.editModal.show();
     }
 
-    onEditProviderSubmit() {
+    onEditContractSubmit() {
         this.active = false;
-        console.log('saving provider: ' + this.selected);
-        this._providerService.editAndSave(this.selected);
-        this._providerService.getProviders(this.pageNumber);
+        console.log('saving contract: ' + this.selected);
+        this._contractService.editAndSave(this.selected);
+        this._contractService.getContracts(this.pageNumber);
         this.editModal.hide();
         setTimeout(() => this.active = true, 0);
     }
@@ -81,27 +75,41 @@ export class ProviderComponent implements OnInit{
         this.editModal.hide();
     }
 
+    onCreateContractSubmit() {
+        this.active = false;
+        console.log('creating contract');
+        this._contractService.addContract(this.newContract);
+        this._contractService.getContracts(this.pageNumber);
+        this.getContractsByPageNum(this.pageNumber);
+        this.createModal.hide();
+        setTimeout(() => this.active = true, 0);
+    }
+    closeCreateModal() {
+        console.log('closing create modal');
+        this.createModal.hide();
+    }
+    
     openDelModal(id:number) {
-        this.providerId = id;
-        console.log('show', this.providerId);
+        this.contractId = id;
+        console.log('show', this.contractId);
         this.delModal.show();
     }
 
     closeDelModal() {
-        console.log('delete', this.providerId);
-        this._providerService.deleteProviderById(this.providerId);
-        this.getProvidersByPageNum(this.pageNumber);
+        console.log('delete', this.contractId);
+        this._contractService.deleteContractById(this.contractId);
+        this.getContractsByPageNum(this.pageNumber);
         this.delModal.hide();
     }
 
-    getProvidersByPageNum(pageNumber:number) {
-        console.log("getProvidersByPageNum"+ pageNumber);
+    getContractsByPageNum(pageNumber:number) {
+        console.log("getContractsByPageNum"+ pageNumber);
         this.pageNumber = +pageNumber;
         this.emptyArray();
-        return this._providerService.getProviders(this.pageNumber)
+        return this._contractService.getContracts(this.pageNumber)
             .subscribe((data) => {
                     this.pageCreator = data;
-                    this.providers = data.rows;
+                    this.contracts = data.rows;
                     this.preparePageList(+this.pageCreator.beginPage,
                         +this.pageCreator.endPage);
                     this.totalPages = +data.totalPages;
@@ -113,12 +121,12 @@ export class ProviderComponent implements OnInit{
 
     prevPage() {
         this.pageNumber = this.pageNumber - 1;
-        this.getProvidersByPageNum(this.pageNumber)
+        this.getContractsByPageNum(this.pageNumber)
     }
 
     nextPage() {
         this.pageNumber = this.pageNumber + 1;
-        this.getProvidersByPageNum(this.pageNumber)
+        this.getContractsByPageNum(this.pageNumber)
     }
 
     emptyArray() {
@@ -139,10 +147,10 @@ export class ProviderComponent implements OnInit{
         this.order = !this.order;
         console.log('order by asc', this.order);
         this.emptyArray();
-        this._providerService.getSortedProviders(this.pageNumber, name, this.order)
+        this._contractService.getSortedContracts(this.pageNumber, name, this.order)
             .subscribe((data) => {
                     this.pageCreator = data;
-                    this.providers = data.rows;
+                    this.contracts = data.rows;
                     this.preparePageList(+this.pageCreator.beginPage,
                         +this.pageCreator.endPage);
                     this.totalPages = +data.totalPages;

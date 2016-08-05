@@ -23,6 +23,12 @@
     "options":"options",
     "logo":"logo",
      "type": "type",
-    "PERMANENT_MONTHLY":"monthly"
+    "PERMANENT_MONTHLY":"monthly",
+    "create":"create",
+    "invalid":"invalid format",
+    "dateStart":"data start",
+    "dateFinish":"date finish",
+    "price":"price",
+    "contract": "contract"
 }
 

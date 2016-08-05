@@ -9,6 +9,7 @@ import {TranslatePipe} from "ng2-translate/ng2-translate";
 import {EventEmitter} from "@angular/core";
 import {ProviderType} from "../../../../shared/models/provider.type.interface";
 import {CapitalizeFirstLetterPipe} from "../../../../shared/pipes/capitalize-first-letter";
+import {Http} from "@angular/http";
 
 @Component({
     selector: 'provider-type',
@@ -35,13 +36,24 @@ import {CapitalizeFirstLetterPipe} from "../../../../shared/pipes/capitalize-fir
  //   outputs: ['typeChanged']
 })
 export class ProviderTypeComponent implements OnInit {
-    private types:ProviderType[] = [];
-    private selected : ProviderType = {id: 0, type: ''};
+    private types:ProviderType[];
+    private selected : ProviderType = {id: null, type: ''};
 
     @Output() typeChanged : EventEmitter<ProviderType>;
 
     ngOnInit() {
-
+        // console.log("init method");
+        // console.log("sending http GET");
+        // this._providerTypeService.getProviderTypes()
+        //     .subscribe((data) => {
+        //             this.types = data;
+        //             console.log("GET TYPES " + this.types);
+        //             this.selected = this.types[0];
+        //             console.log(this.selected.type)
+        //         },
+        //         (err) => {
+        //             console.log(err)
+        //         });
     }
 
 
@@ -52,29 +64,17 @@ export class ProviderTypeComponent implements OnInit {
     }
 
     constructor(private _providerTypeService:ProviderTypeService) {
-        console.log("init provider type cmp");
+        console.log("constructor provider type cmp");
         this.typeChanged = new EventEmitter<ProviderType>();
         console.log("create event emitter");
-        console.log("sending http GET");
-        this._providerTypeService.getProviderTypes()
-            .subscribe((data) => {
-                this.types = data;
-                console.log("GET TYPES " + this.types);
-                    this.selected = this.types[0];
-                        console.log(this.selected.type)
-                                },
-                        (err) => {
-                             console.log(err)
-                                });
 
-        // this._providerTypeService.getProviderTypes().then(types =>
-        // this.types = types);
-        // console.log(this.types);
-        // this.selected = this.types[0];
-        // console.log("get types: " + this.types + "; first elem: " + this.selected);
 
-        // this.types.push(TYPES[0]);
-        // this.selected = TYPES[0];
+        //
+        // return this._providerTypeService.getProviderTypes()
+        //     .then(types => this.types = types);
+
+        this.types = TYPES;
+        this.selected = TYPES[0];
     }
 }
 

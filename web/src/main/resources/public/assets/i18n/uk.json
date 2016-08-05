@@ -23,6 +23,12 @@
   "options":"опції",
   "logo":"лого",
   "type": "тип",
-  "PERMANENT_MONTHLY":"щомісячний"
+  "PERMANENT_MONTHLY":"щомісячний",
+  "create":"створити ",
+  "invalid":"невірний формат",
+  "dateStart":"дата початку",
+  "dateFinish":"дата закінчення",
+  "price":"ціна",
+  "contract": "контракт"
 }
 

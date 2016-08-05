@@ -11,10 +11,10 @@ import {Provider} from "../../../../shared/models/profider.interface";
 @Injectable()
 export class ProviderService {
 
-   private urlWithParams = '/restful/provider?pageNum=';
-   private url = '/restful/provider/';
-   //  private url = 'http://localhost:52430/myosbb/restful/provider/';
-   //  private urlWithParams = 'http://localhost:52430/restful/provider?pageNum=';
+   // private urlWithParams = '/restful/provider?pageNum=';
+   // private url = '/restful/provider/';
+    private url = 'http://localhost:52430/restful/provider/';
+    private urlWithParams = 'http://localhost:52430/restful/provider?pageNum=';
 
     constructor(private _http:Http){
     }
