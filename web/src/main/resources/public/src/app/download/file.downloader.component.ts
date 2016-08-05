@@ -12,7 +12,7 @@ import ApiService = require("../../shared/services/api.service");
 
 let reportDownloadUrl = ApiService.serverUrl + '/restful/report/download';
 
-declare var saveAs:any;
+declare var saveAs: any;
 
 const PDF_MIME_TYPE = 'application/pdf';
 const EXCEL_MIME_TYPE = 'text/xls';
@@ -27,16 +27,16 @@ const CSV_MIME_TYPE = 'text/csv';
 })
 export class FileDownloaderComponent {
 
-    private pending:boolean = false;
+    private pending: boolean = false;
     private hasError: boolean = false;
-    public toasterconfig:ToasterConfig =
-        new ToasterConfig({timeout: 10000});
+    public toasterconfig: ToasterConfig =
+        new ToasterConfig({timeout: 15000});
 
-    constructor(private _toasterService:ToasterService) {
+    constructor(private _toasterService: ToasterService) {
     }
 
 
-    public download(docType:string) {
+    public download(docType: string) {
 
         let self = this;
         this.pending = true;
@@ -59,26 +59,28 @@ export class FileDownloaderComponent {
                 saveAs(blob, setFileName(docType));
             } else if (xhr.status === 404) {
                 console.error('could not find resource');
-                self.pending = true;
+                self.pending = false;
                 self.hasError = true;
+                self._toasterService.pop(etoast);
 
             }
         };
 
         xhr.send();
         setTimeout(()=> {
-            if (!self.pending || !self.hasError)
-                    self._toasterService.pop(stoast);
-                else {
-                    self._toasterService.pop(etoast);
-                }
-            }, 5000
-        );
+            if ((!self.pending || self.pending) && !self.hasError)
+                self._toasterService.pop(stoast);
+            else {
+                self._toasterService.pop(etoast);
+            }
+        }, 5000);
+
 
     }
 
 }
-export let stoast:Toast = {
+
+export let stoast: Toast = {
     type: 'success',
     title: '',
     body: RedirectComponent,
@@ -86,7 +88,7 @@ export let stoast:Toast = {
     bodyOutputType: BodyOutputType.Component
 };
 
-export let etoast:Toast = {
+export let etoast: Toast = {
     type: 'error',
     title: '',
     body: '<h5>Виникла помилка під час завантаження документа</h5>',
@@ -95,7 +97,7 @@ export let etoast:Toast = {
 };
 
 function setFileName(docType) {
-    let fileName:string;
+    let fileName: string;
     console.log('setting filename: report.' + docType);
     switch (docType) {
         case 'pdf':
@@ -115,7 +117,7 @@ function setFileName(docType) {
 }
 function setContentType(type) {
     console.log('setting contentType: ' + type);
-    let mimeType:string;
+    let mimeType: string;
     switch (type) {
         case 'pdf':
             mimeType = PDF_MIME_TYPE;
