@@ -13,7 +13,6 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.HashSet;
-import java.util.List;
 
 /**
  * Created by Anastasiia Fedorak on 05.07.2016.
@@ -58,24 +57,6 @@ public class ProviderRepositoryTest {
         providers.add(new Provider("B"));
         providerRepository.save(providers);
         Assert.assertTrue(providerRepository.count()>3);
-    }
-
-    @Test
-    public void testFindAndDelete() {
-        Integer providerID = providerRepository.save(provider).getProviderId();
-        Assert.assertTrue(providerRepository.exists(providerID));
-        Assert.assertNotNull(providerRepository.findOne(providerID));
-        Assert.assertNotNull(providerRepository.getOne(providerID));
-        List<Provider> providers = providerRepository.findAll();
-        Assert.assertNotNull(providers);
-        providerRepository.delete(providerID);
-        Assert.assertFalse(providerRepository.exists(providerID));
-        providerRepository.delete(providers);
-        for (Provider p: providers) {
-            Assert.assertFalse(providerRepository.exists(p.getProviderId()));
-        }
-        providerRepository.deleteAll();
-        Assert.assertTrue(providerRepository.count()==0);
     }
 
     @Test
