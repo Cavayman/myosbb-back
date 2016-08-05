@@ -166,7 +166,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr *ngFor="let item of uploader.queue" (ngSubmit)="onUploadAttachmentSubmit()" #attachmentForm="ngForm">
+                                        <tr *ngFor="let item of uploader.queue">
                                             <td><strong></strong></td>
                                             <td *ngIf="uploader.isHTML5" nowrap>0.00 MB</td>
                                             <td *ngIf="uploader.isHTML5">
