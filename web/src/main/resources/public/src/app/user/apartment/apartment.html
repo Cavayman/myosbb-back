@@ -1,4 +1,134 @@
-<div class="jumbotron">
-    <h3>Квартира</h3>
-    <p class="lead"></p>
+<div class="mytable">
+    <button btn btn-success btn-xs style="width:100%;height: 25pt" (click)=" openAddModal()"> ADD </button>
+    <table class="table table-advance table-hover">
+        <thead>
+        <tr>
+            <th> ID</th>
+            <th class="hidden-phone">Square</th>
+            <th>Number</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor = "let item of Items"   (dblclick)="onUpdateClick(item)" >
+            <td class="hidden-phone" ><a [routerLink]="['apartmentprofile',item.apartmentId]" > {{item.apartmentId}}</a></td>
+            <td class="hidden-phone" >{{item.square}}</td>
+            <td class="hidden-phone" >{{item.number}}</td>
+            <td>
+                <button type="submit" (click)="openEditModal(item)"  class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
+                <button class="btn btn-danger btn-xs" (click)="onDeleteClick(item)" ><i class="fa fa-trash-o "></i></button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
 </div>
+
+<!--Edit Modal -->
+<div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close"
+                        (click)="editModal.hide()">
+                    <!--<span aria-hidden="true">&times;</span>-->
+                </button>
+                <h4 class="modal-title">Редагувати</h4>
+            </div>
+            <form *ngIf="active" (ngSubmit)="onEditApartmentSubmit()" #apartmentForm="ngForm">
+                <div class="modal-body">
+                    <div class="form-group"><label>Square</label>
+                        <input type="text" class="form-control" required [(ngModel)]="selectedApartment.square"
+                               name="square" #square="ngModel">
+                        <!--<div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                            назва відсутня
+                        </div>-->
+                    </div>
+
+                    <div class="form-group">
+                        <label>Number</label>
+                        <input type="text" class="form-control" required
+                               name="number" [(ngModel)]="selectedApartment.number" #number="ngModel">
+                        <!-- <div [hidden]="date.valid || date.pristine" class="alert alert-danger">
+                             дата відсутня
+                         </div>-->
+                        <!--  <div [hidden]="isDateValid(selectedReport.creationDate)" class="alert alert-danger">
+                              невірний формат дати
+                          </div>-->
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default"
+                        [disabled]="!apartmentForm.form.valid">
+                        Зберегти
+                    </button>
+                </div>
+
+
+        </form>
+    </div>
+</div>
+    </div>
+
+<!--ADD MODAL WINDOW -->
+<div bsModal #addModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close"
+                        (click)="editModal.hide()">
+                    <!--<span aria-hidden="true">&times;</span>-->
+                </button>
+                <h4 class="modal-title">Додати</h4>
+            </div>
+            <form *ngIf="activeAdd" (ngSubmit)="onAddApartmentSubmit()" #apartmentForm="ngForm">
+                <div class="modal-body">
+
+<!--
+
+                    <div class="form-group">
+                        <label>Owner</label>
+                        <input type="text" class="form-control"
+                           required    name="owner" [(ngModel)]="emptyApartment." #owner="ngModel">
+                    </div>
+-->
+
+
+
+                    <div class="form-group"><label>Square</label>
+                        <input type="text" class="form-control"  required
+                                name="square" [(ngModel)]="emptyApartment.square"   #square="ngModel">
+                        <!--<div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                            назва відсутня
+                        </div>-->
+                    </div>
+
+                    <div class="form-group">
+                        <label>Number</label>
+                        <input type="text" class="form-control"
+                               required    name="number" [(ngModel)]="emptyApartment.number" #number="ngModel">
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default"
+                            [disabled]="!apartmentForm.form.valid">
+                        Зберегти
+                    </button>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+

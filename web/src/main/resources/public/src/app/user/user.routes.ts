@@ -14,6 +14,9 @@ import {RoleComponent} from "./role/role.component";
 import {ProviderComponent} from "./provider/provider.component";
 import {ProviderHomeComponent} from "./provider/provider-home-page.component";
 import {ContractComponent} from "./contract/contract.component";
+import{ApartmentProfileComponent} from "./ApartmentProfile/apartment.profile"
+
+
 export const userRoutes:RouterConfig = [
     {
         path: 'home/user',
@@ -34,7 +37,9 @@ export const userRoutes:RouterConfig = [
             {path: 'osbb', component: OsbbComponent},
             {path: 'role', component: RoleComponent},
             {path: 'provider', component: ProviderComponent},
-            {path: 'contract', component: ContractComponent}
+            {path: 'contract', component: ContractComponent},
+            {path:'apartment/apartmentprofile/:id', component:ApartmentProfileComponent}
+
         ]
 
     }
