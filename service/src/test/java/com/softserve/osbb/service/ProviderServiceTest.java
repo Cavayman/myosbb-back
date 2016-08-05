@@ -34,7 +34,7 @@ public class ProviderServiceTest {
     public void init() {
         provider = new Provider();
         provider.setPeriodicity(Periodicity.PERMANENT_WEEKLY);
-        provider.setDescription("internet provider");
+        provider.setDescription("Volya");
         providers = new ArrayList<>();
         providers.add(provider);
     }

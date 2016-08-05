@@ -31,9 +31,9 @@ public class ProviderRepositoryTest {
 
     @Before
     public void init() {
-        provider = new Provider();
+        provider = new Provider("Provider Name");
         provider.setPeriodicity(Periodicity.ONE_TIME);
-        provider.setDescription("Remove trash");
+        provider.setDescription("Garbage");
         provider.setLogoUrl("empty-logo");
     }
 
@@ -85,7 +85,8 @@ public class ProviderRepositoryTest {
 
     @Test
     public void testFindProvidersByNameOrDescription(){
-        Assert.assertFalse(providerRepository.findProvidersByNameOrDescription("Garbage").isEmpty());
+        providerRepository.save(new Provider("Name"));
+        Assert.assertFalse(providerRepository.findProvidersByNameOrDescription("Name").isEmpty());
     }
 
     @Test

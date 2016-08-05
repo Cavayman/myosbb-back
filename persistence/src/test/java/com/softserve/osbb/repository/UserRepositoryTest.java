@@ -9,12 +9,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 
 /**
  * Created by cavayman on 05.07.2016.
  */
+@Transactional
+@Rollback
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = PersistenceConfiguration.class)
 public class UserRepositoryTest extends Assert {
@@ -50,22 +54,18 @@ public class UserRepositoryTest extends Assert {
 
     @Test
     public void saveTest() {
-        assertEquals(0, userRepository.findAll().size());
         userRepository.save(user);
-        assertEquals(1, userRepository.findAll().size());
         userRepository.save(user2);
-        assertEquals(2, userRepository.findAll().size());
+        assertEquals(user,userRepository.findUserByEmail(user.getEmail()));
+        assertEquals(user2,userRepository.findUserByEmail(user2.getEmail()));
 
     }
     @Test
     public void findByEmailTest() {
-        assertEquals(0, userRepository.findAll().size());
         userRepository.save(user);
-        assertEquals(1, userRepository.findAll().size());
         userRepository.save(user2);
-        assertEquals(2, userRepository.findAll().size());
-        assertEquals(user2.getEmail(),userRepository.findUserByEmail(user2.getEmail()).getEmail());
         assertEquals(user.getEmail(),userRepository.findUserByEmail(user.getEmail()).getEmail());
+        assertEquals(user2.getEmail(),userRepository.findUserByEmail(user2.getEmail()).getEmail());
         assertNotEquals(user.getEmail(),userRepository.findUserByEmail(user2.getEmail()).getEmail());
 
 
