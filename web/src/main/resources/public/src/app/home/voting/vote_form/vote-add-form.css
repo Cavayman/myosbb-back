@@ -1,0 +1,15 @@
+.optionInput {
+    width: 155px;
+}
+
+ul {
+    padding: 5px;
+}
+.option-box {
+    overflow: auto;
+    padding: 10px;
+}
+
+ul li {
+    border-bottom: 1px solid #eee;
+}
