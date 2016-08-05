@@ -31,7 +31,7 @@ export const userRoutes:RouterConfig = [
             {path: 'users', component: UsersComponent},
             {path: 'osbb', component: OsbbComponent},
             {path: 'role', component: RoleComponent},
-            {path: 'providers', component: ProviderComponent},
+            {path: 'provider', component: ProviderComponent}
         ]
 
     }

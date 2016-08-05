@@ -12,7 +12,6 @@ import {Observable} from 'rxjs/Observable';
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS} from 'ng2-bootstrap/ng2-bootstrap';
 import {ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
 import {CORE_DIRECTIVES} from "@angular/common";
-import {ProviderHomePageComponent} from "./provider-home-page.component";
 import {RouteConfig} from "@angular/router-deprecated";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {ProviderTypeComponent} from "./provider_type/provider-type.component";
@@ -26,7 +25,7 @@ import {ProviderType} from "../../../shared/models/provider.type.interface";
     pipes: [TranslatePipe, CapitalizeFirstLetterPipe],
     directives: [DROPDOWN_DIRECTIVES],
     providers: [ProviderService],
-    directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, ROUTER_DIRECTIVES, ProviderHomePageComponent, ProviderTypeComponent],
+    directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, ROUTER_DIRECTIVES, ProviderTypeComponent],
     viewProviders: [BS_VIEW_PROVIDERS]
 })
 export class ProviderComponent implements OnInit{
