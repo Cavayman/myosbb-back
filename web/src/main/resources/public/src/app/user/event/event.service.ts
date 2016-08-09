@@ -4,15 +4,16 @@ import {Observable} from "rxjs/Observable";
 import "rxjs/add/operator/map";
 import {Event} from "./event.interface";
 import "rxjs/add/operator/toPromise";
+import ApiService = require("../../../shared/services/api.service");
 
 @Injectable()
 export class EventService {
 
-    private getEventUrl = 'http://localhost:52430/restful/event?pageNumber=';
-    private delEventUrl = 'http://localhost:52430/restful/event/';
-    private delAllEventUrl = 'http://localhost:52430/restful/event/';
-    private updateEventUrl = 'http://localhost:52430/restful/event/';
-    private postEventUrl = 'http://localhost:52430/restful/event';
+    private getEventUrl = ApiService.serverUrl + '/restful/event?pageNumber=';
+    private delEventUrl = ApiService.serverUrl + '/restful/event/';
+    private delAllEventUrl = ApiService.serverUrl + '/restful/event/';
+    private updateEventUrl = ApiService.serverUrl + '/restful/event/';
+    private postEventUrl = ApiService.serverUrl + '/restful/event';
 
     constructor(private _http:Http) {
     }

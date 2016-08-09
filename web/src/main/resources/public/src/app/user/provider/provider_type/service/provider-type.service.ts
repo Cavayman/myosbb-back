@@ -7,12 +7,13 @@ import {Observable} from "rxjs/Rx";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import {ProviderType} from "../../../../../shared/models/provider.type.interface";
+import ApiService = require("../../../../../shared/services/api.service");
 
 
 @Injectable()
 export class ProviderTypeService {
    // private url = '/restful/providertype/';
-    private url = 'http://localhost:52430/restful/providertype/';
+    private url = ApiService.serverUrl + '/restful/providertype/';
 
     constructor(private _http:Http){
     }

@@ -6,8 +6,9 @@ import {PageCreator} from "../../../shared/services/page.creator.interface";
 import "rxjs/Rx";
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS, ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
 import {FileSelectDirective, FileDropDirective, FileUploader} from 'ng2-file-upload/ng2-file-upload';
+import ApiService = require("../../../shared/services/api.service");
 
-const attachmentUploadUrl = 'http://localhost:52430/restful/attachment/';
+const attachmentUploadUrl = ApiService.serverUrl + '/restful/attachment/';
 declare var saveAs:any;
 
 @Component({
@@ -88,7 +89,12 @@ export class UserAttachmentComponent implements OnInit, OnDestroy {
         this.pending = true;
 
         let xhr = new XMLHttpRequest();
+        // let xhr = new XDomainRequest();
         let url = attachmentUploadUrl + attachmentPath;
+        // xhr.setRequestHeader("Access-Control-Allow-Methods","POST, GET, OPTIONS");
+        // xhr.setRequestHeader("Access-Control-Allow-Headers","Origin");
+        // header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+        // header("Access-Control-Allow-Headers: Origin");
         xhr.open('GET', url, true);
         xhr.responseType = 'blob';
         console.log('preparing download...');

@@ -7,14 +7,15 @@ import {Observable} from "rxjs/Rx";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import {Contract} from "../../../../shared/models/contract.interface";
+import ApiService = require("../../../../shared/services/api.service");
 
 @Injectable()
 export class ContractService {
 
    // private urlWithParams = '/restful/contract?pageNum=';
    // private url = '/restful/contract/';
-    private url = 'http://localhost:52430/restful/contract/';
-    private urlWithParams = 'http://localhost:52430/restful/contract?pageNum=';
+    private url = ApiService.serverUrl + '/restful/contract/';
+    private urlWithParams = ApiService.serverUrl + '/restful/contract?pageNum=';
 
     constructor(private _http:Http){
     }

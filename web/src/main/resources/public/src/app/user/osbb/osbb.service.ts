@@ -3,14 +3,15 @@ import {Http, Headers} from "@angular/http";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/toPromise";
 import {IOsbb} from "./osbb";
+import ApiService = require("../../../shared/services/api.service");
 
 @Injectable()
 export class OsbbService { 
 
-    private deleteUrl:string = 'http://localhost:52430/restful/osbb/id/';
-    private postUrl:string = 'http://localhost:52430/restful/osbb';
-    private putUrl:string = 'http://localhost:52430/restful/osbb';
-    private getUrl:string = 'http://localhost:52430/restful/osbb';
+    private deleteUrl:string = ApiService.serverUrl + '/restful/osbb/id/';
+    private postUrl:string = ApiService.serverUrl + '/restful/osbb';
+    private putUrl:string = ApiService.serverUrl + '/restful/osbb';
+    private getUrl:string = ApiService.serverUrl + '/restful/osbb';
 
     /*
     private deleteUrl:string = 'http://localhost:52430/myosbb/restful/osbb/id/';

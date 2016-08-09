@@ -2,16 +2,17 @@ import {Injectable} from "@angular/core";
 import {Http, Headers} from "@angular/http";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/toPromise";
+import ApiService = require("../../../shared/services/api.service");
 
 import {ITicket} from './ticket';
 
 @Injectable()
 export class TicketService { 
 
-    private deleteUrl:string = 'http://localhost:52430/restful/ticket';
-    private postUrl:string = 'http://localhost:52430/restful/ticket';
-    private putUrl:string = 'http://localhost:52430/restful/ticket/';                              
-    private getUrl:string = 'http://localhost:52430/restful/ticket/';
+    private deleteUrl:string = ApiService.serverUrl + '/restful/ticket';
+    private postUrl:string = ApiService.serverUrl + '/restful/ticket';
+    private putUrl:string = ApiService.serverUrl + '/restful/ticket/';
+    private getUrl:string = ApiService.serverUrl + '/restful/ticket/';
 
 
     constructor(private http: Http) { }

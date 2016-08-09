@@ -4,14 +4,15 @@ import {Observable} from "rxjs/Observable";
 import "rxjs/add/operator/map";
 import {Report} from "./report.interface";
 import "rxjs/add/operator/toPromise";
+import ApiService = require("../../../shared/services/api.service");
 
 
 @Injectable()
 export class ReportService {
 
-    private getReportUr = 'http://localhost:52430/restful/report?pageNumber=';
-    private delReportUrl = 'http://localhost:52430/restful/report/';
-    private updateReportUrl = 'http://localhost:52430/restful/report/';
+    private getReportUr = ApiService.serverUrl + '/restful/report?pageNumber=';
+    private delReportUrl = ApiService.serverUrl + '/restful/report/';
+    private updateReportUrl = ApiService.serverUrl + '/restful/report/';
 
     constructor(private _http:Http) {
     }

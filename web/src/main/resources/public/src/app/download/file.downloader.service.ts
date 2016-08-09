@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
+import ApiService = require("../../shared/services/api.service");
 
-let reportDownloadUrl = 'http://localhost:52430/restful/report/download';
+let reportDownloadUrl = ApiService.serverUrl + '/restful/report/download';
 
 declare var saveAs:any;
 
