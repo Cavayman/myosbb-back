@@ -4,16 +4,16 @@ import {Observable} from "rxjs/Observable";
 import "rxjs/add/operator/map";
 import {Attachment} from "./attachment.interface";
 import "rxjs/add/operator/toPromise";
-
+import ApiService = require("../../../shared/services/api.service");
 
 @Injectable()
 export class AttachmentService {
 
-    private getAttachmentUrl = 'http://localhost:52430/restful/attachment?pageNumber=';
-    private delAttachmentUrl = 'http://localhost:52430/restful/attachment/';
-    private delAllAttachmentUrl = 'http://localhost:52430/restful/attachment/';
-    private updateAttachmentUrl = 'http://localhost:52430/restful/attachment/';
-    private downloadAttachmentUrl = 'http://localhost:52430/restful/attachment/';
+    private getAttachmentUrl = ApiService.serverUrl + '/restful/attachment?pageNumber=';
+    private delAttachmentUrl = ApiService.serverUrl + '/restful/attachment/';
+    private delAllAttachmentUrl = ApiService.serverUrl + '/restful/attachment/';
+    private updateAttachmentUrl = ApiService.serverUrl + '/restful/attachment/';
+    private downloadAttachmentUrl = ApiService.serverUrl + '/restful/attachment/';
 
     constructor(private _http:Http) {
     }

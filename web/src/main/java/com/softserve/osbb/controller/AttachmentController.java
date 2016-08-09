@@ -6,6 +6,8 @@ import com.softserve.osbb.util.PageCreator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.embedded.MultipartConfigFactory;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.domain.Page;
 import org.springframework.hateoas.Resource;
@@ -15,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -36,6 +39,14 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 public class AttachmentController {
 
     private static Logger logger = LoggerFactory.getLogger(AttachmentController.class);
+
+    @Bean
+    MultipartConfigElement multipartConfigElement() {
+        MultipartConfigFactory factory = new MultipartConfigFactory();
+        factory.setMaxFileSize("128KB");
+        factory.setMaxRequestSize("128KB");
+        return factory.createMultipartConfig();
+    }
 
     @Autowired
     private AttachmentService attachmentService;
@@ -68,7 +79,6 @@ public class AttachmentController {
         } catch (Exception e) {
             logger.warn("File "+ filename + " not found.");
             return ResponseEntity.notFound().build();
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 

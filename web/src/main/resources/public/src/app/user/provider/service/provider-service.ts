@@ -6,6 +6,8 @@ import {Http, Headers, Response, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs/Rx";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import {Provider} from "../../../../shared/models/profider.interface";
+import ApiService = require("../../../../shared/services/api.service");
 import {Provider} from "../../../../shared/models/provider.interface";
 
 @Injectable()
@@ -13,8 +15,8 @@ export class ProviderService {
 
    // private urlWithParams = '/restful/provider?pageNum=';
    // private url = '/restful/provider/';
-    private url = 'http://localhost:52430/restful/provider/';
-    private urlWithParams = 'http://localhost:52430/restful/provider?pageNum=';
+    private url = ApiService.serverUrl + '/restful/provider/';
+    private urlWithParams = ApiService.serverUrl + '/restful/provider?pageNum=';
 
     constructor(private _http:Http){
     }

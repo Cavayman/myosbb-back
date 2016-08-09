@@ -3,6 +3,8 @@ import {Injectable} from "@angular/core";
 import {Observable} from 'rxjs/observable';
 import {ApartmentModel} from './Apartment.model';
 import 'rxjs/add/operator/map';
+import ApiService = require("../../../shared/services/api.service");
+
 @Injectable ()
 export class ApartmentService{
     
@@ -11,7 +13,7 @@ export class ApartmentService{
     getAllApartments():Observable<any>{
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.get("http://localhost:52430/restful/apartment")
+        return this.http.get(ApiService.serverUrl + "/restful/apartment")
             .map(response => response.json());
             }
 
@@ -21,7 +23,7 @@ export class ApartmentService{
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers});
         console.log("add model...." + body);
-        return this.http.post("http://localhost:52430/restful/apartment", body, options)
+        return this.http.post(ApiService.serverUrl + "/restful/apartment", body, options)
             .toPromise()
             .then(res=>res.json());
         
@@ -29,7 +31,7 @@ export class ApartmentService{
     deleteApartment(am:ApartmentModel):Promise<ApartmentModel>{
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers});
-        let url = 'http://localhost:52430/restful/apartment/' + am.apartmentId;
+        let url = ApiService.serverUrl + '/restful/apartment/' + am.apartmentId;
         console.log("deleted item" + am);
        return  this.http.delete(url, options)
            .toPromise()
@@ -47,7 +49,7 @@ export class ApartmentService{
         put(apartmentModel:ApartmentModel) {
             let headers = new Headers();
             headers.append('Content-Type', 'application/json');
-            return this.http.put("http://localhost:52430/restful/apartment", JSON.stringify(apartmentModel), {headers: headers})
+            return this.http.put(ApiService.serverUrl + "/restful/apartment", JSON.stringify(apartmentModel), {headers: headers})
                 .toPromise()
                 .then(()=>apartmentModel)
                 .catch((error)=>console.error(error));

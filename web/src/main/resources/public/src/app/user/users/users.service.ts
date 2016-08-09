@@ -4,10 +4,11 @@ import {HTTP_PROVIDERS, Http,Headers,Response} from "@angular/http";
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import ApiService = require("../../../shared/services/api.service");
 
 @Injectable()
 export class UsersService {
-    private _pathUrl='http://localhost:52430/restful/user/';
+    private _pathUrl = ApiService.serverUrl + '/restful/user/';
     constructor( private http:Http){
     }
 
