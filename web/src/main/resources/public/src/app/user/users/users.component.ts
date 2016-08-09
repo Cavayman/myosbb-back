@@ -41,7 +41,7 @@ export class UsersComponent implements OnInit {
     }
 
     deleteUser(user:User) {
-        this._userService.deleteUser(user).subscribe(()=>this.userList.splice(this.userList.indexOf(user,0)));
+        this._userService.deleteUser(user).subscribe(()=>this.userList.splice(this.userList.indexOf(user,0),1));
     }
 
     // saveUser() {

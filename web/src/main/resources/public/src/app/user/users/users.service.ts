@@ -13,28 +13,30 @@ export class UsersService {
 
     getAllUsers():Observable<any>{
         console.log('in service');
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http.get(this._pathUrl,{headers:headers})
+        let headers2 = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
+        headers2.append('Content-Type', 'application/json');
+        return this.http.get(this._pathUrl,{headers:headers2})
             .map(response => response.json());
     }
 
     updateUser(user:User):Observable<User>{
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http.post(this._pathUrl+user.userId,JSON.stringify(user),{headers:headers})
+        let headers2 = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
+        headers2.append('Content-Type', 'application/json');
+        return this.http.post(this._pathUrl+user.userId,JSON.stringify(user),{headers:headers2})
             .map((res:Response) => {return new User(res.json())});
     }
 
     deleteUser(user:User){
-        return this.http.delete(this._pathUrl+user.userId)
-            .map(response => response.json());
+        let headers2 = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
+        headers2.append('Content-Type', 'application/json');
+        console.log(user);
+        return this.http.delete(this._pathUrl+user.userId,{headers:headers2}).map(response => response.json());
     }
 
     saveUser(user:User):Observable<User>{
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http.post(this._pathUrl,JSON.stringify(user),{headers:headers})
+        let headers2 = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
+        headers2.append('Content-Type', 'application/json');
+        return this.http.post(this._pathUrl,JSON.stringify(user),{headers:headers2})
             .map((res:Response) => {return new User(res.json())});
 
 
