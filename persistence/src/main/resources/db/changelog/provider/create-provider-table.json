@@ -48,6 +48,24 @@
                   "name": "provider_type_id",
                   "type": "INT"
                 }
+              },
+              {
+                "column": {
+                  "name": "email",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "phone",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "address",
+                  "type": "VARCHAR(255)"
+                }
               }
             ],
             "tableName": "provider"

@@ -2,11 +2,11 @@
  * Created by Anastasiia Fedorak  8/2/16.
  */
 import {Injectable} from "@angular/core";
-import {Http, Headers, Response} from "@angular/http";
+import {Http, Headers, Response, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs/Rx";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
-import {Provider} from "../../../../shared/models/profider.interface";
+import {Provider} from "../../../../shared/models/provider.interface";
 
 @Injectable()
 export class ProviderService {
@@ -28,10 +28,11 @@ export class ProviderService {
     }
 
     getProviderById(id: number) : Observable<any> {
+        let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({headers});
         console.log("ok");
         return this._http.get(this.url + id)
-            .map(res => res.json().data,
-                    err => console.log(err));
+            .map(res => res.json());
     }
 
 

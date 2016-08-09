@@ -1,0 +1,33 @@
+<div class="panel panel-default  pos-top">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-xs-6">
+                <h1>{{provider.name}}</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <img src="{{provider.logoUrl}}">
+        </div>
+    </div>
+
+    <div class="panel-body">
+            <div class="col-sm-8">
+                <h3>{{'whatwedo' | translate}}</h3>
+                    <p>{{provider.description}}</p>
+            </div>
+        <div class="col-sm-4">
+                <h2>{{'contactus' | translate }}</h2>
+        <address>
+            <strong>Address:</strong>
+            <br>{{provider.address}}
+        </address>
+        <address>
+            <abbr title="Phone">Phone:</abbr>{{provider.phone}}
+            <br/>
+            <abbr title="Email">Email:</abbr> <a href="mailto:#">{{provider.email}}</a>
+        </address>
+    </div>
+  </div>
+</div>
+<!-- /.row -->

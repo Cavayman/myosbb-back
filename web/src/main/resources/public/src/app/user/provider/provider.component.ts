@@ -6,17 +6,17 @@ import {CapitalizeFirstLetterPipe} from "../../../shared/pipes/capitalize-first-
 import {TranslatePipe} from "ng2-translate/ng2-translate";
 import {DROPDOWN_DIRECTIVES} from "ng2-bs-dropdown/dropdown";
 import {ProviderService} from "./service/provider-service";
-import {Provider} from "../../../shared/models/profider.interface";
 import {PageCreator} from "../../../shared/services/page.creator.interface";
 import {Observable} from 'rxjs/Observable';
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS} from 'ng2-bootstrap/ng2-bootstrap';
 import {ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
 import {CORE_DIRECTIVES} from "@angular/common";
 import {RouteConfig} from "@angular/router-deprecated";
-import {ROUTER_DIRECTIVES} from "@angular/router";
+import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import {ProviderTypeComponent} from "./provider_type/provider-type.component";
 import {ProviderType} from "../../../shared/models/provider.type.interface";
 import {ProviderTypeService} from "./provider_type/service/provider-type.service";
+import {Provider} from "../../../shared/models/provider.interface";
 
 
 @Component({
@@ -30,7 +30,7 @@ import {ProviderTypeService} from "./provider_type/service/provider-type.service
 })
 export class ProviderComponent implements OnInit{
     private providers :  Provider[];
-    private selected : Provider =  {providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:null};
+    private selected : Provider =  {providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:null, email:'',phone:'', address:''};
     private typeDisplay : string;
     private pageCreator:PageCreator<Provider>;
     private pageNumber:number = 1;
@@ -43,7 +43,7 @@ export class ProviderComponent implements OnInit{
 
     private providerId:number;
     
-    constructor(private _providerService:ProviderService){
+    constructor(private _providerService:ProviderService, private router: Router){
 
     }
 

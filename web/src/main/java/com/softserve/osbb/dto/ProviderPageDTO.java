@@ -11,24 +11,55 @@ import java.util.Collection;
 /**
  * Created by Anastasiia Fedorak on 8/2/16.
  */
-public class ProviderDTO {
+public class ProviderPageDTO {
     private Integer providerId;
     private String name;
     private String description;
     private String logoUrl;
     private String periodicity;
     private Integer type;
+    private String email;
+    private String phone;
+    private String address;
 
-    public ProviderDTO() {
+    public String getEmail() {
+        return email;
     }
 
-    public ProviderDTO(Integer providerId, String name, String description, String logoUrl, Periodicity periodicity, ProviderType type) {
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public ProviderPageDTO() {
+    }
+
+    public ProviderPageDTO(Integer providerId, String name, String description, String logoUrl,
+                           Periodicity periodicity, ProviderType type, String email, String phone, String address) {
         this.providerId = providerId;
         this.name = name;
         this.description = description;
         this.logoUrl = logoUrl;
         this.periodicity = periodicity != null ? periodicity.toString() : "";
         this.type = type != null ? type.getProviderTypeId(): 0;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
     }
 
     public Integer getProviderId() {

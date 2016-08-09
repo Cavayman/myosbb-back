@@ -23,6 +23,9 @@ public class Provider implements Serializable {
     private Collection<Bill> bills;
     private Periodicity periodicity;
     private ProviderType type;
+    private String email;
+    private String phone;
+    private String address;
 
 
     public Provider() {
@@ -114,6 +117,33 @@ public class Provider implements Serializable {
 
     public void setType(ProviderType type) {
         this.type = type;
+    }
+
+    @Column(name = "email")
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Column(name = "phone")
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    @Column(name = "address")
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     @Override
