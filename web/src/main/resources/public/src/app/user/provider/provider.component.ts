@@ -153,6 +153,15 @@ export class ProviderComponent implements OnInit{
                     console.error(err)
                 });
     }
+
+    onSearch(search:string){
+        console.log("inside search: search param" + search);
+        this._providerService.findProviderByNameOrDescription(search)
+            .subscribe((providers) => {
+                console.log("data: " + providers);
+                this.providers = providers;
+            });
+    }
     
 
 }

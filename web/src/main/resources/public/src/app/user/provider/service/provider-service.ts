@@ -37,7 +37,6 @@ export class ProviderService {
             .map(res => res.json());
     }
 
-
     getSortedProviders(pageNumber:number, name:string, order:boolean):Observable<any> {
         return this._http.get(this.urlWithParams + pageNumber + '&&sortedBy=' + name + '&&asc=' + order)
             .map((res)=> res.json())
@@ -73,4 +72,11 @@ export class ProviderService {
             .catch((err)=>console.error(err));
     }
 
+    findProviderByNameOrDescription(search: string) :  Observable<any>{
+        console.log("searching providers");
+        console.log("param is" + search);
+        return  this._http.get(this.url + "find?name="+search)
+            .map(res => res.json())
+            .catch((err)=>Observable.throw(err));
+    }
 }
