@@ -1,6 +1,7 @@
 package com.softserve.osbb.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.softserve.osbb.model.enums.Periodicity;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -14,6 +15,7 @@ import java.util.Collection;
  */
 @Entity
 @Table(name = "provider")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Provider implements Serializable {
     private Integer providerId;
     private String name;
@@ -110,7 +112,6 @@ public class Provider implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "provider_type_id")
-    @JsonIgnore
     public ProviderType getType() {
         return type;
     }

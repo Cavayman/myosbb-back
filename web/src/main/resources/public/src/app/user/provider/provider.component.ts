@@ -31,7 +31,6 @@ import {Provider} from "../../../shared/models/provider.interface";
 export class ProviderComponent implements OnInit{
     private providers :  Provider[];
     private selected : Provider =  {providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:null, email:'',phone:'', address:''};
-    private typeDisplay : string;
     private pageCreator:PageCreator<Provider>;
     private pageNumber:number = 1;
     private pageList:Array<number> = [];
@@ -42,28 +41,32 @@ export class ProviderComponent implements OnInit{
     order:boolean = true;
 
     private providerId:number;
-    
+    private periodicities: string[];
     constructor(private _providerService:ProviderService, private router: Router){
 
     }
 
     setType(event){
         console.log("set type" + event);
-        this.selected.type = event.id;
-        console.log("selected.type=" + this.selected.type + JSON.stringify(this.selected));
-        this.typeDisplay = event.type;
-        console.log("name: " + this.typeDisplay)
+        this.selected.type = event;
+        console.log("selected.type=" + this.selected.type.providerTypeName + JSON.stringify(this.selected));
+    }
+
+    onSelectPeriodicity(periodicity:string){
+        this.selected.periodicity = periodicity;
+        console.log("set periodicity: "+periodicity);
     }
 
     ngOnInit():any {
         console.log("init provider cmp");
+        this.periodicities = PERIODICITY;
         this.getProvidersByPageNum(this.pageNumber);
 
     }
 
     openEditModal(provider:Provider) {
         this.selected = provider;
-        console.log('selected provider: ' + this.selected.name);
+        console.log('selected provider: ' + this.selected);
         this.editModal.show();
     }
 
@@ -133,7 +136,6 @@ export class ProviderComponent implements OnInit{
         }
     }
 
-
     sortBy(name:string) {
         console.log('sorted by ', name);
         this.order = !this.order;
@@ -154,3 +156,12 @@ export class ProviderComponent implements OnInit{
     
 
 }
+
+
+export const PERIODICITY = [
+    "ONE_TIME",
+    "PERMANENT_DAYLY",
+    "PERMANENT_WEEKLY",
+    "PERMANENT_MONTHLY",
+    "PERMANENT_YEARLY"
+]

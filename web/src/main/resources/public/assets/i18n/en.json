@@ -33,6 +33,9 @@
     "dateFinish":"date finish",
     "contract": "contract",
     "contactus": "contact us",
-    "whatwedo": "what we do"
+    "whatwedo": "what we do",
+    "email":"email",
+    "phone":"phone",
+    "adress":"address"
 }
 

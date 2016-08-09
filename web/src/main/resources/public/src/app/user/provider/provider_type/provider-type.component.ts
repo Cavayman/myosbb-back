@@ -21,10 +21,10 @@ import {Http} from "@angular/http";
                     <div class="dropdown">
                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownProviderType"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <span class="caret"></span>{{selected.type}}
+                            <span class="caret"></span>{{selected.providerTypeName}}
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownProviderType">
-                            <li *ngFor="let type of types"><a style="cursor: pointer"  (click)="onSelect(type)" >{{type.type}}</a></li>
+                            <li *ngFor="let type of types"><a style="cursor: pointer"  (click)="onSelect(type)" >{{type.providerTypeName}}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -32,34 +32,30 @@ import {Http} from "@angular/http";
     `,
     providers: [ProviderTypeService],
     pipes: [TranslatePipe, CapitalizeFirstLetterPipe],
-    directives: [DROPDOWN_DIRECTIVES]
- //   outputs: ['typeChanged']
+    directives: [DROPDOWN_DIRECTIVES],
+   // outputs: ['typeChanged']
 })
 export class ProviderTypeComponent implements OnInit {
-    private types:ProviderType[];
-    private selected : ProviderType = {id: null, type: ''};
+    private types:ProviderType[] ;
+    private selected : ProviderType = {providerTypeId: null, providerTypeName: ''};
 
     @Output() typeChanged : EventEmitter<ProviderType>;
 
     ngOnInit() {
-        // console.log("init method");
-        // console.log("sending http GET");
-        // this._providerTypeService.getProviderTypes()
-        //     .subscribe((data) => {
-        //             this.types = data;
-        //             console.log("GET TYPES " + this.types);
-        //             this.selected = this.types[0];
-        //             console.log(this.selected.type)
-        //         },
-        //         (err) => {
-        //             console.log(err)
-        //         });
+        console.log("init method");
+        this._providerTypeService.getProviderTypes()
+            .subscribe((data) => {
+                console.log("DATA: " + data);
+                this.types = data;
+                console.log("GET TYPES " + this.types[0].providerTypeName);
+                this.selected = this.types[0];
+                console.log(this.selected.providerTypeName)
+            });
     }
-
 
     onSelect(type: ProviderType){
         this.selected = type;
-        console.log("select type " + type.type);
+        console.log("select type " + type.providerTypeName);
         this.typeChanged.emit(type);
     }
 
@@ -67,24 +63,5 @@ export class ProviderTypeComponent implements OnInit {
         console.log("constructor provider type cmp");
         this.typeChanged = new EventEmitter<ProviderType>();
         console.log("create event emitter");
-
-
-        //
-        // return this._providerTypeService.getProviderTypes()
-        //     .then(types => this.types = types);
-
-        this.types = TYPES;
-        this.selected = TYPES[0];
     }
 }
-
-
-export const TYPES: ProviderType[] = [
-    {id: 1, type: 'Inet'},
-    {id: 2, type: 'Trash'},
-    {id: 3, type: 'Other'},
-    {id: 4, type: 'Another'},
-    {id: 5, type: 'Lol'},
-    {id: 6, type: 'Mr. Nice'},
-    {id: 7, type: 'll'},
-];

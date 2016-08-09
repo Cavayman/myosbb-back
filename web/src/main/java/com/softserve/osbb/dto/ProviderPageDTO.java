@@ -17,7 +17,7 @@ public class ProviderPageDTO {
     private String description;
     private String logoUrl;
     private String periodicity;
-    private Integer type;
+    private ProviderType type;
     private String email;
     private String phone;
     private String address;
@@ -56,7 +56,8 @@ public class ProviderPageDTO {
         this.description = description;
         this.logoUrl = logoUrl;
         this.periodicity = periodicity != null ? periodicity.toString() : "";
-        this.type = type != null ? type.getProviderTypeId(): 0;
+//        this.type = type != null ? type.getProviderTypeId(): 0;
+        this.type = type;
         this.email = email;
         this.phone = phone;
         this.address = address;
@@ -102,12 +103,11 @@ public class ProviderPageDTO {
         this.periodicity = periodicity;
     }
 
-    public Integer getType() {
+    public ProviderType getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(ProviderType type) {
         this.type = type;
     }
-
 }

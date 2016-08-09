@@ -33,7 +33,8 @@ public class ProviderPageDtoMapper {
             providerPageDTO.setDescription(provider.getDescription());
             providerPageDTO.setLogoUrl(provider.getLogoUrl());
             if (provider.getPeriodicity()!=null)providerPageDTO.setPeriodicity(provider.getPeriodicity().toString());
-            if(provider.getType()!=null) providerPageDTO.setType(provider.getType().getProviderTypeId());
+//            if(provider.getType()!=null) providerPageDTO.setType(provider.getType().getProviderTypeId());
+            providerPageDTO.setType(provider.getType());
             providerPageDTO.setEmail(provider.getEmail());
             providerPageDTO.setPhone(provider.getPhone());
             providerPageDTO.setAddress(provider.getAddress());
@@ -55,8 +56,8 @@ public class ProviderPageDtoMapper {
         provider.setLogoUrl(providerPageDTO.getLogoUrl());
         provider.setPeriodicity(Periodicity.valueOf(providerPageDTO.getPeriodicity()));
         try {
-            if (providerTypeService.existsProviderType(providerPageDTO.getType())){
-                ProviderType type = providerTypeService.findOneProviderTypeById(providerPageDTO.getType());
+            if (providerTypeService.existsProviderType(providerPageDTO.getType().getProviderTypeId())){
+                ProviderType type = providerTypeService.findOneProviderTypeById(providerPageDTO.getType().getProviderTypeId());
                 if (type != null) {
                     logger.debug("successfully find provider type entity");
                     provider.setType(type);

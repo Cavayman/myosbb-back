@@ -4,8 +4,6 @@
 <div class="panel panel-default pos-top">
     <div class="panel-heading"><h4><i class="fa fa-angle-right"></i> {{ 'providers' | translate }}</h4></div>
 
-        <!--<provider-home></provider-home>-->
-
     <div class="panel-body">
                 <div class="content-panel">
                     <div id="example_filter" class="pull-right dataTables_filter">
@@ -38,7 +36,7 @@
                         <tbody>
                         <tr *ngFor="let provider of providers">
                             <td>{{ provider.name }} <img style="max-height: 30px; max-width: 30px" src="{{provider.logoUrl}}"></td>
-                            <td>{{ provider.typeDisplay }}</td>
+                            <td>{{ provider.type.providerTypeName }}</td>
                             <td>{{ provider.periodicity | translate }}</td>
                             <td> {{ provider.description }}</td>
                             <td>
@@ -111,14 +109,22 @@
                                         <provider-type (typeChanged)="setType($event)"></provider-type> <!-- Type -->
 
                                         <div class="form-group">
-                                            <label> {{ 'periodicity' | translate | capitalize }}</label>
-                                            <input type="text" class="form-control" required
-                                                   name="periodicity" [(ngModel)]="selected.periodicity"
-                                                   #periodicity="ngModel">
-                                            <div [hidden]="periodicity.valid || description.pristine"
-                                                 class="alert alert-danger">
-                                                {{ 'required' | translate | capitalize }}
+
+                                            <label> {{ 'periodicity' | translate:{value:param} | capitalize }} </label>
+                                            <div class="form-control-type">
+                                                <div class="dropdown">
+                                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownPeriodicity"
+                                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                        <span class="caret"></span>{{selected.periodicity | translate }}
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownPeriodicity">
+                                                        <li *ngFor="let per of periodicities"><a style="cursor: pointer"  (click)="onSelectPeriodicity(per)" >{{per | translate }}</a></li>
+                                                    </ul>
+                                                </div>
                                             </div>
+
+
+
                                         </div> <!-- Periodicity -->
 
                                         <div class="form-group">
@@ -138,6 +144,28 @@
                                                    name="logo" [(ngModel)]="selected.logoUrl"
                                                    #logo="ngModel">
                                         </div> <!-- Logo -->
+
+                                        <!-- Contacts -->
+                                        <div class="form-group">
+                                            <label> {{ 'email' | translate | capitalize }}</label>
+                                            <input type="text" class="form-control"
+                                                   name="email" [(ngModel)]="selected.email"
+                                                   #email="ngModel">
+                                        </div> <!-- Email -->
+
+                                        <div class="form-group">
+                                            <label> {{ 'phone' | translate | capitalize }}</label>
+                                            <input type="text" class="form-control"
+                                                   name="phone" [(ngModel)]="selected.phone"
+                                                   #phone="ngModel">
+                                        </div> <!-- Phone -->
+
+                                        <div class="form-group">
+                                            <label> {{ 'address' | translate | capitalize }}</label>
+                                            <input type="text" class="form-control"
+                                                   name="address" [(ngModel)]="selected.address"
+                                                   #address="ngModel">
+                                        </div> <!-- Address -->
                                     </div>
 
 

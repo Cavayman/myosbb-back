@@ -2,7 +2,7 @@
  * Created by Anastasiia Fedorak  8/4/16.
  */
 import {Injectable} from "@angular/core";
-import {Http, Response, Headers} from "@angular/http";
+import {Http, Response, Headers, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs/Rx";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
@@ -27,10 +27,12 @@ export class ProviderTypeService {
     }
 
     getProviderTypeById(id: number) :  Observable<any> {
-        console.log("ok");
+        let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({headers});
         return this._http.get(this.url + id)
             .map(r => r.json());
     }
+
 
     deleteProviderTypeById(providerTypeId:number) {
         let headers = new Headers();
