@@ -89,12 +89,7 @@ export class UserAttachmentComponent implements OnInit, OnDestroy {
         this.pending = true;
 
         let xhr = new XMLHttpRequest();
-        // let xhr = new XDomainRequest();
         let url = attachmentUploadUrl + attachmentPath;
-        // xhr.setRequestHeader("Access-Control-Allow-Methods","POST, GET, OPTIONS");
-        // xhr.setRequestHeader("Access-Control-Allow-Headers","Origin");
-        // header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
-        // header("Access-Control-Allow-Headers: Origin");
         xhr.open('GET', url, true);
         xhr.responseType = 'blob';
         console.log('preparing download...');

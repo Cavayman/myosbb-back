@@ -17,11 +17,22 @@
                 <tr *ngFor="let attachment of attachments">
                     <td><a href="/restful/attachment/{{attachment.path}}">{{attachment.path}}</a></td>
                     <td>
-                        <button type="button" class="btn btn-warning" (click)="download(attachment.path)">Скачати
+                        <!--<button type="button" class="btn btn-warning" (click)="download(attachment.path)">Скачати-->
+                        <!--</button>-->
+                        <!--<button type="button" class="btn btn-danger" (click)="openDelModal(attachment.attachmentId)">-->
+                            <!--Видалити-->
+                        <!--</button>-->
+                        <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Опції
+                        <span class="caret"></span>
                         </button>
-                        <button type="button" class="btn btn-danger" (click)="openDelModal(attachment.attachmentId)">
-                            Видалити
-                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a style="cursor: pointer" (click)="openEditModal(attachment)">Редагувати</a></li>
+                        <li><a style="cursor: pointer" (click)="openDelModal(attachment.attachmentId)">Видалити</a></li>
+                        </ul>
+                        </div>
                     </td>
                 </tr>
                 </tbody>

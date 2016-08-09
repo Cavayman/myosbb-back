@@ -33,8 +33,17 @@
                     <td><a href="{{event.path}}">file</a></td>
                     <td>{{event.description}}</td>
                     <td>
-                        <button type="button" class="btn btn-warning" (click)="openEditModal(event)">Редагувати</button>
-                        <button type="button" class="btn btn-danger" (click)="openDelModal(event.eventId)">Видалити</button>
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Опції
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li><a style="cursor: pointer" (click)="openEditModal(event)">Редагувати</a></li>
+                                <li><a style="cursor: pointer" (click)="openDelModal(event.eventId)">Видалити</a></li>
+                            </ul>
+                        </div>
                     </td>
                 </tr>
                 </tbody>
