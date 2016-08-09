@@ -11,7 +11,7 @@ public abstract class EntityResourceList<T> extends ArrayList<Resource<T>> imple
 
     @Override
     public boolean add(Resource<T> tResource) {
-        return super.add(tResource);
+        return super.add(createLink(tResource));
     }
 
 

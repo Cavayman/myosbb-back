@@ -18,7 +18,7 @@ export class ReportService {
     private delReportUrl = 'http://localhost:52430/restful/report/';
     private updateReportUrl = 'http://localhost:52430/restful/report/';
     private getReportByParamURL = 'http://localhost:52430/restful/report/between?';
-
+    private getReportBySearchParamURL = 'http://localhost:52430/restful/report/find?searchParam=';
 
     constructor(private _http: Http) {
     }
@@ -39,6 +39,12 @@ export class ReportService {
         return this._http.get(this.getReportByParamURL
             + 'dateFrom=' + dateFrom + '&&'
             + 'dateTo=' + dateTo).map((response)=>response.json())
+            .catch((error)=>Observable.throw(error));
+    }
+
+    searchByInputParam(value: string): Observable<any> {
+        return this._http.get(this.getReportBySearchParamURL + value)
+            .map((response)=>response.json())
             .catch((error)=>Observable.throw(error));
     }
 

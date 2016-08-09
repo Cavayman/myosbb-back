@@ -8,6 +8,8 @@ import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS, ModalDirective, BUTTON_DIRECTIVES} 
 import {ReportFilter} from "./report.filter";
 import {DomSanitizationService} from "@angular/platform-browser";
 import {SELECT_DIRECTIVES} from "ng2-select";
+import {TranslatePipe} from "ng2-translate";
+import {CapitalizeFirstLetterPipe} from "../../../shared/pipes/capitalize-first-letter";
 
 
 @Component({
@@ -17,7 +19,7 @@ import {SELECT_DIRECTIVES} from "ng2-select";
     directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, SELECT_DIRECTIVES, FORM_DIRECTIVES, BUTTON_DIRECTIVES],
     viewProviders: [BS_VIEW_PROVIDERS],
     styleUrls: ['src/app/user/report/report.css'],
-    pipes: [ReportFilter]
+    pipes: [ReportFilter, TranslatePipe, CapitalizeFirstLetterPipe]
 })
 export class UserReportComponent implements OnInit, OnDestroy {
 
@@ -94,7 +96,6 @@ export class UserReportComponent implements OnInit, OnDestroy {
 
     getReportsByPageNum(pageNumber: number) {
         this.pageNumber = +pageNumber;
-        this.emptyArray();
         return this._reportService.getAllReports(this.pageNumber)
             .subscribe((data) => {
                     this.pageCreator = data;
@@ -139,6 +140,7 @@ export class UserReportComponent implements OnInit, OnDestroy {
     }
 
     preparePageList(start: number, end: number) {
+        this.emptyArray();
         for (let i = start; i <= end; i++) {
             this.pageList.push(i);
         }
@@ -149,7 +151,6 @@ export class UserReportComponent implements OnInit, OnDestroy {
         console.log('sorted by ', name);
         this.order = !this.order;
         console.log('order by asc', this.order);
-        this.emptyArray();
         this._reportService.getAllReportsSorted(this.pageNumber, name, this.order)
             .subscribe((data) => {
                     this.pageCreator = data;
@@ -203,9 +204,24 @@ export class UserReportComponent implements OnInit, OnDestroy {
         this._reportService.searchByDates(this.dateFrom, this.dateTo)
             .subscribe((data)=> {
                     this.reports = data;
+                    this.preparePageList(this.pageNumber, this.pageNumber);
                 },
                 (error)=> {
                     console.log(error)
                 })
+    }
+
+    onClickSearchByParam(value: string) {
+        if (value.trim().length) {
+            console.log('search by ', value);
+            this._reportService.searchByInputParam(value)
+                .subscribe((data)=> {
+                        this.reports = data;
+                        this.preparePageList(this.pageNumber, this.pageNumber);
+                    },
+                    (error)=> {
+                        console.error(error)
+                    });
+        }
     }
 }

@@ -28,7 +28,7 @@
         'moment': {main: 'moment.js', defaultExtension: 'js'},
         'ng2-bootstrap': {main: 'ng2-bootstrap.js', defaultExtension: 'js'},
         'ng2-file-upload': {main: 'ng2-file-upload.js', defaultExtension: 'js'},
-        'ng2-translate':{defaultExtension: 'js'},
+        'ng2-translate': {main: 'ng2-translate.js', defaultExtension: 'js'},
         'ng2-bs-dropdown': {defaultExtension : 'js'},
         'ng2-select': {main:'ng2-select.js', defaultExtension: 'js'}
     };

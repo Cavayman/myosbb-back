@@ -69,8 +69,7 @@ public class HouseController {
         housesByPage.forEach(house -> {
                     HouseDTO houseDTO = HouseDTOMapper.mapHouseEntityToDTO(house);
                     houseDTOEntityResourceList
-                            .add(houseDTOEntityResourceList
-                                    .createLink(toResource(houseDTO)));
+                            .add(toResource(houseDTO));
                 }
         );
         PageCreator<Resource<HouseDTO>> houseDTOPageCreator = new PageCreator<>();
