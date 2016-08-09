@@ -33,7 +33,33 @@
                         <a style="{cursor:pointer}" (click)="sortBy('description')"><span
                                 class="fa fa-fw fa-sort pull-right"></span></a></th>
                     <th>Додатково</th>
+                    <th><a (click)="onClickShowOptional()"><i class="fa fa-cog" aria-hidden="true"></i></a></th>
                 </tr>
+                        <div [ngStyle]="{'display': isShowOptional? '' : 'none'}" class="row pull-right">
+                            <div class="col-xs-4">
+                            <div style="width: 150px; margin: 10px; padding-left: 10px">
+                                    <ng-select [allowClear]="true"
+                                               [items]="dates"
+                                               (data)="refreshDateFrom($event)"
+                                               (selected)="selectedDateFrom($event)"
+                                               placeholder="no data selected">
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div style="width: 150px; margin: 10px; padding-left: 10px">
+                                    <ng-select [allowClear]="true"
+                                               [items]="dates"
+                                               (data)="refreshDateTo($event)"
+                                               (selected)="selectedDateTo($event)"
+                                               placeholder="no data selected">
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <button (click)="onClickSearchByDates()" [disabled]="!dateFromActive && !dateToActive" style="margin-left:20px; margin-top: 10px; padding-left: 10px" class="btn btn-primary">Пошук</button>
+                            </div>
+                        </div>
                 </thead>
                 <tbody>
                 <tr *ngFor="let report of reports | reportFilter:filter.value">
@@ -54,6 +80,7 @@
                             </ul>
                         </div>
                     </td>
+                    <td></td>
                 </tr>
                 </tbody>
             </table>

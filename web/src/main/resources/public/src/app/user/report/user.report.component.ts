@@ -1,19 +1,20 @@
 import {Component, OnInit, OnDestroy, ViewChild} from "@angular/core";
-import {CORE_DIRECTIVES} from "@angular/common";
+import {CORE_DIRECTIVES, FORM_DIRECTIVES} from "@angular/common";
 import {Report} from "./report.interface";
 import {ReportService} from "./report.service";
 import {PageCreator} from "../../../shared/services/page.creator.interface";
 import "rxjs/Rx";
-import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS, ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
+import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS, ModalDirective, BUTTON_DIRECTIVES} from "ng2-bootstrap/ng2-bootstrap";
 import {ReportFilter} from "./report.filter";
 import {DomSanitizationService} from "@angular/platform-browser";
+import {SELECT_DIRECTIVES} from "ng2-select";
 
 
 @Component({
     selector: 'my-report',
     templateUrl: 'src/app/user/report/report.html',
     providers: [ReportService],
-    directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES],
+    directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, SELECT_DIRECTIVES, FORM_DIRECTIVES, BUTTON_DIRECTIVES],
     viewProviders: [BS_VIEW_PROVIDERS],
     styleUrls: ['src/app/user/report/report.css'],
     pipes: [ReportFilter]
@@ -26,15 +27,28 @@ export class UserReportComponent implements OnInit, OnDestroy {
     private pageNumber: number = 1;
     private pageList: Array<number> = [];
     private totalPages: number;
+    private dates: string[] = [];
+    private dateFrom: string;
+    private dateTo: string
     @ViewChild('delModal') public delModal: ModalDirective;
     @ViewChild('editModal') public editModal: ModalDirective;
     active: boolean = true;
     order: boolean = true;
+    isShowOptional: boolean = false;
+    dateFromActive: boolean = false;
+    dateToActive: boolean = false;
 
     private reportId: number;
 
     constructor(private _reportService: ReportService, private sanitizer: DomSanitizationService) {
 
+    }
+
+    onClickShowOptional() {
+        this.isShowOptional = !this.isShowOptional;
+        if (!this.isShowOptional) {
+            this.getReportsByPageNum(this.pageNumber);
+        }
     }
 
     openEditModal(report: Report) {
@@ -51,7 +65,7 @@ export class UserReportComponent implements OnInit, OnDestroy {
         this.active = false;
         console.log('saving report: ' + this.selectedReport);
         this._reportService.editAndSave(this.selectedReport);
-        this._reportService.getAllReports(this.pageNumber);
+        this.getReportsByPageNum(this.pageNumber);
         this.editModal.hide();
         setTimeout(() => this.active = true, 0);
     }
@@ -88,11 +102,13 @@ export class UserReportComponent implements OnInit, OnDestroy {
                     this.preparePageList(+this.pageCreator.beginPage,
                         +this.pageCreator.endPage);
                     this.totalPages = +data.totalPages;
+                    this.dates = data.dates;
                 },
                 (error) => {
                     console.error(error)
                 });
     };
+
 
     sanitizeUrlData(reports: Report[]): Report[] {
         let safeUrlReports = [];
@@ -152,4 +168,44 @@ export class UserReportComponent implements OnInit, OnDestroy {
         //this.subscriber.unsubscribe();
     }
 
+    private getDistinctDates(): string[] {
+        let distinctDates = [];
+        for (let report of this.reports) {
+            if (distinctDates.indexOf(report.creationDate) < 0)
+                distinctDates.push(report.creationDate);
+        }
+        return distinctDates;
+
+    }
+
+
+    refreshDateFrom(value: any) {
+        console.log('date from', value);
+        this.dateFrom = value.text;
+        this.dateFromActive = true;
+    }
+
+    selectedDateFrom(value: any) {
+        console.log('selected date from', value);
+    }
+
+    refreshDateTo(value: any) {
+        console.log('date to', value);
+        this.dateTo = value.text;
+        this.dateToActive = true;
+    }
+
+    selectedDateTo(value: any) {
+        console.log('selected date to', value);
+    }
+
+    onClickSearchByDates() {
+        this._reportService.searchByDates(this.dateFrom, this.dateTo)
+            .subscribe((data)=> {
+                    this.reports = data;
+                },
+                (error)=> {
+                    console.log(error)
+                })
+    }
 }

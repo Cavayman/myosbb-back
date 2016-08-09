@@ -14,8 +14,8 @@ import java.util.List;
 @Repository
 public interface ReportRepository extends JpaRepository<Report, Integer> {
 
-    @Query("Select r From Report r where r.creationDate >= ?1 and r.creationDate <= ?2")
-    List<Report> gerAllReportsBetweenDates(LocalDate from, LocalDate to);
+    @Query("Select r From Report r where r.creationDate BETWEEN ?1 and ?2")
+    List<Report> getAllReportsBetweenDates(LocalDate from, LocalDate to);
 
     @Query("Select r From Report r where LOWER(r.name) LIKE LOWER(CONCAT('%',:searchParam,'%'))" +
             " OR LOWER(r.description) LIKE LOWER(CONCAT('%',:searchParam,'%'))")
@@ -26,5 +26,8 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
     List<Report> findDistinctByName(String name);
 
     long countByName(String name);
+
+    @Query("select distinct r.creationDate from Report r")
+    List<LocalDate> findDistinctCreationDates();
 
 }

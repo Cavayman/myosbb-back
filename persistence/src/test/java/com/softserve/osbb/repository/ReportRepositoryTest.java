@@ -41,9 +41,9 @@ public class ReportRepositoryTest {
     }
 
     @After
-    public void destroy(){
+    public void destroy() {
         reportList.clear();
-        reportList=null;
+        reportList = null;
     }
 
 
@@ -109,26 +109,34 @@ public class ReportRepositoryTest {
     }
 
     @Test
-    public void testFindDistinctNameReports(){
+    public void testFindDistinctNameReports() {
         reportList.add(new Report("marchReport2016", "some march report"));
         reportList.add(new Report("juneReport2015", "some march report"));
         reportList.add(new Report("marchReport2016", "march report updated"));
         reportList.add(new Report("juneReport2016", "june report updated"));
         reportRepository.save(reportList);
         List<Report> savedDistinctReports = reportRepository.findDistinctByName("marchReport2016");
-        assertTrue(savedDistinctReports.size()==2);
+        assertTrue(savedDistinctReports.size() == 2);
 
     }
 
     @Test
-    public void testCountByName(){
+    public void testCountByName() {
         reportList.add(new Report("marchReport2016", "some march report"));
         reportList.add(new Report("juneReport2015", "some march report"));
         reportList.add(new Report("marchReport2016", "march report updated"));
         reportList.add(new Report("juneReport2016", "june report updated"));
         reportRepository.save(reportList);
         long countByName = reportRepository.countByName("marchReport2016");
-        assertTrue(countByName==2);
+        assertTrue(countByName == 2);
+    }
+
+    @Test
+    public void testFindAllReports() {
+
+        System.out.println(reportRepository.findDistinctCreationDates());
+
+
     }
 
 }

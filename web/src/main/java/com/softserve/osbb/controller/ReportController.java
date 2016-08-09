@@ -5,7 +5,10 @@ import com.softserve.osbb.model.Report;
 import com.softserve.osbb.service.gen.ReportDownloadService;
 import com.softserve.osbb.service.impl.ReportServiceImpl;
 import com.softserve.osbb.util.PageCreator;
+import com.softserve.osbb.util.ReportPageCreator;
 import com.softserve.osbb.util.ResourceNotFoundException;
+import com.softserve.osbb.utils.CustomLocalDateTimeDeserializer;
+import com.softserve.osbb.utils.CustomLocalDateTimeSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,8 +58,8 @@ public class ReportController {
         return new ResponseEntity<>(resourceReportList, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public ResponseEntity<PageCreator<Resource<Report>>> listAllReports(
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<ReportPageCreator> listAllReports(
             @RequestParam(value = "pageNumber", required = true) Integer pageNumber,
             @RequestParam(value = "sortedBy", required = false) String sortedBy,
             @RequestParam(value = "order", required = false) Boolean order) {
@@ -69,14 +74,30 @@ public class ReportController {
         List<Resource<Report>> resourceList = new ArrayList<>();
         reportsByPage.forEach((report) -> resourceList.add(getLink(toResource(report))));
 
-        PageCreator<Resource<Report>> pageCreator = new PageCreator<>();
+        ReportPageCreator pageCreator = new ReportPageCreator();
         pageCreator.setRows(resourceList);
         pageCreator.setCurrentPage(Integer.valueOf(currentPage).toString());
         pageCreator.setBeginPage(Integer.valueOf(begin).toString());
         pageCreator.setEndPage(Integer.valueOf(end).toString());
         pageCreator.setTotalPages(Integer.valueOf(totalPages).toString());
+        pageCreator.setDates(reportService.findDistinctCreationDates());
 
         return new ResponseEntity<>(pageCreator, HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/between", method = RequestMethod.GET)
+    public ResponseEntity<List<Resource<Report>>> listReportsByDates(
+            @RequestParam("dateFrom") String dateFrom,
+            @RequestParam("dateTo") String dateTo
+    ) {
+
+        LocalDate localDateFrom = CustomLocalDateTimeDeserializer.toLocalDateParse(dateFrom);
+        LocalDate localDateTo = CustomLocalDateTimeDeserializer.toLocalDateParse(dateTo);
+        List<Report> reportList = reportService.getAllReportsBetweenDates(localDateFrom, localDateTo);
+        List<Resource<Report>> resourceReportList = new ArrayList<>();
+        reportList.forEach((report) -> resourceReportList.add(getLink(toResource(report))));
+        return new ResponseEntity<>(resourceReportList, HttpStatus.OK);
+
     }
 
 

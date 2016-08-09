@@ -15,7 +15,8 @@
         'ng2-bootstrap': 'node_modules/ng2-bootstrap',
         'ng2-file-upload': 'node_modules/ng2-file-upload',
         'ng2-translate': 'node_modules/ng2-translate',
-        'ng2-bs-dropdown': 'node_modules/ng2-bs-dropdown'
+        'ng2-bs-dropdown': 'node_modules/ng2-bs-dropdown',
+        'ng2-select': 'node_modules/ng2-select'
     };
     // packages tells the System loader how to load when no filename and/or no extension
     var packages = {
@@ -28,7 +29,8 @@
         'ng2-bootstrap': {main: 'ng2-bootstrap.js', defaultExtension: 'js'},
         'ng2-file-upload': {main: 'ng2-file-upload.js', defaultExtension: 'js'},
         'ng2-translate':{defaultExtension: 'js'},
-        'ng2-bs-dropdown': {defaultExtension : 'js'}
+        'ng2-bs-dropdown': {defaultExtension : 'js'},
+        'ng2-select': {main:'ng2-select.js', defaultExtension: 'js'}
     };
     var ngPackageNames = [
         'common',

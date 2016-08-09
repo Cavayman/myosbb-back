@@ -1,5 +1,7 @@
 package com.softserve.osbb.util;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -7,13 +9,11 @@ import java.util.List;
  */
 public class PageCreator<T> {
 
-
     private String currentPage;
     private String totalPages;
     private String beginPage;
     private String endPage;
     private List<T> rows;
-
 
     public String getCurrentPage() {
         return currentPage;

@@ -14,22 +14,35 @@ export class ReportService {
     private delReportUrl = ApiService.serverUrl + '/restful/report/';
     private updateReportUrl = ApiService.serverUrl + '/restful/report/';
 
-    constructor(private _http:Http) {
+    private getReportByPageNumberUr = 'http://localhost:52430/restful/report?pageNumber=';
+    private delReportUrl = 'http://localhost:52430/restful/report/';
+    private updateReportUrl = 'http://localhost:52430/restful/report/';
+    private getReportByParamURL = 'http://localhost:52430/restful/report/between?';
+
+
+    constructor(private _http: Http) {
     }
 
-    getAllReports(pageNumber:number):Observable<any> {
-        return this._http.get(this.getReportUr + pageNumber)
+    getAllReports(pageNumber: number): Observable<any> {
+        return this._http.get(this.getReportByPageNumberUr + pageNumber)
             .map((response)=> response.json())
             .catch((error)=>Observable.throw(error));
     }
 
-    getAllReportsSorted(pageNumber:number, name:string, order:boolean):Observable<any> {
-        return this._http.get(this.getReportUr + pageNumber + '&&sortedBy=' + name + '&&order=' + order)
+    getAllReportsSorted(pageNumber: number, name: string, order: boolean): Observable<any> {
+        return this._http.get(this.getReportByPageNumberUr + pageNumber + '&&sortedBy=' + name + '&&order=' + order)
             .map((response)=> response.json())
             .catch((error)=>Observable.throw(error));
     }
 
-    deleteReportById(reportId:number) {
+    searchByDates(dateFrom: string, dateTo: string): Observable<any> {
+        return this._http.get(this.getReportByParamURL
+            + 'dateFrom=' + dateFrom + '&&'
+            + 'dateTo=' + dateTo).map((response)=>response.json())
+            .catch((error)=>Observable.throw(error));
+    }
+
+    deleteReportById(reportId: number) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         let url = this.delReportUrl + reportId;
@@ -40,14 +53,14 @@ export class ReportService {
 
     }
 
-    editAndSave(report:Report) {
+    editAndSave(report: Report) {
         if (report.reportId) {
             console.log('updating report with id: ' + report.reportId);
             this.put(report);
         }
     }
 
-    put(report:Report) {
+    put(report: Report) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         return this._http.put(this.updateReportUrl, JSON.stringify(report), {headers: headers})

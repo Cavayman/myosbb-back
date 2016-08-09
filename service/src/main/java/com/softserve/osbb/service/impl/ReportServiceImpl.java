@@ -79,6 +79,11 @@ public class ReportServiceImpl implements ReportService {
         return (dateToFind == null) ? EMPTY_LIST : reportRepository.findByCreationDate(dateToFind);
     }
 
+    @Override
+    public List<LocalDate> findDistinctCreationDates() {
+        return reportRepository.findDistinctCreationDates();
+    }
+
 
     @Override
     public void deleteAll() {
@@ -111,8 +116,8 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public List<Report> getAllReportsBetweenDates(LocalDate from, LocalDate to) throws Exception {
-        return reportRepository.gerAllReportsBetweenDates(from, to);
+    public List<Report> getAllReportsBetweenDates(LocalDate from, LocalDate to) {
+        return reportRepository.getAllReportsBetweenDates(from, to);
     }
 
 

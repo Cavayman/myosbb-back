@@ -30,6 +30,8 @@ public interface ReportService {
 
     List<Report> findByDate(LocalDate dateToFind);
 
+    List<LocalDate> findDistinctCreationDates();
+
     void deleteAll() throws Exception;
 
     boolean deleteReportById(Integer reportId) throws Exception;
