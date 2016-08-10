@@ -28,9 +28,9 @@ export class TicketEditFormComponent implements OnInit{
     }
 
     ngOnInit() {
-        if(this.ticket === undefined){
-            this.ticket = new Ticket("", "",TicketState.NEW);
-        }
+if(this.ticket === undefined){
+this.ticket = new Ticket("", "",TicketState.DONE);
+}
     }
 
     editTicket(name:string, description:string,state:TicketState) {

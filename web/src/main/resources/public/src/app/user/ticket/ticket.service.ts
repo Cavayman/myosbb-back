@@ -4,7 +4,7 @@ import "rxjs/add/operator/map";
 import "rxjs/add/operator/toPromise";
 
 import {ITicket} from './ticket';
-
+import {IMessage} from './message/message';
 @Injectable()
 export class TicketService { 
 
@@ -12,8 +12,8 @@ export class TicketService {
     private postUrl:string = 'http://localhost:52430/restful/ticket';
     private putUrl:string = 'http://localhost:52430/restful/ticket/';                              
     private getUrl:string = 'http://localhost:52430/restful/ticket/';
-
-
+ private showUrl:string = 'http://localhost:52430/restful/message/comments';
+private addMessageUrl:string = 'http://localhost:52430/restful/message/ticket/';
     constructor(private http: Http) { }
 
     getAllTicket(): Promise<ITicket[]> {
@@ -25,7 +25,6 @@ export class TicketService {
 
     addTicket(ticket:ITicket): Promise<ITicket> {
         let headers = new Headers({'Content-Type': 'application/json' });
-       //  console.log(" ===>" + ticket.time );
         return this.http.post(this.postUrl, JSON.stringify(ticket), {headers})
                         .toPromise()
                         .then(res => res.json())
@@ -33,7 +32,9 @@ export class TicketService {
     }
 
     editTicket(ticket:ITicket):Promise<ITicket>  {
-        console.log("TicketService.editTicket(ticket) ===> [id:" + ticket.ticketId + "  name:" + ticket.name + "   description:" + ticket.description + " state:"+ ticket.state +  "]");
+        ticket.time= null;
+        console.log("TicketService.editTicket(ticket) ===> [id:" + ticket.ticketId + "  name:" + ticket.name + 
+        "   description:" + ticket.description + " state:"+ ticket.state +  "  time:"+ticket.time+"]");
         let headers = new Headers({'Content-Type': 'application/json' });
         return this.http.put(this.putUrl, JSON.stringify(ticket), {headers})
                         .toPromise()
@@ -55,4 +56,22 @@ export class TicketService {
         console.log('HandleError', error);
         return Promise.reject(error.message || error);
     }
+///////////////////////////////////message///////////////////////////////////////////////
+getAllMessages(ticket:ITicket): Promise<IMessage[]> {
+        let url = `${this.showUrl}/${ticket.ticketId}`;
+        return this.http.get(url)
+                 .toPromise()
+                 .then(res => res.json())
+                 .catch(this.handleError);
+                }
+
+addMessage(message:IMessage): Promise<IMessage> {
+        let headers = new Headers({'Content-Type': 'application/json' });
+         let url = `${this.addMessageUrl}/${message.idTicket}`;
+        return this.http.post(url, JSON.stringify(message), {headers})
+                        .toPromise()
+                        .then(res => res.json())
+                        .catch(this.handleError);
+    }
+
 }

@@ -112,4 +112,13 @@ public class Message {
         this.ticket = ticket;
     }
 
+    @Override
+    public String toString() {
+        return "Message{" +
+                "messageId=" + messageId +
+                ", description='" + description + '\'' +
+                ", message='" + message + '\'' +
+                ", time=" + time +
+                '}';
+    }
 }

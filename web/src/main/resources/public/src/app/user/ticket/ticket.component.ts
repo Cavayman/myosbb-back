@@ -5,13 +5,14 @@ import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS} from 'ng2-bootstrap/ng2-bootstrap';
 import {ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
-
+import {IMessage,Message} from './message/message'
 import {Ticket, ITicket,TicketState} from './ticket';
 import { TicketService } from './ticket.service';
 import { TicketAddFormComponent } from './ticket_form/ticket-add-form.component';
 import { TicketEditFormComponent } from './ticket_form/ticket-edit-form.component';
 import { TicketDelFormComponent } from './ticket_form/ticket-del-form.component';
-
+import { MessageComponent } from './message/message.component';
+import { MessageService } from './message/message.service';
 @Component({
     selector: 'ticket',
     templateUrl: './src/app/user/ticket/ticket.component.html',
@@ -21,37 +22,72 @@ import { TicketDelFormComponent } from './ticket_form/ticket-del-form.component'
 })
 export class TicketComponent implements OnInit { 
     
+    messageService: MessageService;
     ticketArr:ITicket[];
     updatedTicket:ITicket;
+    messageArr:IMessage[];
+    message:Message;
 
-    constructor( private ticketService: TicketService) { 
+
+    constructor( private ticketService: TicketService) {
         this.ticketArr = [];
+        this.messageArr = [];
+      //  this.messageService = MessageService;
     }
     
     ngOnInit() {
-        this.ticketService.getAllTicket().then(ticketArr => this.ticketArr = ticketArr);
+       // this.ticketService.getAllTicket().then(ticketArr => this.ticketArr = ticketArr);       
+       this.ticketService.getAllTicket()      
+     .then(ticketArr => this.ticketArr = ticketArr)
+      .then(ticketArr => this.met());       
     }
+
+private met():void{
+   console.log("0000000000000000000000");
+   console.log("this.ticketArr.length  = "+this.ticketArr.length);
+    for(  let i=0; i<this.ticketArr.length; i++){
+       let str = JSON.stringify(this.ticketArr[i].time, ['year','monthValue','dayOfMonth']).split(',');
+       this.ticketArr[i].time = '';
+          for(let j = 0;j<str.length;j++){
+                 let st = str[j].split(':');
+                this.ticketArr[i].time += st[1];
+                    if(j<str.length-1){  this.ticketArr[i].time +='-';}
+        }
+    this.ticketArr[i].time = this.ticketArr[i].time.substring(0, this.ticketArr[i].time.length - 1);
+}}
 
     private initUpdatedTicket(ticket:ITicket): void {
         this.updatedTicket = ticket;
     }
 
     createTicket(ticket:ITicket): void {
-        this.ticketService.addTicket(ticket).then(ticket => this.addTicket(ticket));
+        this.ticketService.addTicket(ticket).then(ticket => this.addTicket(ticket));//.then(ticketArr => this.met());       ;
+       console.log("id: "+ticket.ticketId+"   name:  "+ticket.name+ "   дата:  "+ticket.time);
     }
 
     editTicket(ticket:ITicket): void {
+    //    let str = JSON.parse(ticket.time, function(key,value){
+    //        if(key == 'year'){ ticket.time = value;}
+    //        if(key == 'dayOfMonth'){ ticket.time += value;}
+    //        console.log(ticket.time);
+    //        
+    //    });
+    
+    //let str = JSON.stringify(ticket.time);
+
+   
+    
         this.ticketService.editTicket(ticket);
     }
 
+   
     deleteTicket(ticket:ITicket): void {
        this.ticketService.deleteTicket(ticket).then(ticket => this.deleteTicketFromArr(ticket));
-       // this.ticketService.deleteTicket(ticket);
-      //  this.ticketService.getAllTicket().then(ticketArr => this.ticketArr = ticketArr);
     }
 
     private addTicket(ticket:ITicket): void {
         this.ticketArr.push(ticket);
+         this.met();       
     }
 
      private deleteTicketFromArr(ticket:ITicket): void {
@@ -59,6 +95,27 @@ export class TicketComponent implements OnInit {
          if(index > -1) {
             this.ticketArr.splice(index, 1);
          }
-          this.ticketService.getAllTicket().then(ticketArr => this.ticketArr = ticketArr);
+          this.ticketService.getAllTicket().then(ticketArr => this.ticketArr = ticketArr).then(ticketArr => this.met());       
+    }
+
+     getAllMessages(ticket:ITicket): void {
+       console.log("iiiiiiiiiiiiiii");
+       this.ticketService.getAllMessages(ticket).then(messageArr => this.messageArr = messageArr);
+       console.log(this.messageArr.length);
+       
+    }
+
+    addMessage(ticket:number,description:string,text:string):void{
+
+        this.message = new Message(description,text,ticket);
+     // this.updatedTicket.message.push(this.message);
+console.log(this.message.idTicket+"    "+this.message.message);
+
+
+        this.ticketService.addMessage(this.message);//.then(message => this.addMess(ticket,message));
+    }
+
+   private addMess(ticket:ITicket,message:IMessage):void{
+       ticket.message.push(message);
     }
 }

@@ -6,7 +6,7 @@ export interface IMessage {
     messageId: number;
     description: string;
     message: string;
-    idTicket:Ticket;
+    idTicket:number;
  //time:string;
 }
 
@@ -14,14 +14,15 @@ export class Message implements IMessage {
     messageId: number;
     description: string;
     message: string;
-    idTicket:Ticket;
+    idTicket:number;
    // time:string;
 
 
-    constructor(  description:string, message:string, idTicket: Ticket) {
+    constructor(  description:string, message:string, idTicket: number) {
         this.message = message;
         this.description = description;
         this.idTicket = idTicket;
-    }}
+    }
+}
 
 

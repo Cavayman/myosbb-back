@@ -11,7 +11,7 @@
              <div class="modal-body">
                 <div class="form-group">
                 	<input class="form-control" type="text" name="name" #updateNameInput value={{ticket.name}}><br><br>
-                    <input class="form-control" type="text" name="description" #updateDescriptionInput value={{ticket.description}}>
+                    <input class="form-control" type="text" name="description" #updateDescriptionInput value={{ticket.description}}><br><br>
                     <select name="state" #updateStateInput >
         <option  *ngFor="let key of states"  value={{key}} >{{key}}</option>
       </select>

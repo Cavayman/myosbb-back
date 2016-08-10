@@ -22,6 +22,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
  * Created by Kris on 12.07.2016.
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/restful/message")
 public class MessageController {
 
@@ -34,11 +35,11 @@ public class MessageController {
     private MessageService messageService;
 
     @RequestMapping(value = "/ticket/{id}",method = RequestMethod.POST)
-    public ResponseEntity<Resource<Message>> createMessage(@RequestBody Message message, @PathVariable("id")Integer ticketId) {
-
+    public ResponseEntity<Resource<Message>> createMessage(@RequestBody Message message,
+                                                           @PathVariable("id")  Integer ticketId  ){
         Resource<Message> messageResource;
         try {
-            logger.info("Saving message object " + message);
+            logger.info("Saving message object " + message.toString());
             Ticket ticket = ticketService.findOne(ticketId);
             ticket.getMessages().add(message);
             message.setTicket(ticket);

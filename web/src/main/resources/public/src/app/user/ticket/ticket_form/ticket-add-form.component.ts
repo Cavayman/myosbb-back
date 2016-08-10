@@ -14,7 +14,7 @@ export class TicketAddFormComponent implements OnInit{
     @Input() ticket:ITicket;
 
     @ViewChild('addModal')
-    addModal:ModalDirective;
+    addModal:ModalDirective;  
 
     openAddModal() {
         this.addModal.show();  

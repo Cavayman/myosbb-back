@@ -14,6 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +43,8 @@ public class TicketController {
         Resource<Ticket> ticketResource;
         try {
             logger.info("Saving ticket object " + ticket);
+            ticket.setTime(LocalDate.now());
+            logger.info("Saving ticket object " + ticket.toString());
             ticket = ticketService.save(ticket);
             ticketResource = addResourceLinkToTicket(ticket);
         } catch (Exception e) {
@@ -88,6 +93,7 @@ public class TicketController {
     public ResponseEntity<Resource<Ticket>> updateTicket(@RequestBody Ticket ticket) {
 
         logger.info("Updating ticket by id: " + ticket.getTicketId());
+        ticket.setTime(ticketService.findOne(ticket.getTicketId()).getTime());
         ticket = ticketService.update(ticket);
         Resource<Ticket> ticketResource = new Resource<>(ticket);
         ticketResource.add(linkTo(methodOn(TicketController.class).getTicketById(ticket.getTicketId())).withSelfRel());
