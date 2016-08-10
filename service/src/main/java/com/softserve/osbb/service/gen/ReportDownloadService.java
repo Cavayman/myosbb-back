@@ -1,5 +1,6 @@
 package com.softserve.osbb.service.gen;
 
+import com.dropbox.core.DbxException;
 import com.softserve.osbb.model.Report;
 import com.softserve.osbb.repository.ReportRepository;
 import net.sf.jasperreports.engine.*;
@@ -10,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
@@ -40,27 +40,19 @@ public class ReportDownloadService {
     @Autowired
     private ReportRepository reportRepository;
 
-    ServletContext servletContext;
+    @Autowired
+    private DropBoxFileServer dropBoxFileServer;
 
 
     public void download(String type, HttpServletResponse response) {
 
         try {
-            // add report parameters
-            Map<String, Object> params = new HashMap<>();
-            params.put("Title", "User Report");
-            //retrieve template
-            InputStream is = this.getClass().getResourceAsStream(TEMPLATE);
-            JasperDesign jd = JRXmlLoader.load(is);
-            JasperReport jr = JasperCompileManager.compileReport(jd);
-            JRDataSource dataSource = reportCreatorDataSource.getDataSource();
-            JasperPrint jp = JasperFillManager.fillReport(jr, params, dataSource);
-            //create stream where the object will be written
+            JasperPrint jp = getJasperPrint();
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             reportExporterService.exportToOutputStream(type, jp, response, baos);
             String filePath = reportExporterService.exportToFile(jp, type, createServerFileFolder());
-            saveFileToDataBase(filePath);
-            //write to response
+            String sharedFilePathUrl = uploadToFileServer(filePath, type);
+            saveFileToDataBase(sharedFilePathUrl);
             write(response, baos, type);
         } catch (JRException e) {
             logger.error("unable to process download");
@@ -69,8 +61,41 @@ public class ReportDownloadService {
 
     }
 
+    private String uploadToFileServer(String filePath, String type) {
+        String sharedFilePathUrl = "";
+        logger.info("start uploadToFileServer()");
+        try {
+            try {
+                dropBoxFileServer.authenticate();
+            } catch (DbxException dbx) {
+                logger.error("authentication error");
+                dbx.printStackTrace();
+            }
+            try {
+                sharedFilePathUrl = dropBoxFileServer.uploadFile(filePath, type);
+            } catch (DbxException dbx1) {
+                logger.error("unable to process file upload ");
+                dbx1.printStackTrace();
+            }
+        } catch (IOException e) {
+            logger.error("unable to process file " + filePath);
+            e.printStackTrace();
+        }
+        return sharedFilePathUrl;
+    }
+
+    private JasperPrint getJasperPrint() throws JRException {
+        Map<String, Object> params = new HashMap<>();
+        params.put("Title", "User Report");
+        InputStream is = this.getClass().getResourceAsStream(TEMPLATE);
+        JasperDesign jd = JRXmlLoader.load(is);
+        JasperReport jr = JasperCompileManager.compileReport(jd);
+        JRDataSource dataSource = reportCreatorDataSource.getDataSource();
+        return JasperFillManager.fillReport(jr, params, dataSource);
+    }
+
     public String createServerFileFolder() {
-        String serverDir = System.getProperty("catalina.home"); // server location
+        String serverDir = System.getProperty("catalina.home");
         File outputFileDir = new File(serverDir + File.separator + "reports");
         if (!outputFileDir.exists()) {
             outputFileDir.mkdir();
@@ -89,9 +114,7 @@ public class ReportDownloadService {
         logger.info("saved report :" + report.getName() + " to database");
     }
 
-    //write report to the output stream
     private void write(HttpServletResponse response, ByteArrayOutputStream baos, String type) {
-
         try {
             ServletOutputStream servletOutputStream = response.getOutputStream();
             logger.info("writing to output stream");
