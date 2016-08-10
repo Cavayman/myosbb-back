@@ -1,10 +1,12 @@
 package com.softserve.osbb.config;
 
+import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.*;
 import org.springframework.core.Ordered;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -12,11 +14,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 /**
  * Created by nazar.dovhyy on 08.07.2016.
  */
+
+@PropertySource("config.properties")
+@Configuration
 @SpringBootApplication
 @Import(ServiceApplication.class)
 @ComponentScan(basePackages = {"com.softserve.osbb"})
 public class WebAppConfiguration extends WebMvcConfigurerAdapter {
 
+    public static void main(String[] args) {
+        SpringApplication.run(new Object[]{WebAppConfiguration.class
+        }, args);
+    }
 
     private static final String[] STATIC_RESOURCE_LOCATIONS = {"classpath:/META-INF/resources/",
             "classpath:/resources/",
@@ -33,9 +42,12 @@ public class WebAppConfiguration extends WebMvcConfigurerAdapter {
         super.addResourceHandlers(registry);
     }
 
-    public static void main(String[] args) {
-        SpringApplication.run(new Object[]{WebAppConfiguration.class
-                }, args);
+    @Bean
+    public PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {
+        PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
+        ppc.setLocation(new ClassPathResource("config.properties"));
+        ppc.setIgnoreUnresolvablePlaceholders(true);
+        return ppc;
     }
 
     //for test only will be DELETED in next versions
