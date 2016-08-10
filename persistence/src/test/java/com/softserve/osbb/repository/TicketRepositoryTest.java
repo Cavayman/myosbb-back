@@ -65,7 +65,7 @@ public class TicketRepositoryTest {
     public void testGetAllTicket() {
         List<Ticket> list = Arrays.asList(new Ticket(), new Ticket(), new Ticket());
         ticketRepository.save(list);
-        Assert.assertTrue(list.size() == ticketRepository.findAll().size());
+        Assert.assertTrue(list.size() <= ticketRepository.findAll().size());
     }
 
     @Test

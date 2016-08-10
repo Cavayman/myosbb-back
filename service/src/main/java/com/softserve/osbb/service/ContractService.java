@@ -12,44 +12,48 @@ import java.util.List;
  * Created by Roma on 13/07/2016.
  * Assigned to Anastasiia on 20.07.2016
  */
-
 @Service
 public interface ContractService {
-    public Contract save(Contract contract);
+    Contract save(Contract contract);
 
-    public Contract findOne(Integer integer);
+    Contract findOne(Integer integer);
 
-    public Contract findOne (String id);
+    Contract findOne (String id);
 
-    public boolean exists (Integer integer);
+    boolean exists (Integer integer);
 
-    public List<Contract> findAll();
+    List<Contract> findAll();
 
-    public List<Contract> findAll(Sort sort) ;
+    List<Contract> findAll(Sort sort) ;
 
-    public Page<Contract> findAll(Pageable pageable) ;
+    Page<Contract> findAll(Pageable pageable) ;
 
-    public List<Contract> findAll(Iterable<Integer> iterable) ;
+    List<Contract> findAll(Iterable<Integer> iterable) ;
 
-    public long count() ;
+    long count() ;
 
-    public void delete(Integer integer) ;
+    void delete(Integer integer) ;
 
-    public void delete(Contract contract) ;
+    void delete(Contract contract) ;
 
-    public void delete(Iterable<? extends Contract> iterable) ;
+    void delete(Iterable<? extends Contract> iterable) ;
 
-    public void deleteAll();
+    void deleteAll();
 
-    public void flush() ;
+    void flush() ;
 
-    public void deleteInBatch(Iterable<Contract> iterable) ;
+    void deleteInBatch(Iterable<Contract> iterable) ;
 
-    public void deleteAllInBatch() ;
+    void deleteAllInBatch() ;
 
-    public Contract getOne(Integer integer);
+    Contract getOne(Integer integer);
 
-    public Contract saveAndFlush(Contract contract) ;
+    Contract saveAndFlush(Contract contract) ;
 
-    public List<Contract> save(Iterable<Contract> iterable) ;
+    List<Contract> save(Iterable<Contract> iterable) ;
+
+    Page<Contract> getContracts(Integer pageNumber, String sortBy, Boolean order);
+
+    List<Contract> findContractsByProviderName(String name);
+
 }

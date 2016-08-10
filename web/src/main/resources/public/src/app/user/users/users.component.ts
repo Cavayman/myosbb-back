@@ -41,17 +41,17 @@ export class UsersComponent implements OnInit {
     }
 
     deleteUser(user:User) {
-        this._userService.deleteUser(user).subscribe(()=>this.userList.splice(this.userList.indexOf(user,0)));
+        this._userService.deleteUser(user).subscribe(()=>this.userList.splice(this.userList.indexOf(user,0),1));
     }
 
-    saveUser() {
-     let user:User={firstName:this.userForm.value.firstName,
-            lastName:this.userForm.value.lastName ,
-            email:this.userForm.value.email ,
-            phoneNumber:this.userForm.value.phoneNumber,
-            gender:this.userForm.value.gender,
-            birthDate:this.userForm.value.birthDate,
-            password:this.userForm.value.password};
-        this._userService.saveUser(user).subscribe((data)=>this.userList.push(data));
-    }
+    // saveUser() {
+    //  let user:User={firstName:this.userForm.value.firstName,
+    //         lastName:this.userForm.value.lastName ,
+    //         email:this.userForm.value.email ,
+    //         phoneNumber:this.userForm.value.phoneNumber,
+    //         gender:this.userForm.value.gender,
+    //         birthDate:this.userForm.value.birthDate,
+    //         password:this.userForm.value.password};
+    //     this._userService.saveUser(user).subscribe((data)=>this.userList.push(data));
+    // }
 }

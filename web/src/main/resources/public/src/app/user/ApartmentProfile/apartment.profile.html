@@ -1,0 +1,44 @@
+<div style="opacity: 0.85"  >
+
+<ul class="list-group"  >
+   <li  class="list-group-item list-group-item-success"><h2>Apartment #{{currentApartment.number}}</h2></li>
+
+   <button   type="button" style="width: 100%" class="list-group-item list-group-item-info  "   (click)="onUsersClick()"><h3>Кількість жителів: {{currentApartment.users.length+1}}</h3><span class="badge"  >ADD</span></button>
+
+      <li class="list-group-item" *ngIf="clicked" ><!-- *ngFor="let user of currentApartment.users"> -->
+      name : {{currentApartment.user.firstName}}
+      </li>
+
+
+   <a href="" class="list-group-item list-group-item-danger ">Рахунки <span class="badge"  >{{currentApartment.bills.length}}</span></a>
+   <li class="list-group-item">Контактний номер:{{currentApartment.user.phoneNumber}}</li>
+</ul>
+</div>
+<!--
+
+</div>
+<div>
+<button class="btn btn-primary" type="button">
+   Рахунки <span class="badge">{{bill}}</span>
+</button>
+</div>
+
+<div>
+   <button class="btn btn-primary" type="button">
+      Кількість мешканців: {{countOfUsers}}
+   </button>
+</div>
+-->
+
+
+
+   <div >
+   <div class="jumbotron">
+      <h1>Hello, {{currentApartment.user.firstName}}</h1>
+      <br>
+      <h1>HERE WILL Be Another INFORMATION</h1>
+      <p>...</p>
+      <p><a class="btn btn-primary btn-lg" role="button" (click)="btnclick()">More</a></p>
+   </div>
+</div>
+

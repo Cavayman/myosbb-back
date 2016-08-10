@@ -2,18 +2,19 @@ import {Injectable} from "@angular/core";
 import {Http, Headers} from "@angular/http";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/toPromise";
+import ApiService = require("../../../shared/services/api.service");
 
 import {ITicket} from './ticket';
-import {IMessage} from './message/message';
+
 @Injectable()
 export class TicketService { 
 
-    private deleteUrl:string = 'http://localhost:52430/restful/ticket';
-    private postUrl:string = 'http://localhost:52430/restful/ticket';
-    private putUrl:string = 'http://localhost:52430/restful/ticket/';                              
-    private getUrl:string = 'http://localhost:52430/restful/ticket/';
- private showUrl:string = 'http://localhost:52430/restful/message/comments';
-private addMessageUrl:string = 'http://localhost:52430/restful/message/ticket/';
+    private deleteUrl:string = ApiService.serverUrl + '/restful/ticket';
+    private postUrl:string = ApiService.serverUrl + '/restful/ticket';
+    private putUrl:string = ApiService.serverUrl + '/restful/ticket/';
+    private getUrl:string = ApiService.serverUrl + '/restful/ticket/';
+
+
     constructor(private http: Http) { }
 
     getAllTicket(): Promise<ITicket[]> {
@@ -33,7 +34,7 @@ private addMessageUrl:string = 'http://localhost:52430/restful/message/ticket/';
 
     editTicket(ticket:ITicket):Promise<ITicket>  {
         ticket.time= null;
-        console.log("TicketService.editTicket(ticket) ===> [id:" + ticket.ticketId + "  name:" + ticket.name + 
+        console.log("TicketService.editTicket(ticket) ===> [id:" + ticket.ticketId + "  name:" + ticket.name +
         "   description:" + ticket.description + " state:"+ ticket.state +  "  time:"+ticket.time+"]");
         let headers = new Headers({'Content-Type': 'application/json' });
         return this.http.put(this.putUrl, JSON.stringify(ticket), {headers})

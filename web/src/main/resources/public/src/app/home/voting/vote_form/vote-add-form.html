@@ -1,0 +1,30 @@
+<div bsModal #addVoteModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+      aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	            <button type="button" class="close" aria-label="Close" (click)="addVoteModal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Опитування</h4>
+             </div>
+ 
+             <div class="modal-body option-box">
+                <div class="form-group">
+                	<input class="form-control" type="text" placeholder="Тема опитування" required #questionInput ><br><br>
+                    <input type="text" class="optionInput" placeholder="Введіть варіант відповіді" #optionInput/>
+                    <button type="button" (click)="addOption(optionInput.value); optionInput.value=''">Додати варіант</button>
+                        <ul>
+                            <li *ngFor="let option of optionArr"> {{option}}</li>
+                        </ul>
+                 </div>
+            </div>
+            <div class="modal-footer">
+                <label class="checkbox-inline"><input type="checkbox"  #checkBox>Приватне опитування</label>
+                <button type="button" (click)="onCreateVoting(questionInput.value, checkBox.value);questionInput.value='';addVoteModal.hide()" class="btn btn-default">
+                    Створити
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -16,9 +16,12 @@
     color:white;
 }
 .table-content{
+    overflow-y: auto;    /* Trigger vertical scroll    */
+    overflow-x: hidden;  /* Hide the horizontal scroll */
     height:75%;
     background-color:whitesmoke;
     margin-bottom:10px;
     border-radius:0px 0px 3px 3px ;
 }
+
 

@@ -2,12 +2,28 @@
    margin-left: 210px;
    margin-top:0px;
    padding:0px;
+  
 }
 .info-box{
-    height: 400px;
+    height: 250px;
 }
 
 .content-box{
-    min-height: 400px;
+    padding: 10px;
+	border-top: 5px solid #c0c0c0;
+}
 
+.vote-box {
+    width:900px;
+    margin: 0 auto;
+    padding-left: 0px;
+    background: whitesmoke;
+}
+.question {
+    border-bottom: 2px solid slategray;
+    margin:0px;
+}
+
+ul {
+    padding: 5px;
 }

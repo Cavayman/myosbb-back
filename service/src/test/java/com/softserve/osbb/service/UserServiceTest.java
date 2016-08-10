@@ -40,10 +40,9 @@ public class UserServiceTest {
 
 
     @Test
-    public void testToHexString() {
-        assertEquals(0, userService.findAll().size());
+    public void testSave() {
         userService.save(user);
-        assertEquals(1, userService.findAll().size());
+        assertEquals(user.getUserId(), userService.findOne(user.getUserId()).getUserId());
 
     }
     @After

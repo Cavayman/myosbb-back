@@ -6,8 +6,9 @@ import {PageCreator} from "../../../shared/services/page.creator.interface";
 import "rxjs/Rx";
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS, ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
 import {FileSelectDirective, FileDropDirective, FileUploader} from 'ng2-file-upload/ng2-file-upload';
+import ApiService = require("../../../shared/services/api.service");
 
-const attachmentDownloadUrl = 'http://localhost:52430/restful/attachment/';
+const attachmentUploadUrl = ApiService.serverUrl + '/restful/attachment/';
 declare var saveAs:any;
 
 @Component({
@@ -19,7 +20,7 @@ declare var saveAs:any;
 })
 export class UserAttachmentComponent implements OnInit, OnDestroy {
 
-    public uploader:FileUploader = new FileUploader({url: attachmentDownloadUrl});
+    public uploader:FileUploader = new FileUploader({url: attachmentUploadUrl});
     public hasBaseDropZoneOver:boolean = false;
     public hasAnotherDropZoneOver:boolean = false;
     public fileOverBase(e:any):void {
@@ -31,15 +32,13 @@ export class UserAttachmentComponent implements OnInit, OnDestroy {
 
     private attachments:Attachment[];
     private selectedAttachment:Attachment = {attachmentId: null, path: ''};
-    private newAttachment:Attachment = {attachmentId: null, path: ''};
     private pageCreator:PageCreator<Attachment>;
     private pageNumber:number = 1;
     private pageList:Array<number> = [];
     private totalPages:number;
     @ViewChild('delModal') public delModal:ModalDirective;
     @ViewChild('delAllModal') public delAllModal:ModalDirective;
-    // @ViewChild('createModal') public createModal:ModalDirective;
-    @ViewChild('downloadModal') public downloadModal:ModalDirective;
+    @ViewChild('uploadModal') public uploadModal:ModalDirective;
     @ViewChild('editModal') public editModal:ModalDirective;
     active:boolean = true;
     order:boolean = true;
@@ -74,13 +73,13 @@ export class UserAttachmentComponent implements OnInit, OnDestroy {
         this.editModal.hide();
     }
 
-    openDownloadModal() {
-        this.downloadModal.show();
+    openUploadModal() {
+        this.uploadModal.show();
     }
 
-    closeDownloadModal() {
-        console.log('closing download modal');
-        this.downloadModal.hide();
+    closeUploadModal() {
+        console.log('closing upload modal');
+        this.uploadModal.hide();
     }
 
 
@@ -90,7 +89,7 @@ export class UserAttachmentComponent implements OnInit, OnDestroy {
         this.pending = true;
 
         let xhr = new XMLHttpRequest();
-        let url = attachmentDownloadUrl + attachmentPath;
+        let url = attachmentUploadUrl + attachmentPath;
         xhr.open('GET', url, true);
         xhr.responseType = 'blob';
         console.log('preparing download...');

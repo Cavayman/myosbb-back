@@ -70,6 +70,18 @@
                     <span>Ролі</span>
                 </a>
             </li>
+            <li>
+                <a [routerLink]="['provider']">
+                    <i class="fa fa-wrench"></i>
+                    <span> {{ 'providers' | translate | capitalize }}</span>
+                </a>
+            </li>
+            <li>
+                <a [routerLink]="['contract']">
+                    <i class="fa fa-bookmark"></i>
+                    <span> {{ 'contract' | translate | capitalize }}</span>
+                </a>
+            </li>
         </ul>
         <!-- sidebar menu end-->
     </div>

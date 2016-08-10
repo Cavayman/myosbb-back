@@ -4,17 +4,16 @@ import {Observable} from "rxjs/Observable";
 import "rxjs/add/operator/map";
 import {Attachment} from "./attachment.interface";
 import "rxjs/add/operator/toPromise";
-
+import ApiService = require("../../../shared/services/api.service");
 
 @Injectable()
 export class AttachmentService {
 
-    private getAttachmentUrl = 'http://localhost:52430/restful/attachment?pageNumber=';
-    private delAttachmentUrl = 'http://localhost:52430/restful/attachment/';
-    private delAllAttachmentUrl = 'http://localhost:52430/restful/attachment/';
-    private updateAttachmentUrl = 'http://localhost:52430/restful/attachment/';
-    // private postAttachmentUrl = 'http://localhost:52430/restful/attachment/';
-    private downloadAttachmentUrl = 'http://localhost:52430/restful/attachment/';
+    private getAttachmentUrl = ApiService.serverUrl + '/restful/attachment?pageNumber=';
+    private delAttachmentUrl = ApiService.serverUrl + '/restful/attachment/';
+    private delAllAttachmentUrl = ApiService.serverUrl + '/restful/attachment/';
+    private updateAttachmentUrl = ApiService.serverUrl + '/restful/attachment/';
+    private downloadAttachmentUrl = ApiService.serverUrl + '/restful/attachment/';
 
     constructor(private _http:Http) {
     }
@@ -65,16 +64,7 @@ export class AttachmentService {
             .catch((error)=>console.error(error));
     }
 
-    // addAttachment(attachment:Attachment): Promise<Attachment> {
-    //     let headers = new Headers();
-    //     headers.append('Content-Type', 'application/json');
-    //     return this._http.post(this.postAttachmentUrl, JSON.stringify(attachment), {headers: headers})
-    //         .toPromise()
-    //         .then(()=>attachment)
-    //         .catch((error)=>console.error(error));
-    // }
-
-    downloadAttachment(attachment:Attachment): Promise<Attachment> {
+    uploadAttachment(attachment:Attachment): Promise<Attachment> {
         let headers = new Headers();
         headers.append('Content-Type', 'multipart/form-data');
         return this._http.post(this.downloadAttachmentUrl, attachment, {headers: headers})

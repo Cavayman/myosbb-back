@@ -1,7 +1,29 @@
 <osbb-sidebar-menu></osbb-sidebar-menu>
 <osbb-header [isLoggedIn]="isLoggedIn"></osbb-header>
 
-<div class=" wrapper">
+<div class="wrapper">
         <div class="info-box"></div>
-        <div class="content-box"></div>
+        <div class="content-box">
+              <div class="dropdown">
+                   <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Опції
+                        <span class="caret"></span>
+                   </button>
+                   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a style="cursor: pointer" (click)="voteVar.openModalWindow()">Додати голосування</a></li>
+                        <li><a style="cursor: pointer" (click)="printHello()">Написати привіт в консоль</a></li>
+                  </ul>    
+              </div>
+               <vote (create)="addVoting($event)" #voteVar></vote>
+               <div  class="vote-box" *ngFor="let vote of voteArr">
+                    <ul>
+                          <li><h4 class="question"> {{vote.question}}</h4></li>
+                          <li *ngFor="let option of vote.options">
+                                
+                                <input type="radio" name="{{vote.question}}" (click)="getResult(input.value)" value="{{option}}" #input> {{option}} 
+                          </li>
+                    </ul>
+               </div>
+        </div>
 </div>

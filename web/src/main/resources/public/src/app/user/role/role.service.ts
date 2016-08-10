@@ -3,14 +3,15 @@ import {Http, Headers} from "@angular/http";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/toPromise";
 import {IRole} from "./role";
+import ApiService = require("../../../shared/services/api.service");
 
 @Injectable()
 export class RoleService { 
 
-    private deleteUrl:string = 'http://localhost:52430/restful/role/id/';
-    private postUrl:string = 'http://localhost:52430/restful/role';
-    private putUrl:string = 'http://localhost:52430/restful/role';
-    private getUrl:string = 'http://localhost:52430/restful/role';
+    private deleteUrl:string = ApiService.serverUrl + '/restful/role/id/';
+    private postUrl:string = ApiService.serverUrl + '/restful/role';
+    private putUrl:string = ApiService.serverUrl + '/restful/role';
+    private getUrl:string = ApiService.serverUrl + '/restful/role';
     
 
     constructor(private http: Http) { }

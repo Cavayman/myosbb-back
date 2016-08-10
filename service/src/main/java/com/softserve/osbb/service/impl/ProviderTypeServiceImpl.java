@@ -4,6 +4,7 @@ import com.softserve.osbb.model.ProviderType;
 import com.softserve.osbb.repository.ProviderTypeRepository;
 import com.softserve.osbb.service.ProviderTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.List;
 /**
  * Created by Anastasiia Fedorak on 7/21/16.
  */
+
+@Service
 public class ProviderTypeServiceImpl implements ProviderTypeService{
 
     @Autowired

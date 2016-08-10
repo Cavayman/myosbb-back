@@ -14,6 +14,7 @@ export const routes:RouterConfig = [
     {path: '', redirectTo: 'login', pathMatch: 'full'},
     {path: 'home', component: HomeComponent},
     {path: 'home/user', component: UserComponent},
+    ...homeRoutes,
     ...userRoutes
 ];
 

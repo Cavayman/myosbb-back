@@ -17,22 +17,17 @@
                 <tr *ngFor="let attachment of attachments">
                     <td><a href="/restful/attachment/{{attachment.path}}">{{attachment.path}}</a></td>
                     <td>
-                        <button type="button" class="btn btn-warning" (click)="download(attachment.path)">Скачати
+                        <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Опції
+                        <span class="caret"></span>
                         </button>
-                        <button type="button" class="btn btn-danger" (click)="openDelModal(attachment.attachmentId)">
-                            Видалити
-                        </button>
-                        <!--<div class="dropdown">-->
-                        <!--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"-->
-                        <!--data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">-->
-                        <!--Опції-->
-                        <!--<span class="caret"></span>-->
-                        <!--</button>-->
-                        <!--<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">-->
-                        <!--<li><a style="cursor: pointer" (click)="openEditModal(attachment)">Редагувати</a></li>-->
-                        <!--<li><a style="cursor: pointer" (click)="openDelModal(attachment.attachmentId)">Видалити</a></li>-->
-                        <!--</ul>-->
-                        <!--</div>-->
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a style="cursor: pointer" (click)="download(attachment.path)">Завантажити</a></li>
+                        <li><a style="cursor: pointer" (click)="openDelModal(attachment.attachmentId)">Видалити</a></li>
+                        </ul>
+                        </div>
                     </td>
                 </tr>
                 </tbody>
@@ -122,14 +117,14 @@
                 </div>
             </div>
 
-            <!-- Download File Modal -->
-            <div bsModal #downloadModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+            <!-- Upload File Modal -->
+            <div bsModal #uploadModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
                  aria-labelledby="mySmallModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" aria-label="Close"
-                                    (click)="downloadModal.hide()">
+                                    (click)="uploadModal.hide()">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                             <h4 class="modal-title">Завантажити файл</h4>
@@ -229,17 +224,24 @@
                                         </button>
                                     </div>
 
+
                                 </div>
 
                             </div>
 
                         </div>
-
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-default">
+                                Зберегти
+                            </button>
+                        </div>
                     </div>
+
                 </div>
             </div>
 
         </div>
+
         <nav class="pull-right" aria-label="Page navigation">
             <ul class="pagination">
                 <li [ngStyle]="{'display': pageNumber == 1? 'none' : ''}">
@@ -256,7 +258,7 @@
                 </li>
             </ul>
         </nav>
-        <button type="button" class="btn btn-success" (click)="openDownloadModal()">Завантажити файл</button>
+        <button type="button" class="btn btn-success" (click)="openUploadModal()">Завантажити файл</button>
         <button type="button" class="btn btn-danger" (click)="openDelAllModal()">Видалити всі</button>
 
     </div>

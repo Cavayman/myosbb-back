@@ -3,8 +3,11 @@ package com.softserve.osbb.service.impl;
 import com.softserve.osbb.model.Contract;
 import com.softserve.osbb.repository.ContractRepository;
 import com.softserve.osbb.service.ContractService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,8 @@ import java.util.List;
  */
 @Service
 public class ContractServiceImpl implements ContractService {
+    private static final int DEF_ROWS = 10;
+    private static Logger logger = LoggerFactory.getLogger(ContractServiceImpl.class);
 
     @Autowired
     ContractRepository contractRepository;
@@ -120,5 +125,24 @@ public class ContractServiceImpl implements ContractService {
         return contractRepository.save(iterable);
     }
 
+    @Override
+    public Page<Contract> getContracts(Integer pageNumber, String sortBy, Boolean order) {
+        logger.info("contract service: getting contracts...");
+        logger.info("params: pageNum=" + pageNumber + ", sort=" + sortBy + "order=" + order);
+        PageRequest pageRequest = new PageRequest(pageNumber - 1, DEF_ROWS,
+                getSortingOrder(order), sortBy == null ? "dateStart" : sortBy);
+        return contractRepository.findAll(pageRequest);
+    }
 
+    public Sort.Direction getSortingOrder(Boolean order) {
+        if (order == null) {
+            return Sort.Direction.DESC;
+        }
+        return order == true ? Sort.Direction.ASC : Sort.Direction.DESC;
+    }
+
+    @Override
+    public List<Contract> findContractsByProviderName(String name) {
+        return contractRepository.findContractsByProviderName(name);
+    }
 }

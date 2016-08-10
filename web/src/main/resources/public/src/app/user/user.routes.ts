@@ -11,12 +11,15 @@ import {UserReportComponent} from "./report/user.report.component";
 import {UsersComponent} from "./users/users.component";
 import {OsbbComponent} from "./osbb/osbb.component";
 import {RoleComponent} from "./role/role.component";
+import {ProviderComponent} from "./provider/provider.component";
+import {ContractComponent} from "./contract/contract.component";
+import{ApartmentProfileComponent} from "./ApartmentProfile/apartment.profile";
+import {ProviderInfoComponent} from "./provider/provider-info";
+
 
 export const userRoutes:RouterConfig = [
     {
         path: 'home/user',
-        component: UserComponent,
-
         children: [
             // { path: ':id',  component: UserShowComponent },
             {path: 'main', component: UserMainComponent},
@@ -26,12 +29,16 @@ export const userRoutes:RouterConfig = [
             {path: 'attachment', component: UserAttachmentComponent},
             {path: 'bill', component: UserBillComponent},
             {path: 'ticket', component: TicketComponent},
-           // {path: 'message', component: UserMessageComponent},
+            // {path: 'message', component: UserMessageComponent},
             {path: 'report', component: UserReportComponent},
             {path: 'users', component: UsersComponent},
             {path: 'osbb', component: OsbbComponent},
-            {path: 'role', component: RoleComponent}
-        ]
-
+            {path: 'role', component: RoleComponent},
+            {path: 'provider', component: ProviderComponent},
+            {path:'provider/info/:id', component:ProviderInfoComponent},
+            {path: 'contract', component: ContractComponent},
+            {path:'apartment/apartmentprofile/:id', component:ApartmentProfileComponent}
+        ],
+        component: UserComponent,
     }
 ];

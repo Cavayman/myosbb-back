@@ -33,7 +33,7 @@ public class OsbbRepositoryTest {
         osbb = new Osbb();
         osbb.setName("Lviv_osbb");
         osbb.setDescription("osbb for people");
-        osbb.setCreator(new User());
+//        osbb.setCreator(new User());
     }
 
     @Before

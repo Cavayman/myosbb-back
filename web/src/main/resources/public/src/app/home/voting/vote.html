@@ -1,0 +1,9 @@
+<vote-add-form (create)="onCreateVoting($event)" #voteAddForm></vote-add-form>
+
+<div *ngIf="false">
+    <ul>
+        <li *ngFor="let option of voteAddForm.optionArr">
+             <input type="radio" name="vote" value="{{option}}"/><span>{{option}}</span>
+        </li>
+     </ul>
+</div>

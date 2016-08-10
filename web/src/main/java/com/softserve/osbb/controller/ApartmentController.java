@@ -20,6 +20,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
  * Created by Oleg on 13.07.2016.
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/restful/apartment")
 public class ApartmentController {
 
@@ -71,10 +72,10 @@ public class ApartmentController {
 
     }
     @RequestMapping(value="",method = RequestMethod.PUT)
-    public ResponseEntity<Resource<Apartment>> updateApartment(@PathVariable("id") Integer idAppartment, @RequestBody Apartment apartment) {
+    public ResponseEntity<Resource<Apartment>> updateApartment( @RequestBody Apartment apartment) {
         logger.info("updating ");
         Apartment uApartment= apartmentService.updateApartment(apartment);
-        return new ResponseEntity<>(addResourceLinkToApartment(apartment),HttpStatus.OK);
+        return new ResponseEntity<>(addResourceLinkToApartment(uApartment),HttpStatus.OK);
     }
 private Resource<Apartment> addResourceLinkToApartment(Apartment apartment){
     if (apartment == null) return null;

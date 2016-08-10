@@ -1,6 +1,10 @@
 package com.softserve.osbb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,13 +13,17 @@ import java.util.List;
 
 @Entity
 @Table(name = "provider_type")
-public class ProviderType {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class ProviderType implements Serializable {
     private Integer providerTypeId;
     private String providerTypeName;
     private List<Provider> providers;
 
     public ProviderType(String providerTypeName) {
         this.providerTypeName = providerTypeName;
+    }
+
+    public ProviderType() {
     }
 
     @Id
@@ -39,6 +47,7 @@ public class ProviderType {
     }
 
     @OneToMany(mappedBy = "type")
+    @JsonIgnore
     public List<Provider> getProviders() {
         return providers;
     }

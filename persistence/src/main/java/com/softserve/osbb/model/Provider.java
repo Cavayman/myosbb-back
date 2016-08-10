@@ -1,10 +1,13 @@
 package com.softserve.osbb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.softserve.osbb.model.enums.Periodicity;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 
 /**
@@ -12,7 +15,8 @@ import java.util.Collection;
  */
 @Entity
 @Table(name = "provider")
-public class Provider implements Comparable{
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Provider implements Serializable {
     private Integer providerId;
     private String name;
     private String description;
@@ -21,6 +25,9 @@ public class Provider implements Comparable{
     private Collection<Bill> bills;
     private Periodicity periodicity;
     private ProviderType type;
+    private String email;
+    private String phone;
+    private String address;
 
 
     public Provider() {
@@ -74,6 +81,7 @@ public class Provider implements Comparable{
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "provider")
+    @JsonIgnore
     public Collection<Contract> getContracts() {
         return contracts;
     }
@@ -83,6 +91,7 @@ public class Provider implements Comparable{
     }
 
     @OneToMany(mappedBy = "provider")
+    @JsonIgnore
     public Collection<Bill> getBills() {
         return bills;
     }
@@ -111,6 +120,33 @@ public class Provider implements Comparable{
         this.type = type;
     }
 
+    @Column(name = "email")
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Column(name = "phone")
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    @Column(name = "address")
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     @Override
     public boolean equals(Object obj) {
         return EqualsBuilder.reflectionEquals(this, obj);
@@ -119,12 +155,5 @@ public class Provider implements Comparable{
     @Override
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
-    }
-
-
-    //natural order by provider's names
-    @Override
-    public int compareTo(Object o) {
-        return name.compareTo(((Provider) o).getName());
     }
 }

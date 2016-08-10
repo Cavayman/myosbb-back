@@ -27,7 +27,7 @@ public class ProviderTypeRepositoryTest {
 
     @Before
     public void init() {
-        providerType = new ProviderType("Internet");
+        providerType = new ProviderType("test");
     }
 
     @Autowired
