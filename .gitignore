@@ -8,9 +8,6 @@
 
 target/
 
-### Bower
-/web/src/main/resources/public/assets/bower/
-
 ### NPM
 web/src/main/resources/public/assets/node_modules/
 /web/src/main/resources/public/node_modules/

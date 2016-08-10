@@ -13,6 +13,8 @@ export class TicketService {
     private postUrl:string = ApiService.serverUrl + '/restful/ticket';
     private putUrl:string = ApiService.serverUrl + '/restful/ticket/';
     private getUrl:string = ApiService.serverUrl + '/restful/ticket/';
+private addMessageUrl:string = ApiService.serverUrl + '/restful/message/ticket';
+private showUrl:string = ApiService.serverUrl + '/restful/message/';
 
 
     constructor(private http: Http) { }
@@ -33,7 +35,7 @@ export class TicketService {
     }
 
     editTicket(ticket:ITicket):Promise<ITicket>  {
-        ticket.time= null;
+     
         console.log("TicketService.editTicket(ticket) ===> [id:" + ticket.ticketId + "  name:" + ticket.name +
         "   description:" + ticket.description + " state:"+ ticket.state +  "  time:"+ticket.time+"]");
         let headers = new Headers({'Content-Type': 'application/json' });

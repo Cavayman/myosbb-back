@@ -4,16 +4,10 @@ It was developed by the most cutiest and motivated team ever been.
 I believe that after the final demo, we will feel ourselfs real JAVA DEVELOPERS who know how things done :D
 
 HOW TO RUN PROJECT 
-You need to install bower libraries:
+You need to install external libraries:
 1) install nodejs
-2) install npm
-3) install bower
-4) run "bower install" in ../myosbb/web/src/main/resources/public/
-
-How to install Angular2 (revised)
-1) make sure to have both nodejs and npm installed on your local computer.
-2) run "nmp install" in ../myosbb/web/src/main/resources/public/
-3) in the same directory run "npm start" to quickly bootstrap the angular 2 application
+2) run "npm install" in ../myosbb/web/src/main/resources/public/
+3) run "npm start" in ../myosbb/web/src/main/resources/public/
 
 How to disable Spring Security
 1) go to [web]>src>main>java>com/softserve/osbb/config/WebAppConfiguration  and comment ",SecurityAppConfig.class"

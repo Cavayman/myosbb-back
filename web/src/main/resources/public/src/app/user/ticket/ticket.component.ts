@@ -109,7 +109,7 @@ private met():void{
 
         this.message = new Message(description,text,ticket);
      // this.updatedTicket.message.push(this.message);
-console.log(this.message.idTicket+"    "+this.message.message);
+        console.log(this.message.idTicket+"    "+this.message.message);
 
 
         this.ticketService.addMessage(this.message);//.then(message => this.addMess(ticket,message));
