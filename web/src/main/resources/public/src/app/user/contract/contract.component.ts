@@ -15,23 +15,20 @@ import {CORE_DIRECTIVES} from "@angular/common";
 import {RouteConfig} from "@angular/router-deprecated";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import "rxjs/Rx";
-import {Http} from "@angular/http";
-
 
 @Component({
     selector: 'myosbb-contract',
     templateUrl: 'src/app/user/contract/contract-table.html',
     pipes: [TranslatePipe, CapitalizeFirstLetterPipe],
     directives: [DROPDOWN_DIRECTIVES],
-    providers: [ContractService, Http],
+    providers: [ContractService],
     directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, ROUTER_DIRECTIVES],
-    viewContracts: [BS_VIEW_PROVIDERS]
+    viewProviders: [BS_VIEW_PROVIDERS]
 })
 export class ContractComponent implements OnInit{
     private contracts :  Contract[];
-    private selected : Contract =  {contractId: null, provider:'', dateStart:'', dateFinish:'', text: '', price:null, attachment: ''};
-    private newContract : Contract =  {contractId: null, provider:'', dateStart:'', dateFinish:'', text: '', price:null, attachment: ''};
-    private typeDisplay : string;
+    private selected : Contract =  {contractId: null, dateStart:'', dateFinish:'', text: '', price:null, attachment: '', osbb: null, provider:''};
+    private newContract : Contract =  {contractId: null, dateStart:'', dateFinish:'', text: '', price:null, attachment: '', osbb: null, provider:''};
     private pageCreator:PageCreator<Contract>;
     private pageNumber:number = 1;
     private pageList:Array<number> = [];
@@ -55,9 +52,12 @@ export class ContractComponent implements OnInit{
 
     }
 
+    isDateValid(date: string): boolean {
+        return /\d{4}-\d{2}-\d{2}/.test(date);
+    }
     openEditModal(contract:Contract) {
         this.selected = contract;
-        console.log('selected contract: ' + this.selected.provider);
+        console.log('selected contract: ' + this.selected.contractId);
         this.editModal.show();
     }
 
@@ -159,6 +159,19 @@ export class ContractComponent implements OnInit{
                     console.error(err)
                 });
     }
-    
+
+    openCreateModal() {
+        this.createModal.show();
+    }
+
+    onSearch(search:string){
+        console.log("inside search: search param" + search);
+        this._contractService.findByProviderName(search)
+            .subscribe((contracts) => {
+                console.log("data: " + contracts);
+                this.contracts = contracts;
+            });
+    }
+
 
 }

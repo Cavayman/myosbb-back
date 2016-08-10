@@ -108,5 +108,8 @@ public class ProviderServiceImpl implements ProviderService {
         return order == true ? Sort.Direction.ASC : Sort.Direction.DESC;
     }
 
-
+    @Override
+    public List<Provider> findProvidersByNameOrDescription(String name, Integer pageNumber) {
+        return null; //TODO: implement pagination
+    }
 }

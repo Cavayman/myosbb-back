@@ -12,8 +12,6 @@ import ApiService = require("../../../../shared/services/api.service");
 @Injectable()
 export class ContractService {
 
-   // private urlWithParams = '/restful/contract?pageNum=';
-   // private url = '/restful/contract/';
     private url = ApiService.serverUrl + '/restful/contract/';
     private urlWithParams = ApiService.serverUrl + '/restful/contract?pageNum=';
 
@@ -65,7 +63,7 @@ export class ContractService {
         headers.append('Content-Type', 'application/json');
         console.log("sending http PUT to " +this.url + contract.contractId);
         console.log("json obj: " + JSON.stringify(contract));
-        return this._http.put(this.url + contract.contractId, JSON.stringify(contract), {headers: headers})
+        return this._http.post(this.url + contract.contractId, JSON.stringify(contract), {headers: headers})
             .toPromise()
             .then(()=>contract)
             .catch((err)=>console.error(err));
@@ -78,6 +76,14 @@ export class ContractService {
             .toPromise()
             .then(()=>event)
             .catch((error)=>console.error(error));
+    }
+
+    findByProviderName(search: string) :  Observable<any>{
+        console.log("searching contracts");
+        console.log("param is" + search);
+        return  this._http.get(this.url + "find?name="+search)
+            .map(res => res.json())
+            .catch((err)=>Observable.throw(err));
     }
 
 }

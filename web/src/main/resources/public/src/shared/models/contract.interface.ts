@@ -4,10 +4,11 @@
 
 export interface Contract {
     contractId: number;
-    provider: string;
     dateStart: string;
     dateFinish: string;
     text: String;
     price: number;
     attachment: string;
+    osbb: string;
+    provider: string;
 }

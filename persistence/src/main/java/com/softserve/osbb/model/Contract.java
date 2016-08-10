@@ -1,12 +1,15 @@
 package com.softserve.osbb.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.softserve.osbb.utils.CustomLocalDateTimeDeserializer;
+import com.softserve.osbb.utils.CustomLocalDateTimeSerializer;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
-
+import java.time.LocalDate;
 /**
  * Created by Roma on 05.07.2016.
  * Assigned to Anastasiia on 20.07.2016
@@ -15,8 +18,8 @@ import java.util.Date;
 @Table(name = "contract")
 public class Contract {
     private Integer contractId;
-    private Date dateStart;
-    private Date dateFinish;
+    private LocalDate dateStart;
+    private LocalDate dateFinish;
     private String text;
     private BigDecimal price;
     private Attachment attachment;
@@ -36,21 +39,25 @@ public class Contract {
 
     @Basic
     @Column(name = "dateStart")
-    public Date getDateStart() {
+    @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
+    public LocalDate getDateStart() {
         return dateStart;
     }
 
-    public void setDateStart(Date dateStart) {
+    @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
+    public void setDateStart(LocalDate dateStart) {
         this.dateStart = dateStart;
     }
 
     @Basic
     @Column(name = "dateFinish")
-    public Date getDateFinish() {
+    @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
+    public LocalDate getDateFinish() {
         return dateFinish;
     }
 
-    public void setDateFinish(Date dateFinish) {
+    @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
+    public void setDateFinish(LocalDate dateFinish) {
         this.dateFinish = dateFinish;
     }
 
