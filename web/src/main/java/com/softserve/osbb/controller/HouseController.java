@@ -55,7 +55,7 @@ public class HouseController {
             @RequestParam(value = "pageNumber", required = true) Integer pageNumber,
             @RequestParam(value = "sortedBy", required = false) String sortedBy,
             @RequestParam(value = "order", required = false) Boolean order) {
-        logger.info("get all report by page number: " + pageNumber);
+        logger.info("get all houses by page number: " + pageNumber);
         Page<House> housesByPage = houseService.getAllHouses(pageNumber, sortedBy, order);
 
         int currentPage = housesByPage.getNumber() + 1;

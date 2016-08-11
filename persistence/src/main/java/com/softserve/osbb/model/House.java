@@ -19,8 +19,10 @@ public class House {
     private String city;
     private String street;
     private String zipCode;
+    private String description;
     private Collection<Apartment> apartments = new ArrayList<>();
     private Osbb osbb;
+
 
     public House() {
         //default
@@ -71,6 +73,15 @@ public class House {
         this.zipCode = zipCode;
     }
 
+    @Basic
+    @Column(name = "description")
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
     @Override
     public boolean equals(Object obj) {
         return EqualsBuilder.reflectionEquals(this, obj);
