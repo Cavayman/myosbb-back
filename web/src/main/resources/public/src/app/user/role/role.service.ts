@@ -19,14 +19,17 @@ export class RoleService {
 
     //Checked
     getAllRole (pageNumber:number):Observable<any> {
+        let headers = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
+        headers.append('Content-Type', 'application/json');
         console.log('Get all role');
-        return this.http.get(this.getUrl + pageNumber)
+        return this.http.get(this.getUrl + pageNumber, {headers})
             .map((response)=> response.json())
             .catch((error)=>Observable.throw(error));
     }
     //Checked
     addRole(role:IRole) {
-        let headers = new Headers({'Content-Type': 'application/json' });
+        let headers = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
+        headers.append('Content-Type', 'application/json');
         console.log('Add new role');
         return this.http.post(this.postUrl, JSON.stringify(role), {headers})
                         .toPromise()
@@ -35,7 +38,8 @@ export class RoleService {
     }
     //Checked
     editRole(role:IRole)  {
-        let headers = new Headers({'Content-Type': 'application/json' });
+        let headers = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
+        headers.append('Content-Type', 'application/json');
         console.log('Edit role');
         return this.http.put(this.putUrl, JSON.stringify(role), {headers})
                         .toPromise()
@@ -46,7 +50,7 @@ export class RoleService {
 
     //Checked
     deleteRole(roleId:number){
-        let headers = new Headers();
+        let headers = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
         headers.append('Content-Type', 'application/json');
         let url = this.deleteUrl + roleId;
         console.log('delete role by id: ' + roleId);
@@ -57,7 +61,9 @@ export class RoleService {
 
 
     getAllRolesSorted(pageNumber:number, name:string, order:boolean):Observable<any> {
-        return this.http.get(this.getUrl + pageNumber + '&&sortedBy=' + name + '&&asc=' + order)
+        let headers = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(this.getUrl + pageNumber + '&&sortedBy=' + name + '&&asc=' + order, {headers})
             .map((response)=> response.json())
             .catch((error)=>Observable.throw(error));
     }
