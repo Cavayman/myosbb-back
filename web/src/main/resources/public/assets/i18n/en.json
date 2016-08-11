@@ -36,6 +36,27 @@
     "whatwedo": "what we do",
     "email":"email",
     "phone":"phone",
-    "adress":"address"
+    "adress":"address",
+  "events": "events",
+    "name": "name",
+    "date": "date",
+    "author": "author",
+    "informationAboutEvent": "information about event",
+    "deleteAll": "delete all",
+    "confirmDeleteEvents": "Do you really want to delete all events?",
+    "createEvent": "create event",
+  "attachments": "attachments",
+    "download": "download",
+    "upload": "upload",
+    "confirmDeleteAttachments": "Do you really want to delete all attachments?",
+    "file": "file",
+    "cancel": "cancel",
+    "remove": "remove",
+    "progress": "progress",
+    "size": "size",
+    "status": "status",
+    "actions": "actions",
+    "selectFiles": "select files",
+    "dropZone": "drop zone"
 }
 

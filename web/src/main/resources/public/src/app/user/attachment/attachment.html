@@ -1,16 +1,19 @@
 <div class="panel panel-default pos-top">
-    <div class="panel-heading"><h4><i class="fa fa-angle-right"></i> Вкладення</h4></div>
+    <div class="panel-heading"><h4><i class="fa fa-angle-right"></i> {{ 'attachments' | translate }}</h4></div>
     <div class="panel-body">
         <div class="content-panel">
             <div id="example_filter" class="pull-right dataTables_filter">
-                <input type="search" class="form-control input-sm" placeholder="пошук..." aria-controls="example">
+                <input type="search" class="form-control input-sm" placeholder="{{ 'search' | translate }}..." aria-controls="example">
             </div>
             <table class="table table-striped table-advance table-hover">
                 <thead>
                 <tr>
-                    <th class="sorting"><i class="fa fa-bookmark"></i> Вкладення
+                    <th class="sorting"><i class="fa fa-bookmark"></i> {{ 'attachments' | translate | capitalize}}
                         <a style="{cursor:pointer}" (click)="sortBy('path')"><span
                                 class="fa fa-fw fa-sort pull-right"></span></a></th>
+                    <th>
+                        <i class="fa fa-question-circle"></i> {{ 'details' | translate | capitalize }}
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -20,12 +23,12 @@
                         <div class="dropdown">
                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        Опції
+                            {{ 'options' | translate | capitalize }}
                         <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a style="cursor: pointer" (click)="download(attachment.path)">Завантажити</a></li>
-                        <li><a style="cursor: pointer" (click)="openDelModal(attachment.attachmentId)">Видалити</a></li>
+                        <li><a style="cursor: pointer" (click)="download(attachment.path)">{{ 'download' | translate | capitalize }}</a></li>
+                        <li><a style="cursor: pointer" (click)="openDelModal(attachment.attachmentId)">{{ 'delete' | translate | capitalize }}</a></li>
                         </ul>
                         </div>
                     </td>
@@ -43,15 +46,15 @@
                                     (click)="delModal.hide()">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title">Видалення....</h4>
+                            <h4 class="modal-title">{{ 'removing' | translate | capitalize }} ...</h4>
                         </div>
                         <div class="modal-body">
-                            <h5>Ви дійсно бажаєте видалити цей запис?</h5>
+                            <h5>{{ 'confirmDelete' | translate | capitalize }}</h5>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" (click)="delModal.hide()">Ні
+                            <button type="button" class="btn btn-primary" (click)="closeDelModal()">{{ 'yes' | translate | capitalize }}
                             </button>
-                            <button type="button" class="btn btn-primary" (click)="closeDelModal()">Так
+                            <button type="button" class="btn btn-default" (click)="delModal.hide()">{{ 'no' | translate | capitalize }}
                             </button>
                         </div>
                     </div>
@@ -68,51 +71,17 @@
                                     (click)="delAllModal.hide()">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title">Видалення....</h4>
+                            <h4 class="modal-title">{{ 'removing' | translate | capitalize }} ...</h4>
                         </div>
                         <div class="modal-body">
-                            <h5>Ви дійсно бажаєте видалити всі вкладення?</h5>
+                            <h5>{{ 'confirmDeleteAttachments' | translate | capitalize }}</h5>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" (click)="delAllModal.hide()">Ні
+                            <button type="button" class="btn btn-primary" (click)="closeDelAllModal()">{{ 'yes' | translate | capitalize }}
                             </button>
-                            <button type="button" class="btn btn-primary" (click)="closeDelAllModal()">Так
+                            <button type="button" class="btn btn-default" (click)="delAllModal.hide()">{{ 'no' | translate | capitalize }}
                             </button>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <!--Edit Modal -->
-            <div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
-                 aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-sm">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" aria-label="Close"
-                                    (click)="editModal.hide()">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h4 class="modal-title">Редагувати</h4>
-                        </div>
-                        <form *ngIf="active" (ngSubmit)="onEditAttachmentSubmit()" #attachmentForm="ngForm">
-                            <div class="modal-body">
-                                <div class="form-group"><label>Шлях</label>
-                                    <input type="text" class="form-control" required
-                                           [(ngModel)]="selectedAttachment.path"
-                                           name="path" #path="ngModel">
-                                    <div [hidden]="path.valid || path.pristine" class="alert alert-danger">
-                                        Невірний шлях
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-default" [disabled]="!attachmentForm.form.valid">
-                                    Зберегти
-                                </button>
-                            </div>
-                        </form>
-
                     </div>
                 </div>
             </div>
@@ -127,59 +96,36 @@
                                     (click)="uploadModal.hide()">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title">Завантажити файл</h4>
+                            <h4 class="modal-title">{{ 'upload' | translate | capitalize }} {{ 'file' | translate }}</h4>
                         </div>
                         <div class="modal-body well well-lg">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <h3>Select files</h3>
+                                    <h3>{{ 'selectFiles' | translate | capitalize }}</h3>
+                                    <input type="file" ng2FileSelect [uploader]="uploader" multiple  /><br/>
                                     <div ng2FileDrop
-                                         [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+                                         [ngClass]="{'nv-file-over': hasDropZoneOver}"
                                          (fileOver)="fileOverBase($event)"
                                          [uploader]="uploader"
                                          class="well my-drop-zone">
-                                        Base drop zone
+                                        {{ 'dropZone' | translate | capitalize }}
                                     </div>
-
-                                    <div ng2FileDrop
-                                         [ngClass]="{'another-file-over-class': hasAnotherDropZoneOver}"
-                                         (fileOver)="fileOverAnother($event)"
-                                         [uploader]="uploader"
-                                         class="well my-drop-zone">
-                                        Another drop zone
-                                    </div>
-
-                                    Multiple
-                                    <input type="file" ng2FileSelect [uploader]="uploader" multiple  /><br/>
-
-                                    Single
-                                    <input type="file" ng2FileSelect [uploader]="uploader" />
                                 </div>
 
                                 <div class="col-md-9" style="margin-bottom: 40px">
-
-                                    <h3>Upload queue</h3>
-                                    <p>Queue length: </p>
-
                                     <table class="table">
                                         <thead>
                                         <tr>
-                                            <th width="50%">Name</th>
-                                            <th>Size</th>
-                                            <th>Progress</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
+                                            <th width="40%">{{ 'name' | translate | capitalize }}</th>
+                                            <!--<th>{{ 'size' | translate | capitalize }}</th>-->
+                                            <th>{{ 'status' | translate | capitalize }}</th>
+                                            <th width="40%">{{ 'actions' | translate | capitalize }}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr *ngFor="let item of uploader.queue">
                                             <td><strong></strong></td>
                                             <td *ngIf="uploader.isHTML5" nowrap>0.00 MB</td>
-                                            <td *ngIf="uploader.isHTML5">
-                                                <div class="progress" style="margin-bottom: 0;">
-                                                    <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
-                                                </div>
-                                            </td>
                                             <td class="text-center">
                                                 <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
                                                 <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
@@ -188,15 +134,15 @@
                                             <td nowrap>
                                                 <button type="button" class="btn btn-success btn-xs"
                                                         (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
-                                                    <span class="glyphicon glyphicon-upload"></span> Upload
+                                                    <span class="glyphicon glyphicon-upload"></span> {{ 'upload' | translate | capitalize }}
                                                 </button>
                                                 <button type="button" class="btn btn-warning btn-xs"
                                                         (click)="item.cancel()" [disabled]="!item.isUploading">
-                                                    <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                                                    <span class="glyphicon glyphicon-ban-circle"></span> {{ 'cancel' | translate | capitalize }}
                                                 </button>
                                                 <button type="button" class="btn btn-danger btn-xs"
                                                         (click)="item.remove()">
-                                                    <span class="glyphicon glyphicon-trash"></span> Remove
+                                                    <span class="glyphicon glyphicon-trash"></span> {{ 'remove' | translate | capitalize }}
                                                 </button>
                                             </td>
                                         </tr>
@@ -205,34 +151,32 @@
 
                                     <div>
                                         <div>
-                                            Queue progress:
+                                            {{ 'progress' | translate | capitalize }}:
                                             <div class="progress" style="">
                                                 <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
                                             </div>
                                         </div>
                                         <button type="button" class="btn btn-success btn-s"
                                                 (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
-                                            <span class="glyphicon glyphicon-upload"></span> Upload all
+                                            <span class="glyphicon glyphicon-upload"></span> {{ 'upload' | translate | capitalize }} {{ 'all' | translate }}
                                         </button>
                                         <button type="button" class="btn btn-warning btn-s"
                                                 (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
-                                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
+                                            <span class="glyphicon glyphicon-ban-circle"></span> {{ 'cancel' | translate | capitalize }} {{ 'all' | translate }}
                                         </button>
                                         <button type="button" class="btn btn-danger btn-s"
                                                 (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
-                                            <span class="glyphicon glyphicon-trash"></span> Remove all
+                                            <span class="glyphicon glyphicon-trash"></span> {{ 'remove' | translate | capitalize }} {{ 'all' | translate }}
                                         </button>
                                     </div>
-
-
                                 </div>
 
                             </div>
 
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-default">
-                                Зберегти
+                            <button type="submit" class="btn btn-default" (click)="closeUploadModal()">
+                                {{ 'save' | translate | capitalize }}
                             </button>
                         </div>
                     </div>
@@ -258,8 +202,8 @@
                 </li>
             </ul>
         </nav>
-        <button type="button" class="btn btn-success" (click)="openUploadModal()">Завантажити файл</button>
-        <button type="button" class="btn btn-danger" (click)="openDelAllModal()">Видалити всі</button>
+        <button type="button" class="btn btn-success" (click)="openUploadModal()">{{ 'upload' | translate | capitalize }} {{ 'file' | translate }}</button>
+        <button type="button" class="btn btn-danger" (click)="openDelAllModal()">{{ 'delete' | translate | capitalize }} {{ 'all' | translate }}</button>
 
     </div>
 </div>

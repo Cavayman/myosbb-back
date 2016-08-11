@@ -36,6 +36,27 @@
   "whatwedo": "чим ми займаємось",
   "email":"емейл",
   "phone":"телефон",
-  "adress":"адреса"
+  "adress":"адреса",
+  "events": "події",
+    "name": "назва",
+    "date": "дата",
+    "author": "автор",
+    "informationAboutEvent": "інформація про подію",
+    "all": "все",
+    "confirmDeleteEvents": "Ви дійсно бажаєте видалити всі події?",
+    "createEvent": "Створити подію",
+  "attachments": "вкладення",
+    "download": "скачати",
+    "upload": "завантажити",
+    "confirmDeleteAttachments": "Ви дійсно бажаєте видалити всі вкладення?",
+    "file": "файл",
+    "cancel": "відмінити",
+    "remove": "усунути",
+    "progress": "прогрес",
+    "size": "розмір",
+    "status": "статус",
+    "actions": "дії",
+    "selectFiles": "оберіть файли",
+    "dropZone": "дроп зона"
 }
 

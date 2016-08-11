@@ -7,6 +7,8 @@ import "rxjs/Rx";
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS, ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
 import {FileSelectDirective, FileDropDirective, FileUploader} from 'ng2-file-upload/ng2-file-upload';
 import ApiService = require("../../../shared/services/api.service");
+import {TranslatePipe} from "ng2-translate/ng2-translate";
+import {CapitalizeFirstLetterPipe} from "../../../shared/pipes/capitalize-first-letter";
 
 const attachmentUploadUrl = ApiService.serverUrl + '/restful/attachment/';
 declare var saveAs:any;
@@ -14,6 +16,7 @@ declare var saveAs:any;
 @Component({
     selector: 'my-attachment',
     templateUrl: 'src/app/user/attachment/attachment.html',
+    pipes: [TranslatePipe, CapitalizeFirstLetterPipe],
     providers: [AttachmentService],
     directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, FileSelectDirective, FileDropDirective],
     viewProviders: [BS_VIEW_PROVIDERS]
@@ -21,13 +24,9 @@ declare var saveAs:any;
 export class UserAttachmentComponent implements OnInit, OnDestroy {
 
     public uploader:FileUploader = new FileUploader({url: attachmentUploadUrl});
-    public hasBaseDropZoneOver:boolean = false;
-    public hasAnotherDropZoneOver:boolean = false;
+    public hasDropZoneOver:boolean = false;
     public fileOverBase(e:any):void {
-        this.hasBaseDropZoneOver = e;
-    }
-    public fileOverAnother(e:any):void {
-        this.hasAnotherDropZoneOver = e;
+        this.hasDropZoneOver = e;
     }
 
     private attachments:Attachment[];
@@ -59,25 +58,14 @@ export class UserAttachmentComponent implements OnInit, OnDestroy {
         return /\d{4}-\d{2}-\d{2}/.test(date);
     }
 
-    onEditAttachmentSubmit() {
-        this.active = false;
-        console.log('saving attachment: ' + this.selectedAttachment);
-        this._attachmentService.editAndSave(this.selectedAttachment);
-        this._attachmentService.getAllAttachments(this.pageNumber);
-        this.editModal.hide();
-        setTimeout(() => this.active = true, 0);
-    }
-
-    closeEditModal() {
-        console.log('closing edit modal');
-        this.editModal.hide();
-    }
-
     openUploadModal() {
         this.uploadModal.show();
     }
 
     closeUploadModal() {
+        console.log('closing upload modal');
+        this._attachmentService.getAllAttachments(this.pageNumber);
+        this.getAttachmentsByPageNum(this.pageNumber);
         console.log('closing upload modal');
         this.uploadModal.hide();
     }

@@ -1,28 +1,31 @@
 <div class="panel panel-default pos-top">
-    <div class="panel-heading"><h4><i class="fa fa-angle-right"></i> Події</h4></div>
+    <div class="panel-heading"><h4><i class="fa fa-angle-right"></i> {{ 'events' | translate }}</h4></div>
     <div class="panel-body">
         <div class="content-panel">
             <div id="example_filter" class="pull-right dataTables_filter">
-                <input type="search" class="form-control input-sm" placeholder="пошук..." aria-controls="example">
+                <input type="search" class="form-control input-sm" placeholder="{{ 'search' | translate }}..." aria-controls="example">
             </div>
             <table class="table table-striped table-advance table-hover">
                 <thead>
                 <tr>
-                    <th class="sorting"><i class="fa fa-bullhorn"></i> Назва
+                    <th class="sorting"><i class="fa fa-bullhorn"></i> {{ 'name' | translate | capitalize }}
                         <a style="{cursor:pointer}" (click)="sortBy('name')"><span
                                 class="fa fa-fw fa-sort pull-right"></span></a></th>
-                    <th class="sorting"><i class="fa fa-calendar"></i> Дата
+                    <th class="sorting"><i class="fa fa-calendar"></i> {{ 'date' | translate | capitalize }}
                         <a style="{cursor:pointer}" (click)="sortBy('date')"><span
                                 class="fa fa-fw fa-sort pull-right"></span></a></th>
-                    <th class="sorting"><i class=" fa fa-user"></i> Автор
+                    <th class="sorting"><i class=" fa fa-user"></i> {{ 'author' | translate | capitalize }}
                         <a style="{cursor:pointer}" (click)="sortBy('author')"><span
                                 class="fa fa-fw fa-sort pull-right"></span></a></th>
-                    <th class="sorting"><i class="fa fa-bookmark"></i> Вкладення
+                    <th class="sorting"><i class="fa fa-bookmark"></i> {{ 'attachments' | translate | capitalize }}
                         <a style="{cursor:pointer}" (click)="sortBy('path')"><span
                                 class="fa fa-fw fa-sort pull-right"></span></a></th>
-                    <th class="sorting"><i class=" fa fa-edit"></i> Інформація про подію
+                    <th class="sorting"><i class=" fa fa-edit"></i> {{ 'informationAboutEvent' | translate | capitalize }}
                         <a style="{cursor:pointer}" (click)="sortBy('description')"><span
                                 class="fa fa-fw fa-sort pull-right"></span></a></th>
+                    <th>
+                        <i class="fa fa-question-circle"></i> {{ 'details' | translate | capitalize }}
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -36,12 +39,12 @@
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Опції
+                                {{ 'options' | translate | capitalize }}
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <li><a style="cursor: pointer" (click)="openEditModal(event)">Редагувати</a></li>
-                                <li><a style="cursor: pointer" (click)="openDelModal(event.eventId)">Видалити</a></li>
+                                <li><a style="cursor: pointer" (click)="openEditModal(event)">{{ 'edit' | translate | capitalize }}</a></li>
+                                <li><a style="cursor: pointer" (click)="openDelModal(event.eventId)">{{ 'delete' | translate | capitalize }}</a></li>
                             </ul>
                         </div>
                     </td>
@@ -59,16 +62,17 @@
                                     (click)="delModal.hide()">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title">Видалення....</h4>
+                            <h4 class="modal-title">{{ 'removing' | translate | capitalize }} ...</h4>
                         </div>
                         <div class="modal-body">
-                            <h5>Ви дійсно бажаєте видалити цей запис?</h5>
+                            <h5>{{ 'confirmDelete' | translate | capitalize }}</h5>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" (click)="delModal.hide()">Ні
+                            <button type="button" class="btn btn-primary" (click)="closeDelModal()">{{ 'yes' | translate | capitalize }}
                             </button>
-                            <button type="button" class="btn btn-primary" (click)="closeDelModal()">Так
+                            <button type="button" class="btn btn-default" (click)="delModal.hide()">{{ 'no' | translate | capitalize }}
                             </button>
+
                         </div>
                     </div>
                 </div>
@@ -84,15 +88,15 @@
                                     (click)="delAllModal.hide()">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title">Видалення....</h4>
+                            <h4 class="modal-title">{{ 'removing' | translate | capitalize }} ...</h4>
                         </div>
                         <div class="modal-body">
-                            <h5>Ви дійсно бажаєте видалити всі події?</h5>
+                            <h5>{{ 'confirmDeleteEvents' | translate | capitalize }}</h5>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" (click)="delAllModal.hide()">Ні
+                            <button type="button" class="btn btn-primary" (click)="closeDelAllModal()">{{ 'yes' | translate | capitalize }}
                             </button>
-                            <button type="button" class="btn btn-primary" (click)="closeDelAllModal()">Так
+                            <button type="button" class="btn btn-default" (click)="delAllModal.hide()">{{ 'no' | translate | capitalize }}
                             </button>
                         </div>
                     </div>
@@ -109,52 +113,52 @@
                                     (click)="editModal.hide()">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title">Редагувати</h4>
+                            <h4 class="modal-title">{{ 'edit' | translate | capitalize }}</h4>
                         </div>
                         <form *ngIf="active" (ngSubmit)="onEditEventSubmit()" #eventForm="ngForm">
                             <div class="modal-body">
-                                <div class="form-group"><label>Назва</label>
+                                <div class="form-group"><label>{{ 'name' | translate | capitalize }}</label>
                                     <input type="text" class="form-control" required [(ngModel)]="selectedEvent.name"
                                            name="name" #name="ngModel">
                                     <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-                                        Назва відсутня
+                                        {{ 'required' | translate | capitalize }}
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Дата</label>
+                                    <label>{{ 'date' | translate | capitalize }}</label>
                                     <input type="text" class="form-control" required
                                            name="date" [(ngModel)]="selectedEvent.date" #date="ngModel">
                                     <div [hidden]="date.valid || date.pristine" class="alert alert-danger">
-                                        Дата відсутня
+                                        {{ 'required' | translate | capitalize }}
                                     </div>
                                     <div [hidden]="isDateValid(selectedEvent.date)" class="alert alert-danger">
-                                        Невірний формат дати
+                                        {{ 'invalid' | translate | capitalize }}
                                     </div>
                                 </div>
 
-                                <div class="form-group"><label>Автор</label>
+                                <div class="form-group"><label>{{ 'author' | translate | capitalize }}</label>
                                     <input type="text" class="form-control" required [(ngModel)]="selectedEvent.author"
                                            name="author" #author="ngModel">
                                     <div [hidden]="author.valid || author.pristine" class="alert alert-danger">
-                                        Немає автора
+                                        {{ 'required' | translate | capitalize }}
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Інформація про подію</label>
+                                    <label>{{ 'informationAboutEvent' | translate | capitalize }}</label>
                                     <input type="text" class="form-control" required
                                            name="description" [(ngModel)]="selectedEvent.description"
                                            #description="ngModel">
                                     <div [hidden]="description.valid || description.pristine"
                                          class="alert alert-danger">
-                                        Дод. інформація відсутня
+                                        {{ 'required' | translate | capitalize }}
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-default" [disabled]="!eventForm.form.valid">
-                                    Зберегти
+                                    {{ 'save' | translate | capitalize }}
                                 </button>
                             </div>
                         </form>
@@ -174,7 +178,7 @@
                                 (click)="createModal.hide()">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <h4 class="modal-title">Створити подію</h4>
+                        <h4 class="modal-title">{{ 'createEvent' | translate | capitalize }}</h4>
                     </div>
                     <form *ngIf="active" (ngSubmit)="onCreateEventSubmit()" #eventForm="ngForm">
                         <div class="modal-body">
@@ -182,44 +186,44 @@
                                 <input type="text" class="form-control" required [(ngModel)]="newEvent.name"
                                        name="name" #name="ngModel">
                                 <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-                                    Назва відсутня
+                                    {{ 'required' | translate | capitalize }}
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label>Дата</label>
+                                <label>{{ 'date' | translate | capitalize }}</label>
                                 <input type="text" class="form-control" required
                                        name="date" [(ngModel)]="newEvent.date" #date="ngModel">
                                 <div [hidden]="date.valid || date.pristine" class="alert alert-danger">
-                                    Дата відсутня
+                                    {{ 'required' | translate | capitalize }}
                                 </div>
                                 <div [hidden]="isDateValid(newEvent.date)" class="alert alert-danger">
-                                    Невірний формат дати
+                                    {{ 'invalid' | translate | capitalize }}
                                 </div>
                             </div>
 
-                            <div class="form-group"><label>Автор</label>
+                            <div class="form-group"><label>{{ 'author' | translate | capitalize }}</label>
                                 <input type="text" class="form-control" required [(ngModel)]="newEvent.author"
                                        name="author" #author="ngModel">
                                 <div [hidden]="author.valid || author.pristine" class="alert alert-danger">
-                                    Немає автора
+                                    {{ 'required' | translate | capitalize }}
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label>Інформація про подію</label>
+                                <label>{{ 'informationAboutEvent' | translate | capitalize }}</label>
                                 <input type="text" class="form-control" required
                                        name="description" [(ngModel)]="newEvent.description"
                                        #description="ngModel">
                                 <div [hidden]="description.valid || description.pristine"
                                      class="alert alert-danger">
-                                    Дод. інформація відсутня
+                                    {{ 'required' | translate | capitalize }}
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-default" [disabled]="!eventForm.form.valid">
-                                Зберегти
+                                {{ 'save' | translate | capitalize }}
                             </button>
                         </div>
                     </form>
@@ -244,7 +248,7 @@
                 </li>
             </ul>
         </nav>
-        <button type="button" class="btn btn-success" (click)="openCreateModal()">Створити</button>
-        <button type="button" class="btn btn-danger" (click)="openDelAllModal()">Видалити всі</button>
+        <button type="button" class="btn btn-success" (click)="openCreateModal()">{{ 'create' | translate | capitalize }}</button>
+        <button type="button" class="btn btn-danger" (click)="openDelAllModal()">{{ 'delete' | translate | capitalize }} {{ 'all' | translate }}</button>
     </div>
 </div>

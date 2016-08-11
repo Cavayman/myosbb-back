@@ -5,10 +5,13 @@ import {EventService} from "./event.service";
 import {PageCreator} from "../../../shared/services/page.creator.interface";
 import "rxjs/Rx";
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS, ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
+import {TranslatePipe} from "ng2-translate/ng2-translate";
+import {CapitalizeFirstLetterPipe} from "../../../shared/pipes/capitalize-first-letter";
 
 @Component({
     selector: 'my-event',
     templateUrl: 'src/app/user/event/event.html',
+    pipes: [TranslatePipe, CapitalizeFirstLetterPipe],
     providers: [EventService],
     directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES],
     viewProviders: [BS_VIEW_PROVIDERS]
@@ -63,7 +66,7 @@ export class UserEventComponent implements OnInit, OnDestroy {
     }
 
     onCreateEventSubmit() {
-        this.active = false;
+        // this.active = false;
         console.log('creating event');
         this._eventService.addEvent(this.newEvent);
         this._eventService.getAllEvents(this.pageNumber);
