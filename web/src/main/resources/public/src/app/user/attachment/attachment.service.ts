@@ -19,23 +19,27 @@ export class AttachmentService {
     }
 
     getAllAttachments(pageNumber:number):Observable<any> {
-        return this._http.get(this.getAttachmentUrl + pageNumber)
+        let headers2 = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
+        headers2.append('Content-Type', 'application/json');
+        return this._http.get(this.getAttachmentUrl + pageNumber, {headers:headers2})
             .map((response)=> response.json())
             .catch((error)=>Observable.throw(error));
     }
 
     getAllAttachmentsSorted(pageNumber:number, name:string, order:boolean):Observable<any> {
-        return this._http.get(this.getAttachmentUrl + pageNumber + '&&sortedBy=' + name + '&&asc=' + order)
+        let headers2 = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
+        headers2.append('Content-Type', 'application/json');
+        return this._http.get(this.getAttachmentUrl + pageNumber + '&&sortedBy=' + name + '&&asc=' + order, {headers:headers2})
             .map((response)=> response.json())
             .catch((error)=>Observable.throw(error));
     }
 
     deleteAttachmentById(attachmentId:number) {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
+        let headers2 = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
+        headers2.append('Content-Type', 'application/json');
         let url = this.delAttachmentUrl + attachmentId;
         console.log('delete attachment by id: ' + attachmentId);
-        return this._http.delete(url, {headers: headers})
+        return this._http.delete(url, {headers: headers2})
             .toPromise()
             .catch((error)=>console.error(error));
 
@@ -43,12 +47,16 @@ export class AttachmentService {
 
     deleteAllAttachments() {
         console.log('delete all attachments');
-        return this._http.delete(this.delAllAttachmentUrl)
+        let headers2 = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
+        headers2.append('Content-Type', 'application/json');
+        return this._http.delete(this.delAllAttachmentUrl, {headers:headers2})
             .toPromise()
             .catch((error)=>console.error(error));
     }
 
     editAndSave(attachment:Attachment) {
+        let headers2 = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
+        headers2.append('Content-Type', 'application/json');
         if (attachment.attachmentId) {
             console.log('updating attachment with id: ' + attachment.attachmentId);
             this.put(attachment);
@@ -56,18 +64,18 @@ export class AttachmentService {
     }
 
     put(attachment:Attachment) {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        return this._http.put(this.updateAttachmentUrl, JSON.stringify(attachment), {headers: headers})
+        let headers2 = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
+        headers2.append('Content-Type', 'application/json');
+        return this._http.put(this.updateAttachmentUrl, JSON.stringify(attachment), {headers: headers2})
             .toPromise()
             .then(()=>attachment)
             .catch((error)=>console.error(error));
     }
 
     uploadAttachment(attachment:Attachment): Promise<Attachment> {
-        let headers = new Headers();
-        headers.append('Content-Type', 'multipart/form-data');
-        return this._http.post(this.downloadAttachmentUrl, attachment, {headers: headers})
+        let headers2 = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
+        headers2.append('Content-Type', 'application/json');
+        return this._http.post(this.downloadAttachmentUrl, attachment, {headers: headers2})
             .toPromise()
             .then(()=>attachment)
             .catch((error)=>console.error(error));
