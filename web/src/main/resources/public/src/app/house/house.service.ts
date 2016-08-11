@@ -22,8 +22,8 @@ export class HouseService {
     }
 
 
-    getAllHousesByPageNumber(pageNumber: number): Observable<any> {
-        return this._http.get(this.housesByPageUrl + pageNumber)
+    getAllHousesByPageNumber(pageNumber: number, selectedRow: number): Observable<any> {
+        return this._http.get(this.housesByPageUrl + pageNumber + '&&rowNum=' + selectedRow)
             .map((response)=> response.json())
             .catch((error)=>Observable.throw(error));
 

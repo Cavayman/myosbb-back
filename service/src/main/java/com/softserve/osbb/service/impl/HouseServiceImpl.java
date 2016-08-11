@@ -56,11 +56,6 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public List<House> getAllHouses() {
-        return houseRepository.findAll();
-    }
-
-    @Override
     public List<House> findAllByCity(String city) {
         return (city == null || city.isEmpty()) ?
                 EMPTY_HOUSE_LIST : houseRepository.findByCity(city);
@@ -96,18 +91,16 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public Page<House> getAllHouses(Integer pageNumber, String sortedBy, Boolean order) {
-        PageRequest pageRequest = new PageRequest(pageNumber - 1, DEF_ROWS,
+    public Page<House> getAllHouses(Integer pageNumber, String sortedBy, Boolean order, Integer rowNum) {
+        PageRequest pageRequest = new PageRequest(pageNumber - 1, rowNum == null ? DEF_ROWS : rowNum,
                 getSortingOrder(order), sortedBy == null ? "street" : sortedBy);
         return houseRepository.findAll(pageRequest);
     }
 
     private Sort.Direction getSortingOrder(Boolean order) {
-
         if (order == null) {
             return Sort.Direction.DESC;
         }
-
         return order == true ? Sort.Direction.ASC : Sort.Direction.DESC;
     }
 

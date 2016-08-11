@@ -48,21 +48,31 @@
                 </tbody>
             </table>
         </div>
+        <nav class="pull-left" aria-label="Page navigation">
+            <ul class="pagination">
+                <li [ngClass]="{'active': row == selectedRow}" *ngFor="let row of rows"><a
+                        style="cursor: pointer" (click)="selectRowNum(row)">{{row}}</a></li>
+            </ul>
+        </nav>
+
         <nav class="pull-right" aria-label="Page navigation">
             <ul class="pagination">
-                <li [ngStyle]="{'display': pageNumber == 1? 'none' : ''}">
+                <li [ngStyle]="{'display': pageNumber === 1? 'none' : ''}">
                     <a (click)="prevPage()" style="cursor: pointer" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
                 <li [ngClass]="{'active': num == pageNumber}" *ngFor="let num of pageList"><a
-                        style="cursor: pointer" (click)="findAllHousesByPage(num)">{{num}}</a></li>
-                <li [ngStyle]="{'display': pageNumber == totalPages? 'none' : ''}">
+                        style="cursor: pointer" (click)="findAllHousesByPage(num, selectedRow)">{{num}}</a></li>
+                <li [ngStyle]="{'display': pageNumber === 1 || pageNumber == totalPages? 'none' : ''}">
                     <a (click)="nextPage()" style="cursor: pointer" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
             </ul>
         </nav>
+    </div>
+    <div class="text-center">
+        <p class="spacing"><span class="fa fa-refresh fa-spin" *ngIf="pending"></span></p>
     </div>
 </div>

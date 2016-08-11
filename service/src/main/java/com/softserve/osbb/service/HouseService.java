@@ -20,8 +20,6 @@ public interface HouseService {
 
     House findHouseById(Integer houseId);
 
-    List<House> getAllHouses();
-
     List<House> findAllByCity(String city);
 
     List<House> findAllByStreet(String street);
@@ -32,5 +30,5 @@ public interface HouseService {
 
     void deleteAllHouses();
 
-    Page<House> getAllHouses(Integer pageNumber, String sortedBy, Boolean order);
+    Page<House> getAllHouses(Integer pageNumber, String sortedBy, Boolean order, Integer rowNum);
 }

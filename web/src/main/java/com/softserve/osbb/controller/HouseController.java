@@ -54,9 +54,10 @@ public class HouseController {
     public ResponseEntity<PageCreator<Resource<HouseDTO>>> listAllHouses(
             @RequestParam(value = "pageNumber", required = true) Integer pageNumber,
             @RequestParam(value = "sortedBy", required = false) String sortedBy,
-            @RequestParam(value = "order", required = false) Boolean order) {
+            @RequestParam(value = "order", required = false) Boolean order,
+            @RequestParam(value = "rowNum", required = false) Integer rowNum) {
         logger.info("get all houses by page number: " + pageNumber);
-        Page<House> housesByPage = houseService.getAllHouses(pageNumber, sortedBy, order);
+        Page<House> housesByPage = houseService.getAllHouses(pageNumber, sortedBy, order, rowNum);
 
         int currentPage = housesByPage.getNumber() + 1;
         int begin = Math.max(1, currentPage - 5);
