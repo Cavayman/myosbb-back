@@ -4,6 +4,9 @@ import com.softserve.osbb.model.Role;
 import com.softserve.osbb.repository.RoleRepository;
 import com.softserve.osbb.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +16,8 @@ import java.util.List;
  */
 @Service
 public class RoleServiceImpl implements RoleService {
+
+    private static final int DEF_ROWS = 10;
 
     @Autowired
     RoleRepository roleRepository;
@@ -74,5 +79,19 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void deleteAllRole() {
         roleRepository.deleteAll();
+    }
+
+    @Override
+    public Page<Role> getAllRole(Integer pageNumber, String sortBy, Boolean order) {
+        PageRequest pageRequest = new PageRequest(pageNumber - 1, DEF_ROWS,
+                getSortingOrder(order), sortBy == null ? "name" : sortBy);
+        return roleRepository.findAll(pageRequest);
+    }
+
+    public Sort.Direction getSortingOrder(Boolean order) {
+        if (order == null) {
+            return Sort.Direction.DESC;
+        }
+        return order == true ? Sort.Direction.ASC : Sort.Direction.DESC;
     }
 }

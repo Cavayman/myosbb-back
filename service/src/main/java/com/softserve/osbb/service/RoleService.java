@@ -1,6 +1,7 @@
 package com.softserve.osbb.service;
 
 import com.softserve.osbb.model.Role;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,4 +33,5 @@ public interface RoleService {
 
     void deleteAllRole();
 
+    Page<Role> getAllRole(Integer pageNumber, String sortedBy, Boolean ascOrder);
 }

@@ -3,53 +3,63 @@ import {Http, Headers} from "@angular/http";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/toPromise";
 import {IRole} from "./role";
+import {Observable} from "rxjs/Observable";
 import ApiService = require("../../../shared/services/api.service");
 
 @Injectable()
 export class RoleService { 
 
     private deleteUrl:string = ApiService.serverUrl + '/restful/role/id/';
-    private postUrl:string = ApiService.serverUrl + '/restful/role';
-    private putUrl:string = ApiService.serverUrl + '/restful/role';
-    private getUrl:string = ApiService.serverUrl + '/restful/role';
+    private postUrl:string = ApiService.serverUrl + '/restful/role/';
+    private putUrl:string = ApiService.serverUrl + '/restful/role/';
+    private getUrl:string = ApiService.serverUrl + '/restful/role?pageNumber=';
     
 
     constructor(private http: Http) { }
 
-    getAllRole(): Promise<IRole[]> {
-        return this.http.get(this.getUrl)
-                 .toPromise()
-                 .then(res => res.json())
-                 .catch(this.handleError);
+    //Checked
+    getAllRole (pageNumber:number):Observable<any> {
+        console.log('Get all role');
+        return this.http.get(this.getUrl + pageNumber)
+            .map((response)=> response.json())
+            .catch((error)=>Observable.throw(error));
     }
-
-    addRole(role:IRole): Promise<IRole> {
+    //Checked
+    addRole(role:IRole) {
         let headers = new Headers({'Content-Type': 'application/json' });
+        console.log('Add new role');
         return this.http.post(this.postUrl, JSON.stringify(role), {headers})
                         .toPromise()
                         .then(res => res.json())
-                        .catch(this.handleError);
+                        .catch((error)=>console.error(error));
     }
-
-    editRole(role:IRole):Promise<IRole>  {
+    //Checked
+    editRole(role:IRole)  {
         let headers = new Headers({'Content-Type': 'application/json' });
+        console.log('Edit role');
         return this.http.put(this.putUrl, JSON.stringify(role), {headers})
                         .toPromise()
                         .then(res => res.json())
                         .catch(this.handleError);
+
     }
 
-    deleteRole(role:IRole): Promise<IRole> {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let url = ` ${this.deleteUrl}/${role.roleId}`;
-        return this.http.delete(url,{headers})
-                    .toPromise()
-                    .then(res => role)
-                    .catch(this.handleError);
+    //Checked
+    deleteRole(roleId:number){
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        let url = this.deleteUrl + roleId;
+        console.log('delete role by id: ' + roleId);
+            return this.http.delete(url, {headers: headers})
+                        .toPromise()
+                        .catch((error)=>console.error(error));
     }
 
-    private handleError(error: any):Promise<any> {
-        console.log('HandleError', error);
-        return Promise.reject(error.message || error);
+
+    getAllRolesSorted(pageNumber:number, name:string, order:boolean):Observable<any> {
+        return this.http.get(this.getUrl + pageNumber + '&&sortedBy=' + name + '&&asc=' + order)
+            .map((response)=> response.json())
+            .catch((error)=>Observable.throw(error));
     }
+
 }

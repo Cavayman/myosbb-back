@@ -11,6 +11,7 @@ export class RoleFormComponent implements OnInit{
     @Output() created: EventEmitter<Role>;
     @Output() updated: EventEmitter<Role>;
     @Input() role:IRole;
+    
 
     @ViewChild('updateModal')
     updateModal:ModalComponent;

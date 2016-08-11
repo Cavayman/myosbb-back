@@ -10,7 +10,7 @@
             </div>
             <div id="example_filter" class="pull-right dataTables_filter">
                 <p></p>
-                <input type="search" class="form-control input-sm" placeholder="Пошук..." aria-controls="example">
+                <input type="search" class="form-control input-sm" #filter (keyup)="0" placeholder="Пошук..." aria-controls="example">
             </div>
             <table class="table table-striped table-advance table-hover">
                 <thead>
@@ -22,7 +22,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let item of roleArr">
+                <tr *ngFor="let item of roleArr | roleFilter:filter.value">
                     <td>{{item.name}}</td>
                     <td>
                         <div class="dropdown">
@@ -49,7 +49,7 @@
                     </a>
                 </li>
                 <li [ngClass]="{'active': num == pageNumber}" *ngFor="let num of pageList"><a
-                        style="cursor: pointer" (click)="getReportsByPageNum(num)">{{num}}</a></li>
+                        style="cursor: pointer" (click)="getRolesByPageNum(num)">{{num}}</a></li>
                 <li [ngStyle]="{'display': pageNumber == totalPages? 'none' : ''}">
                     <a (click)="nextPage()" style="cursor: pointer" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
