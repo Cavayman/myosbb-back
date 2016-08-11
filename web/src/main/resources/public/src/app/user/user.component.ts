@@ -1,18 +1,27 @@
-import {Component} from "@angular/core";
+import {Component,OnInit} from "@angular/core";
 import {SidebarMenuComponent} from "../sidebar_menu/sidebar.menu.component";
 import {UserMainComponent} from "./main/user.main.component";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import {HeaderComponent} from "../header/header.component";
-
+import {CurrentUserService} from "../../shared/services/current.user.service";
 @Component({
     selector: 'my-user',
     templateUrl: 'src/app/user/user.html',
     directives: [ROUTER_DIRECTIVES, HeaderComponent, SidebarMenuComponent, UserMainComponent],
-    outputs: ['userName']
+    outputs: [],
 })
-export class UserComponent {
+export class UserComponent implements OnInit{
+    userName:string;
+    constructor(private _currentUser:CurrentUserService){
+        console.log(this._currentUser.getUser());
+        this.userName=this._currentUser.getUser().firstName;
+        console.log(this.userNamenpm );
+    }
 
-    userName:string = 'Barack Obama';
+    ngOnInit():any {
+        this.userName=this._currentUser.getUser().firstName+" "+this._currentUser.getUser().lastName;
+        console.log(this.userName);
+    }
 
-
+    
 }

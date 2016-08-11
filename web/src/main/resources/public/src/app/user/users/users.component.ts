@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core'
-import {User} from './User.ts';
+import {User} from '../../../shared/models/User.ts';
 import {UsersService} from "./users.service";
 import {Router} from '@angular/router';
 import {REACTIVE_FORM_DIRECTIVES, FormBuilder, Validators} from '@angular/forms';
@@ -44,14 +44,14 @@ export class UsersComponent implements OnInit {
         this._userService.deleteUser(user).subscribe(()=>this.userList.splice(this.userList.indexOf(user,0),1));
     }
 
-    // saveUser() {
-    //  let user:User={firstName:this.userForm.value.firstName,
-    //         lastName:this.userForm.value.lastName ,
-    //         email:this.userForm.value.email ,
-    //         phoneNumber:this.userForm.value.phoneNumber,
-    //         gender:this.userForm.value.gender,
-    //         birthDate:this.userForm.value.birthDate,
-    //         password:this.userForm.value.password};
-    //     this._userService.saveUser(user).subscribe((data)=>this.userList.push(data));
-    // }
+    saveUser() {
+     let user:User={firstName:this.userForm.value.firstName,
+            lastName:this.userForm.value.lastName ,
+            email:this.userForm.value.email ,
+            phoneNumber:this.userForm.value.phoneNumber,
+            gender:this.userForm.value.gender,
+            birthDate:this.userForm.value.birthDate,
+            password:this.userForm.value.password};
+        this._userService.saveUser(user).subscribe((data)=>this.userList.push(data));
+    }
 }

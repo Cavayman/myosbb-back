@@ -1,33 +1,67 @@
 import {Component, OnInit, Output, EventEmitter} from "@angular/core";
+import {Observable} from "rxjs/Observable";
+import {LoginService} from "./login.service";
 import {Router} from "@angular/router";
 import {LoginStat} from "../../shared/services/login.stats";
-import {HeaderComponent} from "../header/header.component";
+import {RegistrationComponent} from "../registration/registration.component";
+import {CurrentUserService} from "../../shared/services/current.user.service";
 
 @Component({
     selector: 'app-login',
     templateUrl: 'src/app/login/login.html',
-    providers: [LoginStat],
-    directives: [HeaderComponent],
+    directives: [RegistrationComponent],
+    providers: [LoginService],
     outputs: ['isLoggedIn']
 })
 export class LoginComponent implements OnInit {
+    private model = {'username': '', 'password': ''};
+    private currentUserName = '';
+    private isLoggedIn:boolean = false;
 
-    isLoggedIn:boolean;
-    @Output() private loggedIn = new EventEmitter();
+    // isLoggedIn:boolean;
+    // @Output() private loggedIn = new EventEmitter();
 
-    constructor(private _router:Router, private _loginStat:LoginStat) {
+    constructor(private _router:Router, private loginService:LoginService
+        ,private _currentUserService:CurrentUserService) {
     }
 
-    ngOnInit():any {
+    onSubmit() {
+        this.isLoggedIn=false;
+        this.loginService.sendCredentials(this.model).subscribe(
+            data => {
+                localStorage.setItem("token", JSON.parse(JSON.stringify(data))._body);
+                this.loginService.sendToken(localStorage.getItem("token")).subscribe(
+                    data => {
+                        if (!this.isLoggedIn) {
+                            this.currentUserName = this.model.username;
+                            localStorage.setItem("currentUserName", this.model.username);
+                            this.model.username = "";
+                            this.model.password = "";
+                            this.isLoggedIn = true;
+                            this._currentUserService.setUser(data);
+                            this._router.navigate(['home']);
+                        }
+                    }
+                )
+            }
+        )
 
     }
 
-    onUserLoginClick() {
-        this.isLoggedIn = true;
-        this.loggedIn.emit(this.isLoggedIn);
-        this._loginStat.setLoginStat(this.isLoggedIn);
-        this._router.navigate(['home']);
+
+
+
+    onUserRegistrationClick() {
+        this._router.navigate(['registration']);
 
     }
+
+    // onUserLoginClick() {
+    //     this.isLoggedIn = true;
+    //     this.loggedIn.emit(this.isLoggedIn);
+    //     this._loginStat.setLoginStat(this.isLoggedIn);
+    //     this._router.navigate(['home']);
+    //
+    // }
 
 }

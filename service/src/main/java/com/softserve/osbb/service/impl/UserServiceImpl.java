@@ -7,15 +7,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.authentication.AccountStatusUserDetailsChecker;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by cavayman on 11.07.2016.
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService
+{
 
     @Autowired
     UserRepository userRepository;
@@ -128,4 +133,21 @@ public class UserServiceImpl implements UserService {
     public List<User> save(Iterable<User> iterable) {
         return userRepository.save(iterable);
     }
+
+    @Override
+    public User findUserByEmail(String email) {
+        return userRepository.findUserByEmail(email);
+    }
+
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        try{
+//        final Optional<User> user = userRepository.findUserByEmail(username);
+//        }catch(UsernameNotFoundExceptione exceptione){
+//
+//        }
+//        final AccountStatusUserDetailsChecker detailsChecker = new AccountStatusUserDetailsChecker();
+//        user.ifPresent(detailsChecker::check);
+//
+//    }
 }

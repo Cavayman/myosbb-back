@@ -1,7 +1,9 @@
 package com.softserve.osbb.controller;
 
+import com.softserve.osbb.config.JwtFilter;
 import com.softserve.osbb.model.User;
 import com.softserve.osbb.service.UserService;
+import io.jsonwebtoken.Claims;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +23,6 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
  * Created by cavayman on 12.07.2016.
  */
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping(value = "restful/")
 public class UserController {
 
@@ -28,6 +30,7 @@ public class UserController {
     private static final List<Resource<User>> EMPTY_LIST = new ArrayList<>(0);
     @Autowired
     UserService userService;
+
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public ResponseEntity<List<Resource<User>>> getAll() {
@@ -46,13 +49,19 @@ public class UserController {
 
     }
 
+    @RequestMapping(value = "/user/getCurrent", method = RequestMethod.GET)
+    public Resource<User> getCurrent(final HttpServletRequest request) {
+        final Claims claims = (Claims) request.getAttribute("claims");
+           String id= claims.getId();
+       return  getUser(id);
+    }
+
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
     public Resource<User> getUser(@PathVariable(value = "id") String id) {
         logger.info("geting user from database with id=" + id);
         User user = userService.findOne(id);
         return getUserResource(user);
     }
-
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     public User putUser(@RequestBody User user) {
@@ -83,7 +92,6 @@ public class UserController {
 
 
     private Resource<User> getUserResource(User user) {
-
         Resource<User> resource = new Resource<>(user);
         resource.add(linkTo(methodOn(UserController.class).getUser(user.getUserId().toString())).withSelfRel());
 //        resource.add(linkTo(methodOn(ApartmentController.class).getAppartmentByOwner(user.getUserId())).withRel("apartments "));

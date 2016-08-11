@@ -7,7 +7,7 @@ import ApiService = require("../../shared/services/api.service");
 @Injectable()
 export class RegisterService{
 
-    private _pathUrl=ApiService.serverUrl + '/restful/user/';
+    private _pathUrl=ApiService.serverUrl + '/registration';
 
     constructor(private http:Http){
     }

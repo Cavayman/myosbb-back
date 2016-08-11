@@ -1,0 +1,28 @@
+hr{
+    margin:0;
+    padding:0;
+}
+.container{
+    margin:5px auto 0 auto;
+}
+.registration-form{
+    width:50%;
+    margin-left:25%
+}
+.form-header{
+    text-align: center;
+    background-color: #68DFF0;
+    border-radius:5px 5px 0 0 ;
+    padding: 10px 25px 5px 25px;
+}
+.form-container{
+    padding: 10px 20px 0px 20px;
+    background-color: #FFFFFF;
+}
+.form-footer{
+    margin:0 0 0 0;
+    padding: 10px 25px 15px 25px;
+    background-color: #FFFFFF;
+    border-radius: 0 0 5px 5px;
+}
+

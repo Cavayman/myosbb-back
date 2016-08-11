@@ -3,7 +3,7 @@
         <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
     </div>
     <!--logo start-->
-    <a [routerLink]="['']" class="logo"><i class="fa fa-home fa-lg" aria-hidden="true"><b>{{ 'title' | translate:{value:param} }}</b></i></a>
+    <a [routerLink]="['login']" class="logo"><i class="fa fa-home fa-lg" aria-hidden="true"><b>Наш Двір</b></i></a>
     <!--logo end-->
 
     <div class="lang-nav">
@@ -158,7 +158,14 @@
         </ul>
         <!--  notification end -->
     </div>
-    <div class="pull-right top" [ngStyle]="{'display': isLoggedIn ?'': 'none'}">
-        <p><a [routerLink]="['user/main']" role="button" class="btn btn-lg btn-success profile_btn">Профіль</a></p>
+    <div class="top-menu">
+        <ul class="nav pull-right top-menu">
+            <li *ngIf="_loginService.checkLogin()"><a [routerLink]="['home/user']" class="top">Profile</a></li>
+        </ul>
+    </div>
+    <div class="top-menu">
+        <ul class="nav pull-right top-menu">
+            <li *ngIf="_loginService.checkLogin()"><a (click)="_loginService.logOut()" [routerLink]="['']" class="top">Log out</a></li>
+        </ul>
     </div>
 </header>

@@ -3,6 +3,8 @@ package com.softserve.osbb.config;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
+import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.context.annotation.*;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.ClassPathResource;
@@ -11,6 +13,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import javax.servlet.Filter;
+
 /**
  * Created by nazar.dovhyy on 08.07.2016.
  */
@@ -18,7 +22,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @PropertySource("config.properties")
 @Configuration
 @SpringBootApplication
-@Import(ServiceApplication.class)
+@Import({ServiceApplication.class/*,SecurityConfiguration.class*/})
 @ComponentScan(basePackages = {"com.softserve.osbb"})
 public class WebAppConfiguration extends WebMvcConfigurerAdapter {
 
@@ -50,12 +54,13 @@ public class WebAppConfiguration extends WebMvcConfigurerAdapter {
         return ppc;
     }
 
-    //for test only will be DELETED in next versions
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/login").setViewName("login.html");
-        registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
-        registry.addViewController("/home").setViewName("index.html");
-        registry.addViewController("/error").setViewName("login.html");
+    @Bean
+    public FilterRegistrationBean jwtFilter(){
+        final FilterRegistrationBean registrationBean=new FilterRegistrationBean();
+        registrationBean.setFilter((Filter) new JwtFilter());
+        registrationBean.addUrlPatterns("/restful/*");
+
+        return registrationBean;
     }
+
 }

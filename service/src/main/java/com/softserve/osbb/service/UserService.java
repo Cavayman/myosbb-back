@@ -4,6 +4,9 @@ import com.softserve.osbb.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +16,8 @@ import java.util.List;
  */
 
 @Service
-public interface UserService  {
+public interface UserService // extends UserDetailsService
+{
 
     public User save(User user) ;
 
@@ -52,4 +56,19 @@ public interface UserService  {
     public User saveAndFlush(User user) ;
 
     public List<User> save(Iterable<User> iterable) ;
+    public User findUserByEmail(String email);
+
+/**
+ * TODO : implement update with userParams
+ */
+//    User update(User user, UserParams params);
+
+//    List<RelatedUserDTO> findFollowings(User user, PageParams pageParams);
+//
+//    List<RelatedUserDTO> findFollowers(User user, PageParams pageParams);
+//
+//    Optional<UserDTO> findOne(Long id);
+//
+//    Optional<UserDTO> findMe();
+
 }

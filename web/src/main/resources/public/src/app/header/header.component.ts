@@ -6,11 +6,12 @@ import {LoginComponent} from "../login/login.component";
 import {Http} from "@angular/http";
 import {TranslateService, TranslatePipe} from "ng2-translate/ng2-translate";
 import {DROPDOWN_DIRECTIVES} from 'ng2-bs-dropdown/dropdown';
+import {LoginService} from "../login/login.service";
 
 @Component({
     selector: 'app-header',
     templateUrl: 'src/app/header/header.html',
-    providers: [LoginStat],
+    providers: [LoginStat,LoginService],
     inputs: ['isLoggedIn'],
     directives: [ROUTER_DIRECTIVES, DROPDOWN_DIRECTIVES],
     pipes: [TranslatePipe]
@@ -25,7 +26,7 @@ export class HeaderComponent implements //OnInit,
     languages: Array<string> = ['en', 'uk'];
     selectedLang : string;
 
-    constructor(private _loginStat:LoginStat, private _route:ActivatedRoute, private translate: TranslateService, private http:Http) {
+    constructor(private _loginService:LoginService,private _loginStat:LoginStat, private _route:ActivatedRoute, private translate: TranslateService, private http:Http) {
         this._loginStat.loggedInObserver$
             .subscribe(stat => {
                 this.isLoggedIn = stat;

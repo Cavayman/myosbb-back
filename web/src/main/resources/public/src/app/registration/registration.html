@@ -1,5 +1,5 @@
 <div class="container " xmlns:javascript="http://www.w3.org/1999/xhtml">
-    <div class="registration-form  col-xs-12 ">
+    <div class="registration-form  col-xs-12 " *ngIf="!registered">
         <form class="ui form " (ngSubmit)="onSubmit()" #registerForm="ngForm">
             <div class="form-header">
             <h3>Registration </h3>
@@ -67,6 +67,13 @@
                     </div>
 
         </form>
+    </div>
+    <div class="form-header" *ngIf="registered">
+        <h3>Done</h3>
+        <div class="col-xs-6">
+            <a class="btn btn-danger col-xs-12" href="javascript:history.back()">Назад</a>
+        </div>
+
     </div>
 </div>
 
