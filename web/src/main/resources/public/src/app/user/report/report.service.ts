@@ -10,15 +10,11 @@ import ApiService = require("../../../shared/services/api.service");
 @Injectable()
 export class ReportService {
 
-    private getReportUr = ApiService.serverUrl + '/restful/report?pageNumber=';
+    private getReportByPageNumberUr = ApiService.serverUrl + '/restful/report?pageNumber=';
     private delReportUrl = ApiService.serverUrl + '/restful/report/';
     private updateReportUrl = ApiService.serverUrl + '/restful/report/';
-
-    private getReportByPageNumberUr = 'http://localhost:52430/restful/report?pageNumber=';
-    private delReportUrl = 'http://localhost:52430/restful/report/';
-    private updateReportUrl = 'http://localhost:52430/restful/report/';
-    private getReportByParamURL = 'http://localhost:52430/restful/report/between?';
-    private getReportBySearchParamURL = 'http://localhost:52430/restful/report/find?searchParam=';
+    private getReportByParamURL = ApiService.serverUrl + '/restful/report/between?';
+    private getReportBySearchParamURL = ApiService.serverUrl + '/restful/report/find?searchParam=';
 
     constructor(private _http: Http) {
     }

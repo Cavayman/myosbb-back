@@ -13,6 +13,9 @@
     <script src="node_modules/ng2-bs3-modal/bundles/ng2-bs3-modal.js"></script>
     <script src="node_modules/ng2-bootstrap/bundles/ng2-bootstrap.min.js"></script>
     <script src="node_modules/moment/moment.js"></script>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="node_modules/ng2-datetime/src/vendor/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
     <!-- CSS global-->
     <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/main.min.css" rel="stylesheet">
@@ -23,7 +26,6 @@
     <link rel="stylesheet" type="text/css" href="assets/css/zabuto_calendar.css">
     <link rel="stylesheet" type="text/css" href="assets/js/gritter/css/jquery.gritter.css"/>
     <link rel="stylesheet" type="text/css" href="assets/lineicons/style.css">
-    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles -->
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="assets/css/style-responsive.css" rel="stylesheet">
@@ -38,7 +40,7 @@
     <!-- 2. Configure SystemJS -->
     <script src="systemjs.js"></script>
     <script>
-        System.import('bin/boot').catch(function (err) {
+        System.import('bin/src/boot').catch(function (err) {
             console.error(err);
         });
     </script>
@@ -47,9 +49,9 @@
 
 <my-app>Loading...</my-app>
 
-<script src="assets/js/jquery.js"></script>
-<script src="assets/js/jquery-1.8.3.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
+<!--<script src="assets/js/jquery.js"></script>-->
+<!--<script src="assets/js/jquery-1.8.3.min.js"></script>-->
+<!--<script src="assets/js/bootstrap.min.js"></script>-->
 <script src="assets/js/chart-master/Chart.js"></script>
 <script class="include" type="text/javascript" src="assets/js/jquery.dcjqaccordion.2.7.js"></script>
 <script src="assets/js/jquery.scrollTo.min.js"></script>

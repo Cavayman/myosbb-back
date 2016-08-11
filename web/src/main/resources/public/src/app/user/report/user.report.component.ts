@@ -10,13 +10,14 @@ import {DomSanitizationService} from "@angular/platform-browser";
 import {SELECT_DIRECTIVES} from "ng2-select";
 import {TranslatePipe} from "ng2-translate";
 import {CapitalizeFirstLetterPipe} from "../../../shared/pipes/capitalize-first-letter";
+import {DateTimePickerDirective} from "ng2-datetime-picker";
 
 
 @Component({
     selector: 'my-report',
     templateUrl: 'src/app/user/report/report.html',
     providers: [ReportService],
-    directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, SELECT_DIRECTIVES, FORM_DIRECTIVES, BUTTON_DIRECTIVES],
+    directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, SELECT_DIRECTIVES, FORM_DIRECTIVES, BUTTON_DIRECTIVES, DateTimePickerDirective],
     viewProviders: [BS_VIEW_PROVIDERS],
     styleUrls: ['src/app/user/report/report.css'],
     pipes: [ReportFilter, TranslatePipe, CapitalizeFirstLetterPipe]
@@ -34,12 +35,13 @@ export class UserReportComponent implements OnInit, OnDestroy {
     private dateTo: string
     @ViewChild('delModal') public delModal: ModalDirective;
     @ViewChild('editModal') public editModal: ModalDirective;
-    active: boolean = true;
-    order: boolean = true;
-    isShowOptional: boolean = false;
-    dateFromActive: boolean = false;
-    dateToActive: boolean = false;
-
+    @ViewChild('searchOptional') public searchOptional: ModalDirective;
+    private active: boolean = true;
+    private order: boolean = true;
+    private isShowOptional: boolean = false;
+    private dateFromActive: boolean;
+    private dateToActive: boolean;
+    private pending = false;
     private reportId: number;
 
     constructor(private _reportService: ReportService, private sanitizer: DomSanitizationService) {
@@ -47,10 +49,9 @@ export class UserReportComponent implements OnInit, OnDestroy {
     }
 
     onClickShowOptional() {
-        this.isShowOptional = !this.isShowOptional;
-        if (!this.isShowOptional) {
-            this.getReportsByPageNum(this.pageNumber);
-        }
+        this.dateToActive = false;
+        this.dateToActive = false;
+        this.searchOptional.show();
     }
 
     openEditModal(report: Report) {
@@ -96,8 +97,10 @@ export class UserReportComponent implements OnInit, OnDestroy {
 
     getReportsByPageNum(pageNumber: number) {
         this.pageNumber = +pageNumber;
+        this.pending = true;
         return this._reportService.getAllReports(this.pageNumber)
             .subscribe((data) => {
+                    this.pending = false;
                     this.pageCreator = data;
                     this.reports = data.rows;
                     this.preparePageList(+this.pageCreator.beginPage,
@@ -183,32 +186,39 @@ export class UserReportComponent implements OnInit, OnDestroy {
     refreshDateFrom(value: any) {
         console.log('date from', value);
         this.dateFrom = value.text;
-        this.dateFromActive = true;
+        this.dateFromActive = false;
     }
 
     selectedDateFrom(value: any) {
         console.log('selected date from', value);
+        this.dateFromActive = true;
     }
 
     refreshDateTo(value: any) {
         console.log('date to', value);
         this.dateTo = value.text;
-        this.dateToActive = true;
+        this.dateToActive = false;
     }
 
     selectedDateTo(value: any) {
         console.log('selected date to', value);
+        this.dateToActive = true;
     }
 
     onClickSearchByDates() {
-        this._reportService.searchByDates(this.dateFrom, this.dateTo)
-            .subscribe((data)=> {
-                    this.reports = data;
-                    this.preparePageList(this.pageNumber, this.pageNumber);
-                },
-                (error)=> {
-                    console.log(error)
-                })
+        this.searchOptional.hide();
+        if (this.dateTo && this.dateFrom) {
+            this._reportService.searchByDates(this.dateFrom, this.dateTo)
+                .subscribe((data)=> {
+                        this.reports = data;
+                        this.preparePageList(this.pageNumber, this.pageNumber);
+                    },
+                    (error)=> {
+                        console.log(error)
+                    })
+        }
+
+
     }
 
     onClickSearchByParam(value: string) {

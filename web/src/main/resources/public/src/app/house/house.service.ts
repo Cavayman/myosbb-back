@@ -2,15 +2,14 @@ import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/operator/map";
+import ApiService = require("../../shared/services/api.service");
 
 
 @Injectable()
 export class HouseService {
 
-
-    public getHouseByIdUrl: string = ApiService.serverUrl + '/restful/house/';
-    public housesByIdUrl: string = 'http://localhost:52430/restful/house/';
-    public housesByPageUrl = 'http://localhost:52430/restful/house?pageNumber=';
+    public housesByIdUrl: string = ApiService.serverUrl + '/restful/house/';
+    public housesByPageUrl = ApiService.serverUrl + '/restful/house?pageNumber=';
 
 
     constructor(private _http: Http) {

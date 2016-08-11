@@ -6,7 +6,8 @@
     "jasmine": "registry:dt/jasmine#2.2.0+20160621224255",
     "moment": "registry:dt/moment#2.8.0+20160316155526",
     "moment-node": "registry:dt/moment-node#2.11.1+20160329220348",
-    "node": "registry:dt/node#6.0.0+20160621231320"
+    "node": "registry:dt/node#6.0.0+20160621231320",
+    "jquery": "registry:dt/jquery#1.10.0+20160628074423"
   },
   "ambientDependencies": {
     "jasmine": "registry:dt/jasmine#2.2.0+20160317120654",

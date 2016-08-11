@@ -1,15 +1,18 @@
 <div class="panel panel-default top-report-panel">
     <div class="panel-heading">
         <div class="row">
-            <div class="col-xs-6">
+            <div class="col-xs-7">
                 <h4><i class="fa fa-angle-right"></i> Звіти</h4>
             </div>
-            <div class="col-xs-6">
+            <div class="col-xs-4">
                 <div id="example_filter" class="pull-right ">
                     <input #name (keyup.enter)="onClickSearchByParam(name.value)" type="search"
                            class="form-control input-sm" placeholder="пошук..."
                            aria-controls="example">
                 </div>
+            </div>
+            <div style="margin-top: 10px">
+                <a style="cursor: pointer" (click)="onClickShowOptional()"><i class="fa fa-cog" aria-hidden="true"></i></a>
             </div>
         </div>
     </div>
@@ -21,50 +24,49 @@
                 <tr>
                     <th class="sorting"><i class="fa fa-bullhorn"></i>
                         Назва
-                        <a style="{cursor:pointer}" (click)="sortBy('name')"><span
+                        <a (click)="sortBy('name')"><span
                                 class="fa fa-fw fa-sort pull-right"></span></a>
                     </th>
                     <th class="sorting"><i class="fa fa-question-circle"></i> Дата
-                        <a style="{cursor:pointer}" (click)="sortBy('creationDate')"><span
+                        <a (click)="sortBy('creationDate')"><span
                                 class="fa fa-fw fa-sort pull-right"></span></a>
                     </th>
                     <th class="sorting"><i class="fa fa-bookmark"></i> Файл
-                        <a style="{cursor:pointer}" (click)="sortBy('filePath')"><span
+                        <a (click)="sortBy('filePath')"><span
                                 class="fa fa-fw fa-sort pull-right"></span></a></th>
                     <th class="sorting"><i class=" fa fa-edit"></i> Дод. інформ.
-                        <a style="{cursor:pointer}" (click)="sortBy('description')"><span
+                        <a (click)="sortBy('description')"><span
                                 class="fa fa-fw fa-sort pull-right"></span></a></th>
                     <th>Додатково</th>
-                    <th><a (click)="onClickShowOptional()"><i class="fa fa-cog" aria-hidden="true"></i></a></th>
                 </tr>
-                <div [ngStyle]="{'display': isShowOptional? '' : 'none'}" class="row pull-right">
-                    <div class="col-xs-4">
-                        <div style="width: 150px; margin: 10px; padding-left: 10px">
-                            <ng-select [allowClear]="true"
-                                       [items]="dates"
-                                       (data)="refreshDateFrom($event)"
-                                       (selected)="selectedDateFrom($event)"
-                                       placeholder="no data selected">
-                            </ng-select>
-                        </div>
-                    </div>
-                    <div class="col-xs-4">
-                        <div style="width: 150px; margin: 10px; padding-left: 10px">
-                            <ng-select [allowClear]="true"
-                                       [items]="dates"
-                                       (data)="refreshDateTo($event)"
-                                       (selected)="selectedDateTo($event)"
-                                       placeholder="no data selected">
-                            </ng-select>
-                        </div>
-                    </div>
-                    <div class="col-xs-4">
-                        <button (click)="onClickSearchByDates()" [disabled]="!dateFromActive && !dateToActive"
-                                style="margin-left:20px; margin-top: 10px; padding-left: 10px" class="btn btn-primary">
-                            Пошук
-                        </button>
-                    </div>
-                </div>
+                <!--<div [ngStyle]="{'display': isShowOptional? '' : 'none'}" class="row pull-right">-->
+                <!--<div class="col-xs-4">-->
+                <!--<div style="width: 150px; margin: 10px; padding-left: 10px">-->
+                <!--<ng-select [allowClear]="true"-->
+                <!--[items]="dates"-->
+                <!--(data)="refreshDateFrom($event)"-->
+                <!--(selected)="selectedDateFrom($event)"-->
+                <!--placeholder="no data selected">-->
+                <!--</ng-select>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-xs-4">-->
+                <!--<div style="width: 150px; margin: 10px; padding-left: 10px">-->
+                <!--<ng-select [allowClear]="true"-->
+                <!--[items]="dates"-->
+                <!--(data)="refreshDateTo($event)"-->
+                <!--(selected)="selectedDateTo($event)"-->
+                <!--placeholder="no data selected">-->
+                <!--</ng-select>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-xs-4">-->
+                <!--<button (click)="onClickSearchByDates()" [disabled]="!dateFromActive && !dateToActive"-->
+                <!--style="margin-left:20px; margin-top: 10px; padding-left: 10px" class="btn btn-primary">-->
+                <!--Пошук-->
+                <!--</button>-->
+                <!--</div>-->
+                <!--</div>-->
                 </thead>
                 <tbody>
                 <tr *ngFor="let report of reports">
@@ -80,8 +82,8 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <li><a style="cursor: pointer" (click)="openEditModal(report)">Редагувати</a></li>
-                                <li><a style="cursor: pointer" (click)="openDelModal(report.reportId)">Видалити</a></li>
+                                <li><a (click)="openEditModal(report)">Редагувати</a></li>
+                                <li><a (click)="openDelModal(report.reportId)">Видалити</a></li>
                             </ul>
                         </div>
                     </td>
@@ -106,9 +108,52 @@
                             <h5>Ви дійсно бажаєте видалити цю запись?</h5>
                         </div>
                         <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" (click)="closeDelModal()">Так
+                            </button>
                             <button type="button" class="btn btn-default" (click)="delModal.hide()">Ні
                             </button>
-                            <button type="button" class="btn btn-primary" (click)="closeDelModal()">Так
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div bsModal #searchOptional="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+                 aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" aria-label="Close"
+                                    (click)="searchOptional.hide()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title">Пошук....</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <ng-select [allowClear]="false"
+                                               [items]="dates"
+                                               (data)="refreshDateFrom($event)"
+                                               (selected)="selectedDateFrom($event)"
+                                               placeholder="">
+                                    </ng-select>
+                                </div>
+                                <div class="col-md-6">
+                                    <ng-select [allowClear]="false"
+                                               [items]="dates"
+                                               (data)="refreshDateTo($event)"
+                                               (selected)="selectedDateTo($event)"
+                                               placeholder="">
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button (click)="onClickSearchByDates()" [disabled]="!dateFromActive || !dateToActive"
+                                    class="btn btn-primary mdl-btn">Пошук
+                            </button>
+                            <button (click)="searchOptional.hide()" class="btn btn-default mdl-btn">Закрити
                             </button>
                         </div>
                     </div>
@@ -136,12 +181,11 @@
                                         назва відсутня
                                     </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label>Дата</label>
+                                <div class="form-group"><label>Дата</label><br>
                                     <input type="text" class="form-control" required
-                                           name="date" [(ngModel)]="selectedReport.creationDate" #date="ngModel">
-                                    <div [hidden]="date.valid || date.pristine" class="alert alert-danger">
+                                           name="date" [(ngModel)]="selectedReport.creationDate" datetime-picker
+                                           date-only="true" #mdate="ngModel">
+                                    <div [hidden]="mdate.valid || mdate.pristine" class="alert alert-danger">
                                         дата відсутня
                                     </div>
                                     <div [hidden]="isDateValid(selectedReport.creationDate)" class="alert alert-danger">
@@ -175,18 +219,21 @@
         <nav class="pull-right" aria-label="Page navigation">
             <ul class="pagination">
                 <li [ngStyle]="{'display': pageNumber === 1? 'none' : ''}">
-                    <a (click)="prevPage()" style="cursor: pointer" aria-label="Previous">
+                    <a (click)="prevPage()" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
                 <li [ngClass]="{'active': num == pageNumber}" *ngFor="let num of pageList"><a
-                        style="cursor: pointer" (click)="getReportsByPageNum(num)">{{num}}</a></li>
+                        (click)="getReportsByPageNum(num)">{{num}}</a></li>
                 <li [ngStyle]="{'display': pageNumber === 1 || pageNumber == totalPages? 'none' : ''}">
-                    <a (click)="nextPage()" style="cursor: pointer" aria-label="Next">
+                    <a (click)="nextPage()" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
             </ul>
         </nav>
+    </div>
+    <div class="text-center">
+        <p class="spacing"><span class="fa fa-refresh fa-spin" *ngIf="pending"></span></p>
     </div>
 </div>
