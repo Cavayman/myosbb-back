@@ -73,4 +73,22 @@ export class HouseTableComponent implements OnInit {
     }
 
 
+    onClickSearchByParam(value: string) {
+        if (value.trim().length) {
+            this.emptyPageList();
+            this.pending = true;
+            console.log('search by ', value);
+            this._houseService.searchByInputParam(value)
+                .subscribe((data)=> {
+                        this.pending = false;
+                        this.houses = data;
+                        this.fillPageList(this.pageNumber, this.pageNumber);
+                    },
+                    (error)=> {
+                        console.error(error)
+                    });
+        }
+    }
+
+
 }

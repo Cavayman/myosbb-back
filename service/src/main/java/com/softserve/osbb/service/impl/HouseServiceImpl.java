@@ -56,6 +56,12 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
+    public List<House> getAllHousesBySearchParameter(String searchTerm) {
+        return (searchTerm == null || searchTerm.isEmpty()) ?
+                EMPTY_HOUSE_LIST : houseRepository.getAlReportsBySearchParameter(searchTerm);
+    }
+
+    @Override
     public List<House> findAllByCity(String city) {
         return (city == null || city.isEmpty()) ?
                 EMPTY_HOUSE_LIST : houseRepository.findByCity(city);

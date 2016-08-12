@@ -6,3 +6,7 @@
 .to-right {
     margin-left: 200px;
 }
+
+a {
+    cursor: pointer !important;
+}

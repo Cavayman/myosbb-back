@@ -20,6 +20,8 @@ public interface HouseService {
 
     House findHouseById(Integer houseId);
 
+    List<House> getAllHousesBySearchParameter(String searchTerm);
+
     List<House> findAllByCity(String city);
 
     List<House> findAllByStreet(String street);

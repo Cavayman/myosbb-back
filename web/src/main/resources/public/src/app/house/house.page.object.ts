@@ -3,9 +3,17 @@ export class HousePageObject {
     city: string;
     street: string;
     zipCode: string;
-    headFirstName: string;
-    headLastName: string;
-    phoneNumber: string;
-    email: string;
+    description: string;
+    osbbName: string;
+    apartmentCount: number;
 
 }
+
+
+// private Integer houseId;
+// private String city;
+// private String street;
+// private String zipCode;
+// private String description;
+// private String osbbName;
+// private Integer apartmentCount;

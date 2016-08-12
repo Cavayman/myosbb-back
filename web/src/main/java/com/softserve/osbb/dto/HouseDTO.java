@@ -2,7 +2,6 @@ package com.softserve.osbb.dto;
 
 import com.softserve.osbb.model.House;
 import com.softserve.osbb.model.Osbb;
-import com.softserve.osbb.model.User;
 
 /**
  * Created by nazar.dovhyy on 03.08.2016.
@@ -13,10 +12,9 @@ public class HouseDTO {
     private String city;
     private String street;
     private String zipCode;
-    private String headFirstName;
-    private String headLastName;
-    private String phoneNumber;
-    private String email;
+    private String description;
+    private String osbbName;
+    private Integer apartmentCount;
 
 
     public HouseDTO(House house) {
@@ -25,6 +23,8 @@ public class HouseDTO {
             this.city = house.getCity();
             this.street = house.getStreet();
             this.zipCode = house.getZipCode();
+            this.description = house.getDescription();
+            this.apartmentCount = house.getApartments().size();
         }
     }
 
@@ -36,11 +36,7 @@ public class HouseDTO {
 
     public void setHHData(Osbb osbb) {
         if (osbb != null) {
-            User houseHead = osbb.getCreator();
-            this.setHeadFirstName(houseHead.getFirstName());
-            this.setHeadLastName(houseHead.getLastName());
-            this.setEmail(houseHead.getEmail());
-            this.setPhoneNumber(houseHead.getPhoneNumber());
+            this.osbbName = osbb.getName();
         }
     }
 
@@ -58,36 +54,28 @@ public class HouseDTO {
         return zipCode;
     }
 
-    public String getHeadFirstName() {
-        return headFirstName;
+
+    public String getDescription() {
+        return description;
     }
 
-    public void setHeadFirstName(String headFirstName) {
-        this.headFirstName = headFirstName;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getHeadLastName() {
-        return headLastName;
+    public String getOsbbName() {
+        return osbbName;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public void setOsbbName(String osbbName) {
+        this.osbbName = osbbName;
     }
 
-
-    public String getEmail() {
-        return email;
+    public Integer getApartmentCount() {
+        return apartmentCount;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setHeadLastName(String headLastName) {
-        this.headLastName = headLastName;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setApartmentCount(Integer apartmentCount) {
+        this.apartmentCount = apartmentCount;
     }
 }

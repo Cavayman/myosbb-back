@@ -10,6 +10,7 @@ export class HouseService {
 
     public housesByIdUrl: string = ApiService.serverUrl + '/restful/house/';
     public housesByPageUrl = ApiService.serverUrl + '/restful/house?pageNumber=';
+    public housesBySearchParam = ApiService.serverUrl + '/restful/house/find?searchParam='
 
 
     constructor(private _http: Http) {
@@ -27,6 +28,14 @@ export class HouseService {
             .map((response)=> response.json())
             .catch((error)=>Observable.throw(error));
 
+    }
+
+
+    searchByInputParam(value: string): Observable<any> {
+        console.log('service ', value);
+        return this._http.get(this.housesBySearchParam + value)
+            .map((response)=> response.json())
+            .catch((error)=>Observable.throw(error));
     }
 
 

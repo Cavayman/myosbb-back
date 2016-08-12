@@ -1,7 +1,7 @@
 package com.softserve.osbb.controller;
 
 import com.softserve.osbb.dto.HouseDTO;
-import com.softserve.osbb.dto.HouseDTOMapper;
+import com.softserve.osbb.dto.mappers.HouseDTOMapper;
 import com.softserve.osbb.model.Apartment;
 import com.softserve.osbb.model.House;
 import com.softserve.osbb.service.HouseService;
@@ -105,6 +105,19 @@ public class HouseController {
         return new ResponseEntity<>(resourceApartmentList, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/find", method = RequestMethod.GET)
+    public ResponseEntity<EntityResourceList<HouseDTO>> findAllHousesByName(
+            @RequestParam(value = "searchParam", required = true) String searchParam
+    ) {
+        logger.info("searching by searchParam ", searchParam);
+        final EntityResourceList<HouseDTO> houseDTOEntityResourceList = new HouseResourceList();
+        List<House> houseList = houseService.getAllHousesBySearchParameter(searchParam);
+        houseList.forEach((house) -> {
+            houseDTOEntityResourceList.add(toResource(HouseDTOMapper.mapHouseEntityToDTO(house)));
+        });
+
+        return new ResponseEntity<>(houseDTOEntityResourceList, HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Resource<HouseDTO>> getHouseById(@PathVariable("id") Integer houseId) {

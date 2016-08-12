@@ -6,7 +6,8 @@
             </div>
             <div class="col-xs-6">
                 <div id="example_filter" class="pull-right ">
-                    <input type="search" class="form-control input-sm" placeholder="пошук..."
+                    <input #name (keyup.enter)="onClickSearchByParam(name.value)" type="search"
+                           class="form-control input-sm" placeholder="пошук..."
                            aria-controls="example">
                 </div>
             </div>
@@ -19,22 +20,21 @@
                 <thead>
                 <tr>
                     <th class="sorting"><i class="fa fa-bookmark"></i> Вулиця
-                        <a style="{cursor:pointer}"><span
-                                class="fa fa-fw fa-sort pull-right"></span></a>
                     </th>
                     <th class="sorting"><i class="fa fa-bookmark"></i> Місто
-                        <a style="{cursor:pointer}"><span
-                                class="fa fa-fw fa-sort pull-right"></span></a>
                     </th>
-                    <th class="sorting"><i class="fa fa-bookmark"></i> Пошт. Інд.
-                        <a style="{cursor:pointer}"><span
-                                class="fa fa-fw fa-sort pull-right"></span></a></th>
-                    <th class="sorting"><i class="fa fa-bookmark"></i> Гол. ОСББ
-                        <a style="{cursor:pointer}"><span
-                                class="fa fa-fw fa-sort pull-right"></span></a></th>
-                    <th class="sorting"><i class="fa fa-bookmark"></i> Конт. інф.
-                        <a style="{cursor:pointer}"><span
-                                class="fa fa-fw fa-sort pull-right"></span></a></th>
+                    <th class="sorting"><i class="fa fa-bookmark"></i> Індекс
+                    </th>
+                    <th class="sorting"><i class="fa fa-bookmark"></i> Квартири
+                    </th>
+                    <th class="sorting"><i class="fa fa-bookmark"></i> ОСББ
+                    </th>
+                    <th class="sorting"><i class="fa fa-bookmark"></i> Головна
+                    </th>
+                    <th class="sorting"><i class="fa fa-bookmark"></i> Дод. інфо
+                    </th>
+                    <th class="sorting"><i class="fa fa-bookmark"></i> Додaтково
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -42,8 +42,29 @@
                     <td>{{house.street}}</td>
                     <td>{{house.city}}</td>
                     <td>{{house.zipCode}}</td>
-                    <td>{{house.headFirstName}} {{house.headLastName}}</td>
-                    <td>{{house.phoneNumber}} {{house.email}}</td>
+                    <td>{{house.apartmentCount}}</td>
+                    <td>{{house.osbbName}}</td>
+                    <td>
+                        <button class="btn btn-default" type="button"
+                                aria-haspopup="true" aria-expanded="true">
+                            Перейти
+                        </button>
+                    </td>
+                    <td>{{house.description}}</td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Опції
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li><a>Редагувати</a></li>
+                                <li><a>Видалити</a></li>
+                            </ul>
+                        </div>
+
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -62,10 +83,12 @@
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-                <li [ngClass]="{'active': num == pageNumber}" *ngFor="let num of pageList"><a
-                        style="cursor: pointer" (click)="findAllHousesByPage(num, selectedRow)">{{num}}</a></li>
+                <li [ngClass]="{'active': num == pageNumber}" *ngFor="let num of pageList">
+                    <a (click)="findAllHousesByPage(num, selectedRow)">{{num}}
+                    </a>
+                </li>
                 <li [ngStyle]="{'display': pageNumber === 1 || pageNumber == totalPages? 'none' : ''}">
-                    <a (click)="nextPage()" style="cursor: pointer" aria-label="Next">
+                    <a (click)="nextPage()" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
