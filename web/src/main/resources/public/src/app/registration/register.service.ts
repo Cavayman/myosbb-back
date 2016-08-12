@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HTTP_PROVIDERS, Http,Headers,Response} from "@angular/http";
-import {User} from "../user/users/User";
+import {User} from "../../shared/models/User";
 import {Observable} from 'rxjs/Observable';
 import ApiService = require("../../shared/services/api.service");
 

@@ -1,6 +1,6 @@
 import {Component, OnInit, Output} from '@angular/core'
 import {EventEmitter} from '@angular/core';
-import {User} from "../user/users/User";
+import {User} from "../../shared/models/User";
 import {RegisterService} from "./register.service";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 @Component({
