@@ -19,7 +19,7 @@ import javax.servlet.Filter;
  * Created by nazar.dovhyy on 08.07.2016.
  */
 
-@PropertySource("classpath:/config.properties")
+@PropertySource("classpath:config.properties")
 @Configuration
 @SpringBootApplication
 @Import({ServiceApplication.class/*,SecurityConfiguration.class*/})

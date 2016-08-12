@@ -10,7 +10,7 @@ import {CurrentUserService} from "./shared/services/current.user.service";
 bootstrap(AppComponent,
     [HTTP_PROVIDERS,
         APP_ROUTER_PROVIDERS,
-        ROUTER_DIRECTIVES,CurrentUserService
+        ROUTER_DIRECTIVES,CurrentUserService,
         TranslateService,
         {
         provide: TranslateLoader,
