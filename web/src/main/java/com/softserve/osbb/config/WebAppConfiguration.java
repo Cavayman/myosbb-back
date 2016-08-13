@@ -3,14 +3,11 @@ package com.softserve.osbb.config;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.context.annotation.*;
-import org.springframework.core.Ordered;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.servlet.Filter;
@@ -19,7 +16,7 @@ import javax.servlet.Filter;
  * Created by nazar.dovhyy on 08.07.2016.
  */
 
-@PropertySource("classpath:config.properties")
+@PropertySource("classpath:/config.properties")
 @Configuration
 @SpringBootApplication
 @Import({ServiceApplication.class/*,SecurityConfiguration.class*/})
@@ -42,14 +39,20 @@ public class WebAppConfiguration extends WebMvcConfigurerAdapter {
         if (!registry.hasMappingForPattern(MAPPING_PATTERN))
             registry.addResourceHandler(MAPPING_PATTERN)
                     .addResourceLocations(STATIC_RESOURCE_LOCATIONS);
-
         super.addResourceHandlers(registry);
     }
 
     @Bean
     public PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {
         PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
-        ppc.setLocation(new ClassPathResource("config.properties"));
+        ppc.setLocations(new ClassPathResource("config.properties")/*,                                     //default properties
+                new FileSystemResource("/home/nataliia/myosbb1/deployment/external.properties")*/);        //external properties
+        // to run with external properties file type: "mvn clean install -Dspring.config.location="
+        // and full path to property file in deployment package
+        // for example:
+        // mvn clean install -Dspring.config.location=/home/nataliia/myosbb1/deployment/external.properties
+        // you can add this to "Edit Configuration" in Intellij IDEA to field "VM Options"
+        // but only "-Dspring.config.location="
         ppc.setIgnoreUnresolvablePlaceholders(true);
         return ppc;
     }
