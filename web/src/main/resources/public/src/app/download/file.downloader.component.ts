@@ -57,23 +57,25 @@ export class FileDownloaderComponent {
                 let mimeType = setContentType(docType);
                 var blob = new Blob([this.response], {type: mimeType});
                 saveAs(blob, setFileName(docType));
-            } else if (xhr.status === 404) {
-                console.error('could not find resource');
+            } else {
+                console.error('error while loading resources');
                 self.pending = false;
                 self.hasError = true;
                 self._toasterService.pop(etoast);
 
             }
+            if (!self.hasError)
+                self._toasterService.pop(stoast);
         };
 
         xhr.send();
-        setTimeout(()=> {
-            if ((!self.pending || self.pending) && !self.hasError)
-                self._toasterService.pop(stoast);
-            else {
-                self._toasterService.pop(etoast);
-            }
-        }, 5000);
+        // setTimeout(()=> {
+        //     if ((!self.pending || self.pending) && !self.hasError)
+        //         self._toasterService.pop(stoast);
+        //     else {
+        //         self._toasterService.pop(etoast);
+        //     }
+        // }, 5000);
 
 
     }

@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -29,10 +30,10 @@ import java.util.UUID;
 public class ReportDownloadService {
 
     protected static Logger logger = LoggerFactory.getLogger(ReportDownloadService.class);
-    public static final String TEMPLATE = "/reportTemplate/report.jrxml";
+    public static final String TEMPLATE = "/reportTemplate/invoice_all_report.jrxml";
 
     @Autowired
-    private ReportCreatorDataSource reportCreatorDataSource;
+    private InvoiceCreator invoiceCreator;
 
     @Autowired
     private ReportExporterService reportExporterService;
@@ -87,10 +88,12 @@ public class ReportDownloadService {
     private JasperPrint getJasperPrint() throws JRException {
         Map<String, Object> params = new HashMap<>();
         params.put("Title", "User Report");
+        params.put("invoiceNumber", "2016-08-14" + UUID.randomUUID().toString().substring(0, 5));
+        params.put("invoiceDate", new Date());
         InputStream is = this.getClass().getResourceAsStream(TEMPLATE);
         JasperDesign jd = JRXmlLoader.load(is);
         JasperReport jr = JasperCompileManager.compileReport(jd);
-        JRDataSource dataSource = reportCreatorDataSource.getDataSource();
+        JRDataSource dataSource = invoiceCreator.getDataSource();
         return JasperFillManager.fillReport(jr, params, dataSource);
     }
 

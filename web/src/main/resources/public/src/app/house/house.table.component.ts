@@ -1,6 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {HousePageObject} from "./house.page.object";
 import {HouseService} from "./house.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'house-table',
@@ -18,7 +19,7 @@ export class HouseTableComponent implements OnInit {
     private rows: number[] = [10, 20, 50];
     private selectedRow: number = 10;
 
-    constructor(private _houseService: HouseService) {
+    constructor(private _houseService: HouseService, private _router: Router) {
     }
 
     ngOnInit(): any {
@@ -88,6 +89,13 @@ export class HouseTableComponent implements OnInit {
                         console.error(error)
                     });
         }
+
+
+    }
+
+    onNavigate(id: number) {
+        console.log('navigating to house id ', id);
+        this._router.navigate(['house', id]);
     }
 
 

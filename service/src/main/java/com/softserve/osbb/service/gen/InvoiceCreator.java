@@ -1,7 +1,7 @@
 package com.softserve.osbb.service.gen;
 
 import com.softserve.osbb.model.Bill;
-import com.softserve.osbb.model.report.BillReportDTO;
+import com.softserve.osbb.model.report.InvoiceModel;
 import com.softserve.osbb.repository.BillRepository;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -18,39 +18,39 @@ import java.util.List;
  * Created by nazar.dovhyy on 29.07.2016.
  */
 @Service
-public class ReportCreatorDataSource {
+public class InvoiceCreator {
 
     @Autowired
     private BillRepository billRepository;
 
-    private static Logger logger = LoggerFactory.getLogger(ReportCreatorDataSource.class);
+    private static Logger logger = LoggerFactory.getLogger(InvoiceCreator.class);
 
 
     public JRDataSource getDataSource() {
         logger.info("fetching all bills from the database");
         List<Bill> bills = billRepository.findAll();
-        List<BillReportDTO> reportDTOList = new ArrayList<>();
+        List<InvoiceModel> reportDTOList = new ArrayList<>();
         bills.forEach((bill) -> addToReportDTOList(convertFrom(bill), reportDTOList));
         JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(reportDTOList, false);
         return jrBeanCollectionDataSource;
     }
 
-    private BillReportDTO convertFrom(Bill bill) {
-        logger.info("converting data to BillReportDTO");
-        BillReportDTO billReportDTO =
-                BillReportDTO.setBillId(bill.getBillId())
+    private InvoiceModel convertFrom(Bill bill) {
+        logger.info("converting data to InvoiceModel");
+        InvoiceModel invoiceModel =
+                InvoiceModel.setBillId(bill.getBillId())
                         .setAmountToPay(bill.getToPay())
                         .setAmountPaid(bill.getPaid())
-                        .setApartmentNumber(bill.getApartment())
-                        .setOwnerName(bill.getApartment().getUser())
-                        .setProviderName(bill.getProvider());
+                        .setCustomerName(bill.getApartment().getUser())
+                        .setCustomerEmail(bill.getApartment().getUser())
+                        .setProviderDescription(bill.getProvider());
 
-        return billReportDTO;
+        return invoiceModel;
     }
 
-    private void addToReportDTOList(BillReportDTO billReportDTO, List<BillReportDTO> billReportDTOs) {
-        logger.info("adding report to list for " + billReportDTO.getOwnerName());
-        billReportDTOs.add(billReportDTO);
+    private void addToReportDTOList(InvoiceModel invoiceModel, List<InvoiceModel> invoiceModels) {
+        logger.info("adding report to list for " + invoiceModel.getCustomerName());
+        invoiceModels.add(invoiceModel);
     }
 
 }

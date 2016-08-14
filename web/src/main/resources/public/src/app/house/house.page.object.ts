@@ -9,11 +9,3 @@ export class HousePageObject {
 
 }
 
-
-// private Integer houseId;
-// private String city;
-// private String street;
-// private String zipCode;
-// private String description;
-// private String osbbName;
-// private Integer apartmentCount;

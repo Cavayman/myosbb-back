@@ -6,6 +6,7 @@ import {UserComponent} from "./user/user.component";
 import {homeRoutes} from "./home/home.routes";
 import {userRoutes} from "./user/user.routes";
 import {RegistrationComponent} from "./registration/registration.component";
+import {HouseShowComponent} from "./house/house.show.component";
 
 export const routes: RouterConfig = [
     {path: 'head/:status', component: HeaderComponent},
@@ -13,6 +14,7 @@ export const routes: RouterConfig = [
     {path: 'registration', component: RegistrationComponent},
     {path: '', redirectTo: 'login', pathMatch: 'full'},
     {path: 'home', component: HomeComponent},
+    {path: 'house/:id', component: HouseShowComponent},
     {path: 'home/user', component: UserComponent},
     ...homeRoutes,
     ...userRoutes

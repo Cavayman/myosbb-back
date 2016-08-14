@@ -86,7 +86,7 @@ public class Bill {
     @ManyToOne
     @JoinColumn(name = "apartment_id", referencedColumnName = "apartment_id")
     public Apartment getApartment() {
-        return apartment;
+        return apartment == null ? new Apartment() : apartment;
     }
 
     public void setApartment(Apartment apartment) {

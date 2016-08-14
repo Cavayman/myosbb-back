@@ -45,7 +45,7 @@
                     <td>{{house.apartmentCount}}</td>
                     <td>{{house.osbbName}}</td>
                     <td>
-                        <button class="btn btn-default" type="button"
+                        <button (click)="onNavigate(house.houseId)" class="btn btn-default" type="button"
                                 aria-haspopup="true" aria-expanded="true">
                             Перейти
                         </button>
