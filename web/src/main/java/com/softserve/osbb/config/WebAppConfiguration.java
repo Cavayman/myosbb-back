@@ -47,12 +47,6 @@ public class WebAppConfiguration extends WebMvcConfigurerAdapter {
         PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
         ppc.setLocations(new ClassPathResource("config.properties")/*,                                     //default properties
                 new FileSystemResource("/home/nataliia/myosbb1/deployment/external.properties")*/);        //external properties
-        // to run with external properties file type: "mvn clean install -Dspring.config.location="
-        // and full path to property file in deployment package
-        // for example:
-        // mvn clean install -Dspring.config.location=/home/nataliia/myosbb1/deployment/external.properties
-        // you can add this to "Edit Configuration" in Intellij IDEA to field "VM Options"
-        // but only "-Dspring.config.location="
         ppc.setIgnoreUnresolvablePlaceholders(true);
         return ppc;
     }

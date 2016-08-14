@@ -16,9 +16,6 @@
     <profiles>
         <profile>
             <id>main</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <dependencies>
                 <dependency>
                     <groupId>org.springframework.boot</groupId>

@@ -9,10 +9,20 @@ You need to install external libraries:
 2) run "npm install" in ../myosbb/web/src/main/resources/public/
 3) run "npm start" in ../myosbb/web/src/main/resources/public/
 
-How to disable Spring Security
-1) go to [web]>src>main>java>com/softserve/osbb/config/WebAppConfiguration  and comment ",SecurityAppConfig.class"
-2) reinstall project
-3) you are fabulous
+***
+How to run project with profile:
+- you should add "-P" and profile name at the end of command without space
+- for example: "mvn clean install -Ppostgres"
+by default is used profile "main"
+
+How to use external properties:
+- you should add "-D" and full path to property file in deployment package without space
+- for example: "mvn clean install -Dspring.config.location=/home/nataliia/myosbb1/deployment/external.properties"
+
+You can add this command to "Edit Configuration" in Intellij IDEA to field "VM Options",
+then you environment will run them every time.
+***
+
 
 How to use git:
 1) git add .
