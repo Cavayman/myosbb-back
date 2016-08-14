@@ -7,17 +7,18 @@ import {Router} from "@angular/router";
     selector: 'house-table',
     templateUrl: 'src/app/house/house_table.html',
     providers: [HouseService],
-    styleUrls: ['src/app/house/house.css']
+    styleUrls: ['src/app/house/house.css', 'src/shared/css/loader.css', 'src/shared/css/general.css']
 })
 export class HouseTableComponent implements OnInit {
 
-    private houses: HousePageObject[];
+    private houses: HousePageObject[] = [];
     private pageNumber: number = 1;
     private totalPages: string;
     private pageList: Array<number> = [];
     private pending: boolean = false;
     private rows: number[] = [10, 20, 50];
     private selectedRow: number = 10;
+    private onSearch: boolean = false;
 
     constructor(private _houseService: HouseService, private _router: Router) {
     }
@@ -82,6 +83,7 @@ export class HouseTableComponent implements OnInit {
             this._houseService.searchByInputParam(value)
                 .subscribe((data)=> {
                         this.pending = false;
+                        this.onSearch = true;
                         this.houses = data;
                         this.fillPageList(this.pageNumber, this.pageNumber);
                     },

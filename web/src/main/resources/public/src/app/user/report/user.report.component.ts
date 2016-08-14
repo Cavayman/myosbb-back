@@ -19,7 +19,7 @@ import {DateTimePickerDirective} from "ng2-datetime-picker";
     providers: [ReportService],
     directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, SELECT_DIRECTIVES, FORM_DIRECTIVES, BUTTON_DIRECTIVES, DateTimePickerDirective],
     viewProviders: [BS_VIEW_PROVIDERS],
-    styleUrls: ['src/app/user/report/report.css'],
+    styleUrls: ['src/app/user/report/report.css', 'src/shared/css/loader.css', 'src/shared/css/general.css'],
     pipes: [ReportFilter, TranslatePipe, CapitalizeFirstLetterPipe]
 })
 export class UserReportComponent implements OnInit, OnDestroy {
@@ -43,6 +43,7 @@ export class UserReportComponent implements OnInit, OnDestroy {
     private dateToActive: boolean;
     private pending = false;
     private reportId: number;
+    private onSearch: boolean = false;
 
     constructor(private _reportService: ReportService, private sanitizer: DomSanitizationService) {
 
@@ -226,6 +227,7 @@ export class UserReportComponent implements OnInit, OnDestroy {
             console.log('search by ', value);
             this._reportService.searchByInputParam(value)
                 .subscribe((data)=> {
+                        this.onSearch = true;
                         this.reports = data;
                         this.preparePageList(this.pageNumber, this.pageNumber);
                     },

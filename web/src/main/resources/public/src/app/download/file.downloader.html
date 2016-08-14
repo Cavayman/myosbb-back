@@ -10,9 +10,9 @@
         <span class="fa fa-file-text"></span>
     </button>
 </div>
-<div class="text-center">
-    <p class="spacing"><span class="fa fa-refresh fa-spin" *ngIf="pending"></span></p>
-</div>
+<!-- loading circle -->
+<div *ngIf="pending" class="loader"></div>
+
 
 <!--
 <div class="dropdown">

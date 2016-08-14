@@ -38,6 +38,12 @@
                 </tr>
                 </thead>
                 <tbody>
+                <div *ngIf=" onSearch && houses.length === 0"
+                     class="text-center not-found-search-elem-center">
+                    <h5>Не знайдено жодного результата
+                        пошуку
+                    </h5>
+                </div>
                 <tr *ngFor="let house of houses ">
                     <td>{{house.street}}</td>
                     <td>{{house.city}}</td>
@@ -96,6 +102,6 @@
         </nav>
     </div>
     <div class="text-center">
-        <p class="spacing"><span class="fa fa-refresh fa-spin" *ngIf="pending"></span></p>
+        <div class="loader" *ngIf="pending"></div>
     </div>
 </div>

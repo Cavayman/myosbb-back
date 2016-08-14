@@ -23,7 +23,8 @@ const CSV_MIME_TYPE = 'text/csv';
     selector: 'file-downloader',
     templateUrl: 'src/app/download/file.downloader.html',
     providers: [FileDownloaderService, ToasterService],
-    directives: [ToasterContainerComponent]
+    directives: [ToasterContainerComponent],
+    styleUrls: ['src/shared/css/loader.css']
 })
 export class FileDownloaderComponent {
 

@@ -69,6 +69,11 @@
                 <!--</div>-->
                 </thead>
                 <tbody>
+                <div *ngIf="onSearch && reports.length === 0"
+                     class="text-center not-found-search-elem-center"><h5>Не знайдено жодного
+                    результата
+                    пошуку</h5>
+                </div>
                 <tr *ngFor="let report of reports">
                     <td>{{report.name}}</td>
                     <td>{{report.creationDate}}</td>
@@ -233,7 +238,6 @@
             </ul>
         </nav>
     </div>
-    <div class="text-center">
-        <p class="spacing"><span class="fa fa-refresh fa-spin" *ngIf="pending"></span></p>
-    </div>
+    <!-- loading circle -->
+    <div class="loader" *ngIf="pending"></div>
 </div>
