@@ -27,14 +27,15 @@ public class PdfReportTemplate extends ReportTemplate {
 
     @Override
     public String saveToFile(JasperPrint jasperPrint, String outputDir) throws JRException {
-        String outputFileName = outputDir + File.separator + getFileName();
+        final String fileName = getFileName();
+        String outputFileName = outputDir + File.separator + fileName;
         if (jasperPrint != null) {
             JRPdfExporter jrException = new JRPdfExporter();
             jrException.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
             jrException.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, outputFileName);
             jrException.exportReport();
         }
-        return outputFileName;
+        return fileName;
     }
 
 

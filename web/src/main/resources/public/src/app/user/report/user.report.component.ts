@@ -88,7 +88,7 @@ export class UserReportComponent implements OnInit, OnDestroy {
     closeDelModal() {
         console.log('delete', this.reportId);
         this._reportService.deleteReportById(this.reportId);
-        this.getReportsByPageNum(this.pageNumber);
+        this.refresh();
         this.delModal.hide();
     }
 

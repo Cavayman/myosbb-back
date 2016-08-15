@@ -28,14 +28,15 @@ public class CsvReportTemplate extends ReportTemplate {
 
     @Override
     public String saveToFile(JasperPrint jasperPrint, String outputDir) throws JRException {
+        final String fileName = getFileName();
         JRCsvExporter exporter = new JRCsvExporter();
-        String destFileName = outputDir + File.separator + getFileName();
+        String destFileName = outputDir + File.separator + fileName;
         exporter.setParameter(JRExporterParameter.JASPER_PRINT,
                 jasperPrint);
         exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME,
                 destFileName);
         exporter.exportReport();
 
-        return destFileName;
+        return fileName;
     }
 }

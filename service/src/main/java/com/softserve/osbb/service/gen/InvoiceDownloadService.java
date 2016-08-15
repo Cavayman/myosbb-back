@@ -1,6 +1,5 @@
 package com.softserve.osbb.service.gen;
 
-import com.dropbox.core.DbxException;
 import com.softserve.osbb.model.Report;
 import com.softserve.osbb.repository.ReportRepository;
 import net.sf.jasperreports.engine.*;
@@ -51,38 +50,14 @@ public class InvoiceDownloadService {
             JasperPrint jp = generateInvoiceTemplate(invoiceParam);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             invoiceExporterService.exportToOutputStream(type, jp, response, baos);
-            String filePath = invoiceExporterService.exportToFile(jp, type, createServerFileFolder());
-            String sharedFilePathUrl = uploadToFileServer(filePath, type);
-            saveFileToDataBase(sharedFilePathUrl, invoiceParam);
+            String invoiceFileName = invoiceExporterService.exportToFile(jp, type, createServerFileFolder());
+            saveFileToDataBase(invoiceFileName, invoiceParam);
             write(response, baos, type);
         } catch (JRException e) {
             logger.error("unable to process download");
             e.printStackTrace();
         }
 
-    }
-
-    private String uploadToFileServer(String filePath, String type) {
-        String sharedFilePathUrl = "";
-        logger.info("start uploadToFileServer()");
-        try {
-            try {
-                dropBoxFileServer.authenticate();
-            } catch (DbxException dbx) {
-                logger.error("authentication error");
-                dbx.printStackTrace();
-            }
-            try {
-                sharedFilePathUrl = dropBoxFileServer.uploadFile(filePath, type);
-            } catch (DbxException dbx1) {
-                logger.error("unable to process file upload ");
-                dbx1.printStackTrace();
-            }
-        } catch (IOException e) {
-            logger.error("unable to process file " + filePath);
-            e.printStackTrace();
-        }
-        return sharedFilePathUrl;
     }
 
 
@@ -122,7 +97,7 @@ public class InvoiceDownloadService {
     };
 
     public String createServerFileFolder() {
-        String serverDir = System.getProperty("catalina.home");
+        String serverDir = System.getProperty("user.home");
         File outputFileDir = new File(serverDir + File.separator + "reports");
         if (!outputFileDir.exists()) {
             outputFileDir.mkdir();
@@ -136,7 +111,7 @@ public class InvoiceDownloadService {
         Report report = new Report();
         report.setName((String) invoiceParam.get("invoiceNumber"));
         report.setCreationDate(LocalDate.now());
-        report.setFilePath(fileName);
+        report.setFilePath("http://localhost" + "/" + fileName);
         reportRepository.save(report);
         logger.info("saved report :" + report.getName() + " to database");
     }

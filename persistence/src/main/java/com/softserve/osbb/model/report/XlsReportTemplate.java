@@ -34,13 +34,14 @@ public class XlsReportTemplate extends ReportTemplate {
 
     @Override
     public String saveToFile(JasperPrint jasperPrint, String outputDir) throws JRException {
-        String destFileName = outputDir + File.separator + getFileName();
+        final String fileName = getFileName();
+        String destFileName = outputDir + File.separator + fileName;
         JRXlsExporter exporter = new JRXlsExporter();
         exporter.setParameter(JRExporterParameter.JASPER_PRINT,
                 jasperPrint);
         exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME,
                 destFileName);
         exporter.exportReport();
-        return destFileName;
+        return fileName;
     }
 }
