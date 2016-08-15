@@ -189,4 +189,12 @@ export class UserAttachmentComponent implements OnInit, OnDestroy {
         //this.subscriber.unsubscribe();
     }
 
+    onSearch(search:string){
+        console.log("inside search: search param" + search);
+        this._attachmentService.findAttachmentByPath(search)
+            .subscribe((attachments) => {
+                console.log("data: " + attachments);
+                this.attachments = attachments;
+            });
+    }
 }

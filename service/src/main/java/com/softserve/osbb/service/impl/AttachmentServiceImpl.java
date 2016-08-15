@@ -71,7 +71,12 @@ public class AttachmentServiceImpl implements AttachmentService{
 
     @Override
     public Attachment downloadFile(String filename) {
-        return attachmentRepository.findByPath(filename);
+        return (Attachment) attachmentRepository.findByPath(filename);
+    }
+
+    @Override
+    public List<Attachment> findAttachmentByPath(String path) {
+        return attachmentRepository.findByPath(path);
     }
 
     @Override

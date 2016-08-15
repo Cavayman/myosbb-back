@@ -170,4 +170,12 @@ export class UserEventComponent implements OnInit, OnDestroy {
         //this.subscriber.unsubscribe();
     }
 
+    onSearch(search:string){
+        console.log("inside search: search param" + search);
+        this._eventService.findEventsByNameOrAuthorOrDescription(search)
+            .subscribe((events) => {
+                console.log("data: " + events);
+                this.events = events;
+            });
+    }
 }

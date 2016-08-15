@@ -130,5 +130,20 @@ public class EventController {
 
         return new ResponseEntity<>(pageCreator, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/find", method = RequestMethod.GET)
+    public ResponseEntity<List<Resource<Event>>> getEventsByName(
+            @RequestParam(value = "name", required = true) String name) {
+        logger.info("fetching event by search parameter: " + name);
+        List<Event> eventsBySearchTerm = eventService.findEventsByNameOrAuthorOrDescription(name);
+        if (eventsBySearchTerm.isEmpty()) {
+            logger.warn("no events were found");
+        }
+        List<Resource<Event>> resourceEventList = new ArrayList<>();
+        eventsBySearchTerm.stream().forEach((event) -> {
+            resourceEventList.add(getLink(toResource(event)));
+        });
+        return new ResponseEntity<>(resourceEventList, HttpStatus.OK);
+    }
 }
 

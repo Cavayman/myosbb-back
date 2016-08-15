@@ -40,4 +40,7 @@ public interface EventService {
     boolean existsEvent(Integer id);
 
     Page<Event> getAllEvents(Integer pageNumber, String sortedBy, Boolean ascOrder);
+
+    List<Event> findEventsByNameOrAuthorOrDescription(String search);
+
 }

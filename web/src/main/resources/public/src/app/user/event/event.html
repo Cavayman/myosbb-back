@@ -3,7 +3,8 @@
     <div class="panel-body">
         <div class="content-panel">
             <div id="example_filter" class="pull-right dataTables_filter">
-                <input type="search" class="form-control input-sm" placeholder="{{ 'search' | translate }}..." aria-controls="example">
+                <input type="search" class="form-control input-sm" placeholder="{{ 'search' | translate }}..."
+                       #search (keyup)="onSearch(search.value)" aria-controls="example">
             </div>
             <table class="table table-striped table-advance table-hover">
                 <thead>
@@ -72,7 +73,6 @@
                             </button>
                             <button type="button" class="btn btn-default" (click)="delModal.hide()">{{ 'no' | translate | capitalize }}
                             </button>
-
                         </div>
                     </div>
                 </div>

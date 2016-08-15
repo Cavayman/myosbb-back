@@ -9,6 +9,8 @@ import ApiService = require("../../../shared/services/api.service");
 @Injectable()
 export class EventService {
 
+    private url = ApiService.serverUrl + '/restful/event/';
+
     private getEventUrl = ApiService.serverUrl + '/restful/event?pageNumber=';
     private delEventUrl = ApiService.serverUrl + '/restful/event/';
     private delAllEventUrl = ApiService.serverUrl + '/restful/event/';
@@ -80,4 +82,13 @@ export class EventService {
             .catch((error)=>console.error(error));
     }
 
+    findEventsByNameOrAuthorOrDescription(search: string) :  Observable<any>{
+        let headers2 = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
+        headers2.append('Content-Type', 'application/json');
+        console.log("searching events");
+        console.log("param is" + search);
+        return  this._http.get(this.url + "find?name="+search, {headers: headers2})
+            .map(res => res.json())
+            .catch((err)=>Observable.throw(err));
+    }
 }

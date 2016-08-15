@@ -9,6 +9,8 @@ import ApiService = require("../../../shared/services/api.service");
 @Injectable()
 export class AttachmentService {
 
+    private url = ApiService.serverUrl + '/restful/attachment/';
+
     private getAttachmentUrl = ApiService.serverUrl + '/restful/attachment?pageNumber=';
     private delAttachmentUrl = ApiService.serverUrl + '/restful/attachment/';
     private delAllAttachmentUrl = ApiService.serverUrl + '/restful/attachment/';
@@ -79,5 +81,15 @@ export class AttachmentService {
             .toPromise()
             .then(()=>attachment)
             .catch((error)=>console.error(error));
+    }
+
+    findAttachmentByPath(search: string) :  Observable<any>{
+        let headers2 = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
+        headers2.append('Content-Type', 'application/json');
+        console.log("searching attachments");
+        console.log("param is" + search);
+        return  this._http.get(this.url + "find?name="+search, {headers: headers2})
+            .map(res => res.json())
+            .catch((err)=>Observable.throw(err));
     }
 }

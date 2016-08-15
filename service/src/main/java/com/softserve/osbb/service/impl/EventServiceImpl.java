@@ -6,6 +6,7 @@ import com.softserve.osbb.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -100,4 +101,10 @@ public class EventServiceImpl implements EventService {
         }
         return order == true ? Sort.Direction.ASC : Sort.Direction.DESC;
     }
+
+    @Override
+    public List<Event> findEventsByNameOrAuthorOrDescription(String search) {
+      return eventRepository.findByNameOrAuthorOrDescription(search);
+    }
+
 }

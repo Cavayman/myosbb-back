@@ -43,4 +43,6 @@ public interface AttachmentService {
     boolean existsAttachment(Integer id);
 
     Page<Attachment> getAllAttachments(Integer pageNumber, String sortedBy, Boolean ascOrder);
+
+    List<Attachment> findAttachmentByPath(String path);
 }

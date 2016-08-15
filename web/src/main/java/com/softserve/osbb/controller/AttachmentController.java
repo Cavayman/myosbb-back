@@ -167,4 +167,19 @@ public class AttachmentController {
 
         return new ResponseEntity<>(pageCreator, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/find", method = RequestMethod.GET)
+    public ResponseEntity<List<Resource<Attachment>>> getAttachmentsByPath(
+            @RequestParam(value = "path", required = true) String path) {
+        logger.info("fetching attachment by search parameter: " + path);
+        List<Attachment> attachmentsBySearchTerm = attachmentService.findAttachmentByPath(path);
+        if (attachmentsBySearchTerm.isEmpty()) {
+            logger.warn("no attachments were found");
+        }
+        List<Resource<Attachment>> resourceAttachmentList = new ArrayList<>();
+        attachmentsBySearchTerm.stream().forEach((attachment) -> {
+            resourceAttachmentList.add(getLink(toResource(attachment)));
+        });
+        return new ResponseEntity<>(resourceAttachmentList, HttpStatus.OK);
+    }
 }
