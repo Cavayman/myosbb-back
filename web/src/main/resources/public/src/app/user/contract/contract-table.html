@@ -14,22 +14,26 @@
                 <tr>
                     <th class="sorting">
                         <i class="fa fa-bullhorn"></i> {{ 'сompany' | translate | capitalize }}
-                        <a style="{cursor:pointer}" (click)="sortBy('name')"><span
+                        <a style="{cursor:pointer}" (click)="sortBy('provider.name')"><span
                                 class="fa fa-fw fa-sort pull-right"></span></a>
                     </th>
                     <th class="sorting">
                         <i class=" fa fa-calendar"></i> {{ 'dateStart' | translate | capitalize }}
-                        <a style="{cursor:pointer}" (click)="sortBy('type')"><span
+                        <a style="{cursor:pointer}" (click)="sortBy('dateStart')"><span
+                                class="fa fa-fw fa-sort pull-right"></span></a>
+                    </th>
+                    <th class="sorting">
+                        <i class="fa fa-calendar"></i> {{ 'dateFinish' | translate | capitalize }}
+                        <a style="{cursor:pointer}" (click)="sortBy('dateFinish')"><span
                                 class="fa fa-fw fa-sort pull-right"></span></a>
                     </th>
                     <th>
-                        <i class="fa fa-calendar"></i> {{ 'dateFinish' | translate | capitalize }}
+                        <i class=" fa fa-circle-o-description"></i> {{ 'text' | translate | capitalize }}
                     </th>
-                    <th>
-                        <i class=" fa fa-circle-o-description"></i> {{ 'description' | translate | capitalize }}
-                    </th>
-                    <th>
+                    <th class="sorting">
                         <i class="fa fa-money"></i> {{ 'price' | translate | capitalize }}
+                        <a style="{cursor:pointer}" (click)="sortBy('price')"><span
+                                class="fa fa-fw fa-sort pull-right"></span></a>
                     </th>
                 </tr>
                 </thead>
@@ -39,7 +43,7 @@
                     <td>{{ contract.dateStart }}</td>
                     <td>{{ contract.dateFinish }}</td>
                     <td> {{ contract.text }}</td>
-                    <td> {{ contract.price }}</td>
+                    <td> {{contract.price | currency: currency : false :'2.2-2'}} </td>
                     <td>
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownContract"
@@ -98,19 +102,15 @@
                         </div>
                         <form *ngIf="active" (ngSubmit)="onEditContractSubmit()" #contractForm="ngForm">
                             <div class="modal-body">
-                                <div class="form-group"><label> {{ 'company' | translate | capitalize }}</label>
-                                    <input type="text" class="form-control" required [(ngModel)]="selected.name"
-                                           name="name" #name="ngModel">
-                                    <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-                                        {{ 'required' | translate | capitalize }}
-                                    </div>
-                                </div> <!-- Company -->
+
+                                <select-provider (providerChanged)="editCompany($event)" [selected]="selected.provider"></select-provider> <!-- Company -->
+
                                 <div class="form-group">
                                     <label> {{ 'dateStart' | translate | capitalize }}</label>
                                     <input type="date" class="form-control" required
                                            name="dateStart" [(ngModel)]="selected.dateStart"
                                            #dateStart="ngModel">
-                                    <div [hidden]="dateStart.valid || dateStart.pristine"
+                                    <div [hidden]="dateStart.valid"
                                          class="alert alert-danger">
                                         {{ 'required' | translate | capitalize }}
                                     </div>
@@ -121,7 +121,7 @@
                                     <input type="date" class="form-control" required
                                            name="description" [(ngModel)]="selected.dateFinish"
                                            #dateFinish="ngModel">
-                                    <div [hidden]="dateFinish.valid || dateFinish.pristine"
+                                    <div [hidden]="dateFinish.valid"
                                          class="alert alert-danger">
                                         {{ 'required' | translate | capitalize }}
                                     </div>
@@ -132,10 +132,18 @@
                                     <input type="text" class="form-control" required
                                            name="price" [(ngModel)]="selected.price"
                                            #price="ngModel">
+                                    <currency [currentCurrency]="currency"  (currencyChanged)="selectCurrency($event)"></currency>
                                     <div [hidden]="price.valid || price.pristine"
                                          class="alert alert-danger">
                                         {{ 'required' | translate | capitalize }}
                                     </div>
+                                </div> <!-- price -->
+
+                                <div class="form-group">
+                                    <label> {{ 'text' | translate | capitalize }}</label>
+
+                                    <textarea rows="10" cols="35" name="text" [(ngModel)]="selected.text"
+                                           #text="ngModel"></textarea>
                                 </div> <!-- price -->
 
 
@@ -169,24 +177,16 @@
                         </div>
                         <form *ngIf="active" (ngSubmit)="onCreateContractSubmit()" #contractForm="ngForm">
                             <div class="modal-body">
-                                <div class="form-group"><label>{{ 'company' | translate | capitalize }}</label>
-                                    <input type="text" class="form-control" required [(ngModel)]="newContract.name"
-                                           name="name" #name="ngModel">
-                                    <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-                                        {{ 'required' | translate | capitalize }}
-                                    </div>
-                                </div>
+
+                                <select-provider (providerChanged)="selectCompany($event)"></select-provider> <!-- Company -->
 
                                 <div class="form-group">
                                     <label> {{ 'dateStart' | translate | capitalize }}
                                     </label>
                                     <input type="date" class="form-control" required
-                                           name="date" [(ngModel)]="newContract.date" #date="ngModel">
-                                    <div [hidden]="date.valid || date.pristine" class="alert alert-danger">
+                                           name="date" [(ngModel)]="newContract.dateStart" #dateStart="ngModel">
+                                    <div [hidden]="dateStart.valid || dateStart.pristine" class="alert alert-danger">
                                         {{ 'required' | translate | capitalize }}
-                                    </div>
-                                    <div [hidden]="isDateValid(newContract.date)" class="alert alert-danger">
-                                        {{ 'invalid' | translate | capitalize }}
                                     </div>
                                 </div>
 
@@ -194,12 +194,9 @@
                                     <label> {{ 'dateFinish' | translate | capitalize }}
                                     </label>
                                     <input type="date" class="form-control" required
-                                           name="date" [(ngModel)]="newContract.date" #date="ngModel">
-                                    <div [hidden]="date.valid || date.pristine" class="alert alert-danger">
+                                           name="date" [(ngModel)]="newContract.dateFinish" #dateFinish="ngModel">
+                                    <div [hidden]="dateFinish.valid || dateFinish.pristine" class="alert alert-danger">
                                         {{ 'required' | translate | capitalize }}
-                                    </div>
-                                    <div [hidden]="isDateValid(newContract.date)" class="alert alert-danger">
-                                        {{ 'invalid' | translate | capitalize }}
                                     </div>
                                 </div>
 
@@ -207,11 +204,17 @@
                                 </label>
                                     <input type="text" class="form-control" required [(ngModel)]="newContract.price"
                                            name="price" #price="ngModel">
+
                                     <div [hidden]="price.valid || price.pristine" class="alert alert-danger">
                                         {{ 'required' | translate | capitalize }}
                                     </div>
-                                </div>
+                                    <currency [currentCurrency]="currency" (currencyChanged)="selectCurrency($event)"></currency>
 
+                                </div>
+                                <div class="form-group"><label>{{ 'text' | translate | capitalize }}</label>
+                                    <textarea rows="10" cols="35" name="text" [(ngModel)]="newContract.text"
+                                          #text="ngModel"></textarea>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-default" [disabled]="!contractForm.form.valid">

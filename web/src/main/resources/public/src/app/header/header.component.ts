@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, Output} from '@angular/core';
 import {ROUTER_DIRECTIVES, ActivatedRoute} from '@angular/router';
 import 'rxjs/Rx';
 import {LoginStat} from "../../shared/services/login.stats";
@@ -17,25 +17,23 @@ import {LoginService} from "../login/login.service";
     pipes: [TranslatePipe]
 
 })
-export class HeaderComponent implements //OnInit,
+export class HeaderComponent implements OnInit,
     OnDestroy {
 
     isLoggedIn:boolean;
     sub:any;
+    static translateService : TranslateService;
 
     languages: Array<string> = ['en', 'uk'];
-    selectedLang : string;
+    selectedLang : string = 'uk';
 
     constructor(private _loginService:LoginService,private _loginStat:LoginStat, private _route:ActivatedRoute, private translate: TranslateService, private http:Http) {
         this._loginStat.loggedInObserver$
             .subscribe(stat => {
                 this.isLoggedIn = stat;
-            })
-
-        this.http = http;
-        this.translate = translate;
-
-        var userLang = navigator.language.split('-')[0]; // use navigator lang if available
+            });
+        HeaderComponent.translateService = translate;
+        var userLang = navigator.language.split('-')[1]; // use navigator lang if available
         userLang = /(en|uk)/gi.test(userLang) ? userLang : 'uk';
 
         // this language will be used as a fallback when a translation isn't found in the current language
@@ -43,7 +41,10 @@ export class HeaderComponent implements //OnInit,
 
         // the lang to use, if the lang isn't available, it will use the current loader to get them
         this.selectedLang = userLang;
-        translate.use(userLang);
+        translate.use(this.selectedLang);
+        translate.currentLang = this.selectedLang;
+        console.log("default lang: ", translate.currentLang);
+        console.log("shared sevice: ", HeaderComponent.translateService)
     }
 
 
@@ -59,8 +60,10 @@ export class HeaderComponent implements //OnInit,
     }
 
     onSelect(lang){
+        this.selectedLang = lang;
         this.translate.use(lang);
-        this.selectedLang = this.translate.currentLang;
+        this.translate.currentLang = lang;
+        console.log("current lang: ", this.translate.currentLang);
     }
 
 }

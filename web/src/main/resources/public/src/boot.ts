@@ -6,7 +6,9 @@ import {AppComponent} from "./app/app.component";
 import {disableDeprecatedForms, provideForms} from '@angular/forms';
 import {TranslateService, TranslateLoader, TranslateStaticLoader} from "ng2-translate/ng2-translate";
 import {CurrentUserService} from "./shared/services/current.user.service";
+import {enableProdMode} from "@angular/core";
 
+enableProdMode();
 bootstrap(AppComponent,
     [HTTP_PROVIDERS,
         APP_ROUTER_PROVIDERS,

@@ -61,7 +61,7 @@ export class ContractService {
     put(contract:Contract) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        console.log("sending http PUT to " +this.url + contract.contractId);
+        console.log("sending http POST to " +this.url + contract.contractId);
         console.log("json obj: " + JSON.stringify(contract));
         return this._http.post(this.url + contract.contractId, JSON.stringify(contract), {headers: headers})
             .toPromise()

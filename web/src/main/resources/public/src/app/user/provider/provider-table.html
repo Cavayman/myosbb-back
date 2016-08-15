@@ -2,6 +2,7 @@
 
 
 <div class="panel panel-default pos-top">
+<!--<button class="btn btn-info" (click)="onSendMessage()">TEST MAIL</button>-->
     <div class="panel-heading"><h4><i class="fa fa-angle-right"></i> {{ 'providers' | translate }}</h4></div>
 
     <div class="panel-body">
@@ -58,8 +59,6 @@
                         </tbody>
                     </table>
 
-
-
                     <!-- delete modal-->
                     <div bsModal #delModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
                          aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -85,7 +84,6 @@
                         </div>
                     </div>
 
-
                     <!--Edit Modal -->
                     <div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
                          aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -107,25 +105,26 @@
                                                 {{ 'required' | translate | capitalize }}
                                             </div>
                                         </div> <!-- Company -->
-                                        <provider-type (typeChanged)="setType($event)"></provider-type> <!-- Type -->
+
+                                        <provider-type [type]="selected.type" (typeChanged)="setType($event)"></provider-type> <!-- Type -->
 
                                         <div class="form-group">
-
-                                            <label> {{ 'periodicity' | translate:{value:param} | capitalize }} </label>
-                                            <div class="form-control-type">
-                                                <div class="dropdown">
-                                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownPeriodicity"
-                                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                        <span class="caret"></span>{{selected.periodicity | translate }}
-                                                    </button>
-                                                    <ul class="dropdown-menu" aria-labelledby="dropdownPeriodicity">
-                                                        <li *ngFor="let per of periodicities"><a style="cursor: pointer"  (click)="onSelectPeriodicity(per)" >{{per | translate }}</a></li>
-                                                    </ul>
+                                            <div>
+                                                <label> {{ 'periodicity' | translate | capitalize}} </label>
+                                                <div *ngIf="periodicities.length > 0">
+                                                    <div style="width: 270px; margin-bottom: 20px;">
+                                                        <ng-select [allowClear]="true"
+                                                                   [items]="periodicities"
+                                                                   (selected)="onSelectPeriodicity($event)"
+                                                                   (data)="onRefresh($event)"
+                                                                   (removed)="onRemove($event)"
+                                                                   (typed)="onType($event)"
+                                                                   placeholder="{{selected.periodicity | translate}}">
+                                                        </ng-select>
+                                                        <p></p>
+                                                    </div>
                                                 </div>
                                             </div>
-
-
-
                                         </div> <!-- Periodicity -->
 
                                         <div class="form-group">

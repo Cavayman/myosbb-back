@@ -12,9 +12,11 @@ import {Observable} from 'rxjs/Observable';
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS} from 'ng2-bootstrap/ng2-bootstrap';
 import {ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
 import {CORE_DIRECTIVES} from "@angular/common";
-import {RouteConfig} from "@angular/router-deprecated";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import "rxjs/Rx";
+import {SelectProviderComponent} from "../provider/select-provider.component";
+import {Provider} from "../../../shared/models/provider.interface";
+import {CurrencyComponent} from "./currency.component";
 
 @Component({
     selector: 'myosbb-contract',
@@ -22,13 +24,16 @@ import "rxjs/Rx";
     pipes: [TranslatePipe, CapitalizeFirstLetterPipe],
     directives: [DROPDOWN_DIRECTIVES],
     providers: [ContractService],
-    directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, ROUTER_DIRECTIVES],
+    directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, ROUTER_DIRECTIVES, SelectProviderComponent, CurrencyComponent, DROPDOWN_DIRECTIVES],
     viewProviders: [BS_VIEW_PROVIDERS]
 })
 export class ContractComponent implements OnInit{
     private contracts :  Contract[];
-    private selected : Contract =  {contractId: null, dateStart:'', dateFinish:'', text: '', price:null, attachment: '', osbb: null, provider:''};
-    private newContract : Contract =  {contractId: null, dateStart:'', dateFinish:'', text: '', price:null, attachment: '', osbb: null, provider:''};
+    private selected : Contract =  {contractId: null, dateStart:'', dateFinish:'', text: '', price:null, attachment: null, osbb: null, provider:
+    { providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:null, email:'',phone:'', address:''}};
+
+    private newContract : Contract =  {contractId: null, dateStart:'', dateFinish:'', text: '', price:null, attachment: null, osbb: null,
+        provider:{ providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:null, email:'',phone:'', address:''}};
     private pageCreator:PageCreator<Contract>;
     private pageNumber:number = 1;
     private pageList:Array<number> = [];
@@ -41,9 +46,9 @@ export class ContractComponent implements OnInit{
     order:boolean = true;
 
     private contractId:number;
+    private currency:string;
     
     constructor(private _contractService:ContractService){
-
     }
 
     ngOnInit():any {
@@ -77,8 +82,10 @@ export class ContractComponent implements OnInit{
 
     onCreateContractSubmit() {
         this.active = false;
-        console.log('creating contract');
+        console.log("new contract: id=" + this.newContract.contractId + "; date start=" + this.newContract.dateStart +
+            "; date finish=" +this.newContract.dateFinish + "; price=" + this.newContract.price);
         this._contractService.addContract(this.newContract);
+        console.log("add contract");
         this._contractService.getContracts(this.pageNumber);
         this.getContractsByPageNum(this.pageNumber);
         this.createModal.hide();
@@ -141,7 +148,6 @@ export class ContractComponent implements OnInit{
         }
     }
 
-
     sortBy(name:string) {
         console.log('sorted by ', name);
         this.order = !this.order;
@@ -173,5 +179,17 @@ export class ContractComponent implements OnInit{
             });
     }
 
+    editCompany(provider: Provider){
+        this.selected.provider = provider;
+        console.log("get provider " + provider);
+    }
+
+    selectCompany(provider: Provider){
+        this.newContract.provider = provider;
+    }
+
+    selectCurrency(currency:string){
+     this.currency = currency;
+    }
 
 }
