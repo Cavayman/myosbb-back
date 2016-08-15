@@ -56,8 +56,6 @@ export class EventService {
     }
 
     editAndSave(event:Event) {
-        let headers2 = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
-        headers2.append('Content-Type', 'application/json');
         if (event.eventId) {
             console.log('updating event with id: ' + event.eventId);
             this.put(event);

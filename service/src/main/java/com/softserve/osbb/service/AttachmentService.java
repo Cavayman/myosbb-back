@@ -32,6 +32,8 @@ public interface AttachmentService {
 
     void deleteAttachment(Attachment attachment);
 
+    void deleteAttachmentEverywhere(Integer attachmentId) throws IOException;
+
     void deleteAttachmentById(Integer id);
 
     void deleteAttachments(List<Attachment> list);

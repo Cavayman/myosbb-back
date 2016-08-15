@@ -3,12 +3,14 @@ package com.softserve.osbb.service.impl;
 import com.softserve.osbb.model.Attachment;
 import com.softserve.osbb.repository.AttachmentRepository;
 import com.softserve.osbb.service.AttachmentService;
+import liquibase.util.file.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
@@ -70,13 +72,23 @@ public class AttachmentServiceImpl implements AttachmentService{
     }
 
     @Override
+    public void deleteAttachmentEverywhere(Integer attachmentId) throws IOException {
+        File delFile = new File(ROOT + attachmentRepository.findOne(attachmentId).getPath());
+        String fileNameWithOutExt = FilenameUtils.removeExtension(delFile.getPath());
+        String extension = FilenameUtils.getExtension(delFile.getPath());
+        File newDelFile = new File(fileNameWithOutExt + "_del." + extension);
+        Files.move(delFile.toPath(), newDelFile.toPath());
+        attachmentRepository.delete(attachmentRepository.findOne(attachmentId));
+    }
+
+    @Override
     public Attachment downloadFile(String filename) {
-        return (Attachment) attachmentRepository.findByPath(filename);
+        return attachmentRepository.findByPath(filename);
     }
 
     @Override
     public List<Attachment> findAttachmentByPath(String path) {
-        return attachmentRepository.findByPath(path);
+        return attachmentRepository.findAttachmentByPath(path);
     }
 
     @Override

@@ -57,8 +57,6 @@ export class AttachmentService {
     }
 
     editAndSave(attachment:Attachment) {
-        let headers2 = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
-        headers2.append('Content-Type', 'application/json');
         if (attachment.attachmentId) {
             console.log('updating attachment with id: ' + attachment.attachmentId);
             this.put(attachment);
@@ -88,7 +86,7 @@ export class AttachmentService {
         headers2.append('Content-Type', 'application/json');
         console.log("searching attachments");
         console.log("param is" + search);
-        return  this._http.get(this.url + "find?name="+search, {headers: headers2})
+        return  this._http.get(this.url + "find?path="+search, {headers: headers2})
             .map(res => res.json())
             .catch((err)=>Observable.throw(err));
     }

@@ -23,7 +23,7 @@ declare var saveAs:any;
 })
 export class UserAttachmentComponent implements OnInit, OnDestroy {
 
-    public uploader:FileUploader = new FileUploader({url: attachmentUploadUrl});
+    public uploader:FileUploader = new FileUploader({url: attachmentUploadUrl, authToken: 'Bearer '+localStorage.getItem('token')});
     public hasDropZoneOver:boolean = false;
     public fileOverBase(e:any):void {
         this.hasDropZoneOver = e;
@@ -81,7 +81,7 @@ export class UserAttachmentComponent implements OnInit, OnDestroy {
         xhr.open('GET', url, true);
         xhr.responseType = 'blob';
         console.log('preparing download...');
-
+        xhr.setRequestHeader('Authorization', 'Bearer '+localStorage.getItem('token'));
         xhr.onreadystatechange = function () {
             setTimeout(() => {
                 console.log('inside service: ' + self.pending);

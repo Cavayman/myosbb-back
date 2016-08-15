@@ -122,9 +122,9 @@ public class AttachmentController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Attachment> deleteAttachmentById(@PathVariable("id") Integer attachmentId) {
+    public ResponseEntity<Attachment> deleteAttachmentEverywhere(@PathVariable("id") Integer attachmentId) throws IOException {
         logger.info("Removing attachment by id: " + attachmentId);
-        attachmentService.deleteAttachmentById(attachmentId);
+        attachmentService.deleteAttachmentEverywhere(attachmentId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
