@@ -17,26 +17,26 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * Created by nazar.dovhyy on 29.07.2016.
  */
 @Service
-public class ReportDownloadService {
+public class InvoiceDownloadService {
 
-    protected static Logger logger = LoggerFactory.getLogger(ReportDownloadService.class);
-    public static final String TEMPLATE = "/reportTemplate/invoice_all_report.jrxml";
+    protected static Logger logger = LoggerFactory.getLogger(InvoiceDownloadService.class);
+    public static final String TEMPLATE = "/reportTemplate/invoice_all.jrxml";
 
     @Autowired
     private InvoiceCreator invoiceCreator;
 
     @Autowired
-    private ReportExporterService reportExporterService;
+    private InvoiceExporterService invoiceExporterService;
 
     @Autowired
     private ReportRepository reportRepository;
@@ -46,14 +46,14 @@ public class ReportDownloadService {
 
 
     public void download(String type, HttpServletResponse response) {
-
         try {
-            JasperPrint jp = getJasperPrint();
+            Map<String, Object> invoiceParam = generateInvoiceParam(invoiceNumberGenerator);
+            JasperPrint jp = generateInvoiceTemplate(invoiceParam);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            reportExporterService.exportToOutputStream(type, jp, response, baos);
-            String filePath = reportExporterService.exportToFile(jp, type, createServerFileFolder());
+            invoiceExporterService.exportToOutputStream(type, jp, response, baos);
+            String filePath = invoiceExporterService.exportToFile(jp, type, createServerFileFolder());
             String sharedFilePathUrl = uploadToFileServer(filePath, type);
-            saveFileToDataBase(sharedFilePathUrl);
+            saveFileToDataBase(sharedFilePathUrl, invoiceParam);
             write(response, baos, type);
         } catch (JRException e) {
             logger.error("unable to process download");
@@ -85,17 +85,41 @@ public class ReportDownloadService {
         return sharedFilePathUrl;
     }
 
-    private JasperPrint getJasperPrint() throws JRException {
-        Map<String, Object> params = new HashMap<>();
-        params.put("Title", "User Report");
-        params.put("invoiceNumber", "2016-08-14" + UUID.randomUUID().toString().substring(0, 5));
-        params.put("invoiceDate", new Date());
+
+    private JasperPrint generateInvoiceTemplate(Map<String, Object> invoiceParam) throws JRException {
         InputStream is = this.getClass().getResourceAsStream(TEMPLATE);
         JasperDesign jd = JRXmlLoader.load(is);
         JasperReport jr = JasperCompileManager.compileReport(jd);
         JRDataSource dataSource = invoiceCreator.getDataSource();
-        return JasperFillManager.fillReport(jr, params, dataSource);
+        return JasperFillManager.fillReport(jr, invoiceParam, dataSource);
     }
+
+    private Map<String, Object> generateInvoiceParam(InvoiceNumberGenerator invoiceNumberGenerator) {
+
+        if (invoiceNumberGenerator == null) {
+            throw new IllegalArgumentException();
+        }
+        Map<String, Object> params = new HashMap<>();
+        params.put("Title", "User Report");
+        params.put("invoiceNumber", invoiceNumberGenerator.generate());
+        params.put("invoiceDate", new Date());
+
+        return params;
+    }
+
+    private InvoiceNumberGenerator invoiceNumberGenerator = new InvoiceNumberGenerator() {
+        private int counter = 1000;
+        private SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+
+        @Override
+        public String generate() {
+            StringBuilder invoiceGenStringBuilder = new StringBuilder();
+            invoiceGenStringBuilder.append(dateFormatter.format(new Date()))
+                    .append("-")
+                    .append(counter++);
+            return invoiceGenStringBuilder.toString();
+        }
+    };
 
     public String createServerFileFolder() {
         String serverDir = System.getProperty("catalina.home");
@@ -108,9 +132,9 @@ public class ReportDownloadService {
         return outputFilePath;
     }
 
-    private void saveFileToDataBase(String fileName) {
+    private void saveFileToDataBase(String fileName, Map<String, Object> invoiceParam) {
         Report report = new Report();
-        report.setName("report " + UUID.randomUUID().toString());
+        report.setName((String) invoiceParam.get("invoiceNumber"));
         report.setCreationDate(LocalDate.now());
         report.setFilePath(fileName);
         reportRepository.save(report);

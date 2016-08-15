@@ -2,13 +2,11 @@ package com.softserve.osbb.controller;
 
 import com.softserve.osbb.model.Osbb;
 import com.softserve.osbb.model.Report;
-import com.softserve.osbb.service.gen.ReportDownloadService;
+import com.softserve.osbb.service.gen.InvoiceDownloadService;
 import com.softserve.osbb.service.impl.ReportServiceImpl;
-import com.softserve.osbb.util.PageCreator;
 import com.softserve.osbb.util.ReportPageCreator;
 import com.softserve.osbb.util.ResourceNotFoundException;
 import com.softserve.osbb.utils.CustomLocalDateTimeDeserializer;
-import com.softserve.osbb.utils.CustomLocalDateTimeSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +40,7 @@ public class ReportController {
     private ReportServiceImpl reportService;
 
     @Autowired
-    private ReportDownloadService reportDownloadService;
+    private InvoiceDownloadService invoiceDownloadService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<List<Resource<Report>>> listAllReports() {
@@ -181,7 +178,7 @@ public class ReportController {
     public void download(@RequestParam(value = "type", required = true) String type,
                          HttpServletResponse httpServletResponse) {
         logger.info("preparing download");
-        reportDownloadService.download(type, httpServletResponse);
+        invoiceDownloadService.download(type, httpServletResponse);
 
     }
 

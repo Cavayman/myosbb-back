@@ -21,9 +21,9 @@ a {
     height: 150px;
 }
 
-.dropdown-menu {
+.dm-left {
     width: 250px;
-    left: -110%;
+    left: -200%;
 }
 
 .dropdown-menu > p {
@@ -33,7 +33,7 @@ a {
 }
 
 @media screen and (max-width: 800px) {
-    .dropdown-menu {
+    .dm-left {
         width: 200px;
         left: -250%;
     }

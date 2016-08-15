@@ -15,13 +15,13 @@ import java.io.ByteArrayOutputStream;
  * Created by nazar.dovhyy on 29.07.2016.
  */
 @Service
-public class ReportExporterService {
+public class InvoiceExporterService {
 
     public static final String MEDIA_TYPE_EXCEL = "application/vnd.ms-excel";
     public static final String MEDIA_TYPE_PDF = "application/pdf";
     public static final String MEDIA_TYPE_CSV = "text/csv";
 
-    private static Logger logger = LoggerFactory.getLogger(ReportExporterService.class);
+    private static Logger logger = LoggerFactory.getLogger(InvoiceExporterService.class);
 
 
     public HttpServletResponse exportToOutputStream(String type,

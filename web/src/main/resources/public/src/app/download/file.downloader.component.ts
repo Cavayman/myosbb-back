@@ -31,7 +31,7 @@ export class FileDownloaderComponent {
     private pending: boolean = false;
     private hasError: boolean = false;
     public toasterconfig: ToasterConfig =
-        new ToasterConfig({timeout: 15000});
+        new ToasterConfig({timeout: 20000});
 
     constructor(private _toasterService: ToasterService) {
     }
