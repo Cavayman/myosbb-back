@@ -41,7 +41,6 @@ export class FileDownloaderComponent {
 
         let self = this;
         this.pending = true;
-
         let xhr = new XMLHttpRequest();
         let url = reportDownloadUrl + '?type=' + docType;
         xhr.open('GET', url, true);
@@ -49,41 +48,51 @@ export class FileDownloaderComponent {
         console.log('preparing download...');
 
         xhr.onreadystatechange = function () {
-            setTimeout(() => {
-                self.pending = false;
-                console.log('inside service: ' + self.pending);
-            }, 0);
 
-            if (xhr.readyState === 4 && xhr.status === 200) {
+            if (xhr.readyState != 4) return;
+
+            clearTimeout(serverTimeout);
+
+            if (xhr.status === 200) {
                 let mimeType = setContentType(docType);
                 var blob = new Blob([this.response], {type: mimeType});
                 saveAs(blob, setFileName(docType));
+                self.pending = false;
+                self.hasError = false;
+                self.handleResponse();
             } else {
                 console.error('error while loading resources');
                 self.pending = false;
                 self.hasError = true;
-                self._toasterService.pop(etoast);
+                self.handleResponse();
 
             }
-            if (!self.hasError)
-                self._toasterService.pop(stoast);
+
         };
 
         xhr.send();
-        // setTimeout(()=> {
-        //     if ((!self.pending || self.pending) && !self.hasError)
-        //         self._toasterService.pop(stoast);
-        //     else {
-        //         self._toasterService.pop(etoast);
-        //     }
-        // }, 5000);
+
+        let serverTimeout = setTimeout(()=> {
+            console.log('terminating server connection d/t too long connection time');
+            xhr.abort();
+            this._toasterService.pop(onErrorServerNoResponseToastMsg);
+        }, 15000)
+
+    }
+
+    private handleResponse() {
+        if (!this.pending && !this.hasError) {
+            this._toasterService.pop(onSuccessToastMsg);
+        } else {
+            this._toasterService.pop(onErrorResourceNotFoundToastMsg);
+        }
 
 
     }
 
 }
 
-export let stoast: Toast = {
+export let onSuccessToastMsg: Toast = {
     type: 'success',
     title: '',
     body: RedirectComponent,
@@ -91,10 +100,17 @@ export let stoast: Toast = {
     bodyOutputType: BodyOutputType.Component
 };
 
-export let etoast: Toast = {
+export let onErrorResourceNotFoundToastMsg: Toast = {
     type: 'error',
     title: '',
     body: '<h5>Виникла помилка під час завантаження документа</h5>',
+    showCloseButton: true,
+    bodyOutputType: BodyOutputType.TrustedHtml
+};
+export let onErrorServerNoResponseToastMsg: Toast = {
+    type: 'error',
+    title: '',
+    body: '<h5>Сервер не відповідає</h5>',
     showCloseButton: true,
     bodyOutputType: BodyOutputType.TrustedHtml
 };

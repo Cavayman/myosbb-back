@@ -12,3 +12,29 @@
 a {
     cursor: pointer !important;
 }
+
+.mod {
+    width: 265px !important;
+}
+
+#desc {
+    height: 150px;
+}
+
+.dropdown-menu {
+    width: 250px;
+    left: -110%;
+}
+
+.dropdown-menu > p {
+    width: 150px !important;
+    margin: 0px auto;
+    margin-bottom: 5px;
+}
+
+@media screen and (max-width: 800px) {
+    .dropdown-menu {
+        width: 200px;
+        left: -250%;
+    }
+}

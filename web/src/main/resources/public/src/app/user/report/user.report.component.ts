@@ -96,6 +96,11 @@ export class UserReportComponent implements OnInit, OnDestroy {
         this.getReportsByPageNum(this.pageNumber);
     }
 
+
+    refresh() {
+        this.getReportsByPageNum(this.pageNumber);
+    }
+
     getReportsByPageNum(pageNumber: number) {
         this.pageNumber = +pageNumber;
         this.pending = true;
