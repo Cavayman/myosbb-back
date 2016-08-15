@@ -2,12 +2,15 @@ import {Component, OnInit} from "@angular/core";
 import {HousePageObject} from "./house.page.object";
 import {HouseService} from "./house.service";
 import {Router} from "@angular/router";
+import {TranslatePipe} from "ng2-translate";
+import {CapitalizeFirstLetterPipe} from "../../shared/pipes/capitalize-first-letter";
 
 @Component({
     selector: 'house-table',
     templateUrl: 'src/app/house/house_table.html',
     providers: [HouseService],
-    styleUrls: ['src/app/house/house.css', 'src/shared/css/loader.css', 'src/shared/css/general.css']
+    styleUrls: ['src/app/house/house.css', 'src/shared/css/loader.css', 'src/shared/css/general.css'],
+    pipes: [TranslatePipe, CapitalizeFirstLetterPipe]
 })
 export class HouseTableComponent implements OnInit {
 
@@ -26,6 +29,10 @@ export class HouseTableComponent implements OnInit {
     ngOnInit(): any {
         this.findAllHousesByPage(this.pageNumber, this.selectedRow);
 
+    }
+
+    refresh() {
+        this.findAllHousesByPage(this.pageNumber, this.selectedRow);
     }
 
     private findAllHousesByPage(pageNumber, selectedRow) {

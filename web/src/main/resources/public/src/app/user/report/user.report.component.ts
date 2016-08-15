@@ -44,6 +44,8 @@ export class UserReportComponent implements OnInit, OnDestroy {
     private pending = false;
     private reportId: number;
     private onSearch: boolean = false;
+    private rows: number[] = [10, 20, 50];
+    private selectedRow: number = 10;
 
     constructor(private _reportService: ReportService, private sanitizer: DomSanitizationService) {
 
@@ -69,7 +71,7 @@ export class UserReportComponent implements OnInit, OnDestroy {
         this.active = false;
         console.log('saving report: ' + this.selectedReport);
         this._reportService.editAndSave(this.selectedReport);
-        this.getReportsByPageNum(this.pageNumber);
+        this.getReportsByPageNum(this.pageNumber, this.selectedRow);
         this.editModal.hide();
         setTimeout(() => this.active = true, 0);
     }
@@ -93,18 +95,19 @@ export class UserReportComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): any {
-        this.getReportsByPageNum(this.pageNumber);
+        this.getReportsByPageNum(this.pageNumber, this.selectedRow);
     }
 
 
     refresh() {
-        this.getReportsByPageNum(this.pageNumber);
+        this.getReportsByPageNum(this.pageNumber, this.selectedRow);
     }
 
-    getReportsByPageNum(pageNumber: number) {
+    getReportsByPageNum(pageNumber: number, selectedRow: number) {
         this.pageNumber = +pageNumber;
         this.pending = true;
-        return this._reportService.getAllReports(this.pageNumber)
+        this.selectedRow = +selectedRow;
+        return this._reportService.getAllReports(this.pageNumber, this.selectedRow)
             .subscribe((data) => {
                     this.pending = false;
                     this.pageCreator = data;
@@ -118,6 +121,11 @@ export class UserReportComponent implements OnInit, OnDestroy {
                     console.error(error)
                 });
     };
+
+
+    selectRowNum(row: number) {
+        this.getReportsByPageNum(this.pageNumber, this.selectedRow);
+    }
 
 
     sanitizeUrlData(reports: Report[]): Report[] {
@@ -134,12 +142,12 @@ export class UserReportComponent implements OnInit, OnDestroy {
 
     prevPage() {
         this.pageNumber = this.pageNumber - 1;
-        this.getReportsByPageNum(this.pageNumber)
+        this.getReportsByPageNum(this.pageNumber, this.selectedRow);
     }
 
     nextPage() {
         this.pageNumber = this.pageNumber + 1;
-        this.getReportsByPageNum(this.pageNumber)
+        this.getReportsByPageNum(this.pageNumber, this.selectedRow);
     }
 
     emptyArray() {

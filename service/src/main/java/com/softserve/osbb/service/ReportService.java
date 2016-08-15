@@ -26,8 +26,6 @@ public interface ReportService {
 
     List<Report> getAllReportsBetweenDates(LocalDate from, LocalDate to) throws Exception;
 
-    List<Report> getAllReports() throws Exception;
-
     List<Report> findByDate(LocalDate dateToFind);
 
     List<LocalDate> findDistinctCreationDates();
@@ -36,5 +34,7 @@ public interface ReportService {
 
     boolean deleteReportById(Integer reportId) throws Exception;
 
-    Page<Report> getAllReports(Integer pageNumber, String sortedBy, Boolean ascOrder);
+    List<Report> getAllReports();
+
+    Page<Report> getAllReports(Integer pageNumber, Integer rowNum, String sortedBy, Boolean ascOrder);
 }

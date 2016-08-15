@@ -2,7 +2,7 @@
     <div class="panel-heading">
         <div class="row">
             <div class="col-xs-7">
-                <h4><i class="fa fa-angle-right"></i> Звіти</h4>
+                <h4><i class="fa fa-angle-right"></i> {{'reports' | translate}}</h4>
             </div>
             <div class="col-xs-3">
                 <div id="example_filter" class="pull-right" title="search">
@@ -24,6 +24,7 @@
                     </button>
                     <div class="dropdown-menu dm-left" role="menu">
                         <p class="dropdown-item">
+                            <span>{{ 'from' | translate }}</span>
                             <ng-select [allowClear]="false"
                                        [items]="dates"
                                        (data)="refreshDateFrom($event)"
@@ -32,6 +33,7 @@
                             </ng-select>
                         </p>
                         <p class="dropdown-item">
+                            <span>{{ 'to' | translate }}</span>
                             <ng-select [allowClear]="false"
                                        [items]="dates"
                                        (data)="refreshDateTo($event)"
@@ -41,7 +43,7 @@
                         </p>
                         <p class="dropdown-item">
                             <button (click)="onClickSearchByDates()" [disabled]="!dateFromActive || !dateToActive"
-                                    class="btn btn-primary mdl-btn">Пошук
+                                    class="btn btn-primary mdl-btn">{{'search' | translate | capitalize}}
                             </button>
                         </p>
                     </div>
@@ -56,28 +58,30 @@
                 <thead>
                 <tr>
                     <th class="sorting"><i class="fa fa-bullhorn"></i>
-                        Назва
+                        {{'name' | translate | capitalize}}
                         <a (click)="sortBy('name')"><span
                                 class="fa fa-fw fa-sort pull-right"></span></a>
                     </th>
-                    <th class="sorting"><i class="fa fa-question-circle"></i> Дата
+                    <th class="sorting"><i class="fa fa-question-circle"></i>
+                        {{'date' | translate | capitalize}}
                         <a (click)="sortBy('creationDate')"><span
                                 class="fa fa-fw fa-sort pull-right"></span></a>
                     </th>
-                    <th class="sorting"><i class="fa fa-bookmark"></i> Файл
+                    <th class="sorting"><i class="fa fa-bookmark"></i>
+                        {{'file' | translate | capitalize}}
                         <a (click)="sortBy('filePath')"><span
                                 class="fa fa-fw fa-sort pull-right"></span></a></th>
-                    <th class="sorting"><i class=" fa fa-edit"></i> Дод. інформ.
+                    <th class="sorting"><i class=" fa fa-edit"></i>
+                        {{'additional_info' | translate | capitalize}}
                         <a (click)="sortBy('description')"><span
                                 class="fa fa-fw fa-sort pull-right"></span></a></th>
-                    <th>Додатково</th>
+                    <th>{{'extra' | translate | capitalize}}</th>
                 </tr>
                 </thead>
                 <tbody>
                 <div *ngIf="onSearch && reports.length === 0"
-                     class="text-center not-found-search-elem-center"><h5>Не знайдено жодного
-                    результата
-                    пошуку</h5>
+                     class="text-center not-found-search-elem-center"><h5>{{'search_not_found' | translate |
+                    capitalize}}</h5>
                 </div>
                 <tr *ngFor="let report of reports">
                     <td>{{report.name}}</td>
@@ -88,12 +92,13 @@
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Опції
+                                {{'options' | translate | capitalize}}
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <li><a (click)="openEditModal(report)">Редагувати</a></li>
-                                <li><a (click)="openDelModal(report.reportId)">Видалити</a></li>
+                                <li><a (click)="openEditModal(report)">{{'edit' | translate | capitalize}}</a></li>
+                                <li><a (click)="openDelModal(report.reportId)">{{'delete' | translate | capitalize}}</a>
+                                </li>
                             </ul>
                         </div>
                     </td>
@@ -111,15 +116,17 @@
                                     (click)="delModal.hide()">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title">Видалення....</h4>
+                            <h4 class="modal-title">{{'removing' | translate | capitalize}}</h4>
                         </div>
                         <div class="modal-body">
-                            <h5>Ви дійсно бажаєте видалити цю запись?</h5>
+                            <h5>{{'confirmDelete' | translate | capitalize}}</h5>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" (click)="closeDelModal()">Так
+                            <button type="button" class="btn btn-primary" (click)="closeDelModal()">{{'yes' | translate
+                                | capitalize}}
                             </button>
-                            <button type="button" class="btn btn-default" (click)="delModal.hide()">Ні
+                            <button type="button" class="btn btn-default" (click)="delModal.hide()">{{'no' | translate
+                                | capitalize}}
                             </button>
                         </div>
                     </div>
@@ -179,32 +186,32 @@
                                     (click)="editModal.hide()">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title">Редагувати</h4>
+                            <h4 class="modal-title">{{'edit' | translate | capitalize}}</h4>
                         </div>
                         <form *ngIf="active" (ngSubmit)="onEditReportSubmit()" #reportForm="ngForm">
                             <div class="modal-body">
-                                <div class="form-group"><label>Назва</label>
+                                <div class="form-group"><label>{{'name' | translate | capitalize}}</label>
                                     <input type="text" class="form-control mod" required
                                            [(ngModel)]="selectedReport.name"
                                            name="name" #name="ngModel" maxlength="20" minlength="5">
                                     <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-                                        назва закоротка або відсутня
+                                        {{'name_err_description' | translate }}
                                     </div>
                                 </div>
-                                <div class="form-group"><label>Дата</label><br>
+                                <div class="form-group"><label>{{'date' | translate | capitalize}}</label><br>
                                     <input type="text" class="form-control mod" required
                                            name="date" [(ngModel)]="selectedReport.creationDate" datetime-picker
                                            date-only="true" #mdate="ngModel">
                                     <div [hidden]="mdate.valid || mdate.pristine" class="alert alert-danger">
-                                        дата відсутня
+                                        {{'date_err_description' | translate}}
                                     </div>
                                     <div [hidden]="isDateValid(selectedReport.creationDate)" class="alert alert-danger">
-                                        невірний формат дати
+                                        {{'date_err_format' | translate}}
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Дод. інформ.</label>
+                                    <label>{{'additional_info' | translate}}</label>
                                     <input id="desc" type="text" class="form-control mod" required
                                            name="description" [(ngModel)]="selectedReport.description"
                                            #description="ngModel" maxlength="50" minlength="10">
@@ -216,7 +223,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-default" [disabled]="!reportForm.form.valid">
-                                    Зберегти
+                                    {{'save' | translate | capitalize}}
                                 </button>
                             </div>
                         </form>
@@ -226,6 +233,13 @@
             </div>
 
         </div>
+        <nav *ngIf="reports.length != 0" class="pull-left" aria-label="Page navigation">
+            <ul class="pagination">
+                <li [ngClass]="{'active': row == selectedRow}" *ngFor="let row of rows"><a
+                        (click)="selectRowNum(row)">{{row}}</a></li>
+            </ul>
+        </nav>
+
         <nav class="pull-right" aria-label="Page navigation">
             <ul class="pagination">
                 <li [ngStyle]="{'display': pageNumber === 1? 'none' : ''}">

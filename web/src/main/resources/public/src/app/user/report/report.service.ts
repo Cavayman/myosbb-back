@@ -19,8 +19,8 @@ export class ReportService {
     constructor(private _http: Http) {
     }
 
-    getAllReports(pageNumber: number): Observable<any> {
-        return this._http.get(this.getReportByPageNumberUr + pageNumber)
+    getAllReports(pageNumber: number, selectedRow: number): Observable<any> {
+        return this._http.get(this.getReportByPageNumberUr + pageNumber + '&&rowNum=' + selectedRow)
             .map((response)=> response.json())
             .catch((error)=>Observable.throw(error));
     }

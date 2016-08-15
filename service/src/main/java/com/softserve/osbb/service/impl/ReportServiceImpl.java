@@ -70,11 +70,6 @@ public class ReportServiceImpl implements ReportService {
 
 
     @Override
-    public List<Report> getAllReports() {
-        return reportRepository.findAll();
-    }
-
-    @Override
     public List<Report> findByDate(LocalDate dateToFind) {
         return (dateToFind == null) ? EMPTY_LIST : reportRepository.findByCreationDate(dateToFind);
     }
@@ -102,8 +97,13 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public Page<Report> getAllReports(Integer pageNumber, String sortBy, Boolean order) {
-        PageRequest pageRequest = new PageRequest(pageNumber - 1, DEF_ROWS,
+    public List<Report> getAllReports() {
+        return reportRepository.findAll();
+    }
+
+    @Override
+    public Page<Report> getAllReports(Integer pageNumber, Integer rowNum, String sortBy, Boolean order) {
+        PageRequest pageRequest = new PageRequest(pageNumber - 1, rowNum == null ? DEF_ROWS : rowNum,
                 getSortingOrder(order), sortBy == null ? "creationDate" : sortBy);
         return reportRepository.findAll(pageRequest);
     }

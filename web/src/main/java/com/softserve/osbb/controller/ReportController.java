@@ -59,9 +59,10 @@ public class ReportController {
     public ResponseEntity<ReportPageCreator> listAllReports(
             @RequestParam(value = "pageNumber", required = true) Integer pageNumber,
             @RequestParam(value = "sortedBy", required = false) String sortedBy,
-            @RequestParam(value = "order", required = false) Boolean order) {
+            @RequestParam(value = "order", required = false) Boolean order,
+            @RequestParam(value = "rowNum", required = false) Integer rowNum) {
         logger.info("get all report by page number: " + pageNumber);
-        Page<Report> reportsByPage = reportService.getAllReports(pageNumber, sortedBy, order);
+        Page<Report> reportsByPage = reportService.getAllReports(pageNumber, rowNum, sortedBy, order);
 
         int currentPage = reportsByPage.getNumber() + 1;
         int begin = Math.max(1, currentPage - 5);
