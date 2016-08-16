@@ -25,6 +25,7 @@ public class Report implements Serializable {
     private LocalDate creationDate;
     private String filePath;
     private Osbb osbb;
+    private User user;
 
     public Report() {
         //default constructor needed for Hibernate
@@ -115,15 +116,16 @@ public class Report implements Serializable {
         this.osbb = osbb;
     }
 
-    @Override
-    public String toString() {
-        return "Report{" +
-                "reportId=" + reportId +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", creationDate=" + creationDate +
-                ", filePath='" + filePath + '\'' +
-                ", osbb=" + osbb +
-                '}';
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JsonIgnore
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    public User getUser() {
+        return user;
     }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
 }

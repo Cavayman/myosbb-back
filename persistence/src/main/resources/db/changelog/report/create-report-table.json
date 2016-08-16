@@ -1,82 +1,89 @@
-{ "databaseChangeLog": [
-  {
-    "changeSet": {
-      "id": "2016/08/03-29",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "createTable": {
-            "columns": [
-              {
-                "column": {
-                  "autoIncrement": true,
-                  "constraints": {
-                    "primaryKey": true,
-                    "primaryKeyName": "report_pkey"
-                  },
-                  "name": "report_id",
-                  "type": "SERIAL"
+{
+  "databaseChangeLog": [
+    {
+      "changeSet": {
+        "id": "2016/08/03-29",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "createTable": {
+              "columns": [
+                {
+                  "column": {
+                    "autoIncrement": true,
+                    "constraints": {
+                      "primaryKey": true,
+                      "primaryKeyName": "report_pkey"
+                    },
+                    "name": "report_id",
+                    "type": "SERIAL"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "creation_date",
+                    "type": "date"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "description",
+                    "type": "VARCHAR(255)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "file_path",
+                    "type": "VARCHAR(255)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "name",
+                    "type": "VARCHAR(255)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "osbb_id",
+                    "type": "INT"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "user_id",
+                    "type": "INT"
+                  }
                 }
-              },
-              {
-                "column": {
-                  "name": "creation_date",
-                  "type": "date"
-                }
-              },
-              {
-                "column": {
-                  "name": "description",
-                  "type": "VARCHAR(255)"
-                }
-              },
-              {
-                "column": {
-                  "name": "file_path",
-                  "type": "VARCHAR(255)"
-                }
-              },
-              {
-                "column": {
-                  "name": "name",
-                  "type": "VARCHAR(255)"
-                }
-              },
-              {
-                "column": {
-                  "name": "osbb_id",
-                  "type": "INT"
-                }
-              }
-            ],
-            "tableName": "report"
+              ],
+              "tableName": "report"
+            }
           }
-        }
-      ]
-    }
-  },
-
-  {
-    "changeSet": {
-      "id": "2016/08/03-60",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "addForeignKeyConstraint": {
-            "baseColumnNames": "osbb_id",
-            "baseTableName": "report",
-            "constraintName": "fk_ouop11i495cmthixnqjlc26kh",
-            "deferrable": false,
-            "initiallyDeferred": false,
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "referencedColumnNames": "osbb_id",
-            "referencedTableName": "osbb"
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/03-60",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "addForeignKeyConstraint": {
+              "baseColumnNames": "osbb_id",
+              "baseTableName": "report",
+              "constraintName": "fk_ouop11i495cmthixnqjlc26kh",
+              "deferrable": false,
+              "initiallyDeferred": false,
+              "onDelete": "NO ACTION",
+              "onUpdate": "NO ACTION",
+              "referencedColumnNames": "osbb_id",
+              "referencedTableName": "osbb"
+            }
           }
-        }]
-
+        ]
+      }
     }
-  }]
+  ]
 }

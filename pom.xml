@@ -64,10 +64,10 @@
             </activation>
             <build>
                 <!--<resources>-->
-                    <!--<resource>-->
-                        <!--<directory>persistence/src/main/resources</directory>-->
-                        <!--<filtering>true</filtering>-->
-                    <!--</resource>-->
+                <!--<resource>-->
+                <!--<directory>persistence/src/main/resources</directory>-->
+                <!--<filtering>true</filtering>-->
+                <!--</resource>-->
                 <!--</resources>-->
                 <plugins>
                     <!-- disable tests during maven build -->

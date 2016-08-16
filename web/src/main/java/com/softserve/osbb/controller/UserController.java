@@ -40,7 +40,7 @@ public class UserController {
         List<Resource<User>> resources = new ArrayList<Resource<User>>();
 
         if (users.isEmpty()) {
-            return new ResponseEntity<>(EMPTY_LIST,HttpStatus.OK);
+            return new ResponseEntity<>(EMPTY_LIST, HttpStatus.OK);
         } else {
             for (User temp : users) {
                 resources.add(getUserResource(temp));
@@ -53,8 +53,8 @@ public class UserController {
     @RequestMapping(value = "/user/getCurrent", method = RequestMethod.GET)
     public Resource<User> getCurrent(final HttpServletRequest request) {
         final Claims claims = (Claims) request.getAttribute("claims");
-           String id= claims.getId();
-       return  getUser(id);
+        String id = claims.getId();
+        return getUser(id);
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)

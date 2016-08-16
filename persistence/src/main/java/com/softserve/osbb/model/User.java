@@ -1,17 +1,15 @@
 package com.softserve.osbb.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-//import org.springframework.security.core.GrantedAuthority;
-//import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+
+//import org.springframework.security.core.GrantedAuthority;
+//import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * Created by cavayman on 05.07.2016.
@@ -34,6 +32,7 @@ public class User  //implements UserDetails
     private List<Ticket> assigned;
     private List<Ticket> tickets;
     private List<Option> options;
+    private List<Report> reports;
 
     //    private List<Role> roles;
 
@@ -44,9 +43,9 @@ public class User  //implements UserDetails
         this.lastName = user.getLastName();
         this.birthDate = user.getBirthDate();
         this.email = user.getEmail();
-        this.phoneNumber=user.getPhoneNumber();
-        this.password=user.getPassword();
-        this.gender=user.getGender();
+        this.phoneNumber = user.getPhoneNumber();
+        this.password = user.getPassword();
+        this.gender = user.getGender();
     }
 
     //    Defoult for JPA
@@ -212,6 +211,16 @@ public class User  //implements UserDetails
         this.tickets = tickets;
     }
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @JsonIgnore
+    public List<Report> getReports() {
+        return reports;
+    }
+
+    public void setReports(List<Report> reports) {
+        this.reports = reports;
+    }
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "assigned")
     @JsonIgnore
     public List<Ticket> getAssigned() {
@@ -237,9 +246,9 @@ public class User  //implements UserDetails
 //    }
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name="user_option",
-            joinColumns = @JoinColumn(name="user_id", referencedColumnName="user_id"),
-            inverseJoinColumns = @JoinColumn(name="option_id", referencedColumnName="option_id")
+    @JoinTable(name = "user_option",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "option_id", referencedColumnName = "option_id")
     )
     @JsonIgnore
     public List<Option> getOptions() {

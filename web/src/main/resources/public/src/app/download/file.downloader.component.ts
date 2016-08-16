@@ -45,6 +45,7 @@ export class FileDownloaderComponent {
         let url = reportDownloadUrl + '?type=' + docType;
         xhr.open('GET', url, true);
         xhr.responseType = 'blob';
+        xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
         console.log('preparing download...');
 
         xhr.onreadystatechange = function () {

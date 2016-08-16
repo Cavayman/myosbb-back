@@ -1,8 +1,6 @@
-import {Component, OnInit, Output, EventEmitter} from "@angular/core";
-import {Observable} from "rxjs/Observable";
+import {Component, OnInit} from "@angular/core";
 import {LoginService} from "./login.service";
 import {Router} from "@angular/router";
-import {LoginStat} from "../../shared/services/login.stats";
 import {RegistrationComponent} from "../registration/registration.component";
 import {CurrentUserService} from "../../shared/services/current.user.service";
 
@@ -14,6 +12,9 @@ import {CurrentUserService} from "../../shared/services/current.user.service";
     outputs: ['isLoggedIn']
 })
 export class LoginComponent implements OnInit {
+    ngOnInit(): any {
+        return undefined;
+    }
     private model = {'username': '', 'password': ''};
     private currentUserName = '';
     private isLoggedIn:boolean = false;

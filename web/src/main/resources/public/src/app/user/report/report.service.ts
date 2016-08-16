@@ -15,18 +15,20 @@ export class ReportService {
     private updateReportUrl = ApiService.serverUrl + '/restful/report/';
     private getReportByParamURL = ApiService.serverUrl + '/restful/report/between?';
     private getReportBySearchParamURL = ApiService.serverUrl + '/restful/report/find?searchParam=';
+    private headers = new Headers({'Authorization': 'Bearer ' + localStorage.getItem('token')});
 
     constructor(private _http: Http) {
+        this.headers.append('Content-Type', 'application/json');
     }
 
     getAllReports(pageNumber: number, selectedRow: number): Observable<any> {
-        return this._http.get(this.getReportByPageNumberUr + pageNumber + '&&rowNum=' + selectedRow)
+        return this._http.get(this.getReportByPageNumberUr + pageNumber + '&&rowNum=' + selectedRow, {headers: this.headers})
             .map((response)=> response.json())
             .catch((error)=>Observable.throw(error));
     }
 
     getAllReportsSorted(pageNumber: number, name: string, order: boolean): Observable<any> {
-        return this._http.get(this.getReportByPageNumberUr + pageNumber + '&&sortedBy=' + name + '&&order=' + order)
+        return this._http.get(this.getReportByPageNumberUr + pageNumber + '&&sortedBy=' + name + '&&order=' + order, {headers: this.headers})
             .map((response)=> response.json())
             .catch((error)=>Observable.throw(error));
     }
@@ -34,22 +36,20 @@ export class ReportService {
     searchByDates(dateFrom: string, dateTo: string): Observable<any> {
         return this._http.get(this.getReportByParamURL
             + 'dateFrom=' + dateFrom + '&&'
-            + 'dateTo=' + dateTo).map((response)=>response.json())
+            + 'dateTo=' + dateTo, {headers: this.headers}).map((response)=>response.json())
             .catch((error)=>Observable.throw(error));
     }
 
     searchByInputParam(value: string): Observable<any> {
-        return this._http.get(this.getReportBySearchParamURL + value)
+        return this._http.get(this.getReportBySearchParamURL + value, {headers: this.headers})
             .map((response)=>response.json())
             .catch((error)=>Observable.throw(error));
     }
 
     deleteReportById(reportId: number) {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
         let url = this.delReportUrl + reportId;
         console.log('delete report by id: ' + reportId);
-        return this._http.delete(url, {headers: headers})
+        return this._http.delete(url, {headers: this.headers})
             .toPromise()
             .catch((error)=>console.error(error));
 
@@ -63,9 +63,7 @@ export class ReportService {
     }
 
     put(report: Report) {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        return this._http.put(this.updateReportUrl, JSON.stringify(report), {headers: headers})
+        return this._http.put(this.updateReportUrl, JSON.stringify(report), {headers: this.headers})
             .toPromise()
             .then(()=>report)
             .catch((error)=>console.error(error));
