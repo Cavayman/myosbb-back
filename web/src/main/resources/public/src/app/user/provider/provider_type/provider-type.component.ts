@@ -19,7 +19,7 @@ import {SelectItem} from "../../../../shared/models/ng2-select-item.interface";
         <div>            
          <label> {{ 'type' | translate:{value:param} | capitalize }}</label>
             <div *ngIf="items.length > 0">
-                            <div style="width: 270px; margin-bottom: 20px;">
+                            <div style="width: 400px; margin-bottom: 20px;">
                   <ng-select [allowClear]="true"
                               [items]="items"
                               (data)="onRefresh($event)"

@@ -2404,3 +2404,10 @@ label {
     .highlight:hover{
         color: cornflowerblue;
     }
+
+    .logo-pic-sm {
+        border: solid 1px darkgrey;
+        width: 350px;
+        height: 300px;
+        margin-bottom: 40px;
+    }

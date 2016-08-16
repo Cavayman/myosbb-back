@@ -17,6 +17,7 @@ import java.util.Collection;
 @Table(name = "provider")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Provider implements Serializable {
+    public static final Periodicity DEFAULT_PERIODICITY = Periodicity.ONE_TIME;
     private Integer providerId;
     private String name;
     private String description;
@@ -28,7 +29,8 @@ public class Provider implements Serializable {
     private String email;
     private String phone;
     private String address;
-
+    private String schedule;
+    private boolean active;
 
     public Provider() {
     }
@@ -101,7 +103,7 @@ public class Provider implements Serializable {
     }
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "periodicity")
+    @Column(name = "periodicity", columnDefinition = "varchar(45) default 'ONE_TIME'")
     public Periodicity getPeriodicity(){
         return periodicity;
     }
@@ -145,6 +147,24 @@ public class Provider implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Column(name = "schedule")
+    public String getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(String schedule) {
+        this.schedule = schedule;
+    }
+
+    @Column(name = "active", columnDefinition = "boolean default false")
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     @Override

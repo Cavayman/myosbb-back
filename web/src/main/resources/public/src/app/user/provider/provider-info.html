@@ -1,33 +1,44 @@
 <div class="panel panel-default  pos-top">
     <div class="panel-heading">
         <div class="row">
-            <div class="col-xs-6">
+            <div class="col-sm-5">
+            </div>
+            <div class="col-sm-7" style="padding: 10px">
                 <h1>{{provider.name}}</h1>
             </div>
         </div>
-
         <div class="row">
-            <img src="{{provider.logoUrl}}">
+            <div class="col-sm-1">
+            </div>
+            <div class="col-lg-6">
+                <div class="logo-pic-sm">
+                    <img src="{{provider.logoUrl}}" class="logo-pic-sm">
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <h3>{{'whatwedo' | translate}}</h3>
+                <p>{{provider.description}}</p>
+            </div>
         </div>
     </div>
 
-    <div class="panel-body">
-            <div class="col-sm-8">
-                <h3>{{'whatwedo' | translate}}</h3>
-                    <p>{{provider.description}}</p>
+    <div class="panel-body" >
+            <h2>{{'contactus' | translate }}</h2>
+            <div class="col-sm-6">
+                <address>
+                    <strong>{{'address' | translate }}:</strong>
+                    <br>{{provider.address}}
+                </address>
+                <address>
+                    <abbr title="Phone">{{'phone'| translate }}:</abbr>{{provider.phone}}
+                    <br/>
+                    <abbr title="Email">{{'email' | translate }}:</abbr> <a href="mailto:#">{{provider.email}}</a>
+                </address>
             </div>
-        <div class="col-sm-4">
-                <h2>{{'contactus' | translate }}</h2>
-        <address>
-            <strong>Address:</strong>
-            <br>{{provider.address}}
-        </address>
-        <address>
-            <abbr title="Phone">Phone:</abbr>{{provider.phone}}
-            <br/>
-            <abbr title="Email">Email:</abbr> <a href="mailto:#">{{provider.email}}</a>
-        </address>
-    </div>
+            <div class="col-sm-6">
+                <h5>{{'schedule' | translate }}: </h5>
+                <p>{{provider.schedule}}</p>
+            </div>
   </div>
 </div>
 <!-- /.row -->

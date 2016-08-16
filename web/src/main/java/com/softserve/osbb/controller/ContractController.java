@@ -99,6 +99,7 @@ public class ContractController {
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public Contract putContract(@RequestBody Contract contract) {
         logger.info("Saving contract, sending to service");
+        if (contract.getPriceCurrency() == null) contract.setPriceCurrency(Contract.DEFAULT_CURRENCY);
         return contractService.save(contract);
     }
 

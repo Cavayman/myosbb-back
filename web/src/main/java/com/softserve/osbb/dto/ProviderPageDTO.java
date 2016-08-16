@@ -21,6 +21,27 @@ public class ProviderPageDTO {
     private String email;
     private String phone;
     private String address;
+    private boolean active = false;
+    private String schedule;
+
+    public ProviderPageDTO() {
+    }
+
+    public ProviderPageDTO(Integer providerId, String name, String description, String logoUrl,
+                           Periodicity periodicity, ProviderType type, String email, String phone, String address,
+                           String schedule, boolean active) {
+        this.providerId = providerId;
+        this.name = name;
+        this.description = description;
+        this.logoUrl = logoUrl;
+        this.periodicity = periodicity != null ? periodicity.toString() : "";
+        this.type = type;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.schedule = schedule;
+        this.active = active;
+    }
 
     public String getEmail() {
         return email;
@@ -43,23 +64,6 @@ public class ProviderPageDTO {
     }
 
     public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public ProviderPageDTO() {
-    }
-
-    public ProviderPageDTO(Integer providerId, String name, String description, String logoUrl,
-                           Periodicity periodicity, ProviderType type, String email, String phone, String address) {
-        this.providerId = providerId;
-        this.name = name;
-        this.description = description;
-        this.logoUrl = logoUrl;
-        this.periodicity = periodicity != null ? periodicity.toString() : "";
-//        this.type = type != null ? type.getProviderTypeId(): 0;
-        this.type = type;
-        this.email = email;
-        this.phone = phone;
         this.address = address;
     }
 
@@ -109,5 +113,21 @@ public class ProviderPageDTO {
 
     public void setType(ProviderType type) {
         this.type = type;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public String getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(String schedule) {
+        this.schedule = schedule;
     }
 }

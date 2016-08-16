@@ -9,11 +9,19 @@
                        (keyup)="onSearch(search.value)"
                        aria-controls="example">
             </div>
+            <div class="row">
+                <div id="active_filter" class="pull-left">
+                    <input type="checkbox"
+                           (change)="onOnlyActive()"
+                           class="form-control input-sm" [(ngModel)]="onlyActive"> Active
+                </div>
+            </div>
+
             <table class="table table-striped table-advance table-hover">
                 <thead>
                 <tr>
                     <th class="sorting">
-                        <i class="fa fa-bullhorn"></i> {{ 'сompany' | translate | capitalize }}
+                        <i class="fa fa-bullhorn"></i> {{ 'company' | translate | capitalize }}
                         <a style="{cursor:pointer}" (click)="sortBy('provider.name')"><span
                                 class="fa fa-fw fa-sort pull-right"></span></a>
                     </th>
@@ -43,7 +51,7 @@
                     <td>{{ contract.dateStart }}</td>
                     <td>{{ contract.dateFinish }}</td>
                     <td> {{ contract.text }}</td>
-                    <td> {{contract.price | currency: currency : false :'2.2-2'}} </td>
+                    <td> {{contract.price | currency: contract.priceCurrency : false :'2.2-2'}} </td>
                     <td>
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownContract"
@@ -91,7 +99,7 @@
             <!--Edit Modal -->
             <div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
                  aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-sm">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" aria-label="Close"
@@ -132,7 +140,7 @@
                                     <input type="text" class="form-control" required
                                            name="price" [(ngModel)]="selected.price"
                                            #price="ngModel">
-                                    <currency [currentCurrency]="currency"  (currencyChanged)="selectCurrency($event)"></currency>
+                                    <currency [currentCurrency]="selected.currency"  (currencyChanged)="selectCurrency($event)"></currency>
                                     <div [hidden]="price.valid || price.pristine"
                                          class="alert alert-danger">
                                         {{ 'required' | translate | capitalize }}
@@ -142,9 +150,9 @@
                                 <div class="form-group">
                                     <label> {{ 'text' | translate | capitalize }}</label>
 
-                                    <textarea rows="10" cols="35" name="text" [(ngModel)]="selected.text"
+                                    <textarea  class="form-control" name="text" [(ngModel)]="selected.text"
                                            #text="ngModel"></textarea>
-                                </div> <!-- price -->
+                                </div> <!-- text -->
 
 
                             </div>
@@ -165,7 +173,7 @@
             <!--Create Modal -->
             <div bsModal #createModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
                  aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-sm">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" aria-label="Close"
@@ -208,11 +216,11 @@
                                     <div [hidden]="price.valid || price.pristine" class="alert alert-danger">
                                         {{ 'required' | translate | capitalize }}
                                     </div>
-                                    <currency [currentCurrency]="currency" (currencyChanged)="selectCurrency($event)"></currency>
+                                    <currency [currentCurrency]="UAH" (currencyChanged)="selectCurrency($event)"></currency>
 
                                 </div>
                                 <div class="form-group"><label>{{ 'text' | translate | capitalize }}</label>
-                                    <textarea rows="10" cols="35" name="text" [(ngModel)]="newContract.text"
+                                    <textarea  class="form-control" name="text" [(ngModel)]="newContract.text"
                                           #text="ngModel"></textarea>
                                 </div>
                             </div>

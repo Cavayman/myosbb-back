@@ -8,5 +8,7 @@ export interface Provider {
     type: ProviderType,
     email:string,
     phone:string,
-    address:string
+    address:string,
+    schedule: string,
+    active: boolean
 }

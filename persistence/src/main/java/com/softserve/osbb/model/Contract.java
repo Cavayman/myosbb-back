@@ -2,6 +2,7 @@ package com.softserve.osbb.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.softserve.osbb.model.enums.Currency;
 import com.softserve.osbb.utils.CustomLocalDateTimeDeserializer;
 import com.softserve.osbb.utils.CustomLocalDateTimeSerializer;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -17,14 +18,18 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "contract")
 public class Contract {
+    public static final Currency DEFAULT_CURRENCY = Currency.UAH;
+
     private Integer contractId;
     private LocalDate dateStart;
     private LocalDate dateFinish;
     private String text;
     private BigDecimal price;
+    private Currency priceCurrency;
     private Attachment attachment;
     private Osbb osbb;
     private Provider provider;
+    private boolean active;
 
     @Id
     @Column(name = "contract_id")
@@ -37,7 +42,6 @@ public class Contract {
         this.contractId = contractId;
     }
 
-    @Basic
     @Column(name = "dateStart")
     @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
     public LocalDate getDateStart() {
@@ -49,7 +53,6 @@ public class Contract {
         this.dateStart = dateStart;
     }
 
-    @Basic
     @Column(name = "dateFinish")
     @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
     public LocalDate getDateFinish() {
@@ -61,7 +64,6 @@ public class Contract {
         this.dateFinish = dateFinish;
     }
 
-    @Basic
     @Column(name = "text")
     public String getText() {
         return text;
@@ -71,7 +73,6 @@ public class Contract {
         this.text = text;
     }
 
-    @Basic
     @Column(name = "price")
     public BigDecimal getPrice() {
         return price;
@@ -80,6 +81,17 @@ public class Contract {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "price_currency", columnDefinition = "varchar(45) default 'UAH'")
+    public Currency getPriceCurrency() {
+        return priceCurrency;
+    }
+
+    public void setPriceCurrency(Currency priceCurrency) {
+        this.priceCurrency = priceCurrency;
+    }
+
 
     @ManyToOne
     @JoinColumn(name = "attachment_id", referencedColumnName = "attachment_id")
@@ -109,6 +121,15 @@ public class Contract {
 
     public void setProvider(Provider provider) {
         this.provider = provider;
+    }
+
+    @Column(name = "active", columnDefinition = "boolean default true")
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     @Override

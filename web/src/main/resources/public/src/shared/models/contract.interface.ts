@@ -9,7 +9,9 @@ export interface Contract {
     dateFinish: string;
     text: String;
     price: number;
+    priceCurrency: string
     attachment: string;
     osbb: string;
     provider: Provider;
+    active: boolean
 }

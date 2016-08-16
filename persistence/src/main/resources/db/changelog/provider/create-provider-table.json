@@ -66,6 +66,18 @@
                   "name": "address",
                   "type": "VARCHAR(255)"
                 }
+              },
+              {
+                "column": {
+                  "name": "schedule",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "active",
+                  "type": "BOOLEAN"
+                }
               }
             ],
             "tableName": "provider"
@@ -114,6 +126,37 @@
             "onUpdate": "NO ACTION",
             "referencedColumnNames": "provider_id",
             "referencedTableName": "provider"
+          }
+        }]
+
+    }
+  },
+  {
+    "changeSet": {
+      "id": "2016/15/08-01",
+      "author": "anastasia",
+      "changes": [
+        {
+          "addDefaultValue": {
+            "columnDataType": "boolean",
+            "columnName": "active",
+            "defaultValueBoolean": false,
+            "tableName": "provider"
+          }
+        }]
+    }
+  },
+  {
+    "changeSet": {
+      "id": "2016/15/08-02",
+      "author": "anastasia",
+      "changes": [
+        {
+          "addDefaultValue": {
+            "columnDataType": "VARCHAR(255)",
+            "columnName": "periodicity",
+            "defaultValue": "ONE_TIME",
+            "tableName": "provider"
           }
         }]
 

@@ -17,23 +17,27 @@ import "rxjs/Rx";
 import {SelectProviderComponent} from "../provider/select-provider.component";
 import {Provider} from "../../../shared/models/provider.interface";
 import {CurrencyComponent} from "./currency.component";
+import {MailService} from "../../../shared/services/mail.sender.service";
+import {Mail} from "../../../shared/models/mail.interface";
+import {ActiveFilter} from "../../../shared/pipes/active.filter";
 
 @Component({
     selector: 'myosbb-contract',
     templateUrl: 'src/app/user/contract/contract-table.html',
-    pipes: [TranslatePipe, CapitalizeFirstLetterPipe],
+    pipes: [TranslatePipe, CapitalizeFirstLetterPipe, ActiveFilter],
     directives: [DROPDOWN_DIRECTIVES],
-    providers: [ContractService],
+    providers: [ContractService, MailService],
     directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, ROUTER_DIRECTIVES, SelectProviderComponent, CurrencyComponent, DROPDOWN_DIRECTIVES],
     viewProviders: [BS_VIEW_PROVIDERS]
 })
 export class ContractComponent implements OnInit{
     private contracts :  Contract[];
-    private selected : Contract =  {contractId: null, dateStart:'', dateFinish:'', text: '', price:null, attachment: null, osbb: null, provider:
-    { providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:null, email:'',phone:'', address:''}};
+    private selected : Contract =  {contractId: null, dateStart:'', dateFinish:'', text: '', price:null, priceCurrency: 'UAH',attachment: null, osbb: null,  active: false, provider:
+    {providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:null, email:'',phone:'', address:'', schedule:'', active: false}};
 
-    private newContract : Contract =  {contractId: null, dateStart:'', dateFinish:'', text: '', price:null, attachment: null, osbb: null,
-        provider:{ providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:null, email:'',phone:'', address:''}};
+    private newContract : Contract =  {contractId: null, dateStart:'', dateFinish:'', text: '', price:null, priceCurrency: 'UAH',attachment: null, osbb: null,  active: false, provider:
+    {providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:null, email:'',phone:'', address:'', schedule:'', active: false}};
+
     private pageCreator:PageCreator<Contract>;
     private pageNumber:number = 1;
     private pageList:Array<number> = [];
@@ -45,15 +49,17 @@ export class ContractComponent implements OnInit{
     active:boolean = true;
     order:boolean = true;
 
+    onlyActive: boolean = true;
+
     private contractId:number;
-    private currency:string;
-    
-    constructor(private _contractService:ContractService){
+
+    constructor(private _contractService:ContractService, private _mailService: MailService){
     }
 
     ngOnInit():any {
         console.log("init contract cmp");
         this.getContractsByPageNum(this.pageNumber);
+        console.log("on init only active", this.onlyActive);
 
     }
 
@@ -68,7 +74,7 @@ export class ContractComponent implements OnInit{
 
     onEditContractSubmit() {
         this.active = false;
-        console.log('saving contract: ' + this.selected);
+        console.log('saving contract: ', this.selected);
         this._contractService.editAndSave(this.selected);
         this._contractService.getContracts(this.pageNumber);
         this.editModal.hide();
@@ -82,10 +88,9 @@ export class ContractComponent implements OnInit{
 
     onCreateContractSubmit() {
         this.active = false;
-        console.log("new contract: id=" + this.newContract.contractId + "; date start=" + this.newContract.dateStart +
-            "; date finish=" +this.newContract.dateFinish + "; price=" + this.newContract.price);
+        console.log("creating ", this.newContract);
         this._contractService.addContract(this.newContract);
-        console.log("add contract");
+        console.log("add contract", this.newContract);
         this._contractService.getContracts(this.pageNumber);
         this.getContractsByPageNum(this.pageNumber);
         this.createModal.hide();
@@ -181,15 +186,25 @@ export class ContractComponent implements OnInit{
 
     editCompany(provider: Provider){
         this.selected.provider = provider;
-        console.log("get provider " + provider);
+        console.log("get provider ", provider);
     }
 
     selectCompany(provider: Provider){
         this.newContract.provider = provider;
+        console.log("insert provider ", this.newContract.provider, provider);
     }
 
+
     selectCurrency(currency:string){
-     this.currency = currency;
+     this.selected.priceCurrency = currency;
+        this.newContract.priceCurrency = currency;
+        console.log("select currency: ", this.selected.priceCurrency);
+    }
+
+    onOnlyActive(){
+        this.onlyActive = !this.onlyActive;
+        console.log("this only active", this.onlyActive);
+
     }
 
 }

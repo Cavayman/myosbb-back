@@ -32,12 +32,15 @@ public class ProviderPageDtoMapper {
             providerPageDTO.setName(provider.getName());
             providerPageDTO.setDescription(provider.getDescription());
             providerPageDTO.setLogoUrl(provider.getLogoUrl());
-            if (provider.getPeriodicity()!=null)providerPageDTO.setPeriodicity(provider.getPeriodicity().toString());
-//            if(provider.getType()!=null) providerPageDTO.setType(provider.getType().getProviderTypeId());
+            if (provider.getPeriodicity()!=null) {
+                providerPageDTO.setPeriodicity(provider.getPeriodicity().toString());
+            } else providerPageDTO.setPeriodicity(Provider.DEFAULT_PERIODICITY.toString());
             providerPageDTO.setType(provider.getType());
             providerPageDTO.setEmail(provider.getEmail());
             providerPageDTO.setPhone(provider.getPhone());
             providerPageDTO.setAddress(provider.getAddress());
+            providerPageDTO.setSchedule(provider.getSchedule());
+            providerPageDTO.setActive(provider.isActive());
         } else {
             logger.error("provider is null");
         }
@@ -54,6 +57,7 @@ public class ProviderPageDtoMapper {
         provider.setName(providerPageDTO.getName());
         provider.setDescription(providerPageDTO.getDescription());
         provider.setLogoUrl(providerPageDTO.getLogoUrl());
+        if (providerPageDTO.getPeriodicity()==null) provider.setPeriodicity(Provider.DEFAULT_PERIODICITY);
         provider.setPeriodicity(Periodicity.valueOf(providerPageDTO.getPeriodicity()));
         try {
             if (providerTypeService.existsProviderType(providerPageDTO.getType().getProviderTypeId())){
@@ -69,6 +73,8 @@ public class ProviderPageDtoMapper {
         provider.setEmail(providerPageDTO.getEmail());
         provider.setPhone(providerPageDTO.getPhone());
         provider.setAddress(providerPageDTO.getAddress());
+        provider.setActive(providerPageDTO.isActive());
+        provider.setSchedule(providerPageDTO.getSchedule());
         if (providerId==null) providerService.saveProvider(provider);
         return provider;
     }

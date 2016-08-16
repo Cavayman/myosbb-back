@@ -21,7 +21,6 @@ export class CurrencyComponent {
     @Input() currentCurrency = '';
     private currencies = CURRENCIES;
 
-
     @Output() currencyChanged = new EventEmitter<string>();
 
     ngOnInit(){

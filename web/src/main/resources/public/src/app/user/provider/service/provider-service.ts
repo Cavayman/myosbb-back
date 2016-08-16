@@ -59,9 +59,19 @@ export class ProviderService {
         if (provider.providerId) {
             console.log('updating provider with id: ' + provider.providerId);
             this.put(provider);
-        }
+        } else this.addProvider(provider);
     }
 
+    addProvider(provider:Provider){
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        console.log("sending http POST to " +this.url);
+        console.log("saving ", provider);
+        return this._http.post(this.url, JSON.stringify(provider), {headers: headers})
+            .toPromise()
+            .then(()=>provider)
+            .catch((err)=>console.error(err));
+    }
     put(provider:Provider) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');

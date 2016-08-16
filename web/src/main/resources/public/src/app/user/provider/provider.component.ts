@@ -23,12 +23,13 @@ import {MailService} from "../../../shared/services/mail.sender.service";
 import {SelectItem} from "../../../shared/models/ng2-select-item.interface";
 import {HeaderComponent} from "../../header/header.component";
 import {PeriodicityItems} from "./periodicity.const";
+import {ActiveFilter} from "../../../shared/pipes/active.filter";
 
 
 @Component({
     selector: 'myosbb-provider',
     templateUrl: 'src/app/user/provider/provider-table.html',
-    pipes: [TranslatePipe, CapitalizeFirstLetterPipe],
+    pipes: [TranslatePipe, CapitalizeFirstLetterPipe, ActiveFilter],
     directives: [DROPDOWN_DIRECTIVES],
     providers: [ProviderService, MailService],
     directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, ROUTER_DIRECTIVES, ProviderTypeComponent,
@@ -37,13 +38,17 @@ import {PeriodicityItems} from "./periodicity.const";
 })
 export class ProviderComponent implements OnInit{
     private providers :  Provider[];
-    private selected : Provider =  {providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:{providerTypeId: null, providerTypeName: ''}, email:'',phone:'', address:''};
+    private selected : Provider =  {providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:{providerTypeId: null, providerTypeName: ''},
+        email:'',phone:'', address:'', schedule: '', active: false};
+        private newProvider : Provider =  {providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:{providerTypeId: null, providerTypeName: ''},
+        email:'',phone:'', address:'', schedule: '', active: false};
     private pageCreator:PageCreator<Provider>;
     private pageNumber:number = 1;
     private pageList:Array<number> = [];
     private totalPages:number;
     @ViewChild('delModal') public delModal:ModalDirective;
     @ViewChild('editModal') public editModal:ModalDirective;
+    @ViewChild('createModal') public createModal:ModalDirective;
     active:boolean = true;
     order:boolean = true;
 
@@ -68,12 +73,14 @@ export class ProviderComponent implements OnInit{
     setType(event){
         console.log("set type" + event);
         this.selected.type = event;
+        this.newProvider.type = event;
         console.log("selected.type=" + this.selected.type.providerTypeName + JSON.stringify(this.selected));
     }
 
     public onSelectPeriodicity(value:SelectItem):void {
         console.log("value: ", value);
         this.selected.periodicity = this.backToConst(value);
+        this.newProvider.periodicity = this.backToConst(value);
         console.log("set periodicity: ", this.selected.periodicity);
     }
 
@@ -221,6 +228,30 @@ export class ProviderComponent implements OnInit{
         console.log("sending...");
         this.mail = {to: "aska.fed@gmail.com", subject: "TEST", text: "Success!"};
         this._mailService.sendMail(this.mail);
+    }
+
+    onCreateProviderSubmit(){
+        this.active = false;
+        console.log("creating ", this.newProvider);
+        this._providerService.editAndSave(this.newProvider);
+        this._mailService.sendMail({
+            to: this.newProvider.email,
+            subject: 'PRIVET',
+            text: 'Welcome on the board'
+        });
+        console.log("add provider", this.newProvider);
+        this._providerService.getProviders(this.pageNumber);
+        this.getProvidersByPageNum(this.pageNumber);
+        this.createModal.hide();
+        setTimeout(() => this.active = true, 0);
+    }
+
+    closeCreateModal() {
+        console.log('closing create modal');
+        this.createModal.hide();
+    }
+    openCreateModal() {
+        this.createModal.show();
     }
 }
 
