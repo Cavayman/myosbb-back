@@ -1,6 +1,5 @@
 package com.softserve.osbb.controller;
 
-import com.softserve.osbb.config.JwtFilter;
 import com.softserve.osbb.model.User;
 import com.softserve.osbb.service.UserService;
 import io.jsonwebtoken.Claims;
@@ -22,6 +21,8 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 /**
  * Created by cavayman on 12.07.2016.
  */
+
+@CrossOrigin
 @RestController
 @RequestMapping(value = "restful/")
 public class UserController {

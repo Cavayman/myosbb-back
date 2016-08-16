@@ -20,6 +20,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
  * Created by Roman on 13.07.2016.
  */
 
+@CrossOrigin
 @RestController
 @RequestMapping("/restful")
 public class VoteController {

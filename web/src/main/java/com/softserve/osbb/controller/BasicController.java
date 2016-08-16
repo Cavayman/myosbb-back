@@ -7,15 +7,10 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.hateoas.Resource;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletException;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +19,8 @@ import java.util.Map;
 /**
  * Created by cavayman on 03.08.2016.
  */
+
+@CrossOrigin
 @RestController
 public class BasicController {
     private static Logger logger = LoggerFactory.getLogger(UserController.class);
