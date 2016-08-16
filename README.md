@@ -1,7 +1,15 @@
 # myosbb
-Our dear project.
-It was developed by the most cutiest and motivated team ever been.
-I believe that after the final demo, we will feel ourselfs real JAVA DEVELOPERS who know how things done :D
+Project “OSBB” – a web-application which is  a godsend for condominium head, managers and residents.It offers a very easy way to manage accounting and residents, events and organizational issues.It represents a simple design and great functionality that is needed  for managing.In this project you'll see the following technologies: 
+Spring Data JPA
+Spring Boot
+Spring Oauth2.0 (Jwt based)
+Hibernate
+Spring MVC 
+Spring Security 
+Liquibase
+RESTful resource server 
+Angular2 
+
 
 HOW TO RUN PROJECT 
 You need to install external libraries:
