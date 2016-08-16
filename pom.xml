@@ -102,14 +102,6 @@
                 </plugins>
             </build>
             <properties>
-                <db.connectionURL>jdbc:postgresql://fizzy-cherry.db.elephantsql.com:5432/aqzreszw</db.connectionURL>
-                <db.username>aqzreszw</db.username>
-                <db.password>Fi8O8oJfDiGcIkASAL8fR6snko57_S_T</db.password>
-            </properties>
-        </profile>
-        <profile>
-            <id>postgres</id>
-            <properties>
                 <db.connectionURL>jdbc:postgresql://localhost:5432/myosbb</db.connectionURL>
                 <db.username>postgres</db.username>
                 <db.password>postgres</db.password>
