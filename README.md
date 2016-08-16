@@ -10,6 +10,7 @@ Liquibase
 RESTful resource server 
 Angular2 
 
+***
 
 HOW TO RUN PROJECT 
 You need to install external libraries:
@@ -22,7 +23,7 @@ How to run project with profile:
 - you should add "-P" and profile name at the end of command without space
 - for example: "mvn clean install -Ppostgres"
 by default is used profile "main"
-
+***
 How to use external properties:
 - you should add "-D" and full path to property file in deployment package without space
 - for example: "mvn clean install -Dspring.config.location=/home/nataliia/myosbb1/deployment/external.properties"
