@@ -15,6 +15,7 @@ import {ProviderComponent} from "./provider/provider.component";
 import {ContractComponent} from "./contract/contract.component";
 import{ApartmentProfileComponent} from "./ApartmentProfile/apartment.profile";
 import {ProviderInfoComponent} from "./provider/provider-info";
+import {ProfileComponent} from "./profile/profile.component";
 
 
 export const userRoutes:RouterConfig = [
@@ -32,6 +33,7 @@ export const userRoutes:RouterConfig = [
            {path: 'message', component: MessageComponent},
             {path: 'report', component: UserReportComponent},
             {path: 'users', component: UsersComponent},
+            {path: 'profile', component: ProfileComponent},  
             {path: 'osbb', component: OsbbComponent},
             {path: 'role', component: RoleComponent},
             {path: 'provider', component: ProviderComponent},

@@ -1,0 +1,33 @@
+.profile{
+    width: 98%;
+    height: 90%;
+    position:relative;
+    top: -60px;
+    background-color: black;
+    opacity: 0.75;
+    overflow-y:hidden;
+    text-align: center;
+    padding: 40px 20px 20px 30px;
+    margin: 40px 20px 0px 20px; 
+    border-radius: 10px;
+
+}
+.top-label{
+    padding: 10px 0px  30px 0px;
+}
+.image{
+    margin-bottom: 100px;
+}
+.btn{
+    margin-top: 10px;
+}
+.left{height: 100%;
+}
+.right{
+    background-color: #cccccc;
+    border-radius: 6px;
+    padding: 50px 10px 50px 10px;
+}
+.right label{
+    margin-top: 20px;
+}
