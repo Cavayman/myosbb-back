@@ -2,6 +2,8 @@ package com.softserve.osbb.controller;
 
 import com.softserve.osbb.model.Osbb;
 import com.softserve.osbb.model.Report;
+import com.softserve.osbb.model.User;
+import com.softserve.osbb.service.UserService;
 import com.softserve.osbb.service.gen.InvoiceDownloadService;
 import com.softserve.osbb.service.impl.ReportServiceImpl;
 import com.softserve.osbb.util.ReportPageCreator;
@@ -38,6 +40,9 @@ public class ReportController {
 
     @Autowired
     private ReportServiceImpl reportService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private InvoiceDownloadService invoiceDownloadService;
@@ -83,7 +88,7 @@ public class ReportController {
         return new ResponseEntity<>(pageCreator, HttpStatus.OK);
     }
 
-    @RequestMapping(value="/between", method = RequestMethod.GET)
+    @RequestMapping(value = "/between", method = RequestMethod.GET)
     public ResponseEntity<List<Resource<Report>>> listReportsByDates(
             @RequestParam("dateFrom") String dateFrom,
             @RequestParam("dateTo") String dateTo
@@ -182,5 +187,16 @@ public class ReportController {
         invoiceDownloadService.download(type, httpServletResponse);
 
     }
+
+    @RequestMapping(value = "/user/{userId}/download", method = RequestMethod.GET)
+    public void download(@PathVariable("userId") Integer userId,
+                         @RequestParam(value = "type", required = true) String type,
+                         HttpServletResponse httpServletResponse) {
+        logger.info("preparing download for userId: ", userId);
+        User currentUser = userService.findOne(userId);
+        invoiceDownloadService.downloadFor(currentUser, type, httpServletResponse);
+
+    }
+
 
 }

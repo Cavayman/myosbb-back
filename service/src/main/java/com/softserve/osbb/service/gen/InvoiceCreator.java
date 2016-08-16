@@ -1,6 +1,7 @@
 package com.softserve.osbb.service.gen;
 
 import com.softserve.osbb.model.Bill;
+import com.softserve.osbb.model.User;
 import com.softserve.osbb.model.report.InvoiceModel;
 import com.softserve.osbb.repository.BillRepository;
 import net.sf.jasperreports.engine.JRDataSource;
@@ -26,13 +27,25 @@ public class InvoiceCreator {
     private static Logger logger = LoggerFactory.getLogger(InvoiceCreator.class);
 
 
-    public JRDataSource getDataSource() {
+    public JRDataSource getInvoiceModelList() {
         logger.info("fetching all bills from the database");
         List<Bill> bills = billRepository.findAll();
-        List<InvoiceModel> reportDTOList = new ArrayList<>();
-        bills.forEach((bill) -> addToReportDTOList(convertFrom(bill), reportDTOList));
-        JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(reportDTOList, false);
-        return jrBeanCollectionDataSource;
+        List<InvoiceModel> invoiceModelList = new ArrayList<>();
+        bills.forEach((bill) -> addToInvoiceModelList(convertFrom(bill), invoiceModelList));
+        JRBeanCollectionDataSource invoiceModelListDataSource = new JRBeanCollectionDataSource(invoiceModelList, false);
+        return invoiceModelListDataSource;
+    }
+
+    public JRDataSource getCurrentUserInvoiceModelList(User currentUser) {
+        if (currentUser == null) {
+            throw new IllegalArgumentException("currentUser is null");
+        }
+        logger.info("fetching all bills from the database for current user ", currentUser.getUserId());
+        List<Bill> bills = billRepository.findAllByUserId(currentUser.getUserId());
+        List<InvoiceModel> invoiceModelList = new ArrayList<>();
+        bills.forEach((bill) -> addToInvoiceModelList(convertFrom(bill), invoiceModelList));
+        JRBeanCollectionDataSource invoiceModelListDataSource = new JRBeanCollectionDataSource(invoiceModelList, false);
+        return invoiceModelListDataSource;
     }
 
     private InvoiceModel convertFrom(Bill bill) {
@@ -48,7 +61,7 @@ public class InvoiceCreator {
         return invoiceModel;
     }
 
-    private void addToReportDTOList(InvoiceModel invoiceModel, List<InvoiceModel> invoiceModels) {
+    private void addToInvoiceModelList(InvoiceModel invoiceModel, List<InvoiceModel> invoiceModels) {
         logger.info("adding report to list for " + invoiceModel.getCustomerName());
         invoiceModels.add(invoiceModel);
     }

@@ -8,9 +8,11 @@ import {
     BodyOutputType
 } from "angular2-toaster/angular2-toaster";
 import {RedirectComponent} from "./redirect.component";
+import {CurrentUserService} from "../../shared/services/current.user.service";
+import {User} from "../../shared/models/User";
 import ApiService = require("../../shared/services/api.service");
 
-let reportDownloadUrl = ApiService.serverUrl + '/restful/report/download';
+let reportUrl = ApiService.serverUrl + '/restful/report/user/';
 
 declare var saveAs: any;
 
@@ -32,17 +34,19 @@ export class FileDownloaderComponent {
     private hasError: boolean = false;
     public toasterconfig: ToasterConfig =
         new ToasterConfig({timeout: 20000});
+    private currentUser: User;
 
-    constructor(private _toasterService: ToasterService) {
+    constructor(private _toasterService: ToasterService, private _currentUserService: CurrentUserService) {
     }
 
 
     public download(docType: string) {
-
+        this.currentUser = this._currentUserService.getUser();
+        console.log('current user: ', this.currentUser.lastName);
         let self = this;
         this.pending = true;
         let xhr = new XMLHttpRequest();
-        let url = reportDownloadUrl + '?type=' + docType;
+        let url = reportUrl + this.currentUser.userId + '/download?type=' + docType;
         xhr.open('GET', url, true);
         xhr.responseType = 'blob';
         xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
