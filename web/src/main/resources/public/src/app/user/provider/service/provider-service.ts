@@ -29,6 +29,13 @@ export class ProviderService {
             .map(res => res.json())
             .catch((err)=>Observable.throw(err));
     }
+    getProvidersByState(pageNumber:number, onlyActive : boolean) : Observable<any>{
+        console.log("get only active providers inside service, pagenum" + pageNumber);
+        console.log("sending http GET to " +this.urlWithParams + pageNumber  + '&&actv=' + onlyActive);
+        return  this._http.get(this.urlWithParams + pageNumber + '&&actv=' + onlyActive)
+            .map(res => res.json())
+            .catch((err)=>Observable.throw(err));
+    }
 
     getProviderById(id: number) : Observable<any> {
         let headers = new Headers({'Content-Type': 'application/json'});
@@ -43,7 +50,11 @@ export class ProviderService {
             .map((res)=> res.json())
             .catch((err)=>Observable.throw(err));
     }
-
+    getSortedActiveProviders(pageNumber:number, name:string, order:boolean, onlyActive:boolean):Observable<any> {
+        return this._http.get(this.urlWithParams + pageNumber + '&&sortedBy=' + name + '&&asc=' + order + '&&actv=' + onlyActive)
+            .map((res)=> res.json())
+            .catch((err)=>Observable.throw(err));
+    }
     deleteProviderById(providerId:number) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');

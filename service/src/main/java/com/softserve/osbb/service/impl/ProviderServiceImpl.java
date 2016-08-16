@@ -1,7 +1,6 @@
 package com.softserve.osbb.service.impl;
 
 import com.softserve.osbb.model.Provider;
-import com.softserve.osbb.model.Report;
 import com.softserve.osbb.repository.ProviderRepository;
 import com.softserve.osbb.service.ProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,6 +98,13 @@ public class ProviderServiceImpl implements ProviderService {
         PageRequest pageRequest = new PageRequest(pageNumber - 1, DEF_ROWS,
                 getSortingOrder(order), sortBy == null ? "name" : sortBy);
         return providerRepository.findAll(pageRequest);
+    }
+
+    @Override
+    public Page<Provider> findByActiveTrue(Integer pageNumber, String sortBy, Boolean order) {
+        PageRequest pageRequest = new PageRequest(pageNumber - 1, DEF_ROWS,
+                getSortingOrder(order), sortBy == null ? "dateStart" : sortBy);
+        return providerRepository.findByActiveTrue(pageRequest);
     }
 
     public Sort.Direction getSortingOrder(Boolean order) {

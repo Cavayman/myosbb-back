@@ -52,6 +52,8 @@ export class ProviderComponent implements OnInit{
     active:boolean = true;
     order:boolean = true;
 
+    onlyActive: boolean = true;
+
     private providerId:number;
     private periodicities: SelectItem[] = [];
 
@@ -67,7 +69,7 @@ export class ProviderComponent implements OnInit{
         }
         this.getPeriodicitiesTranslation();
         console.log('readable periodicities: ', this.periodicities);
-        this.getProvidersByPageNum(this.pageNumber);
+        this.getProvidersByPageNumAndState(this.pageNumber);
     }
 
     setType(event){
@@ -108,7 +110,7 @@ export class ProviderComponent implements OnInit{
         console.log('saving provider: ' + this.selected);
         this._providerService.editAndSave(this.selected);
         console.log("save provider: ", this.selected);
-        this.getProvidersByPageNum(this.pageNumber);
+        this.getProvidersByPageNumAndState(this.pageNumber);
         this.editModal.hide();
         setTimeout(() => this.active = true, 0);
     }
@@ -127,26 +129,9 @@ export class ProviderComponent implements OnInit{
     closeDelModal() {
         console.log('delete', this.providerId);
         this._providerService.deleteProviderById(this.providerId);
-        this.getProvidersByPageNum(this.pageNumber);
+        this.getProvidersByPageNumAndState(this.pageNumber);
         this.delModal.hide();
     }
-
-    getProvidersByPageNum(pageNumber:number) {
-        console.log("getProvidersByPageNum"+ pageNumber);
-        this.pageNumber = +pageNumber;
-        this.emptyArray();
-        return this._providerService.getProviders(this.pageNumber)
-            .subscribe((data) => {
-                    this.pageCreator = data;
-                    this.providers = data.rows;
-                    this.preparePageList(+this.pageCreator.beginPage,
-                        +this.pageCreator.endPage);
-                    this.totalPages = +data.totalPages;
-                },
-                (err) => {
-                    console.error(err)
-                });
-    };
 
     getPeriodicitiesTranslation(){
         console.log("got lang",  HeaderComponent.translateService.currentLang);
@@ -177,12 +162,12 @@ export class ProviderComponent implements OnInit{
 
     prevPage() {
         this.pageNumber = this.pageNumber - 1;
-        this.getProvidersByPageNum(this.pageNumber)
+        this.getProvidersByPageNumAndState(this.pageNumber)
     }
 
     nextPage() {
         this.pageNumber = this.pageNumber + 1;
-        this.getProvidersByPageNum(this.pageNumber)
+        this.getProvidersByPageNumAndState(this.pageNumber)
     }
 
     emptyArray() {
@@ -202,7 +187,7 @@ export class ProviderComponent implements OnInit{
         this.order = !this.order;
         console.log('order by asc', this.order);
         this.emptyArray();
-        this._providerService.getSortedProviders(this.pageNumber, name, this.order)
+        this._providerService.getSortedActiveProviders(this.pageNumber, name, this.order, this.onlyActive)
             .subscribe((data) => {
                     this.pageCreator = data;
                     this.providers = data.rows;
@@ -241,7 +226,7 @@ export class ProviderComponent implements OnInit{
         });
         console.log("add provider", this.newProvider);
         this._providerService.getProviders(this.pageNumber);
-        this.getProvidersByPageNum(this.pageNumber);
+        this.getProvidersByPageNumAndState(this.pageNumber);
         this.createModal.hide();
         setTimeout(() => this.active = true, 0);
     }
@@ -252,6 +237,31 @@ export class ProviderComponent implements OnInit{
     }
     openCreateModal() {
         this.createModal.show();
+    }
+
+    getProvidersByPageNumAndState(pageNumber:number){
+        console.log("getProvidersByPageNum "+ pageNumber + "; only active=" + this.onlyActive);
+        this.pageNumber = +pageNumber;
+        this.emptyArray();
+        return this._providerService.getProvidersByState(this.pageNumber, this.onlyActive)
+            .subscribe((data) => {
+                    this.pageCreator = data;
+                    this.providers = data.rows;
+                    this.preparePageList(+this.pageCreator.beginPage,
+                        +this.pageCreator.endPage);
+                    this.totalPages = +data.totalPages;
+                },
+                (err) => {
+                    console.error(err)
+                });
+    };
+
+    onOnlyActive(){
+        this.onlyActive = !this.onlyActive;
+        console.log("change active filter, onlyActive=", this.onlyActive);
+        if (this.onlyActive == true) {console.log("listing only active providers");
+        } else {console.log("listing all providers");}
+        this.getProvidersByPageNumAndState(this.pageNumber);
     }
 }
 

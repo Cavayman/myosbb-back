@@ -42,4 +42,6 @@ public interface ProviderService {
 
     Page<Provider> getProviders(Integer pageNumber, String sortBy, Boolean order);
 
+    Page<Provider> findByActiveTrue(Integer pageNumber, String sortBy, Boolean order);
+
 }

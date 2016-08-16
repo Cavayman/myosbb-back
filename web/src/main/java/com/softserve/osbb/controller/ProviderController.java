@@ -61,10 +61,14 @@ public class ProviderController {
     public ResponseEntity<PageCreator<Resource<ProviderPageDTO>>> listAllProviders(
             @RequestParam(value = "pageNum", required = true) Integer pageNumber,
             @RequestParam(value = "sortedBy", required = false) String sortedBy,
-            @RequestParam(value = "asc", required = false) Boolean ascOrder) {
+            @RequestParam(value = "asc", required = false) Boolean ascOrder,
+            @RequestParam(value = "actv", required = false) Boolean onlyActive) {
         logger.info("getting all providers by page number: " + pageNumber);
         Page<Provider> providersByPage = providerService.getProviders(pageNumber, sortedBy, ascOrder);
-
+        if ((onlyActive == null) ? false : onlyActive) {
+            logger.warn("getting only active providers");
+            providersByPage = providerService.findByActiveTrue(pageNumber, sortedBy, ascOrder);
+        }
         int currentPage = providersByPage.getNumber() + 1;
         logger.info("current page : " + currentPage);
         int begin = Math.max(1, currentPage - 5);

@@ -2,7 +2,6 @@
 
 
 <div class="panel panel-default pos-top">
-<!--<button class="btn btn-info" (click)="onSendMessage()">TEST MAIL</button>-->
     <div class="panel-heading"><h4><i class="fa fa-angle-right"></i> {{ 'providers' | translate }}</h4></div>
 
     <div class="panel-body">
@@ -10,6 +9,13 @@
                     <div id="example_filter" class="pull-right dataTables_filter">
                         <input type="search" class="form-control input-sm" placeholder="{{ 'search' | translate }}..."  #search
                                (keyup)="onSearch(search.value)" aria-controls="example">
+                    </div>
+                    <div class="row">
+                        <div id="active_filter" class="pull-left">
+                            <input type="checkbox"
+                                   (change)="onOnlyActive()"
+                                   class="form-control input-sm" [(ngModel)]="onlyActive"> Active
+                        </div>
                     </div>
                     <table class="table table-striped table-advance table-hover">
                         <thead>

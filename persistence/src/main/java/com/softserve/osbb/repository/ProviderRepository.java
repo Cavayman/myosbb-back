@@ -1,6 +1,8 @@
 package com.softserve.osbb.repository;
 
 import com.softserve.osbb.model.Provider;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,5 +21,7 @@ public interface ProviderRepository extends JpaRepository<Provider, Integer>{
     @Query("Select provider From Provider provider where LOWER(provider.name) LIKE LOWER(CONCAT('%',:search,'%'))" +
             " or LOWER(provider.description) LIKE LOWER(CONCAT('%',:search,'%'))")
     List<Provider> findProvidersByNameOrDescription(@Param("search") String search);
+
+    Page<Provider> findByActiveTrue(Pageable pageable);
 }
 
