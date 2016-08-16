@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,10 +50,16 @@ public class ContractController {
     public ResponseEntity<PageCreator<Resource<Contract>>> listAllContracts(
             @RequestParam(value = "pageNum", required = true) Integer pageNumber,
             @RequestParam(value = "sortedBy", required = false) String sortedBy,
-            @RequestParam(value = "asc", required = false) Boolean ascOrder) {
-        logger.info("getting all contracts by page number: " + pageNumber);
-        Page<Contract> contractsByPage = contractService.getContracts(pageNumber, sortedBy, ascOrder);
+            @RequestParam(value = "asc", required = false) Boolean ascOrder,
+            @RequestParam(value = "actv", required = false) Boolean onlyActive) {
 
+        logger.info("getting all contracts by page number: " + pageNumber);
+        Page<Contract> contractsByPage = null;
+        contractsByPage = contractService.getContracts(pageNumber, sortedBy, ascOrder);
+        if ((onlyActive == null) ? false : onlyActive) {
+            logger.warn("getting only active contracts");
+            contractsByPage = contractService.findByActiveTrue(pageNumber, sortedBy, ascOrder);
+        }
         int currentPage = contractsByPage.getNumber() + 1;
         logger.info("current page : " + currentPage);
         int begin = Math.max(1, currentPage - 5);
@@ -63,7 +70,7 @@ public class ContractController {
 
         List<Resource<Contract>> resourceList = new ArrayList<>();
         contractsByPage.forEach((contract) -> {
-                resourceList.add(getContractResource(contract));
+            resourceList.add(getContractResource(contract));
         });
 
         PageCreator<Resource<Contract>> pageCreator = new PageCreator<>();
@@ -75,6 +82,43 @@ public class ContractController {
 
         return new ResponseEntity<>(pageCreator, HttpStatus.OK);
     }
+
+//    @RequestMapping(value = "/nonactive", method = RequestMethod.GET)
+//    public ResponseEntity<PageCreator<Resource<Contract>>> listNotActiveContracts(
+//            @RequestParam(value = "pageNum", required = true) Integer pageNumber,
+//            @RequestParam(value = "sortedBy", required = false) String sortedBy,
+//            @RequestParam(value = "asc", required = false) Boolean ascOrder,
+//            @RequestParam(value = "actv", required = false) Boolean onlyActive) {
+//
+//        logger.info("getting all contracts by page number: " + pageNumber);
+//        Page<Contract> contractsByPage = null;
+//        if (onlyActive == true) {
+//            contractsByPage = contractService.findByActiveTrue(pageNumber, sortedBy, ascOrder);
+//        } else {
+//            contractsByPage = contractService.getContracts(pageNumber, sortedBy, ascOrder);
+//        }
+//        int currentPage = contractsByPage.getNumber() + 1;
+//        logger.info("current page : " + currentPage);
+//        int begin = Math.max(1, currentPage - 5);
+//        logger.info("starts with: " + begin);
+//        int totalPages = contractsByPage.getTotalPages();
+//        int end = Math.min(currentPage + 5, totalPages);
+//        logger.info("ends with: " + totalPages);
+//
+//        List<Resource<Contract>> resourceList = new ArrayList<>();
+//        contractsByPage.forEach((contract) -> {
+//                resourceList.add(getContractResource(contract));
+//        });
+//
+//        PageCreator<Resource<Contract>> pageCreator = new PageCreator<>();
+//        pageCreator.setRows(resourceList);
+//        pageCreator.setCurrentPage(Integer.valueOf(currentPage).toString());
+//        pageCreator.setBeginPage(Integer.valueOf(begin).toString());
+//        pageCreator.setEndPage(Integer.valueOf(end).toString());
+//        pageCreator.setTotalPages(Integer.valueOf(totalPages).toString());
+//
+//        return new ResponseEntity<>(pageCreator, HttpStatus.OK);
+//    }
 
     @RequestMapping(value = "/find", method = RequestMethod.GET)
     public ResponseEntity<List<Resource<Contract>>> getContractsByProviderName(

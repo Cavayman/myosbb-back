@@ -58,20 +58,22 @@ export class ContractComponent implements OnInit{
 
     ngOnInit():any {
         console.log("init contract cmp");
-        this.getContractsByPageNum(this.pageNumber);
+        this.getContractsByPageNumAndState(this.pageNumber);
         console.log("on init only active", this.onlyActive);
-
     }
-
     isDateValid(date: string): boolean {
         return /\d{4}-\d{2}-\d{2}/.test(date);
     }
+
     openEditModal(contract:Contract) {
         this.selected = contract;
         console.log('selected contract: ' + this.selected.contractId);
         this.editModal.show();
     }
-
+    closeEditModal() {
+        console.log('closing edt modal');
+        this.editModal.hide();
+    }
     onEditContractSubmit() {
         this.active = false;
         console.log('saving contract: ', this.selected);
@@ -81,72 +83,66 @@ export class ContractComponent implements OnInit{
         setTimeout(() => this.active = true, 0);
     }
 
-    closeEditModal() {
-        console.log('closing edt modal');
-        this.editModal.hide();
+    openCreateModal() {
+        this.createModal.show();
     }
-
+    closeCreateModal() {
+        console.log('closing create modal');
+        this.createModal.hide();
+    }
     onCreateContractSubmit() {
         this.active = false;
         console.log("creating ", this.newContract);
         this._contractService.addContract(this.newContract);
         console.log("add contract", this.newContract);
         this._contractService.getContracts(this.pageNumber);
-        this.getContractsByPageNum(this.pageNumber);
+        this.getContractsByPageNumAndState(this.pageNumber);
         this.createModal.hide();
         setTimeout(() => this.active = true, 0);
     }
-    closeCreateModal() {
-        console.log('closing create modal');
-        this.createModal.hide();
-    }
-    
+
     openDelModal(id:number) {
         this.contractId = id;
         console.log('show', this.contractId);
         this.delModal.show();
     }
-
     closeDelModal() {
         console.log('delete', this.contractId);
         this._contractService.deleteContractById(this.contractId);
-        this.getContractsByPageNum(this.pageNumber);
+        this.getContractsByPageNumAndState(this.pageNumber);
         this.delModal.hide();
     }
 
-    getContractsByPageNum(pageNumber:number) {
-        console.log("getContractsByPageNum"+ pageNumber);
-        this.pageNumber = +pageNumber;
-        this.emptyArray();
-        return this._contractService.getContracts(this.pageNumber)
-            .subscribe((data) => {
-                    this.pageCreator = data;
-                    this.contracts = data.rows;
-                    this.preparePageList(+this.pageCreator.beginPage,
-                        +this.pageCreator.endPage);
-                    this.totalPages = +data.totalPages;
-                },
-                (err) => {
-                    console.error(err)
-                });
-    };
+    // getContractsByPageNum(pageNumber:number) {
+    //     console.log("getContractsByPageNum"+ pageNumber);
+    //     this.pageNumber = +pageNumber;
+    //     this.emptyArray();
+    //     return this._contractService.getContracts(this.pageNumber)
+    //         .subscribe((data) => {
+    //                 this.pageCreator = data;
+    //                 this.contracts = data.rows;
+    //                 this.preparePageList(+this.pageCreator.beginPage,
+    //                     +this.pageCreator.endPage);
+    //                 this.totalPages = +data.totalPages;
+    //             },
+    //             (err) => {
+    //                 console.error(err)
+    //             });
+    // };
 
     prevPage() {
         this.pageNumber = this.pageNumber - 1;
-        this.getContractsByPageNum(this.pageNumber)
+        this.getContractsByPageNumAndState(this.pageNumber)
     }
-
     nextPage() {
         this.pageNumber = this.pageNumber + 1;
-        this.getContractsByPageNum(this.pageNumber)
+        this.getContractsByPageNumAndState(this.pageNumber)
     }
-
     emptyArray() {
         while (this.pageList.length) {
             this.pageList.pop();
         }
     }
-
     preparePageList(start:number, end:number) {
         for (let i = start; i <= end; i++) {
             this.pageList.push(i);
@@ -158,7 +154,7 @@ export class ContractComponent implements OnInit{
         this.order = !this.order;
         console.log('order by asc', this.order);
         this.emptyArray();
-        this._contractService.getSortedContracts(this.pageNumber, name, this.order)
+        this._contractService.getSortedActiveContracts(this.pageNumber, name, this.order, this.onlyActive)
             .subscribe((data) => {
                     this.pageCreator = data;
                     this.contracts = data.rows;
@@ -169,10 +165,6 @@ export class ContractComponent implements OnInit{
                 (err) => {
                     console.error(err)
                 });
-    }
-
-    openCreateModal() {
-        this.createModal.show();
     }
 
     onSearch(search:string){
@@ -188,12 +180,10 @@ export class ContractComponent implements OnInit{
         this.selected.provider = provider;
         console.log("get provider ", provider);
     }
-
     selectCompany(provider: Provider){
         this.newContract.provider = provider;
         console.log("insert provider ", this.newContract.provider, provider);
     }
-
 
     selectCurrency(currency:string){
      this.selected.priceCurrency = currency;
@@ -201,10 +191,28 @@ export class ContractComponent implements OnInit{
         console.log("select currency: ", this.selected.priceCurrency);
     }
 
+    getContractsByPageNumAndState(pageNumber:number){
+        console.log("getContractsByPageNum "+ pageNumber + "; only active=" + this.onlyActive);
+        this.pageNumber = +pageNumber;
+        this.emptyArray();
+        return this._contractService.getContractsByState(this.pageNumber, this.onlyActive)
+            .subscribe((data) => {
+                    this.pageCreator = data;
+                    this.contracts = data.rows;
+                    this.preparePageList(+this.pageCreator.beginPage,
+                        +this.pageCreator.endPage);
+                    this.totalPages = +data.totalPages;
+                },
+                (err) => {
+                    console.error(err)
+                });
+    };
+
     onOnlyActive(){
         this.onlyActive = !this.onlyActive;
-        console.log("this only active", this.onlyActive);
-
+        console.log("change active filter, onlyActive=", this.onlyActive);
+        if (this.onlyActive == true) {console.log("listing only active contracts");
+        } else {console.log("listing all contracts");}
+        this.getContractsByPageNumAndState(this.pageNumber);
     }
-
 }

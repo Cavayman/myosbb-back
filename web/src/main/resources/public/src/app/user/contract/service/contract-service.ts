@@ -25,6 +25,13 @@ export class ContractService {
             .map(res => res.json())
             .catch((err)=>Observable.throw(err));
     }
+    getContractsByState(pageNumber:number, onlyActive : boolean) : Observable<any>{
+        console.log("get only active contracts inside service, pagenum" + pageNumber);
+        console.log("sending http GET to " +this.urlWithParams + pageNumber  + '&&actv=' + onlyActive);
+        return  this._http.get(this.urlWithParams + pageNumber + '&&actv=' + onlyActive)
+            .map(res => res.json())
+            .catch((err)=>Observable.throw(err));
+    }
 
     getContractById(id: number) : Observable<any> {
         console.log("ok");
@@ -33,9 +40,13 @@ export class ContractService {
                     err => console.log(err));
     }
 
-
     getSortedContracts(pageNumber:number, name:string, order:boolean):Observable<any> {
         return this._http.get(this.urlWithParams + pageNumber + '&&sortedBy=' + name + '&&asc=' + order)
+            .map((res)=> res.json())
+            .catch((err)=>Observable.throw(err));
+    }
+    getSortedActiveContracts(pageNumber:number, name:string, order:boolean, onlyActive:boolean):Observable<any> {
+        return this._http.get(this.urlWithParams + pageNumber + '&&sortedBy=' + name + '&&asc=' + order + '&&actv=' + onlyActive)
             .map((res)=> res.json())
             .catch((err)=>Observable.throw(err));
     }
@@ -85,5 +96,4 @@ export class ContractService {
             .map(res => res.json())
             .catch((err)=>Observable.throw(err));
     }
-
 }

@@ -134,6 +134,23 @@ public class ContractServiceImpl implements ContractService {
         return contractRepository.findAll(pageRequest);
     }
 
+    @Override
+    public Page<Contract> findByActiveTrue(Integer pageNumber, String sortBy, Boolean order) {
+        logger.info("contract service: getting active contracts...");
+        logger.info("params: pageNum=" + pageNumber + ", sort=" + sortBy + "order=" + order);
+        PageRequest pageRequest = new PageRequest(pageNumber - 1, DEF_ROWS,
+                getSortingOrder(order), sortBy == null ? "dateStart" : sortBy);
+        return contractRepository.findByActiveTrue(pageRequest);
+    }
+//    @Override
+//    public Page<Contract> findByActiveFalse(Integer pageNumber, String sortBy, Boolean order) {
+//        logger.info("contract service: getting contracts...");
+//        logger.info("params: pageNum=" + pageNumber + ", sort=" + sortBy + "order=" + order);
+//        PageRequest pageRequest = new PageRequest(pageNumber - 1, DEF_ROWS,
+//                getSortingOrder(order), sortBy == null ? "dateStart" : sortBy);
+//        return contractRepository.findByActiveFalse(pageRequest);
+//    }
+
     public Sort.Direction getSortingOrder(Boolean order) {
         if (order == null) {
             return Sort.Direction.DESC;
