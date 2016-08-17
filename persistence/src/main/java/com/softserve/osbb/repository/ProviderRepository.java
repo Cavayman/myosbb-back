@@ -23,5 +23,6 @@ public interface ProviderRepository extends JpaRepository<Provider, Integer>{
     List<Provider> findProvidersByNameOrDescription(@Param("search") String search);
 
     Page<Provider> findByActiveTrue(Pageable pageable);
+    List<Provider> findByActiveTrue();
 }
 

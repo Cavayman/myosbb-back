@@ -22,4 +22,5 @@ public interface ContractRepository extends JpaRepository <Contract, Integer>, J
             List<Contract> findContractsByProviderName(@Param("search") String search);
 
             Page<Contract> findByActiveTrue(Pageable pageable);
+            List<Contract> findByActiveTrue();
 }

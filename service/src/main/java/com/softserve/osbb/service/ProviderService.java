@@ -3,6 +3,7 @@ package com.softserve.osbb.service;
 import com.softserve.osbb.model.Provider;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -43,5 +44,8 @@ public interface ProviderService {
     Page<Provider> getProviders(Integer pageNumber, String sortBy, Boolean order);
 
     Page<Provider> findByActiveTrue(Integer pageNumber, String sortBy, Boolean order);
+
+    @Transactional
+    List<Provider> findByActiveTrue();
 
 }

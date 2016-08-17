@@ -107,6 +107,11 @@ public class ProviderServiceImpl implements ProviderService {
         return providerRepository.findByActiveTrue(pageRequest);
     }
 
+    @Override
+    public List<Provider> findByActiveTrue() {
+        return providerRepository.findByActiveTrue();
+    }
+
     public Sort.Direction getSortingOrder(Boolean order) {
         if (order == null) {
             return Sort.Direction.DESC;

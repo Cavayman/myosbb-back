@@ -57,4 +57,5 @@ public interface ContractService {
     List<Contract> findContractsByProviderName(String name);
 
     Page<Contract> findByActiveTrue(Integer pageNumber, String sortBy, Boolean order);
+    List<Contract> findByActiveTrue();
 }

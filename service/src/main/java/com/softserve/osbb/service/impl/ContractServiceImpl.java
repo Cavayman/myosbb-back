@@ -143,6 +143,11 @@ public class ContractServiceImpl implements ContractService {
         return contractRepository.findByActiveTrue(pageRequest);
     }
 
+    @Override
+    public List<Contract> findByActiveTrue() {
+        return contractRepository.findByActiveTrue();
+    }
+
     public Sort.Direction getSortingOrder(Boolean order) {
         if (order == null) {
             return Sort.Direction.DESC;

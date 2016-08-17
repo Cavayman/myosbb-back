@@ -7,6 +7,7 @@ import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.context.annotation.*;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -21,6 +22,7 @@ import javax.servlet.Filter;
 @SpringBootApplication
 @Import({ServiceApplication.class/*,SecurityConfiguration.class*/})
 @ComponentScan(basePackages = {"com.softserve.osbb"})
+@EnableScheduling
 public class WebAppConfiguration extends WebMvcConfigurerAdapter {
 
     public static void main(String[] args) {
