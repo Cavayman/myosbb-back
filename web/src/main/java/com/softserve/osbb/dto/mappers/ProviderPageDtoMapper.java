@@ -58,24 +58,30 @@ public class ProviderPageDtoMapper {
         provider.setDescription(providerPageDTO.getDescription());
         provider.setLogoUrl(providerPageDTO.getLogoUrl());
         if (providerPageDTO.getPeriodicity()==null) provider.setPeriodicity(Provider.DEFAULT_PERIODICITY);
-        provider.setPeriodicity(Periodicity.valueOf(providerPageDTO.getPeriodicity()));
-        try {
-            if (providerTypeService.existsProviderType(providerPageDTO.getType().getProviderTypeId())){
-                ProviderType type = providerTypeService.findOneProviderTypeById(providerPageDTO.getType().getProviderTypeId());
-                if (type != null) {
-                    logger.debug("successfully find provider type entity");
-                    provider.setType(type);
+        if (providerPageDTO.getPeriodicity() != null) {
+            provider.setPeriodicity(Periodicity.valueOf(providerPageDTO.getPeriodicity()));
+        }
+        if (providerPageDTO.getType() != null) {
+            try {
+                if (providerTypeService.existsProviderType(providerPageDTO.getType().getProviderTypeId())) {
+                    ProviderType type = providerTypeService.findOneProviderTypeById(providerPageDTO.getType().getProviderTypeId());
+                    if (type != null) {
+                        logger.debug("successfully find provider type entity");
+                        provider.setType(type);
+                    }
                 }
+            } catch (Exception e) {
+                logger.error("cannot get dto from provider" + e.getMessage());
             }
-        } catch (Exception e) {
-           logger.error("cannot get dto from provider" + e.getMessage());
         }
         provider.setEmail(providerPageDTO.getEmail());
         provider.setPhone(providerPageDTO.getPhone());
         provider.setAddress(providerPageDTO.getAddress());
         provider.setActive(providerPageDTO.isActive());
         provider.setSchedule(providerPageDTO.getSchedule());
-        if (providerId==null) providerService.saveProvider(provider);
+        if (providerId==null) {
+            providerService.saveProvider(provider);
+        }
         return provider;
     }
 }

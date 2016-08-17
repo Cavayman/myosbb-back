@@ -16,13 +16,12 @@ import {ContractComponent} from "./contract/contract.component";
 import{ApartmentProfileComponent} from "./ApartmentProfile/apartment.profile";
 import {ProviderInfoComponent} from "./provider/provider-info";
 import {ProfileComponent} from "./profile/profile.component";
-
+import {ProviderUserPageComponent} from "./provider/provider_home/provider-user-page.component";
 
 export const userRoutes:RouterConfig = [
     {
         path: 'home/user',
         children: [
-            // { path: ':id',  component: UserShowComponent },
             {path: 'main', component: UserMainComponent},
             {path: '', redirectTo: 'main', pathMatch: 'full'},
             {path: 'apartment', component: UserApartmentComponent},
@@ -30,7 +29,7 @@ export const userRoutes:RouterConfig = [
             {path: 'attachment', component: UserAttachmentComponent},
             {path: 'bill', component: UserBillComponent},
             {path: 'ticket', component: TicketComponent},
-           {path: 'message', component: MessageComponent},
+            {path: 'message', component: MessageComponent},
             {path: 'report', component: UserReportComponent},
             {path: 'users', component: UsersComponent},
             {path: 'profile', component: ProfileComponent},  
@@ -38,6 +37,7 @@ export const userRoutes:RouterConfig = [
             {path: 'role', component: RoleComponent},
             {path: 'provider', component: ProviderComponent},
             {path:'provider/info/:id', component:ProviderInfoComponent},
+            {path:'provider/info', component:ProviderUserPageComponent},
             {path: 'contract', component: ContractComponent},
             {path:'apartment/apartmentprofile/:id', component:ApartmentProfileComponent}
         ],

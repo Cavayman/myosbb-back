@@ -2372,6 +2372,10 @@ label {
     position: relative;
     top: -50px;
 }
+.pos-left {
+    position: relative;
+    left: -200px;
+}
 
     .lang-nav {
         margin-top: 10px;
@@ -2410,4 +2414,8 @@ label {
         width: 350px;
         height: 300px;
         margin-bottom: 40px;
+    }
+
+    .active-row {
+        border-color: #00A000;!important;
     }

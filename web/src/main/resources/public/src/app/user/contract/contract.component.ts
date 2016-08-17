@@ -11,7 +11,7 @@ import {PageCreator} from "../../../shared/services/page.creator.interface";
 import {Observable} from 'rxjs/Observable';
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS} from 'ng2-bootstrap/ng2-bootstrap';
 import {ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
-import {CORE_DIRECTIVES} from "@angular/common";
+import {CORE_DIRECTIVES, NgClass} from "@angular/common";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 import "rxjs/Rx";
 import {SelectProviderComponent} from "../provider/select-provider.component";
@@ -24,10 +24,11 @@ import {ActiveFilter} from "../../../shared/pipes/active.filter";
 @Component({
     selector: 'myosbb-contract',
     templateUrl: 'src/app/user/contract/contract-table.html',
+    styleUrls: ['src/app/user/contract/contract.css'],
     pipes: [TranslatePipe, CapitalizeFirstLetterPipe, ActiveFilter],
     directives: [DROPDOWN_DIRECTIVES],
     providers: [ContractService, MailService],
-    directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, ROUTER_DIRECTIVES, SelectProviderComponent, CurrencyComponent, DROPDOWN_DIRECTIVES],
+    directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, ROUTER_DIRECTIVES, SelectProviderComponent, CurrencyComponent, NgClass, DROPDOWN_DIRECTIVES],
     viewProviders: [BS_VIEW_PROVIDERS]
 })
 export class ContractComponent implements OnInit{

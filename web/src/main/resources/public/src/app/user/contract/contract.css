@@ -1,0 +1,17 @@
+
+.red {
+    color: indianred;
+}
+
+
+.yellow {
+    color: sandybrown;
+}
+
+.highlight:hover{
+    color: cornflowerblue;
+}
+
+tr.active-row {
+    bordercolor: #00A000;!important;
+}

@@ -42,6 +42,19 @@ public class ProviderPageDTO {
         this.schedule = schedule;
         this.active = active;
     }
+    public ProviderPageDTO(Integer providerId, String name,boolean active, String schedule) {
+        this.providerId = providerId;
+        this.name = name;
+//        this.description = description;
+//        this.logoUrl = logoUrl;
+        this.periodicity = periodicity != null ? periodicity.toString() : "";
+//        this.type = type;
+//        this.email = email;
+//        this.phone = phone;
+//        this.address = address;
+        this.schedule = schedule;
+        this.active = active;
+    }
 
     public String getEmail() {
         return email;

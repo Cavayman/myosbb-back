@@ -135,17 +135,23 @@ public class ProviderController {
         Resource<ProviderPageDTO> providerResource = null;
         Provider provider;
         try {
-            logger.info("updating provider by id: " + providerId);
             if (providerService.existsProvider(providerId)){
-                provider = providerService.updateProvider(providerId,
-                        ProviderPageDtoMapper.getInstance().
-                        getProviderEntityFromDto(providerService, providerTypeService, providerPageDTO));
+                Provider provider1 = providerService.findOneProviderById(providerId);
+                logger.info("updating provider by id: " + providerId);
+                provider = ProviderPageDtoMapper.getInstance().
+                        getProviderEntityFromDto(providerService, providerTypeService, providerPageDTO);
+                logger.info("id=" + provider.getProviderId() + "; name="+ provider.getName()
+                +"; desc=" + provider.getDescription()+"; per="+provider.getPeriodicity()
+                +"; add=" + provider.getAddress() + "; type=" + provider.getType()
+                + "; actv=" + provider.isActive());
+                providerService.saveProvider(provider);
                 ProviderPageDTO providerPageDto = ProviderPageDtoMapper.getInstance().
                         mapProviderEntityToDto(providerId, provider);
                 providerResource = addResourceLinkToProvider(providerPageDto);
             } else logger.error("provider not found");
         } catch (Exception e) {
             logger.error(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(providerResource, HttpStatus.OK);
     }

@@ -6,16 +6,14 @@
 
     <div class="panel-body">
                 <div class="content-panel">
+                     <div id="active_filter" class="pull-left">
+                                <input type="checkbox"
+                                       (change)="onOnlyActive()"
+                                       class="form-control input-sm" [(ngModel)]="onlyActive"> {{'active' | translate | capitalize}}
+                     </div>
                     <div id="example_filter" class="pull-right dataTables_filter">
                         <input type="search" class="form-control input-sm" placeholder="{{ 'search' | translate }}..."  #search
                                (keyup)="onSearch(search.value)" aria-controls="example">
-                    </div>
-                    <div class="row">
-                        <div id="active_filter" class="pull-left">
-                            <input type="checkbox"
-                                   (change)="onOnlyActive()"
-                                   class="form-control input-sm" [(ngModel)]="onlyActive"> Active
-                        </div>
                     </div>
                     <table class="table table-striped table-advance table-hover">
                         <thead>

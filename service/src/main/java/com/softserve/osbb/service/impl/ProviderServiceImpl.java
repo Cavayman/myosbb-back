@@ -103,7 +103,7 @@ public class ProviderServiceImpl implements ProviderService {
     @Override
     public Page<Provider> findByActiveTrue(Integer pageNumber, String sortBy, Boolean order) {
         PageRequest pageRequest = new PageRequest(pageNumber - 1, DEF_ROWS,
-                getSortingOrder(order), sortBy == null ? "dateStart" : sortBy);
+                getSortingOrder(order), sortBy == null ? "name" : sortBy);
         return providerRepository.findByActiveTrue(pageRequest);
     }
 
