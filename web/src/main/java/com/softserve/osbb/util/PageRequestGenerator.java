@@ -1,5 +1,7 @@
 package com.softserve.osbb.util;
 
+import com.softserve.osbb.model.Report;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
@@ -15,6 +17,45 @@ public class PageRequestGenerator {
     private Integer currentPage;
 
 
+    public static class PageSelector {
+        private int currentPage;
+        private int begin;
+        private int end;
+        private int totalPages;
+
+        public int getCurrentPage() {
+            return currentPage;
+        }
+
+        public void setCurrentPage(int currentPage) {
+            this.currentPage = currentPage;
+        }
+
+        public int getBegin() {
+            return begin;
+        }
+
+        public void setBegin(int begin) {
+            this.begin = begin;
+        }
+
+        public int getEnd() {
+            return end;
+        }
+
+        public void setEnd(int end) {
+            this.end = end;
+        }
+
+        public int getTotalPages() {
+            return totalPages;
+        }
+
+        public void setTotalPages(int totalPages) {
+            this.totalPages = totalPages;
+        }
+    }
+
     public static class PageRequestHolder {
         private Integer pageNumber;
         private Integer rowNum;
@@ -28,6 +69,38 @@ public class PageRequestGenerator {
         public PageRequestHolder(Integer pageNumber, Integer rowNum) {
             this(pageNumber);
             this.rowNum = rowNum;
+        }
+
+        public int getPageNumber() {
+            return pageNumber;
+        }
+
+        public void setPageNumber(int pageNumber) {
+            this.pageNumber = pageNumber;
+        }
+
+        public int getRowNum() {
+            return rowNum;
+        }
+
+        public void setRowNum(int rowNum) {
+            this.rowNum = rowNum;
+        }
+
+        public String getSortedBy() {
+            return sortedBy;
+        }
+
+        public void setSortedBy(String sortedBy) {
+            this.sortedBy = sortedBy;
+        }
+
+        public boolean isOrder() {
+            return order;
+        }
+
+        public void setOrder(boolean order) {
+            this.order = order;
         }
     }
 
@@ -63,6 +136,15 @@ public class PageRequestGenerator {
                 addSortingOrderType(),
                 addSortedByField());
         return pageRequest;
+    }
+
+    public static PageSelector generatePageSelectorData(Page<Report> reportsByPage) {
+        PageSelector pageSelector = new PageSelector();
+        pageSelector.setCurrentPage(reportsByPage.getNumber() + 1);
+        pageSelector.setBegin(Math.max(1, pageSelector.getCurrentPage() - 5));
+        pageSelector.setTotalPages(reportsByPage.getTotalPages());
+        pageSelector.setEnd(Math.min(pageSelector.getCurrentPage() + 5, pageSelector.getTotalPages()));
+        return pageSelector;
     }
 
     private String addSortedByField() {

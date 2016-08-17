@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,38 +62,60 @@ public class ReportController {
         return new ResponseEntity<>(resourceReportList, HttpStatus.OK);
     }
 
+
+    @RequestMapping(value = "/user/{userId}/all", method = RequestMethod.GET)
+    public ResponseEntity<ReportPageCreator> listAllUserReports(
+            @PathVariable("userId") Integer userId,
+            @RequestParam(value = "pageNumber", required = true) Integer pageNumber,
+            @RequestParam(value = "sortedBy", required = false) String sortedBy,
+            @RequestParam(value = "order", required = false) Boolean orderType,
+            @RequestParam(value = "rowNum", required = false) Integer rowNum
+    ) {
+        logger.info(String.format("listing all reports for user: %d , page number: %d ", userId, pageNumber));
+        final PageRequest pageRequest = PageRequestGenerator.generatePageRequest(pageNumber)
+                .addRows(rowNum)
+                .addOrderType(orderType)
+                .addSortedBy(sortedBy, "name")
+                .gen();
+        Page<Report> reportsByPage = reportService.getAllUserReports(userId, pageRequest);
+        PageRequestGenerator.PageSelector pageSelector = PageRequestGenerator
+                .generatePageSelectorData(reportsByPage);
+        List<Resource<Report>> resourceList = new ArrayList<>();
+        reportsByPage.forEach((report) -> resourceList.add(getLink(toResource(report))));
+        ReportPageCreator pageCreator = setUpPageCreator(pageSelector, resourceList);
+        return new ResponseEntity<>(pageCreator, HttpStatus.OK);
+    }
+
+
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<ReportPageCreator> listAllReports(
             @RequestParam(value = "pageNumber", required = true) Integer pageNumber,
             @RequestParam(value = "sortedBy", required = false) String sortedBy,
-            @RequestParam(value = "order", required = false) Boolean order,
+            @RequestParam(value = "order", required = false) Boolean orderType,
             @RequestParam(value = "rowNum", required = false) Integer rowNum) {
         logger.info("get all report by page number: " + pageNumber);
-
-        Page<Report> reportsByPage = reportService.getAllReports(
-                PageRequestGenerator.generatePageRequest(pageNumber)
-                        .addRows(rowNum)
-                        .addSortedBy(sortedBy, "name")
-                        .addOrderType(order)
-                        .gen());
-
-        int currentPage = reportsByPage.getNumber() + 1;
-        int begin = Math.max(1, currentPage - 5);
-        int totalPages = reportsByPage.getTotalPages();
-        int end = Math.min(currentPage + 5, totalPages);
-
+        final PageRequest pageRequest = PageRequestGenerator.generatePageRequest(pageNumber)
+                .addRows(rowNum)
+                .addSortedBy(sortedBy, "name")
+                .addOrderType(orderType)
+                .gen();
+        Page<Report> reportsByPage = reportService.getAllReports(pageRequest);
+        PageRequestGenerator.PageSelector pageSelector = PageRequestGenerator.generatePageSelectorData(reportsByPage);
         List<Resource<Report>> resourceList = new ArrayList<>();
         reportsByPage.forEach((report) -> resourceList.add(getLink(toResource(report))));
+        ReportPageCreator pageCreator = setUpPageCreator(pageSelector, resourceList);
+        return new ResponseEntity<>(pageCreator, HttpStatus.OK);
+    }
 
+    private ReportPageCreator setUpPageCreator(PageRequestGenerator.PageSelector pageSelector, List<Resource<Report>> resourceList) {
         ReportPageCreator pageCreator = new ReportPageCreator();
         pageCreator.setRows(resourceList);
-        pageCreator.setCurrentPage(Integer.valueOf(currentPage).toString());
-        pageCreator.setBeginPage(Integer.valueOf(begin).toString());
-        pageCreator.setEndPage(Integer.valueOf(end).toString());
-        pageCreator.setTotalPages(Integer.valueOf(totalPages).toString());
+        pageCreator.setCurrentPage(Integer.valueOf(pageSelector.getCurrentPage()).toString());
+        pageCreator.setBeginPage(Integer.valueOf(pageSelector.getBegin()).toString());
+        pageCreator.setEndPage(Integer.valueOf(pageSelector.getEnd()).toString());
+        pageCreator.setTotalPages(Integer.valueOf(pageSelector.getTotalPages()).toString());
         pageCreator.setDates(reportService.findDistinctCreationDates());
-
-        return new ResponseEntity<>(pageCreator, HttpStatus.OK);
+        return pageCreator;
     }
 
     @RequestMapping(value = "/between", method = RequestMethod.GET)
@@ -100,12 +123,26 @@ public class ReportController {
             @RequestParam("dateFrom") String dateFrom,
             @RequestParam("dateTo") String dateTo
     ) {
-
         LocalDate localDateFrom = CustomLocalDateTimeDeserializer.toLocalDateParse(dateFrom);
         LocalDate localDateTo = CustomLocalDateTimeDeserializer.toLocalDateParse(dateTo);
         List<Report> reportList = reportService.getAllReportsBetweenDates(localDateFrom, localDateTo);
         List<Resource<Report>> resourceReportList = new ArrayList<>();
         reportList.forEach((report) -> resourceReportList.add(getLink(toResource(report))));
+        return new ResponseEntity<>(resourceReportList, HttpStatus.OK);
+
+    }
+
+    @RequestMapping(value = "/user/{userId}/between", method = RequestMethod.GET)
+    public ResponseEntity<List<Resource<Report>>> listUserReportsByDates(
+            @PathVariable("userId") Integer userId,
+            @RequestParam(value = "dateFrom", required = true) String dateFrom,
+            @RequestParam(value = "dateTo", required = true) String dateTo
+    ) {
+        LocalDate localDateFrom = CustomLocalDateTimeDeserializer.toLocalDateParse(dateFrom);
+        LocalDate localDateTo = CustomLocalDateTimeDeserializer.toLocalDateParse(dateTo);
+        List<Report> userReportList = reportService.getAllUserReportsBetweenDates(userId, localDateFrom, localDateTo);
+        List<Resource<Report>> resourceReportList = new ArrayList<>();
+        userReportList.forEach((report) -> resourceReportList.add(getLink(toResource(report))));
         return new ResponseEntity<>(resourceReportList, HttpStatus.OK);
 
     }
@@ -160,14 +197,32 @@ public class ReportController {
 
         logger.info("fetching reportResource by search parameter: " + searchParam);
         List<Report> reportsBySearchTerm = reportService.getAlReportsBySearchParameter(searchParam);
+
         if (reportsBySearchTerm.isEmpty()) {
             logger.warn("no reports were found");
             return new ResponseEntity<>(EMPTY_LIST, HttpStatus.OK);
         }
         List<Resource<Report>> resourceReportList = new ArrayList<>();
-        reportsBySearchTerm.stream().forEach((report) -> resourceReportList.add(getLink(toResource(report))));
+        reportsBySearchTerm.forEach((report) -> resourceReportList.add(getLink(toResource(report))));
         return new ResponseEntity<>(resourceReportList, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/user/{userId}/find", method = RequestMethod.GET)
+    public ResponseEntity<List<Resource<Report>>> getUserReportsByName(
+            @PathVariable("userId") Integer userId,
+            @RequestParam(value = "searchParam",
+                    required = true) String searchParam) {
+        logger.info(String.format("listing all reports for user: %d , by search value: %s ", userId, searchParam));
+        List<Report> reportsBySearchTerm = reportService.getAllReportsByUserAndSearchParameter(userId, searchParam);
+        if (reportsBySearchTerm.isEmpty()) {
+            logger.warn("no reports were found");
+            return new ResponseEntity<>(EMPTY_LIST, HttpStatus.OK);
+        }
+        List<Resource<Report>> resourceReportList = new ArrayList<>();
+        reportsBySearchTerm.forEach((report) -> resourceReportList.add(getLink(toResource(report))));
+        return new ResponseEntity<>(resourceReportList, HttpStatus.OK);
+    }
+
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Resource<Report>> deleteReportById(@PathVariable("id") Integer reportId) {
@@ -199,7 +254,7 @@ public class ReportController {
     public void download(@PathVariable("userId") Integer userId,
                          @RequestParam(value = "type", required = true) String type,
                          HttpServletResponse httpServletResponse) {
-        logger.info("preparing download for userId: ", userId);
+        logger.info("preparing download for userId: " + userId);
         User currentUser = userService.findOne(userId);
         invoiceDownloadService.downloadFor(currentUser, type, httpServletResponse);
 

@@ -84,6 +84,22 @@
           }
         ]
       }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/17-01",
+        "author": "nazar",
+        "changes": [
+          {
+            "addNotNullConstraint": {
+              "columnDataType": "VARCHAR(255)",
+              "columnName": "name",
+              "schemaName": "public",
+              "tableName": "report"
+            }
+          }
+        ]
+      }
     }
   ]
 }

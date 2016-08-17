@@ -17,10 +17,43 @@ export class ReportService {
     private getReportBySearchParamURL = ApiService.serverUrl + '/restful/report/find?searchParam=';
     private headers = new Headers({'Authorization': 'Bearer ' + localStorage.getItem('token')});
 
+    private getReportsByUserUrl = ApiService.serverUrl + '/restful/report/user/';
+
     constructor(private _http: Http) {
         this.headers.append('Content-Type', 'application/json');
     }
 
+
+    //for current logged-in user
+    getAllUserReports(userId: number, pageNumber: number, selectedRow: number): Observable<any> {
+        return this._http.get(this.getReportsByUserUrl + userId + '/all?pageNumber=' + pageNumber + '&&rowNum=' + selectedRow
+            , {headers: this.headers})
+            .map((response)=> response.json())
+            .catch((error)=>Observable.throw(error));
+    }
+
+    getAllUserReportsSorted(userId: number, pageNumber: number, name: string, order: boolean): Observable<any> {
+        return this._http.get(this.getReportsByUserUrl + userId + '/all?pageNumber=' + pageNumber + '&&sortedBy=' + name + '&&order=' + order, {headers: this.headers})
+            .map((response)=> response.json())
+            .catch((error)=>Observable.throw(error));
+    }
+
+    searchUserReportsByInputParam(userId: number, value: string): Observable<any> {
+        return this._http.get(this.getReportsByUserUrl + userId + "/find?searchParam=" + value, {headers: this.headers})
+            .map((response)=>response.json())
+            .catch((error)=>Observable.throw(error));
+    }
+
+    searchUserReportsByDates(userId: number, dateFrom: string, dateTo: string): Observable<any> {
+        return this._http.get(this.getReportsByUserUrl + userId + "/between?"
+            + 'dateFrom=' + dateFrom + '&&'
+            + 'dateTo=' + dateTo, {headers: this.headers})
+            .map((response)=>response.json())
+            .catch((error)=>Observable.throw(error));
+    }
+
+
+    // for admin
     getAllReports(pageNumber: number, selectedRow: number): Observable<any> {
         return this._http.get(this.getReportByPageNumberUr + pageNumber + '&&rowNum=' + selectedRow, {headers: this.headers})
             .map((response)=> response.json())

@@ -25,9 +25,15 @@ public interface ReportService {
 
     List<Report> getAlReportsBySearchParameter(String searchTerm) throws Exception;
 
+    List<Report> getAllReportsByUserAndSearchParameter(Integer userId, String searchParam);
+
     Page<Report> getAllReports(PageRequest pageRequest);
 
-    List<Report> getAllReportsBetweenDates(LocalDate from, LocalDate to) throws Exception;
+    Page<Report> getAllUserReports(Integer userId, PageRequest pageRequest);
+
+    List<Report> getAllReportsBetweenDates(LocalDate from, LocalDate to);
+
+    List<Report> getAllUserReportsBetweenDates(Integer userId, LocalDate from, LocalDate to);
 
     List<Report> findByDate(LocalDate dateToFind);
 

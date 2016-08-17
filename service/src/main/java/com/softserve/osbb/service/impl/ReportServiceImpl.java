@@ -1,7 +1,9 @@
 package com.softserve.osbb.service.impl;
 
 import com.softserve.osbb.model.Report;
+import com.softserve.osbb.model.User;
 import com.softserve.osbb.repository.ReportRepository;
+import com.softserve.osbb.repository.UserRepository;
 import com.softserve.osbb.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by nazar.dovhyy on 09.07.2016.
@@ -23,6 +26,9 @@ public class ReportServiceImpl implements ReportService {
 
     @Autowired
     private ReportRepository reportRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public Report addReport(Report report) {
@@ -67,6 +73,25 @@ public class ReportServiceImpl implements ReportService {
                 reportRepository.getAllReportsBySearchParam(searchTerm);
     }
 
+    @Override
+    public List<Report> getAllReportsByUserAndSearchParameter(Integer currentUserID, String searchParam) {
+        User currentUser = userRepository.findOne(currentUserID);
+        if (currentUser == null) {
+            return EMPTY_LIST;
+        }
+        List<Report> filteredReportList = getFilteredUserReports(searchParam, currentUser);
+        return filteredReportList;
+    }
+
+    private List<Report> getFilteredUserReports(String searchParam, User currentUser) {
+        List<Report> reportsByUser = reportRepository.findByUser(currentUser);
+        return reportsByUser.stream()
+                .filter((p) -> p.getDescription() != null ?
+                        p.getDescription().contains(searchParam) || p.getName().contains(searchParam) :
+                        p.getName().contains(searchParam))
+                .collect(Collectors.toList());
+    }
+
 
     @Override
     public List<Report> findByDate(LocalDate dateToFind) {
@@ -105,10 +130,26 @@ public class ReportServiceImpl implements ReportService {
         return reportRepository.findAll(pageRequest);
     }
 
+    @Override
+    public Page<Report> getAllUserReports(Integer userId, PageRequest pageRequest) {
+        User currentUser = userRepository.findOne(userId);
+        Page<Report> reportPageByUser = reportRepository.findByUser(currentUser, pageRequest);
+        return reportPageByUser;
+    }
+
 
     @Override
     public List<Report> getAllReportsBetweenDates(LocalDate from, LocalDate to) {
         return reportRepository.getAllReportsBetweenDates(from, to);
+    }
+
+    @Override
+    public List<Report> getAllUserReportsBetweenDates(Integer userId, LocalDate from, LocalDate to) {
+        User currentUser = userRepository.findOne(userId);
+        if (currentUser == null) {
+            return EMPTY_LIST;
+        }
+        return reportRepository.getAllUserReportsBetweenDates(currentUser, from, to);
     }
 
 

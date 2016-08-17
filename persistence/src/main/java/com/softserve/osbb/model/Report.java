@@ -116,7 +116,7 @@ public class Report implements Serializable {
         this.osbb = osbb;
     }
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne()
     @JsonIgnore
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     public User getUser() {
