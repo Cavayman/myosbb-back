@@ -70,19 +70,17 @@
                 </dependencies>
             </plugin>
 
-            <!-- Liquibase maven plugin (use for generateChangeLog and clearCheckSums) -->
+            <!-- Liquibase -->
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <version>${liquibase-maven-plugin.version}</version>
                 <configuration>
                     <outputChangeLogFile>db.changelog-master.json</outputChangeLogFile>
-                    <url>jdbc:postgresql://fizzy-cherry.db.elephantsql.com:5432/aqzreszw</url>
-                    <username>aqzreszw</username>
-                    <password>Fi8O8oJfDiGcIkASAL8fR6snko57_S_T</password>
-                    <!--<url>jdbc:postgresql://localhost:5432/myosbb</url>-->
-                    <!--<username>postgres</username>-->
-                    <!--<password>postgres</password>-->
+                    <driver>org.postgresql.Driver</driver>
+                    <url>${db.connectionURL}</url>
+                    <username>${db.username}</username>
+                    <password>${db.password}</password>
                 </configuration>
                 <executions>
                     <execution>
