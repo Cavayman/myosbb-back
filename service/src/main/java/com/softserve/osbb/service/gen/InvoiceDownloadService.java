@@ -30,8 +30,8 @@ import java.util.Map;
 public class InvoiceDownloadService {
 
     protected static Logger logger = LoggerFactory.getLogger(InvoiceDownloadService.class);
-    public static final String TEMPLATE_ALL = "/reportTemplate/invoice_all.jrxml";
-    public static final String TEMPLATE_CURRENT = "/reportTemplate/invoice_single.jrxml";
+    private static final String TEMPLATE_ALL = "/reportTemplate/invoice_all.jrxml";
+    private static final String TEMPLATE_CURRENT = "/reportTemplate/invoice_single.jrxml";
 
     @Autowired
     private InvoiceCreator invoiceCreator;

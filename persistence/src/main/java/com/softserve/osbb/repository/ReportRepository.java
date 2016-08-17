@@ -2,6 +2,9 @@ package com.softserve.osbb.repository;
 
 
 import com.softserve.osbb.model.Report;
+import com.softserve.osbb.model.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -29,5 +32,7 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
 
     @Query("select distinct r.creationDate from Report r")
     List<LocalDate> findDistinctCreationDates();
+
+    Page<Report> findByUser(User user, Pageable pageable);
 
 }

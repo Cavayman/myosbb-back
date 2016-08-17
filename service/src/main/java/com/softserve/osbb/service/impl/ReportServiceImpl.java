@@ -6,7 +6,6 @@ import com.softserve.osbb.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -102,18 +101,10 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public Page<Report> getAllReports(Integer pageNumber, Integer rowNum, String sortBy, Boolean order) {
-        PageRequest pageRequest = new PageRequest(pageNumber - 1, rowNum == null ? DEF_ROWS : rowNum,
-                getSortingOrder(order), sortBy == null ? "creationDate" : sortBy);
+    public Page<Report> getAllReports(PageRequest pageRequest) {
         return reportRepository.findAll(pageRequest);
     }
 
-    public Sort.Direction getSortingOrder(Boolean order) {
-        if (order == null) {
-            return Sort.Direction.DESC;
-        }
-        return order == true ? Sort.Direction.ASC : Sort.Direction.DESC;
-    }
 
     @Override
     public List<Report> getAllReportsBetweenDates(LocalDate from, LocalDate to) {

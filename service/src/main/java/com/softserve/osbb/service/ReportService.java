@@ -2,6 +2,7 @@ package com.softserve.osbb.service;
 
 import com.softserve.osbb.model.Report;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -24,6 +25,8 @@ public interface ReportService {
 
     List<Report> getAlReportsBySearchParameter(String searchTerm) throws Exception;
 
+    Page<Report> getAllReports(PageRequest pageRequest);
+
     List<Report> getAllReportsBetweenDates(LocalDate from, LocalDate to) throws Exception;
 
     List<Report> findByDate(LocalDate dateToFind);
@@ -36,5 +39,4 @@ public interface ReportService {
 
     List<Report> getAllReports();
 
-    Page<Report> getAllReports(Integer pageNumber, Integer rowNum, String sortedBy, Boolean ascOrder);
 }

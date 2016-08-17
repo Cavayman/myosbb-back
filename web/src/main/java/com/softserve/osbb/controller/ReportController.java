@@ -6,6 +6,7 @@ import com.softserve.osbb.model.User;
 import com.softserve.osbb.service.UserService;
 import com.softserve.osbb.service.gen.InvoiceDownloadService;
 import com.softserve.osbb.service.impl.ReportServiceImpl;
+import com.softserve.osbb.util.PageRequestGenerator;
 import com.softserve.osbb.util.ReportPageCreator;
 import com.softserve.osbb.util.ResourceNotFoundException;
 import com.softserve.osbb.utils.CustomLocalDateTimeDeserializer;
@@ -67,7 +68,13 @@ public class ReportController {
             @RequestParam(value = "order", required = false) Boolean order,
             @RequestParam(value = "rowNum", required = false) Integer rowNum) {
         logger.info("get all report by page number: " + pageNumber);
-        Page<Report> reportsByPage = reportService.getAllReports(pageNumber, rowNum, sortedBy, order);
+
+        Page<Report> reportsByPage = reportService.getAllReports(
+                PageRequestGenerator.generatePageRequest(pageNumber)
+                        .addRows(rowNum)
+                        .addSortedBy(sortedBy, "name")
+                        .addOrderType(order)
+                        .gen());
 
         int currentPage = reportsByPage.getNumber() + 1;
         int begin = Math.max(1, currentPage - 5);

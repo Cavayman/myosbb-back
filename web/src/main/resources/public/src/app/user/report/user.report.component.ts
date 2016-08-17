@@ -118,6 +118,7 @@ export class UserReportComponent implements OnInit, OnDestroy {
                     this.dates = data.dates;
                 },
                 (error) => {
+                    this.pending = false;
                     console.error(error)
                 });
     };
