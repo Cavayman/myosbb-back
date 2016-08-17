@@ -1,3 +1,4 @@
+import {RouterConfig,RouterOutlet} from "@angular/router";
 import {Component, OnInit} from '@angular/core';
 import {CORE_DIRECTIVES} from '@angular/common';
 import {HTTP_PROVIDERS} from "@angular/http";
@@ -13,11 +14,30 @@ import { TicketEditFormComponent } from './ticket_form/ticket-edit-form.componen
 import { TicketDelFormComponent } from './ticket_form/ticket-del-form.component';
 import { MessageComponent } from './message/message.component';
 import { MessageService } from './message/message.service';
+import {Router} from '@angular/router';
+import { RouteConfig, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+
+@RouteConfig( [
+    {
+        path: 'home/user/ticket/',
+        children: [
+            {path: '/message/:id',      name: 'messages',   component: MessageComponent},
+            {path: '', component: MessageComponent}
+        ],
+        component: TicketComponent,
+    }
+]);
+
+/**
+@RouteConfig([
+  {path: '/message/:id',      name: 'messages',   component: MessageComponent},
+  {path: '/ticket/message',      name: 'messages2',   component: MessageComponent}
+])*/
 @Component({
     selector: 'ticket',
     templateUrl: './src/app/user/ticket/ticket.component.html',
     providers: [HTTP_PROVIDERS, TicketService],
-    directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, TicketAddFormComponent, TicketEditFormComponent, TicketDelFormComponent],
+    directives: [RouterOutlet, ROUTER_DIRECTIVES,MODAL_DIRECTIVES, CORE_DIRECTIVES, TicketAddFormComponent, TicketEditFormComponent, TicketDelFormComponent],
     viewProviders: [BS_VIEW_PROVIDERS]
 })
 export class TicketComponent implements OnInit { 
@@ -27,9 +47,9 @@ export class TicketComponent implements OnInit {
     updatedTicket:ITicket;
     messageArr:IMessage[];
     message:Message;
+messageComponent: MessageComponent;
 
-
-    constructor( private ticketService: TicketService) {
+    constructor( private ticketService: TicketService,private router: Router) {
         this.ticketArr = [];
         this.messageArr = [];
       //  this.messageService = MessageService;
@@ -40,6 +60,7 @@ export class TicketComponent implements OnInit {
        this.ticketService.getAllTicket()      
      .then(ticketArr => this.ticketArr = ticketArr)
       .then(ticketArr => this.met());       
+       
     }
 
 private met():void{
@@ -100,7 +121,7 @@ private met():void{
 
      getAllMessages(ticket:ITicket): void {
        console.log("iiiiiiiiiiiiiii");
-       this.ticketService.getAllMessages(ticket).then(messageArr => this.messageArr = messageArr);
+       this.messageService.getAllMessages(ticket.ticketId).then(messageArr => this.messageArr = messageArr);
        console.log(this.messageArr.length);
        
     }
@@ -112,10 +133,18 @@ private met():void{
         console.log(this.message.idTicket+"    "+this.message.message);
 
 
-        this.ticketService.addMessage(this.message);//.then(message => this.addMess(ticket,message));
+        this.messageService.addMessage(this.message);//.then(message => this.addMess(ticket,message));
     }
 
    private addMess(ticket:ITicket,message:IMessage):void{
        ticket.message.push(message);
     }
+
+ singleTicket(ticketId:number):void{
+      console.log("ticketId : "+ ticketId);
+     this.router.navigate( ['messages', {id:ticketId}] );
+      console.log("singleTicket method in ticket component");
+       
+    }
+  
 }

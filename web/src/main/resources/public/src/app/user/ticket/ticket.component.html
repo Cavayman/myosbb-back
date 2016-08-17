@@ -3,12 +3,13 @@
     <div class="panel-body">
         <div class="content-panel">
               <div class="ui segment form">
-                     <button  (click)="addForm.openAddModal()"><i>Добавити Обговорення</i></button>
+                     <button  class="btn btn-success" (click)="addForm.openAddModal()"><i>Добавити Обговорення</i></button>
                      <ticket-add-form (created)="createTicket($event)" #addForm></ticket-add-form>
                      <ticket-edit-form [ticket]="updatedTicket" (update)="editTicket($event)" #editForm></ticket-edit-form>
                      <ticket-del-form  (delete)="deleteTicket($event)" #delForm></ticket-del-form>
-                          <message (showMessage)="initMessage($event)" #message></message>
+                         <!-- <message (showMessage)="initMessage($event)" #message></message>-->
              </div>
+           
             <div id="example_filter" class="pull-right dataTables_filter">
                 <input type="search" class="form-control input-sm" placeholder="пошук..." aria-controls="example">
             </div>
@@ -25,8 +26,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of ticketArr"><!--<a style="cursor: pointer" (click)="message.initMessage(item)">-->
-                        <td>{{item.name}}</td>
+                    <tr *ngFor="let item of ticketArr"> <!--[routerLink]="['message']" -->
+             <td><a  style="cursor: pointer" (click)="singleTicket(item.ticketId)"> {{item.name}}</a></td>
                         <td>{{item.description}}</td>
                          <td>{{item.state}}</td>
                          <td>{{item.time}}</td>
@@ -43,18 +44,8 @@
                                 </ul>
                             </div>
                         </td>
-                        <div>
-                        <textarea type="text" name="description" #description></textarea>
-                        <textarea type="text" name="message" #message></textarea>
-                         <button >
-                             <a style="cursor: pointer" (click)="addMessage(item.ticketId,description.value,message.value)">Comment</a>
-                         </button>
-                        </div>
-                      <!--<tr *ngFor="let mess of messageArr">
-                         //    <td>{{mess.description}}</td>
-                         //    <td>{{mess.message}}</td>
-                       // </tr>
-                    -->
+                        
+                     
                     </tr>
                    
                 </tbody>

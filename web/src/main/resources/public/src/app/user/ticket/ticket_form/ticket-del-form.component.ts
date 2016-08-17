@@ -12,8 +12,7 @@ import {ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
 export class TicketDelFormComponent {
     @Output() delete: EventEmitter<ITicket>;
     private ticket: ITicket;
-    @ViewChild('delModal')
-    delModal:ModalDirective;
+    @ViewChild('delModal') delModal:ModalDirective;
 
     openDelModal(ticket:ITicket): void {
         this.ticket = ticket;

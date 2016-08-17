@@ -135,7 +135,7 @@ public class Ticket {
         this.assigned = assigned;
     }
 
-    @OneToMany(mappedBy = "ticket",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "ticket",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public Collection<Message> getMessages() {
         return messages;
     }

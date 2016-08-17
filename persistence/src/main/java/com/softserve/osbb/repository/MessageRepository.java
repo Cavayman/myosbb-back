@@ -1,6 +1,5 @@
 package com.softserve.osbb.repository;
 
-
 import com.softserve.osbb.model.Message;
 import com.softserve.osbb.model.Ticket;
 import org.springframework.data.jpa.repository.JpaRepository;

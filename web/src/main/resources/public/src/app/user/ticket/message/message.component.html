@@ -1,6 +1,68 @@
-<div class="panel panel-default pos-top">
+HIIIIII
+
+<!--<div class="panel panel-default pos-top">
     <div class="panel-heading"><h4><i class="fa fa-angle-right"></i>Обговорення</h4></div>
     <div class="panel-body">
-   COMMENTS
+        <div class="content-panel">
+            <div id="example_filter" class="pull-right dataTables_filter">
+                <input type="search" class="form-control input-sm" placeholder="пошук..." aria-controls="example">
+            </div>
+            <table class="table table-striped table-advance table-hover">
+                <thead>
+                    <tr>
+                        <th class="sorting"><i class="fa fa-bullhorn"> </i> Назва
+                            <a style="{cursor:pointer}" (click)="sortBy('name')"><span
+                                    class="fa fa-fw fa-sort pull-left"></span></a>
+                        </th>
+                        <th class="sorting"><i class=" fa fa-edit"></i> Опис
+                        <th class="sorting"><i class=" fa fa-edit"></i> Статус
+                         <th class="sorting"><i class=" fa fa-edit"></i> Дата
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                         <td>{{ticket.name}}</td>
+                         <td>{{ticket.description}}</td>
+                         <td>{{ticket.state}}</td>
+                         <td>{{ticket.time}}</td>
+                       <br/>
+                  <!-- Messages       
+                        <div>
+                        <textarea type="text" name="description" #description></textarea>
+                        <textarea type="text" name="message" #message></textarea>
+                         <button >
+                             <a style="cursor: pointer" (click)="addMessage(item.ticketId,description.value,message.value)">Comment</a>
+                         </button>
+                        </div>
+
+                        <div>
+                            
+                        </div>
+                      <!--<tr *ngFor="let mess of messageArr">
+                         //    <td>{{mess.description}}</td>
+                         //    <td>{{mess.message}}</td>
+                       // </tr>
+                    
+                    </tr>
+                   
+                </tbody>
+            </table>
+        </div>
+        <nav class="pull-right" aria-label="Page navigation">
+            <ul class="pagination">
+                <li [ngStyle]="{'display': pageNumber == 1? 'none' : ''}">
+                    <a (click)="prevPage()" style="cursor: pointer" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li [ngClass]="{'active': num == pageNumber}" *ngFor="let num of pageList"><a
+                        style="cursor: pointer" (click)="getReportsByPageNum(num)">{{num}}</a></li>
+                <li [ngStyle]="{'display': pageNumber == totalPages? 'none' : ''}">
+                    <a (click)="nextPage()" style="cursor: pointer" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
-</div>
+</div>-->
