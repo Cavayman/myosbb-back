@@ -1,0 +1,23 @@
+.vote-box {
+    width:900px;
+    margin: 0 auto;
+    padding: 10px;
+    background: whitesmoke;
+    border-top:1px solid slategray;
+    border-bottom:1px solid slategray;
+}
+
+.question {
+    margin-bottom: 5px;
+}
+.respondents {
+    margin-top:10px;
+}
+.result-box {
+    width:900px;
+    margin: 0 auto;
+    background: floralwhite;
+}
+ul {
+    padding: 0px 40px;
+}

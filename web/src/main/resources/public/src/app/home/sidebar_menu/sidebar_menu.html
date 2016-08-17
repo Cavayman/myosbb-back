@@ -1,6 +1,39 @@
-<aside>
-    <div id="sidebar" class="nav-collapse ">
-        <!-- sidebar menu start-->
+<aside>       
+        <div id="sidebar" class="nav-collapse">
+            <!-- sidebar menu start-->
+            <ul class="sidebar-menu" id="nav-accordion">
+                <li class="sub-menu">
+                    <a [routerLink]="['Houses']">
+                        <i class="fa fa-home fa-fw fa-4x"></i>
+                        <span>Будинки</span>
+                    </a>
+                </li>
+                <li class="sub-menu">
+                    <a [routerLink]="['events']">
+                        <i class="fa fa-user"></i>
+                        <span>Івенти</span>
+                    </a>
+                </li>
+                <li class="sub-menu">
+                    <a [routerLink]="['providers']">
+                        <i class="fa fa-building-o"></i>
+                        <span>Провайдери</span>
+                    </a>
+                </li>
+                <li class="sub-menu">
+                    <a [routerLink]="['ticket']">
+                        <i class="fa fa-building-o"></i>
+                        <span>Tікети</span>
+                    </a>
+                </li>
+            </ul>
+            <!-- sidebar menu end-->
+        </div>
+    </aside>
+
+<!--
+<aside>       
+    <div id="sidebar" class="nav-collapse">
         <ul class="sidebar-menu" id="nav-accordion">
             <li class="sub-menu">
                 <a [routerLink]="['houses']">
@@ -27,6 +60,6 @@
                 </a>
             </li>
         </ul>
-        <!-- sidebar menu end-->
     </div>
 </aside>
+-->

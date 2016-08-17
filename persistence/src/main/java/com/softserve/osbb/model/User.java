@@ -167,8 +167,8 @@ public class User  //implements UserDetails
         this.gender = gender;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     public List<Vote> getVotes() {
         return votes;
     }
@@ -245,12 +245,23 @@ public class User  //implements UserDetails
 //        this.roles = roles;
 //    }
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_option",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "option_id", referencedColumnName = "option_id")
-    )
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+    
     @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name="user_option",
+            joinColumns = @JoinColumn(name="user_id", referencedColumnName="user_id"),
+            inverseJoinColumns = @JoinColumn(name="option_id", referencedColumnName="option_id")
+    )
     public List<Option> getOptions() {
         return options;
     }
@@ -268,6 +279,5 @@ public class User  //implements UserDetails
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
     }
-
 
 }

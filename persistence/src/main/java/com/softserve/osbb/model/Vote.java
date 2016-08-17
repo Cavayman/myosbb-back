@@ -1,5 +1,6 @@
 package com.softserve.osbb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -50,8 +51,9 @@ public class Vote {
         this.time = time;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     public User getUser() {
         return user;
     }
@@ -60,6 +62,8 @@ public class Vote {
         this.user = user;
     }
 
+   // @JsonIgnore
+    //@JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "vote")
     public List<Option> getOptions() {
         return options;
@@ -84,8 +88,6 @@ public class Vote {
         return "Vote{" +
                 "voteId=" + voteId +
                 ", description='" + description + '\'' +
-                ", time=" + time +
-                ", user=" + user +
                 '}';
     }
 }

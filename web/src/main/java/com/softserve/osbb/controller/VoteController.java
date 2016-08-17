@@ -1,6 +1,12 @@
 package com.softserve.osbb.controller;
 
+import com.softserve.osbb.dto.VoteDTO;
+import com.softserve.osbb.dto.VoteDTOMapper;
+import com.softserve.osbb.model.Option;
+import com.softserve.osbb.model.User;
 import com.softserve.osbb.model.Vote;
+import com.softserve.osbb.service.OptionService;
+import com.softserve.osbb.service.UserService;
 import com.softserve.osbb.service.VoteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,10 +36,26 @@ public class VoteController {
     @Autowired
     private VoteService voteService;
 
-    @RequestMapping(value = "/vote", method = RequestMethod.POST)
-    public ResponseEntity<Resource<Vote>> createVote(@RequestBody Vote vote) {
-        logger.info("Add vote" + vote);
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private OptionService optionService;
+
+
+    @RequestMapping(value = "/vote/{id}", method = RequestMethod.POST)
+    public ResponseEntity<Resource<Vote>> createVote(@RequestBody Vote vote,
+                                                     @PathVariable("id") Integer userId) {
+        logger.info("Add vote: " + vote);
+        User user = userService.findOne(userId);
+        user.getVotes().add(vote);
+        vote.setUser(user);
         vote = voteService.addVote(vote);
+        userService.save(user);
+        for(Option option: vote.getOptions()) {
+            option.setVote(vote);
+            optionService.addOption(option);
+        }
         return new ResponseEntity<>(addResourceLinkToVote(vote), HttpStatus.OK);
     }
 
@@ -45,11 +67,15 @@ public class VoteController {
     }
 
     @RequestMapping(value = "/vote", method = RequestMethod.GET)
-    public ResponseEntity<List<Resource<Vote>>> getAllVotes() {
+    public ResponseEntity<List<Resource<VoteDTO>>> getAllVotes() {
         logger.info("Get all votes.");
         List<Vote> voteList = voteService.getAllVotes();
-        final List<Resource<Vote>> resourceVoteList = new ArrayList<>();
-        for(Vote v: voteList) {
+        List<VoteDTO> voteDTOList = new ArrayList<>();
+        for(Vote vote: voteList) {
+            voteDTOList.add(VoteDTOMapper.mapVoteEntityToDTO(vote));
+        }
+        final List<Resource<VoteDTO>> resourceVoteList = new ArrayList<>();
+        for(VoteDTO v: voteDTOList) {
             resourceVoteList.add(addResourceLinkToVote(v));
         }
         return new ResponseEntity<>(resourceVoteList, HttpStatus.OK);
@@ -84,7 +110,13 @@ public class VoteController {
                 .withSelfRel());
         return voteResource;
     }
-
-
+    private Resource<VoteDTO> addResourceLinkToVote(VoteDTO vote) {
+        if (vote == null) return null;
+        Resource<VoteDTO> voteResource = new Resource<>(vote);
+        voteResource.add(linkTo(methodOn(VoteController.class)
+                .getVoteById(vote.getVoteId()))
+                .withSelfRel());
+        return voteResource;
+    }
 
 }

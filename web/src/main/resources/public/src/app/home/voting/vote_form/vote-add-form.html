@@ -11,17 +11,17 @@
  
              <div class="modal-body option-box">
                 <div class="form-group">
-                	<input class="form-control" type="text" placeholder="Тема опитування" required #questionInput ><br><br>
+                	<input class="form-control" type="text" placeholder="Введіть тему опитування" required #questionInput ><br><br>
                     <input type="text" class="optionInput" placeholder="Введіть варіант відповіді" #optionInput/>
                     <button type="button" (click)="addOption(optionInput.value); optionInput.value=''">Додати варіант</button>
                         <ul>
-                            <li *ngFor="let option of optionArr"> {{option}}</li>
+                            <li *ngFor="let option of optionArr"> {{option.description}}</li>
                         </ul>
                  </div>
             </div>
             <div class="modal-footer">
                 <label class="checkbox-inline"><input type="checkbox"  #checkBox>Приватне опитування</label>
-                <button type="button" (click)="onCreateVoting(questionInput.value, checkBox.value);questionInput.value='';addVoteModal.hide()" class="btn btn-default">
+                <button type="button" (click)="onCreateVoting(questionInput.value, checkBox.checked);questionInput.value='';addVoteModal.hide()" class="btn btn-default">
                     Створити
                 </button>
             </div>

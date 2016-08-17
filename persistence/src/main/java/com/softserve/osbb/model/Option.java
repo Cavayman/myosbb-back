@@ -1,9 +1,11 @@
 package com.softserve.osbb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,7 +14,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "option")
-public class Option {
+public class Option implements Serializable{
 
     private Integer optionId;
     private String description;
@@ -40,8 +42,11 @@ public class Option {
         this.description = description;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "vote_id")
+    // @JsonBackReference
+    //@XmlTransient
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "vote_id", nullable = false)
     public Vote getVote() {
         return vote;
     }
@@ -50,7 +55,12 @@ public class Option {
         this.vote = vote;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "options")
+    /*@JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "options")*/
+    //@ManyToMany(mappedBy = "options")
+
+
+    @ManyToMany(mappedBy = "options")
     public List<User> getUsers() {
         return users;
     }
@@ -74,7 +84,6 @@ public class Option {
         return "Option{" +
                 "optionId=" + optionId +
                 ", description='" + description + '\'' +
-                ", vote=" + vote +
                 '}';
     }
 }

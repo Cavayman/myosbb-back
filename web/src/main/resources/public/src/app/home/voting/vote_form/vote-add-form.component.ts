@@ -1,8 +1,9 @@
-import { Component, Output, Input, EventEmitter, OnInit, ViewChild } from '@angular/core';
+import { Component, Output, EventEmitter, ViewChild } from '@angular/core';
 import {CORE_DIRECTIVES} from '@angular/common';
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS} from 'ng2-bootstrap/ng2-bootstrap';
 import {ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
 import {Vote} from '../vote';
+import {Option} from '../option';
 
 @Component({
     selector: 'vote-add-form',
@@ -11,12 +12,14 @@ import {Vote} from '../vote';
     directives:[MODAL_DIRECTIVES, CORE_DIRECTIVES],
     viewProviders: [BS_VIEW_PROVIDERS]
 })
-export class VoteAddFormComponent implements OnInit{
+export class VoteAddFormComponent {
+
+    optionArr:Option[];
     @Output() create: EventEmitter<Vote>;
 
     @ViewChild('addVoteModal')
     addVoteModal:ModalDirective;
-    optionArr:string[];
+
     openAddModal() {
         this.addVoteModal.show();  
     }
@@ -25,33 +28,25 @@ export class VoteAddFormComponent implements OnInit{
         this.create = new EventEmitter<Vote>();
         this.optionArr = [];
     }
+
     addOption(option:string):void {
         if(this.optionArr.length <= 9){
-            this.optionArr.push(option);
+            let opt = new Option();
+            opt.description = option;
+            opt.users = [];
+            this.optionArr.push(opt);
         } else{
             console.log("arr is full.Can't add enymore.");
-        }
-            
-    }
-
-    ngOnInit() {
-       
-    }
-
-    toggleCheckBox() {
-        
+        }     
     }
 
     onCreateVoting(question: string, isPrivate: boolean):void {
-        console.log("isPrivate: " + isPrivate);
         let vote = new Vote();
         vote.isPrivate = isPrivate;
-        vote.question = question;
+        vote.description = question;
         vote.options = this.optionArr;
+        vote.usersId = [];
         this.optionArr = [];
-        console.log("arrlength" + this.optionArr.length);
-
-       // console.log("Object:  name="  + vote.question +"    opp: " +vote.options.toString());
         this.create.emit(vote);
     }
 }

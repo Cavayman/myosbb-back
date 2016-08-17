@@ -1,6 +1,11 @@
+import {Option} from './option';
+
 export class Vote {
+    voteId: number;
+    description: string;
     isPrivate: boolean;
-    question: string;
-    options: string[];
-    
+    available: boolean;
+    options: Option[];
+    usersId: number[];
+    numberOfRespondents: number;
 }
