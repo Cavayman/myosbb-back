@@ -79,6 +79,11 @@
       "includeAll": {
         "path": "classpath:/db/changelog/vote/"
       }
+    },
+    {
+      "includeAll": {
+        "path": "classpath:/db/changelog/defoult.input/"
+      }
     }
   ]
 }
