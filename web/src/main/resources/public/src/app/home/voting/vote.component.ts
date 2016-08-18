@@ -5,6 +5,7 @@ import {Option} from './option';
 import {VoteService} from './vote.service';
 import {OptionService} from './option.service';
 import {User} from './user';
+import {CurrentUserService} from "../../../shared/services/current.user.service";
 
 
 @Component({
@@ -19,10 +20,15 @@ export class VoteComponent implements OnInit {
     @ViewChild('voteAddForm')
     voteAddForm:VoteAddFormComponent;
     voteArr: Vote[];
-    userId:number = 1; //          XXXXXXXXXXXXXXXXXXXXXXXXXX  userId;
+    currentUser: User;
 
-    constructor(private voteService:VoteService, private optionService:OptionService) {
+    constructor(private voteService:VoteService, private optionService:OptionService, private currentUserService:CurrentUserService) {
         this.voteArr = [];
+        this.currentUser = currentUserService.getUser();
+        if(this.currentUser.userId===undefined) {                   //    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX fix this before demo
+            console.log("userId is undefined. userId = 1");
+            this.currentUser.userId = 1;
+        }
     }
 
     ngOnInit() {
@@ -35,7 +41,7 @@ export class VoteComponent implements OnInit {
 
     checkForUserId(): void {
         for(let i = 0; i < this.voteArr.length; i++) {
-            this.voteArr[i].available = this.voteArr[i].usersId.includes(this.userId);
+            this.voteArr[i].available = this.voteArr[i].usersId.includes(this.currentUser.userId);
         }
     }
 
@@ -52,14 +58,14 @@ export class VoteComponent implements OnInit {
     toScoreOption(option: Option, vote: Vote):void {
         if(vote.numberOfRespondents === undefined) vote.numberOfRespondents = 0 ;
         vote.numberOfRespondents++;
-        option.users.push(new User());// XXXXXXXXXXXXXXXXXXXXX add empty User
+        option.users.push(this.currentUser);
         vote.available = true;
         this.calcProgressForVote(vote);
-        this.optionService.toScoreOption(option.optionId, this.userId);
+        this.optionService.toScoreOption(option.optionId, this.currentUser.userId);
     }
 
     createVote(vote: Vote): void {
-        this.voteService.addVote(vote, this.userId).then(vote => this.addVote(vote));
+        this.voteService.addVote(vote, this.currentUser.userId).then(vote => this.addVote(vote));
     }
 
     private addVote(vote: Vote): void {
