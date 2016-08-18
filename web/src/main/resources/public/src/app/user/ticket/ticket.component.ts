@@ -15,8 +15,10 @@ import { TicketDelFormComponent } from './ticket_form/ticket-del-form.component'
 import { MessageComponent } from './message/message.component';
 import { MessageService } from './message/message.service';
 import {Router} from '@angular/router';
+import {TranslatePipe} from "ng2-translate";
+import {CapitalizeFirstLetterPipe} from "../../../shared/pipes/capitalize-first-letter";
 import { RouteConfig, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
-
+/**
 @RouteConfig( [
     {
         path: 'home/user/ticket/',
@@ -27,7 +29,7 @@ import { RouteConfig, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
         component: TicketComponent,
     }
 ]);
-
+*/
 /**
 @RouteConfig([
   {path: '/message/:id',      name: 'messages',   component: MessageComponent},
@@ -38,21 +40,19 @@ import { RouteConfig, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
     templateUrl: './src/app/user/ticket/ticket.component.html',
     providers: [HTTP_PROVIDERS, TicketService],
     directives: [RouterOutlet, ROUTER_DIRECTIVES,MODAL_DIRECTIVES, CORE_DIRECTIVES, TicketAddFormComponent, TicketEditFormComponent, TicketDelFormComponent],
-    viewProviders: [BS_VIEW_PROVIDERS]
+    viewProviders: [BS_VIEW_PROVIDERS],
+     pipes: [TranslatePipe, CapitalizeFirstLetterPipe]
 })
 export class TicketComponent implements OnInit { 
     
     messageService: MessageService;
-    ticketArr:ITicket[];
+    ticketArr:ITicket[]=[];
     updatedTicket:ITicket;
-    messageArr:IMessage[];
+    messageArr:IMessage[]=[];
     message:Message;
 messageComponent: MessageComponent;
 
     constructor( private ticketService: TicketService,private router: Router) {
-        this.ticketArr = [];
-        this.messageArr = [];
-      //  this.messageService = MessageService;
     }
     
     ngOnInit() {
@@ -140,9 +140,9 @@ private met():void{
        ticket.message.push(message);
     }
 
- singleTicket(ticketId:number):void{
-      console.log("ticketId : "+ ticketId);
-     this.router.navigate( ['messages', {id:ticketId}] );
+ singleTicket(id:number){
+      console.log("ticketId : "+ id);
+     this.router.navigate( ['messages',id]);
       console.log("singleTicket method in ticket component");
        
     }

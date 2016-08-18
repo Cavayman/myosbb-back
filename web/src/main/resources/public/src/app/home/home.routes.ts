@@ -6,6 +6,7 @@ import {TicketComponent} from "../user/ticket/ticket.component";
 import {UserEventComponent} from "../user/event/user.event.component";
 import {HouseTableComponent} from "../house/house.table.component";
 import {HouseShowComponent} from "../house/house.show.component";
+import {MessageComponent} from "../user/ticket/message/message.component";
 export const homeRoutes: RouterConfig = [
     {
         path: 'home',
@@ -18,7 +19,8 @@ export const homeRoutes: RouterConfig = [
             {path: 'osbb', component: OsbbComponent},
             {path: 'provider', component: ProviderComponent},
             {path: 'houses', component: HouseTableComponent},
-            {path: 'house/:id', component: HouseShowComponent}
+            {path: 'house/:id', component: HouseShowComponent},
+            {path: 'message/:id', component: MessageComponent}
         ]
     },
 

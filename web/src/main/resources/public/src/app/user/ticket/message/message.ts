@@ -1,6 +1,6 @@
 
 import {DatePipe} from '@angular/common' ;
-import { ITicket,Ticket } from '..//..//ticket/ticket' ;
+import { ITicket,Ticket } from '../../ticket/ticket' ;
 
 export interface IMessage {
     messageId: number;

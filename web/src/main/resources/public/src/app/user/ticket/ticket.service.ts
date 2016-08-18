@@ -13,7 +13,7 @@ export class TicketService {
     private postUrl:string = ApiService.serverUrl + '/restful/ticket';
     private putUrl:string = ApiService.serverUrl + '/restful/ticket/';
     private getUrl:string = ApiService.serverUrl + '/restful/ticket/';
-
+    private getOneUrl:string = ApiService.serverUrl + '/restful/ticket/';
 
 
     constructor(private http: Http) { }
@@ -27,6 +27,17 @@ export class TicketService {
                  .then(res => res.json())
                  .catch(this.handleError);
                 }
+
+     getTicketbyId(ticketId:number):Promise<ITicket[]> {
+        console.log("service Get one ticket with id "+ ticketId);        
+        let headers = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
+        headers.append('Content-Type', 'application/json');
+        let url = `${this.getOneUrl}/${ticketId}`;
+        return this.http.get(url,{headers:headers})
+                 .toPromise()
+                 .then(res => res.json())
+                 .catch(this.handleError);
+                }           
 
     addTicket(ticket:ITicket): Promise<ITicket> {
 let headers = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
@@ -64,7 +75,6 @@ let headers = new Headers({'Authorization': 'Bearer '+localStorage.getItem('toke
         console.log('HandleError', error);
         return Promise.reject(error.message || error);
     }
-///////////////////////////////////message///////////////////////////////////////////////
 
 
 }
