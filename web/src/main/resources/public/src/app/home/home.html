@@ -1,28 +1,29 @@
 <div class="container-fluid custom-container">
-<osbb-header [isLoggedIn]="isLoggedIn"></osbb-header>
-<osbb-sidebar-menu></osbb-sidebar-menu>
-      <div class="row row-box">
-            <div class="col-lg-4 col-md-4 col-sm-4 logo">  
+    <osbb-header [isLoggedIn]="isLoggedIn"></osbb-header>
+    <osbb-sidebar-menu></osbb-sidebar-menu>
+    <router-outlet></router-outlet>
+    <div class="row row-box">
+        <div class="col-lg-4 col-md-4 col-sm-4 logo">
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-4 info-box">
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-4 calendar">
+        </div>
+    </div>
+    <div class="row row-box">
+        <div class="col-lg-10 col-lg-offset-2">
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    Опції
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a style="cursor: pointer" (click)="voteVar.openModalWindow()">Додати голосування</a></li>
+                    <li><a style="cursor: pointer" (click)="printHello()">Написати привіт в консоль</a></li>
+                </ul>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-4 info-box">  
-            </div>
-            <div class="col-lg-5 col-md-5 col-sm-4 calendar">
-            </div>
-      </div>
-      <div class="row row-box">
-            <div class="col-lg-10 col-lg-offset-2">
-                  <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
-                              data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                              Опції
-                              <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                              <li><a style="cursor: pointer" (click)="voteVar.openModalWindow()">Додати голосування</a></li>
-                              <li><a style="cursor: pointer" (click)="printHello()">Написати привіт в консоль</a></li>
-                        </ul>    
-                  </div>
-                  <vote  #voteVar></vote>
-            </div>
-      </div>
+            <vote #voteVar></vote>
+        </div>
+    </div>
 </div>
