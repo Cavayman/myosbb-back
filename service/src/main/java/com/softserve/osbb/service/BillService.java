@@ -22,6 +22,8 @@ public interface BillService {
 
     List<Bill> findAllBills();
 
+    List<Bill> findAllByUserId(Integer userId);
+
     void deleteBill(Bill bill);
 
     void deleteBillByID(Integer id);

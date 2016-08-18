@@ -2,6 +2,7 @@ package com.softserve.osbb.service.impl;
 
 import com.softserve.osbb.model.Bill;
 import com.softserve.osbb.repository.BillRepository;
+import com.softserve.osbb.repository.UserRepository;
 import com.softserve.osbb.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,10 @@ import java.util.List;
  */
 
 @Service
-public class BillServiceImpl implements BillService{
+public class BillServiceImpl implements BillService {
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     BillRepository billRepository;
@@ -41,6 +45,11 @@ public class BillServiceImpl implements BillService{
     @Override
     public List<Bill> findAllBills() {
         return billRepository.findAll();
+    }
+
+    @Override
+    public List<Bill> findAllByUserId(Integer userId) {
+        return billRepository.findAllByUserId(userId);
     }
 
     @Override

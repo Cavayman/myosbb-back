@@ -6,13 +6,18 @@ import com.softserve.osbb.model.User;
 import com.softserve.osbb.service.UserService;
 import com.softserve.osbb.service.gen.InvoiceDownloadService;
 import com.softserve.osbb.service.impl.ReportServiceImpl;
+import com.softserve.osbb.util.PageRequestGenerator;
 import com.softserve.osbb.util.ReportPageCreator;
 import com.softserve.osbb.util.ResourceNotFoundException;
+import com.softserve.osbb.util.resources.EntityResourceList;
+import com.softserve.osbb.util.resources.ReportResourceList;
+import com.softserve.osbb.util.resources.ResourceLinkCreator;
 import com.softserve.osbb.utils.CustomLocalDateTimeDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.softserve.osbb.util.ResourceUtil.toResource;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 
 /**
  * Created by nazar.dovhyy on 09.07.2016.
@@ -55,51 +59,93 @@ public class ReportController {
             logger.warn("no reportList were found in the list: " + reportList);
             return new ResponseEntity<>(EMPTY_LIST, HttpStatus.OK);
         }
-        final List<Resource<Report>> resourceReportList = new ArrayList<>();
-        reportList.stream().forEach((report) -> resourceReportList.add(getLink(toResource(report))));
-        return new ResponseEntity<>(resourceReportList, HttpStatus.OK);
+        final EntityResourceList<Report> reportResourceLinkList = new ReportResourceList();
+        reportList.forEach((report) -> reportResourceLinkList.add(toResource(report)));
+        return new ResponseEntity<>(reportResourceLinkList, HttpStatus.OK);
     }
+
+
+    @RequestMapping(value = "/user/{userId}/all", method = RequestMethod.GET)
+    public ResponseEntity<ReportPageCreator> listAllUserReports(
+            @PathVariable("userId") Integer userId,
+            @RequestParam(value = "pageNumber", required = true) Integer pageNumber,
+            @RequestParam(value = "sortedBy", required = false) String sortedBy,
+            @RequestParam(value = "order", required = false) Boolean orderType,
+            @RequestParam(value = "rowNum", required = false) Integer rowNum
+    ) {
+        logger.info(String.format("listing all reports for user: %d , page number: %d ", userId, pageNumber));
+        final PageRequest pageRequest = PageRequestGenerator.generatePageRequest(pageNumber)
+                .addRows(rowNum)
+                .addOrderType(orderType)
+                .addSortedBy(sortedBy, "name")
+                .gen();
+        Page<Report> reportsByPage = reportService.getAllUserReports(userId, pageRequest);
+        PageRequestGenerator.PageSelector pageSelector = PageRequestGenerator
+                .generatePageSelectorData(reportsByPage);
+        EntityResourceList<Report> reportResourceLinkList = new ReportResourceList();
+        reportsByPage.forEach((report) -> reportResourceLinkList.add(toResource(report)));
+        ReportPageCreator pageCreator = setUpPageCreator(pageSelector, reportResourceLinkList);
+        return new ResponseEntity<>(pageCreator, HttpStatus.OK);
+    }
+
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<ReportPageCreator> listAllReports(
             @RequestParam(value = "pageNumber", required = true) Integer pageNumber,
             @RequestParam(value = "sortedBy", required = false) String sortedBy,
-            @RequestParam(value = "order", required = false) Boolean order,
+            @RequestParam(value = "order", required = false) Boolean orderType,
             @RequestParam(value = "rowNum", required = false) Integer rowNum) {
         logger.info("get all report by page number: " + pageNumber);
-        Page<Report> reportsByPage = reportService.getAllReports(pageNumber, rowNum, sortedBy, order);
-
-        int currentPage = reportsByPage.getNumber() + 1;
-        int begin = Math.max(1, currentPage - 5);
-        int totalPages = reportsByPage.getTotalPages();
-        int end = Math.min(currentPage + 5, totalPages);
-
-        List<Resource<Report>> resourceList = new ArrayList<>();
-        reportsByPage.forEach((report) -> resourceList.add(getLink(toResource(report))));
-
-        ReportPageCreator pageCreator = new ReportPageCreator();
-        pageCreator.setRows(resourceList);
-        pageCreator.setCurrentPage(Integer.valueOf(currentPage).toString());
-        pageCreator.setBeginPage(Integer.valueOf(begin).toString());
-        pageCreator.setEndPage(Integer.valueOf(end).toString());
-        pageCreator.setTotalPages(Integer.valueOf(totalPages).toString());
-        pageCreator.setDates(reportService.findDistinctCreationDates());
-
+        final PageRequest pageRequest = PageRequestGenerator.generatePageRequest(pageNumber)
+                .addRows(rowNum)
+                .addSortedBy(sortedBy, "name")
+                .addOrderType(orderType)
+                .gen();
+        Page<Report> reportsByPage = reportService.getAllReports(pageRequest);
+        PageRequestGenerator.PageSelector pageSelector = PageRequestGenerator.generatePageSelectorData(reportsByPage);
+        EntityResourceList<Report> reportResourceLinkList = new ReportResourceList();
+        reportsByPage.forEach((report) -> reportResourceLinkList.add(toResource(report)));
+        ReportPageCreator pageCreator = setUpPageCreator(pageSelector, reportResourceLinkList);
         return new ResponseEntity<>(pageCreator, HttpStatus.OK);
     }
 
+    private ReportPageCreator setUpPageCreator(PageRequestGenerator.PageSelector pageSelector, List<Resource<Report>> resourceList) {
+        ReportPageCreator pageCreator = new ReportPageCreator();
+        pageCreator.setRows(resourceList);
+        pageCreator.setCurrentPage(Integer.valueOf(pageSelector.getCurrentPage()).toString());
+        pageCreator.setBeginPage(Integer.valueOf(pageSelector.getBegin()).toString());
+        pageCreator.setEndPage(Integer.valueOf(pageSelector.getEnd()).toString());
+        pageCreator.setTotalPages(Integer.valueOf(pageSelector.getTotalPages()).toString());
+        pageCreator.setDates(reportService.findDistinctCreationDates());
+        return pageCreator;
+    }
+
     @RequestMapping(value = "/between", method = RequestMethod.GET)
-    public ResponseEntity<List<Resource<Report>>> listReportsByDates(
+    public ResponseEntity<EntityResourceList<Report>> listReportsByDates(
             @RequestParam("dateFrom") String dateFrom,
             @RequestParam("dateTo") String dateTo
     ) {
-
         LocalDate localDateFrom = CustomLocalDateTimeDeserializer.toLocalDateParse(dateFrom);
         LocalDate localDateTo = CustomLocalDateTimeDeserializer.toLocalDateParse(dateTo);
         List<Report> reportList = reportService.getAllReportsBetweenDates(localDateFrom, localDateTo);
-        List<Resource<Report>> resourceReportList = new ArrayList<>();
-        reportList.forEach((report) -> resourceReportList.add(getLink(toResource(report))));
-        return new ResponseEntity<>(resourceReportList, HttpStatus.OK);
+        EntityResourceList<Report> reportResourceLinkList = new ReportResourceList();
+        reportList.forEach((report) -> reportResourceLinkList.add(toResource(report)));
+        return new ResponseEntity<>(reportResourceLinkList, HttpStatus.OK);
+
+    }
+
+    @RequestMapping(value = "/user/{userId}/between", method = RequestMethod.GET)
+    public ResponseEntity<EntityResourceList<Report>> listUserReportsByDates(
+            @PathVariable("userId") Integer userId,
+            @RequestParam(value = "dateFrom", required = true) String dateFrom,
+            @RequestParam(value = "dateTo", required = true) String dateTo
+    ) {
+        LocalDate localDateFrom = CustomLocalDateTimeDeserializer.toLocalDateParse(dateFrom);
+        LocalDate localDateTo = CustomLocalDateTimeDeserializer.toLocalDateParse(dateTo);
+        List<Report> userReportList = reportService.getAllUserReportsBetweenDates(userId, localDateFrom, localDateTo);
+        EntityResourceList<Report> reportResourceLinkList = new ReportResourceList();
+        userReportList.forEach((report) -> reportResourceLinkList.add(toResource(report)));
+        return new ResponseEntity<>(reportResourceLinkList, HttpStatus.OK);
 
     }
 
@@ -107,10 +153,11 @@ public class ReportController {
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<Resource<Report>> createReport(@RequestBody Report report) {
         Resource<Report> reportResource;
-        logger.info("saving reportResource object " + report);
+        logger.info("saving report ");
         report = reportService.addReport(report);
-        logger.info("fetching back: " + report);
-        reportResource = getLink(toResource(report));
+        logger.info("fetching back: " + report.getReportId());
+        ResourceLinkCreator<Report> reportResourceLinkCreator = new ReportResourceList();
+        reportResource = reportResourceLinkCreator.createLink(toResource(report));
         return new ResponseEntity<>(reportResource, HttpStatus.OK);
     }
 
@@ -118,7 +165,12 @@ public class ReportController {
     public ResponseEntity<Resource<Report>> getReportById(@PathVariable("id") Integer reportId) {
         logger.info("fetching reportResource by id: " + reportId);
         Report report = reportService.getReportById(reportId);
-        Resource<Report> reportResource = getLink(toResource(report));
+        if (report == null) {
+            logger.error("report was not found with id" + report.getReportId());
+            throw new ReportNotFoundException();
+        }
+        ResourceLinkCreator<Report> reportResourceLinkCreator = new ReportResourceList();
+        Resource<Report> reportResource = reportResourceLinkCreator.createLink(toResource(report));
         return new ResponseEntity<>(reportResource, HttpStatus.OK);
     }
 
@@ -128,39 +180,46 @@ public class ReportController {
         Resource<Report> reportResource;
         logger.info("updating reportResource by id: " + report.getReportId());
         report = reportService.updateReport(report.getReportId(), report);
-        reportResource = getLink(toResource(report));
+        if (report == null) {
+            logger.error("report was not deleted with id" + report.getReportId());
+            throw new ReportNotFoundException();
+        }
+        ResourceLinkCreator<Report> reportResourceLinkCreator = new ReportResourceList();
+        reportResource = reportResourceLinkCreator.createLink(toResource(report));
         return new ResponseEntity<>(reportResource, HttpStatus.OK);
     }
 
-    private Resource<Report> getLink(Resource<Report> reportResource) {
-        //adding self-link
-        reportResource.add(linkTo(methodOn(ReportController.class)
-                .getReportById(reportResource.getContent().getReportId()))
-                .withSelfRel());
-        //adding link to osbb
-        final Osbb osbbFromResource = reportResource.getContent().getOsbb();
-        if (osbbFromResource != null) {
-            reportResource.add(linkTo(methodOn(OsbbController.class)
-                    .getOsbbById(osbbFromResource
-                            .getOsbbId())).withRel("osbb"));
-        }
-        return reportResource;
-    }
 
     @RequestMapping(value = "/find", method = RequestMethod.GET)
     public ResponseEntity<List<Resource<Report>>> getReportsByName(@RequestParam(value = "searchParam",
             required = true) String searchParam) {
-
         logger.info("fetching reportResource by search parameter: " + searchParam);
         List<Report> reportsBySearchTerm = reportService.getAlReportsBySearchParameter(searchParam);
         if (reportsBySearchTerm.isEmpty()) {
             logger.warn("no reports were found");
             return new ResponseEntity<>(EMPTY_LIST, HttpStatus.OK);
         }
-        List<Resource<Report>> resourceReportList = new ArrayList<>();
-        reportsBySearchTerm.stream().forEach((report) -> resourceReportList.add(getLink(toResource(report))));
-        return new ResponseEntity<>(resourceReportList, HttpStatus.OK);
+        EntityResourceList<Report> reportResourceLinkList = new ReportResourceList();
+        reportsBySearchTerm.forEach((report) -> reportResourceLinkList.add(toResource(report)));
+        return new ResponseEntity<>(reportResourceLinkList, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/user/{userId}/find", method = RequestMethod.GET)
+    public ResponseEntity<List<Resource<Report>>> getUserReportsByName(
+            @PathVariable("userId") Integer userId,
+            @RequestParam(value = "searchParam",
+                    required = true) String searchParam) {
+        logger.info(String.format("listing all reports for user: %d , by search value: %s ", userId, searchParam));
+        List<Report> reportsBySearchTerm = reportService.getAllReportsByUserAndSearchParameter(userId, searchParam);
+        if (reportsBySearchTerm.isEmpty()) {
+            logger.warn("no reports were found");
+            return new ResponseEntity<>(EMPTY_LIST, HttpStatus.OK);
+        }
+        EntityResourceList<Report> reportResourceLinkList = new ReportResourceList();
+        reportsBySearchTerm.forEach((report) -> reportResourceLinkList.add(toResource(report)));
+        return new ResponseEntity<>(reportResourceLinkList, HttpStatus.OK);
+    }
+
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Resource<Report>> deleteReportById(@PathVariable("id") Integer reportId) {
@@ -168,7 +227,7 @@ public class ReportController {
         final boolean isDeletedReport = reportService.deleteReportById(reportId);
         if (!isDeletedReport) {
             logger.warn("report with id: " + reportId + " wasn't deleted as not existed");
-            throw new ResourceNotFoundException();
+            throw new ReportNotFoundException();
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -192,11 +251,14 @@ public class ReportController {
     public void download(@PathVariable("userId") Integer userId,
                          @RequestParam(value = "type", required = true) String type,
                          HttpServletResponse httpServletResponse) {
-        logger.info("preparing download for userId: ", userId);
+        logger.info("preparing download for userId: " + userId);
         User currentUser = userService.findOne(userId);
         invoiceDownloadService.downloadFor(currentUser, type, httpServletResponse);
 
     }
 
+    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Report not found")
+    private class ReportNotFoundException extends RuntimeException {
+    }
 
 }

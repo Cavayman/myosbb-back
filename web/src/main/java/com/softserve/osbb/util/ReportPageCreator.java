@@ -3,7 +3,6 @@ package com.softserve.osbb.util;
 import com.softserve.osbb.model.Report;
 import org.springframework.hateoas.Resource;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +20,9 @@ public class ReportPageCreator extends PageCreator<Resource<Report>> {
 
     public void setDates(List<LocalDate> dates) {
         this.dates = new ArrayList<>();
-        dates.forEach((date) -> this.dates.add(date.toString()));
+        if (dates != null) {
+            dates.stream().filter((d) -> d != null).
+                    forEach((date) -> this.dates.add(date.toString()));
+        }
     }
 }

@@ -11,6 +11,8 @@ import {SELECT_DIRECTIVES} from "ng2-select";
 import {TranslatePipe} from "ng2-translate";
 import {CapitalizeFirstLetterPipe} from "../../../shared/pipes/capitalize-first-letter";
 import {DateTimePickerDirective} from "ng2-datetime-picker";
+import {CurrentUserService} from "../../../shared/services/current.user.service";
+import {User} from "../../../shared/models/User";
 
 
 @Component({
@@ -46,9 +48,11 @@ export class UserReportComponent implements OnInit, OnDestroy {
     private onSearch: boolean = false;
     private rows: number[] = [10, 20, 50];
     private selectedRow: number = 10;
+    private currentUser: User;
 
-    constructor(private _reportService: ReportService, private sanitizer: DomSanitizationService) {
-
+    constructor(private _reportService: ReportService, private sanitizer: DomSanitizationService,
+                private _currentUserService: CurrentUserService) {
+        this.currentUser = new User(this._currentUserService.getUser());
     }
 
     onClickShowOptional() {
@@ -95,6 +99,7 @@ export class UserReportComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): any {
+        console.log('current user: ', this.currentUser.lastName);
         this.getReportsByPageNum(this.pageNumber, this.selectedRow);
     }
 
@@ -107,7 +112,8 @@ export class UserReportComponent implements OnInit, OnDestroy {
         this.pageNumber = +pageNumber;
         this.pending = true;
         this.selectedRow = +selectedRow;
-        return this._reportService.getAllReports(this.pageNumber, this.selectedRow)
+        return this._reportService.getAllUserReports(this.currentUser.userId,
+            this.pageNumber, this.selectedRow)
             .subscribe((data) => {
                     this.pending = false;
                     this.pageCreator = data;
@@ -118,13 +124,14 @@ export class UserReportComponent implements OnInit, OnDestroy {
                     this.dates = data.dates;
                 },
                 (error) => {
+                    this.pending = false;
                     console.error(error)
                 });
     };
 
 
     selectRowNum(row: number) {
-        this.getReportsByPageNum(this.pageNumber, this.selectedRow);
+        this.getReportsByPageNum(this.pageNumber, row);
     }
 
 
@@ -168,7 +175,7 @@ export class UserReportComponent implements OnInit, OnDestroy {
         console.log('sorted by ', name);
         this.order = !this.order;
         console.log('order by asc', this.order);
-        this._reportService.getAllReportsSorted(this.pageNumber, name, this.order)
+        this._reportService.getAllUserReportsSorted(this.currentUser.userId, this.pageNumber, name, this.order)
             .subscribe((data) => {
                     this.pageCreator = data;
                     this.reports = data.rows;
@@ -222,8 +229,9 @@ export class UserReportComponent implements OnInit, OnDestroy {
     onClickSearchByDates() {
         this.searchOptional.hide();
         if (this.dateTo && this.dateFrom) {
-            this._reportService.searchByDates(this.dateFrom, this.dateTo)
+            this._reportService.searchUserReportsByDates(this.currentUser.userId, this.dateFrom, this.dateTo)
                 .subscribe((data)=> {
+                        this.onSearch = true;
                         this.reports = data;
                         this.preparePageList(this.pageNumber, this.pageNumber);
                     },
@@ -238,7 +246,7 @@ export class UserReportComponent implements OnInit, OnDestroy {
     onClickSearchByParam(value: string) {
         if (value.trim().length) {
             console.log('search by ', value);
-            this._reportService.searchByInputParam(value)
+            this._reportService.searchUserReportsByInputParam(this.currentUser.userId, value)
                 .subscribe((data)=> {
                         this.onSearch = true;
                         this.reports = data;
