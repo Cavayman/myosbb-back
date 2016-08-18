@@ -4,10 +4,13 @@ hr{
 }
 .container{
     margin:5px auto 0 auto;
+	position:absolute;
+	top:57px;
 }
 .registration-form{
     width:50%;
-    margin-left:25%
+    margin-left:36%;
+
 }
 .form-header{
     text-align: center;
