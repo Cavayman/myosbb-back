@@ -110,6 +110,7 @@ export class UserAttachmentComponent implements OnInit, OnDestroy {
     closeDelModal() {
         console.log('delete', this.attachmentId);
         this._attachmentService.deleteAttachmentById(this.attachmentId);
+        this._attachmentService.getAllAttachments(this.pageNumber);
         this.getAttachmentsByPageNum(this.pageNumber);
         this.delModal.hide();
     }
@@ -121,6 +122,7 @@ export class UserAttachmentComponent implements OnInit, OnDestroy {
     closeDelAllModal() {
         console.log('delete all');
         this._attachmentService.deleteAllAttachments();
+        this._attachmentService.getAllAttachments(this.pageNumber);
         this.getAttachmentsByPageNum(this.pageNumber);
         this.delAllModal.hide();
     }

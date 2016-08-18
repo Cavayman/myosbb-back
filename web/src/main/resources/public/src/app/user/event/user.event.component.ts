@@ -66,7 +66,7 @@ export class UserEventComponent implements OnInit, OnDestroy {
     }
 
     onCreateEventSubmit() {
-        // this.active = false;
+        this.active = false;
         console.log('creating event');
         this._eventService.addEvent(this.newEvent);
         this._eventService.getAllEvents(this.pageNumber);
@@ -89,6 +89,7 @@ export class UserEventComponent implements OnInit, OnDestroy {
     closeDelModal() {
         console.log('delete', this.eventId);
         this._eventService.deleteEventById(this.eventId);
+        this._eventService.getAllEvents(this.pageNumber);
         this.getEventsByPageNum(this.pageNumber);
         this.delModal.hide();
     }
@@ -100,6 +101,7 @@ export class UserEventComponent implements OnInit, OnDestroy {
     closeDelAllModal() {
         console.log('delete all');
         this._eventService.deleteAllEvents();
+        this._eventService.getAllEvents(this.pageNumber);
         this.getEventsByPageNum(this.pageNumber);
         this.delAllModal.hide();
     }
