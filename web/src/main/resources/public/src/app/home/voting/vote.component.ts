@@ -7,7 +7,6 @@ import {OptionService} from './option.service';
 import {User} from './user';
 import {CurrentUserService} from "../../../shared/services/current.user.service";
 
-
 @Component({
     selector: 'vote',
     templateUrl: './src/app/home/voting/vote.html',
@@ -36,7 +35,7 @@ export class VoteComponent implements OnInit {
                         .then(voteArr => this.voteArr = voteArr.slice().reverse())
                         .then(()=> this.checkForUserId())
                         .then(()=> this.countNumberOfRespondents())
-                        .then(() => this.calcAllProgress());
+                        .then(() => this.calculateProgress());
     }
 
     checkForUserId(): void {
@@ -65,20 +64,21 @@ export class VoteComponent implements OnInit {
     }
 
     createVote(vote: Vote): void {
-        this.voteService.addVote(vote, this.currentUser.userId).then(vote => this.addVote(vote));
+        this.voteService.addVote(vote).then(vote => this.addVote(vote));
     }
 
     private addVote(vote: Vote): void {
+        console.log("into addVote: " + vote.user);
         this.voteArr.unshift(vote);
     }
     
-    calcAllProgress() {
+    calculateProgress() {
         for(let i = 0; i < this.voteArr.length; i++) {
             this.calcProgressForVote(this.voteArr[i]);
         }
     }
 
-    calcProgressForVote(vote:Vote): void {
+    private calcProgressForVote(vote:Vote): void {
         for(let i = 0 ; i < vote.options.length; i++) {
             vote.options[i].progress = this.calcProgressForOption(vote.options[i].users.length, vote.numberOfRespondents);
         }
@@ -90,5 +90,13 @@ export class VoteComponent implements OnInit {
         } else {
             return "0";
         }
+    }
+
+    getStartTime(startTime:Date):string {
+        return new Date(startTime).toLocaleString();
+    }
+
+     getEndTime(endTime: Date):string {
+        return new Date(endTime).toLocaleString();
     }
 }   

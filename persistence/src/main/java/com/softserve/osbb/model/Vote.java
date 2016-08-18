@@ -1,11 +1,10 @@
 package com.softserve.osbb.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -16,7 +15,8 @@ import java.util.List;
 public class Vote {
     private Integer voteId;
     private String description;
-    private Date time;
+    private Timestamp startTime;
+    private Timestamp endTime;
     private User user;
     private List<Option> options;
 
@@ -42,16 +42,26 @@ public class Vote {
     }
 
     @Basic
-    @Column(name = "time")
-    public Date getTime() {
-        return time;
+    @Column(name = "start_time")
+    public Timestamp getStartTime() {
+        return startTime;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setStartTime(Timestamp startTime) {
+        this.startTime = startTime;
     }
 
-    @JsonIgnore
+    @Basic
+    @Column(name = "end_time")
+    public Timestamp getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Timestamp endTime) {
+        this.endTime = endTime;
+    }
+
+    //@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     public User getUser() {
@@ -62,9 +72,9 @@ public class Vote {
         this.user = user;
     }
 
-   // @JsonIgnore
+    // @JsonIgnore
     //@JsonManagedReference
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "vote")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "vote", cascade = CascadeType.ALL)
     public List<Option> getOptions() {
         return options;
     }
@@ -90,4 +100,5 @@ public class Vote {
                 ", description='" + description + '\'' +
                 '}';
     }
+
 }

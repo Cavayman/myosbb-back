@@ -1,8 +1,6 @@
 package com.softserve.osbb.dto;
 
-import com.softserve.osbb.model.User;
-
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -11,17 +9,20 @@ import java.util.List;
 public class VoteDTO {
     private Integer voteId;
     private String description;
-    private Date time;
-    private User user;
+    private Timestamp startTime;
+    private Timestamp endTime;
+    private UserDTO user;
     private List<OptionDTO> options;
     private List<Integer> usersId;
 
     public VoteDTO() {}
 
-    public VoteDTO(Integer voteId, String description, Date time, User user, List<OptionDTO> options) {
+    public VoteDTO(Integer voteId, String description, Timestamp startTime,
+                   Timestamp endTime, UserDTO user, List<OptionDTO> options) {
         this.voteId = voteId;
         this.description = description;
-        this.time = time;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.user = user;
         this.options = options;
     }
@@ -42,19 +43,27 @@ public class VoteDTO {
         this.description = description;
     }
 
-    public Date getTime() {
-        return time;
+    public Timestamp getStartTime() {
+        return startTime;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setStartTime(Timestamp startTime) {
+        this.startTime = startTime;
     }
 
-    public User getUser() {
+    public Timestamp getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Timestamp endTime) {
+        this.endTime = endTime;
+    }
+
+    public UserDTO getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserDTO user) {
         this.user = user;
     }
 

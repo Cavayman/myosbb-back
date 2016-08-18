@@ -27,8 +27,14 @@
               },
               {
                 "column": {
-                  "name": "time",
-                  "type": "TIMESTAMP(6) WITHOUT TIME ZONE"
+                  "name": "start_time",
+                  "type": "TIMESTAMP(6) WITH TIME ZONE"
+                }
+              },
+              {
+                "column": {
+                  "name": "end_time",
+                  "type": "TIMESTAMP(6) WITH TIME ZONE"
                 }
               },
               {

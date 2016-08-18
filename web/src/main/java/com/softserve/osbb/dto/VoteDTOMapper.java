@@ -17,8 +17,9 @@ public class VoteDTOMapper {
             voteDTO.setVoteId(vote.getVoteId());
             voteDTO.setDescription(vote.getDescription());
             voteDTO.setOptions(OptionDTOMapper.mapOptionEntityToDTO(vote.getOptions()));
-            voteDTO.setTime(vote.getTime());
-            //voteDTO.setUser(vote.getUser());
+            voteDTO.setStartTime(vote.getStartTime());
+            voteDTO.setEndTime(vote.getEndTime());
+            voteDTO.setUser(UserDTOMapper.mapUserEntityToDTO(vote.getUser()));
             voteDTO.setUsersId(getALLUsersIdFromVote(vote.getOptions()));
         }
         return voteDTO;

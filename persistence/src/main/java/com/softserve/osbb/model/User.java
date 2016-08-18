@@ -168,7 +168,7 @@ public class User  //implements UserDetails
     }
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     public List<Vote> getVotes() {
         return votes;
     }

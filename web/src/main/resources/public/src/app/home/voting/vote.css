@@ -20,4 +20,9 @@
 }
 ul {
     padding: 0px 40px;
+    font: 16px/1.6 Arial, Verdana, Tahama, sans-serif;
+}
+
+.date {
+    padding: 0px 40px;
 }

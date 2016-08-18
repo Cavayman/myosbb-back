@@ -20,8 +20,12 @@
                  </div>
             </div>
             <div class="modal-footer">
-                <label class="checkbox-inline"><input type="checkbox"  #checkBox>Приватне опитування</label>
-                <button type="button" (click)="onCreateVoting(questionInput.value, checkBox.checked);questionInput.value='';addVoteModal.hide()" class="btn btn-default">
+                
+               <!-- <label class="checkbox-inline"><input type="checkbox"  #checkBox>Приватне опитування</label>-->
+               <!--<input type="datetime" атрибуты>-->
+               <label>Введіть дату закінчення голосування </label>
+               <input class="form-control"  type="datetime-local" атрибуты #time>
+               <button type="button" (click)="onCreateVoting(questionInput.value, time.value);time.value='';questionInput.value='';addVoteModal.hide()" class="btn btn-default">
                     Створити
                 </button>
             </div>

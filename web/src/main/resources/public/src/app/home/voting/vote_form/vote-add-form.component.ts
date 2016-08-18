@@ -1,8 +1,9 @@
-import { Component, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, Output, Input, EventEmitter, ViewChild } from '@angular/core';
 import {CORE_DIRECTIVES} from '@angular/common';
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS} from 'ng2-bootstrap/ng2-bootstrap';
 import {ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
 import {Vote} from '../vote';
+import {User} from '../user';
 import {Option} from '../option';
 
 @Component({
@@ -20,6 +21,9 @@ export class VoteAddFormComponent {
     @ViewChild('addVoteModal')
     addVoteModal:ModalDirective;
 
+    @Input() currentUser:User;
+
+
     openAddModal() {
         this.addVoteModal.show();  
     }
@@ -29,24 +33,32 @@ export class VoteAddFormComponent {
         this.optionArr = [];
     }
 
-    addOption(option:string):void {
-        if(this.optionArr.length <= 9){
-            let opt = new Option();
-            opt.description = option;
-            opt.users = [];
-            this.optionArr.push(opt);
-        } else{
-            console.log("arr is full.Can't add enymore.");
-        }     
+    addOption(description:string):void {
+        let opt = new Option();
+        opt.description = description;
+        opt.users = [];
+        this.optionArr.push(opt); 
     }
 
-    onCreateVoting(question: string, isPrivate: boolean):void {
+    onCreateVoting(question: string, time:any):void {
+        console.log("time string: " + time);
         let vote = new Vote();
-        vote.isPrivate = isPrivate;
         vote.description = question;
         vote.options = this.optionArr;
-        vote.usersId = [];
         this.optionArr = [];
+        vote.usersId = [];
+        vote.startTime = new Date();
+        let endTime = new Date(time);
+        endTime.setHours(endTime.getHours()-3);//    XXXXXXXXXXXXXXXXXXXXXXXX
+        vote.endTime = endTime;
+        //console.log("oncreatevoting:" + this.currentUser.userId+" "+this.currentUser.lastName);
+        vote.user = this.currentUser;
+        //this.printTime(vote);
         this.create.emit(vote);
+    }
+
+    printTime(vote: Vote) {
+        console.log("start time: " + vote.startTime);
+        console.log("end time: " + vote.endTime);
     }
 }

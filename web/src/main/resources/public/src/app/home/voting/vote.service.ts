@@ -21,12 +21,11 @@ export class VoteService {
                  .catch(this.handleError);
     }
 
-    addVote(vote:Vote, userId:number): Promise<Vote> {
-        let url = this.url + '/' + userId;
-        //let headers = new Headers({'Content-Type': 'application/json' });
+    addVote(vote:Vote): Promise<Vote> {
+       console.log("vote.service.user: " + vote.user.userId + " "+ vote.user.firstName + " " + vote.user.lastName + " " + vote.user.email);
         let headers = new Headers({'Authorization': 'Bearer ' + localStorage.getItem('token')});
         headers.append('Content-Type', 'application/json');
-        return this.http.post(url, JSON.stringify(vote), {headers})
+        return this.http.post(this.url, JSON.stringify(vote), {headers})
                         .toPromise()
                         .then(res => res.json())
                         .catch(this.handleError);
