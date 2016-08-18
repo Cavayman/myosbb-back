@@ -13,55 +13,60 @@ import {Provider} from "../../../../shared/models/provider.interface";
 export class ProviderService {
     private url = ApiService.serverUrl + '/restful/provider/';
     private urlWithParams = ApiService.serverUrl + '/restful/provider?pageNum=';
+    private headers = new Headers({'Authorization': 'Bearer ' + localStorage.getItem('token')});
 
     constructor(private _http:Http){
+        this.headers.append('Content-Type', 'application/json');
     }
 
     getProviders(pageNumber:number) : Observable<any>{
         console.log("get providers inside service, pagenum" + pageNumber);
         console.log("sending http GET to " +this.urlWithParams + pageNumber);
-        return  this._http.get(this.urlWithParams + pageNumber)
+        console.log("headers: ", this.headers);
+        return  this._http.get(this.urlWithParams + pageNumber, {headers: this.headers})
             .map(res => res.json())
             .catch((err)=>Observable.throw(err));
     }
     getAllProviders() : Observable<any>{
-        return  this._http.get(this.url)
+        return  this._http.get(this.url,  {headers: this.headers})
             .map(res => res.json())
             .catch((err)=>Observable.throw(err));
     }
     getProvidersByState(pageNumber:number, onlyActive : boolean) : Observable<any>{
         console.log("get only active providers inside service, pagenum" + pageNumber);
+        console.log("headers: ", this.headers);
         console.log("sending http GET to " +this.urlWithParams + pageNumber  + '&&actv=' + onlyActive);
-        return  this._http.get(this.urlWithParams + pageNumber + '&&actv=' + onlyActive)
+        return  this._http.get(this.urlWithParams + pageNumber + '&&actv=' + onlyActive,
+            {headers: this.headers})
             .map(res => res.json())
             .catch((err)=>Observable.throw(err));
     }
 
     getProviderById(id: number) : Observable<any> {
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers});
+       // let options = new RequestOptions({headers: this.headers});
         console.log("ok");
-        return this._http.get(this.url + id)
+        return this._http.get(this.url + id, {headers: this.headers})
             .map(res => res.json());
     }
 
     getSortedProviders(pageNumber:number, name:string, order:boolean):Observable<any> {
-        return this._http.get(this.urlWithParams + pageNumber + '&&sortedBy=' + name + '&&asc=' + order)
+        return this._http.get(this.urlWithParams + pageNumber + '&&sortedBy=' + name + '&&asc=' + order,
+            {headers: this.headers})
             .map((res)=> res.json())
             .catch((err)=>Observable.throw(err));
     }
     getSortedActiveProviders(pageNumber:number, name:string, order:boolean, onlyActive:boolean):Observable<any> {
-        return this._http.get(this.urlWithParams + pageNumber + '&&sortedBy=' + name + '&&asc=' + order + '&&actv=' + onlyActive)
+        return this._http.get(this.urlWithParams + pageNumber + '&&sortedBy=' + name + '&&asc=' + order + '&&actv=' + onlyActive,
+            {headers: this.headers})
             .map((res)=> res.json())
             .catch((err)=>Observable.throw(err));
     }
     deleteProviderById(providerId:number) {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
         let url = this.url + providerId;
         console.log('delete provider by id: ' + providerId);
         console.log("sending http DELETE to " +url);
-        return this._http.delete(url, {headers: headers})
+        console.log("headers: ", this.headers);
+        return this._http.delete(url, {headers: this.headers})
             .toPromise()
             .catch((err)=>console.error(err));
     }
@@ -74,21 +79,20 @@ export class ProviderService {
     }
 
     addProvider(provider:Provider){
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
         console.log("sending http POST to " +this.url);
         console.log("saving ", provider);
-        return this._http.post(this.url, JSON.stringify(provider), {headers: headers})
+        console.log("headers: ", this.headers);
+        return this._http.post(this.url, JSON.stringify(provider), {headers: this.headers})
             .toPromise()
             .then(()=>provider)
             .catch((err)=>console.error(err));
     }
     put(provider:Provider) {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
         console.log("sending http PUT to " +this.url + provider.providerId);
         console.log("json obj: " + JSON.stringify(provider));
-        return this._http.put(this.url + provider.providerId, JSON.stringify(provider), {headers: headers})
+        console.log("headers: ", this.headers);
+        return this._http.put(this.url + provider.providerId, JSON.stringify(provider),
+            {headers: this.headers})
             .toPromise()
             .then(()=>provider)
             .catch((err)=>console.error(err));
@@ -97,7 +101,8 @@ export class ProviderService {
     findProviderByNameOrDescription(search: string) :  Observable<any>{
         console.log("searching providers");
         console.log("param is" + search);
-        return  this._http.get(this.url + "find?name="+search)
+        console.log("headers: ", this.headers);
+        return  this._http.get(this.url + "find?name="+search, {headers: this.headers})
             .map(res => res.json())
             .catch((err)=>Observable.throw(err));
     }

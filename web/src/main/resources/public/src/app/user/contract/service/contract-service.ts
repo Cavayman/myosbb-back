@@ -14,50 +14,56 @@ export class ContractService {
 
     private url = ApiService.serverUrl + '/restful/contract/';
     private urlWithParams = ApiService.serverUrl + '/restful/contract?pageNum=';
+    private headers = new Headers({'Authorization': 'Bearer ' + localStorage.getItem('token')});
 
     constructor(private _http:Http){
+        this.headers.append('Content-Type', 'application/json');
     }
 
     getContracts(pageNumber:number) : Observable<any>{
         console.log("get contracts inside service, pagenum" + pageNumber);
         console.log("sending http GET to " +this.urlWithParams + pageNumber);
-        return  this._http.get(this.urlWithParams + pageNumber)
+        console.log("headers: ", this.headers);
+        return  this._http.get(this.urlWithParams + pageNumber, {headers: this.headers})
             .map(res => res.json())
             .catch((err)=>Observable.throw(err));
     }
     getContractsByState(pageNumber:number, onlyActive : boolean) : Observable<any>{
         console.log("get only active contracts inside service, pagenum" + pageNumber);
+        console.log("headers: ", this.headers);
         console.log("sending http GET to " +this.urlWithParams + pageNumber  + '&&actv=' + onlyActive);
-        return  this._http.get(this.urlWithParams + pageNumber + '&&actv=' + onlyActive)
+        return  this._http.get(this.urlWithParams + pageNumber + '&&actv=' + onlyActive, {headers: this.headers})
             .map(res => res.json())
             .catch((err)=>Observable.throw(err));
     }
 
     getContractById(id: number) : Observable<any> {
         console.log("ok");
-        return this._http.get(this.url + id)
+        console.log("headers: ", this.headers);
+        return this._http.get(this.url + id, {headers: this.headers})
             .map(res => res.json().data,
                     err => console.log(err));
     }
 
     getSortedContracts(pageNumber:number, name:string, order:boolean):Observable<any> {
-        return this._http.get(this.urlWithParams + pageNumber + '&&sortedBy=' + name + '&&asc=' + order)
+        console.log("headers: ", this.headers);
+        return this._http.get(this.urlWithParams + pageNumber + '&&sortedBy=' + name + '&&asc=' + order,
+            {headers: this.headers})
             .map((res)=> res.json())
             .catch((err)=>Observable.throw(err));
     }
     getSortedActiveContracts(pageNumber:number, name:string, order:boolean, onlyActive:boolean):Observable<any> {
-        return this._http.get(this.urlWithParams + pageNumber + '&&sortedBy=' + name + '&&asc=' + order + '&&actv=' + onlyActive)
+        console.log("headers: ", this.headers);
+        return this._http.get(this.urlWithParams + pageNumber + '&&sortedBy=' + name + '&&asc=' + order + '&&actv=' + onlyActive, {headers: this.headers})
             .map((res)=> res.json())
             .catch((err)=>Observable.throw(err));
     }
 
     deleteContractById(contractId:number) {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
         let url = this.url + contractId;
         console.log('delete contract by id: ' + contractId);
         console.log("sending http DELETE to " +url);
-        return this._http.delete(url, {headers: headers})
+        return this._http.delete(url, {headers: this.headers})
             .toPromise()
             .catch((err)=>console.error(err));
     }
@@ -70,20 +76,16 @@ export class ContractService {
     }
 
     put(contract:Contract) {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
         console.log("sending http POST to " +this.url + contract.contractId);
         console.log("json obj: " + JSON.stringify(contract));
-        return this._http.post(this.url + contract.contractId, JSON.stringify(contract), {headers: headers})
+        return this._http.post(this.url + contract.contractId, JSON.stringify(contract), {headers: this.headers})
             .toPromise()
             .then(()=>contract)
             .catch((err)=>console.error(err));
     }
 
     addContract(event:Contract): Promise<Contract> {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        return this._http.post(this.url, JSON.stringify(event), {headers: headers})
+        return this._http.post(this.url, JSON.stringify(event), {headers: this.headers})
             .toPromise()
             .then(()=>event)
             .catch((error)=>console.error(error));
@@ -92,7 +94,7 @@ export class ContractService {
     findByProviderName(search: string) :  Observable<any>{
         console.log("searching contracts");
         console.log("param is" + search);
-        return  this._http.get(this.url + "find?name="+search)
+        return  this._http.get(this.url + "find?name="+search, {headers: this.headers})
             .map(res => res.json())
             .catch((err)=>Observable.throw(err));
     }
