@@ -117,16 +117,16 @@
                                     <table class="table">
                                         <thead>
                                         <tr>
-                                            <th width="40%">{{ 'name' | translate | capitalize }}</th>
-                                            <!--<th>{{ 'size' | translate | capitalize }}</th>-->
+                                            <th width="30%">{{ 'name' | translate | capitalize }}</th>
+                                            <th>{{ 'size' | translate | capitalize }}</th>
                                             <th>{{ 'status' | translate | capitalize }}</th>
                                             <th width="40%">{{ 'actions' | translate | capitalize }}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr *ngFor="let item of uploader.queue">
-                                            <td><strong></strong></td>
-                                            <td *ngIf="uploader.isHTML5" nowrap>0.00 MB</td>
+                                            <td><strong>{{ item.file.name }}</strong></td>
+                                            <td nowrap>{{ transform(item.file.size) }}</td>
                                             <td class="text-center">
                                                 <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
                                                 <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
@@ -136,10 +136,6 @@
                                                 <button type="button" class="btn btn-success btn-xs"
                                                         (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
                                                     <span class="glyphicon glyphicon-upload"></span> {{ 'upload' | translate | capitalize }}
-                                                </button>
-                                                <button type="button" class="btn btn-warning btn-xs"
-                                                        (click)="item.cancel()" [disabled]="!item.isUploading">
-                                                    <span class="glyphicon glyphicon-ban-circle"></span> {{ 'cancel' | translate | capitalize }}
                                                 </button>
                                                 <button type="button" class="btn btn-danger btn-xs"
                                                         (click)="item.remove()">

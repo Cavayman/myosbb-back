@@ -58,6 +58,14 @@ export class UserAttachmentComponent implements OnInit, OnDestroy {
         return /\d{4}-\d{2}-\d{2}/.test(date);
     }
 
+    transform(bytes) {
+        if(bytes == 0) return '0 Bytes';
+        var k = 1000;
+        var sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        var i = Math.floor(Math.log(bytes) / Math.log(k));
+        return (bytes / Math.pow(k, i)).toFixed(1) + ' ' + sizes[i];
+    }
+
     openUploadModal() {
         this.uploadModal.show();
     }
