@@ -3,8 +3,8 @@ package com.softserve.osbb.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.softserve.osbb.utils.CustomLocalDateTimeDeserializer;
-import com.softserve.osbb.utils.CustomLocalDateTimeSerializer;
+import com.softserve.osbb.utils.CustomLocalDateDeserializer;
+import com.softserve.osbb.utils.CustomLocalDateSerializer;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -74,13 +74,13 @@ public class Report implements Serializable {
     }
 
     @Basic
-    @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
+    @JsonSerialize(using = CustomLocalDateSerializer.class)
     @Column(name = "creationDate")
     public LocalDate getCreationDate() {
         return creationDate;
     }
 
-    @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
+    @JsonDeserialize(using = CustomLocalDateDeserializer.class)
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }

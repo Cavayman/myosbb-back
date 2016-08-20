@@ -1,4 +1,4 @@
-package com.softserve.osbb.service.gen;
+package com.softserve.osbb.service.utils;
 
 import com.softserve.osbb.model.report.ReportGenFactory;
 import com.softserve.osbb.model.report.ReportTemplate;
@@ -15,19 +15,19 @@ import java.io.ByteArrayOutputStream;
  * Created by nazar.dovhyy on 29.07.2016.
  */
 @Service
-public class InvoiceExporterService {
+class ReportExporterService {
 
-    public static final String MEDIA_TYPE_EXCEL = "application/vnd.ms-excel";
-    public static final String MEDIA_TYPE_PDF = "application/pdf";
-    public static final String MEDIA_TYPE_CSV = "text/csv";
+    private static final String MEDIA_TYPE_EXCEL = "application/vnd.ms-excel";
+    private static final String MEDIA_TYPE_PDF = "application/pdf";
+    private static final String MEDIA_TYPE_CSV = "text/csv";
 
-    private static Logger logger = LoggerFactory.getLogger(InvoiceExporterService.class);
+    private static Logger logger = LoggerFactory.getLogger(ReportExporterService.class);
 
 
-    public HttpServletResponse exportToOutputStream(String type,
-                                                    JasperPrint jp,
-                                                    HttpServletResponse response,
-                                                    ByteArrayOutputStream baos) {
+    HttpServletResponse exportToOutputStream(String type,
+                                             JasperPrint jp,
+                                             HttpServletResponse response,
+                                             ByteArrayOutputStream baos) {
         ReportTemplate reportTemplate = ReportGenFactory.generate(type);
         try {
             if (reportTemplate != null) {
@@ -43,7 +43,7 @@ public class InvoiceExporterService {
         return response;
     }
 
-    public String exportToFile(JasperPrint jp, String type, String outputDir) {
+    String exportToFile(JasperPrint jp, String type, String outputDir) {
         String destFileName = "";
         ReportTemplate reportTemplate = ReportGenFactory.generate(type);
         if (reportTemplate != null) {

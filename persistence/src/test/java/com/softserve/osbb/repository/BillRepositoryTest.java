@@ -14,6 +14,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -54,7 +55,7 @@ public class BillRepositoryTest {
         apartmentRepository.save(apartment);
 
         bill = new Bill();
-        bill.setDate(new Date());
+        bill.setDate(LocalDate.now());
         bill.setTariff(6f);
         bill.setProvider(provider);
         bill.setToPay(50.6f);
@@ -62,7 +63,7 @@ public class BillRepositoryTest {
         bill.setApartment(apartment);
 
         bill1 = new Bill();
-        bill1.setDate(new Date());
+        bill1.setDate(LocalDate.now());
         bill1.setTariff(6f);
         bill1.setProvider(provider);
         bill1.setToPay(140.12f);

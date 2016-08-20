@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.softserve.osbb.model.enums.Periodicity;
-import com.softserve.osbb.utils.CustomLocalDateTimeDeserializer;
-import com.softserve.osbb.utils.CustomLocalDateTimeSerializer;
+import com.softserve.osbb.utils.CustomLocalDateDeserializer;
+import com.softserve.osbb.utils.CustomLocalDateSerializer;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -52,13 +52,13 @@ public class Event {
     }
 
     @Basic
-    @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
+    @JsonSerialize(using = CustomLocalDateSerializer.class)
     @Column(name = "date")
     public LocalDate getDate() {
         return date;
     }
 
-    @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
+    @JsonDeserialize(using = CustomLocalDateDeserializer.class)
     public void setDate(LocalDate date) {
         this.date = date;
     }

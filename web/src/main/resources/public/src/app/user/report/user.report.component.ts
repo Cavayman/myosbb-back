@@ -13,6 +13,7 @@ import {CapitalizeFirstLetterPipe} from "../../../shared/pipes/capitalize-first-
 import {DateTimePickerDirective} from "ng2-datetime-picker";
 import {CurrentUserService} from "../../../shared/services/current.user.service";
 import {User} from "../../../shared/models/User";
+import FileServer = require("../../../shared/services/file.server.path");
 
 
 @Component({
@@ -49,6 +50,7 @@ export class UserReportComponent implements OnInit, OnDestroy {
     private rows: number[] = [10, 20, 50];
     private selectedRow: number = 10;
     private currentUser: User;
+    private fileServerPath:string=FileServer.fileServerPath;
 
     constructor(private _reportService: ReportService, private sanitizer: DomSanitizationService,
                 private _currentUserService: CurrentUserService) {

@@ -1,4 +1,4 @@
-package com.softserve.osbb.service.exe;
+package com.softserve.osbb.service.exceptions;
 
 /**
  * Created by nazar.dovhyy on 13.07.2016.

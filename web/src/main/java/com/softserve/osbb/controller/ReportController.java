@@ -3,14 +3,14 @@ package com.softserve.osbb.controller;
 import com.softserve.osbb.model.Report;
 import com.softserve.osbb.model.User;
 import com.softserve.osbb.service.UserService;
-import com.softserve.osbb.service.gen.InvoiceDownloadService;
+import com.softserve.osbb.service.utils.ReportDownloadService;
 import com.softserve.osbb.service.impl.ReportServiceImpl;
 import com.softserve.osbb.util.PageRequestGenerator;
 import com.softserve.osbb.util.ReportPageCreator;
 import com.softserve.osbb.util.resources.EntityResourceList;
 import com.softserve.osbb.util.resources.ReportResourceList;
 import com.softserve.osbb.util.resources.ResourceLinkCreator;
-import com.softserve.osbb.utils.CustomLocalDateTimeDeserializer;
+import com.softserve.osbb.utils.CustomLocalDateDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +47,7 @@ public class ReportController {
     private UserService userService;
 
     @Autowired
-    private InvoiceDownloadService invoiceDownloadService;
+    private ReportDownloadService reportDownloadService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<List<Resource<Report>>> listAllReports() {
@@ -123,8 +123,8 @@ public class ReportController {
             @RequestParam("dateFrom") String dateFrom,
             @RequestParam("dateTo") String dateTo
     ) {
-        LocalDate localDateFrom = CustomLocalDateTimeDeserializer.toLocalDateParse(dateFrom);
-        LocalDate localDateTo = CustomLocalDateTimeDeserializer.toLocalDateParse(dateTo);
+        LocalDate localDateFrom = CustomLocalDateDeserializer.toLocalDateParse(dateFrom);
+        LocalDate localDateTo = CustomLocalDateDeserializer.toLocalDateParse(dateTo);
         List<Report> reportList = reportService.getAllReportsBetweenDates(localDateFrom, localDateTo);
         EntityResourceList<Report> reportResourceLinkList = new ReportResourceList();
         reportList.forEach((report) -> reportResourceLinkList.add(toResource(report)));
@@ -138,8 +138,8 @@ public class ReportController {
             @RequestParam(value = "dateFrom", required = true) String dateFrom,
             @RequestParam(value = "dateTo", required = true) String dateTo
     ) {
-        LocalDate localDateFrom = CustomLocalDateTimeDeserializer.toLocalDateParse(dateFrom);
-        LocalDate localDateTo = CustomLocalDateTimeDeserializer.toLocalDateParse(dateTo);
+        LocalDate localDateFrom = CustomLocalDateDeserializer.toLocalDateParse(dateFrom);
+        LocalDate localDateTo = CustomLocalDateDeserializer.toLocalDateParse(dateTo);
         List<Report> userReportList = reportService.getAllUserReportsBetweenDates(userId, localDateFrom, localDateTo);
         EntityResourceList<Report> reportResourceLinkList = new ReportResourceList();
         userReportList.forEach((report) -> reportResourceLinkList.add(toResource(report)));
@@ -241,7 +241,7 @@ public class ReportController {
     public void download(@RequestParam(value = "type", required = true) String type,
                          HttpServletResponse httpServletResponse) {
         logger.info("preparing download");
-        invoiceDownloadService.download(type, httpServletResponse);
+        reportDownloadService.download(type, httpServletResponse);
 
     }
 
@@ -251,7 +251,7 @@ public class ReportController {
                          HttpServletResponse httpServletResponse) {
         logger.info("preparing download for userId: " + userId);
         User currentUser = userService.findOne(userId);
-        invoiceDownloadService.downloadFor(currentUser, type, httpServletResponse);
+        reportDownloadService.download(currentUser, type, httpServletResponse);
 
     }
 

@@ -1,4 +1,4 @@
-package com.softserve.osbb.service.gen;
+package com.softserve.osbb.service.utils;
 
 
 import com.dropbox.core.DbxException;
@@ -21,7 +21,7 @@ import java.util.UUID;
  * Created by nazar.dovhyy on 09.08.2016.
  */
 @Service
-public class DropBoxFileServer implements FileServer {
+public class DropBoxFileServer {
 
     private String app_key;
     private String app_secret;
@@ -48,7 +48,7 @@ public class DropBoxFileServer implements FileServer {
         }
     }
 
-    @Override
+
     public void authenticate() throws IOException, DbxException {
         //readAccessDropBoxPropertyConfig();
         logger.info("initializing authentication process");
@@ -58,7 +58,7 @@ public class DropBoxFileServer implements FileServer {
         logger.info("account info: " + displayAccountName);
     }
 
-    @Override
+
     public String uploadFile(String filePath, String type) throws IOException, DbxException {
         logger.info("starting file upload");
         File inputFile = new File(filePath);
@@ -79,7 +79,7 @@ public class DropBoxFileServer implements FileServer {
         return sharedUrl;
     }
 
-    @Override
+
     public void downloadFile(String fileName) throws IOException, DbxException {
 
     }

@@ -1,15 +1,13 @@
 package com.softserve.osbb.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.softserve.osbb.model.enums.TicketState;
-import com.softserve.osbb.utils.CustomLocalDateTimeDeserializer;
+import com.softserve.osbb.utils.CustomLocalDateDeserializer;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -82,13 +80,13 @@ public class Ticket {
     }
 
     @Basic
-    @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
+    @JsonDeserialize(using = CustomLocalDateDeserializer.class)
     @Column(name = "time")
     public LocalDate getTime() {
         return time;
     }
 
-    @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
+    @JsonDeserialize(using = CustomLocalDateDeserializer.class)
     public void setTime(LocalDate time) {
         this.time = time;
     }
@@ -115,7 +113,7 @@ public class Ticket {
     }
 
     @Basic
-    @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
+    @JsonDeserialize(using = CustomLocalDateDeserializer.class)
     @Column(name = "state_time")
     public LocalDate getStateTime() {
         return stateTime;

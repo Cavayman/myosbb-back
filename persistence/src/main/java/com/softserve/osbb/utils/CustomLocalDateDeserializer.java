@@ -14,10 +14,10 @@ import java.time.format.DateTimeParseException;
 /**
  * Created by nazar.dovhyy on 10.07.2016.
  */
-public class CustomLocalDateTimeDeserializer extends JsonDeserializer<LocalDate> {
+public class CustomLocalDateDeserializer extends JsonDeserializer<LocalDate> {
 
     private static DateTimeFormatter dateTimeFormatter =
-            DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter.ofPattern(Constants.DATE_FORMAT);
 
 
     @Override

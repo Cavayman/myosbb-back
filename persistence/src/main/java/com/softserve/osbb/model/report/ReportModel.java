@@ -6,7 +6,7 @@ import com.softserve.osbb.model.User;
 /**
  * Created by nazar.dovhyy on 29.07.2016.
  */
-public class InvoiceModel {
+public class ReportModel  {
 
     private Integer billId;
     private String customerName;
@@ -16,7 +16,7 @@ public class InvoiceModel {
     private Float amountPaid;
 
 
-    public InvoiceModel() {
+    public ReportModel() {
 
     }
 
@@ -24,41 +24,41 @@ public class InvoiceModel {
         return billId;
     }
 
-    public static InvoiceModel setBillId(Integer billId) {
-        InvoiceModel invoiceModel = new InvoiceModel();
-        invoiceModel.billId = billId;
-        return invoiceModel;
+    public static ReportModel setBillId(Integer billId) {
+        ReportModel reportModel = new ReportModel();
+        reportModel.billId = billId;
+        return reportModel;
     }
 
 
-    public InvoiceModel setCustomerName(User user) {
+    public ReportModel setCustomerName(User user) {
         if (user != null) {
             this.customerName = user.getFirstName() + " " + user.getLastName();
         }
         return this;
     }
 
-    public InvoiceModel setCustomerEmail(User user) {
+    public ReportModel setCustomerEmail(User user) {
         if (user != null) {
             this.customerEmail = user.getEmail();
         }
         return this;
     }
 
-    public InvoiceModel setProviderDescription(Provider provider) {
+    public ReportModel setProviderDescription(Provider provider) {
         if (provider != null) {
             this.providerDescription = provider.getDescription();
         }
         return this;
     }
 
-    public InvoiceModel setAmountToPay(Float amountToPay) {
+    public ReportModel setAmountToPay(Float amountToPay) {
         this.amountToPay = (amountToPay != null) ?
                 amountToPay : 0.0f;
         return this;
     }
 
-    public InvoiceModel setAmountPaid(Float amountPaid) {
+    public ReportModel setAmountPaid(Float amountPaid) {
         this.amountPaid = (amountPaid != null) ?
                 amountPaid : 0.0f;
         return this;

@@ -12,11 +12,11 @@ import java.time.format.DateTimeFormatter;
 /**
  * Created by nazar.dovhyy on 10.07.2016.
  */
-public class CustomLocalDateTimeSerializer extends JsonSerializer<LocalDate> {
+public class CustomLocalDateSerializer extends JsonSerializer<LocalDate> {
 
 
     private static DateTimeFormatter dateTimeFormatter =
-            DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter.ofPattern(Constants.DATE_FORMAT);
 
 
     @Override

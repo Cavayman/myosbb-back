@@ -3,8 +3,8 @@ package com.softserve.osbb.model;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.softserve.osbb.model.enums.Currency;
-import com.softserve.osbb.utils.CustomLocalDateTimeDeserializer;
-import com.softserve.osbb.utils.CustomLocalDateTimeSerializer;
+import com.softserve.osbb.utils.CustomLocalDateDeserializer;
+import com.softserve.osbb.utils.CustomLocalDateSerializer;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -43,23 +43,23 @@ public class Contract {
     }
 
     @Column(name = "dateStart")
-    @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
+    @JsonSerialize(using = CustomLocalDateSerializer.class)
     public LocalDate getDateStart() {
         return dateStart;
     }
 
-    @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
+    @JsonDeserialize(using = CustomLocalDateDeserializer.class)
     public void setDateStart(LocalDate dateStart) {
         this.dateStart = dateStart;
     }
 
     @Column(name = "dateFinish")
-    @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
+    @JsonSerialize(using = CustomLocalDateSerializer.class)
     public LocalDate getDateFinish() {
         return dateFinish;
     }
 
-    @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
+    @JsonDeserialize(using = CustomLocalDateDeserializer.class)
     public void setDateFinish(LocalDate dateFinish) {
         this.dateFinish = dateFinish;
     }

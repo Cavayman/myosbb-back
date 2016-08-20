@@ -3,7 +3,7 @@ package com.softserve.osbb.dto;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.softserve.osbb.model.Apartment;
 import com.softserve.osbb.model.Provider;
-import com.softserve.osbb.utils.CustomLocalDateTimeSerializer;
+import com.softserve.osbb.utils.CustomLocalDateSerializer;
 
 import java.time.LocalDate;
 
@@ -38,7 +38,7 @@ public class BillDTO {
         return billId;
     }
 
-    @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
+    @JsonSerialize(using = CustomLocalDateSerializer.class)
     public LocalDate getDate() {
         return date;
     }
