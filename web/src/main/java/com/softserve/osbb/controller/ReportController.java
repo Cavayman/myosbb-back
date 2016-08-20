@@ -1,6 +1,5 @@
 package com.softserve.osbb.controller;
 
-import com.softserve.osbb.model.Osbb;
 import com.softserve.osbb.model.Report;
 import com.softserve.osbb.model.User;
 import com.softserve.osbb.service.UserService;
@@ -8,7 +7,6 @@ import com.softserve.osbb.service.gen.InvoiceDownloadService;
 import com.softserve.osbb.service.impl.ReportServiceImpl;
 import com.softserve.osbb.util.PageRequestGenerator;
 import com.softserve.osbb.util.ReportPageCreator;
-import com.softserve.osbb.util.ResourceNotFoundException;
 import com.softserve.osbb.util.resources.EntityResourceList;
 import com.softserve.osbb.util.resources.ReportResourceList;
 import com.softserve.osbb.util.resources.ResourceLinkCreator;
@@ -78,7 +76,7 @@ public class ReportController {
                 .addRows(rowNum)
                 .addOrderType(orderType)
                 .addSortedBy(sortedBy, "name")
-                .gen();
+                .toPageRequest();
         Page<Report> reportsByPage = reportService.getAllUserReports(userId, pageRequest);
         PageRequestGenerator.PageSelector pageSelector = PageRequestGenerator
                 .generatePageSelectorData(reportsByPage);
@@ -100,7 +98,7 @@ public class ReportController {
                 .addRows(rowNum)
                 .addSortedBy(sortedBy, "name")
                 .addOrderType(orderType)
-                .gen();
+                .toPageRequest();
         Page<Report> reportsByPage = reportService.getAllReports(pageRequest);
         PageRequestGenerator.PageSelector pageSelector = PageRequestGenerator.generatePageSelectorData(reportsByPage);
         EntityResourceList<Report> reportResourceLinkList = new ReportResourceList();

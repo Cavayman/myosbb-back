@@ -1,88 +1,105 @@
-{ "databaseChangeLog": [
-  {
-    "changeSet": {
-      "id": "2016/08/03-19",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "createTable": {
-            "columns": [
-              {
-                "column": {
-                  "autoIncrement": true,
-                  "constraints": {
-                    "primaryKey": true,
-                    "primaryKeyName": "bill_pkey"
-                  },
-                  "name": "bill_id",
-                  "type": "SERIAL"
+{
+  "databaseChangeLog": [
+    {
+      "changeSet": {
+        "id": "2016/08/03-19",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "createTable": {
+              "columns": [
+                {
+                  "column": {
+                    "autoIncrement": true,
+                    "constraints": {
+                      "primaryKey": true,
+                      "primaryKeyName": "bill_pkey"
+                    },
+                    "name": "bill_id",
+                    "type": "SERIAL"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "date",
+                    "type": "TIMESTAMP(6) WITHOUT TIME ZONE"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "paid",
+                    "type": "FLOAT4"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "tariff",
+                    "type": "FLOAT4"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "to_pay",
+                    "type": "FLOAT4"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "apartment_id",
+                    "type": "INT"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "provider_id",
+                    "type": "INT"
+                  }
                 }
-              },
-              {
-                "column": {
-                  "name": "date",
-                  "type": "TIMESTAMP(6) WITHOUT TIME ZONE"
-                }
-              },
-              {
-                "column": {
-                  "name": "paid",
-                  "type": "FLOAT4"
-                }
-              },
-              {
-                "column": {
-                  "name": "tariff",
-                  "type": "FLOAT4"
-                }
-              },
-              {
-                "column": {
-                  "name": "to_pay",
-                  "type": "FLOAT4"
-                }
-              },
-              {
-                "column": {
-                  "name": "apartment_id",
-                  "type": "INT"
-                }
-              },
-              {
-                "column": {
-                  "name": "provider_id",
-                  "type": "INT"
-                }
-              }
-            ],
-            "tableName": "bill"
+              ],
+              "tableName": "bill"
+            }
           }
-        }
-      ]
-    }
-  },
-
-  {
-    "changeSet": {
-      "id": "2016/08/03-47",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "addForeignKeyConstraint": {
-            "baseColumnNames": "apartment_id",
-            "baseTableName": "bill",
-            "constraintName": "fk_fbn4j90nmy01iojt59n92ifp",
-            "deferrable": false,
-            "initiallyDeferred": false,
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "referencedColumnNames": "apartment_id",
-            "referencedTableName": "apartment"
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/03-47",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "addForeignKeyConstraint": {
+              "baseColumnNames": "apartment_id",
+              "baseTableName": "bill",
+              "constraintName": "fk_fbn4j90nmy01iojt59n92ifp",
+              "deferrable": false,
+              "initiallyDeferred": false,
+              "onDelete": "NO ACTION",
+              "onUpdate": "NO ACTION",
+              "referencedColumnNames": "apartment_id",
+              "referencedTableName": "apartment"
+            }
           }
-        }]
-
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/19-01",
+        "author": "nazar",
+        "changes": [
+          {
+            "modifyDataType": {
+              "columnName": "date",
+              "newDataType": "date",
+              "schemaName": "public",
+              "tableName": "bill"
+            }
+          }
+        ]
+      }
     }
-  }]
+  ]
 }

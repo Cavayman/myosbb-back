@@ -127,6 +127,7 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public Page<Report> getAllReports(PageRequest pageRequest) {
+
         return reportRepository.findAll(pageRequest);
     }
 

@@ -1,10 +1,16 @@
 package com.softserve.osbb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.softserve.osbb.utils.CustomLocalDateTimeDeserializer;
+import com.softserve.osbb.utils.CustomLocalDateTimeSerializer;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.io.Serializable;
+import java.time.LocalDate;
 
 /**
  * Created by cavayman on 10.07.16.
@@ -12,10 +18,10 @@ import java.util.Date;
 
 @Entity
 @Table(name = "bill")
-public class Bill {
+public class Bill implements Serializable {
 
     private Integer billId;
-    private Date date;
+    private LocalDate date;
     private Float tariff;
     private Provider provider;
     private Float toPay;
@@ -34,12 +40,14 @@ public class Bill {
     }
 
     @Basic
+    @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
     @Column(name = "date")
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -54,6 +62,7 @@ public class Bill {
     }
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "provider_id", referencedColumnName = "provider_id")
     public Provider getProvider() {
         return provider;
@@ -84,6 +93,7 @@ public class Bill {
     }
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "apartment_id", referencedColumnName = "apartment_id")
     public Apartment getApartment() {
         return apartment == null ? new Apartment() : apartment;

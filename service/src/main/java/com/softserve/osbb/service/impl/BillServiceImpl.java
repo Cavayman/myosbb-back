@@ -1,10 +1,15 @@
 package com.softserve.osbb.service.impl;
 
+import com.softserve.osbb.model.Apartment;
 import com.softserve.osbb.model.Bill;
+import com.softserve.osbb.model.User;
+import com.softserve.osbb.repository.ApartmentRepository;
 import com.softserve.osbb.repository.BillRepository;
 import com.softserve.osbb.repository.UserRepository;
 import com.softserve.osbb.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +26,9 @@ public class BillServiceImpl implements BillService {
 
     @Autowired
     BillRepository billRepository;
+
+    @Autowired
+    ApartmentRepository apartmentRepository;
 
     @Override
     public void saveBill(Bill bill) {
@@ -50,6 +58,17 @@ public class BillServiceImpl implements BillService {
     @Override
     public List<Bill> findAllByUserId(Integer userId) {
         return billRepository.findAllByUserId(userId);
+    }
+
+    @Override
+    public Page<Bill> findAllByApartmentOwner(Integer ownerId, Pageable pageable) {
+        User apartmentOwner = userRepository.findOne(ownerId);
+        Page<Bill> bills = null;
+        if (apartmentOwner != null) {
+            Apartment ownersApartment = apartmentRepository.findByUser(apartmentOwner);
+            bills = billRepository.findByApartment(ownersApartment, pageable);
+        }
+        return bills;
     }
 
     @Override

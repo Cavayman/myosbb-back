@@ -1,12 +1,12 @@
 <toaster-container [toasterconfig]="toasterconfig"></toaster-container>
 <div class="row">
-    <button class="btn-lg btn-info spacing " (click)="download('pdf')">
+    <button class="btn-lg btn-info spacing " title="pdf" (click)="download('pdf')">
         <span class="fa fa-file-pdf-o"></span>
     </button>
-    <button class="btn-lg btn-info spacing" (click)="download('xls')">
+    <button class="btn-lg btn-info spacing" title="xls" (click)="download('xls')">
         <span class="fa fa-file-excel-o"></span>
     </button>
-    <button class="btn-lg btn-info spacing" (click)="download('csv')">
+    <button class="btn-lg btn-info spacing" title="csv" (click)="download('csv')">
         <span class="fa fa-file-text"></span>
     </button>
 </div>

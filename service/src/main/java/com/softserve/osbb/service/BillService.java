@@ -1,6 +1,8 @@
 package com.softserve.osbb.service;
 
 import com.softserve.osbb.model.Bill;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +25,8 @@ public interface BillService {
     List<Bill> findAllBills();
 
     List<Bill> findAllByUserId(Integer userId);
+
+    Page<Bill> findAllByApartmentOwner(Integer ownerId, Pageable pageable);
 
     void deleteBill(Bill bill);
 

@@ -11,7 +11,9 @@ import org.springframework.context.annotation.Import;
 @ComponentScan(basePackages = "com.softserve.osbb.service")
 public class ServiceApplication {
     public static void main(String[] args) {
+
         SpringApplication.run(ServiceApplication.class, args);
+
     }
 
 }

@@ -1,6 +1,5 @@
 package com.softserve.osbb.util;
 
-import com.softserve.osbb.model.Report;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -129,7 +128,7 @@ public class PageRequestGenerator {
         return this;
     }
 
-    public PageRequest gen() {
+    public PageRequest toPageRequest() {
         PageRequest pageRequest = new PageRequest(
                 addPageNumber(),
                 addRowNum(),
@@ -138,11 +137,11 @@ public class PageRequestGenerator {
         return pageRequest;
     }
 
-    public static PageSelector generatePageSelectorData(Page<Report> reportsByPage) {
+    public static <T> PageSelector generatePageSelectorData(Page<T> pageObject) {
         PageSelector pageSelector = new PageSelector();
-        pageSelector.setCurrentPage(reportsByPage.getNumber() + 1);
+        pageSelector.setCurrentPage(pageObject.getNumber() + 1);
         pageSelector.setBegin(Math.max(1, pageSelector.getCurrentPage() - 5));
-        pageSelector.setTotalPages(reportsByPage.getTotalPages());
+        pageSelector.setTotalPages(pageObject.getTotalPages());
         pageSelector.setEnd(Math.min(pageSelector.getCurrentPage() + 5, pageSelector.getTotalPages()));
         return pageSelector;
     }
