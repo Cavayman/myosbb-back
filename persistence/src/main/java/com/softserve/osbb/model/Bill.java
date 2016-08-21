@@ -3,6 +3,7 @@ package com.softserve.osbb.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.softserve.osbb.model.enums.BillStatus;
 import com.softserve.osbb.utils.CustomLocalDateDeserializer;
 import com.softserve.osbb.utils.CustomLocalDateSerializer;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -27,6 +28,7 @@ public class Bill implements Serializable {
     private Float toPay;
     private Float paid;
     private Apartment apartment;
+    private BillStatus billStatus;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -101,6 +103,17 @@ public class Bill implements Serializable {
 
     public void setApartment(Apartment apartment) {
         this.apartment = apartment;
+    }
+
+    @JsonIgnore
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    public BillStatus getBillStatus() {
+        return billStatus;
+    }
+
+    public void setBillStatus(BillStatus billStatus) {
+        this.billStatus = billStatus;
     }
 
     @Override

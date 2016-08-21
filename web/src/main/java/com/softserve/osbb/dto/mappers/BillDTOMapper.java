@@ -18,6 +18,7 @@ public class BillDTOMapper {
                     .setPaid(bill.getPaid())
                     .setToPay(bill.getToPay())
                     .setDescription(bill.getProvider())
+                    .setStatus(bill.getBillStatus())
                     .build();
         }
         return billDTO;

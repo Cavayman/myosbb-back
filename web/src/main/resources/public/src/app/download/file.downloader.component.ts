@@ -10,6 +10,10 @@ import {
 import {RedirectComponent} from "./redirect.component";
 import {CurrentUserService} from "../../shared/services/current.user.service";
 import {User} from "../../shared/models/User";
+import {
+    onErrorServerNoResponseToastMsg,
+    onErrorResourceNotFoundToastMsg
+} from "../../shared/error/error.handler.component";
 import ApiService = require("../../shared/services/api.service");
 
 let reportUrl = ApiService.serverUrl + '/restful/report/user/';
@@ -87,7 +91,7 @@ export class FileDownloaderComponent {
 
     private handleResponse() {
         if (!this.pending && !this.hasError) {
-            this._toasterService.pop(onSuccessToastMsg);
+            this._toasterService.pop(onFileDownloadSuccessToastMsg);
         } else {
             this._toasterService.pop(onErrorResourceNotFoundToastMsg);
         }
@@ -97,7 +101,7 @@ export class FileDownloaderComponent {
 
 }
 
-export let onSuccessToastMsg: Toast = {
+export let onFileDownloadSuccessToastMsg: Toast = {
     type: 'success',
     title: '',
     body: RedirectComponent,
@@ -105,20 +109,6 @@ export let onSuccessToastMsg: Toast = {
     bodyOutputType: BodyOutputType.Component
 };
 
-export let onErrorResourceNotFoundToastMsg: Toast = {
-    type: 'error',
-    title: '',
-    body: '<h5>Виникла помилка під час завантаження документа</h5>',
-    showCloseButton: true,
-    bodyOutputType: BodyOutputType.TrustedHtml
-};
-export let onErrorServerNoResponseToastMsg: Toast = {
-    type: 'error',
-    title: '',
-    body: '<h5>Сервер не відповідає</h5>',
-    showCloseButton: true,
-    bodyOutputType: BodyOutputType.TrustedHtml
-};
 
 function setFileName(docType) {
     let fileName: string;

@@ -6,4 +6,5 @@ export interface Bill {
     paid: number;
     description: string;
     apartmentNumber: number;
+    status: string;
 }

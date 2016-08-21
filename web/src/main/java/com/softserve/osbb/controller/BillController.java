@@ -1,8 +1,10 @@
 package com.softserve.osbb.controller;
 
 import com.softserve.osbb.dto.BillDTO;
+import com.softserve.osbb.dto.SearchDTO;
 import com.softserve.osbb.dto.mappers.BillDTOMapper;
 import com.softserve.osbb.model.Bill;
+import com.softserve.osbb.model.enums.BillStatus;
 import com.softserve.osbb.service.BillService;
 import com.softserve.osbb.util.BillPageCreator;
 import com.softserve.osbb.util.PageCreator;
@@ -53,18 +55,16 @@ public class BillController {
     }
 
 
-    @RequestMapping(value = "/user/{userId}/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/{userId}/all", method = RequestMethod.POST)
     public ResponseEntity<PageCreator<Resource<BillDTO>>> listAllBillsByUser(
             @PathVariable("userId") Integer userId,
-            @RequestParam(value = "pageNumber") Integer pageNumber,
-            @RequestParam(value = "sortedBy", required = false) String sortedBy,
-            @RequestParam(value = "order", required = false) Boolean orderType,
-            @RequestParam(value = "rowNum", required = false) Integer rowNum) {
-        logger.info(String.format("listing all bills for user: %d , page number: %d ", userId, pageNumber));
-        final PageRequest pageRequest = PageRequestGenerator.generatePageRequest(pageNumber)
-                .addRows(rowNum)
-                .addOrderType(orderType)
-                .addSortedBy(sortedBy, "date")
+            @RequestParam(value = "status", required = false) String status,
+            @RequestBody SearchDTO searchDTO) {
+        logger.info(String.format("listing all bills for user: %d , page number: %d ", userId, searchDTO.getPageNumber()));
+        final PageRequest pageRequest = PageRequestGenerator.generatePageRequest(searchDTO.getPageNumber())
+                .addRows(searchDTO.getRowNum())
+                .addOrderType(searchDTO.getOrderType())
+                .addSortedBy(searchDTO.getSortedBy(), "date")
                 .toPageRequest();
         Page<Bill> bills = billService.findAllByApartmentOwner(userId, pageRequest);
         if (bills == null) {
@@ -73,26 +73,74 @@ public class BillController {
         }
         PageRequestGenerator.PageSelector pageSelector = PageRequestGenerator
                 .generatePageSelectorData(bills);
+        EntityResourceList<BillDTO> billResourceList = createFilteredByStatusResourceList(status, bills);
+        PageCreator<Resource<BillDTO>> billPageCreator = setUpPageCreator(pageSelector, billResourceList);
+
+        return new ResponseEntity<>(billPageCreator, HttpStatus.OK);
+    }
+
+    private EntityResourceList<BillDTO> createFilteredByStatusResourceList(String status, Page<Bill> bills) {
         EntityResourceList<BillDTO> billResourceList = new BillResourceList();
+        if (status == null) {
+            logger.info("filtering by status null");
+            addByStatusIFNoStatus(bills, billResourceList);
+            return billResourceList;
+        }
+        switch (status.toUpperCase()) {
+            case "PAID":
+                addByStatusIfPaid(bills, billResourceList);
+                break;
+            case "NOT_PAID":
+                addByStatusIfNotPaid(bills, billResourceList);
+                break;
+            default:
+                addByStatusIFNoStatus(bills, billResourceList);
+                break;
+
+        }
+        return billResourceList;
+    }
+
+    private void addByStatusIfNotPaid(Page<Bill> bills, EntityResourceList<BillDTO> billResourceList) {
+        logger.info("filtering by: " + BillStatus.NOT_PAID);
+        bills.getContent()
+                .stream()
+                .filter((b) -> b.getBillStatus() == BillStatus.NOT_PAID)
+                .forEach((bill) -> {
+                    BillDTO billDTo = BillDTOMapper.mapEntityToDTO(bill);
+                    logger.info("billDto created " + billDTo.toString());
+                    billResourceList.add(toResource(billDTo));
+                });
+    }
+
+    private void addByStatusIfPaid(Page<Bill> bills, EntityResourceList<BillDTO> billResourceList) {
+        logger.info("filtering by: " + BillStatus.PAID);
+        bills.getContent()
+                .stream()
+                .filter((b) -> b.getBillStatus() == BillStatus.PAID)
+                .forEach((bill) -> {
+                    BillDTO billDTo = BillDTOMapper.mapEntityToDTO(bill);
+                    logger.info("billDto created " + billDTo.toString());
+                    billResourceList.add(toResource(billDTo));
+                });
+    }
+
+    private void addByStatusIFNoStatus(Page<Bill> bills, EntityResourceList<BillDTO> billResourceList) {
         bills.forEach((bill) -> {
                     BillDTO billDTo = BillDTOMapper.mapEntityToDTO(bill);
                     logger.info("billDto created " + billDTo.toString());
                     billResourceList.add(toResource(billDTo));
                 }
         );
-        PageCreator<Resource<BillDTO>> billPageCreator = setUpPageCreator(pageSelector, billResourceList);
-
-        return new ResponseEntity<>(billPageCreator, HttpStatus.OK);
     }
 
     private PageCreator<Resource<BillDTO>> setUpPageCreator(PageRequestGenerator.PageSelector pageSelector, EntityResourceList<BillDTO> billResourceList) {
-        BillPageCreator pageCreator = new BillPageCreator();
+        PageCreator<Resource<BillDTO>> pageCreator = new BillPageCreator();
         pageCreator.setRows(billResourceList);
         pageCreator.setCurrentPage(Integer.valueOf(pageSelector.getCurrentPage()).toString());
         pageCreator.setBeginPage(Integer.valueOf(pageSelector.getBegin()).toString());
         pageCreator.setEndPage(Integer.valueOf(pageSelector.getEnd()).toString());
         pageCreator.setTotalPages(Integer.valueOf(pageSelector.getTotalPages()).toString());
-        pageCreator.setApartmentId(billResourceList.stream().findFirst().get().getContent().getApartmentNumber());
         return pageCreator;
     }
 

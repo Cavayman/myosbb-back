@@ -10,13 +10,19 @@ import {PageCreator} from "../../../shared/services/page.creator.interface";
 import {User} from "../../../shared/models/User";
 import {CurrentUserService} from "../../../shared/services/current.user.service";
 import {BillService} from "./bill.service";
+import {ToasterContainerComponent, ToasterService} from "angular2-toaster/angular2-toaster";
+import {
+    onErrorServerNoResponseToastMsg,
+    onErrorResourceNotFoundToastMsg
+} from "../../../shared/error/error.handler.component";
+import {SearchDTO} from "../../../shared/models/search.model";
 
 @Component({
     selector: 'my-user-bill',
     templateUrl: 'src/app/user/bills/bill.html',
-    providers: [BillService],
+    providers: [BillService, ToasterService],
     styleUrls: ['src/app/user/bills/bill.css', 'src/shared/css/loader.css', 'src/shared/css/general.css'],
-    directives: [FileDownloaderComponent, MODAL_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, BUTTON_DIRECTIVES,
+    directives: [ToasterContainerComponent, FileDownloaderComponent, MODAL_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, BUTTON_DIRECTIVES,
         DateTimePickerDirective],
     viewProviders: [BS_VIEW_PROVIDERS],
     pipes: [TranslatePipe, CapitalizeFirstLetterPipe]
@@ -37,11 +43,14 @@ export class UserBillComponent implements OnInit {
     private onSearch: boolean = false;
     private rows: number[] = [10, 20, 50];
     private selectedRow: number = 10;
+    private searchDTO: SearchDTO = {pageNumber: 1, sortedBy: null, orderType: true, rowNum: 10};
     private currentUser: User;
-    private apartmentId: number;
+
+    private options: {} = {ALL: 'ALL', PAID: 'PAID', NOT_PAID: 'NOT_PAID'};
+    private status: string = this.options.ALL;
 
     constructor(private _currentUserService: CurrentUserService,
-                private _billService: BillService) {
+                private _billService: BillService, private _toasterService: ToasterService) {
         this.currentUser = new User(this._currentUserService.getUser());
     }
 
@@ -53,15 +62,15 @@ export class UserBillComponent implements OnInit {
 
 
     refresh() {
-        this.getBillsByPageNum(this.pageNumber, this.selectedRow);
+        this.getBillsByPageNum(this.pageNumber, this.searchDTO.rowNum);
     }
 
-    getBillsByPageNum(pageNumber: number, selectedRow: number) {
-        this.pageNumber = +pageNumber;
+    getBillsByPageNum(pageNumber: number, selectedRow: number, status: string) {
         this.pending = true;
-        this.selectedRow = +selectedRow;
-        return this._billService.getAllUserBills(this.currentUser.userId,
-            this.pageNumber, this.selectedRow)
+        this.searchDTO.pageNumber = pageNumber;
+        this.searchDTO.rowNum = selectedRow;
+        this.status = status;
+        return this._billService.getAllUserBills(this.currentUser.userId, this.searchDTO, this.status)
             .subscribe((data) => {
                     this.pending = false;
                     this.pageCreator = data;
@@ -69,28 +78,50 @@ export class UserBillComponent implements OnInit {
                     this.preparePageList(+this.pageCreator.beginPage,
                         +this.pageCreator.endPage);
                     this.totalPages = +data.totalPages;
-                    this.apartmentId = data.apartmentId;
                 },
                 (error) => {
                     this.pending = false;
-                    console.error(error)
+                    this.handleErrors(error);
                 });
     };
 
+    private handleErrors(error) {
+        if (error.status === 404 || error.status === 400) {
+            console.log('server error 400');
+            this._toasterService.pop(onErrorResourceNotFoundToastMsg);
+            return;
+        }
+
+        if (error.status === 500) {
+            console.log('server error 500');
+            this._toasterService.pop(onErrorServerNoResponseToastMsg);
+            return;
+        }
+    }
+
+
+    isPaid(status: string): boolean {
+        if (status == 'PAID') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     selectRowNum(row: number) {
-        this.getBillsByPageNum(this.pageNumber, row);
+        this.getBillsByPageNum(this.searchDTO.pageNumber, row, this.status);
     }
 
 
     prevPage() {
-        this.pageNumber = this.pageNumber - 1;
-        this.getBillsByPageNum(this.pageNumber, this.selectedRow);
+        this.searchDTO.pageNumber = this.searchDTO.pageNumber - 1;
+        this.getBillsByPageNum(this.searchDTO.pageNumber, this.selectedRow, this.status);
     }
 
     nextPage() {
-        this.pageNumber = this.pageNumber + 1;
-        this.getBillsByPageNum(this.pageNumber, this.selectedRow);
+        this.searchDTO.pageNumber = this.searchDTO.pageNumber + 1;
+        this.getBillsByPageNum(this.searchDTO.pageNumber, this.selectedRow, this.status);
     }
 
     emptyArray() {
@@ -109,9 +140,10 @@ export class UserBillComponent implements OnInit {
 
     sortBy(name: string) {
         console.log('sorted by ', name);
-        this.order = !this.order;
-        console.log('order by asc', this.order);
-        this._billService.getAllUserBillsSorted(this.currentUser.userId, this.pageNumber, name, this.order)
+        this.searchDTO.orderType = !this.searchDTO.orderType;
+        this.searchDTO.sortedBy = name;
+        console.log('order by asc', this.searchDTO.orderType);
+        this._billService.getAllUserBills(this.currentUser.userId, this.searchDTO, this.status)
             .subscribe((data) => {
                     this.pageCreator = data;
                     this.bills = data.rows;
@@ -140,4 +172,11 @@ export class UserBillComponent implements OnInit {
         }
     }
 
+    processOption(status: string) {
+        console.log('status', status);
+        this.getBillsByPageNum(this.pageNumber, this.selectedRow, status)
+    }
+
 }
+
+

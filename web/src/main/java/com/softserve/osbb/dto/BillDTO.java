@@ -3,6 +3,7 @@ package com.softserve.osbb.dto;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.softserve.osbb.model.Apartment;
 import com.softserve.osbb.model.Provider;
+import com.softserve.osbb.model.enums.BillStatus;
 import com.softserve.osbb.utils.CustomLocalDateSerializer;
 
 import java.time.LocalDate;
@@ -19,6 +20,7 @@ public class BillDTO {
     private Float paid;
     private String description;
     private Integer apartmentNumber;
+    private String status;
 
     public BillDTO() {
 
@@ -32,6 +34,8 @@ public class BillDTO {
         this.paid = billDTOBuilder.paid;
         this.description = billDTOBuilder.description;
         this.apartmentNumber = billDTOBuilder.apartmentNumber;
+        this.status = billDTOBuilder.status;
+
     }
 
     public Integer getBillId() {
@@ -67,6 +71,9 @@ public class BillDTO {
         return apartmentNumber;
     }
 
+    public String getStatus() {
+        return status;
+    }
 
     public static class BillDTOBuilder extends BillDTO {
         private Integer billId;
@@ -76,6 +83,7 @@ public class BillDTO {
         private Float paid;
         private String description;
         private Integer apartmentNumber;
+        private String status;
 
         public BillDTOBuilder() {
 
@@ -119,6 +127,13 @@ public class BillDTO {
         public BillDTOBuilder setApartmentNumber(Apartment apartment) {
             if (apartment != null) {
                 this.apartmentNumber = apartment.getNumber();
+            }
+            return this;
+        }
+
+        public BillDTOBuilder setStatus(BillStatus billStatus) {
+            if (billStatus != null) {
+                this.status = billStatus.toString();
             }
             return this;
         }

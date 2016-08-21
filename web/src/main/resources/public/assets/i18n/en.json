@@ -80,6 +80,10 @@
     "schedule": "schedule",
     "text":"text",
     "active":"only active",
-    "providergo":"go to provider page"
+  "providergo": "go to provider page",
+  "error404": "Error 404",
+  "error404title": "This resource wasn't found",
+  "go_back": "Go Back"
+
     }
 
