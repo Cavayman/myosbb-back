@@ -8,12 +8,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 
 @Repository
 public interface ApartmentRepository extends JpaRepository<Apartment, Integer> {
 
-    @Query("Select ap From Apartment ap where ap.number=:number")
-    Apartment findApartmentByNumber(@Param("number") Integer number);
-
-    Apartment findByUser(User owner);
+        Apartment findByUser(User owner);
 }

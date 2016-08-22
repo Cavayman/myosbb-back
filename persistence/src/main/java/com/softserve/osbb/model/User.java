@@ -1,6 +1,10 @@
 package com.softserve.osbb.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.annotations.*;
@@ -23,7 +27,9 @@ import java.util.List;
  */
 @Entity
 @Table(name = "users")
+
 public class User  implements Serializable {
+
     private Integer userId;
     private String firstName;
     private String lastName;
@@ -32,8 +38,10 @@ public class User  implements Serializable {
     private String phoneNumber;
     private String password;
     private String gender;
+
     private Boolean activated;
     private Role role;
+    private Apartment apartment;
     private Collection<Vote> votes=new ArrayList<Vote>();
     private Collection<Apartment> apartments=new ArrayList<Apartment>();
     private Collection<Message> messages=new ArrayList<Message>();
@@ -41,6 +49,7 @@ public class User  implements Serializable {
     private Collection<Ticket> tickets=new ArrayList<Ticket>();
     private Collection<Option> options=new ArrayList<Option>();
     private Collection<Report> reports=new ArrayList<Report>();
+    public boolean isOwner;
 
     public User(User user) {
         this.userId = user.getUserId();
@@ -119,6 +128,7 @@ public class User  implements Serializable {
     }
 
 
+
     @Basic
     @Column(name = "password")
     public String getPassword() {
@@ -166,23 +176,34 @@ public class User  implements Serializable {
         this.votes = votes;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
-    @JoinTable(name = "user_apartment", joinColumns = {
-            @JoinColumn(name = "user_id", nullable = false)},
-            inverseJoinColumns = {@JoinColumn(name = "apartment_id",
-                    nullable = false, updatable = false)})
-    public Collection<Apartment> getApartments() {
-        return apartments;
+
+    @Basic
+    @Column(name="isOwner")
+    public boolean isOwner() {
+        return isOwner;
     }
 
-    public void setApartments(Collection<Apartment> appartaments) {
-        this.apartments = appartaments;
+    public void setOwner(boolean owner) {
+        isOwner = owner;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    @JsonIgnore
+
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name = "apartment_id",referencedColumnName = "apartment_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+     public Apartment getApartment() {
+        return apartment;
+    }
+
+    public void setApartment(Apartment appartament) {
+        this.apartment = appartament;
+    }
+
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = CascadeType.REMOVE)
     public Collection<Message> getMessages() {
+
         return messages;
     }
 
@@ -221,6 +242,7 @@ public class User  implements Serializable {
     }
 
 
+
     @Override
     public String toString() {
         return "User{" +
@@ -233,6 +255,7 @@ public class User  implements Serializable {
     
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
     @JoinTable(name="user_option",
             joinColumns = @JoinColumn(name="user_id", referencedColumnName="user_id"),
             inverseJoinColumns = @JoinColumn(name="option_id", referencedColumnName="option_id")

@@ -1,7 +1,6 @@
 import {Http, Headers,RequestOptions} from '@angular/http';
 import {Injectable} from "@angular/core";
 import {Observable} from 'rxjs/observable';
-import {singleApartmentModel} from './Apartment.model';
 import 'rxjs/add/operator/map';
 import ApiService = require("../../../shared/services/api.service");
 
@@ -16,8 +15,7 @@ export class apartmentProfileService{
         let url = ApiService.serverUrl + '/restful/apartment/'+id;
         return this.http.get(url)
             .map(response=>response.json());
-           // .toPromise()
-           // .then(response=>response.json());
+         
     }
     
 

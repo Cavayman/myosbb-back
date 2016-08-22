@@ -2,70 +2,56 @@
 import {Component, ViewChild} from '@angular/core'
 import {HTTP_PROVIDERS, Http, Headers, RequestOptions} from "@angular/http";
 import {ApartmentModel} from "./Apartment.model";
-import {IApartmentModel} from "./Apartment.model";
 import {ROUTER_DIRECTIVES,Router} from "@angular/router";
 import {ApartmentService} from './apartment.service'
 import "rxjs/add/operator/toPromise";
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS, ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
 import {CORE_DIRECTIVES} from "@angular/common";
-
+import {TranslatePipe} from "ng2-translate/ng2-translate";
+import {User} from "src/shared/models/User";
+import {PageCreator} from "../../../shared/services/page.creator.interface";
 @Component({
     selector: 'my-user-apartment',
     templateUrl: 'src/app/user/apartment/apartment.html',
     providers: [HTTP_PROVIDERS,ApartmentService],
     directives: [ROUTER_DIRECTIVES,MODAL_DIRECTIVES, CORE_DIRECTIVES],
     styleUrls: ['src/app/user/apartment/styles.css'],
-    viewProviders: [BS_VIEW_PROVIDERS]
+    viewProviders: [BS_VIEW_PROVIDERS],
+    pipes:[TranslatePipe]
 })
 export class UserApartmentComponent {
     Items:ApartmentModel[];
     private selectedApartment:ApartmentModel;
     private emptyApartment:ApartmentModel;
-    //={apartmentId:null,square:null,number:null};
     @ViewChild('editModal')
     public editModal:ModalDirective;
     @ViewChild('addModal')
     public addModal:ModalDirective;
     active:boolean = true;
     activeAdd:boolean = true;
-
+    allusers:User[];
+    private pageCreator:PageCreator<ApartmentModel>;
+    private pageNumber:number = 1;
+    private pageList:Array<number> = [];
+    private totalPages:number;
+    order:boolean = true;
+    private defaultSorter:string='number';
 
 
 
 
     constructor( private apartmentService:ApartmentService) {
-this.Items=[];
-        this.selectedApartment = {};
-        this.emptyApartment={number:'',square:''};
-        this.selectedApartment.number=0;
-        this.selectedApartment.square=0;
-        // this.selectedApartment= new ApartmentModel({apartmentId:null,square:null,number:null,house:null,user:null,users:[],bills:[]}) ;
+console.log("init items");
+        this.Items=[];
     }
 
-    private createrandomAp():ApartmentModel {
-        let am = new ApartmentModel();
-        am.number = Math.round((Math.random() * 100)) + 1;
-        am.square = Math.round(Math.random() * 300) + 1;
-        //am.user=new JSON.Object("userId:6");
-        return am;
-    }
 
-    onUpdateClick(am:ApartmentModel) {
-        console.log(this.Items[0]);
-    }
     ngOnInit(){
-        this.apartmentService.getAllApartments()
-            .subscribe(items=> this.Items=items);
+        this.getApartmentsByPageNum(this.pageNumber);
+        //this.defaultSorter='number';
+        //this.sortBy(this.defaultSorter);
     }
     
-    onAddClick(){
-        let am= this.createrandomAp();
-        console.log("adding apartment"+am);
-        //this.Items.push(am);
-        this.apartmentService.addApartment(am)
-            .then(am=>this.Items.push(am));
-    }
-
 
     onDeleteClick(am) {
         this.apartmentService.deleteApartment(am)
@@ -74,8 +60,8 @@ this.Items=[];
     }
     openEditModal(am:ApartmentModel) {
         this.selectedApartment=am;
-        console.log(am);
-      console.log('selected Apartment: ' + this.selectedApartment.square );
+       // console.log(am);
+     // console.log('selected Apartment: ' + this.selectedApartment.square );
        this.editModal.show();
     }
 
@@ -89,11 +75,7 @@ this.Items=[];
     }
 
     onAddApartmentSubmit(){
-console.log("good work!!");
-        console.log("empty !"+this.emptyApartment.square);
-        console.log('closing edit modal');
-        let userid = Math.round(Math.random()*195)+6;
-        this.emptyApartment.user={userId:userid};
+
         this.addModal.hide();
         this.apartmentService.addApartment(this.emptyApartment)
             .then(emptyApartment=>this.Items.push(emptyApartment));
@@ -103,9 +85,64 @@ console.log("good work!!");
     openAddModal(){
         this.addModal.show();
     }
+    sortBy(value:string){
+        console.log('sorted by ', value);
+        this.order = !this.order;
+        this.defaultSorter=value;
+        console.log('order by asc', this.order);
+        this.emptyArray();
+        this.apartmentService.getSortedApartments(this.pageNumber, value, this.order)
+            .subscribe((data) => {
+                    this.pageCreator = data;
+                    this.Items = data.rows;
+                    this.preparePageList(+this.pageCreator.beginPage,
+                        +this.pageCreator.endPage);
+                    this.totalPages = +data.totalPages;
+                },
+                (err) => {
+                    console.error(err)
+                });   
+    }
 
-    closeEditModal() {
 
+    getApartmentsByPageNum(pageNumber:number) {
+        console.log("getApartmentssByPageNum"+ pageNumber);
+        this.pageNumber = +pageNumber;
+        this.emptyArray();
+        return this.apartmentService.getSortedApartments(this.pageNumber,this.defaultSorter,this.order)
+            .subscribe((data) => {
+                    this.pageCreator = data;
+                    this.Items = data.rows;
+                    this.preparePageList(+this.pageCreator.beginPage,
+                        +this.pageCreator.endPage);
+                    this.totalPages = +data.totalPages;
+               // console.log("ITEM 0 =   "+Items[0]);
+                },
+                (err) => {
+                    console.error(err)
+                });
+    };
+
+    prevPage() {
+        this.pageNumber = this.pageNumber - 1;
+        this.getApartmentsByPageNum(this.pageNumber)
+    }
+
+    nextPage() {
+        this.pageNumber = this.pageNumber + 1;
+        this.getApartmentsByPageNum(this.pageNumber)
+    }
+
+    emptyArray() {
+        while (this.pageList.length) {
+            this.pageList.pop();
+        }
+    }
+
+    preparePageList(start:number, end:number) {
+        for (let i = start; i <= end; i++) {
+            this.pageList.push(i);
+        }
     }
 
 

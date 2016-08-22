@@ -99,49 +99,97 @@
                     "type": "INT"
                   }
                 },
-                {
-                  "column": {
-                    "constraints": {
-                      "nullable": false
-                    },
-                    "name": "apartment_id",
-                    "type": "INT"
-                  }
+
+
+              {
+                "column": {
+                  "name": "birth_date",
+                  "type": "TIMESTAMP(6) WITHOUT TIME ZONE"
                 }
-              ],
-              "tableName": "user_apartment"
-            }
+              },
+              {
+                "column": {
+                  "name": "email",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "first_name",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "gender",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "last_name",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "password",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "phone_number",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "apartment_id",
+                  "type": "INT"
+                }
+              },
+              {
+                "column": {
+                  "name": "is_owner",
+                  "type": "boolean"
+                }
+              }
+            ],
+            "tableName": "users"
           }
-        ]
-      }
-    },
-    {
-      "changeSet": {
-        "id": "2016/08/03-34",
-        "author": "nataliia",
-        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-        "changes": [
-          {
-            "createTable": {
-              "columns": [
-                {
-                  "column": {
-                    "constraints": {
-                      "nullable": false
-                    },
-                    "name": "user_id",
-                    "type": "INT"
-                  }
-                },
-                {
-                  "column": {
-                    "constraints": {
-                      "nullable": false
-                    },
-                    "name": "option_id",
-                    "type": "INT"
-                  }
+        }
+      ]
+    }
+  },
+
+  {
+    "changeSet": {
+      "id": "2016/08/03-34",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "constraints": {
+                    "nullable": false
+                  },
+                  "name": "user_id",
+                  "type": "INT"
                 }
+              },
+              {
+                "column": {
+                  "constraints": {
+                    "nullable": false
+                  },
+                  "name": "option_id",
+                  "type": "INT"
+                }
+              }
               ],
               "tableName": "user_option"
             }
@@ -168,49 +216,30 @@
               "referencedTableName": "option"
             }
           }
-        ]
-      }
-    },
-    {
-      "changeSet": {
-        "id": "2016/08/03-41",
-        "author": "nataliia",
-        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-        "changes": [
-          {
-            "addForeignKeyConstraint": {
-              "baseColumnNames": "user_id",
-              "baseTableName": "user_apartment",
-              "constraintName": "fk_6mrf4xbpgnwak62o08goi303j",
-              "deferrable": false,
-              "initiallyDeferred": false,
-              "onDelete": "NO ACTION",
-              "onUpdate": "NO ACTION",
-              "referencedColumnNames": "user_id",
-              "referencedTableName": "users"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "changeSet": {
-        "id": "2016/08/03-43",
-        "author": "nataliia",
-        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-        "changes": [
-          {
-            "addForeignKeyConstraint": {
-              "baseColumnNames": "apartment_id",
-              "baseTableName": "user_apartment",
-              "constraintName": "fk_affd3r40dn34gkys47ivss9d2",
-              "deferrable": false,
-              "initiallyDeferred": false,
-              "onDelete": "NO ACTION",
-              "onUpdate": "NO ACTION",
-              "referencedColumnNames": "apartment_id",
-              "referencedTableName": "apartment"
-            }
+
+
+      ]
+    }
+  },
+
+  {
+    "changeSet": {
+      "id": "2016/08/03-43",
+      "author": "nataliia",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "apartment_id",
+            "baseTableName": "users",
+            "constraintName": "fk_affd3r40dn34gkys47ivss9d3",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "referencedColumnNames": "apartment_id",
+            "referencedTableName": "apartment"
+
           }
         ]
       }
@@ -300,6 +329,7 @@
               "referencedTableName": "users"
             }
           }
+
         ]
       }
     },
@@ -366,6 +396,7 @@
               "referencedColumnNames": "user_id",
               "referencedTableName": "users"
             }
+
           }
         ]
       }

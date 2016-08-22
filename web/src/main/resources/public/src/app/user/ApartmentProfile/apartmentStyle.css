@@ -1,0 +1,60 @@
+.myheader{
+    height:25%;
+    width: 100%;
+    background-color: white ;
+    opacity: 0.6;
+    border: rgba(12, 60, 88, 0.91);
+    margin-top: 0pt;
+    display: flex;
+}
+.image{
+
+    margin: auto 0 auto 10%;
+
+    width:100px ;
+    height: 100px;
+    opacity:1;
+
+
+
+}
+img{
+    max-width: 100%;
+    height: auto;
+    border-radius: 50%;
+    border: 1px solid #000000;
+
+}
+.text-info-header{
+    margin: auto 0 auto 40px;
+    font-family: Meiryo;
+    color: #5e001f;
+    font-size: 22px;
+}
+
+.info{
+
+}
+
+.info-block{
+    width: 45%;
+    display: inline-flex;
+    height: auto;
+    margin: auto auto auto 15px;
+    background-color: #00c5de;
+    opacity: 0.5;
+}
+
+.bill-block{
+    width: 45%;
+    display: inline-flex;
+    height: auto;
+    margin-right: auto;
+    padding-left: 15px;
+
+    opacity: 0.5;
+    background-color: #00c5de;
+}
+.bill-block:hover{
+    opacity: 1;
+}

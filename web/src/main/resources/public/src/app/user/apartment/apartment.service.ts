@@ -10,30 +10,38 @@ export class ApartmentService{
     
     constructor (private http:Http){}
     
-    getAllApartments():Observable<any>{
-        let headers = new Headers();
+    getAllApartments(pageNumber:number):Observable<any>{
+        let headers = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
         headers.append('Content-Type', 'application/json');
-        return this.http.get(ApiService.serverUrl + "/restful/apartment")
+        return this.http.get(ApiService.serverUrl + "/restful/apartment?pageNumber="+pageNumber,{headers})
             .map(response => response.json());
             }
 
+    getSortedApartments(pageNumber:number, name:string, order:boolean):Observable<any> {
+        let headers = new Headers({'Authorization': 'Bearer ' + localStorage.getItem('token')});
+        headers.append('Content-Type', 'application/json');
+
+        return this.http.get(ApiService.serverUrl + "/restful/apartment?pageNumber=" + pageNumber + '&&sortedBy=' + name + '&&asc=' + order, {headers})
+            .map((res)=> res.json())
+            .catch((err)=>Observable.throw(err));
+    }
 
     addApartment (am:ApartmentModel):Promise<ApartmentModel>{
         let body =JSON.stringify(am);
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers});
+        let headers = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
+        headers.append('Content-Type', 'application/json');
         console.log("add model...." + body);
-        return this.http.post(ApiService.serverUrl + "/restful/apartment", body, options)
+        return this.http.post(ApiService.serverUrl + "/restful/apartment", body, {headers})
             .toPromise()
             .then(res=>res.json());
         
     }
     deleteApartment(am:ApartmentModel):Promise<ApartmentModel>{
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers});
+        let headers = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
+        headers.append('Content-Type', 'application/json');
         let url = ApiService.serverUrl + '/restful/apartment/' + am.apartmentId;
         console.log("deleted item" + am);
-       return  this.http.delete(url, options)
+       return  this.http.delete(url, {headers})
            .toPromise()
            .then(res =>am);
 
@@ -46,14 +54,24 @@ export class ApartmentService{
         }
     }
 
-        put(apartmentModel:ApartmentModel) {
-            let headers = new Headers();
+    put(apartmentModel:ApartmentModel) {
+            let headers = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
             headers.append('Content-Type', 'application/json');
-            return this.http.put(ApiService.serverUrl + "/restful/apartment", JSON.stringify(apartmentModel), {headers: headers})
+            return this.http.put(ApiService.serverUrl + "/restful/apartment", JSON.stringify(apartmentModel), {headers})
                 .toPromise()
                 .then(()=>apartmentModel)
                 .catch((error)=>console.error(error));
         }
+
+
+    getAllUsersInAppartment(id:number){
+        let headers = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(ApiService.serverUrl + "/restful/apartment/users"+id,{headers})
+            .map(response => response.json());
+    }
+        
+    
 
 
 

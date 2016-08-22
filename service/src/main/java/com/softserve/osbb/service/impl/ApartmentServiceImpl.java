@@ -4,13 +4,21 @@ import com.softserve.osbb.model.Apartment;
 import com.softserve.osbb.repository.ApartmentRepository;
 import com.softserve.osbb.service.ApartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
 @Service
 public class ApartmentServiceImpl implements ApartmentService {
     @Autowired
     ApartmentRepository apartmentRepository;
+
+
+    private static final int DEF_ROWS = 10;
 
     @Override
     public void saveApartment(Apartment apartment) {
@@ -29,11 +37,6 @@ public class ApartmentServiceImpl implements ApartmentService {
         return apartmentRepository.findOne(id);
     }
 
-    @Override
-    public List<Apartment> findAllApartmentByIDs(List<Integer> ids) {
-
-        return apartmentRepository.findAll(ids);
-    }
 
     @Override
     public List<Apartment> findAllApartment() {
@@ -53,22 +56,20 @@ public class ApartmentServiceImpl implements ApartmentService {
         apartmentRepository.delete(id);
     }
 
-    @Override
-    public void deleteListApartments(List<Apartment> list) {
-
-        apartmentRepository.delete(list);
-    }
 
     @Override
     public void deleteAllApartmnets() {
 
         apartmentRepository.deleteAll();
     }
+
     @Override
-    public Apartment updateApartment(Apartment apartment){
-return
-        apartmentRepository.save(apartment);
+    public Apartment updateApartment(Apartment apartment) {
+        return
+
+                apartmentRepository.saveAndFlush(apartment);
     }
+
     @Override
     public long countApartments() {
 
@@ -82,7 +83,24 @@ return
     }
 
     @Override
-    public Apartment findApartmentByNumber(Integer number){
+    public Apartment findApartmentByNumber(Integer number) {
+
         return apartmentRepository.findApartmentByNumber(number);
     }
+
+    @Override
+    public Page<Apartment> getAllApartment(Integer pageNumber, String sortBy, Boolean order) {
+        PageRequest pageRequest = new PageRequest(pageNumber - 1, DEF_ROWS,
+                getSortingOrder(order), sortBy == null ? "number" : sortBy);
+        return apartmentRepository.findAll(pageRequest);
+    }
+
+
+    public Sort.Direction getSortingOrder(Boolean order) {
+        if (order == null) {
+            return Sort.Direction.DESC;
+        }
+        return order == true ? Sort.Direction.ASC : Sort.Direction.DESC;
+    }
+
 }

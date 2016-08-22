@@ -1,21 +1,5 @@
-export interface IApartmentModel{
-    apartmentId:number;
-
-    square:number;
-
-    number:number;
-
-    house:any;
-
-    user:any;
-
-    users:any[];
-    bills:any[];
-}
-
-
-
-export class ApartmentModel implements IApartmentModel{
+import {IApartment} from './src/shared/model/apartment.interface';
+export class ApartmentModel implements IApartment{
 
     apartmentId:number;
 
@@ -25,12 +9,12 @@ export class ApartmentModel implements IApartmentModel{
 
     house:any;
 
-    user:any;
+    owner:number;
 
     users:any[];
     bills:any[];
 
-    constructor(apartmentId:number,square:number,number:number,house:any,user:any,
+    constructor(apartmentId:number,square:number,number:number,house:any,owner:number,
         users:any[],bills:any[]) {
 
         this.apartmentId=apartmentId;
@@ -41,7 +25,7 @@ export class ApartmentModel implements IApartmentModel{
 
         this.house=house;
 
-        this.user=user;
+        this.owner=owner;
 
         this.users=users;
        this. bills=bills;

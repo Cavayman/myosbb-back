@@ -1,5 +1,6 @@
 package com.softserve.osbb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -17,8 +18,8 @@ public class Apartment {
     private Integer number;
     private House house;
     private Integer square;
-    private User user;
     private List<User> users;
+    private Integer owner;
     private Collection<Bill> bills;
 
     @Id
@@ -72,17 +73,8 @@ public class Apartment {
         this.house = house;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "owner_id", referencedColumnName = "user_id")
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "apartments")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "apartment", cascade = CascadeType.ALL)
+    @JsonIgnore
     public List<User> getUsers() {
         return users;
     }
@@ -90,8 +82,18 @@ public class Apartment {
     public void setUsers(List<User> users) {
         this.users = users;
     }
+    @Basic
+    @Column(name="owner_id")
+    public Integer getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Integer owner) {
+        this.owner = owner;
+    }
 
     @OneToMany(mappedBy = "apartment")
+    @JsonIgnore
     public Collection<Bill> getBills() {
         return bills;
     }
@@ -106,7 +108,6 @@ public class Apartment {
                 "apartmentId=" + apartmentId +
                 ", number=" + number +
                 ", square=" + square +
-                ", user=" + user +
                 ", users=" + users +
                 ", bills=" + bills +
                 '}';
