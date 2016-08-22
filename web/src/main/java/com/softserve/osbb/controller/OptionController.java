@@ -6,7 +6,6 @@ import com.softserve.osbb.model.Option;
 import com.softserve.osbb.model.User;
 import com.softserve.osbb.service.OptionService;
 import com.softserve.osbb.service.UserService;
-import com.softserve.osbb.service.VoteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +33,6 @@ public class OptionController {
 
     @Autowired
     private OptionService optionService;
-
-    @Autowired
-    private VoteService voteService;
 
     @Autowired
     private UserService userService;

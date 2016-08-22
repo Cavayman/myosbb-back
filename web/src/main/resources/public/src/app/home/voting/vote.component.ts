@@ -32,7 +32,7 @@ export class VoteComponent implements OnInit {
 
     ngOnInit() {
         this.voteService.getAllVotes()
-                        .then(voteArr => this.voteArr = voteArr.slice().reverse())
+                        .then(voteArr => this.voteArr = voteArr)
                         .then(()=> this.checkForUserId())
                         .then(()=> this.countNumberOfRespondents())
                         .then(() => this.calculateProgress());
@@ -40,7 +40,12 @@ export class VoteComponent implements OnInit {
 
     checkForUserId(): void {
         for(let i = 0; i < this.voteArr.length; i++) {
-            this.voteArr[i].available = this.voteArr[i].usersId.includes(this.currentUser.userId);
+            if(this.voteArr[i].available && !(this.voteArr[i].usersId.includes(this.currentUser.userId))){
+                this.voteArr[i].available = false;
+            } else {
+                this.voteArr[i].available = true;
+            }
+            //this.voteArr[i].available = this.voteArr[i].usersId.includes(this.currentUser.userId);
         }
     }
 

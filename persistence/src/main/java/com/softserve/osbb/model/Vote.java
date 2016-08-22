@@ -15,6 +15,7 @@ import java.util.List;
 public class Vote {
     private Integer voteId;
     private String description;
+    private Boolean available = true;
     private Timestamp startTime;
     private Timestamp endTime;
     private User user;
@@ -39,6 +40,15 @@ public class Vote {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Column(name = "available", columnDefinition = "boolean default true", nullable = false)
+    public Boolean getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(Boolean available) {
+        this.available = available;
     }
 
     @Basic
@@ -100,5 +110,4 @@ public class Vote {
                 ", description='" + description + '\'' +
                 '}';
     }
-
 }

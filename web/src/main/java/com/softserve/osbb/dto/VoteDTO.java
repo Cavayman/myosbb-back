@@ -9,6 +9,7 @@ import java.util.List;
 public class VoteDTO {
     private Integer voteId;
     private String description;
+    private Boolean available;
     private Timestamp startTime;
     private Timestamp endTime;
     private UserDTO user;
@@ -41,6 +42,14 @@ public class VoteDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Boolean getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(Boolean available) {
+        this.available = available;
     }
 
     public Timestamp getStartTime() {

@@ -45,13 +45,13 @@ export class VoteAddFormComponent {
         let vote = new Vote();
         vote.description = question;
         vote.options = this.optionArr;
+        vote.available = false;
         this.optionArr = [];
         vote.usersId = [];
         vote.startTime = new Date();
         let endTime = new Date(time);
-        endTime.setHours(endTime.getHours()-3);//    XXXXXXXXXXXXXXXXXXXXXXXX
+        endTime.setHours(endTime.getHours()-3);
         vote.endTime = endTime;
-        //console.log("oncreatevoting:" + this.currentUser.userId+" "+this.currentUser.lastName);
         vote.user = this.currentUser;
         //this.printTime(vote);
         this.create.emit(vote);

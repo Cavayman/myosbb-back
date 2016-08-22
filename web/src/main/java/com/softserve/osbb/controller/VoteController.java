@@ -91,7 +91,8 @@ public class VoteController {
     @RequestMapping(value = "/vote", method = RequestMethod.GET)
     public ResponseEntity<List<Resource<VoteDTO>>> getAllVotes() {
         logger.info("Get all votes.");
-        List<Vote> voteList = voteService.getAllVotes();
+        List<Vote> voteList = voteService.getAllVotesByDateOfCreation();
+        //List<Vote> voteList = voteService.getAllVotes();
         List<VoteDTO> voteDTOList = new ArrayList<>();
         for(Vote vote: voteList) {
             voteDTOList.add(VoteDTOMapper.mapVoteEntityToDTO(vote));
@@ -102,6 +103,21 @@ public class VoteController {
         }
         return new ResponseEntity<>(resourceVoteList, HttpStatus.OK);
     }
+/*
+    @RequestMapping(value = "/vote", method = RequestMethod.GET)
+    public ResponseEntity<List<Resource<VoteDTO>>> getAllVotes() {
+        logger.info("Get all votes.");
+        List<Vote> voteList = voteService.getAllVotes();
+        List<VoteDTO> voteDTOList = new ArrayList<>();
+        for(Vote vote: voteList) {
+            voteDTOList.add(VoteDTOMapper.mapVoteEntityToDTO(vote));
+        }
+        final List<Resource<VoteDTO>> resourceVoteList = new ArrayList<>();
+        for(VoteDTO v: voteDTOList) {
+            resourceVoteList.add(addResourceLinkToVote(v));
+        }
+        return new ResponseEntity<>(resourceVoteList, HttpStatus.OK);
+    }*/
 
     @RequestMapping(value = "/vote", method = RequestMethod.PUT)
     public ResponseEntity<Resource<Vote>> updateVote(@RequestBody Vote vote) {

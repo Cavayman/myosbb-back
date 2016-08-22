@@ -33,6 +33,11 @@ public class VoteServiceImpl implements VoteService {
     }
 
     @Override
+    public List<Vote> getAllVotesByDateOfCreation() {
+        return voteRepository.findByOrderByStartTimeDesc();
+    }
+
+    @Override
     public boolean existsVote(Integer id) {
         return voteRepository.exists(id);
     }
