@@ -2,7 +2,6 @@ import {Component, OnInit} from "@angular/core";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 
 import {UserComponent} from "../user/user.component";
-import {HeaderComponent} from "./header/header.component";
 
 import {SideBarMenuComponent} from "../home/sidebar_menu/sidebar_menu.component";
 import {VoteComponent} from "./voting/vote.component";
@@ -12,7 +11,7 @@ import {LoginStat} from "../../shared/services/login.stats";
     selector: 'app-home',
     templateUrl: './src/app/home/home.html',
     styleUrls: ['./src/app/home/home.css'],
-    directives: [ROUTER_DIRECTIVES, UserComponent, HeaderComponent, SideBarMenuComponent, VoteComponent],
+    directives: [ROUTER_DIRECTIVES, UserComponent, SideBarMenuComponent, VoteComponent],
     inputs: ['isLoggedIn'],
     outputs: ['isLoggedIn'],
     providers: [LoginStat]
