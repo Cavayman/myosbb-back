@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
@@ -59,7 +58,7 @@ public class ReportDownloadService {
             JasperPrint jp = generateReportTemplate(invoiceParam);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             reportExporterService.exportToOutputStream(type, jp, httpServletResponse, baos);
-            String invoiceFileName = reportExporterService.exportToFile(jp, type, fileServer.getOutputFileDirectory());
+            String invoiceFileName = reportExporterService.exportToFile(jp, type, fileServer.getOutputFileDirectory(Constants.REPORTS));
             saveReportToDatabase(invoiceFileName, invoiceParam);
             write(httpServletResponse, baos, type);
         } catch (JRException e) {
@@ -76,7 +75,7 @@ public class ReportDownloadService {
             JasperPrint jp = generateCurrentUserReportTemplate(invoiceParam);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             reportExporterService.exportToOutputStream(type, jp, httpServletResponse, baos);
-            String invoiceFileName = reportExporterService.exportToFile(jp, type, fileServer.getOutputFileDirectory());
+            String invoiceFileName = reportExporterService.exportToFile(jp, type, fileServer.getOutputFileDirectory(Constants.REPORTS));
             saveReportToDatabase(invoiceFileName, invoiceParam);
             write(httpServletResponse, baos, type);
         } catch (JRException e) {
@@ -104,7 +103,6 @@ public class ReportDownloadService {
 
     private static ReportNumberGenerator reportNumberGenerator = new ReportNumberGenerator() {
         private long counter;
-        private SimpleDateFormat dateFormatter = new SimpleDateFormat(Constants.DATE_FORMAT);
 
         @Override
         public String generate() {
@@ -116,7 +114,7 @@ public class ReportDownloadService {
             long seconds = TimeUnit.MILLISECONDS.toSeconds(counter) -
                     TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(counter));
             StringBuilder invoiceGenStringBuilder = new StringBuilder();
-            invoiceGenStringBuilder.append(dateFormatter.format(new Date()))
+            invoiceGenStringBuilder.append(Constants.DATE_FORMATTER.format(new Date()))
                     .append("-")
                     .append(String.format("%02d%02d%02d", hours, minutes, seconds));
             return invoiceGenStringBuilder.toString();
@@ -154,10 +152,8 @@ public class ReportDownloadService {
         Report report = new Report();
         report.setName((String) invoiceParam.get("invoiceNumber"));
         report.setCreationDate(LocalDate.now());
-        report.setFilePath("/" + fileName);
-        if (currentUser != null) {
-            report.setUser(currentUser);
-        }
+        report.setFilePath("/" + Constants.DATE_FORMATTER.format(new Date()) + "/" + fileName);
+        report.setUser(currentUser);
         reportRepository.save(report);
         logger.info("saved report :" + report.getName() + " to database");
     }

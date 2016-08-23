@@ -21,23 +21,14 @@ import java.util.List;
 @Service
 public class ReportCreator {
 
+    private static Logger logger = LoggerFactory.getLogger(ReportCreator.class);
     @Autowired
     private BillRepository billRepository;
-
-    private static Logger logger = LoggerFactory.getLogger(ReportCreator.class);
-
 
     public JRDataSource getReportModelListDataSource() {
         logger.info("fetching all bills from the database");
         List<Bill> bills = billRepository.findAll();
-        JRBeanCollectionDataSource reportModeListDataSource = createReportModelListDataSource(bills);
-        return reportModeListDataSource;
-    }
-
-    private JRBeanCollectionDataSource createReportModelListDataSource(List<Bill> bills) {
-        List<ReportModel> reportModelList = new ArrayList<>();
-        bills.forEach((bill) -> addToReportModelList(convertFrom(bill), reportModelList));
-        return new JRBeanCollectionDataSource(reportModelList, false);
+        return createReportModelListDataSource(bills);
     }
 
     public JRDataSource getReportModelListDataSource(User currentUser) {
@@ -46,9 +37,15 @@ public class ReportCreator {
         }
         logger.info("fetching all bills from the database for current user ", currentUser.getUserId());
         List<Bill> bills = billRepository.findAllByUserId(currentUser.getUserId());
-        JRBeanCollectionDataSource reportModelListDataSource = createReportModelListDataSource(bills);
-        return reportModelListDataSource;
+        return createReportModelListDataSource(bills);
     }
+
+    private JRBeanCollectionDataSource createReportModelListDataSource(List<Bill> bills) {
+        List<ReportModel> reportModelList = new ArrayList<>();
+        bills.forEach((bill) -> addToReportModelList(convertFrom(bill), reportModelList));
+        return new JRBeanCollectionDataSource(reportModelList, false);
+    }
+
 
     private ReportModel convertFrom(Bill bill) {
         logger.info("converting data to ReportModel");
