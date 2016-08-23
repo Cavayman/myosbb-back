@@ -6,8 +6,7 @@ import com.softserve.osbb.repository.HouseRepository;
 import com.softserve.osbb.service.HouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +22,7 @@ public class HouseServiceImpl implements HouseService {
 
     private static final List<House> EMPTY_HOUSE_LIST = new ArrayList<>(0);
     private static final List<Apartment> EMPTY_APPARTMENT_LIST = new ArrayList<>(0);
-    private static final int DEF_ROWS = 10;
+
     @Autowired
     private HouseRepository houseRepository;
 
@@ -75,7 +74,7 @@ public class HouseServiceImpl implements HouseService {
 
 
     @Override
-    public List<Apartment> findAllAppartmentsByHouseId(Integer houseId) {
+    public List<Apartment> findAllApartmentsByHouseId(Integer houseId) {
         House house = findHouseById(houseId);
         return house != null ? (List<Apartment>) house.getApartments() : EMPTY_APPARTMENT_LIST;
     }
@@ -97,17 +96,8 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public Page<House> getAllHouses(Integer pageNumber, String sortedBy, Boolean order, Integer rowNum) {
-        PageRequest pageRequest = new PageRequest(pageNumber - 1, rowNum == null ? DEF_ROWS : rowNum,
-                getSortingOrder(order), sortedBy == null ? "street" : sortedBy);
-        return houseRepository.findAll(pageRequest);
-    }
-
-    private Sort.Direction getSortingOrder(Boolean order) {
-        if (order == null) {
-            return Sort.Direction.DESC;
-        }
-        return order == true ? Sort.Direction.ASC : Sort.Direction.DESC;
+    public Page<House> getAllHouses(Pageable pageable) {
+        return houseRepository.findAll(pageable);
     }
 
 

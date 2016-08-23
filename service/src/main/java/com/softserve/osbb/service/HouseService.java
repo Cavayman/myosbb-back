@@ -3,6 +3,7 @@ package com.softserve.osbb.service;
 import com.softserve.osbb.model.Apartment;
 import com.softserve.osbb.model.House;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,11 +27,11 @@ public interface HouseService {
 
     List<House> findAllByStreet(String street);
 
-    List<Apartment> findAllAppartmentsByHouseId(Integer houseId);
+    List<Apartment> findAllApartmentsByHouseId(Integer houseId);
 
     boolean deleteHouseById(Integer id);
 
     void deleteAllHouses();
 
-    Page<House> getAllHouses(Integer pageNumber, String sortedBy, Boolean order, Integer rowNum);
+    Page<House> getAllHouses(Pageable pageable);
 }
