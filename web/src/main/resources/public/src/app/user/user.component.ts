@@ -12,10 +12,11 @@ import {CurrentUserService} from "../../shared/services/current.user.service";
 })
 export class UserComponent implements OnInit{
     userName:string;
-    constructor(private _currentUser:CurrentUserService){
-        console.log(this._currentUser.getUser());
+    _currentUser=HeaderComponent.currentUserService;
+    constructor(){
+        console.log("From user component:"+this._currentUser.getUser());
         this.userName=this._currentUser.getUser().firstName;
-        console.log(this.userNamenpm );
+        console.log(this.userName);
     }
 
     ngOnInit():any {

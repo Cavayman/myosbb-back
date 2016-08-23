@@ -1,17 +1,31 @@
 import {Injectable} from "@angular/core";
 import {User} from "../../shared/models/User";
 import {Response} from "@angular/http";
+import {LoginService} from "../../app/login/login.service"
 @Injectable()
 export class CurrentUserService {
 
-    private currentUser:User=new User();
+    private currentUser: User
 
+    constructor(private _loginservice: LoginService) {
+        this.currentUser = new User();
+        this.getUser();
+    }
 
-    setUser(user:Response) {
-        this.currentUser=<User>user.json();
+    setUser(user: Response) {
+        this.currentUser = <User>user.json();
     }
     
-    getUser():User{
+    setUserPromise(user: User) {
+        this.currentUser = user;
+        return this.currentUser;
+    }
+
+    getUser(): User {
+        if ((this.currentUser.firstName.length == 0) && (this._loginservice.checkLogin())) {
+            this._loginservice.sendToken(localStorage.getItem("token")).subscribe(
+                data => this.setUser(data));
+        }
         return this.currentUser;
     }
 

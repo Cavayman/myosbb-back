@@ -7,6 +7,7 @@ import {Http} from "@angular/http";
 import {TranslateService, TranslatePipe} from "ng2-translate/ng2-translate";
 import {DROPDOWN_DIRECTIVES} from 'ng2-bs-dropdown/dropdown';
 import {LoginService} from "../login/login.service";
+import {CurrentUserService} from "../../shared/services/current.user.service"
 
 @Component({
     selector: 'app-header',
@@ -23,15 +24,17 @@ export class HeaderComponent implements OnInit,
     isLoggedIn:boolean;
     sub:any;
     static translateService : TranslateService;
+    static currentUserService : CurrentUserService;
 
     languages: Array<string> = ['en', 'uk'];
     selectedLang : string = 'uk';
 
-    constructor(private _loginService:LoginService,private _loginStat:LoginStat, private _route:ActivatedRoute, private translate: TranslateService, private http:Http) {
+    constructor(private _currentUserService:CurrentUserService,private _loginService:LoginService,private _loginStat:LoginStat, private _route:ActivatedRoute, private translate: TranslateService, private http:Http) {
         this._loginStat.loggedInObserver$
             .subscribe(stat => {
                 this.isLoggedIn = stat;
             });
+        HeaderComponent.currentUserService=_currentUserService;
         HeaderComponent.translateService = translate;
         var userLang = navigator.language.split('-')[1]; // use navigator lang if available
         userLang = /(en|uk)/gi.test(userLang) ? userLang : 'uk';
@@ -44,7 +47,9 @@ export class HeaderComponent implements OnInit,
         translate.use(this.selectedLang);
         translate.currentLang = this.selectedLang;
         console.log("default lang: ", translate.currentLang);
-        console.log("shared sevice: ", HeaderComponent.translateService)
+        console.log("shared sevice: ", HeaderComponent.translateService);
+            console.log("shared sevice: ", HeaderComponent.currentUserService);
+    
     }
 
 

@@ -15,19 +15,19 @@ export class LoginComponent implements OnInit {
     ngOnInit(): any {
         return undefined;
     }
-    private model = {'username': '', 'password': ''};
+    private model = { 'username': '', 'password': '' };
     private currentUserName = '';
-    private isLoggedIn:boolean = false;
+    private isLoggedIn: boolean = false;
 
     // isLoggedIn:boolean;
     // @Output() private loggedIn = new EventEmitter();
 
-    constructor(private _router:Router, private loginService:LoginService
-        ,private _currentUserService:CurrentUserService) {
+    constructor(private _router: Router, private loginService: LoginService
+        , private _currentUserService: CurrentUserService) {
     }
 
     onSubmit() {
-        this.isLoggedIn=false;
+        this.isLoggedIn = false;
         this.loginService.sendCredentials(this.model).subscribe(
             data => {
                 localStorage.setItem("token", JSON.parse(JSON.stringify(data))._body);
@@ -48,9 +48,6 @@ export class LoginComponent implements OnInit {
         )
 
     }
-
-
-
 
     onUserRegistrationClick() {
         this._router.navigate(['registration']);
