@@ -45,7 +45,7 @@ export class VoteAddFormComponent {
         let vote = new Vote();
         vote.description = question;
         vote.options = this.optionArr;
-        vote.available = false;
+        vote.available = true;
         this.optionArr = [];
         vote.usersId = [];
         vote.startTime = new Date();

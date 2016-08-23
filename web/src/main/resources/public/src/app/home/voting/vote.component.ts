@@ -41,9 +41,9 @@ export class VoteComponent implements OnInit {
     checkForUserId(): void {
         for(let i = 0; i < this.voteArr.length; i++) {
             if(this.voteArr[i].available && !(this.voteArr[i].usersId.includes(this.currentUser.userId))){
-                this.voteArr[i].available = false;
-            } else {
                 this.voteArr[i].available = true;
+            } else {
+                this.voteArr[i].available = false;
             }
             //this.voteArr[i].available = this.voteArr[i].usersId.includes(this.currentUser.userId);
         }
@@ -63,7 +63,7 @@ export class VoteComponent implements OnInit {
         if(vote.numberOfRespondents === undefined) vote.numberOfRespondents = 0 ;
         vote.numberOfRespondents++;
         option.users.push(this.currentUser);
-        vote.available = true;
+        vote.available = false;
         this.calcProgressForVote(vote);
         this.optionService.toScoreOption(option.optionId, this.currentUser.userId);
     }

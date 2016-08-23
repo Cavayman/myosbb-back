@@ -1,6 +1,6 @@
 <vote-add-form [currentUser]="currentUser" (create)="createVote($event)" #voteAddForm></vote-add-form>
 <div class="vote-box"  *ngFor="let vote of voteArr">
-        <div  *ngIf="!vote.available">
+        <div  *ngIf="vote.available">
             <ul>
                 <li><h4 class="question"> {{vote.description}}</h4></li>
                 <li *ngFor="let option of vote.options">
@@ -8,7 +8,7 @@
                 </li>
             </ul>
         </div>
-        <div  *ngIf="vote.available">
+        <div  *ngIf="!vote.available">
             <div class="result-box">       
                 <ul>
                     <li><h4 class="question"> {{vote.description}}</h4></li>

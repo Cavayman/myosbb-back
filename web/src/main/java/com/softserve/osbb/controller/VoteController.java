@@ -16,11 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,9 +45,7 @@ public class VoteController {
     @RequestMapping(value = "/vote", method = RequestMethod.POST)
     public ResponseEntity<Resource<Vote>> createVote(@RequestBody Vote vote) {
         logger.info("Add vote: " + vote);
-        System.out.println("vote.user: " + vote.getUser());
-        int usrId = vote.getUser()!=null? vote.getUser().getUserId(): 3;
-        User user = userService.findOne(usrId);
+        User user = userService.findOne(vote.getUser().getUserId());
         user.getVotes().add(vote);
         vote.setUser(user);
         vote = voteService.addVote(vote);
@@ -63,23 +56,6 @@ public class VoteController {
         }
         return new ResponseEntity<>(addResourceLinkToVote(vote), HttpStatus.OK);
     }
-
-    //  **********************************************************************
-        private  Timestamp getStartTime() {
-            ZoneId kievZone = ZoneId.of("Europe/Kiev");
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            ZonedDateTime minskTime = ZonedDateTime.of(LocalDateTime.now(), kievZone);
-
-            return Timestamp.valueOf(minskTime.toLocalDateTime().format(dtf));
-        }
-
-        private Timestamp getEndTime() {
-            ZoneId kievZone = ZoneId.of("Europe/Kiev");
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            ZonedDateTime minskTime = ZonedDateTime.of(LocalDateTime.now().plusHours(8), kievZone);
-            return Timestamp.valueOf(minskTime.toLocalDateTime().format(dtf));
-        }
-    //  **********************************************************************
 
     @RequestMapping(value = "/vote/id/{id}", method = RequestMethod.GET)
     public ResponseEntity<Resource<Vote>> getVoteById(@PathVariable("id") Integer id) {
