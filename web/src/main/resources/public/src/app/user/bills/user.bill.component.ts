@@ -16,11 +16,12 @@ import {
     onErrorResourceNotFoundToastMsg
 } from "../../../shared/error/error.handler.component";
 import {SearchDTO} from "../../../shared/models/search.model";
+import {HeaderComponent} from "../../header/header.component";
 
 @Component({
     selector: 'my-user-bill',
     templateUrl: 'src/app/user/bills/bill.html',
-    providers: [BillService, ToasterService],
+    providers: [BillService, ToasterService, CurrentUserService],
     styleUrls: ['src/app/user/bills/bill.css', 'src/shared/css/loader.css', 'src/shared/css/general.css'],
     directives: [ToasterContainerComponent, FileDownloaderComponent, MODAL_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, BUTTON_DIRECTIVES,
         DateTimePickerDirective],
@@ -49,9 +50,8 @@ export class UserBillComponent implements OnInit {
     private options: {} = {ALL: 'ALL', PAID: 'PAID', NOT_PAID: 'NOT_PAID'};
     private status: string = this.options.ALL;
 
-    constructor(private _currentUserService: CurrentUserService,
-                private _billService: BillService, private _toasterService: ToasterService) {
-        this.currentUser = new User(this._currentUserService.getUser());
+    constructor(private _billService: BillService, private _toasterService: ToasterService) {
+        this.currentUser = HeaderComponent.currentUserService.getUser();
     }
 
 

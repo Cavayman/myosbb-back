@@ -11,8 +11,8 @@ import {SELECT_DIRECTIVES} from "ng2-select";
 import {TranslatePipe} from "ng2-translate";
 import {CapitalizeFirstLetterPipe} from "../../../shared/pipes/capitalize-first-letter";
 import {DateTimePickerDirective} from "ng2-datetime-picker";
-import {CurrentUserService} from "../../../shared/services/current.user.service";
 import {User} from "../../../shared/models/User";
+import {HeaderComponent} from "../../header/header.component";
 import FileServer = require("../../../shared/services/file.server.path");
 
 
@@ -52,9 +52,8 @@ export class UserReportComponent implements OnInit, OnDestroy {
     private currentUser: User;
     private fileServerPath:string=FileServer.fileServerPath;
 
-    constructor(private _reportService: ReportService, private sanitizer: DomSanitizationService,
-                private _currentUserService: CurrentUserService) {
-        this.currentUser = new User(this._currentUserService.getUser());
+    constructor(private _reportService: ReportService, private sanitizer: DomSanitizationService) {
+        this.currentUser = HeaderComponent.currentUserService.getUser();
     }
 
     onClickShowOptional() {
