@@ -152,7 +152,7 @@ export class UserBillComponent implements OnInit {
                     this.totalPages = +data.totalPages;
                 },
                 (error) => {
-                    console.error(error)
+                    this.handleErrors(error)
                 });
     }
 
@@ -174,7 +174,8 @@ export class UserBillComponent implements OnInit {
 
     processOption(status: string) {
         console.log('status', status);
-        this.getBillsByPageNum(this.pageNumber, this.selectedRow, status)
+        this.status = status;
+        this.getBillsByPageNum(this.pageNumber, this.selectedRow, this.status);
     }
 
 }

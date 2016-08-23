@@ -23,9 +23,14 @@
     <div class="panel-body">
         <div class="row row-left">
             <div class="btn-group" role="group" aria-label="...">
-                <button type="button" class="btn btn-default" (click)="processOption(options.ALL)">Всі</button>
-                <button type="button" class="btn btn-default" (click)="processOption(options.PAID)">Сплачені</button>
-                <button type="button" class="btn btn-default" (click)="processOption(options.NOT_PAID)">В процесі
+                <button [ngClass]="{'active': status===options.ALL}" type="button" class="btn btn-default"
+                        (click)="processOption(options.ALL)">Всі
+                </button>
+                <button [ngClass]="{'active': status===options.NOT_PAID}" type="button"
+                        class="btn btn-default" (click)="processOption(options.NOT_PAID)">В процесі
+                </button>
+                <button [ngClass]="{'active': status===options.PAID}" type="button" class="btn btn-default"
+                        (click)="processOption(options.PAID)">Оплачені
                 </button>
             </div>
         </div>
@@ -90,7 +95,7 @@
                 </nav>
             </div>
             <div class="col-xs-4">
-                <div *ngIf="bills.length != 0" class="text-center" style="margin-top: 15px">
+                <div class="text-center" style="margin-top: 15px">
                     <file-downloader></file-downloader>
                 </div>
             </div>
