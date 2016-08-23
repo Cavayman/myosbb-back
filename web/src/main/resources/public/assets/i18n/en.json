@@ -83,7 +83,9 @@
   "providergo": "go to provider page",
   "error404": "Error 404",
   "error404title": "This resource wasn't found",
-  "go_back": "Go Back"
+  "go_back": "Go Back",
+  "add": "add",
+  "wrong_symbol": "wrong symbols"
 
     }
 
