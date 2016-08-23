@@ -2,9 +2,10 @@ package com.softserve.osbb.controller;
 
 import com.softserve.osbb.model.Report;
 import com.softserve.osbb.model.User;
+import com.softserve.osbb.repository.ApartmentRepository;
 import com.softserve.osbb.service.UserService;
-import com.softserve.osbb.service.utils.ReportDownloadService;
 import com.softserve.osbb.service.impl.ReportServiceImpl;
+import com.softserve.osbb.service.utils.ReportDownloadService;
 import com.softserve.osbb.util.PageRequestGenerator;
 import com.softserve.osbb.util.ReportPageCreator;
 import com.softserve.osbb.util.resources.EntityResourceList;
@@ -45,6 +46,9 @@ public class ReportController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ApartmentRepository apartmentRepository;
 
     @Autowired
     private ReportDownloadService reportDownloadService;
@@ -251,7 +255,11 @@ public class ReportController {
                          HttpServletResponse httpServletResponse) {
         logger.info("preparing download for userId: " + userId);
         User currentUser = userService.findOne(userId);
-        reportDownloadService.download(currentUser, type, httpServletResponse);
+        if (apartmentRepository.findByUser(currentUser) != null) {
+            reportDownloadService.download(currentUser, type, httpServletResponse);
+        } else {
+            reportDownloadService.download(type, httpServletResponse);
+        }
 
     }
 
