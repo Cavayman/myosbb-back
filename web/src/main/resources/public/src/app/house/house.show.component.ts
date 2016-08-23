@@ -16,7 +16,7 @@ import {Subscription} from "rxjs";
 export class HouseShowComponent implements OnInit, OnDestroy {
 
     private housePageObject: HousePageObject;
-    private houseId: number = 50;
+    private houseId: number;
     private sub: Subscription;
 
     constructor(private _houseService: HouseService, private _routeParams: ActivatedRoute) {

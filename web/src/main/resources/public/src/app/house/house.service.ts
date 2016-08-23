@@ -24,6 +24,11 @@ export class HouseService {
             .catch((error)=>Observable.throw(error));
     }
 
+    deleteHouseById(houseId: number): Observable<any> {
+        return this._http.delete(this.housesByIdUrl + houseId, {headers: this.headers})
+            .catch((error)=>Observable.throw(error));
+
+    }
 
     getAllHousesByPageNumber(pageNumber: number, selectedRow: number): Observable<any> {
         return this._http.get(this.housesByPageUrl + pageNumber + '&&rowNum=' + selectedRow, {headers: this.headers})

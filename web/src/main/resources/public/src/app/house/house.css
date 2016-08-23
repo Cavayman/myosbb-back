@@ -1,6 +1,22 @@
-.top-house-panel {
+.top-panel {
     position: relative;
     top: -40px;
+}
+
+.block-center {
+    max-width: 80%;
+    min-width: 60%;
+    margin: 0 auto;
+
+}
+
+.panel-btn {
+    height: 30px;
+    width: 45px;
+}
+
+#desc {
+    height: 150px;
 }
 
 .to-right {
