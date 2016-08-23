@@ -17,6 +17,7 @@ public class BillDTOMapper {
                     .setApartmentNumber(bill.getApartment())
                     .setPaid(bill.getPaid())
                     .setToPay(bill.getToPay())
+                    .setTariff(bill.getTariff())
                     .setDescription(bill.getProvider())
                     .setStatus(bill.getBillStatus())
                     .build();
