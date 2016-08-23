@@ -73,65 +73,72 @@ public class BillController {
         }
         PageRequestGenerator.PageSelector pageSelector = PageRequestGenerator
                 .generatePageSelectorData(bills);
-        EntityResourceList<BillDTO> billResourceList = createFilteredByStatusResourceList(status, bills);
+        EntityResourceList<BillDTO> billResourceList = BillFilter.createFilteredByStatusResourceList(status, bills);
         PageCreator<Resource<BillDTO>> billPageCreator = setUpPageCreator(pageSelector, billResourceList);
 
         return new ResponseEntity<>(billPageCreator, HttpStatus.OK);
     }
 
-    private EntityResourceList<BillDTO> createFilteredByStatusResourceList(String status, Page<Bill> bills) {
-        EntityResourceList<BillDTO> billResourceList = new BillResourceList();
-        if (status == null) {
-            logger.info("filtering by status null");
-            addByStatusIFNoStatus(bills, billResourceList);
+
+    private static class BillFilter {
+
+        private static final String PAID = "PAID";
+        private static final String NOT_PAID = "NOT_PAID";
+
+        public static EntityResourceList<BillDTO> createFilteredByStatusResourceList(String status, Page<Bill> bills) {
+            EntityResourceList<BillDTO> billResourceList = new BillResourceList();
+            if (status == null) {
+                logger.info("default filtering");
+                addIfNoStatus(bills, billResourceList);
+                return billResourceList;
+            }
+            switch (status.toUpperCase()) {
+                case PAID:
+                    addByStatusIfPaid(bills, billResourceList);
+                    break;
+                case NOT_PAID:
+                    addByStatusIfNotPaid(bills, billResourceList);
+                    break;
+                default:
+                    addIfNoStatus(bills, billResourceList);
+                    break;
+
+            }
             return billResourceList;
         }
-        switch (status.toUpperCase()) {
-            case "PAID":
-                addByStatusIfPaid(bills, billResourceList);
-                break;
-            case "NOT_PAID":
-                addByStatusIfNotPaid(bills, billResourceList);
-                break;
-            default:
-                addByStatusIFNoStatus(bills, billResourceList);
-                break;
 
+        private static void addIfNoStatus(Page<Bill> bills, EntityResourceList<BillDTO> billResourceList) {
+            bills.forEach((bill) -> {
+                        BillDTO billDTo = BillDTOMapper.mapEntityToDTO(bill);
+                        logger.info("billDto created " + billDTo.toString());
+                        billResourceList.add(toResource(billDTo));
+                    }
+            );
         }
-        return billResourceList;
-    }
 
-    private void addByStatusIfNotPaid(Page<Bill> bills, EntityResourceList<BillDTO> billResourceList) {
-        logger.info("filtering by: " + BillStatus.NOT_PAID);
-        bills.getContent()
-                .stream()
-                .filter((b) -> b.getBillStatus() == BillStatus.NOT_PAID)
-                .forEach((bill) -> {
-                    BillDTO billDTo = BillDTOMapper.mapEntityToDTO(bill);
-                    logger.info("billDto created " + billDTo.toString());
-                    billResourceList.add(toResource(billDTo));
-                });
-    }
+        private static void addByStatusIfNotPaid(Page<Bill> bills, EntityResourceList<BillDTO> billResourceList) {
+            logger.info("filtering by: " + BillStatus.NOT_PAID);
+            bills.getContent()
+                    .stream()
+                    .filter((b) -> b.getBillStatus() == BillStatus.NOT_PAID)
+                    .forEach((bill) -> {
+                        BillDTO billDTo = BillDTOMapper.mapEntityToDTO(bill);
+                        logger.info("billDto created " + billDTo.toString());
+                        billResourceList.add(toResource(billDTo));
+                    });
+        }
 
-    private void addByStatusIfPaid(Page<Bill> bills, EntityResourceList<BillDTO> billResourceList) {
-        logger.info("filtering by: " + BillStatus.PAID);
-        bills.getContent()
-                .stream()
-                .filter((b) -> b.getBillStatus() == BillStatus.PAID)
-                .forEach((bill) -> {
-                    BillDTO billDTo = BillDTOMapper.mapEntityToDTO(bill);
-                    logger.info("billDto created " + billDTo.toString());
-                    billResourceList.add(toResource(billDTo));
-                });
-    }
-
-    private void addByStatusIFNoStatus(Page<Bill> bills, EntityResourceList<BillDTO> billResourceList) {
-        bills.forEach((bill) -> {
-                    BillDTO billDTo = BillDTOMapper.mapEntityToDTO(bill);
-                    logger.info("billDto created " + billDTo.toString());
-                    billResourceList.add(toResource(billDTo));
-                }
-        );
+        private static void addByStatusIfPaid(Page<Bill> bills, EntityResourceList<BillDTO> billResourceList) {
+            logger.info("filtering by: " + BillStatus.PAID);
+            bills.getContent()
+                    .stream()
+                    .filter((b) -> b.getBillStatus() == BillStatus.PAID)
+                    .forEach((bill) -> {
+                        BillDTO billDTo = BillDTOMapper.mapEntityToDTO(bill);
+                        logger.info("billDto created " + billDTo.toString());
+                        billResourceList.add(toResource(billDTo));
+                    });
+        }
     }
 
     private PageCreator<Resource<BillDTO>> setUpPageCreator(PageRequestGenerator.PageSelector pageSelector, EntityResourceList<BillDTO> billResourceList) {
