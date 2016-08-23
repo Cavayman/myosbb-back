@@ -9,6 +9,7 @@ import {userRoutes} from "./user/user.routes";
 import {RegistrationComponent} from "./registration/registration.component";
 import {HouseShowComponent} from "./house/house.show.component";
 import {Error404Component} from "../shared/error/error404.component";
+import {ErrorHandlerComponent} from "../shared/error/error.handler.component";
 
 export const routes: RouterConfig = [
     {path: 'head/:status', component: HeaderComponent},
@@ -19,9 +20,9 @@ export const routes: RouterConfig = [
     {path: 'house/:id', component: HouseShowComponent},
     {path: 'message/:id', component: MessageComponent},
     {path: 'home/user', component: UserComponent},
-    //{path:'**', component:ErrorHandlerComponent},
     ...homeRoutes,
-    ...userRoutes
+    ...userRoutes,
+    {path: '**', component: ErrorHandlerComponent},
 ];
 
 export const APP_ROUTER_PROVIDERS = [
