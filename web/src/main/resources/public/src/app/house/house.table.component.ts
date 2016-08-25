@@ -180,7 +180,7 @@ export class HouseTableComponent implements OnInit {
 
     onNavigate(id: number) {
         console.log('navigating to house id ', id);
-        this._router.navigate(['house', id]);
+        this._router.navigate(['home/house', id]);
     }
 
 

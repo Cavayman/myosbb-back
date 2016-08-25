@@ -7,7 +7,6 @@ import {MessageComponent} from "./user/ticket/message/message.component";
 import {homeRoutes} from "./home/home.routes";
 import {userRoutes} from "./user/user.routes";
 import {RegistrationComponent} from "./registration/registration.component";
-import {HouseShowComponent} from "./house/house.show.component";
 import {Error404Component} from "../shared/error/error404.component";
 import {ErrorHandlerComponent} from "../shared/error/error.handler.component";
 
@@ -17,7 +16,6 @@ export const routes: RouterConfig = [
     {path: 'registration', component: RegistrationComponent},
     {path: '', redirectTo: 'login', pathMatch: 'full'},
     {path: 'home', component: HomeComponent},
-    {path: 'house/:id', component: HouseShowComponent},
     {path: 'message/:id', component: MessageComponent},
     {path: 'home/user', component: UserComponent},
     ...homeRoutes,

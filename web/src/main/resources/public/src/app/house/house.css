@@ -4,9 +4,11 @@
 }
 
 .block-center {
-    max-width: 80%;
+    position: relative;
+    top: -40px;
+    max-width: 100%;
     min-width: 60%;
-    margin: 0 auto;
+    margin-left: 210px;
 
 }
 
@@ -20,7 +22,7 @@
 }
 
 .to-right {
-    margin-left: 200px;
+    margin-left: 210px;
 }
 
 a {
