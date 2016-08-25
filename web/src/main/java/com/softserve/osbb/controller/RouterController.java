@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class RouterController {
 
 
-    @RequestMapping({"/", "/myosbb", "/myosbb/login", "/myosbb/home/**"})
+    @RequestMapping({"/", "/admin", "/login", "/home/**"})
     public String index() {
         return "forward:/index.html";
     }
