@@ -1,5 +1,5 @@
 import { Component, Output, Input, EventEmitter, ViewChild } from '@angular/core';
-import {CORE_DIRECTIVES} from '@angular/common';
+import {FORM_DIRECTIVES, CORE_DIRECTIVES, FormBuilder, Control, ControlGroup, Validators} from '@angular/common';
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS} from 'ng2-bootstrap/ng2-bootstrap';
 import {ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
 import {Vote} from '../vote';
@@ -10,7 +10,7 @@ import {Option} from '../option';
     selector: 'vote-add-form',
     templateUrl: './src/app/home/voting/vote_form/vote-add-form.html',
     styleUrls:['./src/app/home/voting/vote_form/vote-add-form.css'],
-    directives:[MODAL_DIRECTIVES, CORE_DIRECTIVES],
+    directives:[FORM_DIRECTIVES, MODAL_DIRECTIVES, CORE_DIRECTIVES],
     viewProviders: [BS_VIEW_PROVIDERS]
 })
 export class VoteAddFormComponent {
@@ -23,42 +23,93 @@ export class VoteAddFormComponent {
 
     @Input() currentUser:User;
 
+    creatingForm: ControlGroup;
+    question: Control;
+    submitAttempt: boolean;
+    optionInputStr: string;
+    questionInputStr: string;
+    endTimeStr: string;
 
     openAddModal() {
         this.addVoteModal.show();  
     }
 
-    constructor() {
+    closeAddModal() {
+        this.clearAddModal();
+        this.addVoteModal.hide(); 
+    }
+
+    clearAddModal() {
+        this.submitAttempt = false;
+        this.optionArr = [];
+        this.endTimeStr = '';
+        this.questionInputStr = '';
+        this.optionInputStr='';
+    }
+
+    constructor(private builder: FormBuilder) {
         this.create = new EventEmitter<Vote>();
         this.optionArr = [];
+        this.submitAttempt = false;
+        this.question = new Control('', Validators.required);
+        this.creatingForm = builder.group({
+            question: this.question,
+        });
+        this.optionInputStr="";
     }
 
     addOption(description:string):void {
         let opt = new Option();
         opt.description = description;
         opt.users = [];
-        this.optionArr.push(opt); 
+        this.optionArr.push(opt);
+        this.optionInputStr="";
     }
 
-    onCreateVoting(question: string, time:any):void {
-        console.log("time string: " + time);
+    toggleSubmitAttempt(){
+        this.submitAttempt = true;
+    }
+
+    onCreateVoting():void {
+        if(this.question.valid && this.isOptionArrSizeCorrect() && this.isEndTimeCorrect()) {
+            this.create.emit(this.createVote());
+            this.closeAddModal();
+        }
+    }
+
+    createVote():Vote {
         let vote = new Vote();
-        vote.description = question;
+        vote.description = this.questionInputStr;
         vote.options = this.optionArr;
         vote.available = true;
-        this.optionArr = [];
         vote.usersId = [];
         vote.startTime = new Date();
-        let endTime = new Date(time);
-        endTime.setHours(endTime.getHours()-3);
-        vote.endTime = endTime;
+        vote.endTime =  this.castEndTimeStringToDate();
         vote.user = this.currentUser;
-        //this.printTime(vote);
-        this.create.emit(vote);
+        return vote;
     }
 
-    printTime(vote: Vote) {
-        console.log("start time: " + vote.startTime);
-        console.log("end time: " + vote.endTime);
+    castEndTimeStringToDate(): Date {
+        let endTime = new Date(this.endTimeStr);
+        endTime.setHours(endTime.getHours()-3);
+        return endTime;
+    }
+
+    isEndTimeCorrect():boolean {
+        let startTime = new Date();
+        let res = this.castEndTimeStringToDate().valueOf() - startTime.valueOf();
+        return res > 0 || res===NaN ? true: false;
+    }
+
+    isOptionInputEmpty():boolean {
+        return this.optionInputStr.length == 0 ? true: false;
+    }
+
+    isOptionArrSizeCorrect(): boolean {
+        return this.optionArr.length >= 2? true: false;
+    }
+
+    deleteOption(option: Option) {
+        this.optionArr.splice(this.optionArr.indexOf(option),1);
     }
 }
