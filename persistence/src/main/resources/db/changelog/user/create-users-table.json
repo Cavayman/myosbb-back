@@ -239,8 +239,8 @@
             "onUpdate": "NO ACTION",
             "referencedColumnNames": "apartment_id",
             "referencedTableName": "apartment"
-
           }
+        }
         ]
       }
     },
