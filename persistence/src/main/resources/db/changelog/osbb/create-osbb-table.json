@@ -88,7 +88,6 @@
       ]
     }
   },
-
   {
     "changeSet": {
       "id": "2016/08/03-64",
@@ -109,6 +108,69 @@
           }
         }]
 
+    }
+  },
+  {
+    "changeSet": {
+      "id": "2016/08/25-68",
+      "author": "Roman",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addColumn": {
+            "columns": [
+              {
+                "column": {
+                  "name": "address",
+                  "type": "varchar(255)"
+                }
+              }]
+          ,
+            "tableName": "osbb"
+          }
+        }]
+    }
+  },
+  {
+    "changeSet": {
+      "id": "2016/08/25-72",
+      "author": "Roman",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addColumn": {
+            "columns": [
+              {
+                "column": {
+                  "name": "district",
+                  "type": "varchar(255)"
+                }
+              }]
+          ,
+            "tableName": "osbb"
+          }
+        }]
+    }
+  },
+  {
+    "changeSet": {
+      "id": "2016/08/25-74",
+      "author": "Roman",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addColumn": {
+            "columns": [
+              {
+                "column": {
+                  "name": "creation_date",
+                  "type": "TIMESTAMP(6) WITH TIME ZONE"
+                }
+              }]
+          ,
+            "tableName": "osbb"
+          }
+        }]
     }
   }]
 }

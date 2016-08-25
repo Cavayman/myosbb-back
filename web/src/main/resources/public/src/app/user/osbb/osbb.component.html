@@ -18,13 +18,19 @@
                             <a style="{cursor:pointer}" (click)="sortBy('name')"><span
                                     class="fa fa-fw fa-sort pull-left"></span></a>
                         </th>
-                        <th class="sorting"><i class=" fa fa-edit"></i> Опис
+                        <th class="sorting"><i class=" fa fa-edit"></i> Опис</th>
+                        <th class="sorting"><i class=" fa fa-edit"></i> Адрес</th>
+                        <th class="sorting"><i class=" fa fa-edit"></i> Район</th>
+                        <th class="sorting"><i class=" fa fa-edit"></i> Дата створення</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of osbbArr">
-                        <td>{{item.name}}</td>
-                        <td>{{item.description}}</td>
+                    <tr *ngFor="let osbb of osbbArr">
+                        <td>{{osbb.name}}</td>
+                        <td>{{osbb.description}}</td>
+                        <td>{{osbb.address}}</td>
+                        <td>{{osbb.district}}</td>
+                        <td>{{getCreationDate(osbb.creationDate)}}</td>
                         <td>
                             <div class="dropdown">
                                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
@@ -33,8 +39,8 @@
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                    <li><a style="cursor: pointer" (click)="initUpdatedOsbb(item);editForm.openEditModal()">Редагувати</a></li>
-                                    <li><a style="cursor: pointer" (click)="delForm.openDelModal(item)">Видалити</a></li>
+                                    <li><a style="cursor: pointer" (click)="initUpdatedOsbb(osbb);editForm.openEditModal()">Редагувати</a></li>
+                                    <li><a style="cursor: pointer" (click)="delForm.openDelModal(osbb)">Видалити</a></li>
                                 </ul>
                             </div>
                         </td>

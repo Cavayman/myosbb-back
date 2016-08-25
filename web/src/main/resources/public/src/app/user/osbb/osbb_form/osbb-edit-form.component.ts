@@ -1,6 +1,6 @@
 import { Component, Output, Input, EventEmitter, OnInit, ViewChild } from '@angular/core';
 import {CORE_DIRECTIVES} from '@angular/common';
-import { IOsbb, Osbb} from '../osbb';
+import {IOsbb, Osbb} from "../../../../shared/models/osbb";
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS} from 'ng2-bootstrap/ng2-bootstrap';
 import {ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
 @Component({
@@ -30,11 +30,11 @@ export class OsbbEditFormComponent implements OnInit{
         }
     }
 
-    editOsbb(name:string, description:string) {
-        if (name) {
+    editOsbb(name:string, description:string, address: string, district: string) {
            this.osbb.name = name;
            this.osbb.description = description;
+           this.osbb.address = address;
+           this.osbb.district = district;
            this.update.emit(this.osbb);
-        }
     }
 }

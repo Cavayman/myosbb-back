@@ -9,13 +9,21 @@
                 <h4 class="modal-title">Обновити ОСББ</h4>
              </div>
              <div class="modal-body">
-                <div class="form-group">
-                	<input class="form-control" type="text" name="name" #updateNameInput value={{osbb.name}}><br><br>
-                    <input class="form-control" type="text" name="description" #updateDescriptionInput value={{osbb.description}}>
+                  <div class="form-group">
+                	<input class="form-control" type="text" name="name" placeholder="Введіть назву" value={{osbb.name}} #updateNameInput >
+                 </div>
+                 <div class="form-group">
+                    <input class="form-control" type="text" name="description" placeholder="Введіть опис" value={{osbb.description}} #updateDescriptionInput>
+                 </div>
+                 <div class="form-group">
+                    <input class="form-control" type="text" name="address" placeholder="Введіть адрес" value={{osbb.address}} #updateAddressInput>
+                 </div>
+                 <div class="form-group">
+                    <input class="form-control" type="text" name="district" placeholder="Введіть район" value={{osbb.district}} #updateDistrictInput>
                  </div>
             </div>
             <div class="modal-footer">
-                <button type="button" (click)="editOsbb(updateNameInput.value, updateDescriptionInput.value);editModal.hide()" class="btn btn-default">
+                <button type="button" (click)="editOsbb(updateNameInput.value, updateDescriptionInput.value, updateAddressInput.value, updateDistrictInput.value);editModal.hide()" class="btn btn-default">
                     Зберегти
                 </button>
             </div>

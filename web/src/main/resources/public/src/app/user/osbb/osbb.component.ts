@@ -6,7 +6,7 @@ import {ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 
-import {IOsbb} from './osbb';
+import {IOsbb, Osbb} from "../../../shared/models/osbb";
 import { OsbbService } from './osbb.service';
 import { OsbbAddFormComponent } from './osbb_form/osbb-add-form.component';
 import { OsbbEditFormComponent } from './osbb_form/osbb-edit-form.component';
@@ -57,5 +57,9 @@ export class OsbbComponent implements OnInit {
          if(index > -1) {
             this.osbbArr.splice(index, 1);
          }
+    }
+
+    getCreationDate(date:Date):string {
+        return new Date(date).toLocaleString();
     }
 }

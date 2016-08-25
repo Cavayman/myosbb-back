@@ -1,6 +1,6 @@
 import { Component, Output, Input, EventEmitter, OnInit, ViewChild } from '@angular/core';
 import {CORE_DIRECTIVES} from '@angular/common';
-import { IOsbb, Osbb} from '../osbb';
+import {IOsbb, Osbb} from "../../../../shared/models/osbb";
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS} from 'ng2-bootstrap/ng2-bootstrap';
 import {ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
 @Component({
