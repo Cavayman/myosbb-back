@@ -9,6 +9,7 @@ import {userRoutes} from "./user/user.routes";
 import {RegistrationComponent} from "./registration/registration.component";
 import {Error404Component} from "../shared/error/error404.component";
 import {ErrorHandlerComponent} from "../shared/error/error.handler.component";
+import {adminRoutes} from "./admin/admin.routes";
 
 export const routes: RouterConfig = [
     {path: 'head/:status', component: HeaderComponent},
@@ -20,6 +21,7 @@ export const routes: RouterConfig = [
     {path: 'home/user', component: UserComponent},
     ...homeRoutes,
     ...userRoutes,
+    ...adminRoutes,
     {path: '**', component: ErrorHandlerComponent},
 ];
 
