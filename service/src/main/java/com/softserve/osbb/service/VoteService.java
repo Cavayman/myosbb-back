@@ -19,6 +19,8 @@ public interface VoteService {
 
     List<Vote> getAllVotes();
 
+    List<Vote> getAllAvailable();
+
     List<Vote> getAllVotesByDateOfCreation();
 
     boolean existsVote(Integer id);

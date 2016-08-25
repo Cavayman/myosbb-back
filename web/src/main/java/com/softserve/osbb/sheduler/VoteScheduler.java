@@ -26,12 +26,14 @@ public class VoteScheduler {
     @Scheduled(fixedRate = 120000)
     public void checkVotingOnDate() {
         logger.info("Vote scheduler: update voting.");
-        List<Vote> voteList = voteService.getAllVotes();
+        List<Vote> voteList = voteService.getAllAvailable();
         for(Vote vote: voteList) {
-           if(LocalDateTime.now().isAfter(vote.getEndTime().toLocalDateTime())){
-               vote.setAvailable(false);
-               voteService.updateVote(vote);
-           }
+            if(vote.getEndTime() != null) {
+                if(LocalDateTime.now().isAfter(vote.getEndTime().toLocalDateTime())){
+                    vote.setAvailable(false);
+                    voteService.updateVote(vote);
+                }
+            }
         }
     }
 }

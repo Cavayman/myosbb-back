@@ -60,12 +60,14 @@ export class VoteComponent implements OnInit {
     }
 
     toScoreOption(option: Option, vote: Vote):void {
-        if(vote.numberOfRespondents === undefined) vote.numberOfRespondents = 0 ;
-        vote.numberOfRespondents++;
-        option.users.push(this.currentUser);
+        if((vote.endTime.valueOf() - new Date().valueOf()) > 0){
+            if(vote.numberOfRespondents === undefined) vote.numberOfRespondents = 0 ;
+            vote.numberOfRespondents++;
+            option.users.push(this.currentUser);
+            this.optionService.toScoreOption(option.optionId, this.currentUser.userId);
+        }
         vote.available = false;
         this.calcProgressForVote(vote);
-        this.optionService.toScoreOption(option.optionId, this.currentUser.userId);
     }
 
     createVote(vote: Vote): void {

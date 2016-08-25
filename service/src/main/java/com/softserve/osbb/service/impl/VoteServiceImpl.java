@@ -33,6 +33,11 @@ public class VoteServiceImpl implements VoteService {
     }
 
     @Override
+    public List<Vote> getAllAvailable() {
+        return voteRepository.findAllAvailable();
+    }
+
+    @Override
     public List<Vote> getAllVotesByDateOfCreation() {
         return voteRepository.findByOrderByStartTimeDesc();
     }
