@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 
 /**
  * Created by cavayman on 05.07.2016.
@@ -15,7 +16,7 @@ import java.io.Serializable;
 public class Role implements GrantedAuthority,Serializable {
     private Integer roleId;
     private String name;
-    private User users;
+    private Collection<User> users;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,13 +39,12 @@ public class Role implements GrantedAuthority,Serializable {
         this.name = name;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", nullable = true)
-    public User getUsers() {
+    @OneToMany(mappedBy ="role",fetch = FetchType.LAZY)
+    public Collection<User> getUsers() {
         return users;
     }
 
-    public void setUsers(User users) {
+    public void setUsers(Collection<User> users) {
         this.users = users;
     }
 

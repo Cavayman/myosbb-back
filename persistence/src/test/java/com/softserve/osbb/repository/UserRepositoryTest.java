@@ -41,14 +41,14 @@ public class UserRepositoryTest extends Assert {
     @Before
     public void setUpToUserObject() {
         role1 = new Role();
-        role1.setName("USER");
+        role1.setName("ROLE_TEST1");
         role2 = new Role();
-        role2.setName("ADMIN");
+        role2.setName("ROLE_TEST2");
 
         user = new User();
         user.setFirstName("Oleg");
         user.setLastName("Kotsik");
-        user.setEmail("cavayman@gmail.com");
+        user.setEmail("cavaymanTESTforTEST@gmail.com");
         user.setPassword("1111");
         user.setGender("JuniorJavaDev");
         user.setPhoneNumber("+380679167305");
@@ -86,18 +86,22 @@ public class UserRepositoryTest extends Assert {
 
     @Test
     public void findByRoleUser() {
-        userRepository.save(user);
-        role1.setUsers(user);
-        role2.setUsers(user);
-        roleUserRepository.save(role1);
-        roleUserRepository.save(role2);
-        userRepository.save(user2);
-        List<Role> roles=new ArrayList<Role>();
-        roles.add(role1);
-        roles.add(role2);
-        user.setRoles(roles);
 
-        assertEquals(user.getRoles(), roleUserRepository.findByUsers(user));
+        user.setRole(role1);
+        user2.setRole(role1);
+        userRepository.save(user);
+        userRepository.save(user2);
+
+        assertEquals(2,userRepository.findByRole(role1).size());
+
+        user.setRole(role2);
+        user2.setRole(role2);
+        userRepository.save(user);
+        userRepository.save(user2);
+        assertEquals(2,userRepository.findByRole(role2).size());
+
+        assertEquals(user.getRole().getName(),roleUserRepository.findByUsers(user).getName());
+        assertEquals(2,userRepository.findAll().size());
     }
 
 

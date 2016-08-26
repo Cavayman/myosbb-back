@@ -19,6 +19,6 @@ public interface RoleRepository extends JpaRepository<Role, Integer>, JpaSpecifi
     @Query("select r from Role r where r.name = :name")
     public Role findByName(@Param("name") String name);
 
-    public Collection<Role> findByUsers(User users);
+    public Role findByUsers(User users);
 
 }

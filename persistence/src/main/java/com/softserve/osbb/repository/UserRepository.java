@@ -1,5 +1,6 @@
 package com.softserve.osbb.repository;
 
+import com.softserve.osbb.model.Role;
 import com.softserve.osbb.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -16,4 +17,7 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     public User findUserByEmail(String emailAddress);
     public List<User> findByFirstName(String firstName);
     public List<User> findByLastName(String lastName);
+
+    public List<User> findByRole(Role role);
+
 }

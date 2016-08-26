@@ -33,7 +33,7 @@ public class User  implements Serializable {
     private String password;
     private String gender;
     private Boolean activated;
-    private Collection<Role> roles=new ArrayList<Role>();
+    private Role role;
     private Collection<Vote> votes=new ArrayList<Vote>();
     private Collection<Apartment> apartments=new ArrayList<Apartment>();
     private Collection<Message> messages=new ArrayList<Message>();
@@ -147,6 +147,14 @@ public class User  implements Serializable {
     public void setActivated(Boolean activated) {
         this.activated = activated;
     }
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
@@ -210,20 +218,6 @@ public class User  implements Serializable {
 
     public void setAssigned(Collection<Ticket> assigned) {
         this.assigned = assigned;
-    }
-
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "users")
-    public Collection<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Collection<? extends GrantedAuthority> roles) {
-        this.roles = (Collection<Role>) roles;
-    }
-
-    public void addRole(Role role){
-        this.roles.add(role);
     }
 
 
