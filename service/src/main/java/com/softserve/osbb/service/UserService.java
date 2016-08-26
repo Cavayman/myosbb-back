@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 @Service
-public interface UserService // extends UserDetailsService
+public interface UserService extends UserDetailsService
 {
 
     public User save(User user) ;
@@ -58,17 +58,5 @@ public interface UserService // extends UserDetailsService
     public List<User> save(Iterable<User> iterable) ;
     public User findUserByEmail(String email);
 
-/**
- * TODO : implement update with userParams
- */
-//    User update(User user, UserParams params);
-
-//    List<RelatedUserDTO> findFollowings(User user, PageParams pageParams);
-//
-//    List<RelatedUserDTO> findFollowers(User user, PageParams pageParams);
-//
-//    Optional<UserDTO> findOne(Long id);
-//
-//    Optional<UserDTO> findMe();
 
 }
