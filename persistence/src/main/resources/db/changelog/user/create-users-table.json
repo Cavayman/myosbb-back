@@ -52,6 +52,13 @@
                 },
                 {
                   "column": {
+                    "name": "activated",
+                    "type": "boolean",
+                    "defaultValue":"false"
+                  }
+                },
+                {
+                  "column": {
                     "name": "password",
                     "type": "VARCHAR(255)"
                   }
