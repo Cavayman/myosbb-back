@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
     private model = { 'username': '', 'password': '' };
     private currentUserName = '';
     private isLoggedIn: boolean = false;
-
+    private logInError:boolean=false;
     // isLoggedIn:boolean;
     // @Output() private loggedIn = new EventEmitter();
 
@@ -30,8 +30,8 @@ export class LoginComponent implements OnInit {
         this.isLoggedIn = false;
         this.loginService.sendCredentials(this.model).subscribe(
             data => {
-                localStorage.setItem("token", JSON.parse(JSON.stringify(data))._body);
-                this.loginService.sendToken(localStorage.getItem("token")).subscribe(
+                localStorage.setItem("id_token", JSON.parse(JSON.stringify(data))._body);
+                this.loginService.sendToken().subscribe(
                     data => {
                         if (!this.isLoggedIn) {
                             this.currentUserName = this.model.username;
@@ -44,8 +44,14 @@ export class LoginComponent implements OnInit {
                         }
                     }
                 )
-            }
+            }, 
+            err =>{
+            this.model.password = "";
+            this.logInError=true;
+        },
+        () => console.log('Sending credentials completed')
         )
+        
 
     }
 

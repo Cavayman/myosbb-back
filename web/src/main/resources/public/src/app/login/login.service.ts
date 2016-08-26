@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
-import {Http, Headers} from "@angular/http";
+import {Http,Response} from "@angular/http";
 import {Observable} from "rxjs/Observable";
-import ApiService = require("../../shared/services/api.service");
 import {User} from "../../shared/models/User";
+import ApiService = require("../../shared/services/api.service");
 
 @Injectable()
 export class LoginService {
@@ -16,15 +16,13 @@ export class LoginService {
     //Sending credentials{username ,password for getting token}
     sendCredentials(model) {
         let tokenUrl = this._pathUrl + "/user/login";
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        return this.http.post(tokenUrl, JSON.stringify(model), { headers: headers });
+        return this.http.post(tokenUrl, JSON.stringify(model));
     }
 
     //sends token to SERVERS PROTECTED RESOURCES if THIS ONE WILL PASS EVERYTHING IS WORKING
-    sendToken(token): Observable<any> {
+    sendToken(): Observable<any> {
         let userUrl = this._pathUrl + "/restful/user/getCurrent";
-        let headers2 = new Headers({ 'Authorization': 'Bearer ' + token });
-        return this.http.get(userUrl, { headers: headers2 });
+        return this.http.get(userUrl);
     }
 
     private extractData(res: Response) {
@@ -34,8 +32,7 @@ export class LoginService {
 
     //cheking is there in localstorage data
     checkLogin(): boolean {
-        if (localStorage.getItem("token") != null && localStorage.getItem("currentUserName") != null)
-            if (localStorage.getItem("currentUserName") != "" && localStorage.getItem("token") != "") {
+      if ((localStorage.getItem("id_token") != null) && (localStorage.getItem("id_token") != "")) {
                 return true;
             }
             else
@@ -44,7 +41,7 @@ export class LoginService {
 
     //erasing everything from  local storage
     logOut() {
-        localStorage.setItem("token", "");
+        localStorage.setItem("id_token", "");
         localStorage.setItem("currentUserName", "");
         alert("You just log out");
     }

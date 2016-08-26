@@ -12,15 +12,13 @@ import {CurrentUserService} from "../../shared/services/current.user.service";
 })
 export class UserComponent implements OnInit{
     userName:string;
-    _currentUser=HeaderComponent.currentUserService;
+    _currentUserService:CurrentUserService=null;
     constructor(){
-        console.log("From user component:"+this._currentUser.getUser());
-        this.userName=this._currentUser.getUser().firstName;
-        console.log(this.userName);
+        this._currentUserService=HeaderComponent.currentUserService;
     }
 
     ngOnInit():any {
-        this.userName=this._currentUser.getUser().firstName+" "+this._currentUser.getUser().lastName;
+        this.userName=this._currentUserService.getUser().firstName+" "+this._currentUserService.getUser().lastName;
         console.log(this.userName);
     }
 
