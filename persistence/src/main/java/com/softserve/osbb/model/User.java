@@ -3,21 +3,27 @@ package com.softserve.osbb.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.hibernate.annotations.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-//import org.springframework.security.core.GrantedAuthority;
-//import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * Created by cavayman on 05.07.2016.
  */
 @Entity
 @Table(name = "users")
-public class User  //implements UserDetails
-{
+public class User  implements Serializable {
     private Integer userId;
     private String firstName;
     private String lastName;
@@ -26,17 +32,16 @@ public class User  //implements UserDetails
     private String phoneNumber;
     private String password;
     private String gender;
-    private List<Vote> votes;
-    private List<Apartment> apartments;
-    private List<Message> messages;
-    private List<Ticket> assigned;
-    private List<Ticket> tickets;
-    private List<Option> options;
-    private List<Report> reports;
+    private Boolean activated;
+    private Collection<Role> roles=new ArrayList<Role>();
+    private Collection<Vote> votes=new ArrayList<Vote>();
+    private Collection<Apartment> apartments=new ArrayList<Apartment>();
+    private Collection<Message> messages=new ArrayList<Message>();
+    private Collection<Ticket> assigned=new ArrayList<Ticket>();
+    private Collection<Ticket> tickets=new ArrayList<Ticket>();
+    private Collection<Option> options=new ArrayList<Option>();
+    private Collection<Report> reports=new ArrayList<Report>();
 
-    //    private List<Role> roles;
-
-    // For UserDetailService
     public User(User user) {
         this.userId = user.getUserId();
         this.firstName = user.getFirstName();
@@ -48,7 +53,7 @@ public class User  //implements UserDetails
         this.gender = user.getGender();
     }
 
-    //    Defoult for JPA
+
     public User() {
     }
 
@@ -113,14 +118,7 @@ public class User  //implements UserDetails
         this.phoneNumber = phoneNumber;
     }
 
-    //User detail service fields
-//
-//    @Override
-//    @JsonProperty("email")
-//    public String getUsername() {
-//        return this.email;
-//    }
-//
+
     @Basic
     @Column(name = "password")
     public String getPassword() {
@@ -130,32 +128,6 @@ public class User  //implements UserDetails
     public void setPassword(String password) {
         this.password = password;
     }
-//
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return Collections.singleton(()-> "ROLE_USER");
-//    }
-//
-//    @Override
-//    public boolean isAccountNonExpired() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isAccountNonLocked() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isCredentialsNonExpired() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isEnabled() {
-//        return true;
-//    }
-
 
     @Basic
     @Column(name = "gender")
@@ -167,13 +139,22 @@ public class User  //implements UserDetails
         this.gender = gender;
     }
 
+    @Column(name="activated")
+    public Boolean getActivated() {
+        return activated;
+    }
+
+    public void setActivated(Boolean activated) {
+        this.activated = activated;
+    }
+
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
-    public List<Vote> getVotes() {
+    public Collection<Vote> getVotes() {
         return votes;
     }
 
-    public void setVotes(List<Vote> votes) {
+    public void setVotes(Collection<Vote> votes) {
         this.votes = votes;
     }
 
@@ -183,67 +164,67 @@ public class User  //implements UserDetails
             @JoinColumn(name = "user_id", nullable = false)},
             inverseJoinColumns = {@JoinColumn(name = "apartment_id",
                     nullable = false, updatable = false)})
-    public List<Apartment> getApartments() {
+    public Collection<Apartment> getApartments() {
         return apartments;
     }
 
-    public void setApartments(List<Apartment> appartaments) {
+    public void setApartments(Collection<Apartment> appartaments) {
         this.apartments = appartaments;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     @JsonIgnore
-    public List<Message> getMessages() {
+    public Collection<Message> getMessages() {
         return messages;
     }
 
-    public void setMessages(List<Message> messages) {
+    public void setMessages(Collection<Message> messages) {
         this.messages = messages;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     @JsonIgnore
-    public List<Ticket> getTickets() {
+    public Collection<Ticket> getTickets() {
         return tickets;
     }
 
-    public void setTickets(List<Ticket> tickets) {
+    public void setTickets(Collection<Ticket> tickets) {
         this.tickets = tickets;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     @JsonIgnore
-    public List<Report> getReports() {
+    public Collection<Report> getReports() {
         return reports;
     }
 
-    public void setReports(List<Report> reports) {
+    public void setReports(Collection<Report> reports) {
         this.reports = reports;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "assigned")
     @JsonIgnore
-    public List<Ticket> getAssigned() {
+    public Collection<Ticket> getAssigned() {
         return assigned;
     }
 
-    public void setAssigned(List<Ticket> assigned) {
+    public void setAssigned(Collection<Ticket> assigned) {
         this.assigned = assigned;
     }
 
-    //    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JsonIgnore
-//    @JoinTable(name = "user_roles", joinColumns = {
-//            @JoinColumn(name = "user_id", nullable = false)},
-//            inverseJoinColumns = {@JoinColumn(name = "role_id",
-//                    nullable = false, updatable = false)})
-//    public List<Role> getRoles() {
-//        return roles;
-//    }
-//
-//    public void setRoles(List<Role> roles) {
-//        this.roles = roles;
-//    }
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "users")
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<? extends GrantedAuthority> roles) {
+        this.roles = (Collection<Role>) roles;
+    }
+
+    public void addRole(Role role){
+        this.roles.add(role);
+    }
 
 
     @Override
@@ -262,11 +243,11 @@ public class User  //implements UserDetails
             joinColumns = @JoinColumn(name="user_id", referencedColumnName="user_id"),
             inverseJoinColumns = @JoinColumn(name="option_id", referencedColumnName="option_id")
     )
-    public List<Option> getOptions() {
+    public Collection<Option> getOptions() {
         return options;
     }
 
-    public void setOptions(List<Option> options) {
+    public void setOptions(Collection<Option> options) {
         this.options = options;
     }
 
