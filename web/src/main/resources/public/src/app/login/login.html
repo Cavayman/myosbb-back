@@ -15,6 +15,8 @@
                     <br>
                     <input type="password" id="password" class="form-control" name="password" placeholder="Password"
                            [(ngModel)]="model.password">
+                    <div class="alert alert-danger" *ngIf="logInError">
+                        <strong>Opps...I cant find you.</strong> Try again                    </div>
                     <input type="hidden"/>
                     <label class="checkbox">
 		                <span class="pull-right">
