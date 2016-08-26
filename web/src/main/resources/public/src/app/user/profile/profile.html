@@ -1,40 +1,49 @@
-<div class="profile col-xs-12">
+<section class="profile col-xs-12 ">
     <div class="top-label">
-     <h3 class="">Personal information</h3>
+        <h3 class="">Personal information</h3>
     </div>
-    <div class="col-xs-3  left">
-		    <div class="image "> 
-		        <img src="assets/img/ui-sam.jpg" class="img-circle">
-		    </div>
- 		<button class="col-xs-12 btn btn-primary">Рахунки</button>
-    	<button class="col-xs-12 btn btn-primary">Просто</button>
-    	<button class="col-xs-12 btn btn-primary">Ще щось</button>
+    <div class="task-panel tasks-widget col-xs-3  left">
+        <div class="image">
+            <img src="assets/img/ui-sam.jpg" class="center-block img-circle">
+        </div>
+        <button class="col-xs-12 btn btn-primary">Рахунки</button>
+        <button class="col-xs-12 btn btn-primary">Просто</button>
+        <button class="col-xs-12 btn btn-primary">Ще щось</button>
+    </div>
+    <div class="row col-xs-7">
+        <div class="task-panel tasks-widget col-xs-12 right ">
+            <div class="col-xs-12">
+                <label class="col-xs-6"><b>ім'я</b></label>
+                <h5 class="col-xs-6">{{currentUser.firstName}}</h5>
+            </div>
+            <div class="col-xs-12">
+                <label class="col-xs-6"><b>Фамілія</b></label>
+                <h5 class="col-xs-6">{{currentUser.lastName}}</h5>
+            </div>
+            <div class="col-xs-12">
+                <label class="col-xs-6"><b>Дата народження</b></label>
+                <h5 class="col-xs-6">{{currentUser.birthDate}}</h5>
+            </div>
+            <div class="col-xs-12">
+                <label class="col-xs-6"><b>Емейл</b></label>
+                <h5 class="col-xs-6">{{currentUser.email}}</h5>
+            </div>
+            <div class="col-xs-12">
+                <label class="col-xs-6"><b>Номер телефону</b></label>
+                <h5 class="col-xs-6">{{currentUser.phoneNumber}}</h5>
+            </div>
+            <div class="col-xs-12">
+                <label class="col-xs-6"><b>Гендер</b></label>
+                <h5 class="col-xs-6">{{currentUser.gender}}</h5>
+            </div>
+        </div>
+        <!--<div class="col-xs-12 images">
+            
+            <div class="col-xs-3 task-panel tasks-widget"><img src="http://cs633129.vk.me/v633129356/27c69/drkgN_DukxQ.jpg" class="center-block img-circle"></div>
+            <div class="col-xs-3 task-panel tasks-widget"><img src="http://cs633129.vk.me/v633129356/27c69/drkgN_DukxQ.jpg" class="center-block img-circle"></div>
+            <div class="col-xs-3 task-panel tasks-widget"><img src="http://cs633129.vk.me/v633129356/27c69/drkgN_DukxQ.jpg" class="center-block img-circle"></div>
+        </div>-->
     </div>
 
-    <div class="col-xs-9 right">
-       <div class="col-xs-12">
-       <label class="col-xs-6">ім'я</label>
-       <h5 class="col-xs-6">{{currentUser.firstName}}</h5>
-       </div>
-       <div class="col-xs-12">
-       <label class="col-xs-6">Фамілія</label>    
-       <h5 class="col-xs-6">{{currentUser.lastName}}</h5>
-      </div>
-       <div class="col-xs-12">
-       <label class="col-xs-6">Дата народження</label>
-       <h5 class="col-xs-6">{{currentUser.birthDate}}</h5>
-      </div>
-       <div class="col-xs-12">
-       <label class="col-xs-6">Емейл</label>
-       <h5 class="col-xs-6">{{currentUser.email}}</h5>
-      </div>
-       <div class="col-xs-12">
-       <label class="col-xs-6">Номер телефону</label>
-       <h5 class="col-xs-6">{{currentUser.phoneNumber}}</h5>
-      </div>
-       <div class="col-xs-12">
-       <label class="col-xs-6">Гендер</label>
-   	   <h5 class="col-xs-6">{{currentUser.gender}}</h5>
-      </div> 
-    </div>
-</div>
+
+</section>
