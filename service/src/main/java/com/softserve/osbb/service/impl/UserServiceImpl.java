@@ -171,21 +171,8 @@ public class UserServiceImpl implements UserService {
 
         log.debug("Found user data for {}", username);
 
-        Collection<GrantedAuthority> authorities = new LinkedList<GrantedAuthority>();
-        try {
-            // Get the user's roles from the DataSource
-            Collection<Role> roles = this.userRoleRepository.findByUsers(user);
-
-            // Add the user's roles to the collection of authorities
-            for (Role role : roles) {
-                log.debug("Adding role {} to user {}", role.getName(), username);
-                authorities.add(new SimpleGrantedAuthority(role.getName()));
-            }
-        } catch (Exception e) {
-            log.error("Failed to load user's roles", e);
-        }
         UserModelUserDetails userDetails=new UserModelUserDetails(user);
-        userDetails.setRoles(authorities);
+        ;
 
         // Return the user details object required by Spring Security, containing the user's roles/authorities
         return userDetails;
