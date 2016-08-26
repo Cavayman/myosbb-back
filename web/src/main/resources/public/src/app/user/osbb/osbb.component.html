@@ -3,7 +3,7 @@
     <div class="panel-body">
         <div class="content-panel">
              <div class="ui segment form">
-                     <button   (click)="addForm.openAddModal()"><i>Добавити ОСББ</i></button>
+                     <button   (click)="addForm.openAddModal();printCurrentUser()"><i>Добавити ОСББ</i></button>
                      <osbb-add-form (created)="createOsbb($event)" #addForm></osbb-add-form>
                      <osbb-edit-form [osbb]="updatedOsbb" (update)="editOsbb($event)" #editForm></osbb-edit-form>
                      <osbb-del-form  (delete)="deleteOsbb($event)" #delForm></osbb-del-form>

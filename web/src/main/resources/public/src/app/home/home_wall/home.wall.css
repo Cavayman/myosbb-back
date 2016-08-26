@@ -1,0 +1,36 @@
+.question {
+    border-bottom: 2px solid slategray;
+    margin:0px;
+}
+
+ul {
+    padding: 5px;
+}
+
+.info-box {
+    height: 400px;
+    background: #eee;
+}
+
+.calendar{
+    background: #777;
+    height: 400px;
+}
+
+.logo{
+    background: #777;
+     height: 400px;
+}
+
+.row-box{
+    min-height: 400px;
+    background: #f4f4f4;
+    margin-left: 197px;
+}
+
+.custom-container {
+    min-width:900px;
+    margin: 0px;
+    padding: 0px;
+}
+

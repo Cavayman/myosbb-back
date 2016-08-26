@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
                             this.model.password = "";
                             this.isLoggedIn = true;
                             this._currentUserService.setUser(data);
-                            this._router.navigate(['home']);
+                            this._router.navigate(['home/wall']);
                         }
                     }
                 )

@@ -56,6 +56,7 @@ export class VoteComponent implements OnInit {
     }
 
     openModalWindow(): void {
+        console.log("currentUserId: " + this.currentUserService.getUser().userId);
         this.voteAddForm.openAddModal();
     }
 

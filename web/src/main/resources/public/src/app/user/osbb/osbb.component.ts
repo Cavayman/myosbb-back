@@ -11,6 +11,7 @@ import { OsbbService } from './osbb.service';
 import { OsbbAddFormComponent } from './osbb_form/osbb-add-form.component';
 import { OsbbEditFormComponent } from './osbb_form/osbb-edit-form.component';
 import { OsbbDelFormComponent } from './osbb_form/osbb-del-form.component';
+import {CurrentUserService} from "../../../shared/services/current.user.service";
 
 @Component({
     selector: 'osbb',
@@ -24,7 +25,7 @@ export class OsbbComponent implements OnInit {
     osbbArr:IOsbb[];
     updatedOsbb:IOsbb;
 
-    constructor( private osbbService: OsbbService) { 
+    constructor( private osbbService: OsbbService, private userService:CurrentUserService) { 
         this.osbbArr = [];
     }
 
@@ -61,5 +62,9 @@ export class OsbbComponent implements OnInit {
 
     getCreationDate(date:Date):string {
         return new Date(date).toLocaleString();
+    }
+
+    printCurrentUser() {
+        console.log("CurrentUserId: " + this.userService.getUser().userId);
     }
 }
