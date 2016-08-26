@@ -3,14 +3,12 @@ hr{
     padding:0;
 }
 .container{
-    margin:5px auto 0 auto;
-	position:absolute;
-	top:57px;
+   width:100%;
+   position: absolute;
+   top:62px;
 }
 .registration-form{
     width:50%;
-    margin-left:36%;
-
 }
 .form-header{
     text-align: center;
