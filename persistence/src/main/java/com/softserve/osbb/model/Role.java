@@ -2,17 +2,20 @@ package com.softserve.osbb.model;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by cavayman on 05.07.2016.
  */
 @Entity
 @Table(name = "role")
-public class Role {
+public class Role implements GrantedAuthority,Serializable {
     private Integer roleId;
     private String name;
+    private User users;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +38,16 @@ public class Role {
         this.name = name;
     }
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", nullable = true)
+    public User getUsers() {
+        return users;
+    }
+
+    public void setUsers(User users) {
+        this.users = users;
+    }
+
     @Override
     public boolean equals(Object obj) {
         return EqualsBuilder.reflectionEquals(this, obj);
@@ -45,4 +58,9 @@ public class Role {
         return HashCodeBuilder.reflectionHashCode(this);
     }
 
+    @Transient
+    @Override
+    public String getAuthority() {
+        return name;
+    }
 }
