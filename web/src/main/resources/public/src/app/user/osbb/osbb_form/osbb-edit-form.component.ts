@@ -26,15 +26,16 @@ export class OsbbEditFormComponent implements OnInit{
 
     ngOnInit() {
         if(this.osbb === undefined){
-            this.osbb = new Osbb("", "");
+            this.osbb = new Osbb("", "","","","");
         }
     }
 
-    editOsbb(name:string, description:string, address: string, district: string) {
+    editOsbb(name:string, description:string, address: string, district: string, logoUrl:string) {
            this.osbb.name = name;
            this.osbb.description = description;
            this.osbb.address = address;
            this.osbb.district = district;
+           this.osbb.logoUrl = logoUrl;
            this.update.emit(this.osbb);
     }
 }

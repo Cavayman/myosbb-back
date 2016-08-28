@@ -18,6 +18,7 @@ public class Osbb {
     private String description;
     private String address;
     private String district;
+    private String logoUrl;
     private Timestamp creationDate;
     private User creator;
     private Collection<Contract> contracts;
@@ -74,6 +75,16 @@ public class Osbb {
 
     public void setDistrict(String district) {
         this.district = district;
+    }
+
+    @Basic
+    @Column(name = "logo_url")
+    public String getLogoUrl() {
+        return logoUrl;
+    }
+
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
     }
 
     @Basic

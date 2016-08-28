@@ -6,6 +6,7 @@ import {ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
 @Component({
     selector: 'osbb-add-form',
     templateUrl: './src/app/user/osbb/osbb_form/osbb-add-form.html',
+    styleUrls: ['./src/app/user/osbb/osbb_form/osbb-add-form.css'],
     directives:[MODAL_DIRECTIVES, CORE_DIRECTIVES],
     viewProviders: [BS_VIEW_PROVIDERS]
 })
@@ -20,6 +21,7 @@ export class OsbbAddFormComponent implements OnInit{
     description: string;
     address: string;
     district: string;
+    logoUrl: string;
 
     openAddModal() {
         this.addModal.show();  
@@ -31,12 +33,12 @@ export class OsbbAddFormComponent implements OnInit{
 
     ngOnInit() {
         if(this.osbb === undefined){
-            this.osbb = new Osbb("","","","");
+            this.osbb = new Osbb("","","","","");
         }
     }
 
     createOsbb() {
-        let osbb = new Osbb(this.name, this.description, this.address, this.district);
+        let osbb = new Osbb(this.name, this.description, this.address, this.district, this.logoUrl);
         osbb.creationDate = new Date();
         this.created.emit(osbb);
     }

@@ -21,7 +21,7 @@ export class HomeWallComponent implements OnInit {
     currentOsbb: Osbb;
 
     constructor(private osbbService: OsbbService) {
-        this.currentOsbb = new Osbb('', '', '', '');
+        this.currentOsbb = new Osbb('', '', '', '','');
     }
 
     ngOnInit():any {
@@ -30,6 +30,6 @@ export class HomeWallComponent implements OnInit {
 
     printHello(): void {             //DELETE ME
         //console.log("Привіт");
-        console.log("CurrentOsbb: "  + " " + this.currentOsbb.name + " " + this.currentOsbb.description);
+        console.log("CurrentOsbb: "  + this.currentOsbb.logoUrl);
     }   
 }

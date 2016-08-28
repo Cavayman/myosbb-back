@@ -172,5 +172,41 @@
           }
         }]
     }
+  },
+  {
+    "changeSet": {
+      "id": "2016/08/28-76",
+      "author": "Roman",
+      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+      "changes": [
+        {
+          "addColumn": {
+            "columns": [
+              {
+                "column": {
+                  "name": "logoUrl",
+                  "type": "varchar(255)"
+                }
+              }]
+          ,
+            "tableName": "osbb"
+          }
+        }]
+    }
+  },
+  {
+    "changeSet": {
+      "id": "2016/08/28-78",
+      "author": "Roman",
+      "changes": [
+        {
+          "renameColumn": {
+            "columnDataType": "varchar(255)",
+            "newColumnName": "logo_url",
+            "oldColumnName": "logoUrl",
+            "tableName": "osbb"
+          }
+        }]
+    }
   }]
 }
