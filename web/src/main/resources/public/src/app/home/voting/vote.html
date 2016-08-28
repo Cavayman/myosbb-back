@@ -1,31 +1,33 @@
 <vote-add-form [currentUser]="currentUser" (create)="createVote($event)" #voteAddForm></vote-add-form>
-<div class="vote-box"  *ngFor="let vote of voteArr">
-        <div  *ngIf="vote.available">
-            <ul>
-                <li><h4 class="question"> {{vote.description}}</h4></li>
-                <li *ngFor="let option of vote.options">
-                    <input type="radio" name="{{vote.description}}" (click)="toScoreOption(option, vote)" value="{{option}}" #input> {{option.description}}
-                </li>
-            </ul>
-        </div>
-        <div  *ngIf="!vote.available">
-            <div class="result-box">       
-                <ul>
-                    <li><h4 class="question"> {{vote.description}}</h4></li>
-                    <li *ngFor="let option of vote.options">
-                         {{option.description}}
-                         <div class="progress">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="99"
-                                    aria-valuemin="0" aria-valuemax="100" [style.width] ="option.progress + '%'">
-                                    {{option.progress}}%
-                            </div>
-                         </div>
-                    </li>
-                    <li class="respondents">Проголосували: {{vote.numberOfRespondents}}</li>
-                </ul>
-            </div>
-        </div>
-        <div class="date">Дата створення:{{getStartTime(vote.startTime)}}  Дата закінчення:{{getEndTime(vote.endTime)}} Створив: {{vote.user.firstName}} {{vote.user.lastName}}</div>
+<div class="vote-box" *ngFor="let vote of voteArr">
+    <div *ngIf="vote.available">
+        <ul>
+            <li><span class="question"> {{vote.description}}</span></li>
+            <li *ngFor="let option of vote.options">
+                <input type="radio" name="{{vote.description}}" (click)="toScoreOption(option, vote)" value="{{option}}" #input>                {{option.description}}
+            </li>
+        </ul>
+    </div>
+    <div *ngIf="!vote.available">
+
+        <ul>
+            <li><span class="question"> {{vote.description}}</span></li>
+            <li *ngFor="let option of vote.options">
+                {{option.description}}
+                <div class="progress">
+                    <span class="progress-value">{{option.progress}}%</span>
+                    <div class="progress-bar" aria-valuemin="0" aria-valuemax="100" [style.width]="option.progress + '%'"></div>
+                </div>
+            </li>
+            <li>
+                Проголосували: <span class="info-elem">{{vote.numberOfRespondents}}</span>
+            </li>
+        </ul>
+
+    </div>
+    <div class="info-row">
+        <span> Дата створення: <span class="info-elem">{{getStartTime(vote.startTime)}}</span> </span>
+        <span> Дата закінчення: <span class="info-elem">{{getEndTime(vote.endTime)}}</span> </span>
+        <span> Створив: <span class="info-elem">{{vote.user.firstName}} {{vote.user.lastName}}</span> </span>
+    </div>
 </div>
-
-

@@ -4,7 +4,7 @@ import {Http, Headers} from "@angular/http";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/toPromise";
 
-import {IOsbb} from "./osbb";
+import {IOsbb} from "../../../shared/models/osbb";
 import ApiService = require("../../../shared/services/api.service");
 
 @Injectable()
@@ -22,6 +22,14 @@ export class OsbbService {
 
     getAllOsbb(): Promise<IOsbb[]> {
         return this.http.get(this.getUrl,{headers: this.headers})
+                 .toPromise()
+                 .then(res => res.json())
+                 .catch(this.handleError);
+    }
+
+    getOsbbById(osbbId: number): Promise<IOsbb> {
+         let getOsbbByIdUrl = this.getUrl + "/id/" + osbbId;
+         return this.http.get(getOsbbByIdUrl,{headers: this.headers})
                  .toPromise()
                  .then(res => res.json())
                  .catch(this.handleError);
