@@ -86,7 +86,7 @@
                     <execution>
                         <phase>process-resources</phase>
                         <goals>
-                            <!--<goal>clearCheckSums</goal>-->
+                            <goal>clearCheckSums</goal>
                         </goals>
                     </execution>
                 </executions>
