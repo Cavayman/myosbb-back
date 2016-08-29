@@ -4,6 +4,7 @@ import com.softserve.osbb.model.Event;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -42,5 +43,7 @@ public interface EventService {
     Page<Event> getAllEvents(Integer pageNumber, String sortedBy, Boolean ascOrder);
 
     List<Event> findEventsByNameOrAuthorOrDescription(String search);
+
+    List<Event> findByInterval(Timestamp start, Timestamp end);
 
 }

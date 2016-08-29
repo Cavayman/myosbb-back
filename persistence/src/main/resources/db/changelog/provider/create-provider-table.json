@@ -40,7 +40,10 @@
               {
                 "column": {
                   "name": "periodicity",
-                  "type": "VARCHAR(255)"
+                  "type": "VARCHAR(255)",
+                  "constraints": {
+                    "defaultValue": "ONE_TIME"
+                  }
                 }
               },
               {
@@ -76,7 +79,10 @@
               {
                 "column": {
                   "name": "active",
-                  "type": "BOOLEAN"
+                  "type": "BOOLEAN",
+                  "constraints": {
+                    "defaultValue": false
+                  }
                 }
               }
             ],
@@ -126,37 +132,6 @@
             "onUpdate": "NO ACTION",
             "referencedColumnNames": "provider_id",
             "referencedTableName": "provider"
-          }
-        }]
-
-    }
-  },
-  {
-    "changeSet": {
-      "id": "2016/15/08-01",
-      "author": "anastasia",
-      "changes": [
-        {
-          "addDefaultValue": {
-            "columnDataType": "boolean",
-            "columnName": "active",
-            "defaultValueBoolean": false,
-            "tableName": "provider"
-          }
-        }]
-    }
-  },
-  {
-    "changeSet": {
-      "id": "2016/15/08-02",
-      "author": "anastasia",
-      "changes": [
-        {
-          "addDefaultValue": {
-            "columnDataType": "VARCHAR(255)",
-            "columnName": "periodicity",
-            "defaultValue": "ONE_TIME",
-            "tableName": "provider"
           }
         }]
 

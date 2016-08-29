@@ -1,0 +1,46 @@
+<div class="panel panel-default pos-top">
+    <div class="panel-heading"><h4><i class="fa fa-angle-right"></i> {{ 'calendar' | translate | capitalize }}</h4></div>
+    <div class="panel-body">
+        <div class="content-panel">
+            <p-schedule [events]="events" [header]="header" defaultDate="2016-01-12" [eventLimit]="4" [editable]="true"
+                        (onDayClick)="handleDayClick($event)" (onEventClick)="handleEventClick($event)"
+                        [locale]="getLang()"></p-schedule>
+
+            <p-dialog header="{{ 'eventDetails' | translate | capitalize }}" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade"
+                      [modal]="false">
+                <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="event">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-4"><label for="vin">{{ 'title' | translate | capitalize }}</label></div>
+                        <div class="ui-grid-col-8"><input pInputText id="title" [(ngModel)]="event.title"/></div>
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-4"><label for="start">{{ 'start' | translate | capitalize }}</label></div>
+                        <div class="ui-grid-col-8">
+                            <p-calendar id="start" dateFormat="yyyy-mm-dd hh:mm" [(ngModel)]="event.start"></p-calendar>
+                        </div>
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-4"><label for="end">{{ 'end' | translate | capitalize }}</label></div>
+                        <div class="ui-grid-col-8">
+                            <p-calendar id="end" dateFormat="yyyy-mm-dd hh:mm" [(ngModel)]="event.end"
+                                        placeholder="{{ 'optional' | translate | capitalize }}"></p-calendar>
+                        </div>
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-4"><label for="allday">{{ 'allDay' | translate | capitalize }}</label></div>
+                        <div class="ui-grid-col-8">
+                            <p-toggleButton [(ngModel)]="event.allDay" onLabel="{{ 'yes' | translate | capitalize }}"
+                                            offLabel="{{ 'no' | translate | capitalize }}"></p-toggleButton>
+                        </div>
+                    </div>
+                </div>
+                <footer>
+                    <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                        <button type="button" pButton icon="fa-close" (click)="deleteEvent()" label="{{ 'delete' | translate | capitalize }}"></button>
+                        <button type="button" pButton icon="fa-check" (click)="saveEvent()" label="{{ 'save' | translate | capitalize }}"></button>
+                    </div>
+                </footer>
+            </p-dialog>
+        </div>
+    </div>
+</div>

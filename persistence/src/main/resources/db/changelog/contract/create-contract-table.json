@@ -41,7 +41,9 @@
                 "column": {
                   "name": "price_currency",
                   "type": "VARCHAR(255)",
-                  "defaultValue": "UAH"
+                  "constraints": {
+                    "defaultValue": "UAH"
+                  }
                 }
               },
               {
@@ -72,7 +74,9 @@
                 "column": {
                   "name": "active",
                   "type": "BOOLEAN",
-                  "defaultValueBoolean" : true
+                  "constraints": {
+                    "defaultValue": true
+                  }
                 }
               }
             ],
@@ -99,38 +103,6 @@
             "onUpdate": "NO ACTION",
             "referencedColumnNames": "attachment_id",
             "referencedTableName": "attachment"
-          }
-        }
-      ]
-    }
-  },
-
-  {
-    "changeSet": {
-      "id": "2016/15/08-03",
-      "author": "anastasia",
-      "changes": [
-        {
-          "addDefaultValue": {
-            "columnDataType": "boolean",
-            "columnName": "active",
-            "defaultValueBoolean": true,
-            "tableName": "contract"
-          }
-        }]
-    }
-  },
-  {
-    "changeSet": {
-      "id": "2016/15/08-04",
-      "author": "anastasia",
-      "changes": [
-        {
-          "addDefaultValue": {
-            "columnDataType": "VARCHAR(255)",
-            "columnName": "price_currency",
-            "defaultValue": "UAH",
-            "tableName": "contract"
           }
         }
       ]

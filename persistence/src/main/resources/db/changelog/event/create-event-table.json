@@ -21,14 +21,26 @@
               },
               {
                 "column": {
+                  "name": "title",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
                   "name": "author",
                   "type": "VARCHAR(255)"
                 }
               },
               {
                 "column": {
-                  "name": "date",
-                  "type": "date"
+                  "name": "start_time",
+                  "type": "TIMESTAMP"
+                }
+              },
+              {
+                "column": {
+                  "name": "end_time",
+                  "type": "TIMESTAMP"
                 }
               },
               {
@@ -39,14 +51,11 @@
               },
               {
                 "column": {
-                  "name": "name",
-                  "type": "VARCHAR(255)"
-                }
-              },
-              {
-                "column": {
                   "name": "repeat",
-                  "type": "VARCHAR(255)"
+                  "type": "VARCHAR(255)",
+                  "constraints": {
+                    "defaultValue": "ONE_TIME"
+                  }
                 }
               },
               {

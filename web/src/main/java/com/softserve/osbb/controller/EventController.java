@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -131,11 +132,25 @@ public class EventController {
         return new ResponseEntity<>(pageCreator, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/calendar", method = RequestMethod.GET)
+    public ResponseEntity<List<Resource<Event>>> getByInterval(
+            @RequestParam(value = "start") Long start,
+            @RequestParam(value = "end") Long end) {
+        List<Event> events = eventService.findByInterval(new Timestamp(start), new Timestamp(end));
+
+        List<Resource<Event>> resourceEventList = new ArrayList<>();
+        events.stream().forEach((event) -> {
+            resourceEventList.add(getLink(toResource(event)));
+        });
+
+        return new ResponseEntity<>(resourceEventList, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/find", method = RequestMethod.GET)
-    public ResponseEntity<List<Resource<Event>>> getEventsByName(
-            @RequestParam(value = "name", required = true) String name) {
-        logger.info("fetching event by search parameter: " + name);
-        List<Event> eventsBySearchTerm = eventService.findEventsByNameOrAuthorOrDescription(name);
+    public ResponseEntity<List<Resource<Event>>> getEventsByTitle(
+            @RequestParam(value = "title", required = true) String title) {
+        logger.info("fetching event by search parameter: " + title);
+        List<Event> eventsBySearchTerm = eventService.findEventsByNameOrAuthorOrDescription(title);
         if (eventsBySearchTerm.isEmpty()) {
             logger.warn("no events were found");
         }

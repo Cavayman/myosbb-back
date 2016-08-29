@@ -28,19 +28,27 @@ export class EventService {
             .catch((error)=>Observable.throw(error));
     }
 
-    getAllEventsSorted(pageNumber:number, name:string, order:boolean):Observable<any> {
+    getAllEvents() : Observable<any>{
         let headers2 = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
         headers2.append('Content-Type', 'application/json');
-        return this._http.get(this.getEventUrl + pageNumber + '&&sortedBy=' + name + '&&asc=' + order, {headers:headers2})
+        return  this._http.get(this.url, {headers: headers2})
+            .map(res => res.json())
+            .catch((err)=>Observable.throw(err));
+    }
+
+    getAllEventsSorted(pageNumber:number, title:string, order:boolean):Observable<any> {
+        let headers2 = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
+        headers2.append('Content-Type', 'application/json');
+        return this._http.get(this.getEventUrl + pageNumber + '&&sortedBy=' + title + '&&asc=' + order, {headers:headers2})
             .map((response)=> response.json())
             .catch((error)=>Observable.throw(error));
     }
 
-    deleteEventById(eventId:number) {
+    deleteEventById(id:number) {
         let headers2 = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
         headers2.append('Content-Type', 'application/json');
-        let url = this.delEventUrl + eventId;
-        console.log('delete event by id: ' + eventId);
+        let url = this.delEventUrl + id;
+        console.log('delete event by id: ' + id);
         return this._http.delete(url, {headers: headers2})
             .toPromise()
             .catch((error)=>console.error(error));
@@ -56,8 +64,8 @@ export class EventService {
     }
 
     editAndSave(event:Event) {
-        if (event.eventId) {
-            console.log('updating event with id: ' + event.eventId);
+        if (event.id) {
+            console.log('updating event with id: ' + event.id);
             this.put(event);
         }
     }
@@ -85,7 +93,7 @@ export class EventService {
         headers2.append('Content-Type', 'application/json');
         console.log("searching events");
         console.log("param is" + search);
-        return  this._http.get(this.url + "find?name="+search, {headers: headers2})
+        return  this._http.get(this.url + "find?title="+search, {headers: headers2})
             .map(res => res.json())
             .catch((err)=>Observable.throw(err));
     }

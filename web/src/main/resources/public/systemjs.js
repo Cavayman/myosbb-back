@@ -19,7 +19,10 @@
         'ng2-translate': 'node_modules/ng2-translate',
         'ng2-bs-dropdown': 'node_modules/ng2-bs-dropdown',
         'ng2-datetime-picker': 'node_modules/ng2-datetime-picker',
-        'ng2-select': 'node_modules/ng2-select'
+        'ng2-select': 'node_modules/ng2-select',
+        'primeng': 'node_modules/primeng',
+        'primeui': 'node_modules/primeui'
+
     };
     // packages tells the System loader how to load when no filename and/or no extension
     var packages = {
@@ -36,7 +39,9 @@
         'ng2-translate': {main: 'ng2-translate.js', defaultExtension: 'js'},
         'ng2-bs-dropdown': {defaultExtension: 'js'},
         'ng2-select': {main: 'ng2-select.js', defaultExtension: 'js'},
-        'ng2-datetime-picker': {main: 'dist/index.js', defaultExtension: 'js'}
+        'ng2-datetime-picker': {main: 'dist/index.js', defaultExtension: 'js'},
+        'primeng': { defaultExtension: 'js' },
+        'primeui': { defaultExtension: 'js' }
     };
 
 

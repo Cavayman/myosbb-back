@@ -8,7 +8,7 @@ import {Provider} from "../../../../shared/models/provider.interface";
 import {PageCreator} from "../../../../shared/services/page.creator.interface";
 import {SelectItem} from "../../../../shared/models/ng2-select-item.interface";
 import {ProviderService} from "../service/provider-service";
-import {PeriodicityItems} from "../periodicity.const";
+import {PeriodicityItems} from "../../../../shared/models/periodicity.const";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 
 @Component({

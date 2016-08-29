@@ -94,26 +94,6 @@
         }]
 
     }
-  },
-  {
-    "changeSet": {
-      "id": "2016/08/22-65",
-      "author": "Roman",
-      "changes": [
-        {
-          "addColumn": {
-            "columns": [
-              {
-                "column": {
-                  "name": "available",
-                  "type": "boolean"
-                }
-              }]
-          ,
-            "tableName": "vote"
-          }
-        }]
-    }
   }
 ]
 }

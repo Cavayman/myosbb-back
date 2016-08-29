@@ -23,13 +23,16 @@
                 {
                   "column": {
                     "name": "date",
-                    "type": "TIMESTAMP(6) WITHOUT TIME ZONE"
+                    "type": "date"
                   }
                 },
                 {
                   "column": {
                     "name": "paid",
-                    "type": "FLOAT4"
+                    "type": "FLOAT4",
+                    "constraints": {
+                      "defaultValue": 0.0
+                    }
                   }
                 },
                 {
@@ -41,7 +44,19 @@
                 {
                   "column": {
                     "name": "to_pay",
-                    "type": "FLOAT4"
+                    "type": "FLOAT4",
+                    "constraints": {
+                      "defaultValue": 0.0
+                    }
+                  }
+                },
+                {
+                "column": {
+                  "name": "status",
+                  "type": "varchar(255)",
+                  "constraints": {
+                    "defaultValue": "NOT_PAID"
+                    }
                   }
                 },
                 {
@@ -80,95 +95,6 @@
               "onUpdate": "NO ACTION",
               "referencedColumnNames": "apartment_id",
               "referencedTableName": "apartment"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "changeSet": {
-        "id": "2016/08/19-01",
-        "author": "nazar",
-        "changes": [
-          {
-            "modifyDataType": {
-              "columnName": "date",
-              "newDataType": "date",
-              "schemaName": "public",
-              "tableName": "bill"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "changeSet": {
-        "id": "2016/08/21-01",
-        "author": "nazar",
-        "changes": [
-          {
-            "addDefaultValue": {
-              "columnDataType": "real",
-              "columnName": "paid",
-              "defaultValue": 0.0,
-              "schemaName": "public",
-              "tableName": "bill"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "changeSet": {
-        "id": "2016/08/21-02",
-        "author": "nazar",
-        "changes": [
-          {
-            "addDefaultValue": {
-              "columnDataType": "real",
-              "columnName": "to_pay",
-              "defaultValue": 0.0,
-              "schemaName": "public",
-              "tableName": "bill"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "changeSet": {
-        "id": "2016/08/21-03",
-        "author": "nazar",
-        "changes": [
-          {
-            "addColumn": {
-              "columns": [
-                {
-                  "column": {
-                    "name": "status",
-                    "type": "varchar(255)"
-                  }
-                }
-              ],
-              "schemaName": "public",
-              "tableName": "bill"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "changeSet": {
-        "id": "2016/08/21-04",
-        "author": "nazar",
-        "changes": [
-          {
-            "addDefaultValue": {
-              "columnDataType": "varchar(255)",
-              "columnName": "status",
-              "defaultValue": "NOT_PAID",
-              "schemaName": "public",
-              "tableName": "bill"
             }
           }
         ]

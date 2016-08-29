@@ -43,12 +43,12 @@
                     "name": "owner_id",
                     "type": "INT"
                   }
-                }]
-            ,
+                }
+              ],
               "tableName": "apartment"
             }
-          }]
-
+          }
+        ]
       }
     }
   ]

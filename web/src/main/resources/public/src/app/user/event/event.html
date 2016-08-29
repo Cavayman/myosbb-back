@@ -10,10 +10,16 @@
                 <thead>
                 <tr>
                     <th class="sorting"><i class="fa fa-bullhorn"></i> {{ 'name' | translate | capitalize }}
-                        <a style="{cursor:pointer}" (click)="sortBy('name')"><span
+                        <a style="{cursor:pointer}" (click)="sortBy('title')"><span
                                 class="fa fa-fw fa-sort pull-right"></span></a></th>
-                    <th class="sorting"><i class="fa fa-calendar"></i> {{ 'date' | translate | capitalize }}
-                        <a style="{cursor:pointer}" (click)="sortBy('date')"><span
+                    <th class="sorting"><i class="fa fa-calendar"></i> {{ 'dateStart' | translate | capitalize }}
+                        <a style="{cursor:pointer}" (click)="sortBy('start')"><span
+                                class="fa fa-fw fa-sort pull-right"></span></a></th>
+                    <th class="sorting"><i class="fa fa-calendar"></i> {{ 'dateFinish' | translate | capitalize }}
+                        <a style="{cursor:pointer}" (click)="sortBy('end')"><span
+                                class="fa fa-fw fa-sort pull-right"></span></a></th>
+                    <th class="sorting"><i class="fa fa-calendar"></i> {{ 'repeat' | translate | capitalize }}
+                        <a style="{cursor:pointer}" (click)="sortBy('repeat')"><span
                                 class="fa fa-fw fa-sort pull-right"></span></a></th>
                     <th class="sorting"><i class=" fa fa-user"></i> {{ 'author' | translate | capitalize }}
                         <a style="{cursor:pointer}" (click)="sortBy('author')"><span
@@ -31,8 +37,10 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let event of events">
-                    <td>{{event.name}}</td>
-                    <td>{{event.date}}</td>
+                    <td>{{event.title}}</td>
+                    <td>{{event.start}}</td>
+                    <td>{{event.end}}</td>
+                    <td>{{event.repeat}}</td>
                     <td>{{event.author}}</td>
                     <td><a href="{{event.path}}">file</a></td>
                     <td>{{event.description}}</td>
@@ -45,7 +53,7 @@
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                 <li><a style="cursor: pointer" (click)="openEditModal(event)">{{ 'edit' | translate | capitalize }}</a></li>
-                                <li><a style="cursor: pointer" (click)="openDelModal(event.eventId)">{{ 'delete' | translate | capitalize }}</a></li>
+                                <li><a style="cursor: pointer" (click)="openDelModal(event.id)">{{ 'delete' | translate | capitalize }}</a></li>
                             </ul>
                         </div>
                     </td>
@@ -63,7 +71,7 @@
                                     (click)="delModal.hide()">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title">{{ 'removing' | translate | capitalize }} ...</h4>
+                            <h4 class="modal-name">{{ 'removing' | translate | capitalize }} ...</h4>
                         </div>
                         <div class="modal-body">
                             <h5>{{ 'confirmDelete' | translate | capitalize }}</h5>
@@ -88,7 +96,7 @@
                                     (click)="delAllModal.hide()">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title">{{ 'removing' | translate | capitalize }} ...</h4>
+                            <h4 class="modal-name">{{ 'removing' | translate | capitalize }} ...</h4>
                         </div>
                         <div class="modal-body">
                             <h5>{{ 'confirmDeleteEvents' | translate | capitalize }}</h5>
@@ -106,35 +114,49 @@
             <!--Edit Modal -->
             <div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
                  aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-sm">
+                <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" aria-label="Close"
                                     (click)="editModal.hide()">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title">{{ 'edit' | translate | capitalize }}</h4>
+                            <h4 class="modal-name">{{ 'edit' | translate | capitalize }}</h4>
                         </div>
                         <form *ngIf="active" (ngSubmit)="onEditEventSubmit()" #eventForm="ngForm">
                             <div class="modal-body">
                                 <div class="form-group"><label>{{ 'name' | translate | capitalize }}</label>
-                                    <input type="text" class="form-control" required [(ngModel)]="selectedEvent.name"
-                                           name="name" #name="ngModel">
-                                    <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                                    <input type="text" class="form-control" required [(ngModel)]="selectedEvent.title"
+                                           name="title" #title="ngModel">
+                                    <div [hidden]="title.valid || title.pristine" class="alert alert-danger">
                                         {{ 'required' | translate | capitalize }}
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label>{{ 'date' | translate | capitalize }}</label>
-                                    <input type="text" class="form-control" required
-                                           name="date" [(ngModel)]="selectedEvent.date" #date="ngModel">
-                                    <div [hidden]="date.valid || date.pristine" class="alert alert-danger">
+                                    <label>{{ 'dateStart' | translate | capitalize }}</label>
+                                    <input type="datetime-local" value="yyyy-MM-dd hh:mm" class="form-control" required
+                                           name="start" [(ngModel)]="selectedEvent.start" #start="ngModel">
+                                    <div [hidden]="start.valid || start.pristine" class="alert alert-danger">
                                         {{ 'required' | translate | capitalize }}
                                     </div>
-                                    <div [hidden]="isDateValid(selectedEvent.date)" class="alert alert-danger">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>{{ 'dateFinish' | translate | capitalize }}</label>
+                                    <input type="datetime-local" value="yyyy-MM-dd hh:mm" class="form-control"
+                                           name="end" [(ngModel)]="selectedEvent.end" #end="ngModel">
+                                    <div [hidden]="end.valid || end.pristine" class="alert alert-danger">
+                                        {{ 'required' | translate | capitalize }}
+                                    </div>
+                                    <div [hidden]="isDateValid(selectedEvent.start, selectedEvent.end)" class="alert alert-danger">
                                         {{ 'invalid' | translate | capitalize }}
                                     </div>
+                                </div>
+
+                                <div class="form-group"><label>{{ 'repeat' | translate | capitalize }}</label>
+                                    <input type="text" class="form-control" required [(ngModel)]="selectedEvent.repeat"
+                                           name="repeat" #repeat="ngModel">
                                 </div>
 
                                 <div class="form-group"><label>{{ 'author' | translate | capitalize }}</label>
@@ -147,13 +169,9 @@
 
                                 <div class="form-group">
                                     <label>{{ 'informationAboutEvent' | translate | capitalize }}</label>
-                                    <input type="text" class="form-control" required
+                                    <input type="text" class="form-control"
                                            name="description" [(ngModel)]="selectedEvent.description"
                                            #description="ngModel">
-                                    <div [hidden]="description.valid || description.pristine"
-                                         class="alert alert-danger">
-                                        {{ 'required' | translate | capitalize }}
-                                    </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -171,36 +189,63 @@
         <!--Create Modal -->
         <div bsModal #createModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
              aria-labelledby="mySmallModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-sm">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" aria-label="Close"
                                 (click)="createModal.hide()">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <h4 class="modal-title">{{ 'createEvent' | translate | capitalize }}</h4>
+                        <h4 class="modal-name">{{ 'createEvent' | translate | capitalize }}</h4>
                     </div>
                     <form *ngIf="active" (ngSubmit)="onCreateEventSubmit()" #eventForm="ngForm">
                         <div class="modal-body">
-                            <div class="form-group"><label>Назва</label>
-                                <input type="text" class="form-control" required [(ngModel)]="newEvent.name"
-                                       name="name" #name="ngModel">
-                                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                            <div class="form-group"><label>{{ 'name' | translate | capitalize }}</label>
+                                <input type="text" class="form-control" required [(ngModel)]="newEvent.title"
+                                       name="title" #title="ngModel">
+                                <div [hidden]="title.valid || title.pristine" class="alert alert-danger">
                                     {{ 'required' | translate | capitalize }}
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label>{{ 'date' | translate | capitalize }}</label>
-                                <input type="text" class="form-control" required
-                                       name="date" [(ngModel)]="newEvent.date" #date="ngModel">
-                                <div [hidden]="date.valid || date.pristine" class="alert alert-danger">
+                                <label>{{ 'dateStart' | translate | capitalize }}</label>
+                                <input type="datetime-local" value="yyyy-MM-ddThh:mm" class="form-control" required
+                                       name="start" [(ngModel)]="newEvent.start" #start="ngModel">
+                                <div [hidden]="start.valid || start.pristine" class="alert alert-danger">
                                     {{ 'required' | translate | capitalize }}
                                 </div>
-                                <div [hidden]="isDateValid(newEvent.date)" class="alert alert-danger">
+                            </div>
+
+                            <div class="form-group">
+                                <label>{{ 'dateFinish' | translate | capitalize }}</label>
+                                <input type="datetime-local" value="yyyy-MM-ddThh:mm" class="form-control" [disabled]="!start.valid"
+                                       name="end" [(ngModel)]="newEvent.end" #end="ngModel">
+                                <div [hidden]="end.valid || end.pristine" class="alert alert-danger">
+                                    {{ 'required' | translate | capitalize }}
+                                </div>
+                                <div [hidden]="isDateValid(newEvent.start, newEvent.end)" class="alert alert-danger">
                                     {{ 'invalid' | translate | capitalize }}
                                 </div>
                             </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div>
+                                        <label> {{ 'repeat' | translate | capitalize}} </label>
+                                        <div *ngIf="repeat.length > 0">
+                                            <div style="width: 400px; margin-bottom: 20px;">
+                                                <ng-select [allowClear]="true"
+                                                           [items]="repeat"
+                                                           (selected)="onSelectRepeat($event)"
+                                                           placeholder="{{ 'repeat' | translate}}">
+                                                </ng-select>
+                                                <p></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>    <!-- Repeat -->
 
                             <div class="form-group"><label>{{ 'author' | translate | capitalize }}</label>
                                 <input type="text" class="form-control" required [(ngModel)]="newEvent.author"
@@ -212,13 +257,9 @@
 
                             <div class="form-group">
                                 <label>{{ 'informationAboutEvent' | translate | capitalize }}</label>
-                                <input type="text" class="form-control" required
+                                <input type="text" class="form-control"
                                        name="description" [(ngModel)]="newEvent.description"
                                        #description="ngModel">
-                                <div [hidden]="description.valid || description.pristine"
-                                     class="alert alert-danger">
-                                    {{ 'required' | translate | capitalize }}
-                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">

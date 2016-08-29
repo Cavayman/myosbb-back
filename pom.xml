@@ -59,11 +59,16 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
-
-
-
-
     </dependencies>
+
+    <!--<build>-->
+        <!--<resources>-->
+            <!--<resource>-->
+                <!--<directory>persistence/src/main/resources</directory>-->
+                <!--<filtering>true</filtering>-->
+            <!--</resource>-->
+        <!--</resources>-->
+    <!--</build>-->
 
 
     <profiles>
@@ -73,12 +78,6 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <build>
-                <!--<resources>-->
-                <!--<resource>-->
-                <!--<directory>persistence/src/main/resources</directory>-->
-                <!--<filtering>true</filtering>-->
-                <!--</resource>-->
-                <!--</resources>-->
                 <plugins>
                     <!-- disable tests during maven build -->
                     <plugin>
@@ -92,6 +91,7 @@
                 </plugins>
             </build>
             <properties>
+                <db.driver>org.postgresql.Driver</db.driver>
                 <db.connectionURL>jdbc:postgresql://fizzy-cherry.db.elephantsql.com:5432/aqzreszw</db.connectionURL>
                 <db.username>aqzreszw</db.username>
                 <db.password>Fi8O8oJfDiGcIkASAL8fR6snko57_S_T</db.password>
@@ -112,9 +112,19 @@
                 </plugins>
             </build>
             <properties>
+                <db.driver>org.postgresql.Driver</db.driver>
                 <db.connectionURL>jdbc:postgresql://localhost:5432/myosbb</db.connectionURL>
                 <db.username>postgres</db.username>
                 <db.password>postgres</db.password>
+            </properties>
+        </profile>
+        <profile>
+            <id>h2</id>
+            <properties>
+                <db.driver>org.h2.Driver</db.driver>
+                <db.connectionURL>jdbc:h2:mem:myosbb;MODE=PostgreSQL;DATABASE_TO_UPPER=false</db.connectionURL>
+                <db.username>h2</db.username>
+                <db.password>h2</db.password>
             </properties>
         </profile>
     </profiles>

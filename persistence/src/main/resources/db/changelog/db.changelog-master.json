@@ -62,26 +62,27 @@
     },
     {
       "includeAll": {
+        "path": "classpath:/db/changelog/role/"
+      }
+    },
+    {
+      "includeAll": {
         "path": "classpath:/db/changelog/ticket/"
       }
     },
-   {
+    {
       "includeAll": {
         "path": "classpath:/db/changelog/user/"
       }
-    }, {
+    },
+    {
       "includeAll": {
         "path": "classpath:/db/changelog/vote/"
       }
     },
     {
       "includeAll": {
-        "path": "classpath:/db/changelog/role/"
-      }
-    },
-    {
-      "includeAll": {
-        "path": "classpath:/db/changelog/defoult.input/"
+        "path": "classpath:/db/changelog/default.input/"
       }
     }
   ]

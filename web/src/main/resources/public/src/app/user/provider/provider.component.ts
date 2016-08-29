@@ -22,7 +22,7 @@ import {Mail} from "../../../shared/models/mail.interface";
 import {MailService} from "../../../shared/services/mail.sender.service";
 import {SelectItem} from "../../../shared/models/ng2-select-item.interface";
 import {HeaderComponent} from "../../header/header.component";
-import {PeriodicityItems} from "./periodicity.const";
+import {PeriodicityItems} from "../../../shared/models/periodicity.const";
 import {ActiveFilter} from "../../../shared/pipes/active.filter";
 
 

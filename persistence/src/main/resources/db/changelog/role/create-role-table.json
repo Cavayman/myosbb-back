@@ -25,34 +25,18 @@
                     "name": "name",
                     "type": "VARCHAR(255)"
                   }
+                },
+                {
+                  "column": {
+                    "name": "available",
+                    "type": "boolean"
+                  }
                 }
               ],
               "tableName": "role"
             }
           }
         ]
-      }
-    },
-    {
-      "changeSet": {
-        "id": "1472225078035-62",
-        "author": "cavayman (generated)",
-        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-        "changes": [
-          {
-            "addForeignKeyConstraint": {
-              "baseColumnNames": "role",
-              "baseTableName": "users",
-              "constraintName": "fk_mmgnrg9xuk9v75158vut4sl8e",
-              "deferrable": false,
-              "initiallyDeferred": false,
-              "onDelete": "NO ACTION",
-              "onUpdate": "NO ACTION",
-              "referencedColumnNames": "role_id",
-              "referencedTableName": "role"
-            }
-          }]
-
       }
     }
   ]

@@ -1,6 +1,6 @@
 import {Http, Headers,RequestOptions} from '@angular/http';
 import {Injectable} from "@angular/core";
-import {Observable} from 'rxjs/observable';
+import {Observable} from 'rxjs/Observable';
 import {ApartmentModel} from './Apartment.model';
 import 'rxjs/add/operator/map';
 import ApiService = require("../../../shared/services/api.service");
