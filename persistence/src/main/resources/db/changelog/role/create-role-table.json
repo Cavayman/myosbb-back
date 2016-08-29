@@ -1,35 +1,59 @@
-{ "databaseChangeLog": [
-  {
-    "changeSet": {
-      "id": "2016/08/03-30",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "createTable": {
-            "columns": [
-              {
-                "column": {
-                  "autoIncrement": true,
-                  "constraints": {
-                    "primaryKey": true,
-                    "primaryKeyName": "role_pkey"
-                  },
-                  "name": "role_id",
-                  "type": "SERIAL"
+{
+  "databaseChangeLog": [
+    {
+      "changeSet": {
+        "id": "2016/08/03-30",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "createTable": {
+              "columns": [
+                {
+                  "column": {
+                    "autoIncrement": true,
+                    "constraints": {
+                      "primaryKey": true,
+                      "primaryKeyName": "role_pkey"
+                    },
+                    "name": "role_id",
+                    "type": "SERIAL"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "name",
+                    "type": "VARCHAR(255)"
+                  }
                 }
-              },
-              {
-                "column": {
-                  "name": "name",
-                  "type": "VARCHAR(255)"
-                }
-              }]
-          ,
-            "tableName": "role"
+              ],
+              "tableName": "role"
+            }
           }
-        }]
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "1472225078035-62",
+        "author": "cavayman (generated)",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "addForeignKeyConstraint": {
+              "baseColumnNames": "role",
+              "baseTableName": "users",
+              "constraintName": "fk_mmgnrg9xuk9v75158vut4sl8e",
+              "deferrable": false,
+              "initiallyDeferred": false,
+              "onDelete": "NO ACTION",
+              "onUpdate": "NO ACTION",
+              "referencedColumnNames": "role_id",
+              "referencedTableName": "role"
+            }
+          }]
 
+      }
     }
-  }]
+  ]
 }
