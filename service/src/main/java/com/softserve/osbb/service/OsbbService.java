@@ -20,6 +20,8 @@ public interface OsbbService {
 
     List<Osbb> getAllOsbb();
 
+    List<Osbb> findByNameContaining(String name);
+
     long countOsbb();
 
     boolean existsOsbb(Integer id);

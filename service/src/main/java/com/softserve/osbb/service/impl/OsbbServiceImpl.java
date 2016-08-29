@@ -42,6 +42,11 @@ public class OsbbServiceImpl implements OsbbService {
     }
 
     @Override
+    public List<Osbb> findByNameContaining(String name) {
+        return osbbRepository.findByNameContainingIgnoreCase(name);
+    }
+
+    @Override
     public long countOsbb() {
         return osbbRepository.count();
     }

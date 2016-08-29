@@ -26,6 +26,14 @@ export class OsbbService {
                  .then(res => res.json())
                  .catch(this.handleError);
     }
+    
+    getAllOsbbByNameContaining(osbbName: string ):Promise<IOsbb[]> {
+        let url = this.getUrl + '/name/' + osbbName;
+        return this.http.get(url,{headers: this.headers})
+                 .toPromise()
+                 .then(res => res.json())
+                 .catch(this.handleError);
+    }
 
     getOsbbById(osbbId: number): Promise<IOsbb> {
          let getOsbbByIdUrl = this.getUrl + "/id/" + osbbId;

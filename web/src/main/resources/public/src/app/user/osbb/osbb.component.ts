@@ -67,4 +67,12 @@ export class OsbbComponent implements OnInit {
     printCurrentUser() {
         console.log("CurrentUserId: " + this.userService.getUser().userId);
     }
+
+    searchByNameOsbb(osbbName: string) {
+        if(osbbName.trim()!=='') {
+            this.osbbService.getAllOsbbByNameContaining(osbbName).then(osbbArr => this.osbbArr = osbbArr);
+        } else {
+             this.osbbService.getAllOsbb().then(osbbArr => this.osbbArr = osbbArr);
+        }
+    }
 }

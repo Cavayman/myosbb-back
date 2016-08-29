@@ -45,12 +45,23 @@ public class OsbbController {
     }
 
     @RequestMapping(value = "/osbb/name/{name}", method = RequestMethod.GET)
+    public ResponseEntity<List<Resource<Osbb>>> getOsbbByNameContaining(@PathVariable("name") String osbbName) {
+        logger.info("Get all osbb: " +  osbbName);
+        List<Osbb> osbbList = osbbService.findByNameContaining(osbbName);
+        final List<Resource<Osbb>> resourceOsbbList = new ArrayList<>();
+        for(Osbb o: osbbList) {
+            resourceOsbbList.add(addResourceLinkToOsbb(o));
+        }
+        return new ResponseEntity<>(resourceOsbbList, HttpStatus.OK);
+    }
+/*
+    @RequestMapping(value = "/osbb/name/{name}", method = RequestMethod.GET)
     public ResponseEntity<Resource<Osbb>> getOsbbByName(@PathVariable("name") String name) {
         logger.info("Get one osbb by name: " + name);
         Osbb osbb = osbbService.getOsbb(name);
         return new ResponseEntity<>(addResourceLinkToOsbb(osbb), HttpStatus.OK);
     }
-
+*/
     @RequestMapping(value = "/osbb", method = RequestMethod.GET)
     public ResponseEntity<List<Resource<Osbb>>> getAllOsbb() {
         logger.info("Get all osbb: ");

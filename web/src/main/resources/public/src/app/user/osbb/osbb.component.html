@@ -3,13 +3,13 @@
     <div class="panel-body">
         <div class="content-panel">
              <div class="ui segment form">
-                     <button   (click)="addForm.openAddModal();printCurrentUser()"><i>Добавити ОСББ</i></button>
+                     <button  class="btn btn-success" (click)="addForm.openAddModal();printCurrentUser()"><i>Добавити ОСББ</i></button>
                      <osbb-add-form (created)="createOsbb($event)" #addForm></osbb-add-form>
                      <osbb-edit-form [osbb]="updatedOsbb" (update)="editOsbb($event)" #editForm></osbb-edit-form>
                      <osbb-del-form  (delete)="deleteOsbb($event)" #delForm></osbb-del-form>
              </div>
             <div id="example_filter" class="pull-right dataTables_filter">
-                <input type="search" class="form-control input-sm" placeholder="пошук..." aria-controls="example">
+                <input type="search" class="form-control input-sm" placeholder="пошук по імені..." aria-controls="example" (keyup)="searchByNameOsbb(searchInput.value)" #searchInput>
             </div>
             <table class="table table-striped table-advance table-hover">
                 <thead>
