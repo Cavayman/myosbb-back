@@ -165,10 +165,12 @@
             <version>${apache-poi}</version>
         </dependency>
         <!--Spring Security-->
+        <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
         </dependency>
+
     </dependencies>
 
 </project>
