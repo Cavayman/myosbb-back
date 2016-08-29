@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {CORE_DIRECTIVES} from '@angular/common';
-import {HTTP_PROVIDERS} from "@angular/http";
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS} from 'ng2-bootstrap/ng2-bootstrap';
 import {ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
 import {Observable} from 'rxjs/Observable';
@@ -16,7 +15,7 @@ import {CurrentUserService} from "../../../shared/services/current.user.service"
 @Component({
     selector: 'osbb',
     templateUrl: './src/app/user/osbb/osbb.component.html',
-     providers: [HTTP_PROVIDERS, OsbbService],
+     providers: [OsbbService],
     directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, OsbbAddFormComponent, OsbbEditFormComponent, OsbbDelFormComponent],
     viewProviders: [BS_VIEW_PROVIDERS]
 })

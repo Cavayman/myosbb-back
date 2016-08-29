@@ -12,21 +12,19 @@ import ApiService = require("../../../shared/services/api.service");
 export class VoteService { 
 
     private url:string = ApiService.serverUrl +'/restful/vote';
-    private headers = new Headers({'Authorization': 'Bearer ' + localStorage.getItem('token')});
 
     constructor(private http: Http) {
-        this. headers.append('Content-Type', 'application/json');
      }
 
     getAllVotes(): Promise<Vote[]> {
-        return this.http.get(this.url , {headers: this.headers})
+        return this.http.get(this.url)
                  .toPromise()
                  .then(res => res.json())
                  .catch(this.handleError);
     }
 
     addVote(vote:Vote): Promise<Vote> {
-        return this.http.post(this.url, JSON.stringify(vote), {headers: this.headers})
+        return this.http.post(this.url, JSON.stringify(vote))
                         .toPromise()
                         .then(res => res.json())
                         .catch(this.handleError);

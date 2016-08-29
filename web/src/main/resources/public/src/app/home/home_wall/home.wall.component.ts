@@ -17,7 +17,7 @@ import { OsbbService } from '../../user/osbb/osbb.service';
 export class HomeWallComponent implements OnInit {
 
     isLoggedIn:boolean;
-    currentOsbbId: number = 1;
+    currentOsbbId: number = 2;
     currentOsbb: Osbb;
 
     constructor(private osbbService: OsbbService) {
