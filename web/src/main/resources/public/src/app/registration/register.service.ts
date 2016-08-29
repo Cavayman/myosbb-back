@@ -12,10 +12,9 @@ export class RegisterService{
     constructor(private http:Http){
     }
     sendUser(user:User){
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
+
         console.log(user);
-    return this.http.post(this._pathUrl,JSON.stringify(user),{headers:headers});
+    return this.http.post(this._pathUrl,JSON.stringify(user));
     }
 
     
