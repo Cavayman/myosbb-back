@@ -49,7 +49,7 @@ public class User  implements Serializable {
     private Collection<Ticket> tickets=new ArrayList<Ticket>();
     private Collection<Option> options=new ArrayList<Option>();
     private Collection<Report> reports=new ArrayList<Report>();
-    public boolean isOwner;
+    public Boolean isOwner;
 
     public User(User user) {
         this.userId = user.getUserId();
@@ -178,12 +178,12 @@ public class User  implements Serializable {
 
 
     @Basic
-    @Column(name="isOwner")
-    public boolean isOwner() {
+    @Column(name="is_owner")
+    public Boolean isOwner() {
         return isOwner;
     }
 
-    public void setOwner(boolean owner) {
+    public void setOwner(Boolean owner) {
         isOwner = owner;
     }
 
