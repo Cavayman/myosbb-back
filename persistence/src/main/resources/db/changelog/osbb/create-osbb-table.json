@@ -175,7 +175,7 @@
   },
   {
     "changeSet": {
-      "id": "2016/08/28-76",
+      "id": "2016/08/29-78",
       "author": "Roman",
       "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
       "changes": [
@@ -184,26 +184,11 @@
             "columns": [
               {
                 "column": {
-                  "name": "logoUrl",
+                  "name": "logo_url",
                   "type": "varchar(255)"
                 }
               }]
           ,
-            "tableName": "osbb"
-          }
-        }]
-    }
-  },
-  {
-    "changeSet": {
-      "id": "2016/08/28-78",
-      "author": "Roman",
-      "changes": [
-        {
-          "renameColumn": {
-            "columnDataType": "varchar(255)",
-            "newColumnName": "logo_url",
-            "oldColumnName": "logoUrl",
             "tableName": "osbb"
           }
         }]

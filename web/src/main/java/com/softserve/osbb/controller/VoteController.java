@@ -48,12 +48,11 @@ public class VoteController {
         User user = userService.findOne(vote.getUser().getUserId());
         user.getVotes().add(vote);
         vote.setUser(user);
-        vote = voteService.addVote(vote);
-        userService.save(user);
         for(Option option: vote.getOptions()) {
             option.setVote(vote);
-            optionService.addOption(option);
         }
+        vote = voteService.addVote(vote);
+        userService.save(user);
         return new ResponseEntity<>(addResourceLinkToVote(vote), HttpStatus.OK);
     }
 
