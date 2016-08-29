@@ -115,13 +115,13 @@ public class HouseDTO {
 
         public HouseDTOBuilder setNumberOfInhabitants(List<Apartment> apartments) {
             int inhabitantsCount = 0;
-            if (apartments != null) {
+         /*   if (apartments != null) {
                 for (Apartment apartment : apartments) {
                     if (apartment.getUser() != null) {
                         inhabitantsCount += 1;
                     }
                 }
-            }
+            }*/
             this.numberOfInhabitants = inhabitantsCount;
             return this;
         }

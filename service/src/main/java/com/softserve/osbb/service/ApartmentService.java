@@ -31,7 +31,6 @@ public interface ApartmentService {
 
     Apartment updateApartment(Apartment apartment);
 
-    Apartment findApartmentByNumber(Integer number);
 
     Page<Apartment> getAllApartment(Integer pageNumber, String sortedBy, Boolean ascOrder);
 }

@@ -53,8 +53,8 @@ public class ReportCreator {
                 ReportModel.setBillId(bill.getBillId())
                         .setAmountToPay(bill.getToPay())
                         .setAmountPaid(bill.getPaid())
-                        .setCustomerName(bill.getApartment().getUser())
-                        .setCustomerEmail(bill.getApartment().getUser())
+                      //  .setCustomerName(bill.getApartment().getUser())
+                       // .setCustomerEmail(bill.getApartment().getUser())
                         .setProviderDescription(bill.getProvider());
 
         return reportModel;

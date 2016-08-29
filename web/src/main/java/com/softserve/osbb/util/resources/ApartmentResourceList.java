@@ -15,9 +15,9 @@ public class ApartmentResourceList extends EntityResourceList<Apartment> {
     public Resource<Apartment> createLink(Resource<Apartment> apartmentResource) {
 
         Apartment apartment = apartmentResource.getContent();
-        apartmentResource.add(linkTo(methodOn(ApartmentController.class)
+      /*  apartmentResource.add(linkTo(methodOn(ApartmentController.class)
                 .getAppartmentByNumber(apartment.getApartmentId()))
-                .withSelfRel());
+                .withSelfRel());*/
 
         return apartmentResource;
     }

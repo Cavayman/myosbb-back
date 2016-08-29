@@ -14,5 +14,4 @@ import java.util.List;
 @Repository
 public interface ApartmentRepository extends JpaRepository<Apartment, Integer> {
 
-        Apartment findByUser(User owner);
 }

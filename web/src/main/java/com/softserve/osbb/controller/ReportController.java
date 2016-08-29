@@ -255,11 +255,11 @@ public class ReportController {
                          HttpServletResponse httpServletResponse) {
         logger.info("preparing download for userId: " + userId);
         User currentUser = userService.findOne(userId);
-        if (apartmentRepository.findByUser(currentUser) != null) {
+        /*if (apartmentRepository.findByUser(currentUser) != null) {
             reportDownloadService.download(currentUser, type, httpServletResponse);
         } else {
             reportDownloadService.download(type, httpServletResponse);
-        }
+        }*/
 
     }
 

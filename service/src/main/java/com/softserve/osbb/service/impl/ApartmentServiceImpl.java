@@ -82,11 +82,6 @@ public class ApartmentServiceImpl implements ApartmentService {
         return apartmentRepository.exists(id);
     }
 
-    @Override
-    public Apartment findApartmentByNumber(Integer number) {
-
-        return apartmentRepository.findApartmentByNumber(number);
-    }
 
     @Override
     public Page<Apartment> getAllApartment(Integer pageNumber, String sortBy, Boolean order) {

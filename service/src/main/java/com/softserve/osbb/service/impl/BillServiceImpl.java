@@ -65,8 +65,8 @@ public class BillServiceImpl implements BillService {
         User apartmentOwner = userRepository.findOne(ownerId);
         Page<Bill> bills = null;
         if (apartmentOwner != null) {
-            Apartment ownersApartment = apartmentRepository.findByUser(apartmentOwner);
-            bills = billRepository.findByApartment(ownersApartment, pageable);
+           // Apartment ownersApartment = apartmentRepository.findByUser(apartmentOwner);
+           // bills = billRepository.findByApartment(ownersApartment, pageable);
         }
         return bills;
     }

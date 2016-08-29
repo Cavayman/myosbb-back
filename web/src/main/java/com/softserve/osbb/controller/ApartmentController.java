@@ -129,12 +129,7 @@ public class ApartmentController {
 
     }
 
-    @RequestMapping(value = "/number{number}", method = RequestMethod.GET)
-    public ResponseEntity<Resource<Apartment>> getAppartmentByNumber(@PathVariable("number") Integer number) {
-        Apartment apartment = apartmentService.findApartmentByNumber(number);
-        logger.info("finding apartment...");
-        return new ResponseEntity<>(addResourceLinkToApartment(apartment), HttpStatus.OK);
-    }
+
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Resource<Apartment>> findApartmentById(@PathVariable("id") Integer id) {
