@@ -71,7 +71,8 @@
                 {
                   "column": {
                     "name": "role",
-                    "type": "INT"
+                    "type": "INT",
+                    "defaoultValue":"1"
                   }
                 },
                 {

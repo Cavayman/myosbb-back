@@ -82,7 +82,7 @@
     },
     {
       "includeAll": {
-        "path": "classpath:/db/changelog/defoult.input/"
+        "path": "classpath:/db/changelog/default.input/"
       }
     }
   ]

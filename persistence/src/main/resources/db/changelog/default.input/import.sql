@@ -4,3 +4,10 @@ INSERT INTO users(  birth_date,email, first_name, gender, last_name, password,ph
 INSERT INTO users(  birth_date,email, first_name, gender, last_name, password,phone_number) VALUES ('1996-02-21','KostetskyRoma@gmail.com','Roman','male','Kostetsky','1234','380687773508');
 INSERT INTO users(  birth_date,email, first_name, gender, last_name, password,phone_number) VALUES ('1992-12-30','butaroman@gmail.com','Roman','male','Buta','1111','0632571119');
 INSERT INTO users(  birth_date,email, first_name, gender, last_name, password,phone_number) VALUES ('1997-06-02','cavayman@gmail.com','Oleg','male','Kotsik','1111','0679167305');
+
+INSERT INTO role(name) VALUES('ROLE_USER');
+INSERT INTO role(name) VALUES('ROLE_ADMIN');
+INSERT INTO role(name) VALUES('ROLE_GOLOVA');
+INSERT INTO role(name) VALUES('ROLE_MANAGER');
+
+update users set role='2' where user_id='1';
