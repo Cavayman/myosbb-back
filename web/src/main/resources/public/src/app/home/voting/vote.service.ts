@@ -30,6 +30,14 @@ export class VoteService {
                         .catch(this.handleError);
     }
 
+    deleteVote(vote:Vote): Promise<Vote> {
+        let url = this.url + '/id/' + vote.voteId;
+        return this.http.delete(url)
+                    .toPromise()
+                    .then(res => vote)
+                    .catch(this.handleError);
+    }
+
     private handleError(error: any):Promise<any> {
         console.log('HandleError', error);
         return Promise.reject(error.message || error);

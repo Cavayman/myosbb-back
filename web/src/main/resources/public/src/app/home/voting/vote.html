@@ -1,15 +1,23 @@
 <vote-add-form [currentUser]="currentUser" (create)="createVote($event)" #voteAddForm></vote-add-form>
+<vote-del-form (delete)="deleteVote($event)" #delForm></vote-del-form>
 <div class="vote-box" *ngFor="let vote of voteArr">
+    <div *ngIf="isCurrentUserCreator(vote)">
+        <button type="button" class="close" aria-label="Close" (click)="delForm.openDelModal(vote)">
+                        <span aria-hidden="true">&times;</span>
+        </button>
+        <!--<button type="button" class="close glyphicon glyphicon-cog" aria-label="Close">
+        </button>-->
+    </div>
     <div *ngIf="vote.available">
         <ul>
             <li><span class="question"> {{vote.description}}</span></li>
             <li *ngFor="let option of vote.options">
-                <input type="radio" name="{{vote.description}}" (click)="toScoreOption(option, vote)" value="{{option}}" #input>                {{option.description}}
+                <input type="radio" name="{{vote.description}}" (click)="toScoreOption(option, vote)" value="{{option}}" #input>
+                {{option.description}}
             </li>
         </ul>
     </div>
     <div *ngIf="!vote.available">
-
         <ul>
             <li><span class="question"> {{vote.description}}</span></li>
             <li *ngFor="let option of vote.options">
@@ -20,14 +28,14 @@
                 </div>
             </li>
             <li>
-               {{'voted' | translate | capitalize}} <span class="info-elem">{{vote.numberOfRespondents}}</span>
+                {{'voted' | translate | capitalize}} <span class="info-elem">{{vote.numberOfRespondents}}</span>
             </li>
         </ul>
 
     </div>
     <div class="info-row">
-        <span> {{'creationDate' | translate | capitalize}}: <span class="info-elem">{{getStartTime(vote.startTime)}}</span> </span>
+        <span> {{'creationDate' | translate | capitalize}}: <span class="info-elem">{{getStartTime(vote.startTime)}}</span></span>
         <span> {{'dateFinish' | translate | capitalize}}: <span class="info-elem">{{getEndTime(vote.endTime)}}</span> </span>
-        <span> {{'creator' | translate | capitalize}}: <span class="info-elem">{{vote.user.firstName}} {{vote.user.lastName}}</span> </span>
+        <span> {{'creator' | translate | capitalize}}: <span class="info-elem">{{vote.user.firstName}} {{vote.user.lastName}}</span></span>
     </div>
 </div>
