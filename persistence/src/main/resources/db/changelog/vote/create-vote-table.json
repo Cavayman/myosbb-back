@@ -27,6 +27,12 @@
               },
               {
                 "column": {
+                  "name": "available",
+                  "type": "boolean"
+                }
+              },
+              {
+                "column": {
                   "name": "start_time",
                   "type": "TIMESTAMP(6) WITH TIME ZONE"
                 }
