@@ -47,6 +47,36 @@ public class OsbbServiceImpl implements OsbbService {
     }
 
     @Override
+    public List<Osbb> findAllOrderByNameAsc() {
+        return osbbRepository.findAllByOrderByNameAsc();
+    }
+
+    @Override
+    public List<Osbb> findAllOrderByNameDesc() {
+        return osbbRepository.findAllByOrderByNameDesc();
+    }
+
+    @Override
+    public List<Osbb> findAllOrderByDistrictAsc() {
+        return osbbRepository.findAllByOrderByDistrictAsc();
+    }
+
+    @Override
+    public List<Osbb> findAllOrderByDistrictDesc() {
+        return osbbRepository.findAllByOrderByDistrictDesc();
+    }
+
+    @Override
+    public List<Osbb> findAllOrderByCreationDateAsc(){
+        return osbbRepository.findAllByOrderByCreationDateAsc();
+    }
+
+    @Override
+    public List<Osbb> findAllOrderByCreationDateDesc(){
+        return osbbRepository.findAllByOrderByCreationDateDesc();
+    }
+
+    @Override
     public long countOsbb() {
         return osbbRepository.count();
     }

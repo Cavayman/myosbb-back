@@ -19,4 +19,16 @@ public interface OsbbRepository extends JpaRepository<Osbb, Integer> {
     Osbb findByName(@Param("name") String name);
 
     List<Osbb> findByNameContainingIgnoreCase(String name);
+
+    List<Osbb> findAllByOrderByNameAsc();
+
+    List<Osbb> findAllByOrderByNameDesc();
+
+    List<Osbb> findAllByOrderByDistrictAsc();
+
+    List<Osbb> findAllByOrderByDistrictDesc();
+
+    List<Osbb> findAllByOrderByCreationDateAsc();
+
+    List<Osbb> findAllByOrderByCreationDateDesc();
 }

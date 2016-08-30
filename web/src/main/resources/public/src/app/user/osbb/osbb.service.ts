@@ -33,6 +33,14 @@ export class OsbbService {
                  .catch(this.handleError);
     }
 
+    getAllOsbbByOrder(field: string, order: boolean) {
+        let url = this.getUrl + '/order/' + field + ',' + order;
+        return this.http.get(url)
+                 .toPromise()
+                 .then(res => res.json())
+                 .catch(this.handleError);
+    }
+
     getOsbbById(osbbId: number): Promise<IOsbb> {
          let getOsbbByIdUrl = this.getUrl + "/id/" + osbbId;
          return this.http.get(getOsbbByIdUrl)

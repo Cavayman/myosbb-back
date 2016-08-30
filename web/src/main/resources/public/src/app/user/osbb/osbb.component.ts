@@ -22,6 +22,7 @@ export class OsbbComponent implements OnInit {
     
     osbbArr:IOsbb[];
     updatedOsbb:IOsbb;
+    order: boolean;
 
     constructor( private osbbService: OsbbService, private userService:CurrentUserService) { 
         this.osbbArr = [];
@@ -72,5 +73,18 @@ export class OsbbComponent implements OnInit {
         } else {
              this.osbbService.getAllOsbb().then(osbbArr => this.osbbArr = osbbArr);
         }
+    }
+
+    toggleOrder() {
+        if(this.order === false) {
+            this.order = true;
+        } else {
+            this.order = false;
+        }
+    }
+
+    sortBy(field:string): void {
+        this.toggleOrder();
+        this.osbbService.getAllOsbbByOrder(field, this.order).then(osbbArr => this.osbbArr = osbbArr);
     }
 }

@@ -1,16 +1,19 @@
 <div class="panel panel-default pos-top">
-    <div class="panel-heading"><h4>ОСББ</h4></div>
+    <div class="panel-heading">
+        <h4>ОСББ</h4>
+    </div>
     <div class="panel-body">
         <div class="content-panel">
-             <div class="ui segment form">
-                     <osbb-modal (created)="createOsbb($event)" (update)="editOsbb($event)" #addForm></osbb-modal>
-                     <osbb-del-form  (delete)="deleteOsbb($event)" #delForm></osbb-del-form>
-             </div>
-            <div  class="pull-left">
-                <button  class="btn btn-success" (click)="addForm.openAddModal();printCurrentUser()"><i>Добавити ОСББ</i></button>
+            <div class="ui segment form">
+                <osbb-modal (created)="createOsbb($event)" (update)="editOsbb($event)" #addForm></osbb-modal>
+                <osbb-del-form (delete)="deleteOsbb($event)" #delForm></osbb-del-form>
+            </div>
+            <div class="pull-left">
+                <button class="btn btn-success" (click)="addForm.openAddModal();printCurrentUser()"><i>Добавити ОСББ</i></button>
             </div>
             <div id="example_filter" class="pull-right dataTables_filter">
-                <input type="search" class="form-control input-sm" placeholder="пошук по імені..." aria-controls="example" (keyup)="searchByNameOsbb(searchInput.value)" #searchInput>
+                <input type="search" class="form-control input-sm" placeholder="пошук по імені..." aria-controls="example" (keyup)="searchByNameOsbb(searchInput.value)"
+                    #searchInput>
             </div>
             <table class="table table-striped table-advance table-hover">
                 <thead>
@@ -22,13 +25,17 @@
                         </th>
                         <th class="sorting"><i class=" fa fa-edit"></i> Опис</th>
                         <th class="sorting"><i class=" fa fa-edit"></i> Адрес</th>
-                        <th class="sorting"><i class=" fa fa-edit"></i> Район</th>
-                        <th class="sorting"><i class=" fa fa-edit"></i> Дата створення</th>
+                        <th class="sorting"><i class=" fa fa-edit"></i> Район
+                            <a style="{cursor:pointer}" (click)="sortBy('district')"><span
+                                    class="fa fa-fw fa-sort pull-left"></span></a></th>
+                        <th class="sorting"><i class=" fa fa-edit"></i> Дата створення
+                            <a style="{cursor:pointer}" (click)="sortBy('creationDate')"><span
+                                    class="fa fa-fw fa-sort pull-left"></span></a></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let osbb of osbbArr">
-                        <td><img src="{{osbb.logoUrl}}" alt="empty" height="50" width="60"/></td>
+                        <td><img src="{{osbb.logoUrl}}" alt="empty" height="50" width="60" /></td>
                         <td>{{osbb.name}}</td>
                         <td>{{osbb.description}}</td>
                         <td>{{osbb.address}}</td>
@@ -36,8 +43,8 @@
                         <td>{{getCreationDate(osbb.creationDate)}}</td>
                         <td>
                             <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="true">
                                     Опції
                                     <span class="caret"></span>
                                 </button>

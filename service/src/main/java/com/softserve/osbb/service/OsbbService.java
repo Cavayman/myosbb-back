@@ -22,6 +22,18 @@ public interface OsbbService {
 
     List<Osbb> findByNameContaining(String name);
 
+    List<Osbb> findAllOrderByNameDesc();
+
+    List<Osbb> findAllOrderByNameAsc();
+
+    List<Osbb> findAllOrderByDistrictDesc();
+
+    List<Osbb> findAllOrderByDistrictAsc();
+
+    List<Osbb> findAllOrderByCreationDateDesc();
+
+    List<Osbb> findAllOrderByCreationDateAsc();
+
     long countOsbb();
 
     boolean existsOsbb(Integer id);
