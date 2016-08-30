@@ -5,13 +5,14 @@ import {VoteComponent} from "../voting/vote.component";
 
 import {IOsbb, Osbb} from "../../../shared/models/osbb";
 import { OsbbService } from '../../user/osbb/osbb.service';
+import { UserCalendarComponent } from '../../user/calendar/user.calendar.component';
 
 @Component({
     selector: 'home-wall',
     templateUrl: './src/app/home/home_wall/home.wall.html',
     styleUrls: ['./src/app/home/home_wall/home.wall.css'],
     providers: [OsbbService],
-    directives: [ROUTER_DIRECTIVES, VoteComponent]
+    directives: [ROUTER_DIRECTIVES, VoteComponent, UserCalendarComponent]
 })
 
 export class HomeWallComponent implements OnInit {
