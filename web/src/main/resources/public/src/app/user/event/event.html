@@ -208,7 +208,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group col-md-6">
                                 <label>{{ 'dateStart' | translate | capitalize }}</label>
                                 <input type="datetime-local" value="yyyy-MM-ddThh:mm" class="form-control" required
                                        name="start" [(ngModel)]="newEvent.start" #start="ngModel">
@@ -217,7 +217,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group col-md-6">
                                 <label>{{ 'dateFinish' | translate | capitalize }}</label>
                                 <input type="datetime-local" value="yyyy-MM-ddThh:mm" class="form-control" [disabled]="!start.valid"
                                        name="end" [(ngModel)]="newEvent.end" #end="ngModel">
@@ -229,7 +229,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div>
                                 <div class="form-group">
                                     <div>
                                         <label> {{ 'repeat' | translate | capitalize}} </label>
@@ -247,7 +247,8 @@
                                 </div>
                             </div>    <!-- Repeat -->
 
-                            <div class="form-group"><label>{{ 'author' | translate | capitalize }}</label>
+                            <div class="form-group">
+                                <label>{{ 'author' | translate | capitalize }}</label>
                                 <input type="text" class="form-control" required [(ngModel)]="newEvent.author"
                                        name="author" #author="ngModel">
                                 <div [hidden]="author.valid || author.pristine" class="alert alert-danger">
