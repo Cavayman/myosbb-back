@@ -1,6 +1,6 @@
 <div class="panel panel-default pos-top">
     <div class="panel-heading">
-        <h4>ОСББ</h4>
+        <h4>{{'osbb' | translate}}</h4>
     </div>
     <div class="panel-body">
         <div class="content-panel">
@@ -9,26 +9,26 @@
                 <osbb-del-form (delete)="deleteOsbb($event)" #delForm></osbb-del-form>
             </div>
             <div class="pull-left">
-                <button class="btn btn-success" (click)="addForm.openAddModal();printCurrentUser()"><i>Добавити ОСББ</i></button>
+                <button class="btn btn-success" (click)="addForm.openAddModal();printCurrentUser()"><i>{{'add' | translate}}</i></button>
             </div>
             <div id="example_filter" class="pull-right dataTables_filter">
-                <input type="search" class="form-control input-sm" placeholder="пошук по імені..." aria-controls="example" (keyup.enter)="searchByNameOsbb(searchInput.value)"
+                <input type="search" class="form-control input-sm" placeholder="{{'searchByName' | translate}}" aria-controls="example" (keyup.enter)="searchByNameOsbb(searchInput.value)"
                     #searchInput>
             </div>
             <table class="table table-striped table-advance table-hover">
                 <thead>
                     <tr>
-                        <th> Логотип</th>
-                        <th class="sorting"><i class="fa fa-bullhorn"> </i> Назва
+                        <th>{{'logo' | translate | capitalize}}</th>
+                        <th class="sorting"><i class="fa fa-bullhorn"> </i> {{'name' | translate | capitalize}}
                             <a style="{cursor:pointer}" (click)="sortBy('name')"><span
                                     class="fa fa-fw fa-sort pull-left"></span></a>
                         </th>
-                        <th class="sorting"><i class=" fa fa-edit"></i> Опис</th>
-                        <th class="sorting"><i class=" fa fa-edit"></i> Адрес</th>
-                        <th class="sorting"><i class=" fa fa-edit"></i> Район
+                        <th class="sorting"><i class=" fa fa-edit"></i> {{'description' | translate | capitalize}}</th>
+                        <th class="sorting"><i class=" fa fa-edit"></i> {{'adress' | translate | capitalize}}</th>
+                        <th class="sorting"><i class=" fa fa-edit"></i> {{'district' | translate | capitalize}}
                             <a style="{cursor:pointer}" (click)="sortBy('district')"><span
                                     class="fa fa-fw fa-sort pull-left"></span></a></th>
-                        <th class="sorting"><i class=" fa fa-edit"></i> Дата створення
+                        <th class="sorting"><i class=" fa fa-edit"></i> {{'creationDate' | translate | capitalize}}
                             <a style="{cursor:pointer}" (click)="sortBy('creationDate')"><span
                                     class="fa fa-fw fa-sort pull-left"></span></a></th>
                     </tr>
@@ -45,12 +45,12 @@
                             <div class="dropdown">
                                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="true">
-                                    Опції
+                                    {{'options' | translate | capitalize}}
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                    <li><a style="cursor: pointer" (click)="addForm.openEditModal(osbb)">Редагувати</a></li>
-                                    <li><a style="cursor: pointer" (click)="delForm.openDelModal(osbb)">Видалити</a></li>
+                                    <li><a style="cursor: pointer" (click)="addForm.openEditModal(osbb)">{{'edit' | translate | capitalize}}</a></li>
+                                    <li><a style="cursor: pointer" (click)="delForm.openDelModal(osbb)">{{'delete' | translate | capitalize}}</a></li>
                                 </ul>
                             </div>
                         </td>

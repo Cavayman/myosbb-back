@@ -5,13 +5,16 @@ import {ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
 import {Vote} from '../vote';
 import {User} from '../user';
 import {Option} from '../option';
+import {TranslatePipe} from "ng2-translate";
+import {CapitalizeFirstLetterPipe} from "../../../../shared/pipes/capitalize-first-letter";
 
 @Component({
     selector: 'vote-add-form',
     templateUrl: './src/app/home/voting/vote_form/vote-add-form.html',
     styleUrls:['./src/app/home/voting/vote_form/vote-add-form.css'],
     directives:[FORM_DIRECTIVES, MODAL_DIRECTIVES, CORE_DIRECTIVES],
-    viewProviders: [BS_VIEW_PROVIDERS]
+    viewProviders: [BS_VIEW_PROVIDERS],
+    pipes: [TranslatePipe, CapitalizeFirstLetterPipe]
 })
 export class VoteAddFormComponent {
 

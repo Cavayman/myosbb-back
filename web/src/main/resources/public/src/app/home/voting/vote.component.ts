@@ -6,13 +6,16 @@ import {VoteService} from './vote.service';
 import {OptionService} from './option.service';
 import {User} from './user';
 import {CurrentUserService} from "../../../shared/services/current.user.service";
+import {TranslatePipe} from "ng2-translate";
+import {CapitalizeFirstLetterPipe} from "../../../shared/pipes/capitalize-first-letter";
 
 @Component({
     selector: 'vote',
     templateUrl: './src/app/home/voting/vote.html',
     styleUrls: ['./src/app/home/voting/vote.css'],
     directives: [ VoteAddFormComponent],
-    providers:[VoteService, OptionService]
+    providers:[VoteService, OptionService],
+    pipes: [CapitalizeFirstLetterPipe, TranslatePipe]
 })
 export class VoteComponent implements OnInit {
 

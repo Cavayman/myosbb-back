@@ -10,13 +10,16 @@ import { OsbbService } from './osbb.service';
 import { OsbbModalComponent } from './osbb_form/osbb-modal.component';
 import { OsbbDelFormComponent } from './osbb_form/osbb-del-form.component';
 import {CurrentUserService} from "../../../shared/services/current.user.service";
+import {TranslatePipe} from "ng2-translate";
+import {CapitalizeFirstLetterPipe} from "../../../shared/pipes/capitalize-first-letter";
 
 @Component({
     selector: 'osbb',
     templateUrl: './src/app/user/osbb/osbb.component.html',
-     providers: [OsbbService],
+    providers: [OsbbService],
     directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, OsbbModalComponent, OsbbDelFormComponent],
-    viewProviders: [BS_VIEW_PROVIDERS]
+    viewProviders: [BS_VIEW_PROVIDERS],
+    pipes: [TranslatePipe, CapitalizeFirstLetterPipe]
 })
 export class OsbbComponent implements OnInit { 
     

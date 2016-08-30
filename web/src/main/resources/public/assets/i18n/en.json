@@ -93,7 +93,19 @@
   "allDay": "all day",
   "repeat": "repeat",
   "number": "number",
-  "square": "square"
+  "square": "square",
+  "district": "district",
+  "creationDate" : "creation date",
+  "searchByName" : "search by name",
+  "logoUrl" : "logo url",
+  "addVoting": "create vote",
+  "enterQuestion": "enter question",
+  "enterAnswer": "enter answer",
+  "addMinTwoAnswer": "add minimum two options",
+  "invalidDate": "date is invalid",
+  "endDate": "end date",
+  "voted": "voted",
+  "creator": "creator"
 }
 
 

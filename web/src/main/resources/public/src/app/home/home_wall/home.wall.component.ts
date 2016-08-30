@@ -6,15 +6,17 @@ import {VoteComponent} from "../voting/vote.component";
 import {IOsbb, Osbb} from "../../../shared/models/osbb";
 import { OsbbService } from '../../user/osbb/osbb.service';
 import { UserCalendarComponent } from '../../user/calendar/user.calendar.component';
+import {TranslatePipe} from "ng2-translate";
+import {CapitalizeFirstLetterPipe} from "../../../shared/pipes/capitalize-first-letter";
 
 @Component({
     selector: 'home-wall',
     templateUrl: './src/app/home/home_wall/home.wall.html',
     styleUrls: ['./src/app/home/home_wall/home.wall.css'],
     providers: [OsbbService],
-    directives: [ROUTER_DIRECTIVES, VoteComponent, UserCalendarComponent]
+    directives: [ROUTER_DIRECTIVES, VoteComponent, UserCalendarComponent],
+    pipes:[CapitalizeFirstLetterPipe, TranslatePipe]
 })
-
 export class HomeWallComponent implements OnInit {
 
     isLoggedIn:boolean;

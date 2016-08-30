@@ -20,14 +20,14 @@
                 </div>
             </li>
             <li>
-                Проголосували: <span class="info-elem">{{vote.numberOfRespondents}}</span>
+               {{'voted' | translate | capitalize}} <span class="info-elem">{{vote.numberOfRespondents}}</span>
             </li>
         </ul>
 
     </div>
     <div class="info-row">
-        <span> Дата створення: <span class="info-elem">{{getStartTime(vote.startTime)}}</span> </span>
-        <span> Дата закінчення: <span class="info-elem">{{getEndTime(vote.endTime)}}</span> </span>
-        <span> Створив: <span class="info-elem">{{vote.user.firstName}} {{vote.user.lastName}}</span> </span>
+        <span> {{'creationDate' | translate | capitalize}}: <span class="info-elem">{{getStartTime(vote.startTime)}}</span> </span>
+        <span> {{'dateFinish' | translate | capitalize}}: <span class="info-elem">{{getEndTime(vote.endTime)}}</span> </span>
+        <span> {{'creator' | translate | capitalize}}: <span class="info-elem">{{vote.user.firstName}} {{vote.user.lastName}}</span> </span>
     </div>
 </div>
