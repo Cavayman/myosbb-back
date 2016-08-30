@@ -77,8 +77,6 @@
     "email":"email",
     "phone":"phone",
     "adress":"address",
-    "schedule": "schedule",
-    "text":"text",
     "active":"only active",
   "providergo": "go to provider page",
   "error404": "Error 404",
@@ -93,10 +91,9 @@
   "end": "end",
   "optional": "optional",
   "allDay": "all day",
-  "repeat": "repeat"
-}
-  "wrong_symbol": "wrong symbols",
+  "repeat": "repeat",
   "number": "number",
   "square": "square"
 }
+
 
