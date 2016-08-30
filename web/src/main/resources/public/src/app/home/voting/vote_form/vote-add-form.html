@@ -3,14 +3,14 @@
     <div class="modal-dialog modal-md">
         <div class="modal-content" [ngFormModel]="creatingForm">
             <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" data-dismiss="modal" (click)="closeAddModal()">
+                <button type="button" class="close" aria-label="Close"  (click)="closeAddModal()">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title">Опитування</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group" [ngClass]="{ 'has-error' : submitAttempt && !question.valid }">
-                    <input class="form-control" type="text" placeholder="Введіть тему опитування" [(ngModel)]="questionInputStr" #questionInput
+                    <input class="form-control" type="text" placeholder="Введіть тему опитування" [(ngModel)]="questionInputStr" 
                         ngControl="question" required>
                     <div class="alert alert-danger" *ngIf="submitAttempt && !question.valid">Введіть тему опитування</div>
                 </div>
@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" data-dismiss="modal" (click)="toggleSubmitAttempt(); onCreateVoting()" class="btn btn-default">
+                <button type="button"  (click)="toggleSubmitAttempt(); onCreateVoting()" class="btn btn-default">
                         Створити
                     </button>
             </div>

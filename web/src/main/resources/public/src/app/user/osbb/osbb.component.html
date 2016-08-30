@@ -3,11 +3,12 @@
     <div class="panel-body">
         <div class="content-panel">
              <div class="ui segment form">
-                     <button  class="btn btn-success" (click)="addForm.openAddModal();printCurrentUser()"><i>Добавити ОСББ</i></button>
-                     <osbb-add-form (created)="createOsbb($event)" #addForm></osbb-add-form>
-                     <osbb-edit-form [osbb]="updatedOsbb" (update)="editOsbb($event)" #editForm></osbb-edit-form>
+                     <osbb-modal (created)="createOsbb($event)" (update)="editOsbb($event)" #addForm></osbb-modal>
                      <osbb-del-form  (delete)="deleteOsbb($event)" #delForm></osbb-del-form>
              </div>
+            <div  class="pull-left">
+                <button  class="btn btn-success" (click)="addForm.openAddModal();printCurrentUser()"><i>Добавити ОСББ</i></button>
+            </div>
             <div id="example_filter" class="pull-right dataTables_filter">
                 <input type="search" class="form-control input-sm" placeholder="пошук по імені..." aria-controls="example" (keyup)="searchByNameOsbb(searchInput.value)" #searchInput>
             </div>
@@ -41,7 +42,7 @@
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                    <li><a style="cursor: pointer" (click)="initUpdatedOsbb(osbb);editForm.openEditModal()">Редагувати</a></li>
+                                    <li><a style="cursor: pointer" (click)="addForm.openEditModal(osbb)">Редагувати</a></li>
                                     <li><a style="cursor: pointer" (click)="delForm.openDelModal(osbb)">Видалити</a></li>
                                 </ul>
                             </div>

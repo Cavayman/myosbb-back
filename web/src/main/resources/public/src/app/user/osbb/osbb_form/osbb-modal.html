@@ -1,0 +1,49 @@
+ 
+<div bsModal #modalWindow="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+      aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+	    <div class="modal-content" [ngFormModel]="creatingForm">
+	        <div class="modal-header">
+	            <button type="button" class="close" aria-label="Close" (click)="clearAddForm();modalWindow.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Наш Двір</h4>
+             </div>
+ 
+             <div class="modal-body">
+                 <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="logo"><img src="{{logoUrl}}" alt="empty" height="230" width="270"/></div>
+                    </div>
+                     <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group" [ngClass]="{ 'has-error' : submitAttempt && !logoUrlControl.valid }" >
+                            <input class="form-control" type="text" name="logoUrl" placeholder="введіть URL логотипу" [(ngModel)]="logoUrl" ngControl="logoUrlControl" required>
+                            <div class="alert alert-danger" *ngIf="submitAttempt && !logoUrlControl.valid">Введіть URL логотипу</div>
+                        </div>
+                        <div class="form-group" [ngClass]="{ 'has-error' : submitAttempt && !nameControl.valid }">
+                            <input class="form-control" type="text" name="name" placeholder="Введіть назву" [(ngModel)]="name" ngControl="nameControl" required >
+                            <div class="alert alert-danger" *ngIf="submitAttempt && !nameControl.valid">Введіть назву</div>
+                        </div>
+                        <div class="form-group" [ngClass]="{ 'has-error' : submitAttempt && !descriptionControl.valid }">
+                            <input class="form-control" type="text" name="description" placeholder="Введіть опис" [(ngModel)]="description" ngControl="descriptionControl" required>
+                            <div class="alert alert-danger" *ngIf="submitAttempt && !descriptionControl.valid">Введіть опис</div>
+                        </div>
+                        <div class="form-group" [ngClass]="{ 'has-error' : submitAttempt && !addressControl.valid }">
+                            <input class="form-control" type="text" name="address" placeholder="Введіть адрес" [(ngModel)]="address" ngControl="addressControl" required>
+                            <div class="alert alert-danger" *ngIf="submitAttempt && !addressControl.valid">Введіть адрес</div>
+                        </div>
+                        <div class="form-group" [ngClass]="{ 'has-error' : submitAttempt && !districtControl.valid }">
+                            <input class="form-control" type="text" name="district" placeholder="Введіть район" [(ngModel)]="district" ngControl="districtControl" required>
+                            <div class="alert alert-danger" *ngIf="submitAttempt && !districtControl.valid">Введіть район</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button"  (click)="saveButtonAction()" class="btn btn-default">
+                    Зберегти
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

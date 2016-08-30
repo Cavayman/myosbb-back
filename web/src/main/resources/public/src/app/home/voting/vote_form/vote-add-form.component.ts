@@ -30,6 +30,17 @@ export class VoteAddFormComponent {
     questionInputStr: string;
     endTimeStr: string;
 
+    constructor(private builder: FormBuilder) {
+        this.create = new EventEmitter<Vote>();
+        this.optionArr = [];
+        this.submitAttempt = false;
+        this.question = new Control('', Validators.required);
+        this.creatingForm = builder.group({
+            question: this.question,
+        });
+        this.optionInputStr="";
+    }
+
     openAddModal() {
         this.addVoteModal.show();  
     }
@@ -45,17 +56,6 @@ export class VoteAddFormComponent {
         this.endTimeStr = '';
         this.questionInputStr = '';
         this.optionInputStr='';
-    }
-
-    constructor(private builder: FormBuilder) {
-        this.create = new EventEmitter<Vote>();
-        this.optionArr = [];
-        this.submitAttempt = false;
-        this.question = new Control('', Validators.required);
-        this.creatingForm = builder.group({
-            question: this.question,
-        });
-        this.optionInputStr="";
     }
 
     addOption(description:string):void {

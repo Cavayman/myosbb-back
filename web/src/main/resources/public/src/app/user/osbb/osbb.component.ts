@@ -7,8 +7,7 @@ import 'rxjs/Rx';
 
 import {IOsbb, Osbb} from "../../../shared/models/osbb";
 import { OsbbService } from './osbb.service';
-import { OsbbAddFormComponent } from './osbb_form/osbb-add-form.component';
-import { OsbbEditFormComponent } from './osbb_form/osbb-edit-form.component';
+import { OsbbModalComponent } from './osbb_form/osbb-modal.component';
 import { OsbbDelFormComponent } from './osbb_form/osbb-del-form.component';
 import {CurrentUserService} from "../../../shared/services/current.user.service";
 
@@ -16,7 +15,7 @@ import {CurrentUserService} from "../../../shared/services/current.user.service"
     selector: 'osbb',
     templateUrl: './src/app/user/osbb/osbb.component.html',
      providers: [OsbbService],
-    directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, OsbbAddFormComponent, OsbbEditFormComponent, OsbbDelFormComponent],
+    directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, OsbbModalComponent, OsbbDelFormComponent],
     viewProviders: [BS_VIEW_PROVIDERS]
 })
 export class OsbbComponent implements OnInit { 
