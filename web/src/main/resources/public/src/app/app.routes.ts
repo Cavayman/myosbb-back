@@ -10,11 +10,14 @@ import {RegistrationComponent} from "./registration/registration.component";
 import {Error404Component} from "../shared/error/error404.component";
 import {ErrorHandlerComponent} from "../shared/error/error.handler.component";
 import {adminRoutes} from "./admin/admin.routes";
+import {RegistrationOsbbComponent} from "./registration/registration.osbb.component";
+
 
 export const routes: RouterConfig = [
     {path: 'head/:status', component: HeaderComponent},
     {path: 'login', component: LoginComponent},
     {path: 'registration', component: RegistrationComponent},
+    {path: 'registration/osbb', component: RegistrationOsbbComponent},
     {path: '', redirectTo: 'login', pathMatch: 'full'},
     {path: 'home', component: HomeComponent},
     {path: 'message/:id', component: MessageComponent},
