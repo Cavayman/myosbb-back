@@ -37,18 +37,15 @@
                     <input class="form-control" name="birthDate" [(ngModel)]="newUser.birthDate" type="date" required>
                 </div>
             </div>
-               
-               <div class="row">
+            
+            <div class="row">
                     <div class="col-xs-12">
-
-                        <label>Хто ж ти такий ?</label>
-                      <select class="form-control" id="mission" placeholder="Chose your destiny!..." required>
-                        <option>Житель</option>
-                        <option>Голова ОСББ</option>
-                        
-                     </select>
-                </div>
-            </div>
+                        <label for="status">Виберіть варіант</label>
+                        <select class="form-control" id="status" required [(ngModel)]="newUser.status" name="status" #status="ngModel" >
+                             <option *ngFor="let p of options" [value]="p">{{p}}</option>
+                        </select>
+                    </div>
+                </div> 
                 
                 <div class="row">
                   <div class="col-xs-12">
