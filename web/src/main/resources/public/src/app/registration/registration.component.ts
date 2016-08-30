@@ -14,7 +14,7 @@ import emailMask from 'node_modules/text-mask-addons/dist/emailMask.js'
 })
 export class RegistrationComponent implements OnInit  {
     options = ['Приєднатись до існуючого ОСББ','Створити нове ОСББ'];
-    
+   
     newUser:User=new User();
     public emailMask = emailMask;
     public textmask=[/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/];
@@ -26,6 +26,7 @@ export class RegistrationComponent implements OnInit  {
     registered:boolean;
     constructor(private registerService:RegisterService,private _router: Router) {
     this.newUser.password="";
+
     }
 
     onSubmit(){
@@ -61,4 +62,15 @@ export class RegistrationComponent implements OnInit  {
     }else{this.errorConfirm=false;
     }
     }
+
+    onUserClick(status) {
+        if (status == this.options[1]){
+            console.log('CreateNew');
+            this._router.navigate(['/registration/osbb']);
+        }
+        else if (status == this.options[0]){
+            console.log('JoinToExist');
+            this._router.navigate(['/login']);
+        } 
+     }
 }
