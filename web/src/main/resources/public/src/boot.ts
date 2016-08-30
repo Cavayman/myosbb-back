@@ -6,13 +6,13 @@ import {AppComponent} from "./app/app.component";
 import {disableDeprecatedForms, provideForms} from '@angular/forms';
 import {TranslateService, TranslateLoader, TranslateStaticLoader} from "ng2-translate/ng2-translate";
 import {CurrentUserService} from "./shared/services/current.user.service";
-// import {enableProdMode} from "@angular/core";
+ import {enableProdMode} from "@angular/core";
 import {LoginService}from "./app/login/login.service";
 import {HttpClient} from "./shared/services/HttpClient";
-// enableProdMode();
+ enableProdMode();
 bootstrap(AppComponent,
     [HTTP_PROVIDERS, APP_ROUTER_PROVIDERS,
-        ROUTER_DIRECTIVES, CurrentUserService, LoginService,HttpClient
+        ROUTER_DIRECTIVES, CurrentUserService, LoginService,HttpClient,
         TranslateService,
         {
             provide: TranslateLoader,

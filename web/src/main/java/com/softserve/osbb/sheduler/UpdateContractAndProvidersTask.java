@@ -39,7 +39,7 @@ public class UpdateContractAndProvidersTask {
     @Autowired
     private MailSenderImpl sender;
 
-    @Scheduled(fixedRate = 100500)
+    @Scheduled(fixedRate = 86400000)
     public void updateContractState(){
         logger.info("Scheduler task: uptd contact state");
         contracts = contractService.findByActiveTrue();
