@@ -18,31 +18,31 @@ ul {
 
 .logo {
     padding-top: 20px;
-    height: 300px;
+    height: 362px;
 }
 
 .osbb-info-box {
     padding: 15px;
-    height: 300px;
+    height: 362px;
+    font-size: 14px;
 }
 .osbb-info-row {
+    width: auto;
     margin-bottom: 10px;
-    font-size: 10px;
+    font-size: 16px;
+     overflow: hidden;
 }
 
 .header-info {
     border-bottom: 1px solid slategray;
     margin-bottom: 12px;
 }
-.header-info span{
-    font-size: 14px;
-}
 
 h2 {
     text-transform: none;
     color: #090909;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 22px;
 }
 
 .left{
@@ -57,5 +57,10 @@ h2 {
 .logo img {
    height:100%;
    width:100%;
+}
+
+.dropdown {
+    margin-bottom: 20px;
+    border-bottom:1px solid slategray;
 }
 

@@ -9,18 +9,18 @@
         <button type="button" class="close glyphicon glyphicon-cog" aria-label="Close" (click)="closeForm.openCloseModal(vote)">
         </button>
     </div>
-    <div *ngIf="vote.available">
+    <div class="question-box" *ngIf="vote.available">
         <ul>
-            <li><span class="question"> {{vote.description}}</span></li>
+            <li class="question"> {{vote.description}}</li>
             <li *ngFor="let option of vote.options">
                 <input type="radio" name="{{vote.description}}" (click)="toScoreOption(option, vote)" value="{{option}}" #input>
                 {{option.description}}
             </li>
         </ul>
     </div>
-    <div *ngIf="!vote.available">
+    <div class="answer-box" *ngIf="!vote.available">
         <ul>
-            <li><span class="question"> {{vote.description}}</span></li>
+            <li class="question"> {{vote.description}}</li>
             <li *ngFor="let option of vote.options">
                 {{option.description}}
                 <div class="progress">

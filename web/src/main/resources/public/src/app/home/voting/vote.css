@@ -5,11 +5,12 @@
     background: whitesmoke;
     border-top:1px solid slategray;
     border-bottom:1px solid slategray;
+    margin-bottom: 20px;
 }
 
 .question {
-    margin-bottom: 5px;
     font-size: 16px;
+    margin-bottom: 20px;
 }
 
 .respondents {
@@ -19,6 +20,9 @@
 ul {
     padding: 0px 40px;
     font: 12px/1.6 Arial, Verdana, Tahama, sans-serif;
+}
+ul > li {
+    margin-bottom:5px;
 }
 
 .info-row {
