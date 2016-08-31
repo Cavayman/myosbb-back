@@ -34,6 +34,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .antMatchers("/oauth/token").permitAll()
                 .antMatchers("/registration").permitAll()
+                .antMatchers("/validEmail").permitAll()
+                .antMatchers("/forgotEmail").permitAll()
                 .antMatchers("/restful/**").authenticated();
 
     }

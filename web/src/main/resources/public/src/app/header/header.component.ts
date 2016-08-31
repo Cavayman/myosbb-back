@@ -19,12 +19,11 @@ import {CapitalizeFirstLetterPipe} from "../../shared/pipes/capitalize-first-let
 
 })
 export class HeaderComponent implements OnInit,OnDestroy {
-
-    isLoggedIn:boolean;
-    sub:any;
     static translateService : TranslateService;
     static currentUserService : CurrentUserService;
-
+    isLoggedIn:boolean;
+    sub:any;
+    
     languages: Array<string> = ['en', 'uk'];
     selectedLang : string = 'uk';
 

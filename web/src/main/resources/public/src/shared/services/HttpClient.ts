@@ -53,6 +53,7 @@ export class HttpClient extends Http {
         if ((localStorage.getItem(this.tokenName) != null) && (localStorage.getItem(this.tokenName) != "")) {
             options.headers.delete('Authorization');
             options.headers.append('Authorization', 'Bearer ' + localStorage.getItem(this.tokenName));
+            if(!options.headers.has("Content-Type"))
             options.headers.append('Content-Type', `application/json`);
         } else {
             options.headers.append('Authorization', `Basic  Y2xpZW50YXBwOjEyMzQ1Ng==`);
