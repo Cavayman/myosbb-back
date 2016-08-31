@@ -93,7 +93,12 @@ export class OsbbModalComponent implements OnInit{
     }
 
     createOsbb():IOsbb {
-        let osbb = new Osbb(this.name, this.description, this.address, this.district, this.logoUrl);
+        let osbb = new Osbb();
+        osbb.name = this.name;
+        osbb.description = this.description;
+        osbb.address = this.address;
+        osbb.district = this.district;
+        osbb.logoUrl = this.logoUrl;
         osbb.creationDate = new Date();   
         return osbb;
     }

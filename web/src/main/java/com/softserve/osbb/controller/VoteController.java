@@ -97,6 +97,9 @@ public class VoteController {
     @RequestMapping(value = "/vote", method = RequestMethod.PUT)
     public ResponseEntity<Resource<Vote>> updateVote(@RequestBody Vote vote) {
         logger.info("Update vote with id: " + vote.getVoteId());
+        for(Option option: vote.getOptions()) {
+            option.setVote(vote);
+        }
         Vote updatedVote = voteService.updateVote(vote);
         return new ResponseEntity<>(addResourceLinkToVote(updatedVote), HttpStatus.OK);
     }
@@ -104,6 +107,9 @@ public class VoteController {
     @RequestMapping(value = "/vote/id/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Resource<Vote>> deleteVote(@PathVariable("id") Integer id) {
         logger.info("Delete vote with id: " + id);
+        for(Option opt: voteService.getVoteById(id).getOptions()) {
+            opt.getUsers().clear();
+        }
         voteService.deleteVote(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

@@ -42,8 +42,6 @@ public class Option implements Serializable{
         this.description = description;
     }
 
-    // @JsonBackReference
-    //@XmlTransient
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "vote_id", nullable = false)
@@ -55,12 +53,11 @@ public class Option implements Serializable{
         this.vote = vote;
     }
 
-    /*@JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "options")*/
-    //@ManyToMany(mappedBy = "options")
-
-
-    @ManyToMany(mappedBy = "options", cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name="user_option",
+            inverseJoinColumns = @JoinColumn(name="user_id", referencedColumnName="user_id"),
+            joinColumns = @JoinColumn(name="option_id", referencedColumnName="option_id")
+    )
     public List<User> getUsers() {
         return users;
     }

@@ -245,14 +245,9 @@ public class User  implements Serializable {
                 ", roles='" + role + '\'' +
                 '}';
     }
-    
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 
-    @JoinTable(name="user_option",
-            joinColumns = @JoinColumn(name="user_id", referencedColumnName="user_id"),
-            inverseJoinColumns = @JoinColumn(name="option_id", referencedColumnName="option_id")
-    )
+    @JsonIgnore
+    @ManyToMany(mappedBy = "users")
     public Collection<Option> getOptions() {
         return options;
     }
