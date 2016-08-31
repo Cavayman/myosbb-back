@@ -79,9 +79,9 @@ public class UserRepositoryTest extends Assert {
     public void findByEmailTest() {
         userRepository.save(user);
         userRepository.save(user2);
-        assertEquals(user.getEmail(), userRepository.findUserByEmail(user.getEmail()).getEmail());
-        assertEquals(user2.getEmail(), userRepository.findUserByEmail(user2.getEmail()).getEmail());
-        assertNotEquals(user.getEmail(), userRepository.findUserByEmail(user2.getEmail()).getEmail());
+        assertEquals(user.getEmail(), userRepository.findUserByEmail(user.getEmail()).get(0).getEmail());
+        assertEquals(user2.getEmail(), userRepository.findUserByEmail(user2.getEmail()).get(0).getEmail());
+        assertNotEquals(user.getEmail(), userRepository.findUserByEmail(user2.getEmail()).get(0).getEmail());
     }
 
     @Test

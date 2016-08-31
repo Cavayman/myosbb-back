@@ -18,10 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Created by cavayman on 11.07.2016.
@@ -149,7 +146,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserByEmail(String email) {
-        return userRepository.findUserByEmail(email);
+        List<User> temp=userRepository.findUserByEmail(email);
+        return temp.get(0);
     }
 
     @Override
@@ -159,7 +157,7 @@ public class UserServiceImpl implements UserService {
         try {
             // Get the user record from the DataSource
             log.debug("Retrieving user data for {}", username);
-            user = this.userRepository.findUserByEmail(username);
+            user = findUserByEmail(username);
         } catch (Exception e) {
             log.error("Failed to locate user with username of '" + username + "'", e);
         }
