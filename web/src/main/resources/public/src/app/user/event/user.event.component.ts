@@ -100,6 +100,11 @@ export class UserEventComponent implements OnInit, OnDestroy {
         return end > start;
     }
 
+    refresh() {
+        console.log('refreshing...');
+        this.getEventsByPageNum(this.pageNumber);
+    }
+
     onEditEventSubmit() {
         this.active = false;
         console.log('saving event: ' + this.selectedEvent);
@@ -122,10 +127,9 @@ export class UserEventComponent implements OnInit, OnDestroy {
         this.active = false;
         console.log('creating event');
         this._eventService.addEvent(this.newEvent);
-        this._eventService.getAllEvents(this.pageNumber);
-        this.getEventsByPageNum(this.pageNumber);
         this.createModal.hide();
         setTimeout(() => this.active = true, 0);
+        this.refresh();
     }
 
     closeCreateModal() {

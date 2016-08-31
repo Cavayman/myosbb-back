@@ -7,7 +7,7 @@
                         [locale]="getLang()"></p-schedule>
 
             <p-dialog header="{{ 'eventDetails' | translate | capitalize }}" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade"
-                      [modal]="false">
+                      [modal]="false" [width]="500">
                 <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="event">
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-4"><label for="vin">{{ 'title' | translate | capitalize }}</label></div>
@@ -16,21 +16,15 @@
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-4"><label for="start">{{ 'start' | translate | capitalize }}</label></div>
                         <div class="ui-grid-col-8">
-                            <p-calendar id="start" dateFormat="yyyy-mm-dd hh:mm" [(ngModel)]="event.start"></p-calendar>
+                            <input type="datetime-local" value="yyyy-MM-dd hh:mm" required
+                                   name="start" [(ngModel)]="event.start" #start="ngModel">
                         </div>
                     </div>
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-4"><label for="end">{{ 'end' | translate | capitalize }}</label></div>
                         <div class="ui-grid-col-8">
-                            <p-calendar id="end" dateFormat="yyyy-mm-dd hh:mm" [(ngModel)]="event.end"
-                                        placeholder="{{ 'optional' | translate | capitalize }}"></p-calendar>
-                        </div>
-                    </div>
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-4"><label for="allday">{{ 'allDay' | translate | capitalize }}</label></div>
-                        <div class="ui-grid-col-8">
-                            <p-toggleButton [(ngModel)]="event.allDay" onLabel="{{ 'yes' | translate | capitalize }}"
-                                            offLabel="{{ 'no' | translate | capitalize }}"></p-toggleButton>
+                            <input type="datetime-local" value="yyyy-MM-dd hh:mm" placeholder="{{ 'optional' | translate | capitalize }}"
+                                   name="end" [(ngModel)]="event.end" #end="ngModel">
                         </div>
                     </div>
                 </div>

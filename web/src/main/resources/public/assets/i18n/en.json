@@ -125,7 +125,11 @@
   "select_provider": "select provider",
   "err_numeric": "please enter a numeric value",
   "statistics": "statistics",
-  "closeVote" : "Do you really want to close vote right now?"
+  "closeVote" : "Do you really want to close vote right now?",
+  "roles": "roles",
+  "users": "users",
+  "messages": "messages",
+  "tickets": "tickets"
 }
 
 
