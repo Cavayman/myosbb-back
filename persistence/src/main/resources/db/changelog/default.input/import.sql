@@ -4,24 +4,24 @@ INSERT INTO role(name) VALUES('ROLE_GOLOVA');
 INSERT INTO role(name) VALUES('ROLE_MANAGER');
 
 INSERT INTO house(city, street, zip_code, description) VALUES('Lviv', 'Rjashivska 9', '79040', 'a nice house with a lot of parking spaces');
-INSERT INTO apartment (number, square, house_id, owner_id) VALUES(1, 45, 1, 1);
-INSERT INTO apartment (number, square, house_id, owner_id) VALUES(2, 45, 1,2);
-INSERT INTO apartment (number, square, house_id, owner_id) VALUES(3, 12,1,3);
-INSERT INTO apartment (number, square, house_id, owner_id) VALUES(4, 45, 1,4);
-INSERT INTO apartment (number, square, house_id, owner_id) VALUES(5, 45, 1,5);
-INSERT INTO apartment (number, square, house_id, owner_id) VALUES(6, 45, 1,6);
-INSERT INTO apartment (number, square, house_id, owner_id) VALUES(7, 45, 1,7);
-INSERT INTO apartment (number, square, house_id, owner_id) VALUES(8, 45, 1,8);
-INSERT INTO apartment (number, square, house_id, owner_id) VALUES(9, 45, 1);
-INSERT INTO apartment (number, square, house_id, owner_id) VALUES(10, 45, 1);
-INSERT INTO apartment (number, square, house_id, owner_id) VALUES(11, 45, 1);
+INSERT INTO apartment (number, square, house_id, owner_id) VALUES(1, 44, 1, 1);
+INSERT INTO apartment (number, square, house_id, owner_id) VALUES(2, 67, 1, 2);
+INSERT INTO apartment (number, square, house_id, owner_id) VALUES(3, 98, 1, 3);
+INSERT INTO apartment (number, square, house_id, owner_id) VALUES(4, 67, 1, 4);
+INSERT INTO apartment (number, square, house_id, owner_id) VALUES(5, 100, 1, 5);
+INSERT INTO apartment (number, square, house_id, owner_id) VALUES(6, 87, 1, 6);
+INSERT INTO apartment (number, square, house_id, owner_id) VALUES(7, 89, 1, 7);
+INSERT INTO apartment (number, square, house_id, owner_id) VALUES(8, 66, 1, 8);
+INSERT INTO apartment (number, square, house_id) VALUES(9,  55, 1);
+INSERT INTO apartment (number, square, house_id) VALUES(10, 69, 1);
+INSERT INTO apartment (number, square, house_id) VALUES(11, 99, 1);
 
 
 INSERT INTO users(  birth_date,email, first_name, gender, last_name, password,phone_number,role,apartment_id,is_owner) VALUES ('2016-06-13','admin@admin','Admin','admin','Adminius','1111','380000000','2',1,TRUE );
 INSERT INTO users(  birth_date,email, first_name, gender, last_name, password,phone_number,role,apartment_id,is_owner) VALUES ('1993-10-31','vilumkris@gmail.com','kris','female','vilum','1111','380931286864','1',2,TRUE );
 INSERT INTO users(  birth_date,email, first_name, gender, last_name, password,phone_number,role,apartment_id,is_owner) VALUES ('1990-11-28', 'n.svidersky@gmail.com','Nazar','male','Sviderskyi','fatmom2016','0931544845','1',3,TRUE );
 INSERT INTO users(  birth_date,email, first_name, gender, last_name, password,phone_number,role,apartment_id,is_owner) VALUES ('1996-02-21','KostetskyRoma@gmail.com','Roman','male','Kostetsky','1234','380687773508','1',4,TRUE );
-INSERT INTO users(  birth_date,email, first_name, gender, last_name, password,phone_number,role,apartment_id,is_owner) VALUES ('1992-12-30','butaroman@gmail.com','Roman','male','Buta','1111','0632571119','1',,5,TRUE );
+INSERT INTO users(  birth_date,email, first_name, gender, last_name, password,phone_number,role,apartment_id,is_owner) VALUES ('1992-12-30','butaroman@gmail.com','Roman','male','Buta','1111','0632571119','1',5,TRUE );
 INSERT INTO users(  birth_date,email, first_name, gender, last_name, password,phone_number,role,apartment_id,is_owner) VALUES ('1997-06-02','cavayman@gmail.com','Oleg','male','Kotsik','1111','0679167305','1',6,TRUE );
 INSERT INTO users(  birth_date,email, first_name, gender, last_name, password,phone_number,role,apartment_id,is_owner) VALUES ('2916-04-14','nazardovhyi@gmail.com','Nazar','male','Dovhyi','151515','0973055976','1',7,TRUE );
 INSERT INTO users(  birth_date,email, first_name, gender, last_name, password,phone_number,role,apartment_id,is_owner) VALUES ('1994-12-16','oleg111koval@gmail.com','Oleg','male','Koval','123456','095729666','1',8,TRUE );
