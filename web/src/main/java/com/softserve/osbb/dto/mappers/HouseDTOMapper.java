@@ -27,4 +27,26 @@ public class HouseDTOMapper {
         }
         return houseDTO;
     }
+
+
+    public static House mapHouseDTOToHouse(HouseDTO houseDTO) {
+        House house = null;
+        if (houseDTO != null) {
+            if (houseDTO.getHouseId() != null) {
+                //// TODO: 28.08.2016  update existing house
+            }
+
+            house = new House();
+            mapFromHouseDTOToHouse(houseDTO, house);
+        }
+
+        return house;
+    }
+
+    private static void mapFromHouseDTOToHouse(HouseDTO houseDTO, House house) {
+        house.setCity(houseDTO.getCity());
+        house.setStreet(houseDTO.getStreet());
+        house.setZipCode(houseDTO.getZipCode());
+        house.setDescription(houseDTO.getDescription());
+    }
 }

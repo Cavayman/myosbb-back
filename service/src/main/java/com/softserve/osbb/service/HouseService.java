@@ -27,6 +27,8 @@ public interface HouseService {
 
     List<House> findAllByStreet(String street);
 
+    List<House> findAll();
+
     List<Apartment> findAllApartmentsByHouseId(Integer houseId);
 
     boolean deleteHouseById(Integer id);

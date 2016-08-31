@@ -26,20 +26,19 @@ export class ReportService {
 
     //for current logged-in user
     getAllUserReports(userId: number, pageNumber: number, selectedRow: number): Observable<any> {
-        return this._http.get(this.getReportsByUserUrl + userId + '/all?pageNumber=' + pageNumber + '&&rowNum=' + selectedRow
-            , {headers: this.headers})
+        return this._http.get(this.getReportsByUserUrl + userId + '/all?pageNumber=' + pageNumber + '&&rowNum=' + selectedRow)
             .map((response)=> response.json())
             .catch((error)=>Observable.throw(error));
     }
 
     getAllUserReportsSorted(userId: number, pageNumber: number, name: string, order: boolean): Observable<any> {
-        return this._http.get(this.getReportsByUserUrl + userId + '/all?pageNumber=' + pageNumber + '&&sortedBy=' + name + '&&order=' + order, {headers: this.headers})
+        return this._http.get(this.getReportsByUserUrl + userId + '/all?pageNumber=' + pageNumber + '&&sortedBy=' + name + '&&order=' + order)
             .map((response)=> response.json())
             .catch((error)=>Observable.throw(error));
     }
 
     searchUserReportsByInputParam(userId: number, value: string): Observable<any> {
-        return this._http.get(this.getReportsByUserUrl + userId + "/find?searchParam=" + value, {headers: this.headers})
+        return this._http.get(this.getReportsByUserUrl + userId + "/find?searchParam=" + value)
             .map((response)=>response.json())
             .catch((error)=>Observable.throw(error));
     }
@@ -53,15 +52,14 @@ export class ReportService {
     }
 
 
-    // for admin
     getAllReports(pageNumber: number, selectedRow: number): Observable<any> {
-        return this._http.get(this.getReportByPageNumberUr + pageNumber + '&&rowNum=' + selectedRow, {headers: this.headers})
+        return this._http.get(this.getReportByPageNumberUr + pageNumber + '&&rowNum=' + selectedRow)
             .map((response)=> response.json())
             .catch((error)=>Observable.throw(error));
     }
 
     getAllReportsSorted(pageNumber: number, name: string, order: boolean): Observable<any> {
-        return this._http.get(this.getReportByPageNumberUr + pageNumber + '&&sortedBy=' + name + '&&order=' + order, {headers: this.headers})
+        return this._http.get(this.getReportByPageNumberUr + pageNumber + '&&sortedBy=' + name + '&&order=' + order)
             .map((response)=> response.json())
             .catch((error)=>Observable.throw(error));
     }
@@ -69,36 +67,33 @@ export class ReportService {
     searchByDates(dateFrom: string, dateTo: string): Observable<any> {
         return this._http.get(this.getReportByParamURL
             + 'dateFrom=' + dateFrom + '&&'
-            + 'dateTo=' + dateTo, {headers: this.headers}).map((response)=>response.json())
+            + 'dateTo=' + dateTo).map((response)=>response.json())
             .catch((error)=>Observable.throw(error));
     }
 
     searchByInputParam(value: string): Observable<any> {
-        return this._http.get(this.getReportBySearchParamURL + value, {headers: this.headers})
+        return this._http.get(this.getReportBySearchParamURL + value)
             .map((response)=>response.json())
             .catch((error)=>Observable.throw(error));
     }
 
-    deleteReportById(reportId: number) {
+    deleteReportById(reportId: number): Observable<any> {
         let url = this.delReportUrl + reportId;
         console.log('delete report by id: ' + reportId);
-        return this._http.delete(url, {headers: this.headers})
-            .toPromise()
+        return this._http.delete(url)
             .catch((error)=>console.error(error));
 
     }
 
-    editAndSave(report: Report) {
+    editAndSave(report: Report): Observable<any> {
         if (report.reportId) {
             console.log('updating report with id: ' + report.reportId);
-            this.put(report);
+            return this.put(report);
         }
     }
 
-    put(report: Report) {
-        return this._http.put(this.updateReportUrl, JSON.stringify(report), {headers: this.headers})
-            .toPromise()
-            .then(()=>report)
+    put(report: Report): Observable<any> {
+        return this._http.put(this.updateReportUrl, JSON.stringify(report))
             .catch((error)=>console.error(error));
     }
 

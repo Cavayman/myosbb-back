@@ -10,7 +10,6 @@ export interface IApartment{
 
     house:any;
     owner:number;
-    users:any[];
     bills:any[];
 }
 

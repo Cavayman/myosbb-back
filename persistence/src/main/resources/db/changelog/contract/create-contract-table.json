@@ -1,113 +1,207 @@
-{ "databaseChangeLog": [
-  {
-    "changeSet": {
-      "id": "2016/08/03-20",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "createTable": {
-            "columns": [
-              {
-                "column": {
-                  "autoIncrement": true,
-                  "constraints": {
-                    "primaryKey": true,
-                    "primaryKeyName": "contract_pkey"
-                  },
-                  "name": "contract_id",
-                  "type": "SERIAL"
-                }
-              },
-              {
-                "column": {
-                  "name": "date_finish",
-                  "type": "TIMESTAMP(6) WITHOUT TIME ZONE"
-                }
-              },
-              {
-                "column": {
-                  "name": "date_start",
-                  "type": "TIMESTAMP(6) WITHOUT TIME ZONE"
-                }
-              },
-              {
-                "column": {
-                  "name": "price",
-                  "type": "numeric(19, 2)"
-                }
-              },
-              {
-                "column": {
-                  "name": "price_currency",
-                  "type": "VARCHAR(255)",
-                  "constraints": {
-                    "defaultValue": "UAH"
+{
+  "databaseChangeLog": [
+    {
+      "changeSet": {
+        "id": "2016/08/03-20",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "createTable": {
+              "columns": [
+                {
+                  "column": {
+                    "autoIncrement": true,
+                    "constraints": {
+                      "primaryKey": true,
+                      "primaryKeyName": "contract_pkey"
+                    },
+                    "name": "contract_id",
+                    "type": "SERIAL"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "date_finish",
+                    "type": "TIMESTAMP(6) WITHOUT TIME ZONE"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "date_start",
+                    "type": "TIMESTAMP(6) WITHOUT TIME ZONE"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "price",
+                    "type": "numeric(19, 2)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "price_currency",
+                    "type": "VARCHAR(255)",
+                    "constraints": {
+                      "defaultValue": "UAH"
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "text",
+                    "type": "VARCHAR(255)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "attachment_id",
+                    "type": "INT"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "osbb_id",
+                    "type": "INT"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "provider_id",
+                    "type": "INT"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "active",
+                    "type": "BOOLEAN",
+                    "constraints": {
+                      "defaultValue": true
+                    }
                   }
                 }
-              },
-              {
-                "column": {
-                  "name": "text",
-                  "type": "VARCHAR(255)"
-                }
-              },
-              {
-                "column": {
-                  "name": "attachment_id",
-                  "type": "INT"
-                }
-              },
-              {
-                "column": {
-                  "name": "osbb_id",
-                  "type": "INT"
-                }
-              },
-              {
-                "column": {
-                  "name": "provider_id",
-                  "type": "INT"
-                }
-              },
-              {
-                "column": {
-                  "name": "active",
-                  "type": "BOOLEAN",
-                  "constraints": {
-                    "defaultValue": true
+              ],
+              "tableName": "contract"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/31-1",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "createTable": {
+              "columns": [
+                {
+                  "column": {
+                    "constraints": {
+                      "nullable": false
+                    },
+                    "name": "contract",
+                    "type": "INT"
+                  }
+                },
+                {
+                  "column": {
+                    "constraints": {
+                      "nullable": false
+                    },
+                    "name": "attachments",
+                    "type": "INT"
                   }
                 }
-              }
-            ],
-            "tableName": "contract"
+              ],
+              "tableName": "contract_attachments"
+            }
           }
-        }
-      ]
-    }
-  },
-  {
-    "changeSet": {
-      "id": "2016/08/03-62",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "addForeignKeyConstraint": {
-            "baseColumnNames": "attachment_id",
-            "baseTableName": "contract",
-            "constraintName": "fk_rdqtdh5wqlwkiryfy8lsp44ee",
-            "deferrable": false,
-            "initiallyDeferred": false,
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "referencedColumnNames": "attachment_id",
-            "referencedTableName": "attachment"
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/31-2",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "addUniqueConstraint": {
+              "columnNames": "attachments",
+              "constraintName": "uk_leg4d0wt51vr3bj1wqxsybqcv",
+              "tableName": "contract_attachments"
+            }
           }
-        }
-      ]
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/31-3",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "addForeignKeyConstraint": {
+              "baseColumnNames": "contract",
+              "baseTableName": "contract_attachments",
+              "constraintName": "fk_bi920n4vqcx1hpa2tw3k2eyq6",
+              "deferrable": false,
+              "initiallyDeferred": false,
+              "onDelete": "NO ACTION",
+              "onUpdate": "NO ACTION",
+              "referencedColumnNames": "contract_id",
+              "referencedTableName": "contract"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/31-4",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "addForeignKeyConstraint": {
+              "baseColumnNames": "attachments",
+              "baseTableName": "contract_attachments",
+              "constraintName": "fk_leg4d0wo56vr3bj1wqxsybqcv",
+              "deferrable": false,
+              "initiallyDeferred": false,
+              "onDelete": "NO ACTION",
+              "onUpdate": "NO ACTION",
+              "referencedColumnNames": "attachment_id",
+              "referencedTableName": "attachment"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/03-62",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "addForeignKeyConstraint": {
+              "baseColumnNames": "attachment_id",
+              "baseTableName": "contract",
+              "constraintName": "fk_rdqtdh5wqlwkiryfy8lsp44ee",
+              "deferrable": false,
+              "initiallyDeferred": false,
+              "onDelete": "NO ACTION",
+              "onUpdate": "NO ACTION",
+              "referencedColumnNames": "attachment_id",
+              "referencedTableName": "attachment"
+            }
+          }
+        ]
+      }
     }
-  }
-
-   ]
+  ]
 }

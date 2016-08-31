@@ -6,23 +6,23 @@
                 <button type="button" class="close" aria-label="Close"  (click)="closeAddModal()">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">Опитування</h4>
+                <h4 class="modal-title">{{'title' | translate}}</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group" [ngClass]="{ 'has-error' : submitAttempt && !question.valid }">
-                    <input class="form-control" type="text" placeholder="Введіть тему опитування" [(ngModel)]="questionInputStr" 
+                    <input class="form-control" type="text" placeholder="{{'enterQuestion' | translate}}" [(ngModel)]="questionInputStr" 
                         ngControl="question" required>
-                    <div class="alert alert-danger" *ngIf="submitAttempt && !question.valid">Введіть тему опитування</div>
+                    <div class="alert alert-danger" *ngIf="submitAttempt && !question.valid">{{'enterQuestion' | translate | capitalize}}</div>
                 </div>
                 <div class="form-group" [ngClass]="{ 'has-error' : !isOptionArrSizeCorrect() && submitAttempt }">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Введіть варіант відповіді" maxlength="256" [(ngModel)]="optionInputStr"
+                        <input type="text" class="form-control" placeholder="{{'enterAnswer' | translate}}" maxlength="256" [(ngModel)]="optionInputStr"
                             #optionInput required>
                         <span class="input-group-btn">
-                                <button class="btn btn-default" (click)="addOption(optionInput.value)" type="button" [disabled]="isOptionInputEmpty()">Додати</button>
+                                <button class="btn btn-default" (click)="addOption(optionInput.value)" type="button" [disabled]="isOptionInputEmpty()">{{'add' | translate | capitalize}}</button>
                             </span>
                     </div>
-                    <div class="alert alert-danger" *ngIf="submitAttempt && !isOptionArrSizeCorrect()">Додайте мінімум 2 варіанти відповіді</div>
+                    <div class="alert alert-danger" *ngIf="submitAttempt && !isOptionArrSizeCorrect()">{{'addMinTwoAnswer' | translate | capitalize}}</div>
                     <div>
                         <ul>
                             <li *ngFor="let option of optionArr">
@@ -32,14 +32,14 @@
                     </div>
                 </div>
                 <div class="form-group" [ngClass]="{ 'has-error' : submitAttempt && !isEndTimeCorrect() }">
-                    <label>Введіть дату закінчення голосування </label>
+                    <label>{{'endDate' | translate}}</label>
                     <input class="form-control" type="datetime-local" [(ngModel)]="endTimeStr" />
-                    <div class="alert alert-danger" *ngIf="submitAttempt && !isEndTimeCorrect()">Неправильний час закінчення голосування</div>
+                    <div class="alert alert-danger" *ngIf="submitAttempt && !isEndTimeCorrect()">{{'invalidDate' | translate | capitalize}}</div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button"  (click)="toggleSubmitAttempt(); onCreateVoting()" class="btn btn-default">
-                        Створити
+                        {{'create' | translate | capitalize}}
                     </button>
             </div>
         </div>

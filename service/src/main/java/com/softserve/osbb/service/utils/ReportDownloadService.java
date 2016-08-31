@@ -16,8 +16,12 @@ import org.springframework.stereotype.Service;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
@@ -32,8 +36,8 @@ public class ReportDownloadService {
 
     protected static Logger logger = LoggerFactory.getLogger(ReportDownloadService.class);
 
-    private static final String R_TEMP_ADMIN = "/reportTemplate/report_admin_template.jrxml";
-    private static final String R_TEMP_USER = "/reportTemplate/report_user_template.jrxml";
+    private static final String ALL_USERS_REPORT_TEMPLATE = "/reportTemplate/report_admin_template.jrxml";
+    private static final String SINGLE_USER_REPORT_TEMPLATE = "/reportTemplate/report_user_template.jrxml";
 
     @Value("${app.filepath}")
     private String serverDir;
@@ -47,46 +51,40 @@ public class ReportDownloadService {
     @Autowired
     private ReportRepository reportRepository;
 
-    @Autowired
-    private FileServer fileServer;
-
     private User currentUser;
 
-    public void download(String type, HttpServletResponse httpServletResponse) {
+    public void generate(String type, HttpServletResponse httpServletResponse) {
         try {
             Map<String, Object> invoiceParam = generateReportTemplateParams(reportNumberGenerator);
             JasperPrint jp = generateReportTemplate(invoiceParam);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            reportExporterService.exportToOutputStream(type, jp, httpServletResponse, baos);
-            String invoiceFileName = reportExporterService.exportToFile(jp, type, fileServer.getOutputFileDirectory(Constants.REPORTS));
-            saveReportToDatabase(invoiceFileName, invoiceParam);
-            write(httpServletResponse, baos, type);
-        } catch (JRException e) {
-            logger.error("unable to process download");
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+            String savedFilePath = reportExporterService.export(type, jp, httpServletResponse, buffer);
+            saveReportToDatabase(savedFilePath, invoiceParam);
+            write(httpServletResponse, buffer);
+        } catch (JRException | IOException e) {
+            logger.error("unable to process generate");
             throw new RuntimeException(e);
         }
-
     }
 
-    public void download(User currentUser, String type, HttpServletResponse httpServletResponse) {
+    public void generate(User currentUser, String type, HttpServletResponse httpServletResponse) {
         this.currentUser = new User(currentUser);
         try {
             Map<String, Object> invoiceParam = generateCurrentUserReportTemplateParams(reportNumberGenerator);
             JasperPrint jp = generateCurrentUserReportTemplate(invoiceParam);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            reportExporterService.exportToOutputStream(type, jp, httpServletResponse, baos);
-            String invoiceFileName = reportExporterService.exportToFile(jp, type, fileServer.getOutputFileDirectory(Constants.REPORTS));
-            saveReportToDatabase(invoiceFileName, invoiceParam);
-            write(httpServletResponse, baos, type);
-        } catch (JRException e) {
-            logger.error("unable to process download");
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+            String savedFilePath = reportExporterService.export(type, jp, httpServletResponse, buffer);
+            saveReportToDatabase(savedFilePath, invoiceParam);
+            write(httpServletResponse, buffer);
+        } catch (JRException | IOException e) {
+            logger.error("unable to process generate");
             throw new RuntimeException(e);
         }
     }
 
 
     private JasperPrint generateReportTemplate(Map<String, Object> reportTemplateParams) throws JRException {
-        InputStream is = this.getClass().getResourceAsStream(R_TEMP_ADMIN);
+        InputStream is = this.getClass().getResourceAsStream(ALL_USERS_REPORT_TEMPLATE);
         JasperDesign jd = JRXmlLoader.load(is);
         JasperReport jr = JasperCompileManager.compileReport(jd);
         JRDataSource dataSource = reportCreator.getReportModelListDataSource();
@@ -94,7 +92,7 @@ public class ReportDownloadService {
     }
 
     private JasperPrint generateCurrentUserReportTemplate(Map<String, Object> currentUserReportTemplateParams) throws JRException {
-        InputStream is = this.getClass().getResourceAsStream(R_TEMP_USER);
+        InputStream is = this.getClass().getResourceAsStream(SINGLE_USER_REPORT_TEMPLATE);
         JasperDesign jd = JRXmlLoader.load(is);
         JasperReport jr = JasperCompileManager.compileReport(jd);
         JRDataSource dataSource = reportCreator.getReportModelListDataSource(currentUser);
@@ -122,7 +120,6 @@ public class ReportDownloadService {
     };
 
     private Map<String, Object> generateReportTemplateParams(ReportNumberGenerator reportNumberGenerator) {
-
         if (reportNumberGenerator == null) {
             throw new IllegalArgumentException();
         }
@@ -130,7 +127,6 @@ public class ReportDownloadService {
         params.put("Title", "User Report");
         params.put("invoiceNumber", reportNumberGenerator.generate());
         params.put("invoiceDate", new Date());
-
         return params;
     }
 
@@ -139,26 +135,25 @@ public class ReportDownloadService {
         if (reportNumberGenerator == null) {
             throw new IllegalArgumentException();
         }
-        Map<String, Object> params = new HashMap();
+        Map<String, Object> params = new HashMap<>();
         params.put("customerName", currentUser.getFirstName() + " " + currentUser.getLastName());
         params.put("customerEmail", currentUser.getEmail());
         params.put("invoiceNumber", reportNumberGenerator.generate());
         params.put("invoiceDate", new Date());
-
         return params;
     }
 
-    private void saveReportToDatabase(String fileName, Map<String, Object> invoiceParam) {
+    private void saveReportToDatabase(String savedFileName, Map<String, Object> invoiceParam) {
         Report report = new Report();
         report.setName((String) invoiceParam.get("invoiceNumber"));
         report.setCreationDate(LocalDate.now());
-        report.setFilePath("/" + Constants.DATE_FORMATTER.format(new Date()) + "/" + fileName);
+        report.setFilePath(Constants.REPORTS_DIR_NAME + File.separator + Constants.DATE_FORMATTER.format(new Date()) + File.separator + savedFileName);
         report.setUser(currentUser);
         reportRepository.save(report);
         logger.info("saved report :" + report.getName() + " to database");
     }
 
-    private void write(HttpServletResponse response, ByteArrayOutputStream baos, String type) {
+    private void write(HttpServletResponse response, ByteArrayOutputStream baos) {
         try {
             ServletOutputStream servletOutputStream = response.getOutputStream();
             logger.info("writing to output stream");
@@ -166,9 +161,24 @@ public class ReportDownloadService {
             baos.flush();
         } catch (IOException e) {
             logger.error("unable to write report to the output stream");
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
     }
 
+    public void downloadExisting(Integer reportId, HttpServletResponse httpServletResponse) {
+        logger.info("fetching existing report from db");
+        Report report = reportRepository.findOne(reportId);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        Path fileDownloadPath = null;
+        try {
+            fileDownloadPath = Paths.get(report.getFilePath());
+            Files.copy(fileDownloadPath, byteArrayOutputStream);
+            write(httpServletResponse, byteArrayOutputStream);
+        } catch (IOException e) {
+            logger.error("could not read from input stream for " + fileDownloadPath.toAbsolutePath());
+            throw new RuntimeException(e);
+        }
+
+    }
 }

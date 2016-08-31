@@ -1,7 +1,3 @@
-.top-panel {
-    position: relative;
-    top: -40px;
-}
 
 .block-center {
     position: relative;
@@ -12,19 +8,22 @@
 
 }
 
+.disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
 .panel-btn {
     height: 30px;
     width: 45px;
 }
 
 #desc {
+    margin-left: 15px;
     height: 150px;
+    width:500px !important;
 }
 
 .to-right {
     margin-left: 210px;
-}
-
-a {
-    cursor: pointer !important;
 }

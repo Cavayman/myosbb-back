@@ -135,14 +135,14 @@ public class EventServiceTest {
         list.add(event);
         list.add(event1);
         eventService.saveEvents(list);
-        List<Event> eventsWithRepeat = eventService.findByInterval(t1, t4);
+        List<Event> eventsWithRepeat = eventService.findByInterval(t1, t3);
         int count = 0;
         for (Event e : eventsWithRepeat) {
             if (e.getEventId().equals(event.getEventId())) {
                 count++;
             }
         }
-        assertTrue(count == 3);
+        assertTrue(count == 1);
     }
 
     @Test

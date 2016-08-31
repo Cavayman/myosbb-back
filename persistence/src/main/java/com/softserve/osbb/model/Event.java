@@ -111,7 +111,7 @@ public class Event {
         return repeat;
     }
 
-    public void setRepeat(Periodicity periodicity) {
+    public void setRepeat(Periodicity repeat) {
         this.repeat = repeat;
     }
 

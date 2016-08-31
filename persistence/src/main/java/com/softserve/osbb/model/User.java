@@ -2,24 +2,14 @@ package com.softserve.osbb.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.annotations.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -27,7 +17,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "users")
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User  implements Serializable {
 
     private Integer userId;
@@ -60,6 +50,7 @@ public class User  implements Serializable {
         this.phoneNumber = user.getPhoneNumber();
         this.password = user.getPassword();
         this.gender = user.getGender();
+        this.role=user.getRole();
     }
 
 
@@ -158,6 +149,7 @@ public class User  implements Serializable {
         this.activated = activated;
     }
     @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
+    @JsonIgnore
     public Role getRole() {
         return role;
     }
@@ -250,6 +242,7 @@ public class User  implements Serializable {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", roles='" + role + '\'' +
                 '}';
     }
     

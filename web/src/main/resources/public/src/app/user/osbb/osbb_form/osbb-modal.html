@@ -7,7 +7,7 @@
 	            <button type="button" class="close" aria-label="Close" (click)="clearAddForm();modalWindow.hide()">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">Наш Двір</h4>
+                <h4 class="modal-title">{{'title' | translate}}</h4>
              </div>
  
              <div class="modal-body">
@@ -17,31 +17,31 @@
                     </div>
                      <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="form-group" [ngClass]="{ 'has-error' : submitAttempt && !logoUrlControl.valid }" >
-                            <input class="form-control" type="text" name="logoUrl" placeholder="введіть URL логотипу" [(ngModel)]="logoUrl" ngControl="logoUrlControl" required>
-                            <div class="alert alert-danger" *ngIf="submitAttempt && !logoUrlControl.valid">Введіть URL логотипу</div>
+                            <input class="form-control" type="text" name="logoUrl" placeholder="{{'logoUrl' | translate | capitalize}}" [(ngModel)]="logoUrl" ngControl="logoUrlControl" required>
+                            <div class="alert alert-danger" *ngIf="submitAttempt && !logoUrlControl.valid">{{'date_err_description' | translate | capitalize}}</div>
                         </div>
                         <div class="form-group" [ngClass]="{ 'has-error' : submitAttempt && !nameControl.valid }">
-                            <input class="form-control" type="text" name="name" placeholder="Введіть назву" [(ngModel)]="name" ngControl="nameControl" required >
-                            <div class="alert alert-danger" *ngIf="submitAttempt && !nameControl.valid">Введіть назву</div>
+                            <input class="form-control" type="text" name="name" placeholder="{{'name' | translate | capitalize}}" [(ngModel)]="name" ngControl="nameControl" required >
+                            <div class="alert alert-danger" *ngIf="submitAttempt && !nameControl.valid">{{'date_err_description' | translate | capitalize}}</div>
                         </div>
                         <div class="form-group" [ngClass]="{ 'has-error' : submitAttempt && !descriptionControl.valid }">
-                            <input class="form-control" type="text" name="description" placeholder="Введіть опис" [(ngModel)]="description" ngControl="descriptionControl" required>
-                            <div class="alert alert-danger" *ngIf="submitAttempt && !descriptionControl.valid">Введіть опис</div>
+                            <input class="form-control" type="text" name="description" placeholder="{{'description' | translate | capitalize}}" [(ngModel)]="description" ngControl="descriptionControl" required>
+                            <div class="alert alert-danger" *ngIf="submitAttempt && !descriptionControl.valid">{{'date_err_description' | translate | capitalize}}</div>
                         </div>
                         <div class="form-group" [ngClass]="{ 'has-error' : submitAttempt && !addressControl.valid }">
-                            <input class="form-control" type="text" name="address" placeholder="Введіть адрес" [(ngModel)]="address" ngControl="addressControl" required>
-                            <div class="alert alert-danger" *ngIf="submitAttempt && !addressControl.valid">Введіть адрес</div>
+                            <input class="form-control" type="text" name="address" placeholder="{{'adress' | translate | capitalize}}" [(ngModel)]="address" ngControl="addressControl" required>
+                            <div class="alert alert-danger" *ngIf="submitAttempt && !addressControl.valid">{{'date_err_description' | translate | capitalize}}</div>
                         </div>
                         <div class="form-group" [ngClass]="{ 'has-error' : submitAttempt && !districtControl.valid }">
-                            <input class="form-control" type="text" name="district" placeholder="Введіть район" [(ngModel)]="district" ngControl="districtControl" required>
-                            <div class="alert alert-danger" *ngIf="submitAttempt && !districtControl.valid">Введіть район</div>
+                            <input class="form-control" type="text" name="district" placeholder="{{'district' | translate | capitalize}}" [(ngModel)]="district" ngControl="districtControl" required>
+                            <div class="alert alert-danger" *ngIf="submitAttempt && !districtControl.valid">{{'date_err_description' | translate | capitalize}}</div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button"  (click)="saveButtonAction()" class="btn btn-default">
-                    Зберегти
+                    {{'save' | translate | capitalize}}
                 </button>
             </div>
         </div>

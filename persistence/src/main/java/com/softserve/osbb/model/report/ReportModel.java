@@ -47,7 +47,7 @@ public class ReportModel  {
 
     public ReportModel setProviderDescription(Provider provider) {
         if (provider != null) {
-            this.providerDescription = provider.getDescription();
+            this.providerDescription = provider.getName();
         }
         return this;
     }

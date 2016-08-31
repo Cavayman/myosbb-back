@@ -1,9 +1,11 @@
 package com.softserve.osbb.service.utils;
 
+import com.softserve.osbb.model.Apartment;
 import com.softserve.osbb.model.Bill;
 import com.softserve.osbb.model.User;
 import com.softserve.osbb.model.report.ReportModel;
 import com.softserve.osbb.repository.BillRepository;
+import com.softserve.osbb.repository.UserRepository;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.slf4j.Logger;
@@ -24,6 +26,9 @@ public class ReportCreator {
     private static Logger logger = LoggerFactory.getLogger(ReportCreator.class);
     @Autowired
     private BillRepository billRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public JRDataSource getReportModelListDataSource() {
         logger.info("fetching all bills from the database");
@@ -48,16 +53,27 @@ public class ReportCreator {
 
 
     private ReportModel convertFrom(Bill bill) {
+        logger.info("fetching data for current user");
+        User customer = getCurrentUser(bill);
         logger.info("converting data to ReportModel");
-        ReportModel reportModel =
-                ReportModel.setBillId(bill.getBillId())
-                        .setAmountToPay(bill.getToPay())
-                        .setAmountPaid(bill.getPaid())
-                      //  .setCustomerName(bill.getApartment().getUser())
-                       // .setCustomerEmail(bill.getApartment().getUser())
-                        .setProviderDescription(bill.getProvider());
-
+        ReportModel reportModel = ReportModel.setBillId(bill.getBillId())
+                .setAmountToPay(bill.getToPay())
+                .setAmountPaid(bill.getPaid())
+                .setCustomerName(customer)
+                .setCustomerEmail(customer)
+                .setProviderDescription(bill.getProvider());
         return reportModel;
+    }
+
+    private User getCurrentUser(Bill bill) {
+        User customer = new User();
+        final Apartment apartment = bill.getApartment();
+        if (apartment != null) {
+            final Integer ownerId = apartment.getOwner();
+            if (ownerId != null)
+                customer = userRepository.findOne(ownerId);
+        }
+        return customer;
     }
 
     private void addToReportModelList(ReportModel reportModel, List<ReportModel> reportModels) {

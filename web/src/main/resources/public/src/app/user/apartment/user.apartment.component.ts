@@ -1,25 +1,28 @@
 ///<reference path="../../../../node_modules/@angular/http/src/http.d.ts"/>
-import {Component, ViewChild} from '@angular/core'
+import {Component, ViewChild,Input} from '@angular/core'
 import {HTTP_PROVIDERS, Http, Headers, RequestOptions} from "@angular/http";
 import {ApartmentModel} from "./Apartment.model";
-import {ROUTER_DIRECTIVES,Router} from "@angular/router";
+import {ROUTER_DIRECTIVES} from "@angular/router";
 import {ApartmentService} from './apartment.service'
 import "rxjs/add/operator/toPromise";
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS, ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
 import {CORE_DIRECTIVES} from "@angular/common";
 import {TranslatePipe} from "ng2-translate/ng2-translate";
-import {User} from "src/shared/models/User";
+import {User} from "../../../shared/shared/models/User";
+import {CurrentUserService} from "../../../shared/services/current.user.service";
 import {PageCreator} from "../../../shared/services/page.creator.interface";
 @Component({
     selector: 'my-user-apartment',
     templateUrl: 'src/app/user/apartment/apartment.html',
-    providers: [HTTP_PROVIDERS,ApartmentService],
+    providers: [ApartmentService],
     directives: [ROUTER_DIRECTIVES,MODAL_DIRECTIVES, CORE_DIRECTIVES],
     styleUrls: ['src/app/user/apartment/styles.css'],
     viewProviders: [BS_VIEW_PROVIDERS],
-    pipes:[TranslatePipe]
+    pipes:[TranslatePipe],
+    inputs:['isAdmin']
 })
 export class UserApartmentComponent {
+    isAdmin:boolean=false;
     Items:ApartmentModel[];
     private selectedApartment:ApartmentModel;
     private emptyApartment:ApartmentModel;
@@ -28,28 +31,29 @@ export class UserApartmentComponent {
     @ViewChild('addModal')
     public addModal:ModalDirective;
     active:boolean = true;
-    activeAdd:boolean = true;
-    allusers:User[];
     private pageCreator:PageCreator<ApartmentModel>;
     private pageNumber:number = 1;
     private pageList:Array<number> = [];
     private totalPages:number;
     order:boolean = true;
     private defaultSorter:string='number';
+    private currentUser:User;
 
 
 
 
-    constructor( private apartmentService:ApartmentService) {
+    constructor( private apartmentService:ApartmentService,private currentUserService:CurrentUserService) {
 console.log("init items");
-        this.Items=[];
+
     }
 
 
     ngOnInit(){
+        this.Items=[];
         this.getApartmentsByPageNum(this.pageNumber);
-        //this.defaultSorter='number';
-        //this.sortBy(this.defaultSorter);
+        this.currentUser = this.currentUserService.getUser();
+        console.log("current user: "+this.currentUser.apartment.number);
+
     }
     
 
@@ -144,7 +148,33 @@ console.log("init items");
             this.pageList.push(i);
         }
     }
+    getApartmentsByPageNumWithNumber(pageNumber:number,numberOfApartment:number) {
+        console.log("getApartmentssByPageNum"+ pageNumber+"with apartment number ="+numberOfApartment);
+        this.pageNumber = +pageNumber;
+        this.emptyArray();
+        return this.apartmentService.getSortedApartmentsWithNumber(this.pageNumber,this.defaultSorter,this.order,numberOfApartment)
+            .subscribe((data) => {
+                    this.pageCreator = data;
+                    this.Items = data.rows;
+                    this.preparePageList(+this.pageCreator.beginPage,
+                        +this.pageCreator.endPage);
+                    this.totalPages = +data.totalPages;
+                    // console.log("ITEM 0 =   "+Items[0]);
+                },
+                (err) => {
+                    console.error(err)
+                });
+    };
 
+    searchByNumber(searchTerm:number){
+        this.getApartmentsByPageNumWithNumber(this.pageNumber,searchTerm);
+        console.log("search"+searchTerm);
+    }
+    clearSearchBox(searchterm){
+        if(searchterm.value==='')
+            this.getApartmentsByPageNum(this.pageNumber);
+
+    }
 
 }
 

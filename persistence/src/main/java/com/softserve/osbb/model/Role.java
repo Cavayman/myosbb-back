@@ -1,5 +1,6 @@
 package com.softserve.osbb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.springframework.security.core.GrantedAuthority;
@@ -40,6 +41,7 @@ public class Role implements GrantedAuthority,Serializable {
     }
 
     @OneToMany(mappedBy ="role",fetch = FetchType.LAZY)
+    @JsonIgnore
     public Collection<User> getUsers() {
         return users;
     }

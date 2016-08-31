@@ -131,12 +131,5 @@ public class ReportRepositoryTest {
         assertTrue(countByName == 2);
     }
 
-    @Test
-    public void testFindAllReports() {
-
-        System.out.println(reportRepository.findDistinctCreationDates());
-
-
-    }
 
 }

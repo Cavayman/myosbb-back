@@ -9,6 +9,7 @@ export class User {
     gender:string;
     password:number;
     activated:boolean;
+    apartment:any;
      
       constructor() {
      this.userId=new Number();
@@ -20,8 +21,9 @@ export class User {
     this.gender=new String();
     this.password=new Number();
     this.activated=new Boolean();
+
   }
-    constructor(userItem?:{userId:number,firstName:string,lastName:string,birthDate:string,email:string,phoneNumber:string,gender:string,password:number,activated:boolean}) {
+    constructor(userItem?:{userId:number,firstName:string,lastName:string,birthDate:string,email:string,phoneNumber:string,gender:string,password:number,activated:boolean,apartment:any}) {
         if(userItem) {
             Object.assign(this,userItem);
         }

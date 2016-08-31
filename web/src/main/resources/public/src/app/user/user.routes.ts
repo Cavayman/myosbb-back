@@ -18,6 +18,7 @@ import {ApartmentProfileComponent} from "./ApartmentProfile/apartment.profile";
 import {ProviderInfoComponent} from "./provider/provider-info";
 import {ProfileComponent} from "./profile/profile.component";
 import {ProviderUserPageComponent} from "./provider/provider_home/provider-user-page.component";
+import {OsbbBillComponent} from "./bills/osbb/osbb.bill.component";
 
 export const userRoutes:RouterConfig = [
     {
@@ -30,6 +31,7 @@ export const userRoutes:RouterConfig = [
             {path: 'calendar', component: UserCalendarComponent},
             {path: 'attachment', component: UserAttachmentComponent},
             {path: 'bill', component: UserBillComponent},
+            {path: 'osbb/bill', component: OsbbBillComponent},
             {path: 'ticket', component: TicketComponent},
             {path: 'message', component: MessageComponent},
             //{path: 'ticket/message', component: MessageComponent},

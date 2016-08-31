@@ -1,105 +1,105 @@
-{ "databaseChangeLog": [
-  {
-    "changeSet": {
-      "id": "2016/08/03-36",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "createTable": {
-            "columns": [
-              {
-                "column": {
-                  "autoIncrement": true,
-                  "constraints": {
-                    "primaryKey": true,
-                    "primaryKeyName": "vote_pkey"
-                  },
-                  "name": "vote_id",
-                  "type": "SERIAL"
+{
+  "databaseChangeLog": [
+    {
+      "changeSet": {
+        "id": "2016/08/03-36",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "createTable": {
+              "columns": [
+                {
+                  "column": {
+                    "autoIncrement": true,
+                    "constraints": {
+                      "primaryKey": true,
+                      "primaryKeyName": "vote_pkey"
+                    },
+                    "name": "vote_id",
+                    "type": "SERIAL"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "description",
+                    "type": "VARCHAR(255)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "available",
+                    "type": "boolean"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "start_time",
+                    "type": "TIMESTAMP(6) WITH TIME ZONE"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "end_time",
+                    "type": "TIMESTAMP(6) WITH TIME ZONE"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "user_id",
+                    "type": "INT"
+                  }
                 }
-              },
-              {
-                "column": {
-                  "name": "description",
-                  "type": "VARCHAR(255)"
-                }
-              },
-              {
-                "column": {
-                  "name": "available",
-                  "type": "boolean"
-                }
-              },
-              {
-                "column": {
-                  "name": "start_time",
-                  "type": "TIMESTAMP(6) WITH TIME ZONE"
-                }
-              },
-              {
-                "column": {
-                  "name": "end_time",
-                  "type": "TIMESTAMP(6) WITH TIME ZONE"
-                }
-              },
-              {
-                "column": {
-                  "name": "user_id",
-                  "type": "INT"
-                }
-              }
-            ],
-            "tableName": "vote"
+              ],
+              "tableName": "vote"
+            }
           }
-        }
-      ]
-    }
-  },
-  {
-    "changeSet": {
-      "id": "2016/08/03-45",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "addForeignKeyConstraint": {
-            "baseColumnNames": "user_id",
-            "baseTableName": "vote",
-            "constraintName": "fk_dx2u8pwxfq611f6nsatwu44p0",
-            "deferrable": false,
-            "initiallyDeferred": false,
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "referencedColumnNames": "user_id",
-            "referencedTableName": "users"
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/03-45",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "addForeignKeyConstraint": {
+              "baseColumnNames": "user_id",
+              "baseTableName": "vote",
+              "constraintName": "fk_dx2u8pwxfq611f6nsatwu44p0",
+              "deferrable": false,
+              "initiallyDeferred": false,
+              "onDelete": "NO ACTION",
+              "onUpdate": "NO ACTION",
+              "referencedColumnNames": "user_id",
+              "referencedTableName": "users"
+            }
           }
-        }
-      ]
-    }
-  },
-
-  {
-    "changeSet": {
-      "id": "2016/08/03-59",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "addForeignKeyConstraint": {
-            "baseColumnNames": "vote_id",
-            "baseTableName": "option",
-            "constraintName": "fk_me04lw6cdgepfey8p2ov0rv6c",
-            "deferrable": false,
-            "initiallyDeferred": false,
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "referencedColumnNames": "vote_id",
-            "referencedTableName": "vote"
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/03-59",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "addForeignKeyConstraint": {
+              "baseColumnNames": "vote_id",
+              "baseTableName": "option",
+              "constraintName": "fk_me04lw6cdgepfey8p2ov0rv6c",
+              "deferrable": false,
+              "initiallyDeferred": false,
+              "onDelete": "NO ACTION",
+              "onUpdate": "NO ACTION",
+              "referencedColumnNames": "vote_id",
+              "referencedTableName": "vote"
+            }
           }
-        }]
-
+        ]
+      }
     }
-  }
-]
+  ]
 }

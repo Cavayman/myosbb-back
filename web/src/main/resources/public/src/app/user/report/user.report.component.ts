@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy, ViewChild} from "@angular/core";
-import {CORE_DIRECTIVES, FORM_DIRECTIVES} from "@angular/common";
+import {CORE_DIRECTIVES} from "@angular/common";
 import {Report} from "./report.interface";
 import {ReportService} from "./report.service";
 import {PageCreator} from "../../../shared/services/page.creator.interface";
@@ -10,16 +10,19 @@ import {DomSanitizationService} from "@angular/platform-browser";
 import {SELECT_DIRECTIVES} from "ng2-select";
 import {TranslatePipe} from "ng2-translate";
 import {CapitalizeFirstLetterPipe} from "../../../shared/pipes/capitalize-first-letter";
-import {DateTimePickerDirective} from "ng2-datetime-picker";
+import {DateTimePickerDirective} from "ng2-datetime-picker/dist/datetime-picker.directive";
 import {User} from "../../../shared/models/User";
 import {HeaderComponent} from "../../header/header.component";
+import {FORM_DIRECTIVES} from "@angular/forms";
+import {FileDownloaderService} from "./download/report.downloader.service";
 import FileServer = require("../../../shared/services/file.server.path");
+import Regex = require('../../../shared/services/regex.all.text');
 
 
 @Component({
     selector: 'my-report',
     templateUrl: 'src/app/user/report/report.html',
-    providers: [ReportService],
+    providers: [ReportService, FileDownloaderService],
     directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, SELECT_DIRECTIVES, FORM_DIRECTIVES, BUTTON_DIRECTIVES, DateTimePickerDirective],
     viewProviders: [BS_VIEW_PROVIDERS],
     styleUrls: ['src/app/user/report/report.css', 'src/shared/css/loader.css', 'src/shared/css/general.css'],
@@ -28,14 +31,21 @@ import FileServer = require("../../../shared/services/file.server.path");
 export class UserReportComponent implements OnInit, OnDestroy {
 
     private reports: Report[] = [];
-    private selectedReport: Report = {reportId: null, name: '', description: '', creationDate: '', filePath: ''};
+    private selectedReport: Report = {
+        reportId: null,
+        name: '',
+        description: '',
+        creationDate: '',
+        filePath: '',
+        userId: null
+    };
     private pageCreator: PageCreator<Report>;
     private pageNumber: number = 1;
     private pageList: Array<number> = [];
     private totalPages: number;
     private dates: string[] = [];
     private dateFrom: string;
-    private dateTo: string
+    private dateTo: string;
     @ViewChild('delModal') public delModal: ModalDirective;
     @ViewChild('editModal') public editModal: ModalDirective;
     @ViewChild('searchOptional') public searchOptional: ModalDirective;
@@ -50,9 +60,11 @@ export class UserReportComponent implements OnInit, OnDestroy {
     private rows: number[] = [10, 20, 50];
     private selectedRow: number = 10;
     private currentUser: User;
-    private fileServerPath:string=FileServer.fileServerPath;
+    private fileServerPath: string = FileServer.fileServerPath;
 
-    constructor(private _reportService: ReportService, private sanitizer: DomSanitizationService) {
+    constructor(private _reportService: ReportService,
+                private sanitizer: DomSanitizationService,
+                private _fileDownloaderservice: FileDownloaderService) {
         this.currentUser = HeaderComponent.currentUserService.getUser();
     }
 
@@ -73,17 +85,25 @@ export class UserReportComponent implements OnInit, OnDestroy {
     }
 
     onEditReportSubmit() {
-        this.active = false;
         console.log('saving report: ' + this.selectedReport);
-        this._reportService.editAndSave(this.selectedReport);
-        this.getReportsByPageNum(this.pageNumber, this.selectedRow);
         this.editModal.hide();
-        setTimeout(() => this.active = true, 0);
+        this._reportService.editAndSave(this.selectedReport)
+            .subscribe(()=> {
+                    this.refresh();
+                },
+                (error)=> {
+                    console.log(error);
+                });
+
     }
 
     closeEditModal() {
+        this.active = false;
         console.log('closing edt modal');
         this.editModal.hide();
+        setTimeout(()=> {
+            this.active = true;
+        }, 0);
     }
 
     openDelModal(id: number) {
@@ -94,9 +114,13 @@ export class UserReportComponent implements OnInit, OnDestroy {
 
     closeDelModal() {
         console.log('delete', this.reportId);
-        this._reportService.deleteReportById(this.reportId);
-        this.refresh();
         this.delModal.hide();
+        this._reportService.deleteReportById(this.reportId)
+            .subscribe(()=> {
+                this.refresh();
+            }, (error)=> {
+                console.log(error);
+            });
     }
 
     ngOnInit(): any {
@@ -106,6 +130,7 @@ export class UserReportComponent implements OnInit, OnDestroy {
 
 
     refresh() {
+        console.log('refreshing...');
         this.getReportsByPageNum(this.pageNumber, this.selectedRow);
     }
 
@@ -245,7 +270,7 @@ export class UserReportComponent implements OnInit, OnDestroy {
     }
 
     onClickSearchByParam(value: string) {
-        if (value.trim().length) {
+        if (value.trim().length && Regex.TEXT.test(value)) {
             console.log('search by ', value);
             this._reportService.searchUserReportsByInputParam(this.currentUser.userId, value)
                 .subscribe((data)=> {
@@ -257,5 +282,23 @@ export class UserReportComponent implements OnInit, OnDestroy {
                         console.error(error)
                     });
         }
+    }
+
+    matches(value: string): boolean {
+        /* text matching cyrillic alphabet also */
+        if (Regex.TEXT.test(value)) {
+            return true;
+        }
+        return false;
+    }
+
+    download(report: Report) {
+        let id = report.reportId;
+        console.log('id: ' + id);
+        let filePath = report.filePath;
+        let docType = filePath.substring(filePath.lastIndexOf('.') + 1);
+        console.log('docType: ' + docType);
+        this._fileDownloaderservice.downloadBy(id, docType);
+
     }
 }

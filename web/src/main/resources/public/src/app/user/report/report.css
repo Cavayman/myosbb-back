@@ -1,20 +1,8 @@
-.top-report-panel {
-    position: relative;
-    top: -40px;
-}
 
 .mdl-btn {
     margin-left: 20px;
     margin-top: 10px;
     padding-left: 10px
-}
-
-a {
-    cursor: pointer !important;
-}
-
-.mod {
-    width: 265px !important;
 }
 
 #desc {
@@ -38,3 +26,4 @@ a {
         left: -250%;
     }
 }
+

@@ -50,8 +50,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 calendar">
-                Тут буде календар з івентами
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <my-calendar></my-calendar>
             </div>
         </div>
         <div class="row">
@@ -59,12 +59,11 @@
                 <div class="dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="true">
-                    Опції
+                    {{'options' | translate}}
                     <span class="caret"></span>
                 </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a style="cursor: pointer" (click)="voteVar.openModalWindow()">Додати голосування</a></li>
-                        <li><a style="cursor: pointer" (click)="printHello()">Написати привіт в консоль</a></li>
+                        <li><a style="cursor: pointer" (click)="voteVar.openModalWindow()">{{'addVoting' | translate}}</a></li>
                     </ul>
                 </div>
                 <vote #voteVar></vote>

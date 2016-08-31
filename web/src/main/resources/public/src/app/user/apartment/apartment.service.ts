@@ -13,15 +13,31 @@ export class ApartmentService{
     getAllApartments(pageNumber:number):Observable<any>{
         let headers = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
         headers.append('Content-Type', 'application/json');
-        return this.http.get(ApiService.serverUrl + "/restful/apartment?pageNumber="+pageNumber,{headers})
+        return this.http.get(ApiService.serverUrl + "/restful/apartment?pageNumber="+pageNumber)
             .map(response => response.json());
             }
+
+    getAllApartments(pageNumber:number):Observable<any>{
+        let headers = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(ApiService.serverUrl + "/restful/apartment?pageNumber="+pageNumber)
+            .map(response => response.json());
+    }
 
     getSortedApartments(pageNumber:number, name:string, order:boolean):Observable<any> {
         let headers = new Headers({'Authorization': 'Bearer ' + localStorage.getItem('token')});
         headers.append('Content-Type', 'application/json');
 
-        return this.http.get(ApiService.serverUrl + "/restful/apartment?pageNumber=" + pageNumber + '&&sortedBy=' + name + '&&asc=' + order, {headers})
+        return this.http.get(ApiService.serverUrl + "/restful/apartment?pageNumber=" + pageNumber + '&&sortedBy=' + name + '&&asc=' + order)
+            .map((res)=> res.json())
+            .catch((err)=>Observable.throw(err));
+    }
+
+    getSortedApartmentsWithNumber(pageNumber:number, name:string, order:boolean,number:number):Observable<any> {
+        let headers = new Headers({'Authorization': 'Bearer ' + localStorage.getItem('token')});
+        headers.append('Content-Type', 'application/json');
+
+        return this.http.get(ApiService.serverUrl + "/restful/apartment?pageNumber=" + pageNumber + '&&sortedBy=' + name + '&&asc=' + order+'&&number='+number)
             .map((res)=> res.json())
             .catch((err)=>Observable.throw(err));
     }
@@ -31,7 +47,7 @@ export class ApartmentService{
         let headers = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
         headers.append('Content-Type', 'application/json');
         console.log("add model...." + body);
-        return this.http.post(ApiService.serverUrl + "/restful/apartment", body, {headers})
+        return this.http.post(ApiService.serverUrl + "/restful/apartment", body )
             .toPromise()
             .then(res=>res.json());
         
@@ -41,7 +57,7 @@ export class ApartmentService{
         headers.append('Content-Type', 'application/json');
         let url = ApiService.serverUrl + '/restful/apartment/' + am.apartmentId;
         console.log("deleted item" + am);
-       return  this.http.delete(url, {headers})
+       return  this.http.delete(url)
            .toPromise()
            .then(res =>am);
 
@@ -57,7 +73,7 @@ export class ApartmentService{
     put(apartmentModel:ApartmentModel) {
             let headers = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
             headers.append('Content-Type', 'application/json');
-            return this.http.put(ApiService.serverUrl + "/restful/apartment", JSON.stringify(apartmentModel), {headers})
+            return this.http.put(ApiService.serverUrl + "/restful/apartment", JSON.stringify(apartmentModel))
                 .toPromise()
                 .then(()=>apartmentModel)
                 .catch((error)=>console.error(error));
@@ -67,7 +83,7 @@ export class ApartmentService{
     getAllUsersInAppartment(id:number){
         let headers = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
         headers.append('Content-Type', 'application/json');
-        return this.http.get(ApiService.serverUrl + "/restful/apartment/users"+id,{headers})
+        return this.http.get(ApiService.serverUrl + "/restful/apartment/users"+id)
             .map(response => response.json());
     }
         

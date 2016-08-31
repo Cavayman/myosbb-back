@@ -1,11 +1,12 @@
 package com.softserve.osbb.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Collection;
 
 /**
@@ -13,14 +14,15 @@ import java.util.Collection;
  */
 @Entity
 @Table(name = "house")
-public class House {
-    public static final House EMPTY_HOUSE = new House();
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class House implements Serializable {
+    public static final House NULL = null;
     private Integer houseId;
     private String city;
     private String street;
     private String zipCode;
     private String description;
-    private Collection<Apartment> apartments = new ArrayList<>();
+    private Collection<Apartment> apartments;
     private Osbb osbb;
 
 
@@ -82,6 +84,7 @@ public class House {
     public void setDescription(String description) {
         this.description = description;
     }
+
     @Override
     public boolean equals(Object obj) {
         return EqualsBuilder.reflectionEquals(this, obj);
@@ -92,7 +95,7 @@ public class House {
         return HashCodeBuilder.reflectionHashCode(this);
     }
 
-    @OneToMany(mappedBy = "house",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "house", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     public Collection<Apartment> getApartments() {
         return apartments;

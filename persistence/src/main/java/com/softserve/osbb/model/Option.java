@@ -60,7 +60,7 @@ public class Option implements Serializable{
     //@ManyToMany(mappedBy = "options")
 
 
-    @ManyToMany(mappedBy = "options")
+    @ManyToMany(mappedBy = "options", cascade = CascadeType.ALL)
     public List<User> getUsers() {
         return users;
     }

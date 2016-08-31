@@ -11,6 +11,7 @@ import com.softserve.osbb.util.resources.ApartmentResourceList;
 import com.softserve.osbb.util.resources.EntityResourceList;
 import com.softserve.osbb.util.resources.HouseResourceList;
 import com.softserve.osbb.util.resources.ResourceLinkCreator;
+import com.softserve.osbb.utils.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.softserve.osbb.util.ResourceUtil.toResource;
 
@@ -36,6 +39,7 @@ public class HouseController {
     @Autowired
     HouseService houseService;
     private static Logger logger = LoggerFactory.getLogger(HouseController.class);
+    private Set<Apartment> apartmentList;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<PageCreator<Resource<HouseDTO>>> listAllHouses(
@@ -55,8 +59,8 @@ public class HouseController {
         EntityResourceList<HouseDTO> houseDTOEntityResourceList = new HouseResourceList();
         housesByPage.forEach(house -> {
                     HouseDTO houseDTO = HouseDTOMapper.mapHouseEntityToDTO(house);
-            logger.info("houseDTO created " + houseDTO.toString());
-            houseDTOEntityResourceList.add(toResource(houseDTO));
+                    logger.info("houseDTO created " + houseDTO.toString());
+                    houseDTOEntityResourceList.add(toResource(houseDTO));
                 }
         );
         PageCreator<Resource<HouseDTO>> houseDTOPageCreator = setUpPageCreator(pageSelector, houseDTOEntityResourceList);
@@ -74,8 +78,21 @@ public class HouseController {
         return houseDTOPageCreator;
     }
 
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public ResponseEntity<EntityResourceList<HouseDTO>> getAllHousesList() {
+        List<House> housesList = houseService.findAll();
+        logger.info("listing all houses");
+        EntityResourceList<HouseDTO> houseEntityResourceList = new HouseResourceList();
+        housesList.forEach((house) -> {
+            HouseDTO houseDTO = HouseDTOMapper.mapHouseEntityToDTO(house);
+            houseEntityResourceList.add(toResource(houseDTO));
+        });
+        return new ResponseEntity<>(houseEntityResourceList, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/{id}/apartments", method = RequestMethod.GET)
     public ResponseEntity<EntityResourceList<Apartment>> getAllApartmentsByHouseId(@PathVariable("id") Integer houseId) {
+        logger.info("get all apartments by house id: " + houseId);
         final House house;
         final EntityResourceList<Apartment> resourceApartmentList =
                 new ApartmentResourceList();
@@ -83,6 +100,7 @@ public class HouseController {
             house = houseService.findHouseById(houseId);
             List<Apartment> apartmentList = (List<Apartment>) house.getApartments();
             apartmentList.forEach((apartment) -> {
+                logger.info("apartment number: " + apartment.getNumber());
                 Resource<Apartment> apartmentLink = resourceApartmentList
                         .createLink(toResource(apartment));
                 resourceApartmentList.add(apartmentLink);
@@ -110,6 +128,36 @@ public class HouseController {
         return new ResponseEntity<>(houseDTOEntityResourceList, HttpStatus.OK);
     }
 
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Resource<HouseDTO>> createHouse(@RequestBody HouseDTO houseDTO) {
+        logger.info("adding new house to database");
+        House house = HouseDTOMapper.mapHouseDTOToHouse(houseDTO);
+        house = houseService.addHouse(house);
+        if (house == null) {
+            logger.error("house was not added to the database");
+            throw new HouseNotSavedException();
+        }
+        house.setApartments(createRandomApartments(null, house));
+        houseService.updateHouse(house.getHouseId(), house);
+        logger.info("house updated with random apartments created");
+        ResourceLinkCreator<HouseDTO> resourceLinkCreator = new HouseResourceList();
+        houseDTO = HouseDTOMapper.mapHouseEntityToDTO(house);
+        Resource<HouseDTO> resourceHouseDTO = resourceLinkCreator.createLink(toResource(houseDTO));
+        return new ResponseEntity<>(resourceHouseDTO, HttpStatus.OK);
+    }
+
+    private Set<Apartment> createRandomApartments(Integer total, House house) {
+        int apartmentCount = total == null ? Constants.TOTAL_APARTMENT_NUMBER : total;
+        Set<Apartment> apartmentList = new HashSet<>();
+        for (int i = 0; i < apartmentCount; i++) {
+            Apartment a = new Apartment();
+            a.setNumber(i + 1);
+            a.setHouse(house);
+            apartmentList.add(a);
+        }
+        return apartmentList;
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Resource<HouseDTO>> getHouseById(@PathVariable("id") Integer houseId) {
         House house;
@@ -124,7 +172,7 @@ public class HouseController {
             logger.error("error finding house by id: ", houseId);
             throw new HouseNotFoundException(e);
         }
-        return new ResponseEntity(houseResource, HttpStatus.OK);
+        return new ResponseEntity<>(houseResource, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{houseId}", method = RequestMethod.DELETE)
@@ -147,6 +195,13 @@ public class HouseController {
 
         public HouseNotFoundException(Exception e) {
             super(e);
+        }
+    }
+
+    @ResponseStatus(value = HttpStatus.CONFLICT, reason = "House not saved")
+    private class HouseNotSavedException extends RuntimeException {
+
+        public HouseNotSavedException() {
         }
     }
 }

@@ -51,11 +51,11 @@
                   }
                 },
                 {
-                "column": {
-                  "name": "status",
-                  "type": "varchar(255)",
-                  "constraints": {
-                    "defaultValue": "NOT_PAID"
+                  "column": {
+                    "name": "status",
+                    "type": "varchar(255)",
+                    "constraints": {
+                      "defaultValue": "NOT_PAID"
                     }
                   }
                 },
@@ -95,6 +95,23 @@
               "onUpdate": "NO ACTION",
               "referencedColumnNames": "apartment_id",
               "referencedTableName": "apartment"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/21-04",
+        "author": "nazar",
+        "changes": [
+          {
+            "addDefaultValue": {
+              "columnDataType": "varchar(255)",
+              "columnName": "status",
+              "defaultValue": "NOT_PAID",
+              "schemaName": "public",
+              "tableName": "bill"
             }
           }
         ]

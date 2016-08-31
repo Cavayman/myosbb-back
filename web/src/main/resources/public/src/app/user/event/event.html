@@ -40,7 +40,7 @@
                     <td>{{event.title}}</td>
                     <td>{{event.start}}</td>
                     <td>{{event.end}}</td>
-                    <td>{{event.repeat}}</td>
+                    <td>{{event.repeat | translate}}</td>
                     <td>{{event.author}}</td>
                     <td><a href="{{event.path}}">file</a></td>
                     <td>{{event.description}}</td>
@@ -133,7 +133,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group col-md-6">
                                     <label>{{ 'dateStart' | translate | capitalize }}</label>
                                     <input type="datetime-local" value="yyyy-MM-dd hh:mm" class="form-control" required
                                            name="start" [(ngModel)]="selectedEvent.start" #start="ngModel">
@@ -142,22 +142,32 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group col-md-6">
                                     <label>{{ 'dateFinish' | translate | capitalize }}</label>
                                     <input type="datetime-local" value="yyyy-MM-dd hh:mm" class="form-control"
                                            name="end" [(ngModel)]="selectedEvent.end" #end="ngModel">
-                                    <div [hidden]="end.valid || end.pristine" class="alert alert-danger">
-                                        {{ 'required' | translate | capitalize }}
-                                    </div>
                                     <div [hidden]="isDateValid(selectedEvent.start, selectedEvent.end)" class="alert alert-danger">
                                         {{ 'invalid' | translate | capitalize }}
                                     </div>
                                 </div>
 
-                                <div class="form-group"><label>{{ 'repeat' | translate | capitalize }}</label>
-                                    <input type="text" class="form-control" required [(ngModel)]="selectedEvent.repeat"
-                                           name="repeat" #repeat="ngModel">
-                                </div>
+                                <div>
+                                    <div class="form-group">
+                                        <div>
+                                            <label> {{ 'repeat' | translate | capitalize}} </label>
+                                            <div *ngIf="repeat.length > 0">
+                                                <div style="width: 400px; margin-bottom: 20px;">
+                                                    <ng-select [allowClear]="true"
+                                                               [items]="repeat"
+                                                               (selected)="onSelectRepeat($event)"
+                                                               placeholder="{{ selectedEvent.repeat | translate }}">
+                                                    </ng-select>
+                                                    <p></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>    <!-- Repeat -->
 
                                 <div class="form-group"><label>{{ 'author' | translate | capitalize }}</label>
                                     <input type="text" class="form-control" required [(ngModel)]="selectedEvent.author"
@@ -208,18 +218,18 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group col-md-6">
                                 <label>{{ 'dateStart' | translate | capitalize }}</label>
-                                <input type="datetime-local" value="yyyy-MM-ddThh:mm" class="form-control" required
+                                <input type="datetime-local" value="yyyy-MM-dd hh:mm" class="form-control" required
                                        name="start" [(ngModel)]="newEvent.start" #start="ngModel">
                                 <div [hidden]="start.valid || start.pristine" class="alert alert-danger">
                                     {{ 'required' | translate | capitalize }}
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group col-md-6">
                                 <label>{{ 'dateFinish' | translate | capitalize }}</label>
-                                <input type="datetime-local" value="yyyy-MM-ddThh:mm" class="form-control" [disabled]="!start.valid"
+                                <input type="datetime-local" value="yyyy-MM-dd hh:mm" class="form-control" [disabled]="!start.valid"
                                        name="end" [(ngModel)]="newEvent.end" #end="ngModel">
                                 <div [hidden]="end.valid || end.pristine" class="alert alert-danger">
                                     {{ 'required' | translate | capitalize }}
@@ -229,7 +239,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div>
                                 <div class="form-group">
                                     <div>
                                         <label> {{ 'repeat' | translate | capitalize}} </label>
@@ -247,7 +257,8 @@
                                 </div>
                             </div>    <!-- Repeat -->
 
-                            <div class="form-group"><label>{{ 'author' | translate | capitalize }}</label>
+                            <div class="form-group">
+                                <label>{{ 'author' | translate | capitalize }}</label>
                                 <input type="text" class="form-control" required [(ngModel)]="newEvent.author"
                                        name="author" #author="ngModel">
                                 <div [hidden]="author.valid || author.pristine" class="alert alert-danger">

@@ -22,14 +22,14 @@ export class UserCalendarComponent implements OnInit {
     dialogVisible: boolean = false;
     idGen: number = 100;
     uk: any;
-    lang: any;
+    lang: string = "uk";
 
     constructor(private calendarService: CalendarService, private cd: ChangeDetectorRef,
                 private translate: TranslateService) { }
 
     getLang() {
-        let lang = this.lang;
-        return lang;
+        let lang = this.translate.currentLang;
+        return this[lang];
     }
 
     ngOnInit() {
@@ -37,7 +37,6 @@ export class UserCalendarComponent implements OnInit {
 
         this.lang = this.translate.currentLang;
         console.log("calendar lang " + this.lang);
-        // lang('uk');
 
         this.uk = {
             monthNames: ['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень', 'Липень',

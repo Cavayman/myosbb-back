@@ -11,9 +11,9 @@ import java.io.File;
 /**
  * Created by nazar.dovhyy on 29.07.2016.
  */
-public class PdfReportTemplate extends ReportTemplate {
+public class PdfReportSaver extends ReportSaver {
 
-    public PdfReportTemplate() {
+    public PdfReportSaver() {
         this.setFileName(buildDestinationFileName(getFileExtension()));
     }
 

@@ -11,7 +11,8 @@ export class RegisterService{
     }
     sendUser(user:User){
         console.log(user);
-    return this.http.post(this._pathUrl,JSON.stringify(user));
+        let headers=new Headers({'Content-Type':'application/json'});
+    return this.http.post(this._pathUrl,JSON.stringify(user),{headers:headers});
     }
 
     

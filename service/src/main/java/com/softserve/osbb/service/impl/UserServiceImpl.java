@@ -5,7 +5,6 @@ import com.softserve.osbb.model.User;
 import com.softserve.osbb.repository.RoleRepository;
 import com.softserve.osbb.repository.UserRepository;
 import com.softserve.osbb.service.UserService;
-import com.softserve.osbb.service.utils.UserModelUserDetails;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,19 +14,17 @@ import org.springframework.security.authentication.AccountStatusUserDetailsCheck
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Created by cavayman on 11.07.2016.
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService{
 
     @Autowired
     UserRepository userRepository;
@@ -149,34 +146,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserByEmail(String email) {
-        return userRepository.findUserByEmail(email);
+        List<User> temp=userRepository.findUserByEmail(email);
+        return temp.get(0);
     }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = null;
-
-        try {
-            // Get the user record from the DataSource
-            log.debug("Retrieving user data for {}", username);
-            user = this.userRepository.findUserByEmail(username);
-        } catch (Exception e) {
-            log.error("Failed to locate user with username of '" + username + "'", e);
-        }
-
-        if ( user == null ) {
-            log.debug("Username not found:  {}", username);
-            throw new UsernameNotFoundException("Invalid username");
-        }
-
-        log.debug("Found user data for {}", username);
-
-        UserModelUserDetails userDetails=new UserModelUserDetails(user);
-        ;
-
-        // Return the user details object required by Spring Security, containing the user's roles/authorities
-        return userDetails;
-    }
-
 
 }

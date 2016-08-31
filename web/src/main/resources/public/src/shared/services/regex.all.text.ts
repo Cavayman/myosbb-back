@@ -1,0 +1,1 @@
+export var TEXT =/^([\wa-zA-Zа-яА-Яі0-9 _-]+)$/;

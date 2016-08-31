@@ -49,7 +49,7 @@ public class ReportServiceImpl implements ReportService {
         if (!isExisted) {
             return Report.NO_REPORT;
         }
-        return reportRepository.save(report);
+        return reportRepository.saveAndFlush(report);
 
     }
 

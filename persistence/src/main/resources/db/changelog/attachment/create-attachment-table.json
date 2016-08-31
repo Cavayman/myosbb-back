@@ -1,35 +1,37 @@
-{ "databaseChangeLog": [
-  {
-    "changeSet": {
-      "id": "2016/08/03-18",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "createTable": {
-            "columns": [
-              {
-                "column": {
-                  "autoIncrement": true,
-                  "constraints": {
-                    "primaryKey": true,
-                    "primaryKeyName": "attachment_pkey"
-                  },
-                  "name": "attachment_id",
-                  "type": "SERIAL"
+{
+  "databaseChangeLog": [
+    {
+      "changeSet": {
+        "id": "2016/08/03-18",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "createTable": {
+              "columns": [
+                {
+                  "column": {
+                    "autoIncrement": true,
+                    "constraints": {
+                      "primaryKey": true,
+                      "primaryKeyName": "attachment_pkey"
+                    },
+                    "name": "attachment_id",
+                    "type": "SERIAL"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "path",
+                    "type": "VARCHAR(255)"
+                  }
                 }
-              },
-              {
-                "column": {
-                  "name": "path",
-                  "type": "VARCHAR(255)"
-                }
-              }]
-          ,
-            "tableName": "attachment"
+              ],
+              "tableName": "attachment"
+            }
           }
-        }]
-
+        ]
+      }
     }
-  }]
+  ]
 }

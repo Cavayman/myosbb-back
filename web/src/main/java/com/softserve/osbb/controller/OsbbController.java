@@ -54,6 +54,40 @@ public class OsbbController {
         }
         return new ResponseEntity<>(resourceOsbbList, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/osbb/order/{field},{order}", method = RequestMethod.GET)
+    public ResponseEntity<List<Resource<Osbb>>> getAllOsbbByOrder(@PathVariable("field") String field,
+                                                                        @PathVariable("order") Boolean order) {
+        logger.info("Get all osbb by order : " +  field);
+        List<Osbb> osbbList;
+        if(field.equals("name")) {
+            if(order) {
+                osbbList = osbbService.findAllOrderByNameAsc();
+            } else {
+                osbbList = osbbService.findAllOrderByNameDesc();
+            }
+        } else if(field.equals("district")) {
+            if(order) {
+                osbbList = osbbService.findAllOrderByDistrictAsc();
+            } else {
+                osbbList = osbbService.findAllOrderByDistrictDesc();
+            }
+        } else if(field.equals("creationDate")) {
+            if(order) {
+                osbbList = osbbService.findAllOrderByCreationDateAsc();
+            } else {
+                osbbList = osbbService.findAllOrderByCreationDateDesc();
+            }
+        } else {
+            osbbList = new ArrayList<>();
+        }
+
+        final List<Resource<Osbb>> resourceOsbbList = new ArrayList<>();
+        for(Osbb o: osbbList) {
+            resourceOsbbList.add(addResourceLinkToOsbb(o));
+        }
+        return new ResponseEntity<>(resourceOsbbList, HttpStatus.OK);
+    }
 /*
     @RequestMapping(value = "/osbb/name/{name}", method = RequestMethod.GET)
     public ResponseEntity<Resource<Osbb>> getOsbbByName(@PathVariable("name") String name) {

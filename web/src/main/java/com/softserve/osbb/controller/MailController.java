@@ -16,12 +16,12 @@ import javax.mail.MessagingException;
 @CrossOrigin
 @RequestMapping("/restful/mail")
 public class MailController {
-    private static Logger logger = LoggerFactory.getLogger(ApartmentController.class);
+    private static Logger logger = LoggerFactory.getLogger(MailController.class);
 
     @Autowired
     private MailSenderImpl sender;
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public void sendMail(@RequestBody Mail mail){
         if (mail == null) logger.warn("void mail");
         logger.info("sending mail to "+ mail.getTo());

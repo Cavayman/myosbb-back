@@ -10,18 +10,22 @@ import { OsbbService } from './osbb.service';
 import { OsbbModalComponent } from './osbb_form/osbb-modal.component';
 import { OsbbDelFormComponent } from './osbb_form/osbb-del-form.component';
 import {CurrentUserService} from "../../../shared/services/current.user.service";
+import {TranslatePipe} from "ng2-translate";
+import {CapitalizeFirstLetterPipe} from "../../../shared/pipes/capitalize-first-letter";
 
 @Component({
     selector: 'osbb',
     templateUrl: './src/app/user/osbb/osbb.component.html',
-     providers: [OsbbService],
+    providers: [OsbbService],
     directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, OsbbModalComponent, OsbbDelFormComponent],
-    viewProviders: [BS_VIEW_PROVIDERS]
+    viewProviders: [BS_VIEW_PROVIDERS],
+    pipes: [TranslatePipe, CapitalizeFirstLetterPipe]
 })
 export class OsbbComponent implements OnInit { 
     
     osbbArr:IOsbb[];
     updatedOsbb:IOsbb;
+    order: boolean;
 
     constructor( private osbbService: OsbbService, private userService:CurrentUserService) { 
         this.osbbArr = [];
@@ -72,5 +76,18 @@ export class OsbbComponent implements OnInit {
         } else {
              this.osbbService.getAllOsbb().then(osbbArr => this.osbbArr = osbbArr);
         }
+    }
+
+    toggleOrder() {
+        if(this.order === false) {
+            this.order = true;
+        } else {
+            this.order = false;
+        }
+    }
+
+    sortBy(field:string): void {
+        this.toggleOrder();
+        this.osbbService.getAllOsbbByOrder(field, this.order).then(osbbArr => this.osbbArr = osbbArr);
     }
 }

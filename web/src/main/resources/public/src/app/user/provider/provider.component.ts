@@ -40,7 +40,7 @@ export class ProviderComponent implements OnInit{
     private providers :  Provider[];
     private selected : Provider =  {providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:{providerTypeId: null, providerTypeName: ''},
         email:'',phone:'', address:'', schedule: '', active: false};
-        private newProvider : Provider =  {providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:{providerTypeId: null, providerTypeName: ''},
+    private newProvider : Provider =  {providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:{providerTypeId: null, providerTypeName: ''},
         email:'',phone:'', address:'', schedule: '', active: false};
     private pageCreator:PageCreator<Provider>;
     private pageNumber:number = 1;
@@ -58,7 +58,7 @@ export class ProviderComponent implements OnInit{
     private periodicities: SelectItem[] = [];
 
     private mail : Mail = {to:'', subject: '', text: ''};
-    constructor(private _providerService:ProviderService, private _mailService: MailService,private router: Router){
+    constructor(private _providerService:ProviderService, private _mailService: MailService){
     }
 
     ngOnInit():any {
@@ -67,9 +67,10 @@ export class ProviderComponent implements OnInit{
         for (let i=0; i<PeriodicityItems.length; i++){
             this.periodicities.push(PeriodicityItems[i]);
         }
+
         this.getPeriodicitiesTranslation();
         console.log('readable periodicities: ', this.periodicities);
-        this.getProvidersByPageNumAndState(this.pageNumber);
+        //   this.getProvidersByPageNumAndState(this.pageNumber);
     }
 
     setType(event){
@@ -89,11 +90,9 @@ export class ProviderComponent implements OnInit{
     public onRemove(value:SelectItem):void {
         console.log('Removed value is: ', value);
     }
-
     public onType(value:SelectItem):void {
         console.log('New search input: ', value);
     }
-
     public onRefresh(value:SelectItem):void {
         if (value.text != null)
         this.selected.periodicity = value.text;
@@ -104,20 +103,22 @@ export class ProviderComponent implements OnInit{
         console.log('selected provider: ' + this.selected);
         this.editModal.show();
     }
-
-    onEditProviderSubmit() {
-        this.active = false;
-        console.log('saving provider: ' + this.selected);
-        this._providerService.editAndSave(this.selected);
-        console.log("save provider: ", this.selected);
-        this.getProvidersByPageNumAndState(this.pageNumber);
-        this.editModal.hide();
-        setTimeout(() => this.active = true, 0);
-    }
-
     closeEditModal() {
         console.log('closing edt modal');
         this.editModal.hide();
+        setTimeout(() => this.active = true, 0);
+    }
+    onEditProviderSubmit() {
+        this.active = false;
+        this._providerService.editProvider(this.selected).subscribe(() => {console.log("refreshing...");
+                this.refresh();},
+            (err)=> {
+                console.log(err)
+            }
+        );
+        console.log("save provider: ", this.selected);
+        this.editModal.hide();
+        setTimeout(() => this.active = true, 0);
     }
 
     openDelModal(id:number) {
@@ -125,12 +126,19 @@ export class ProviderComponent implements OnInit{
         console.log('show', this.providerId);
         this.delModal.show();
     }
-
     closeDelModal() {
+        this.active = false;
         console.log('delete', this.providerId);
-        this._providerService.deleteProviderById(this.providerId);
-        this.getProvidersByPageNumAndState(this.pageNumber);
+        this._providerService.deleteProviderById(this.providerId).subscribe(() => {console.log("refreshing...");
+                 this.refresh();} ,
+            (err)=> {
+                console.log(err);
+                this.refresh()
+            }
+        );
         this.delModal.hide();
+
+        setTimeout(()=> {this.active = true}, 0);
     }
 
     getPeriodicitiesTranslation(){
@@ -144,7 +152,6 @@ export class ProviderComponent implements OnInit{
         }
         console.log("periodicities: ", this.periodicities);
     }
-
     backToConst(item: SelectItem): string{
         var items : SelectItem[] =
             [{id: 1, text: 'ONE_TIME'},
@@ -164,18 +171,15 @@ export class ProviderComponent implements OnInit{
         this.pageNumber = this.pageNumber - 1;
         this.getProvidersByPageNumAndState(this.pageNumber)
     }
-
     nextPage() {
         this.pageNumber = this.pageNumber + 1;
         this.getProvidersByPageNumAndState(this.pageNumber)
     }
-
     emptyArray() {
         while (this.pageList.length) {
             this.pageList.pop();
         }
     }
-
     preparePageList(start:number, end:number) {
         for (let i = start; i <= end; i++) {
             this.pageList.push(i);
@@ -218,15 +222,31 @@ export class ProviderComponent implements OnInit{
     onCreateProviderSubmit(){
         this.active = false;
         console.log("creating ", this.newProvider);
-        this._providerService.editAndSave(this.newProvider);
-        this._mailService.sendMail({
+
+        this._providerService.addProvider(this.newProvider).subscribe(() => {console.log("refreshing...");
+                this.refresh();
+                this.emptyFields();
+        },
+            (err)=> {
+                console.log(err)
+            }
+        );
+
+        console.log("add provider", this.newProvider);
+
+
+        let mail : Mail = {
             to: this.newProvider.email,
             subject: 'PRIVET',
             text: 'Welcome on the board'
-        });
-        console.log("add provider", this.newProvider);
-        this._providerService.getProviders(this.pageNumber);
-        this.getProvidersByPageNumAndState(this.pageNumber);
+        };
+        console.log("sending mail", mail);
+        if (this.newProvider.email !== null) {
+            this._mailService.sendMail(mail)
+        }
+
+        console.log("DOUBLE FUCK")
+
         this.createModal.hide();
         setTimeout(() => this.active = true, 0);
     }
@@ -262,6 +282,19 @@ export class ProviderComponent implements OnInit{
         if (this.onlyActive == true) {console.log("listing only active providers");
         } else {console.log("listing all providers");}
         this.getProvidersByPageNumAndState(this.pageNumber);
+    }
+
+    getProvidersByPageNum(num){
+        this.getProvidersByPageNumAndState(num);
+    }
+
+    refresh() {
+        this.getProvidersByPageNumAndState(this.pageNumber);
+    }
+
+    emptyFields(){
+        this.newProvider  =  {providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:{providerTypeId: null, providerTypeName: ''},
+            email:'',phone:'', address:'', schedule: '', active: false};
     }
 }
 
