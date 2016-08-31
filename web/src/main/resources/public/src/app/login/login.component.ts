@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     private model = {"username": "", "password": ""};
     private isLoggedIn:boolean = this.loginService.checkLogin();
     private logInError:boolean = false;
-    public toasterconfig:ToasterConfig = new ToasterConfig({showCloseButton: true, tapToDismiss: false, timeout: 5000});
+    public toasterconfig:ToasterConfig = new ToasterConfig({showCloseButton: true, tapToDismiss: true, timeout: 5000});
     forgotEmail = "";
 
     constructor(private _router:Router, private loginService:LoginService
