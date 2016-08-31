@@ -45,7 +45,6 @@ public interface ProviderService {
 
     Page<Provider> findByActiveTrue(Integer pageNumber, String sortBy, Boolean order);
 
-    @Transactional
     List<Provider> findByActiveTrue();
 
 }

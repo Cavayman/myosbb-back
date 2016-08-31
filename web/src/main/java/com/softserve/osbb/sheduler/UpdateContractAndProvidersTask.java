@@ -62,7 +62,7 @@ public class UpdateContractAndProvidersTask {
         }
     }
 
-    @Scheduled(fixedRate = 100500)
+    @Scheduled(fixedRate = 86400000)
     @Transactional
     public void updateProviderState(){
         logger.info("Scheduler task: uptd provider state");

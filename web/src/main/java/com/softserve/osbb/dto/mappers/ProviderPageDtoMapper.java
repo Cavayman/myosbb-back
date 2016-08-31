@@ -14,18 +14,9 @@ import org.springframework.stereotype.Service;
  * Created by Anastasiia Fedorak on 8/2/16.
  */
 public class ProviderPageDtoMapper {
-    private static ProviderPageDtoMapper providerPageDtoMapper = new ProviderPageDtoMapper();
-    private static org.slf4j.Logger logger = LoggerFactory.getLogger(ReportController.class);
+    private static org.slf4j.Logger logger = LoggerFactory.getLogger(ProviderPageDtoMapper.class);
 
-    private ProviderPageDtoMapper(){
-
-    }
-    public  static ProviderPageDtoMapper getInstance(){
-        return providerPageDtoMapper;
-    }
-
-
-    public ProviderPageDTO mapProviderEntityToDto(Integer providerId, Provider provider){
+    public static ProviderPageDTO mapProviderEntityToDto(Integer providerId, Provider provider){
         ProviderPageDTO providerPageDTO = new ProviderPageDTO();
         if (provider != null) {
             providerPageDTO.setProviderId(provider.getProviderId());
@@ -47,7 +38,7 @@ public class ProviderPageDtoMapper {
         return providerPageDTO;
     }
 
-    public Provider getProviderEntityFromDto(ProviderService providerService, ProviderTypeService providerTypeService, ProviderPageDTO providerPageDTO) {
+    public  static Provider getProviderEntityFromDto(ProviderService providerService, ProviderTypeService providerTypeService, ProviderPageDTO providerPageDTO) {
         if (providerPageDTO == null) logger.debug("empty request");
         Provider provider;
         Integer providerId = providerPageDTO.getProviderId();
@@ -59,6 +50,7 @@ public class ProviderPageDtoMapper {
         provider.setLogoUrl(providerPageDTO.getLogoUrl());
         if (providerPageDTO.getPeriodicity()==null) provider.setPeriodicity(Provider.DEFAULT_PERIODICITY);
         if (providerPageDTO.getPeriodicity() != null) {
+            logger.info("get periodicity "+ providerPageDTO.getPeriodicity());
             provider.setPeriodicity(Periodicity.valueOf(providerPageDTO.getPeriodicity()));
         }
         if (providerPageDTO.getType() != null) {
@@ -80,7 +72,8 @@ public class ProviderPageDtoMapper {
         provider.setActive(providerPageDTO.isActive());
         provider.setSchedule(providerPageDTO.getSchedule());
         if (providerId==null) {
-            providerService.saveProvider(provider);
+            logger.info("saving provider");
+          providerService.saveProvider(provider);
         }
         return provider;
     }

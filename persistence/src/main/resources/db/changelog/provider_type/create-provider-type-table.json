@@ -34,10 +34,30 @@
               "tableName": "provider_type"
             }
           }
-
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/31-01",
+        "author": "aska",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "addForeignKeyConstraint": {
+              "baseColumnNames": "provider_type_id",
+              "baseTableName": "provider",
+              "constraintName": "fk_66kfo4kfkseyqcngxer7m6eiukhl65abracadabra2",
+              "deferrable": false,
+              "initiallyDeferred": false,
+              "onDelete": "CASCADE",
+              "onUpdate": "CASCADE",
+              "referencedColumnNames": "provider_type_id",
+              "referencedTableName": "provider_type"
+            }
+          }
         ]
       }
     }
-  ]
+   ]
 }
-

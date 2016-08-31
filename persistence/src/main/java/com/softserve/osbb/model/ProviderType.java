@@ -46,7 +46,7 @@ public class ProviderType implements Serializable {
         this.providerTypeName = providerTypeName;
     }
 
-    @OneToMany(mappedBy = "type")
+    @OneToMany(mappedBy = "type", cascade = CascadeType.ALL)
     @JsonIgnore
     public List<Provider> getProviders() {
         return providers;

@@ -53,7 +53,7 @@
                     <td>{{ contract.dateStart }}</td>
                     <td>{{ contract.dateFinish }}</td>
                     <td> {{ contract.text }}</td>
-                    <td> {{contract.price | currency: contract.priceCurrency : false :'2.2-2'}} </td>
+                    <td> {{contract.price | currency: contract.priceCurrency : true :'2.2-2'}} </td>
                     <td>
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownContract"
@@ -140,10 +140,11 @@
 
                                 <div class="form-group">
                                     <label> {{ 'price' | translate | capitalize }}</label>
-                                    <input type="text" class="form-control" required
+                                    <input type="number" class="form-control" required
                                            name="price" [(ngModel)]="selected.price"
                                            #price="ngModel">
-                                    <currency [currentCurrency]="selected.currency"  (currencyChanged)="selectCurrency($event)"></currency>
+                                    <currency [currentCurrency]="selected.priceCurrency"  (currencyChanged)="selectCurrency($event)"></currency>
+
                                     <div [hidden]="price.valid || price.pristine"
                                          class="alert alert-danger">
                                         {{ 'required' | translate | capitalize }}
@@ -213,7 +214,7 @@
 
                                 <div class="form-group"><label>{{ 'price' | translate | capitalize }}
                                 </label>
-                                    <input type="text" class="form-control" required [(ngModel)]="newContract.price"
+                                    <input type="number" class="form-control" required [(ngModel)]="newContract.price"
                                            name="price" #price="ngModel">
 
                                     <div [hidden]="price.valid || price.pristine" class="alert alert-danger">

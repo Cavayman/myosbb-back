@@ -36,8 +36,8 @@ export class ContractComponent implements OnInit{
     private selected : Contract =  {contractId: null, dateStart:'', dateFinish:'', text: '', price:null, priceCurrency: 'UAH',attachment: null, osbb: null,  active: false, provider:
     {providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:null, email:'',phone:'', address:'', schedule:'', active: false}};
 
-    private newContract : Contract =  {contractId: null, dateStart:'', dateFinish:'', text: '', price:null, priceCurrency: 'UAH',attachment: null, osbb: null,  active: false, provider:
-    {providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:null, email:'',phone:'', address:'', schedule:'', active: false}};
+    private newContract : Contract =  {contractId: null, dateStart:'', dateFinish:'', text: '', price:null, priceCurrency: 'UAH',attachment: null, osbb: null,  active: true, provider:
+    {providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:null, email:'',phone:'', address:'', schedule:'', active: true}};
 
     private pageCreator:PageCreator<Contract>;
     private pageNumber:number = 1;
@@ -62,6 +62,10 @@ export class ContractComponent implements OnInit{
         this.getContractsByPageNumAndState(this.pageNumber);
         console.log("on init only active", this.onlyActive);
     }
+    refresh(){
+        this.getContractsByPageNumAndState(this.pageNumber);
+    }
+
     isDateValid(date: string): boolean {
         return /\d{4}-\d{2}-\d{2}/.test(date);
     }
@@ -74,14 +78,19 @@ export class ContractComponent implements OnInit{
     closeEditModal() {
         console.log('closing edt modal');
         this.editModal.hide();
+        setTimeout(() => this.active = true, 0);
     }
     onEditContractSubmit() {
         this.active = false;
         console.log('saving contract: ', this.selected);
-        this._contractService.editAndSave(this.selected);
-        this._contractService.getContracts(this.pageNumber);
+        this._contractService.editAndSave(this.selected).subscribe(() => {console.log("refreshing...");
+                this.refresh();},
+            (err)=> {
+                console.log(err)
+            }
+        );
         this.editModal.hide();
-        setTimeout(() => this.active = true, 0);
+       setTimeout(() => this.active = true, 0);
     }
 
     openCreateModal() {
@@ -90,14 +99,21 @@ export class ContractComponent implements OnInit{
     closeCreateModal() {
         console.log('closing create modal');
         this.createModal.hide();
+        setTimeout(() => this.active = true, 0);
     }
     onCreateContractSubmit() {
         this.active = false;
         console.log("creating ", this.newContract);
-        this._contractService.addContract(this.newContract);
+        this._contractService.addContract(this.newContract).subscribe(() => {console.log("refreshing...");
+                this.refresh();},
+            (err)=> {
+                console.log(err)
+            }
+        );
         console.log("add contract", this.newContract);
-        this._contractService.getContracts(this.pageNumber);
-        this.getContractsByPageNumAndState(this.pageNumber);
+        this.newContract =  {contractId: null, dateStart:'', dateFinish:'', text: '', price:null, priceCurrency: 'UAH',attachment: null, osbb: null,  active: true, provider:
+        {providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:null, email:'',phone:'', address:'', schedule:'', active: true}};
+
         this.createModal.hide();
         setTimeout(() => this.active = true, 0);
     }
@@ -108,28 +124,19 @@ export class ContractComponent implements OnInit{
         this.delModal.show();
     }
     closeDelModal() {
+        this.active = false;
         console.log('delete', this.contractId);
-        this._contractService.deleteContractById(this.contractId);
-        this.getContractsByPageNumAndState(this.pageNumber);
+        this._contractService.deleteContractById(this.contractId).subscribe(() => {console.log("refreshing...");
+                this.refresh();},
+            (err)=> {
+                console.log(err)
+            }
+        );
         this.delModal.hide();
-    }
 
-    // getContractsByPageNum(pageNumber:number) {
-    //     console.log("getContractsByPageNum"+ pageNumber);
-    //     this.pageNumber = +pageNumber;
-    //     this.emptyArray();
-    //     return this._contractService.getContracts(this.pageNumber)
-    //         .subscribe((data) => {
-    //                 this.pageCreator = data;
-    //                 this.contracts = data.rows;
-    //                 this.preparePageList(+this.pageCreator.beginPage,
-    //                     +this.pageCreator.endPage);
-    //                 this.totalPages = +data.totalPages;
-    //             },
-    //             (err) => {
-    //                 console.error(err)
-    //             });
-    // };
+        setTimeout(()=> {this.active = true}, 0);
+
+    }
 
     prevPage() {
         this.pageNumber = this.pageNumber - 1;
@@ -209,11 +216,13 @@ export class ContractComponent implements OnInit{
                 });
     };
 
+    getContractsByPageNum(num){
+        this.getContractsByPageNumAndState(num);
+    }
+
     onOnlyActive(){
         this.onlyActive = !this.onlyActive;
         console.log("change active filter, onlyActive=", this.onlyActive);
-        if (this.onlyActive == true) {console.log("listing only active contracts");
-        } else {console.log("listing all contracts");}
-        this.getContractsByPageNumAndState(this.pageNumber);
+        this.refresh();
     }
 }
