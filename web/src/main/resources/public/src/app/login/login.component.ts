@@ -10,7 +10,7 @@ import emailMask from 'node_modules/text-mask-addons/dist/emailMask.js'
 @Component({
     selector: 'app-login',
     templateUrl: 'src/app/login/login.html',
-    styleUrls: ['../../assets/css/login/login.css'],
+    styleUrls: ['assets/css/login/login.css'],
     directives: [RegistrationComponent, ToasterContainerComponent, MaskedInput],
     providers: [LoginService, ToasterService],
     outputs: ['isLoggedIn']

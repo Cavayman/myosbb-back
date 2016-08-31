@@ -25,6 +25,7 @@ public class Osbb {
     private Collection<Event> events;
     private Collection<House> houses;
     private Collection<Report> reports;
+    private Collection<User> users;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -141,6 +142,15 @@ public class Osbb {
 
     public void setReports(Collection<Report> reports) {
         this.reports = reports;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "osbb")
+    public Collection<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Collection<User> users) {
+        this.users = users;
     }
 
     @Override

@@ -32,6 +32,7 @@ public class User  implements Serializable {
     private Boolean activated;
     private Role role;
     private Apartment apartment;
+    private Osbb osbb;
     private Collection<Vote> votes=new ArrayList<Vote>();
     private Collection<Apartment> apartments=new ArrayList<Apartment>();
     private Collection<Message> messages=new ArrayList<Message>();
@@ -191,7 +192,16 @@ public class User  implements Serializable {
         this.apartment = appartament;
     }
 
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "osbb_id")
+    public Osbb getOsbb() {
+        return osbb;
+    }
 
+    public void setOsbb(Osbb osbb) {
+        this.osbb = osbb;
+    }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = CascadeType.REMOVE)
     public Collection<Message> getMessages() {
