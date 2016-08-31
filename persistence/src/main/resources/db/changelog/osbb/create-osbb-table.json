@@ -1,197 +1,203 @@
-{ "databaseChangeLog": [
-  {
-    "changeSet": {
-      "id": "2016/08/03-26",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "createTable": {
-            "columns": [
-              {
-                "column": {
-                  "autoIncrement": true,
-                  "constraints": {
-                    "primaryKey": true,
-                    "primaryKeyName": "osbb_pkey"
-                  },
-                  "name": "osbb_id",
-                  "type": "SERIAL"
+{
+  "databaseChangeLog": [
+    {
+      "changeSet": {
+        "id": "2016/08/03-26",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "createTable": {
+              "columns": [
+                {
+                  "column": {
+                    "autoIncrement": true,
+                    "constraints": {
+                      "primaryKey": true,
+                      "primaryKeyName": "osbb_pkey"
+                    },
+                    "name": "osbb_id",
+                    "type": "SERIAL"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "description",
+                    "type": "VARCHAR(255)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "name",
+                    "type": "VARCHAR(255)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "creator_id",
+                    "type": "INT"
+                  }
                 }
-              },
-              {
-                "column": {
-                  "name": "description",
-                  "type": "VARCHAR(255)"
+              ],
+              "tableName": "osbb"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/03-48",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "addForeignKeyConstraint": {
+              "baseColumnNames": "osbb_id",
+              "baseTableName": "event",
+              "constraintName": "fk_frgiwew0ub3bpino6ylxxpmqq",
+              "deferrable": false,
+              "initiallyDeferred": false,
+              "onDelete": "NO ACTION",
+              "onUpdate": "NO ACTION",
+              "referencedColumnNames": "osbb_id",
+              "referencedTableName": "osbb"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/03-61",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "addForeignKeyConstraint": {
+              "baseColumnNames": "osbb_id",
+              "baseTableName": "contract",
+              "constraintName": "fk_p7hhasg46crhxe11ixq3q2h5x",
+              "deferrable": false,
+              "initiallyDeferred": false,
+              "onDelete": "NO ACTION",
+              "onUpdate": "NO ACTION",
+              "referencedColumnNames": "osbb_id",
+              "referencedTableName": "osbb"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/03-64",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "addForeignKeyConstraint": {
+              "baseColumnNames": "osbb_id",
+              "baseTableName": "house",
+              "constraintName": "fk_trh6nruaq2hc93m8s3f0brk8h",
+              "deferrable": false,
+              "initiallyDeferred": false,
+              "onDelete": "NO ACTION",
+              "onUpdate": "NO ACTION",
+              "referencedColumnNames": "osbb_id",
+              "referencedTableName": "osbb"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/25-68",
+        "author": "Roman",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "addColumn": {
+              "columns": [
+                {
+                  "column": {
+                    "name": "address",
+                    "type": "varchar(255)"
+                  }
                 }
-              },
-              {
-                "column": {
-                  "name": "name",
-                  "type": "VARCHAR(255)"
+              ],
+              "tableName": "osbb"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/25-72",
+        "author": "Roman",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "addColumn": {
+              "columns": [
+                {
+                  "column": {
+                    "name": "district",
+                    "type": "varchar(255)"
+                  }
                 }
-              },
-              {
-                "column": {
-                  "name": "creator_id",
-                  "type": "INT"
+              ],
+              "tableName": "osbb"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/25-74",
+        "author": "Roman",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "addColumn": {
+              "columns": [
+                {
+                  "column": {
+                    "name": "creation_date",
+                    "type": "TIMESTAMP(6) WITH TIME ZONE"
+                  }
                 }
-              }
-            ],
-            "tableName": "osbb"
+              ],
+              "tableName": "osbb"
+            }
           }
-        }
-      ]
-    }
-  },
-  {
-    "changeSet": {
-      "id": "2016/08/03-48",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "addForeignKeyConstraint": {
-            "baseColumnNames": "osbb_id",
-            "baseTableName": "event",
-            "constraintName": "fk_frgiwew0ub3bpino6ylxxpmqq",
-            "deferrable": false,
-            "initiallyDeferred": false,
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "referencedColumnNames": "osbb_id",
-            "referencedTableName": "osbb"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "changeSet": {
-      "id": "2016/08/03-61",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "addForeignKeyConstraint": {
-            "baseColumnNames": "osbb_id",
-            "baseTableName": "contract",
-            "constraintName": "fk_p7hhasg46crhxe11ixq3q2h5x",
-            "deferrable": false,
-            "initiallyDeferred": false,
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "referencedColumnNames": "osbb_id",
-            "referencedTableName": "osbb"
-          }
-        }
-      ]
-    }
-  },
-  {
-    "changeSet": {
-      "id": "2016/08/03-64",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "addForeignKeyConstraint": {
-            "baseColumnNames": "osbb_id",
-            "baseTableName": "house",
-            "constraintName": "fk_trh6nruaq2hc93m8s3f0brk8h",
-            "deferrable": false,
-            "initiallyDeferred": false,
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "referencedColumnNames": "osbb_id",
-            "referencedTableName": "osbb"
-          }
-        }]
-
-    }
-  },
-  {
-    "changeSet": {
-      "id": "2016/08/25-68",
-      "author": "Roman",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "addColumn": {
-            "columns": [
-              {
-                "column": {
-                  "name": "address",
-                  "type": "varchar(255)"
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/29-78",
+        "author": "Roman",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "addColumn": {
+              "columns": [
+                {
+                  "column": {
+                    "name": "logo_url",
+                    "type": "varchar(255)"
+                  }
                 }
-              }]
-          ,
-            "tableName": "osbb"
+              ],
+              "tableName": "osbb"
+            }
           }
-        }]
+        ]
+      }
     }
-  },
-  {
-    "changeSet": {
-      "id": "2016/08/25-72",
-      "author": "Roman",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "addColumn": {
-            "columns": [
-              {
-                "column": {
-                  "name": "district",
-                  "type": "varchar(255)"
-                }
-              }]
-          ,
-            "tableName": "osbb"
-          }
-        }]
-    }
-  },
-  {
-    "changeSet": {
-      "id": "2016/08/25-74",
-      "author": "Roman",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "addColumn": {
-            "columns": [
-              {
-                "column": {
-                  "name": "creation_date",
-                  "type": "TIMESTAMP(6) WITH TIME ZONE"
-                }
-              }]
-          ,
-            "tableName": "osbb"
-          }
-        }]
-    }
-  },
-  {
-    "changeSet": {
-      "id": "2016/08/29-78",
-      "author": "Roman",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "addColumn": {
-            "columns": [
-              {
-                "column": {
-                  "name": "logo_url",
-                  "type": "varchar(255)"
-                }
-              }]
-          ,
-            "tableName": "osbb"
-          }
-        }]
-    }
-  }]
+  ]
 }

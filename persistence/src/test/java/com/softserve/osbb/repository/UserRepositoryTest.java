@@ -62,17 +62,14 @@ public class UserRepositoryTest extends Assert {
         user2.setGender("JuniorJavaDev");
         user2.setPhoneNumber("+380679167305");
         user2.setBirthDate(new java.util.Date(System.currentTimeMillis()));
-
     }
-
 
     @Test
     public void saveTest() {
         userRepository.save(user);
         userRepository.save(user2);
-        assertEquals(user, userRepository.findUserByEmail(user.getEmail()));
-        assertEquals(user2, userRepository.findUserByEmail(user2.getEmail()));
-
+        assertTrue(userRepository.findUserByEmail(user.getEmail()).contains(user));
+        assertTrue(userRepository.findUserByEmail(user2.getEmail()).contains(user2));
     }
 
     @Test
