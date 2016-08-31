@@ -1,6 +1,8 @@
 package com.softserve.osbb.controller;
 
+import com.softserve.osbb.model.Osbb;
 import com.softserve.osbb.model.User;
+import com.softserve.osbb.service.OsbbService;
 import com.softserve.osbb.service.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -8,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletException;
@@ -28,6 +32,8 @@ public class BasicController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    OsbbService osbbService;
 
     @RequestMapping(value = "user/login", method = RequestMethod.POST)
     public String login(@RequestBody Map<String, String> json) throws ServletException {
@@ -48,10 +54,16 @@ public class BasicController {
         return Jwts.builder().setId(user.getUserId().toString()).setSubject(userName).claim("roles", "User").setIssuedAt(new Date())
                 .signWith(SignatureAlgorithm.HS256, "secretkey").compact();
     }
+
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public User putUser(@RequestBody User user) {
         logger.info("Saving user, sending to service");
         return userService.save(user);
     }
 
+    @RequestMapping(value = "/registration/osbb", method = RequestMethod.POST)
+    public Osbb putOsbb(@RequestBody Osbb osbb) {
+        logger.info("Saving osbb, sending to service");
+        return osbbService.addOsbb(osbb);
+    }
 }
