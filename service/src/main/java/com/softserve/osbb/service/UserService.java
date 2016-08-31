@@ -16,8 +16,7 @@ import java.util.List;
  */
 
 @Service
-public interface UserService extends UserDetailsService
-{
+public interface UserService {
 
     public User save(User user) ;
 
@@ -56,7 +55,7 @@ public interface UserService extends UserDetailsService
     public User saveAndFlush(User user) ;
 
     public List<User> save(Iterable<User> iterable) ;
-    public User findUserByEmail(String email);
+    public List<User> findUserByEmail(String email);
 
 
 }

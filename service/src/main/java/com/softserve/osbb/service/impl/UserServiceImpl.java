@@ -5,7 +5,6 @@ import com.softserve.osbb.model.User;
 import com.softserve.osbb.repository.RoleRepository;
 import com.softserve.osbb.repository.UserRepository;
 import com.softserve.osbb.service.UserService;
-import com.softserve.osbb.service.utils.UserModelUserDetails;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,6 +14,7 @@ import org.springframework.security.authentication.AccountStatusUserDetailsCheck
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +24,7 @@ import java.util.*;
  * Created by cavayman on 11.07.2016.
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService{
 
     @Autowired
     UserRepository userRepository;

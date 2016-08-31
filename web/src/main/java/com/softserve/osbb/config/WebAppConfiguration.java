@@ -53,13 +53,6 @@ public class WebAppConfiguration extends WebMvcConfigurerAdapter {
         return ppc;
     }
 
-    @Bean
-    public FilterRegistrationBean jwtFilter(){
-        final FilterRegistrationBean registrationBean=new FilterRegistrationBean();
-        registrationBean.setFilter((Filter) new JwtFilter());
-        registrationBean.addUrlPatterns("/restful/*");
 
-        return registrationBean;
-    }
 
 }

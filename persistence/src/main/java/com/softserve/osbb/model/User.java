@@ -50,6 +50,7 @@ public class User  implements Serializable {
         this.phoneNumber = user.getPhoneNumber();
         this.password = user.getPassword();
         this.gender = user.getGender();
+        this.role=user.getRole();
     }
 
 
@@ -181,6 +182,7 @@ public class User  implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "apartment_id",referencedColumnName = "apartment_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
      public Apartment getApartment() {
         return apartment;
     }
@@ -240,6 +242,7 @@ public class User  implements Serializable {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", roles='" + role + '\'' +
                 '}';
     }
     

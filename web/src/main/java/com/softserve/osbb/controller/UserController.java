@@ -2,16 +2,20 @@ package com.softserve.osbb.controller;
 
 import com.softserve.osbb.model.User;
 import com.softserve.osbb.service.UserService;
-import io.jsonwebtoken.Claims;
+
+import com.softserve.osbb.service.utils.CustomUserDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +28,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "restful/")
+@RequestMapping(value = "/restful")
 public class UserController {
 
     private static Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -51,10 +55,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user/getCurrent", method = RequestMethod.GET)
-    public Resource<User> getCurrent(final HttpServletRequest request) {
-        final Claims claims = (Claims) request.getAttribute("claims");
-        String id = claims.getId();
-        return getUser(id);
+    public User getCurrent(@AuthenticationPrincipal Principal user) {
+       User currentUser=userService.findUserByEmail(user.getName());
+            return currentUser;
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
