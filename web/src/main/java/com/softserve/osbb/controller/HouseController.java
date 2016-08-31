@@ -39,7 +39,6 @@ public class HouseController {
     @Autowired
     HouseService houseService;
     private static Logger logger = LoggerFactory.getLogger(HouseController.class);
-    private Set<Apartment> apartmentList;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<PageCreator<Resource<HouseDTO>>> listAllHouses(
