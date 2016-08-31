@@ -38,6 +38,13 @@ export class VoteService {
                     .catch(this.handleError);
     }
 
+    updateVote(vote:Vote):Promise<Vote>  {
+        return this.http.put(this.url, JSON.stringify(vote))
+                        .toPromise()
+                        .then(res => res.json())
+                        .catch(this.handleError);
+    }
+
     private handleError(error: any):Promise<any> {
         console.log('HandleError', error);
         return Promise.reject(error.message || error);

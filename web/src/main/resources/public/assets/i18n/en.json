@@ -124,7 +124,8 @@
   "select_apartment": "select apartment",
   "select_provider": "select provider",
   "err_numeric": "please enter a numeric value",
-  "statistics": "statistics"
+  "statistics": "statistics",
+  "closeVote" : "Do you really want to close vote right now?"
 }
 
 
