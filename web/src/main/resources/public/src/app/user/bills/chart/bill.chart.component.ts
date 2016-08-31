@@ -3,12 +3,15 @@ import {CORE_DIRECTIVES, FORM_DIRECTIVES} from "@angular/common";
 import {CHART_DIRECTIVES} from "ng2-charts/ng2-charts";
 import {PercentageChartData} from "./chart.data.interface";
 import {BillChartService} from "./bill.chart.service.component";
+import {TranslatePipe} from "ng2-translate";
+import {CapitalizeFirstLetterPipe} from "../../../../shared/pipes/capitalize-first-letter";
 
 @Component({
     selector: 'bill-chart',
     templateUrl: 'src/app/user/bills/chart/bill.chart.html',
     providers: [BillChartService],
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, CHART_DIRECTIVES]
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, CHART_DIRECTIVES],
+    pipes:[TranslatePipe, CapitalizeFirstLetterPipe]
 })
 export class BillChartComponent implements OnInit {
     public percentageChartData: PercentageChartData = {totalPercentagePaid: 0, totalPercentageDebt: 0};

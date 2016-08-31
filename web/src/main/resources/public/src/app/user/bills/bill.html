@@ -3,7 +3,7 @@
     <div class="panel-heading">
         <div class="row">
             <div class="col-xs-7">
-                <h4><i class="fa fa-angle-right"></i>Рахунки</h4>
+                <h4><i class="fa fa-angle-right"></i>{{'bills' | translate | capitalize}}</h4>
             </div>
             <div class="col-xs-3">
                 <div *ngIf="false" id="example_filter" class="pull-right" title="search">
@@ -25,13 +25,14 @@
             <div class="col-md-6">
                 <div class="btn-group" role="group" aria-label="...">
                     <button [ngClass]="{'active': status===options.ALL}" type="button" class="btn btn-default"
-                            (click)="processOption(options.ALL)">Всі
+                            (click)="processOption(options.ALL)">{{'bill_status_all' | translate | capitalize}}
                     </button>
                     <button [ngClass]="{'active': status===options.NOT_PAID}" type="button"
-                            class="btn btn-default" (click)="processOption(options.NOT_PAID)">В процесі
+                            class="btn btn-default" (click)="processOption(options.NOT_PAID)">{{'bill_status_pending' |
+                        translate | capitalize}}
                     </button>
                     <button [ngClass]="{'active': status===options.PAID}" type="button" class="btn btn-default"
-                            (click)="processOption(options.PAID)">Оплачені
+                            (click)="processOption(options.PAID)">{{'bill_status_paid' | translate | capitalize}}
                     </button>
                 </div>
             </div>
@@ -39,7 +40,7 @@
                 <div *ngIf="osbbRole == 'HEAD'" class="pull-right">
                     <button (click)="openCreateBillModal()" type="button" class="btn btn-default">
                         <i class="fa fa-plus" aria-hidden="true"></i>
-                        Створити платіж
+                        {{'create_bill' | translate | capitalize}}
                     </button>
                 </div>
             </div>
@@ -48,25 +49,25 @@
             <table class="table table-striped table-advance table-hover">
                 <thead>
                 <tr>
-                    <th class="sorting">Квартира<a (click)="sortBy('date')"><span
+                    <th class="sorting">{{'bill_apartment' | translate | capitalize}}<a (click)="sortBy('date')"><span
                             class="fa fa-fw fa-sort pull-right"></span></a>
                     </th>
-                    <th class="sorting">Послуга<a (click)="sortBy('date')"><span
+                    <th class="sorting">{{'bill_service' | translate | capitalize}}<a (click)="sortBy('date')"><span
                             class="fa fa-fw fa-sort pull-right"></span></a>
                     </th>
-                    <th class="sorting">Тариф<a (click)="sortBy('tariff')"><span
+                    <th class="sorting">{{'bill_fare' | translate | capitalize}}<a (click)="sortBy('tariff')"><span
                             class="fa fa-fw fa-sort pull-right"></span></a>
                     </th>
-                    <th class="sorting">Дата<a (click)="sortBy('date')"><span
+                    <th class="sorting">{{'bill_date' | translate | capitalize}}<a (click)="sortBy('date')"><span
                             class="fa fa-fw fa-sort pull-right"></span></a>
                     </th>
-                    <th class="sorting">До сплати<a (click)="sortBy('toPay')"><span
+                    <th class="sorting">{{'bill_to_pay' | translate | capitalize}}<a (click)="sortBy('toPay')"><span
                             class="fa fa-fw fa-sort pull-right"></span></a>
                     </th>
-                    <th class="sorting">Оплачено<a (click)="sortBy('paid')"><span
+                    <th class="sorting">{{'bill_paid' | translate | capitalize}}<a (click)="sortBy('paid')"><span
                             class="fa fa-fw fa-sort pull-right"></span></a>
                     </th>
-                    <th>Статус</th>
+                    <th>{{'bill_status' | translate | capitalize}}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -90,21 +91,23 @@
                             <i class="fa fa-times" aria-hidden="true"></i>
                         </div>
                         <!--<button *ngIf="osbbRole != 'HEAD' && !isPaid(bill.status)" class="btn btn-default "-->
-                                <!--type="button">-->
-                            <!--Оплатити-->
+                        <!--type="button">-->
+                        <!--Оплатити-->
                         <!--</button>-->
                     </td>
                     <td *ngIf="osbbRole == 'HEAD'">
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Опції
+                                {{'options' | translate | capitalize}}
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                 <!--<li><a>Змінити</a></li>-->
-                                <li *ngIf="!isPaid(bill.status)"><a (click)="confirmBill(bill)">Підтвердити</a></li>
-                                <li><a (click)="onDelModalOpen(bill.billId)">Видалити</a></li>
+                                <li *ngIf="!isPaid(bill.status)"><a (click)="confirmBill(bill)">{{'confirm' | translate
+                                    | capitalize}}</a></li>
+                                <li><a (click)="onDelModalOpen(bill.billId)">{{'delete' | translate | capitalize}}</a>
+                                </li>
                             </ul>
                         </div>
                     </td>
@@ -150,40 +153,42 @@
                                 (click)="cancelCreateModal()">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <h4 class="modal-title">Створити платіж</h4>
+                        <h4 class="modal-title">{{'create_bill' | translate | capitalize}}</h4>
                     </div>
                     <form *ngIf="active" (ngSubmit)="onSaveNewBill()" #billForm="ngForm">
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="form-group"><label>Будинок</label>
+                                    <div class="form-group"><label>{{'select_house' | translate | capitalize}}</label>
                                         <ng-select [allowClear]="true"
                                                    [items]="houses"
                                                    (data)="refreshHouse($event)"
                                                    (selected)="selectedHouse($event)"
-                                                   placeholder="виберіть будинок">
+                                                   placeholder="{{'select_house' | translate }}">
                                         </ng-select>
                                     </div>
-                                    <div *ngIf="isSelectedHouse" class="form-group"><label>Квартира</label>
+                                    <div *ngIf="isSelectedHouse" class="form-group"><label>{{'select_apartment' |
+                                        translate | capitalize}}</label>
                                         <ng-select [allowClear]="true"
                                                    [items]="apartment"
                                                    (data)="refreshApartment($event)"
                                                    (selected)="selectedApartment($event)"
-                                                   placeholder="виберіть квартиру">
+                                                   placeholder="{{'select_apartment' | translate }}">
                                         </ng-select>
                                     </div>
-                                    <div *ngIf="isSelectedApartment" class="form-group"><label>Провайдер</label>
+                                    <div *ngIf="isSelectedApartment" class="form-group"><label>{{'select_provider' |
+                                        translate | capitalize}}</label>
                                         <ng-select [allowClear]="true"
                                                    [items]="provider"
                                                    (data)="refreshProvider($event)"
                                                    (selected)="selectedProvider($event)"
-                                                   placeholder="виберіть провайдера">
+                                                   placeholder="{{'select_provider' | translate }}">
                                         </ng-select>
                                     </div>
                                     <div *ngIf="isSelectedProvider" class="form-group">
 
                                         <div class="form-group">
-                                            <label>Тариф</label><br>
+                                            <label>{{'bill_fare' | translate | capitalize}}</label><br>
                                             <input class="form-control mod" required
                                                    [(ngModel)]="newBill.tariff" (keyup)="calcToPay(tariff.val)"
                                                    name="tariff" #tariff="ngModel" maxlength="10" minlength="1">
@@ -191,12 +196,12 @@
                                                 {{'name_err_description' | translate }}
                                             </div>
                                             <div [hidden]="!isNotNumber(newBill.tariff)" class="alert alert-danger">
-                                                введіть числове значення
+                                                {{'err_numeric' | translate }}
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label>Нараховано</label><br>
+                                            <label>{{'bill_to_pay' | translate | capitalize}}</label><br>
                                             <input [(ngModel)]="billCalcVal" (keyup)="calcToPay(calc.val)"
                                                    class="form-control mod" required
                                                    name="calc" #calc="ngModel" maxlength="10" minlength="1">
@@ -204,12 +209,12 @@
                                                 {{'name_err_description' | translate }}
                                             </div>
                                             <div [hidden]="!isNotNumber(billCalcVal)" class="alert alert-danger">
-                                                введіть числове значення
+                                                {{'err_numeric' | translate }}
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label>До Оплати</label><br>
+                                            <label>{{'bill_paid' | translate | capitalize}}</label><br>
                                             <input [(ngModel)]="newBill.toPay" class="form-control mod"
                                                    name="toPay" #toPay="ngModel" readonly="readonly">
                                         </div>
