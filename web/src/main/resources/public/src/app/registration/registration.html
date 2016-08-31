@@ -2,80 +2,86 @@
     <div class="registration-form  center-block" *ngIf="!registered">
         <form class="ui form " (ngSubmit)="onSubmit()" #registerForm="ngForm">
             <div class="form-header">
-            <h3>Registration </h3>
+                <h3>Registration </h3>
             </div>
             <div class="form-container">
                 <div class="row">
                     <div class="col-xs-6">
                         <label>Ім'я</label>
-                        <input  [textMask]="{mask:textmask,guide:false}"  class="form-control placeholder-no-fix" name="firstName"[(ngModel)]="newUser.firstName" placeholder="Your first name..." type="text" required>
+                        <input [textMask]="{mask:textmask,guide:false}" class="form-control placeholder-no-fix" name="firstName" [(ngModel)]="newUser.firstName"
+                            placeholder="Your first name..." type="text" required>
                     </div>
-            
+
                     <div class="col-xs-6">
                         <label>Прізвище</label>
-                        <input [textMask]="{mask:textmask,guide:false}"  class="form-control placeholder-no-fix" name="lastName"[(ngModel)]="newUser.lastName" placeholder="And lastname here..."  type="text" required>
+                        <input [textMask]="{mask:textmask,guide:false}" class="form-control placeholder-no-fix" name="lastName" [(ngModel)]="newUser.lastName"
+                            placeholder="And lastname here..." type="text" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
                         <label>Емейл</label>
 
-                        <input [textMask]="{mask:emailMask}" class="form-control placeholder-no-fix"name="email" [(ngModel)]="newUser.email" placeholder="email..." type="text" required>
+                        <input [textMask]="{mask:emailMask}" class="form-control placeholder-no-fix" name="email" [(ngModel)]="newUser.email" placeholder="email..."
+                            type="text" required>
                     </div>
                 </div>
-               <div class="row">
+                <div class="row">
                     <div class="col-xs-12">
 
                         <label>Номер телефону</label>
-                    <input [textMask]="{mask:phoneMask}"  class="form-control" name="phoneNumber" [(ngModel)]="newUser.phoneNumber" type="text" placeholder="(0__) ___-____"required>
-                </div>
+                        <input [textMask]="{mask:phoneMask}" class="form-control" name="phoneNumber" [(ngModel)]="newUser.phoneNumber" type="text"
+                            placeholder="(___) ___-____" required>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
 
                         <label>Дата народження</label>
-                    <input class="form-control" name="birthDate" [(ngModel)]="newUser.birthDate" type="date" required>
+                        <input class="form-control" name="birthDate" [(ngModel)]="newUser.birthDate" type="date" required>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="row">
+
+                <div class="row">
                     <div class="col-xs-12">
                         <label for="status">Виберіть варіант</label>
-                        <select class="form-control" id="status" required [(ngModel)]="newUser.status" name="status" #status="ngModel" >
+                        <select class="form-control" id="status" required [(ngModel)]="newUser.status" name="status" #status="ngModel">
                              <option *ngFor="let p of options" [value]="p">{{p}}</option>
                         </select>
                     </div>
-                </div> 
-                
+                </div>
+
                 <div class="row">
-                  <div class="col-xs-12">
-                    <label>Пароль</label> <input class="form-control placeholder-no-fix col-xs-6"name="password" [(ngModel)]="newUser.password"   (blur)="confirmPass()" placeholder='password...' type="password" required>
-                    <div class="col-xs-12 centered">
-                        <label *ngIf='error' class="error" disabled=true>{{errorMsg}}</label>
-                    </div>
+                    <div class="col-xs-12">
+                        <label>Пароль</label> <input class="form-control placeholder-no-fix col-xs-6" name="password" [(ngModel)]="newUser.password"
+                            (blur)="confirmPass()" placeholder='password...' type="password" required>
+                        <div class="col-xs-12 centered">
+                            <label *ngIf='error' class="error" disabled=true>{{errorMsg}}</label>
+                        </div>
                     </div>
                     <div class="col-xs-12">
-                      <label>Підтвердіть пароль</label> <input class="form-control placeholder-no-fix col-xs-6" [(ngModel)]="confirmPassword" name="confirmPassword" (blur)="confirmPass()" placeholder='confirm password...' type="password" required>
-                    <div class="col-xs-12 centered">
-                        <label *ngIf='errorConfirm' class="error" disabled=true>{{errorMsg}}</label>
-                    </div>    
+                        <label>Підтвердіть пароль</label> <input class="form-control placeholder-no-fix col-xs-6" [(ngModel)]="confirmPassword"
+                            name="confirmPassword" (blur)="confirmPass()" placeholder='confirm password...' type="password" required>
+                        <div class="col-xs-12 centered">
+                            <label *ngIf='errorConfirm' class="error" disabled=true>{{errorMsg}}</label>
+                        </div>
                     </div>
-                    
+
                 </div>
                 <br>
-                
+
             </div>
 
-                    <div class="row form-footer">
-                        <hr>
-                        <br>
-                        <div class="col-xs-6">
-                        <a class="btn btn-danger col-xs-12" href="javascript:history.back()">Назад</a>
-                        </div>
-                        <div class="col-xs-6">
-                            <button class="btn btn-primary col-xs-12"  type='submit' (click)="onUserClick(newUser.status)" [disabled]="!registerForm.form.valid">Вперед</button>
-                            </div>
-                    </div>
+            <div class="row form-footer">
+                <hr>
+                <br>
+                <div class="col-xs-6">
+                    <a class="btn btn-danger col-xs-12" href="javascript:history.back()">Назад</a>
+                </div>
+                <div class="col-xs-6">
+                    <button class="btn btn-primary col-xs-12" type='submit' (click)="onUserClick(newUser.status)" [disabled]="!registerForm.form.valid">Вперед</button>
+                </div>
+            </div>
 
         </form>
     </div>
@@ -88,4 +94,3 @@
 
     </div>
 </div>
-

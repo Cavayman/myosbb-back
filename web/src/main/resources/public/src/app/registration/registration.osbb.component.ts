@@ -7,32 +7,36 @@ import {GoogleplaceDirective} from "./googleplace.directive";
 @Component({
     selector: 'app-register',
     templateUrl: 'src/app/registration/registration.osbb.html',
-    styleUrls:['assets/css/registration/registration.css'],
-    providers:[RegisterOsbbService],
-    directives: [ROUTER_DIRECTIVES,GoogleplaceDirective]
+    styleUrls: ['assets/css/registration/registration.css'],
+    providers: [RegisterOsbbService],
+    directives: [ROUTER_DIRECTIVES, GoogleplaceDirective]
 })
-export class RegistrationOsbbComponent  {
-    newOsbb:Osbb =  new Osbb;
-    constructor(private registerOsbbService:RegisterOsbbService) {}
+export class RegistrationOsbbComponent {
+    newOsbb: Osbb = new Osbb;
     registeredOsbb: boolean;
 
-    onSubmit(){
+    constructor(private registerOsbbService: RegisterOsbbService) {
+        this.newOsbb.creationDate = new Date;
+     }
+
+
+
+    onSubmit() {
         this.registerOsbbService.sendOsbb(this.newOsbb).subscribe(
             data => {
-                this.registeredOsbb=true;
-                this.newOsbb=new Osbb();
+                this.registeredOsbb = true;
                 console.log(this.newOsbb)
             },
-            error=>console.log(error)
+            error => console.log(error)
         );
     }
     get diagnostic() { return JSON.stringify(this.newOsbb); }
-     
-    public address : Object;
-    getAddress(place:Object) {       
+
+    public address: Object;
+    getAddress(place: Object) {
         this.address = place['formatted_address'];
         var location = place['geometry']['location'];
-        var lat =  location.lat();
+        var lat = location.lat();
         var lng = location.lng();
         console.log("Address Object", place);
     }
