@@ -150,31 +150,4 @@ public class UserServiceImpl implements UserService{
         return temp.get(0);
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = null;
-
-        try {
-            // Get the user record from the DataSource
-            log.debug("Retrieving user data for {}", username);
-            user = findUserByEmail(username);
-        } catch (Exception e) {
-            log.error("Failed to locate user with username of '" + username + "'", e);
-        }
-
-        if ( user == null ) {
-            log.debug("Username not found:  {}", username);
-            throw new UsernameNotFoundException("Invalid username");
-        }
-
-        log.debug("Found user data for {}", username);
-
-        UserModelUserDetails userDetails=new UserModelUserDetails(user);
-        ;
-
-        // Return the user details object required by Spring Security, containing the user's roles/authorities
-        return userDetails;
-    }
-
-
 }

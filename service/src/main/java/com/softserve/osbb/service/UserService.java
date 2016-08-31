@@ -55,7 +55,7 @@ public interface UserService {
     public User saveAndFlush(User user) ;
 
     public List<User> save(Iterable<User> iterable) ;
-    public List<User> findUserByEmail(String email);
+    public User findUserByEmail(String email);
 
 
 }
