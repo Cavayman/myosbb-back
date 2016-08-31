@@ -1,45 +1,59 @@
-<div class="panel panel-default  pos-top">
-    <div class="container">
-        <!-- Page Heading -->
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">{{provider.name}}
-                </h1>
-            </div>
+<section class="profile col-xs-12 ">
+    <div class="top-label">
+        <h1>{{provider.name}}</h1>
+    </div>
+    <div class="task-panel tasks-widget col-xs-3  left">
+        <div >
+            <img src="{{provider.logoUrl}}" class="img-thumbnail">
         </div>
+    </div>
 
-        <div class="row">
-            <div class="col-sm-1">
+
+    <div class="row col-xs-7">
+
+        <div class="task-panel tasks-widget col-xs-12 right ">
+            <div class="col-xs-12">
+                <label class="col-xs-6"><b>{{'company' | translate | capitalize}}</b></label>
+                <h5 class="col-xs-6">{{provider.name}}</h5>
             </div>
-            <div class="col-lg-6">
-                <div class="logo-pic-sm">
-                    <img src="{{provider.logoUrl}}" class="logo-pic-sm">
-                </div>
+            <div class="col-xs-12">
+                <label class="col-xs-6"><b>{{'type' | translate | capitalize}} </b></label>
+                <h5 class="col-xs-6">{{provider.type.providerTypeName}}</h5>
             </div>
-            <div class="col-lg-5">
-                <h3>{{'whatwedo' | translate}}</h3>
-                <p>{{provider.description}}</p>
+            <div class="col-xs-12">
+                <label class="col-xs-6"><b>{{'whatwedo' | translate | capitalize}}</b></label>
+                <h5 class="col-xs-6">{{provider.description}}</h5>
+            </div>
+
+            <div class="col-xs-12">
+                <label class="col-xs-6"><b>{{ 'periodicity' | translate | capitalize }}</b></label>
+                <h5 class="col-xs-6">{{provider.periodicity | translate | capitalize}}</h5>
+            </div>
+                <address>
+                    <div class="col-xs-12">
+                        <label class="col-xs-6"><b>{{ 'phone' | translate | capitalize}}</b></label>
+                        <h5 class="col-xs-6">{{provider.phone}}</h5>
+                    </div>
+                </address>
+
+                <address>
+                    <div class="col-xs-12">
+                        <label class="col-xs-6"><b>{{ 'email' | translate | capitalize}}</b></label>
+                        <h5 class="col-xs-6"><a href="mailto:#">{{provider.email}}</a></h5>
+                    </div>
+                </address>
+                <address>
+                    <div class="col-xs-12">
+                        <label class="col-xs-6"><b>{{ 'address' | translate | capitalize }}</b></label>
+                        <h5 class="col-xs-6">{{provider.address}}</h5>
+                    </div>
+                </address>
+
+            <div class="col-xs-12">
+                <label class="col-xs-6"><b>{{'schedule' | translate | capitalize }}</b></label>
+                <h5 class="col-xs-6">{{provider.schedule}}</h5>
             </div>
         </div>
     </div>
 
-    <div class="panel-body" >
-            <h2>{{'contactus' | translate }}</h2>
-            <div class="col-sm-6">
-                <address>
-                    <strong>{{'address' | translate }}:</strong>
-                    <br>{{provider.address}}
-                </address>
-                <address>
-                    <abbr title="Phone">{{'phone'| translate }}:</abbr>{{provider.phone}}
-                    <br/>
-                    <abbr title="Email">{{'email' | translate }}:</abbr> <a href="mailto:#">{{provider.email}}</a>
-                </address>
-            </div>
-            <div class="col-sm-6">
-                <h5>{{'schedule' | translate }}: </h5>
-                <p>{{provider.schedule}}</p>
-            </div>
-  </div>
-</div>
-<!-- /.row -->
+</section>
