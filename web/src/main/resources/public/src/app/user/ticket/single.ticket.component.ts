@@ -7,7 +7,6 @@ import {ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
 import {Observable} from 'rxjs/Observable';
 import {NgSwitch} from '@angular/common';
 import 'rxjs/Rx';
-import {CKEDITOR} from './creditor';
 import { TicketService } from './ticket.service';
 import {ROUTER_DIRECTIVES,RouterOutlet} from '@angular/router';
 import {Message, IMessage,} from './message';
@@ -23,7 +22,6 @@ import {Subscription} from "rxjs";
 import {CurrentUserService} from "./../../../shared/services/current.user.service";
 import {User} from './../user';
 import {TranslatePipe} from "ng2-translate/ng2-translate";
-import{KeysPipe} from "./keysPipe.ticket";
 @Component({
     selector: 'ticket',
     templateUrl: './src/app/user/ticket/single.ticket.component.html',
@@ -31,7 +29,7 @@ import{KeysPipe} from "./keysPipe.ticket";
     directives: [RouterOutlet, ROUTER_DIRECTIVES, MODAL_DIRECTIVES, CORE_DIRECTIVES, TicketAddFormComponent, TicketEditFormComponent, TicketDelFormComponent],
     viewProviders: [BS_VIEW_PROVIDERS],
     styleUrls: ['src/app/user/ticket/ticket.css'],
-    pipes: [TranslatePipe, KeysPipe]
+    pipes: [TranslatePipe]
 })
 
 export class MessageComponent implements OnInit {
@@ -53,8 +51,6 @@ export class MessageComponent implements OnInit {
                 private currentUserService:CurrentUserService,
                 private router:Router) {
         this.currentUser = currentUserService.getUser();
-        console.log("CURRENT " + this.currentUser.firstName);
-
         this.ticket = new Ticket("", "", TicketState.NEW);
         this.ticket.user = new User();
         this.ticket.assigned = new User();
@@ -185,7 +181,6 @@ export class MessageComponent implements OnInit {
 
     isAnswer(id:number):boolean {
         return this.message.parentId == id ? true : false;
-
     }
 
     isAssigned():boolean {

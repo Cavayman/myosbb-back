@@ -84,7 +84,6 @@ export class TicketAddFormComponent implements OnInit {
         }
     }
 
-
     getAllUsers() {
         return this.ticketService.getAllUsers()
             .then(userAssignArr => this.userAssignArr = userAssignArr);
@@ -124,7 +123,6 @@ export class TicketAddFormComponent implements OnInit {
 
     }
 
-
     findUsers(name:string) {
         if (name.trim() != '') {
             this.ticketService.findAssignUser(name)
@@ -133,7 +131,7 @@ export class TicketAddFormComponent implements OnInit {
         }
     }
 
-    getAssignedId(assign:string):User {//norm
+    getAssignedId(assign:string):User {
         let str = assign.split(' ');
         for (let i = 0; i < this.userAssignArr.length; i++) {
             if (str[0] == this.userAssignArr[i].firstName && str[1] == this.userAssignArr[i].lastName) {
@@ -142,36 +140,4 @@ export class TicketAddFormComponent implements OnInit {
         }
     }
 
-}
-
-interface ValidationResult {
-    [key:string]:boolean;
-}
-
-class AssignValidator {
-
-    // static userAssignArr = [];
-    static assignUserExist(control:Control):ValidationResult {
-
-        if (control.value != '') {
-            return {'assign exist': true};
-        }
-
-        return null;
-    }
-
-    /*
-     static getAssignedId(assign:string):boolean{//norm
-     console.log("begin finding");
-
-     let str = assign.split(' ');
-     for(let i=0;i<this.userAssignArr.length;i++){
-     if(str[0] == this.userAssignArr[i].firstName && str[1] == this.userAssignArr[i].lastName)
-     {
-     console.log("User find");
-
-     return true;
-     }
-     }
-     }*/
 }

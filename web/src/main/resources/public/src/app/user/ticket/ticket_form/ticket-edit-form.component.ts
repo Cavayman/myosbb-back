@@ -59,42 +59,27 @@ export class TicketEditFormComponent implements OnInit {
     }
 
     openEditModal() {
-
         this.editModal.show();
     }
 
 
     ngOnInit() {
         this.getAllUsers();
-
     }
 
-
     isEmptyName():boolean {
-        if (this.nameTicket == '') {
-            return false;
-        }
-        else {
-            return true;
-        }
+        return this.nameTicket == '' ? false : true;
     }
 
     isEmptyDescription():boolean {
-        if (this.descriptionTicket == '') {
-            return false;
-        }
-        else {
-            return true;
-        }
+        return this.descriptionTicket == '' ? false : true;
     }
 
     isFindAssign():boolean {
         if (this.getAssignedId(this.assignTicket) == null) {
             return false;
         }
-        else {
             return true;
-        }
     }
 
 
@@ -143,7 +128,7 @@ export class TicketEditFormComponent implements OnInit {
         return ticket;
     }
 
-    getAssignedId(assign:string):User {//norm
+    getAssignedId(assign:string):User {
         let str = assign.split(' ');
         for (let i = 0; i < this.userAssignArr.length; i++) {
             if (str[0] == this.userAssignArr[i].firstName && str[1] == this.userAssignArr[i].lastName) {
