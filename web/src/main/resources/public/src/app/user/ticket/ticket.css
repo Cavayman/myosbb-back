@@ -1,0 +1,206 @@
+.comment-content {
+    border: solid 1px #e8e8e8;
+    background: #e8e8e9;
+    margin-left: 90px;
+    margin-right: 90px;
+    position: relative;
+    margin-top: 10px;
+    padding: 10px 15px;
+    box-shadow: 0 0 5px 1px #ccc;
+    -moz-box-shadow: 0 0 5px 1px #ccc;
+    -webkit-box-shadow: 0 0 5px 1px #ccc;
+}
+
+.comment-content h6 {
+    font-weight: 700;
+}
+
+.text1 {
+    margin-left: 90px;
+    font: 140% serif;
+}
+
+.area {
+    margin-left: 90px;
+    width: 84%;
+    padding: 10px;
+    border: solid 2px #390;
+    box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
+}
+
+.descr {
+    height: 50px;
+}
+
+.comm {
+    margin-top: -20px;
+    margin-bottom: -10px;
+    height: 80px;
+}
+
+.btn1 {
+    margin-left: 90px;
+}
+
+.link {
+    color: #fff;
+}
+
+.link:visited {
+    color: #fff;;
+}
+
+.link:hover {
+    color: #fff;;
+}
+
+​
+.nameUser {
+    color: #390;
+}
+
+/*//*/
+PHP
+.wrapper-dropdown-5 {
+    /* размер и позиция */
+    position: relative;
+    width: 200px;
+    margin: 0 auto;
+    padding: 12px 15px;
+
+    /* стили */
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease-out;
+}
+
+.wrapper-dropdown-5:after { /* небольшая стрелка */
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    margin-top: -3px;
+    border-width: 6px 6px 0 6px;
+    border-style: solid;
+    border-color: #4cbeff transparent;
+}
+
+.wrapper-dropdown-5 {
+    /* размер и позиция */
+    position: relative;
+    width: 200px;
+    margin: 0 auto;
+    padding: 12px 15px;
+
+    /* стили */
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease-out;
+}
+
+.wrapper-dropdown-5:after { /* небольшая стрелка */
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    margin-top: -3px;
+    border-width: 6px 6px 0 6px;
+    border-style: solid;
+    border-color: #4cbeff transparent;
+}
+
+.wrapper-dropdown-5.active {
+    border-radius: 5px 5px 0 0;
+    background: #4cbeff;
+    box-shadow: none;
+    border-bottom: none;
+    color: white;
+}
+
+.wrapper-dropdown-5.active:after {
+    border-color: #82d1ff transparent;
+}
+
+.wrapper-dropdown-5.active .dropdown {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    max-height: 400px;
+}
+
+.wrapper-dropdown-5.active {
+    border-radius: 5px 5px 0 0;
+    background: #4cbeff;
+    box-shadow: none;
+    border-bottom: none;
+    color: white;
+}
+
+li {
+    cursor: pointer;
+}
+
+.wrapper-dropdown-5.active:after {
+    border-color: #82d1ff transparent;
+}
+
+.wrapper-dropdown-5.active .dropdown {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    max-height: 400px;
+}
+
+.nameTabl .descTabl {
+    max-width: 20px;
+    /*  overflow: hidden;*/
+    text-overflow: hidden;
+}
+
+.nameTablA {
+    cursor: pointer;
+    color: #797979;
+}
+
+.nameTablA:hover {
+    color: #000;
+}
+
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+
+.liniya {
+    min-width: 50px;
+    height: 35px;
+    float: left;
+    margin-left: 15px;
+    text-align: center;
+    margin-top: 0px;
+
+}
+
+.fff {
+    color: #b8b8b8;
+}
+
+.fff:hover {
+    color: #787878;
+}
+
+.ng-valid {
+    border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid {
+    border-left: 5px solid #a94442;
+}

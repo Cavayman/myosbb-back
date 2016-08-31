@@ -3,7 +3,7 @@ import {HeaderComponent} from "./header/header.component";
 import {LoginComponent} from "./login/login.component";
 import {HomeComponent} from "./home/home.component";
 import {UserComponent} from "./user/user.component";
-import {MessageComponent} from "./user/ticket/message/message.component";
+import {MessageComponent} from "./user/ticket/single.ticket.component";
 import {homeRoutes} from "./home/home.routes";
 import {userRoutes} from "./user/user.routes";
 import {RegistrationComponent} from "./registration/registration.component";
@@ -19,7 +19,7 @@ export const routes: RouterConfig = [
     {path: 'registration/osbb', component: RegistrationOsbbComponent},
     {path: '', redirectTo: 'login', pathMatch: 'full'},
     {path: 'home', component: HomeComponent},
-    {path: 'message/:id', component: MessageComponent},
+    {path: 'ticket/:id', component: MessageComponent},
     {path: 'home/user', component: UserComponent},
     ...homeRoutes,
     ...userRoutes,

@@ -49,4 +49,7 @@ public interface MessageService {
 
     List<Message> findMessagesByTicket(Ticket ticket);
 
+    List<Message> getAnswers(Integer parentId);
+
+
 }

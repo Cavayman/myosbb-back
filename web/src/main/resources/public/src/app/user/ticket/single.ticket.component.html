@@ -1,0 +1,144 @@
+<div class="panel panel-default pos-top">
+    <div class="panel-heading"><h4><i class="fa fa-angle-right"></i>{{'tickets'|translate}}</h4></div>
+    <div class="panel-body" style="margin-bottom:50px">
+        <div class="content-panel" style="margin-bottom:30px">
+            <div class="ui segment form">
+                <ticket-add-form (created)="createTicket($event)" #addForm></ticket-add-form>
+                <ticket-edit-form [ticket]="updatedTicket" (update)="editTicket($event)" #editForm></ticket-edit-form>
+                <ticket-del-form (delete)="deleteTicket($event)" #delForm></ticket-del-form>
+            </div>
+            <div style="margin-bottom:20px">
+                <div style="float: left;  margin-left: 10px;font-size:22px;"> {{ticket.name}}</div>
+
+
+                <div *ngIf=" ticket.state == 'NEW' ">
+                    <div class="liniya"><span class="label btn-round label-info " list="assign">{{ticket.state}}</span>
+                    </div>
+                    <button type="button" class="btn btn-default btn-xs"
+                            style="margin-top:-4px;margin-left:3px;margin-right:3px;"> {{ticket.assigned.firstName}}
+                        {{ticket.assigned.lastName}}
+                    </button>
+                    <div class="liniya" *ngIf="isAssigned()" class="btn-group">
+                        <button style="margin-left:0px;margin-top:-9px" type="button"
+                                class="label label-info btn btn-theme dropdown-toggle" data-toggle="dropdown">
+                            {{'changeStatus'|translate}} <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a (click)="editState('IN_PROGRESS')">IN PROGRESS</a></li>
+                            <li><a (click)="editState('DONE')">DONE</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div *ngIf=" ticket.state == '1' || ticket.state == 'IN_PROGRESS'">
+                    <div class="liniya"><span class="label btn-round label-success">IN_PROGRESS</span></div>
+                    <button type="button" class="btn btn-default btn-xs"
+                            style="margin-top:-4px;margin-left:3px;margin-right:3px;"> {{ticket.assigned.firstName}}
+                        {{ticket.assigned.lastName}}
+                    </button>
+                    <div class="liniya" *ngIf="isAssigned()" class="btn-group">
+                        <button style="margin-left:0px;margin-top:-9px" type="button"
+                                class="label label-info btn btn-theme dropdown-toggle" data-toggle="dropdown">
+                            {{'changeStatus'|translate}} <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a (click)="editState('DONE')">DONE</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div *ngIf=" ticket.state == '2' || ticket.state == 'DONE'">
+                    <div class="liniya"><span class="label btn-round label-danger">DONE</span>
+                    </div>
+
+                    <button type="button" class="btn btn-default btn-xs" style="margin-top:-4px">
+                        {{ticket.assigned.firstName}} {{ticket.assigned.lastName}}
+                    </button>
+                </div>
+
+
+                <div clas="liniya" style="float: left;margin-left:-50px">{{'statusUpdates'|translate}}:
+                    {{getTime(ticket.stateTime)}}
+                </div>
+
+                <div style="float: right; width: 20%;margin-right: 10px;margin-top:-2%">
+
+                    <div>
+                        {{getTime(ticket.time)}}
+                    </div>
+                    <div style="float: bottom;">
+                        {{'authorTicket'|translate}}
+                        <button type="button" class="btn btn-default btn-xs">{{ticket.user.firstName}}
+                            {{ticket.user.lastName}}
+                        </button>
+                    </div>
+
+                    <div class="liniya" style="float: right; margin-right: 35%;margin-top: -15%;" *ngIf="isCreator()">
+                        <div class="dropdown" style="float: right; width: 20%;">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                {{'optionsTicket'|translate}}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li><a style="cursor: pointer"
+                                       (click)="editForm.initUpdatedTicket(ticket);editForm.openEditModal()">
+                                    {{'editTicket' | translate}}</a></li>
+                                <li><a style="cursor: pointer" (click)="delForm.openDelModal(ticket)">{{'deleteTicket' |
+                                    translate}}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!--label label-success -->
+            </div>
+            <br/>
+
+        </div>
+
+        <div><p style="margin-left: 40px; margin-top:20px; margin-right: 100px; font-size:18px; ">
+            {{ticket.description}}</p></div>
+        <br/>
+
+
+        <!-- Comments -->
+        <div class="comment-content" *ngFor="let mess of messageArr">
+            <div style="width:100%;height:40px;margin-bottom:20px;">
+                <div class="nameUser" style="float: left; width: 25%;"><p style="color:green; font-size:12px;">
+                    {{mess.user.firstName}} {{mess.user.lastName}} </p></div>
+                <div style="float: right; width: 20%;">{{getTime(mess.time)}}
+                    <div style="float: right; width: 15%;margin-right:18px;" *ngIf="isMessageCreator(mess)"><a
+                            href="home/user/ticket/{{ticketId}}#comment" target="_self">
+                        <span class="fff glyphicon glyphicon-glyphicon glyphicon-cog" (click)="initEditMessage(mess)"
+                              style="margin-left:0px"></span></a>
+                        <button style="margin:-3px;padding:-3px" type="button" class="close" data-dismiss="alert"
+                                (click)="deleteMessage(mess)" aria-hidden="true">×
+                        </button>
+                    </div>
+
+                </div>
+                <p style="font-size:15px;float: left; margin-left: -25%; margin-top:23px;font-family: 'Ruda'">
+                    {{mess.message}}</p>
+
+                <span class="badge bg-success" (click)="initAddAnswer(mess)"
+                      style="cursor:pointer;float: right;margin-right:-12%; margin-top:55px"> {{'answer'|translate}} </span>
+            </div>
+            <div style="margin-top:60px" *ngIf=" isAnswer(mess.messageId)"><textarea class="area comm form-control "
+                                                                                     type="text" name="answer"
+                                                                                     #answer></textarea><br/><br/>
+                <button class="btn btn-success btn1">
+                    <a class="link" (click)="createAnswer(mess.messageId,answer.value); message.value='' ">{{'send'|translate}} </a>
+                </button>
+            </div>
+            <br/></div>
+
+
+        <div name="editor1" id="editor1" class="text1 descr" style="margin-top:10px">{{'comment'|translate}}:</div>
+        <textarea class="area comm form-control " type="text" name="message" value={{messText}}
+                  #message></textarea><br/><br/>
+        <button class="btn btn-success btn1">
+            <a class="link" (click)="createMessage(message.value); message.value='' ">{{'send'|translate}} </a>
+        </button>
