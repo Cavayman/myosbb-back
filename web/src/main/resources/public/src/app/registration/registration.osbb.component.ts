@@ -11,19 +11,21 @@ import {ROUTER_DIRECTIVES} from "@angular/router";
     directives: [ROUTER_DIRECTIVES]
 })
 export class RegistrationOsbbComponent  {
-    newOsbb:Osbb;
+    newOsbb:Osbb =  new Osbb;
     constructor(private registerOsbbService:RegisterOsbbService) {}
     registeredOsbb: boolean;
 
     onSubmit(){
         this.registerOsbbService.sendOsbb(this.newOsbb).subscribe(
             data => {
-               this.registeredOsbb=true;
-                this.newOsbb=new Osbb("","","","","");
+                this.registeredOsbb=true;
+                this.newOsbb=new Osbb();
                 console.log(this.newOsbb)
             },
             error=>console.log(error)
         );
     }
+    get diagnostic() { return JSON.stringify(this.newOsbb); }
+
 
 }

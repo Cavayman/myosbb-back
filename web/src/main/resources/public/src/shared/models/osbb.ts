@@ -20,11 +20,5 @@ export class Osbb implements IOsbb {
     logoUrl:string;
     creationDate: Date;
 
-    constructor( name:string, description:string, address: string, district: string,  logoUrl:string) {
-        this.name = name;
-        this.description = description;
-        this.address = address;
-        this.district = district;
-        this.logoUrl = logoUrl;
-    }
+    
 }

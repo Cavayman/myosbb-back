@@ -1,5 +1,5 @@
 <div class="container ">
-    <div class="registration-form  center-block" *ngIf="!registeredOsb">
+    <div class="registration-form  center-block" *ngIf="!registeredOsbb">
         <form class="ui form" (ngSubmit)="onSubmit()" #registerOsbbForm="ngForm">
             <div class="form-header">
             <h3>Реєстрація ОСББ </h3>
@@ -9,19 +9,36 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <label>Назва</label>
-                        <input class="form-control placeholder-no-fix" name="name"  type="text" required>
+                        <input class="form-control placeholder-no-fix" name="name" [(ngModel)]="newOsbb.name" type="text" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
                         <label>Описання</label>
-                        <input class="form-control placeholder-no-fix" name="descrption"  type="text" required>
+                        <input class="form-control placeholder-no-fix" name="descrption" [(ngModel)]="newOsbb.description" type="text" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
                         <label>Адрес</label>
-                        <input class="form-control placeholder-no-fix" id="autocomplete" name="address"  type="text" onFocus="initMap()" required>
+                        <input class="form-control placeholder-no-fix" id="autocomplete" name="address" [(ngModel)]="newOsbb.address" type="text" onFocus="initMap()" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label>Район</label>
+                        <input class="form-control placeholder-no-fix" name="district" [(ngModel)]="newOsbb.district" type="text" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label>Посилання на фото дому</label>
+                        <input class="form-control placeholder-no-fix" name="logoUrl" [(ngModel)]="newOsbb.logoUrl" type="text">
+                        <div class="text-xs-center">
+                            <br>
+                        <img src="{{newOsbb.logoUrl}}" class="img-rounded" style="height: auto; max-height: 300px; max-width: 300px;display: block;
+      margin: 0 auto; ">
+                        </div>
                     </div>
                 </div>
                 <br>
@@ -41,7 +58,10 @@
         </form>
     </div>
     <div *ngIf="registeredOsbb">
-        <h3>ОСББ успішно зареєстроване!</h3>
+        <div class="jumbotron" style="text-align:center;">
+                <h1>ОСББ успішно зареєстроване!</h1>
+                <p><a class="btn btn-primary btn-lg" href="/login" role="button">Перейти на головну</a></p>
+        </div>
     </div>
     
 </div>
