@@ -91,29 +91,28 @@
             }
           }
 
-        }
-      ]
-    }
-  },
-  {
-    "changeSet": {
-      "id": "2016/08/03-40",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "addForeignKeyConstraint": {
-            "baseColumnNames": "provider_id",
-            "baseTableName": "contract",
-            "constraintName": "fk_66kfo4kfkseyqcngxer7m6eiu",
-            "deferrable": false,
-            "initiallyDeferred": false,
-            "onDelete": "CASCADE",
-            "onUpdate": "CASCADE",
-            "referencedColumnNames": "provider_id",
-            "referencedTableName": "provider"
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/03-40",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "addForeignKeyConstraint": {
+              "baseColumnNames": "provider_id",
+              "baseTableName": "contract",
+              "constraintName": "fk_66kfo4kfkseyqcngxer7m6eiu",
+              "deferrable": false,
+              "initiallyDeferred": false,
+              "onDelete": "CASCADE",
+              "onUpdate": "CASCADE",
+              "referencedColumnNames": "provider_id",
+              "referencedTableName": "provider"
+            }
           }
-        }
         ]
       }
     },
