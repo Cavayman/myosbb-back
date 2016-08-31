@@ -44,15 +44,16 @@ export class UserApartmentComponent {
 
     constructor( private apartmentService:ApartmentService,private currentUserService:CurrentUserService) {
 console.log("init items");
+        this.Items=[];
 
     }
 
 
     ngOnInit(){
-        this.Items=[];
+
         this.getApartmentsByPageNum(this.pageNumber);
         this.currentUser = this.currentUserService.getUser();
-        console.log("current user: "+this.currentUser.apartment.number);
+        //console.log("current user: "+this.currentUser.apartment.number);
 
     }
     
@@ -71,7 +72,7 @@ console.log("init items");
 
     onEditApartmentSubmit() {
         this.active = false;
-        console.log('saving Apartment: ' + this.selectedApartment.apartmentId);
+        //console.log('saving Apartment: ' + this.selectedApartment.apartmentId);
       this.apartmentService.editAndSave(this.selectedApartment);
        this.apartmentService.getAllApartments();
         this.editModal.hide();
