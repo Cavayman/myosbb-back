@@ -118,6 +118,7 @@
   "bill_status_pending": "до оплати",
   "bill_status_paid": "оплачені",
   "confirm": "підтвердити",
+  "bill_calc": "нараховано",
   "create_bill": "створити рахунок",
   "select_house": "вибрати будинок",
   "select_apartment": "вибрати квартиру",

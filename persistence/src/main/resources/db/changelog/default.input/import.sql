@@ -100,11 +100,22 @@ VALUES ('2016-08-03', '2018-09-05', 100, 'UAH',  'Опис контракту', 
 
 /*Nazar's test data*/
 
-insert into bill(date, to_pay, paid, tariff, apartment_id, provider_id) VALUES('2016-05-28', 350.5,0, 4.5, 2, 1);
-insert into bill(date, to_pay, paid, tariff, apartment_id, provider_id) VALUES('2016-05-28', 280.5,120, 4.5, 1, 1);
+insert into bill(date, to_pay, paid, tariff, apartment_id, provider_id, status) VALUES('2016-05-28', 350.5,0, 4.5, 7, 1, 'NOT_PAID');
+insert into bill(date, to_pay, paid, tariff, apartment_id, provider_id, status) VALUES('2016-05-28', 280.5,120, 4.5, 1, 1, 'NOT_PAID');
 insert into bill(date, to_pay, paid, tariff, apartment_id, status, provider_id) VALUES('2016-05-28', 320,320, 4.5, 3,  'PAID', 1);
-insert into bill(date, to_pay, paid, tariff, apartment_id, provider_id)VALUES('2016-06-28', 240.5,0, 2.5, 1, 1);
-insert into bill(date, to_pay, paid, tariff, apartment_id, status, provider_id) VALUES('2016-06-28', 356,356, 4.5, 1, 'PAID', 1);
-insert into bill(date, to_pay, paid, tariff, apartment_id, provider_id) VALUES('2016-07-28', 240.5,0, 2, 3, 1);
-insert into bill(date, to_pay, paid, tariff, apartment_id, provider_id) VALUES('2016-07-28', 150, 0, 4.5, 2, 1);
-insert into bill(date, to_pay, paid, tariff, apartment_id, status, provider_id) VALUES('2016-07-28', 350.5,0, 4.5, 4, 'PAID', 1);
+insert into bill(date, to_pay, paid, tariff, apartment_id, provider_id, status)VALUES('2016-06-28', 240.5,0, 2.5, 2, 1, 'NOT_PAID');
+insert into bill(date, to_pay, paid, tariff, apartment_id, status, provider_id) VALUES('2016-06-28', 356,356, 4.5, 7, 'PAID', 1);
+insert into bill(date, to_pay, paid, tariff, apartment_id, provider_id, status)VALUES('2016-06-28', 60,0, 2, 8, 5, 'NOT_PAID');
+insert into bill(date, to_pay, paid, tariff, apartment_id, status, provider_id) VALUES('2016-06-28', 120,120, 0.5, 6, 'PAID', 1);
+insert into bill(date, to_pay, paid, tariff, apartment_id, provider_id, status)VALUES('2016-06-28', 88,88, 1.5, 6, 6, 'PAID');
+insert into bill(date, to_pay, paid, tariff, apartment_id, status, provider_id) VALUES('2016-06-28', 356,356, 4.5, 7, 'PAID', 1);
+insert into bill(date, to_pay, paid, tariff, apartment_id, provider_id, status) VALUES('2016-07-28', 240.5,0, 2, 3, 2, 'NOT_PAID');
+insert into bill(date, to_pay, paid, tariff, apartment_id, provider_id, status) VALUES('2016-07-28', 150, 0, 4.5, 7, 3, 'NOT_PAID');
+insert into bill(date, to_pay, paid, tariff, apartment_id, provider_id, status) VALUES('2016-07-28', 188,50, 3, 5, 4, 'NOT_PAID');
+insert into bill(date, to_pay, paid, tariff, apartment_id, provider_id, status) VALUES('2016-07-28', 120, 120, 4.5, 7, 4, 'PAID');
+insert into bill(date, to_pay, paid, tariff, apartment_id, status, provider_id) VALUES('2016-07-28', 350.5,350.5, 4.5, 4, 'PAID', 1);
+insert into bill(date, to_pay, paid, tariff, apartment_id, provider_id, status) VALUES('2016-08-28', 90,0, 1, 1, 4, 'NOT_PAID');
+insert into bill(date, to_pay, paid, tariff, apartment_id, provider_id, status) VALUES('2016-08-28', 144.5, 144.5, 2, 2, 6, 'PAID');
+insert into bill(date, to_pay, paid, tariff, apartment_id, provider_id, status) VALUES('2016-08-28', 199, 0, 2, 3, 3, 'NOT_PAID');
+insert into bill(date, to_pay, paid, tariff, apartment_id, provider_id, status) VALUES('2016-08-28', 120, 120, 4.5, 6, 6, 'PAID');
+insert into bill(date, to_pay, paid, tariff, apartment_id, status, provider_id) VALUES('2016-08-28', 150.5,150.5, 4, 7, 'PAID', 1);

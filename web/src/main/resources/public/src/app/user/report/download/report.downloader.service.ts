@@ -20,7 +20,6 @@ export class FileDownloaderService {
         let url = reportDownloadUrl + id +'/download';
         xhr.open('GET', url, true);
         xhr.responseType = 'blob';
-        xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
         console.log('preparing download report by id: ' + id);
 
         xhr.onreadystatechange = function () {
