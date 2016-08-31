@@ -10,7 +10,9 @@ import {
     onErrorServerNoResponseToastMsg
 } from "../../shared/error/error.handler.component";
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS, ModalDirective} from "ng2-bootstrap";
-import {CORE_DIRECTIVES, FORM_DIRECTIVES} from "@angular/common";
+import {FORM_DIRECTIVES} from "@angular/forms";
+import {CORE_DIRECTIVES} from "@angular/common";
+import Regex = require('../../shared/services/regex.all.text');
 
 @Component({
     selector: 'house-table',
@@ -19,7 +21,8 @@ import {CORE_DIRECTIVES, FORM_DIRECTIVES} from "@angular/common";
     directives: [ToasterContainerComponent, MODAL_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES],
     viewProviders: [BS_VIEW_PROVIDERS],
     styleUrls: ['src/app/house/house.css', 'src/shared/css/loader.css', 'src/shared/css/general.css'],
-    pipes: [TranslatePipe, CapitalizeFirstLetterPipe]
+    pipes: [TranslatePipe, CapitalizeFirstLetterPipe],
+    inputs: ['admin']
 })
 export class HouseTableComponent implements OnInit {
 
@@ -32,6 +35,7 @@ export class HouseTableComponent implements OnInit {
     private rows: number[] = [10, 20, 50];
     private selectedRow: number = 10;
     private onSearch: boolean = false;
+    private admin: boolean;
     private selectedHouse: HousePageObject = {
         houseId: null, city: '', street: '', zipCode: '', description: '',
         osbbName: '', apartmentCount: null, numberOfInhabitants: null
@@ -65,7 +69,7 @@ export class HouseTableComponent implements OnInit {
         this._houseService.deleteHouseById(this.houseId)
             .subscribe(() => {
                     console.log("refreshing...");
-                    this.refresh()
+                    this.refresh();
                     this.delModal.hide();
                 },
                 (error)=> {
@@ -81,17 +85,29 @@ export class HouseTableComponent implements OnInit {
         this.addModal.show();
     }
 
-    onAddHouseSubmit() {
-        this.addModal.hide();
-        console.log('saving ', this.selectedHouse);
+    cancelAddModal() {
         this.active = false;
+        this.addModal.hide();
         setTimeout(()=> {
             this.active = true
-        }, 0);
+        }, 0)
+    }
+
+    onAddHouseSubmit() {
+        this.cancelAddModal();
+        console.log('saving ', JSON.stringify(this.selectedHouse));
+        this._houseService.saveHouse(this.selectedHouse)
+            .subscribe(()=> {
+                    console.log("refreshing...");
+                    this.refresh();
+                },
+                (error)=> this.handleErrors(error))
+
     }
 
     matches(value: string): boolean {
-        if (/^[a-zA-Z]+$/.test(value)) {
+        /* text matching cyrillic alphabet also */
+        if (Regex.TEXT.test(value)) {
             return true;
         }
         return false;
@@ -145,7 +161,7 @@ export class HouseTableComponent implements OnInit {
 
 
     onClickSearchByParam(value: string) {
-        if (value.trim().length) {
+        if (value.trim().length && Regex.TEXT.test(value)) {
             this.emptyPageList();
             this.pending = true;
             console.log('search by ', value);
@@ -179,7 +195,11 @@ export class HouseTableComponent implements OnInit {
     }
 
     onNavigate(id: number) {
-        console.log('navigating to house id ', id);
+        console.log('navigating to house with id ', id);
+        if (this.admin) {
+            this._router.navigate(['admin/house', id]);
+            return;
+        }
         this._router.navigate(['home/house', id]);
     }
 

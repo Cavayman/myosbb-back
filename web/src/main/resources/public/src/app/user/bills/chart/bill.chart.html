@@ -1,0 +1,23 @@
+<div class="panel-heading">
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Статистика</h4>
+        </div>
+    </div>
+</div>
+<div class="panel-body">
+    <h4></h4>
+        <div class="col-md-6">
+            <button (click)="refresh()" style="height: 30px; width: 45px" class="btn btn-default" type="button"
+                    name="refresh" title="Refresh">
+                <i class="glyphicon glyphicon-refresh icon-refresh"></i>
+            </button>
+        </div>
+    <base-chart class="chart"
+                [data]="showPercentageChartData"
+                [labels]="showPercentageChartLabels"
+                [chartType]="percentageChartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></base-chart>
+</div>
+

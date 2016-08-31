@@ -10,9 +10,9 @@
         '@angular': 'node_modules/@angular',
         'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
         'rxjs': 'node_modules/rxjs',
-		'angular2-jwt': 'node_modules/angular2-jwt',      
-	   'angular2-toaster': 'node_modules/angular2-toaster',
-	   'angular2-text-mask': 'node_modules/angular2-text-mask/dist',
+        'angular2-jwt': 'node_modules/angular2-jwt',
+        'angular2-toaster': 'node_modules/angular2-toaster',
+        'angular2-text-mask': 'node_modules/angular2-text-mask/dist',
         'ng2-bs3-modal': 'node_modules/ng2-bs3-modal',
         'ng2-bootstrap': 'node_modules/ng2-bootstrap',
         'ng2-file-upload': 'node_modules/ng2-file-upload',
@@ -21,8 +21,8 @@
         'ng2-datetime-picker': 'node_modules/ng2-datetime-picker',
         'ng2-select': 'node_modules/ng2-select',
         'primeng': 'node_modules/primeng',
-        'primeui': 'node_modules/primeui'
-
+        'primeui': 'node_modules/primeui',
+        'ng2-charts': 'node_modules/ng2-charts'
     };
     // packages tells the System loader how to load when no filename and/or no extension
     var packages = {
@@ -30,8 +30,8 @@
         'rxjs': {defaultExtension: 'js'},
         'angular2-in-memory-web-api': {main: 'index.js', defaultExtension: 'js'},
         'angular2-toaster': {main: 'angular2-toaster.js', defaultExtension: 'js'},
-		       'angular2-text-mask': {main: 'angular2TextMask.js', defaultExtension: 'js'},
-		 'angular2-jwt': {main: 'angular2-jwt.js', defaultExtension: 'js'},
+        'angular2-text-mask': {main: 'angular2TextMask.js', defaultExtension: 'js'},
+        'angular2-jwt': {main: 'angular2-jwt.js', defaultExtension: 'js'},
         'ng2-bs3-modal': {main: 'ng2-bs3-modal.js', defaultExtension: 'js'},
         'moment': {main: 'moment.js', defaultExtension: 'js'},
         'ng2-bootstrap': {main: 'ng2-bootstrap.js', defaultExtension: 'js'},
@@ -40,8 +40,9 @@
         'ng2-bs-dropdown': {defaultExtension: 'js'},
         'ng2-select': {main: 'ng2-select.js', defaultExtension: 'js'},
         'ng2-datetime-picker': {main: 'dist/index.js', defaultExtension: 'js'},
-        'primeng': { defaultExtension: 'js' },
-        'primeui': { defaultExtension: 'js' }
+        'primeng': {defaultExtension: 'js'},
+        'primeui': {defaultExtension: 'js'},
+        'ng2-charts': {main: 'ng2-charts.js', defaultExtension: 'js'}
     };
 
 

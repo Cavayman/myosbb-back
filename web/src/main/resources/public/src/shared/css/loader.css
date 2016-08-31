@@ -1,6 +1,6 @@
 .loader {
-    position: absolute;
-    left: 50%;
+    position: fixed;
+    left: 55%;
     top: 50%;
     z-index: 1;
     width: 150px;

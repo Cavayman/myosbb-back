@@ -1,9 +1,9 @@
 import {Injectable} from "@angular/core";
-import ApiService = require("../../shared/services/api.service");
+import ApiService = require("../../../../shared/services/api.service");
 
-let reportDownloadUrl = ApiService.serverUrl + '/restful/report/download';
+let reportDownloadUrl = ApiService.serverUrl + '/restful/report/';
 
-declare var saveAs:any;
+declare var saveAs: any;
 
 const PDF_MIME_TYPE = 'application/pdf';
 const EXCEL_MIME_TYPE = 'text/xls';
@@ -13,7 +13,40 @@ const CSV_MIME_TYPE = 'text/csv';
 @Injectable()
 export class FileDownloaderService {
 
-    download(docType:string, pending:boolean) {
+
+    downloadBy(id: number, docType) {
+        let self = this;
+        let xhr = new XMLHttpRequest();
+        let url = reportDownloadUrl + id +'/download';
+        xhr.open('GET', url, true);
+        xhr.responseType = 'blob';
+        xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        console.log('preparing download report by id: ' + id);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState != 4) return;
+
+            clearTimeout(serverTimeout);
+
+            if (xhr.status === 200) {
+                let mimeType = setContentType(docType);
+                var blob = new Blob([this.response], {type: mimeType});
+                saveAs(blob, setFileName(docType));
+            } else {
+                console.error('error while loading resources');
+
+            }
+
+        };
+
+        let serverTimeout: number = setTimeout(()=> {
+            console.log('terminating server connection d/t too long connection time');
+            xhr.abort();
+        }, 15000);
+        xhr.send();
+    }
+
+    download(docType: string, pending: boolean) {
 
         let self = this;
 
@@ -23,7 +56,7 @@ export class FileDownloaderService {
         let url = reportDownloadUrl + '?type=' + docType;
         xhr.open('GET', url, true);
         xhr.responseType = 'blob';
-        console.log('preparing download...');
+        console.log('preparing generate...');
         pending = false;
         xhr.onreadystatechange = function () {
             setTimeout(() => {
@@ -48,7 +81,7 @@ export class FileDownloaderService {
 }
 
 function setFileName(docType) {
-    let fileName:string;
+    let fileName: string;
     console.log('setting filename: report.' + docType);
     switch (docType) {
         case 'pdf':
@@ -68,7 +101,7 @@ function setFileName(docType) {
 }
 function setContentType(type) {
     console.log('setting contentType: ' + type);
-    let mimeType:string;
+    let mimeType: string;
     switch (type) {
         case 'pdf':
             mimeType = PDF_MIME_TYPE;

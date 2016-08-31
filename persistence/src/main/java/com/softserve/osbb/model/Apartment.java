@@ -1,10 +1,12 @@
 package com.softserve.osbb.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
@@ -13,7 +15,8 @@ import java.util.List;
  */
 @Entity
 @Table(name = "apartment")
-public class Apartment {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Apartment implements Serializable {
     private Integer apartmentId;
     private Integer number;
     private House house;

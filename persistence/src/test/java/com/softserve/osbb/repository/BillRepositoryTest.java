@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -65,10 +64,10 @@ public class BillRepositoryTest {
         bill1 = new Bill();
         bill1.setDate(LocalDate.now());
         bill1.setTariff(6f);
-        bill1.setProvider(provider);
+       bill1.setProvider(provider);
         bill1.setToPay(140.12f);
         bill1.setPaid(300f);
-        bill1.setApartment(apartment);
+         bill1.setApartment(apartment);
     }
 
     @Test
@@ -160,5 +159,6 @@ public class BillRepositoryTest {
         billRepository.save(bill);
         assertTrue(billRepository.exists(bill.getBillId()));
     }
+
 
 }

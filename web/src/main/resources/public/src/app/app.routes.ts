@@ -7,7 +7,6 @@ import {MessageComponent} from "./user/ticket/message/message.component";
 import {homeRoutes} from "./home/home.routes";
 import {userRoutes} from "./user/user.routes";
 import {RegistrationComponent} from "./registration/registration.component";
-import {Error404Component} from "../shared/error/error404.component";
 import {ErrorHandlerComponent} from "../shared/error/error.handler.component";
 import {adminRoutes} from "./admin/admin.routes";
 

@@ -1,4 +1,4 @@
-export interface Bill {
+export interface BillDTO {
     billId: number;
     date: string;
     tariff: number;
@@ -6,5 +6,7 @@ export interface Bill {
     paid: number;
     description: string;
     apartmentNumber: number;
+    apartmentId:number;
+    providerId:number;
     status: string;
 }

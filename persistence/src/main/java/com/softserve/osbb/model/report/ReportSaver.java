@@ -9,29 +9,30 @@ import java.util.UUID;
 /**
  * Created by nazar.dovhyy on 29.07.2016.
  */
-public abstract class ReportTemplate {
+public abstract class ReportSaver {
 
-    public static final ReportTemplate NULL = null;
+    public static final ReportSaver NULL = null;
 
     private String fileName;
-
-    public abstract void saveToOutputStream(JasperPrint jp, ByteArrayOutputStream baos) throws JRException;
 
     public String getFileName() {
         return fileName;
     }
 
+
     public void setFileName(String fileName) {
         this.fileName = fileName;
     }
 
+    public abstract void saveToOutputStream(JasperPrint jp, ByteArrayOutputStream baos) throws JRException;
+
     public abstract String saveToFile(JasperPrint jasperPrint, String outputDir) throws JRException;
 
-    protected String getFileExtension() {
+    String getFileExtension() {
         return this.getClass().getSimpleName().toLowerCase().substring(0, 3);
     }
 
-    public String buildDestinationFileName(String type) {
+    String buildDestinationFileName(String type) {
         StringBuilder stringBuilder = new StringBuilder();
         String randomFileName = UUID.randomUUID().toString();
         stringBuilder.append("report" + randomFileName).append(".").append(type);

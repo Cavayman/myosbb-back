@@ -3,7 +3,7 @@ import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 
 @Component({
     selector: 'my-redirect',
-    templateUrl: 'src/app/download/redirect.html',
+    templateUrl: 'src/app/user/report/download/redirect.html',
     directives: [ROUTER_DIRECTIVES]
 })
 export class RedirectComponent {

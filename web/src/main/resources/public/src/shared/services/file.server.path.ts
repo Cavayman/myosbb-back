@@ -1,3 +1,1 @@
-
-
-export var fileServerPath:string ="http://localhost:80";
+export var fileServerPath: string = "http://localhost:3000";

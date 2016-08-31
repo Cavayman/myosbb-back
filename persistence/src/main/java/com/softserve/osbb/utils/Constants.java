@@ -9,5 +9,6 @@ public class Constants {
 
     public static final String DATE_FORMAT = "yyyy-MM-dd";
     public static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat(DATE_FORMAT);
-    public static final String REPORTS = "reports";
+    public static final String REPORTS_DIR_NAME = "reports";
+    public static final int TOTAL_APARTMENT_NUMBER = 100;
 }

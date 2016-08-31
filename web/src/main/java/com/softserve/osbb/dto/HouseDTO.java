@@ -19,6 +19,9 @@ public class HouseDTO {
     private Integer apartmentCount;
     private Integer numberOfInhabitants;
 
+    public HouseDTO() {
+        //needed for JSON mapping
+    }
 
     public HouseDTO(HouseDTOBuilder houseDTOBuilder) {
         this.houseId = houseDTOBuilder.houseId;

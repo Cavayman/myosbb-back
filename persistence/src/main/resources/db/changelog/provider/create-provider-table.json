@@ -1,141 +1,173 @@
-{ "databaseChangeLog": [
-  {
-    "changeSet": {
-      "id": "2016/08/03-27",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "createTable": {
-            "columns": [
-              {
-                "column": {
-                  "autoIncrement": true,
-                  "constraints": {
-                    "primaryKey": true,
-                    "primaryKeyName": "provider_pkey"
-                  },
-                  "name": "provider_id",
-                  "type": "SERIAL"
-                }
-              },
-              {
-                "column": {
-                  "name": "description",
-                  "type": "VARCHAR(255)"
-                }
-              },
-              {
-                "column": {
-                  "name": "logo_url",
-                  "type": "VARCHAR(255)"
-                }
-              },
-              {
-                "column": {
-                  "name": "name",
-                  "type": "VARCHAR(255)"
-                }
-              },
-              {
-                "column": {
-                  "name": "periodicity",
-                  "type": "VARCHAR(255)",
-                  "constraints": {
-                    "defaultValue": "ONE_TIME"
+{
+  "databaseChangeLog": [
+    {
+      "changeSet": {
+        "id": "2016/08/03-27",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "createTable": {
+              "columns": [
+                {
+                  "column": {
+                    "autoIncrement": true,
+                    "constraints": {
+                      "primaryKey": true,
+                      "primaryKeyName": "provider_pkey"
+                    },
+                    "name": "provider_id",
+                    "type": "SERIAL"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "description",
+                    "type": "VARCHAR(255)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "logo_url",
+                    "type": "VARCHAR(255)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "name",
+                    "type": "VARCHAR(255)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "periodicity",
+                    "type": "VARCHAR(255)",
+                    "constraints": {
+                      "defaultValue": "ONE_TIME"
+                    }
+                  }
+                },
+                {
+                  "column": {
+                    "name": "provider_type_id",
+                    "type": "INT"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "email",
+                    "type": "VARCHAR(255)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "phone",
+                    "type": "VARCHAR(255)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "address",
+                    "type": "VARCHAR(255)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "schedule",
+                    "type": "VARCHAR(255)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "active",
+                    "type": "BOOLEAN",
+                    "constraints": {
+                      "defaultValue": false
+                    }
                   }
                 }
-              },
-              {
-                "column": {
-                  "name": "provider_type_id",
-                  "type": "INT"
-                }
-              },
-              {
-                "column": {
-                  "name": "email",
-                  "type": "VARCHAR(255)"
-                }
-              },
-              {
-                "column": {
-                  "name": "phone",
-                  "type": "VARCHAR(255)"
-                }
-              },
-              {
-                "column": {
-                  "name": "address",
-                  "type": "VARCHAR(255)"
-                }
-              },
-              {
-                "column": {
-                  "name": "schedule",
-                  "type": "VARCHAR(255)"
-                }
-              },
-              {
-                "column": {
-                  "name": "active",
-                  "type": "BOOLEAN",
-                  "constraints": {
-                    "defaultValue": false
-                  }
-                }
-              }
-            ],
-            "tableName": "provider"
+              ],
+              "tableName": "provider"
+            }
           }
-        }
-      ]
-    }
-  },
-  {
-    "changeSet": {
-      "id": "2016/08/03-40",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "addForeignKeyConstraint": {
-            "baseColumnNames": "provider_id",
-            "baseTableName": "contract",
-            "constraintName": "fk_66kfo4kfkseyqcngxer7m6eiu",
-            "deferrable": false,
-            "initiallyDeferred": false,
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "referencedColumnNames": "provider_id",
-            "referencedTableName": "provider"
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/03-40",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "addForeignKeyConstraint": {
+              "baseColumnNames": "provider_id",
+              "baseTableName": "contract",
+              "constraintName": "fk_66kfo4kfkseyqcngxer7m6eiu",
+              "deferrable": false,
+              "initiallyDeferred": false,
+              "onDelete": "NO ACTION",
+              "onUpdate": "NO ACTION",
+              "referencedColumnNames": "provider_id",
+              "referencedTableName": "provider"
+            }
           }
-        }
-      ]
-    }
-  },
-
-  {
-    "changeSet": {
-      "id": "2016/08/03-42",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "addForeignKeyConstraint": {
-            "baseColumnNames": "provider_id",
-            "baseTableName": "bill",
-            "constraintName": "fk_9owd7fyvy602xgw3rlowyp8ie",
-            "deferrable": false,
-            "initiallyDeferred": false,
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "referencedColumnNames": "provider_id",
-            "referencedTableName": "provider"
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/03-42",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "addForeignKeyConstraint": {
+              "baseColumnNames": "provider_id",
+              "baseTableName": "bill",
+              "constraintName": "fk_9owd7fyvy602xgw3rlowyp8ie",
+              "deferrable": false,
+              "initiallyDeferred": false,
+              "onDelete": "NO ACTION",
+              "onUpdate": "NO ACTION",
+              "referencedColumnNames": "provider_id",
+              "referencedTableName": "provider"
+            }
           }
-        }]
-
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/15/08-01",
+        "author": "anastasia",
+        "changes": [
+          {
+            "addDefaultValue": {
+              "columnDataType": "boolean",
+              "columnName": "active",
+              "defaultValueBoolean": false,
+              "tableName": "provider"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/15/08-02",
+        "author": "anastasia",
+        "changes": [
+          {
+            "addDefaultValue": {
+              "columnDataType": "VARCHAR(255)",
+              "columnName": "periodicity",
+              "defaultValue": "ONE_TIME",
+              "tableName": "provider"
+            }
+          }
+        ]
+      }
     }
-  }
-]
+  ]
 }

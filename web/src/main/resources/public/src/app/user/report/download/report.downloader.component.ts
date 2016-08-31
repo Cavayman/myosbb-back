@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {FileDownloaderService} from "./file.downloader.service";
+import {FileDownloaderService} from "./report.downloader.service";
 import {
     ToasterContainerComponent,
     Toast,
@@ -8,15 +8,16 @@ import {
     BodyOutputType
 } from "angular2-toaster/angular2-toaster";
 import {RedirectComponent} from "./redirect.component";
-import {CurrentUserService} from "../../shared/services/current.user.service";
-import {User} from "../../shared/models/User";
+import {CurrentUserService} from "../../../../shared/services/current.user.service";
+import {User} from "../../../../shared/models/User";
 import {
     onErrorServerNoResponseToastMsg,
     onErrorResourceNotFoundToastMsg
-} from "../../shared/error/error.handler.component";
-import ApiService = require("../../shared/services/api.service");
+} from "../../../../shared/error/error.handler.component";
+import ApiService = require("../../../../shared/services/api.service");
 
-let reportUrl = ApiService.serverUrl + '/restful/report/user/';
+let userReportUrl = ApiService.serverUrl + '/restful/report/user/';
+let reportUrl = ApiService.serverUrl + '/restful/report';
 
 declare var saveAs: any;
 
@@ -27,18 +28,20 @@ const CSV_MIME_TYPE = 'text/csv';
 
 @Component({
     selector: 'file-downloader',
-    templateUrl: 'src/app/download/file.downloader.html',
+    templateUrl: 'src/app/user/report/download/report.downloader.html',
     providers: [FileDownloaderService, ToasterService],
+    inputs: ['isUserDownload'],
     directives: [ToasterContainerComponent],
     styleUrls: ['src/shared/css/loader.css']
 })
-export class FileDownloaderComponent {
+export class ReportDownloaderComponent {
 
     private pending: boolean = false;
     private hasError: boolean = false;
     public toasterconfig: ToasterConfig =
         new ToasterConfig({timeout: 20000});
     private currentUser: User;
+    private isUserDownload: boolean;
 
     constructor(private _toasterService: ToasterService, private _currentUserService: CurrentUserService) {
     }
@@ -50,7 +53,7 @@ export class FileDownloaderComponent {
         let self = this;
         this.pending = true;
         let xhr = new XMLHttpRequest();
-        let url = reportUrl + this.currentUser.userId + '/download?type=' + docType;
+        let url = this.selectDownloadURL(docType);
         xhr.open('GET', url, true);
         xhr.responseType = 'blob';
         xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
@@ -79,14 +82,25 @@ export class FileDownloaderComponent {
 
         };
 
-        xhr.send();
-
-        let serverTimeout = setTimeout(()=> {
+        let serverTimeout: number = setTimeout(()=> {
             console.log('terminating server connection d/t too long connection time');
             xhr.abort();
             this._toasterService.pop(onErrorServerNoResponseToastMsg);
-        }, 15000)
+        }, 15000);
+        xhr.send();
 
+
+    }
+
+    private selectDownloadURL(docType: string): string {
+        let url = '';
+        if (this.isUserDownload) {
+            url = userReportUrl + this.currentUser.userId + '/download?type=' + docType;
+        } else {
+            url = reportUrl + '/download?type=' + docType;
+        }
+        console.log('', url);
+        return url;
     }
 
     private handleResponse() {

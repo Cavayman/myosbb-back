@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public interface BillService {
 
-    void saveBill(Bill bill);
+    Bill saveBill(Bill bill);
 
     void saveBillList(List<Bill> list);
 
@@ -22,15 +22,16 @@ public interface BillService {
 
     List<Bill> findAllBillsByIDs(List<Integer> ids);
 
-    List<Bill> findAllBills();
 
     List<Bill> findAllByUserId(Integer userId);
+
+    Page<Bill> findAllBills(Pageable pageable);
 
     Page<Bill> findAllByApartmentOwner(Integer ownerId, Pageable pageable);
 
     void deleteBill(Bill bill);
 
-    void deleteBillByID(Integer id);
+    boolean deleteBillByID(Integer id);
 
     void deleteListBills(List<Bill> list);
 
