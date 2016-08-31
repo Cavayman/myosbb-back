@@ -1,6 +1,7 @@
 package com.softserve.osbb.controller;
 
 import com.softserve.osbb.model.User;
+import com.softserve.osbb.service.OsbbService;
 import com.softserve.osbb.service.UserService;
 import com.softserve.osbb.service.impl.MailSenderImpl;
 import org.slf4j.Logger;
@@ -33,7 +34,8 @@ public class BasicController {
     UserService userService;
     @Autowired
     OsbbService osbbService;
-    @RequestMapping(value = "user/login", method = RequestMethod.POST)
+
+   /* @RequestMapping(value = "user/login", method = RequestMethod.POST)
     public String login(@RequestBody Map<String, String> json) throws ServletException {
         if (json.get("username") == null || json.get("password") == null) {
             throw new ServletException("Please fill in username and password");
