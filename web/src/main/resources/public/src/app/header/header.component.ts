@@ -8,13 +8,14 @@ import {DROPDOWN_DIRECTIVES} from 'ng2-bs-dropdown/dropdown';
 import {LoginService} from "../login/login.service";
 import {CurrentUserService} from "../../shared/services/current.user.service";
 import {CapitalizeFirstLetterPipe} from "../../shared/pipes/capitalize-first-letter";
+import { MODAL_DIRECTIVES } from 'ng2-bs3-modal';
 
 @Component({
     selector: 'app-header',
     templateUrl: 'src/app/header/header.html',
     providers: [LoginStat,LoginService],
     inputs: ['isLoggedIn'],
-    directives: [ROUTER_DIRECTIVES, DROPDOWN_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, DROPDOWN_DIRECTIVES,MODAL_DIRECTIVES],
     pipes: [TranslatePipe, CapitalizeFirstLetterPipe],
 
 })
