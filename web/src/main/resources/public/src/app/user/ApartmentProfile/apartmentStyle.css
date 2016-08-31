@@ -1,15 +1,15 @@
 .myheader{
-    height:25%;
+    height:auto;
     width: 100%;
     background-color: white ;
-    opacity: 0.6;
+    opacity: 0.85;
     border: rgba(12, 60, 88, 0.91);
     margin-top: 0pt;
     display: flex;
 }
 .image{
 
-    margin: auto 0 auto 10%;
+    margin: auto 0 auto 15px;
 
     width:100px ;
     height: 100px;

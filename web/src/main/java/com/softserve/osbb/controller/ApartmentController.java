@@ -1,6 +1,8 @@
 package com.softserve.osbb.controller;
 
 import com.softserve.osbb.dto.ApartmentDTO;
+import com.softserve.osbb.dto.UserDTO;
+import com.softserve.osbb.dto.UserDTOMapper;
 import com.softserve.osbb.dto.mappers.ApartmentDTOMapper;
 import com.softserve.osbb.model.Apartment;
 import com.softserve.osbb.service.ApartmentService;
@@ -59,9 +61,10 @@ public class ApartmentController {
     public ResponseEntity<PageCreator<Resource<Apartment>>> getAllApartment(
             @RequestParam(value = "pageNumber", required = true) Integer pageNumber,
             @RequestParam(value = "sortedBy", required = false) String sortedBy,
-            @RequestParam(value = "asc", required = false) Boolean ascOrder) {
+            @RequestParam(value = "asc", required = false) Boolean ascOrder,
+            @RequestParam(value = "number" , required=false)Integer number ) {
         logger.info("get all apartments by page number: " + pageNumber);
-        Page<Apartment> apartmentByPage = apartmentService.getAllApartment(pageNumber, sortedBy, ascOrder);
+        Page<Apartment> apartmentByPage = apartmentService.getAllApartment(pageNumber, sortedBy, ascOrder,number);
 
         int currentPage = apartmentByPage.getNumber() + 1;
         int begin = Math.max(1, currentPage - 5);
@@ -103,13 +106,13 @@ public class ApartmentController {
 
     @RequestMapping(value = "/users{id}", method = RequestMethod.GET)
 
-    public ResponseEntity<List<Resource<User>>> getUsersInApartment(@PathVariable("id") Integer id) {
+    public ResponseEntity<List<Resource<UserDTO>>> getUsersInApartment(@PathVariable("id") Integer id) {
 
-        List<User> userList = apartmentService.findOneApartmentByID(id).getUsers();
+        List<UserDTO> userList = UserDTOMapper.mapUserEntityToDTO(apartmentService.findOneApartmentByID(id).getUsers());
         logger.info("Getting all users.");
 
-        final List<Resource<User>> resourceUserList = new ArrayList<>();
-        for (User u : userList) {
+        final List<Resource<UserDTO>> resourceUserList = new ArrayList<>();
+        for (UserDTO u : userList) {
             resourceUserList.add(addResourceLinkToApartment(u));
 
         }
@@ -117,6 +120,17 @@ public class ApartmentController {
 
 
     }
+
+    @RequestMapping(value="/owner{id}",method=RequestMethod.GET)
+    public ResponseEntity<Resource<UserDTO>> getOwnerInApartment(@PathVariable("id") Integer id) {
+        Apartment apartment = apartmentService.findOneApartmentByID(id);
+        UserDTO user;
+        if(apartment.getOwner()!=null){
+         user = UserDTOMapper.mapUserEntityToDTO(userService.findOne(apartment.getOwner()));
+    } else user =new UserDTO();
+        return new ResponseEntity<>(addResourceLinkToApartment(user),HttpStatus.OK);
+    }
+
 
 
 
@@ -170,6 +184,16 @@ public class ApartmentController {
                 .withSelfRel());
         return apartmentResource;
     }
+
+    private Resource<UserDTO> addResourceLinkToApartment(UserDTO user) {
+        if (user == null) return null;
+        Resource<UserDTO> apartmentResource = new Resource<>(user);
+        apartmentResource.add(linkTo(methodOn(UserController.class)
+                .getUser(user.getUserId().toString()))
+                .withSelfRel());
+        return apartmentResource;
+    }
+
 
     private Resource<Apartment> getLink(Resource<Apartment> apartmentResource) {
         apartmentResource.add(linkTo(methodOn(ApartmentController.class)

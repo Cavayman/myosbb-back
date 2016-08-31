@@ -68,6 +68,7 @@ public class Apartment implements Serializable {
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinColumn(name = "house_id", referencedColumnName = "house_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public House getHouse() {
         return house;
     }

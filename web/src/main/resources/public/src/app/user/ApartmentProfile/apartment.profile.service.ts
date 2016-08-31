@@ -10,12 +10,24 @@ export class apartmentProfileService{
     constructor (private http:Http){}
 
     getCurrentApartment(id:number):Observable<any>{
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers});
         let url = ApiService.serverUrl + '/restful/apartment/'+id;
         return this.http.get(url)
             .map(response=>response.json());
          
+    }
+    
+    getUsersInApartment(id:number):Observable<any>{
+        let url=ApiService.serverUrl+'/restful/apartment/users'+id;
+        return this.http.get(url)
+            .map(res=>res.json());
+        
+    }
+
+    getOwnerInApartment(id:number):Observable<any>{
+        let url=ApiService.serverUrl+'/restful/apartment/owner'+id;
+        return this.http.get(url)
+            .map(res=>res.json());
+        
     }
     
 

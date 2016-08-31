@@ -122,6 +122,9 @@
   "select_apartment": "вибрати квартиру",
   "select_provider": "вибрати послугу",
   "err_numeric": "ведіть числове значення",
-  "statistics": "Статистика"
+  "statistics": "Статистика",
+  "number":"номер",
+  "square":"площа"
+
 }
 

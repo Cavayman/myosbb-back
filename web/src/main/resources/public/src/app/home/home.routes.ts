@@ -24,7 +24,7 @@ export const homeRoutes: RouterConfig = [
             {path: 'provider', component: ProviderComponent},
             {path: 'houses', component: HouseTableComponent},
             {path: 'house/:id', component: HouseShowComponent},
-            {path: 'message/:id', component: MessageComponent}
+            {path: 'message/:id', component: MessageComponent},
         ]
     },
 

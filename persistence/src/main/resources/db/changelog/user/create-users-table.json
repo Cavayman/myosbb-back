@@ -289,6 +289,31 @@
         ]
       }
     },
+
+  {
+        "changeSet": {
+          "id": "2016/08/03-43",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "addForeignKeyConstraint": {
+              "baseColumnNames": "apartment_id",
+              "baseTableName": "users",
+              "constraintName": "fk_affd3r40dn34gkys47ivss9d5",
+              "deferrable": false,
+              "initiallyDeferred": false,
+              "onDelete": "NO ACTION",
+              "onUpdate": "NO ACTION",
+              "referencedColumnNames": "apartment_id",
+              "referencedTableName": "apartment"
+            }
+          }
+         ]
+        }
+      },
+
+
   {
     "changeSet": {
       "id": "1472225078035-62",
