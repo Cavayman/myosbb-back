@@ -19,29 +19,23 @@ export class RoleService {
 
     //Checked
     getAllRole (pageNumber:number):Observable<any> {
-        let headers = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
-        headers.append('Content-Type', 'application/json');
         console.log('Get all role');
-        return this.http.get(this.getUrl + pageNumber, {headers})
+        return this.http.get(this.getUrl + pageNumber)
             .map((response)=> response.json())
             .catch((error)=>Observable.throw(error));
     }
     //Checked
     addRole(role:IRole) {
-        let headers = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
-        headers.append('Content-Type', 'application/json');
         console.log('Add new role');
-        return this.http.post(this.postUrl, JSON.stringify(role), {headers})
+        return this.http.post(this.postUrl, JSON.stringify(role))
                         .toPromise()
                         .then(res => res.json())
                         .catch((error)=>console.error(error));
     }
     //Checked
     editRole(role:IRole)  {
-        let headers = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
-        headers.append('Content-Type', 'application/json');
         console.log('Edit role');
-        return this.http.put(this.putUrl, JSON.stringify(role), {headers})
+        return this.http.put(this.putUrl, JSON.stringify(role))
                         .toPromise()
                         .then(res => res.json())
                         .catch(this.handleError);
@@ -50,22 +44,21 @@ export class RoleService {
 
     //Checked
     deleteRole(roleId:number){
-        let headers = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
-        headers.append('Content-Type', 'application/json');
         let url = this.deleteUrl + roleId;
         console.log('delete role by id: ' + roleId);
-            return this.http.delete(url, {headers: headers})
+            return this.http.delete(url)
                         .toPromise()
                         .catch((error)=>console.error(error));
     }
 
 
     getAllRolesSorted(pageNumber:number, name:string, order:boolean):Observable<any> {
-        let headers = new Headers({'Authorization': 'Bearer '+localStorage.getItem('token')});
-        headers.append('Content-Type', 'application/json');
-        return this.http.get(this.getUrl + pageNumber + '&&sortedBy=' + name + '&&asc=' + order, {headers})
+        return this.http.get(this.getUrl + pageNumber + '&&sortedBy=' + name + '&&asc=' + order)
             .map((response)=> response.json())
             .catch((error)=>Observable.throw(error));
     }
-
+    private handleError(error: any):Promise<any> {
+        console.log('HandleError', error);
+        return Promise.reject(error.message || error);
+    }
 }
