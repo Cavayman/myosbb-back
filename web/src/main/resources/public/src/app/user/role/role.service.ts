@@ -9,7 +9,7 @@ import ApiService = require("../../../shared/services/api.service");
 @Injectable()
 export class RoleService { 
 
-    private deleteUrl:string = ApiService.serverUrl + '/restful/role/id/';
+    private deleteUrl:string = ApiService.serverUrl + '/restful/role/id';
     private postUrl:string = ApiService.serverUrl + '/restful/role/';
     private putUrl:string = ApiService.serverUrl + '/restful/role/';
     private getUrl:string = ApiService.serverUrl + '/restful/role?pageNumber=';
@@ -43,14 +43,13 @@ export class RoleService {
     }
 
     //Checked
-    deleteRole(roleId:number){
-        let url = this.deleteUrl + roleId;
-        console.log('delete role by id: ' + roleId);
+    deleteRole(role: IRole){
+        let url = ` ${this.deleteUrl}/${role.roleId}`;
+        console.log('delete role by id: ' + role.roleId);
             return this.http.delete(url)
-                        .toPromise()
+                        .toPromise().then(res => role)
                         .catch((error)=>console.error(error));
     }
-
 
     getAllRolesSorted(pageNumber:number, name:string, order:boolean):Observable<any> {
         return this.http.get(this.getUrl + pageNumber + '&&sortedBy=' + name + '&&asc=' + order)
