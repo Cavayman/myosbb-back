@@ -2,38 +2,40 @@ import {ChangeDetectorRef, OnInit} from "@angular/core";
 import {Component} from "@angular/core";
 import {Schedule, Dialog, Button, InputText, Calendar, ToggleButton} from "primeng/primeng";
 import {Event} from "../event/event.interface";
-import {CalendarService} from "./calendar.service";
 import {TranslatePipe, TranslateService} from "ng2-translate/ng2-translate";
 import {CapitalizeFirstLetterPipe} from "../../../shared/pipes/capitalize-first-letter";
+import {EventService} from "../event/event.service";
+import {routes} from "../../app.routes";
 
 @Component({
     selector: 'my-calendar',
     templateUrl: 'src/app/user/calendar/calendar.html',
     pipes: [TranslatePipe, CapitalizeFirstLetterPipe],
-    providers: [CalendarService],
+    providers: [EventService],
     directives: [Schedule, Dialog, Button, InputText, Calendar, ToggleButton]
 })
 
 export class UserCalendarComponent implements OnInit {
 
-    events: any[];
+    events:Event[];
     header: any;
-    event: Event = new Event;
+    event:Event = new Event;
     dialogVisible: boolean = false;
     idGen: number = 100;
     uk: any;
     lang: string = "uk";
 
-    constructor(private calendarService: CalendarService, private cd: ChangeDetectorRef,
+    constructor(private eventService: EventService, private cd: ChangeDetectorRef,
                 private translate: TranslateService) { }
 
     getLang() {
         let lang = this.translate.currentLang;
+        if (this.lang != lang) this.ngOnInit();
         return this[lang];
     }
 
     ngOnInit() {
-        this.calendarService.getEvents().then(events => {this.events = events; console.log("component : " + this.events);});
+        this.eventService.getEvents().then(events => {this.events = events; console.log("component : " + this.events);});
 
         this.lang = this.translate.currentLang;
         console.log("calendar lang " + this.lang);
@@ -87,7 +89,6 @@ export class UserCalendarComponent implements OnInit {
 
         this.event.id = e.calEvent.id;
         this.event.start = start.format();
-        // this.event.allDay = e.calEvent.allDay;
         this.dialogVisible = true;
     }
 
@@ -97,14 +98,17 @@ export class UserCalendarComponent implements OnInit {
             let index: number = this.findEventIndexById(this.event.id);
             if(index >= 0) {
                 this.events[index] = this.event;
+                this.eventService.put(this.event);
             }
         }
         //new
         else {
             this.event.id = this.idGen;
             this.events.push(this.event);
+            this.eventService.addEvent(this.event);
             this.event = null;
         }
+        console.log("!!! " + this.event);
         this.dialogVisible = false;
     }
 

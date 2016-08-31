@@ -19,7 +19,7 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let attachment of attachments">
-                    <td><a href="/restful/attachment/{{attachment.path}}">{{attachment.path}}</a></td>
+                    <td><a href="javascript:;" (click)="download(attachment.path)">{{attachment.path}}</a></td>
                     <td>
                         <div class="dropdown">
                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
