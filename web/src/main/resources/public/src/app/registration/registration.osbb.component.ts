@@ -19,8 +19,6 @@ export class RegistrationOsbbComponent {
         this.newOsbb.creationDate = new Date;
      }
 
-
-
     onSubmit() {
         this.registerOsbbService.sendOsbb(this.newOsbb).subscribe(
             data => {
