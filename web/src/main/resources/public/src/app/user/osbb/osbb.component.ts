@@ -16,6 +16,7 @@ import {CapitalizeFirstLetterPipe} from "../../../shared/pipes/capitalize-first-
 @Component({
     selector: 'osbb',
     templateUrl: './src/app/user/osbb/osbb.component.html',
+    styleUrls: ['./src/app/user/osbb/osbb.component.css'],
     providers: [OsbbService],
     directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, OsbbModalComponent, OsbbDelFormComponent],
     viewProviders: [BS_VIEW_PROVIDERS],
