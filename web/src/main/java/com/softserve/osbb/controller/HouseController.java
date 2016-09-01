@@ -136,7 +136,7 @@ public class HouseController {
             logger.error("house was not added to the database");
             throw new HouseNotSavedException();
         }
-        house.setApartments(createRandomApartments(null, house));
+        house.setApartments(createRandomApartments(houseDTO.getApartmentCount(), house));
         houseService.updateHouse(house.getHouseId(), house);
         logger.info("house updated with random apartments created");
         ResourceLinkCreator<HouseDTO> resourceLinkCreator = new HouseResourceList();

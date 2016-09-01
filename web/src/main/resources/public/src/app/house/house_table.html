@@ -164,6 +164,14 @@
                                             {{'wrong_symbol' | translate }}
                                         </div>
                                     </div>
+                                    <div class="form-group"><label>Кількість квартир</label><br>
+                                        <input type="number" min="0" class="form-control mod" required
+                                               [(ngModel)]="selectedHouse.apartmentCount"
+                                               name="apartments" #apartments="ngModel" maxlength="3" minlength="1">
+                                        <div [hidden]="apartments.valid || apartments.pristine" class="alert alert-danger">
+                                            {{'name_err_description' | translate }}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
