@@ -16,6 +16,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -32,12 +33,14 @@ public class UserServiceImpl implements UserService{
     @Autowired
     RoleRepository userRoleRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     private Logger log;
 
     @Override
     public User save(User user) {
-
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
@@ -60,7 +63,6 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public boolean exists(Integer integer) {
-
         return userRepository.exists(integer);
     }
 
@@ -136,12 +138,20 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User saveAndFlush(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.saveAndFlush(user);
     }
 
     @Override
     public List<User> save(Iterable<User> iterable) {
-        return userRepository.save(iterable);
+        Iterator<User> ite=iterable.iterator();
+        List<User> encodedUsers=new ArrayList<User>();
+        while(ite.hasNext()){
+            User temp=ite.next();
+            temp.setPassword(passwordEncoder.encode(temp.getPassword()));
+            encodedUsers.add(temp);
+        }
+        return userRepository.save(encodedUsers);
     }
 
     @Override
