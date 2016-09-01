@@ -12,22 +12,6 @@ import java.util.List;
  */
 public class TicketDTOMapper {
 
-    public static TicketDTO mapTicketEntityToDTO(Ticket ticket, List<MessageDTO> messageDTO) {
-        TicketDTO ticketDTO = new TicketDTO();
-        if(ticket != null) {
-            ticketDTO.setTicketId(ticket.getTicketId());
-            ticketDTO.setName(ticket.getName());
-            ticketDTO.setDescription(ticket.getDescription());
-            ticketDTO.setState(ticket.getState());
-            ticketDTO.setStateTime(ticket.getStateTime());
-            ticketDTO.setTime(ticket.getTime());
-            ticketDTO.setUser(new UserDTOMapper().mapUserEntityToDTO(ticket.getUser()));
-            ticketDTO.setAssigned(new UserDTOMapper().mapUserEntityToDTO(ticket.getAssigned()));
-            ticketDTO.setMessageDTOList(messageDTO);
-        }
-        return ticketDTO;
-    }
-
     public static TicketDTO mapTicketEntityToDTO(Ticket ticket) {
         TicketDTO ticketDTO = new TicketDTO();
         if(ticket != null) {
@@ -39,9 +23,12 @@ public class TicketDTOMapper {
             ticketDTO.setTime(ticket.getTime());
             ticketDTO.setUser(new UserDTOMapper().mapUserEntityToDTO(ticket.getUser()));
             ticketDTO.setAssigned(new UserDTOMapper().mapUserEntityToDTO(ticket.getAssigned()));
+
         }
         return ticketDTO;
+        }
+
     }
 
 
-}
+

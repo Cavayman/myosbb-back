@@ -1,7 +1,6 @@
 import {RouterConfig} from "@angular/router";
 import {Component, OnInit} from '@angular/core';
 import {CORE_DIRECTIVES} from '@angular/common';
-import {HTTP_PROVIDERS} from "@angular/http";
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS} from 'ng2-bootstrap/ng2-bootstrap';
 import {ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
 import {Observable} from 'rxjs/Observable';
@@ -25,7 +24,7 @@ import {TranslatePipe} from "ng2-translate/ng2-translate";
 @Component({
     selector: 'ticket',
     templateUrl: './src/app/user/ticket/single.ticket.component.html',
-    providers: [HTTP_PROVIDERS, MessageService, TicketService],
+    providers: [ MessageService, TicketService],
     directives: [RouterOutlet, ROUTER_DIRECTIVES, MODAL_DIRECTIVES, CORE_DIRECTIVES, TicketAddFormComponent, TicketEditFormComponent, TicketDelFormComponent],
     viewProviders: [BS_VIEW_PROVIDERS],
     styleUrls: ['src/app/user/ticket/ticket.css'],
@@ -34,7 +33,6 @@ import {TranslatePipe} from "ng2-translate/ng2-translate";
 
 export class MessageComponent implements OnInit {
     private message:IMessage;
-    private messageArr:IMessage[] = [];
     private ticket:Ticket;
     private ticketId:number;
     private sub:Subscription;
@@ -63,9 +61,7 @@ export class MessageComponent implements OnInit {
         this.sub = this.routeParams.params.subscribe((params)=> {
             this.ticketId = +params['id'];
             this.messageService.getTicketbyId(this.ticketId)
-                .subscribe((data) =>  this.ticket = data,
-                    this.messageService.getMessagesForTicket(this.ticketId)
-                        .then(messages => this.messageArr = messages)
+                .subscribe((data) =>  this.ticket = data
                 ),
                 (error) => console.error(error)
         });
@@ -75,49 +71,63 @@ export class MessageComponent implements OnInit {
         this.router.navigate(['home/user/ticket']);
     }
 
+    initEditMessage(message:Message) {
+        this.message = message;
+        this.messText = this.message.message;
+    }
+
     createMessage(text:string):void {
-        this.message.idTicket = this.ticketId;
-        this.message.message = text;
-        this.message.user = this.currentUserService.getUser();
         if (this.message.messageId == null) {
+             this.message.message = text;
+            console.log("create");           
+              this.message.user = this.currentUserService.getUser();
+              this.message.idTicket = this.ticketId; 
             this.messageService.addMessage(this.message).then(message => this.addMessage(message))
                 .then(this.message.messageId = null);
         }
         else {
+            console.log("update");            
             this.editMessage(text);
         }
     }
 
     editMessage(text:string) {
-        for (let i = 0; i < this.messageArr.length; i++) {
-            if (this.messText == this.messageArr[i].message) {
-                this.messageArr[i].message = text;
+        for (let i = 0; i < this.ticket.messages.length; i++) {
+            if (this.message.message == this.ticket.messages[i].message) {
+                console.log("find mess  " +this.message.message);
+                
+        this.message.idTicket = this.ticketId;
+                this.ticket.messages[i].message = text;
+                 console.log("find mess 1 " + this.ticket.messages[i].messageId );
+                this.messageService.editMessage(this.ticket.messages[i]);
+               this.message = new Message("");
             }
         }
-        this.message.message = text;
-        this.messageService.editMessage(this.message)
-            .then(this.message.messageId = null);
+        
     }
 
-
     private addMessage(message:IMessage):void {
-        this.messageArr.push(message);
+        this.ticket.messages.push(message);
     }
 
     deleteMessage(message:Message) {
-        this.messageService.deleteMessage(message.messageId).then(this.delMessage(message));
+        console.log("id messss:  "+ message.messageId);
+        
+        this.messageService.deleteMessage(message.messageId).then(this.delMessage(message))
+        .then(this.message.messageId = null);
     }
 
     private delMessage(message:Message) {
         let index = this.ticket.messages.indexOf(message);
         if (index > -1) {
+            console.log("deleting !!!");
+            
             this.ticket.messages.splice(index, 1);
         }
 
     }
 
     editState(state:string) {
-        console.log("STATE ggg:  " + state);
         if (state == 'IN_PROGRESS') {
             this.ticket.state = TicketState.IN_PROGRESS;
             this.ticketState = 'IN_PROGRESS';
@@ -129,6 +139,8 @@ export class MessageComponent implements OnInit {
         console.log("STATE:  " + this.ticket.state);
 
         this.messageService.editState(this.ticket);
+        
+   // this.ticketService.sendEmailState(this.ticket.ticketId);
     }
 
 
@@ -140,33 +152,19 @@ export class MessageComponent implements OnInit {
         this.ticketService.deleteTicket(ticket).then(this.toTableTicket());
     }
 
-
-    initEditMessage(message:Message) {
-        this.message.messageId = message.messageId;
-        this.messText = message.message;
-        this.message = message;
-        this.message.idTicket = this.ticket.ticketId;
-    }
-
     getTime(time:Date):string {
         return new Date(time).toLocaleString();
     }
 
     initAddAnswer(parentMessage:Message) {
-
         this.message = new Message("");
         this.message.parentId = parentMessage.messageId;
         this.isAnswer(this.message.parentId);
         this.message.user = this.currentUser;
         console.log("mess" + this.message.parentId);
-
     }
 
-    createAnswer(messageId:number, text:string) {
-        this.message.parentId = messageId;
-        this.message.user = this.currentUser;
-        console.log("usseerrrr  " + JSON.stringify(this.message.user));
-
+    createAnswer( text:string) {
         this.message.message = text;
         this.messageService.addAnswer(this.message);
     }
@@ -180,6 +178,8 @@ export class MessageComponent implements OnInit {
     }
 
     isAnswer(id:number):boolean {
+        console.log("parentID  "+ this.message.parentId);
+        
         return this.message.parentId == id ? true : false;
     }
 

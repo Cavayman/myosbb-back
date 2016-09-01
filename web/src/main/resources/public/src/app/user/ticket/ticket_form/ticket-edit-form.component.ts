@@ -24,7 +24,7 @@ export class TicketEditFormComponent implements OnInit {
     editModal:ModalDirective;
     states:string[];
 
-    stateTicket:TicketState = TicketState.NEW;
+   stateTicket = "NEW";
     userAssignArr:User[] = [];
     assign:User;
     creatingForm:ControlGroup;
@@ -48,7 +48,6 @@ export class TicketEditFormComponent implements OnInit {
         this.nameInput = new Control('', Validators.minLength(20));
         this.descriptionInput = new Control('', Validators.minLength(60));
         this.assignInput = new Control('', Validators.required);
-
         this.creatingForm = builder.group({
             nameInput: this.nameInput,
             descriptionInput: this.descriptionInput,
@@ -112,19 +111,39 @@ export class TicketEditFormComponent implements OnInit {
         }
     }
 
+    editState(state:string) {
+        if (state == 'NEW') {
+           return TicketState.NEW;
+        }
+        if (state == 'IN_PROGRESS') {
+           return TicketState.IN_PROGRESS;
+        }
+        else if (state == 'DONE') {
+            return TicketState.DONE;
+        }
+        
+
+    //    this.messageService.editState(this.ticket)
+       // .this.ticketService.sendEmailState(this.ticket.ticketId);
+    }
+
     initUpdatedTicket(ticket:Ticket) {
+        console.log("is ticketttt"+ticket.ticketId);
+        this.ticket = ticket;
         this.nameTicket = ticket.name;
         this.descriptionTicket = ticket.description;
         this.assignTicket = ticket.assigned.firstName + " " + ticket.assigned.lastName;
-
+      //  this.stateTicket = ticket.state;
     }
 
     editTicket():Ticket {
         console.log("edit ticket");
         let ticket = new Ticket(this.nameTicket, this.descriptionTicket, TicketState.NEW);
+        ticket.ticketId = this.ticket.ticketId;
         ticket.user = this.currentUserService.getUser();
         ticket.assigned = this.getAssignedId(this.assignTicket);
-        ticket.state = this.stateTicket;
+        ticket.state = this.editState(this.stateTicket);
+        console.log("edit state  "+ this.stateTicket);
         return ticket;
     }
 

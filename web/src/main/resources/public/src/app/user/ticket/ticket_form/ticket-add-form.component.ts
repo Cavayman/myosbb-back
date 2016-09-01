@@ -1,6 +1,5 @@
 import { Component, Output, Input, EventEmitter, OnInit, ViewChild} from '@angular/core';
 import {CORE_DIRECTIVES,FORM_DIRECTIVES, FormBuilder, Control, ControlGroup, Validators} from '@angular/common';
-import {HTTP_PROVIDERS} from "@angular/http";
 import { ITicket, Ticket,TicketState} from '../ticket';
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS} from 'ng2-bootstrap/ng2-bootstrap';
 import {ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
@@ -12,7 +11,7 @@ import {TranslatePipe} from "ng2-translate/ng2-translate";
 @Component({
     selector: 'ticket-add-form',
     templateUrl: './src/app/user/ticket/ticket_form/ticket-add-form.html',
-    providers: [HTTP_PROVIDERS, TicketService],
+    providers: [TicketService],
     directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES],
     viewProviders: [BS_VIEW_PROVIDERS],
     pipes: [TicketFilter, TranslatePipe],
@@ -36,12 +35,6 @@ export class TicketAddFormComponent implements OnInit {
     nameTicket:string = '';
     descriptionTicket:string = '';
     assignTicket:string = '';
-
-    openAddModal() {
-        console.log("add modal show");
-
-        this.addModal.show();
-    }
 
     constructor(private ticketService:TicketService,
                 private currentUserService:CurrentUserService,
@@ -67,6 +60,10 @@ export class TicketAddFormComponent implements OnInit {
         this.getAllUsers();
     }
 
+    openAddModal() {
+        this.addModal.show();
+    }
+
     isEmptyName():boolean {
         return this.nameTicket == '' ? false : true;
     }
@@ -76,17 +73,13 @@ export class TicketAddFormComponent implements OnInit {
     }
 
     isFindAssign():boolean {
-        if (this.getAssignedId(this.assignTicket) == null) {
-            return false;
-        }
-        else {
-            return true;
-        }
+        return this.getAssignedId(this.assignTicket) == null ? false : true;
     }
 
     getAllUsers() {
         return this.ticketService.getAllUsers()
-            .then(userAssignArr => this.userAssignArr = userAssignArr);
+            .then(userAssignArr => this.userAssignArr = userAssignArr)
+            .then(console.log("длинна "+ this.userAssignArr.length));       
     }
 
     toggleSubmitAttempt() {
@@ -107,15 +100,13 @@ export class TicketAddFormComponent implements OnInit {
     }
 
     onCreateTicket() {
-        if (this.nameInput.valid && this.descriptionInput.valid && this.assignInput.valid && this.isFindAssign()) {
+        if (this.nameInput.valid && this.descriptionInput.valid && this.assignInput.valid ) {//&& this.isFindAssign()
             this.created.emit(this.createTicket());
             this.closeAddModal();
         }
     }
 
     createTicket():Ticket {
-        console.log("create ticket");
-
         let ticket = new Ticket(this.nameTicket, this.descriptionTicket, TicketState.NEW);
         ticket.user = this.currentUserService.getUser();
         ticket.assigned = this.getAssignedId(this.assignTicket);
@@ -127,7 +118,6 @@ export class TicketAddFormComponent implements OnInit {
         if (name.trim() != '') {
             this.ticketService.findAssignUser(name)
                 .then(userAssignArr => this.userAssignArr = userAssignArr)
-                .then(console.log("this.userAssignArr" + this.userAssignArr.length));
         }
     }
 

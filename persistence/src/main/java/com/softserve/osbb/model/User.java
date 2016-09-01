@@ -204,8 +204,8 @@ public class User  implements Serializable {
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = CascadeType.REMOVE)
+    @JsonIgnore
     public Collection<Message> getMessages() {
-
         return messages;
     }
 

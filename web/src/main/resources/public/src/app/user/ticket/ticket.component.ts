@@ -1,7 +1,6 @@
 import {RouterConfig,RouterOutlet} from "@angular/router";
 import {Component, OnInit} from '@angular/core';
 import {CORE_DIRECTIVES} from '@angular/common';
-import {HTTP_PROVIDERS} from "@angular/http";
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS} from 'ng2-bootstrap/ng2-bootstrap';
 import {ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
 import {Observable} from 'rxjs/Observable';
@@ -25,7 +24,7 @@ import {CurrentUserService} from "./../../../shared/services/current.user.servic
 @Component({
     selector: 'ticket',
     templateUrl: './src/app/user/ticket/ticket.component.html',
-    providers: [HTTP_PROVIDERS, TicketService, MessageComponent, MessageService],
+    providers: [ TicketService, MessageComponent, MessageService],
     directives: [RouterOutlet, ROUTER_DIRECTIVES, MODAL_DIRECTIVES, CORE_DIRECTIVES, TicketAddFormComponent, TicketEditFormComponent, TicketDelFormComponent],
     viewProviders: [BS_VIEW_PROVIDERS],
     pipes: [TranslatePipe],
@@ -35,14 +34,14 @@ import {CurrentUserService} from "./../../../shared/services/current.user.servic
 
 export class TicketComponent implements OnInit {
 
-    private  messageService:MessageService;
+    private messageService:MessageService;
     private ticketArr:ITicket[] = [];
     private updatedTicket:ITicket;
     private messageArr:IMessage[] = [];
     private message:Message;
     private messageComponent:MessageComponent;
     private currentUser:User;
-    private userAssgnArr:User[] = [];
+    private userAssignArr:User[] = [];
     private dates:string[] = [];
     private pageCreator:PageCreator<Ticket>;
     private pageNumber:number = 1;
@@ -52,19 +51,25 @@ export class TicketComponent implements OnInit {
     private selectedRow:number = 10;
     private order:boolean = false;
     nameSort:string = "time";
+    status:string = "";
+    email:string = ""
 
     constructor(private ticketService:TicketService,
                 messageComponent:MessageComponent,
                 private currentUserService:CurrentUserService,
                 private router:Router) {
         this.currentUser = currentUserService.getUser();
-        console.log("user" + this.currentUser);
+        console.log("user: " + this.currentUser);
     }
 
     ngOnInit() {
         this.getTicketsByPageNum(this.pageNumber, this.selectedRow);
     }
 
+   getAllUsers() {
+        return this.ticketService.getAllUsers()
+            .then(userAssignArr => this.userAssignArr = userAssignArr)      
+    }
 
     private initUpdatedTicket(ticket:ITicket):void {
         this.updatedTicket = ticket;
@@ -74,12 +79,19 @@ export class TicketComponent implements OnInit {
         this.ticketService.addTicket(ticket).then(ticket => this.addTicket(ticket));
     }
 
+    
     private addTicket(ticket:ITicket):void {
+      //  this.ticketService.sendEmailAssign(ticket.ticketId);
         this.ticketArr.unshift(ticket);
     }
 
     editTicket(ticket:ITicket):void {
         this.ticketService.editTicket(ticket);
+        let index = this.ticketArr.indexOf(ticket);
+                
+        if (index > -1) {
+            this.ticketArr[index].state = ticket.state;
+        }
     }
 
 
@@ -96,9 +108,8 @@ export class TicketComponent implements OnInit {
     }
 
     findTicketByName(name:string) {
-        this.pageNumber = 1;
         this.pending = true;
-        return this.ticketService.findByName(this.pageNumber, this.selectedRow, this.nameSort, this.order, name)
+        return this.ticketService.findByNameDescription(this.pageNumber, this.selectedRow, this.nameSort, this.order, name)
             .subscribe((data) => {
                     this.pending = false;
                     this.pageCreator = data;
@@ -112,7 +123,46 @@ export class TicketComponent implements OnInit {
                     this.pending = false;
                     console.error(error)
                 });
+    }
 
+  findMyTickets() {
+        this.pending = true;
+        this.email = this.currentUser.email;
+        this.status="";
+        return this.ticketService.findByUser(this.pageNumber, this.selectedRow, this.nameSort, this.order, this.email)
+            .subscribe((data) => {
+                    this.pending = false;
+                    this.pageCreator = data;
+                    this.ticketArr = data.rows;
+                    this.preparePageList(+this.pageCreator.beginPage,
+                        +this.pageCreator.endPage);
+                    this.totalPages = +data.totalPages;
+                    this.dates = data.dates;
+                },
+                (error) => {
+                    this.pending = false;
+                    console.error(error)
+                });
+    }
+
+     findTicketByState(state:string) {
+        this.pending = true;
+        this.status = state;
+        this.email ="";
+        return this.ticketService.findByState(this.pageNumber, this.selectedRow, this.nameSort, this.order, state)
+            .subscribe((data) => {
+                    this.pending = false;
+                    this.pageCreator = data;
+                    this.ticketArr = data.rows;
+                    this.preparePageList(+this.pageCreator.beginPage,
+                        +this.pageCreator.endPage);
+                    this.totalPages = +data.totalPages;
+                    this.dates = data.dates;
+                },
+                (error) => {
+                    this.pending = false;
+                    console.error(error)
+                });
     }
 
     singleTicket(id:number) {
@@ -125,26 +175,61 @@ export class TicketComponent implements OnInit {
     }
 
     selectRowNum(row:number) {
-        this.getTicketsByPageNum(this.pageNumber, row);
+        console.log("selectRowNum");
+        
+        if(this.status != ""){
+            this.findTicketByState(this.status);
+        }
+        else if(this.email != ""){
+            this.findMyTickets();
+        }
+        else {this.getTicketsByPageNum(this.pageNumber, row);
+        }
+       
     }
 
     prevPage() {
+        console.log("prevPage");
+        
         this.pageNumber = this.pageNumber - 1;
+        if(this.status != ""){
+            this.findTicketByState(this.status);
+        }
+        else if(this.email != ""){
+            this.findMyTickets();
+        }
+        else {        
         this.sortBy(this.nameSort);
+        }
     }
 
     nextPage() {
+        console.log("nextPage");
+        
         this.pageNumber = this.pageNumber + 1;
         this.sortBy(this.nameSort);
     }
 
     initPageNum(pageNumber:number, selectedRow:number) {
+        console.log("initPageNum");
+        
         this.pageNumber = +pageNumber;
         this.selectedRow = +selectedRow;
-        this.sortBy("");
+
+        if(this.status != ""){
+            this.findTicketByState(this.status);
+        }
+        else if(this.email != ""){
+            this.findMyTickets();
+        }
+         else{  
+        this.sortBy(this.nameSort);
+         }
     }
 
     getTicketsByPageNum(pageNumber:number, selectedRow:number) {
+        console.log("getTicketsByPageNum");
+        
         this.pageNumber = +pageNumber;
         this.pending = true;
         this.selectedRow = +selectedRow;
@@ -178,14 +263,14 @@ export class TicketComponent implements OnInit {
     }
 
     sortBy(name:string) {
-        console.log('sorted by ', name);
+        console.log("sortBy");
+        
+        this.email = '';
+        this.status ='';
         if (name != '') {
             this.nameSort = name;
             this.order = !this.order;
         }
-        console.log('sorted by AAAA ', this.nameSort);
-
-        console.log('order by asc', this.order);
         this.ticketService.getTicketsSorted(this.pageNumber, this.selectedRow, this.nameSort, this.order)
             .subscribe((data) => {
                     this.pageCreator = data;

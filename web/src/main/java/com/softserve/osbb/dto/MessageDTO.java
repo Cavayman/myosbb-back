@@ -17,7 +17,7 @@ public class MessageDTO {
     private Timestamp time;
     private Ticket ticket;
     private UserDTO user;
-    private Collection<Message> answer = new ArrayList<>();
+   // private Collection<Message> answer = new ArrayList<>();
 
     public Integer getMessageId() {
         return messageId;
@@ -67,13 +67,13 @@ public class MessageDTO {
         this.user = user;
     }
 
-    public Collection<Message> getAnswer() {
+  /*  public Collection<Message> getAnswer() {
         return answer;
     }
 
     public void setAnswer(Collection<Message> answer) {
         this.answer = answer;
-    }
+    }*/
 
     @Override
     public String toString() {
@@ -84,7 +84,7 @@ public class MessageDTO {
                 ", time=" + time +
                 ", ticket=" + ticket +
                 ", user=" + user +
-                ", answers" + answer+
+               // ", answers" + answer+
                 '}';
     }
 }

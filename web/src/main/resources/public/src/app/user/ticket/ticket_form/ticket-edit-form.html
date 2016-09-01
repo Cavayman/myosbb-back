@@ -27,8 +27,8 @@
                     </div>
                     <br>
                 </div>
-                <select class="form-control" style="margin-bottom:10px">
-                    <option *ngFor="let key of states" value={{key}}>{{key}}</option>
+                <select class="form-control" [(ngModel)]="stateTicket" style="margin-bottom:10px">
+                    <option *ngFor="let key of states"  value={{key}}>{{key}}</option>
                 </select>
                 <div class="form-group"
                      [ngClass]="{'has-error' : isFindAssign() && submitAttempt && !assignInput.valid }">

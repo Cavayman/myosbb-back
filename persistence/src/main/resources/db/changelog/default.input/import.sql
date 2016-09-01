@@ -139,3 +139,30 @@ INSERT INTO osbb(  name, description, address, district, creation_date, logo_url
 INSERT INTO osbb(  name, description, address, district, creation_date, logo_url) VALUES ('Сонечко','','м.Львів вул.Наукова 77','Франківський','2015-04-18 10:46:43.221270','http://kyiv.ridna.ua/wp-content/uploads/2015/06/Project2_0014.jpg');
 
 UPDATE house SET osbb_id=1 WHERE house_id=1;
+
+insert into bill(date, to_pay, paid, tariff, apartment_id, provider_id)VALUES('2016-06-28', 240.5,0, 2.5, 1, 1);
+insert into bill(date, to_pay, paid, tariff, apartment_id, status, provider_id) VALUES('2016-06-28', 356,356, 4.5, 1, 'PAID', 1);
+insert into bill(date, to_pay, paid, tariff, apartment_id, provider_id) VALUES('2016-07-28', 240.5,0, 2, 3, 1);
+insert into bill(date, to_pay, paid, tariff, apartment_id, provider_id) VALUES('2016-07-28', 150, 0, 4.5, 2, 1);
+insert into bill(date, to_pay, paid, tariff, apartment_id, status, provider_id) VALUES('2016-07-28', 350.5,0, 4.5, 4, 'PAID', 1);
+
+
+INSERT into ticket(assigned,user_id,name,description,state,"time",state_time)
+           VALUES(1,3,'Назва тікету1','Опис тікету1','NEW','2016-09-02','2016-12-12');
+INSERT into ticket(assigned,user_id,name,description,state,"time",state_time)
+           VALUES(1,5,'Назва тікету2','Опис тікету2','DONE','2016-10-02','2016-12-12');
+INSERT into ticket(assigned,user_id,name,description,state,"time",state_time)
+           VALUES(1,2,'Назва тікету3','Опис тікету3','NEW','2016-11-02','2016-11-12');
+INSERT into ticket(assigned,user_id,name,description,state,"time",state_time)
+           VALUES(1,2,'Назва тікету4','Опис тікету4','DONE','2016-04-02','2016-05-12');
+INSERT into ticket(assigned,user_id,name,description,state,"time",state_time)
+           VALUES(1,3,'Назва тікету5','Опис тікету5','NEW','2016-03-02','2016-05-12');
+INSERT into ticket(assigned,user_id,name,description,state,"time",state_time)
+           VALUES(1,3,'Назва тікету6','Опис тікету6','DONE','2016-01-02','2016-02-12');
+INSERT into ticket(assigned,user_id,name,description,state,"time",state_time)
+           VALUES(1,4,'Назва тікету7','Опис тікету7','NEW','2016-11-02','2016-12-12');
+INSERT into ticket(assigned,user_id,name,description,state,"time",state_time)
+           VALUES(1,5,'Назва тікету8','Опис тікету8','IN_PROGRESS','2016-08-02','2016-09-12');
+INSERT into ticket(assigned,user_id,name,description,state,"time",state_time)
+           VALUES(1,2,'Назва тікету9','Опис тікету9','NEW','2016-10-02','2016-12-12');
+

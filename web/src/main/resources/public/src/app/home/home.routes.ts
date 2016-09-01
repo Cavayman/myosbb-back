@@ -21,13 +21,13 @@ export const homeRoutes: RouterConfig = [
             {path: 'wall', component: HomeWallComponent},
             {path: '', redirectTo: 'wall', pathMatch: 'full'},
             {path: 'event', component: UserEventComponent},
-            {path: 'ticket', component: TicketComponent},
+            {path: 'home/ticket', component: TicketComponent},
             {path: 'osbb', component: OsbbComponent},
             {path:'provider/info', component:ProviderUserPageWrapperComponent},
             {path:'provider/info/:id', component:ProviderInfoPageWrapperComponent},
             {path: 'houses', component: HouseTableComponent},
             {path: 'house/:id', component: HouseShowComponent},
-            {path: 'message/:id', component: MessageComponent},
+            {path: 'ticket/:id', component: MessageComponent},
         ]
     },
 

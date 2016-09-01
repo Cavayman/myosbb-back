@@ -1,5 +1,6 @@
 package com.softserve.osbb.dto;
 
+import com.softserve.osbb.model.Message;
 import com.softserve.osbb.model.enums.TicketState;
 
 import java.sql.Timestamp;
@@ -17,7 +18,6 @@ public class TicketDTO {
     private Timestamp time;
     private UserDTO user;
     private UserDTO assigned;
-    private List<MessageDTO> messageDTOList;
 
     public TicketDTO() {
     }
@@ -29,14 +29,6 @@ public class TicketDTO {
         this.state = state;
         this.stateTime = stateTime;
         this.time = time;
-    }
-
-    public List<MessageDTO> getMessageDTOList() {
-        return messageDTOList;
-    }
-
-    public void setMessageDTOList(List<MessageDTO> messageDTOList) {
-        this.messageDTOList = messageDTOList;
     }
 
     public Integer getTicketId() {
@@ -113,7 +105,6 @@ public class TicketDTO {
                 ", stateTime=" + stateTime +
                 ", time=" + time +
                 ", user=" + user +
-                ", message="+messageDTOList+
                 '}';
     }
 }

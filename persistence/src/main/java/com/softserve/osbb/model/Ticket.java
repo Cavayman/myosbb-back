@@ -86,7 +86,7 @@ public class Ticket {
         this.time = time;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     public User getUser() {
         return user;
@@ -117,7 +117,7 @@ public class Ticket {
         this.stateTime = stateTime;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "assigned")
     public User getAssigned() {
         return assigned;

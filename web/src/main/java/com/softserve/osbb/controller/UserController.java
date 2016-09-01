@@ -1,5 +1,7 @@
 package com.softserve.osbb.controller;
 
+import com.softserve.osbb.dto.UserDTO;
+import com.softserve.osbb.dto.UserDTOMapper;
 import com.softserve.osbb.model.User;
 import com.softserve.osbb.service.UserService;
 
@@ -100,7 +102,8 @@ public class UserController {
         resource.add(linkTo(methodOn(UserController.class).getUser(user.getUserId().toString())).withSelfRel());
 //        resource.add(linkTo(methodOn(ApartmentController.class).getAppartmentByOwner(user.getUserId())).withRel("apartments "));
         return resource;
-
     }
+
+
 
 }

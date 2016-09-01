@@ -1,8 +1,12 @@
 package com.softserve.osbb.controller;
 
+
 import com.softserve.osbb.model.Osbb;
+import com.softserve.osbb.model.Ticket;
+
 import com.softserve.osbb.model.User;
 import com.softserve.osbb.service.OsbbService;
+import com.softserve.osbb.service.TicketService;
 import com.softserve.osbb.service.UserService;
 import com.softserve.osbb.service.impl.MailSenderImpl;
 import org.slf4j.Logger;
@@ -88,6 +92,7 @@ public class BasicController {
         }
         return HttpStatus.NOT_FOUND;
     }
+
     @RequestMapping(value = "/registration/osbb", method = RequestMethod.POST)
     public Osbb putOsbb(@RequestBody Osbb osbb) {
         logger.info("Saving osbb, sending to service");
@@ -112,5 +117,38 @@ public class BasicController {
                 .getOsbbById(osbb.getOsbbId()))
                 .withSelfRel());
         return osbbResource;
+    }
+
+    @Autowired
+    TicketService ticketService;
+
+    @RequestMapping(value = "/sendEmailAssign", method = RequestMethod.POST)
+    public HttpStatus sendEmailAssignTicket(@RequestBody Integer ticketId) throws MessagingException {
+        Ticket ticket = ticketService.findOne(ticketId);
+        logger.info("Send sendEmailAssignTicket "+ ticket.getUser().getEmail());
+
+        if(ticket.getAssigned().getEmail()!=null) {
+            sender.send(ticket.getAssigned().getEmail(),"My-osbb. You elected responsible.", "Name ticket: "+ ticket.getName()+
+                    " To see more information, click on link: "+"\n" +
+                    "192.168.195.250:8080/myosbb/home/user/ticket"+ticket.getTicketId());
+            return HttpStatus.ACCEPTED;
+        }
+        return HttpStatus.NOT_FOUND;
+    }
+
+    @RequestMapping(value = "/sendEmailState", method = RequestMethod.POST)
+    public HttpStatus sendEmailStateTicket(@RequestBody Integer ticketId) throws MessagingException {
+
+        Ticket ticket = ticketService.findOne(ticketId);
+        logger.info("Send sendEmailStateTicket "+ ticket.getUser().getEmail());
+        if(ticket.getUser().getEmail()!=null) {
+            sender.send(ticket.getAssigned().getEmail(),"My-osbb. Change state of your ticket.", "Name ticket: "+ ticket.getName()+
+                    " New status: "+ ticket.getState() +"\n" +
+                    " To see more information, click on link: "+
+                    "192.168.195.250:8080/myosbb/home/user/ticket"+ticket.getTicketId());
+            return HttpStatus.ACCEPTED;
+        }
+        return HttpStatus.NOT_FOUND;
+
     }
 }

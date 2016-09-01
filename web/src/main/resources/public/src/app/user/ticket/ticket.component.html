@@ -9,6 +9,10 @@
                 <ticket-edit-form [ticket]="updatedTicket" (update)="editTicket($event)" #editForm></ticket-edit-form>
                 <ticket-del-form (delete)="deleteTicket($event)" #delForm></ticket-del-form>
 
+                            <span class="label btn-round label-danger" style="cursor:pointer;float:right;margin-left: 20px;" (click)="findTicketByState('DONE')">DONE</span>
+                            <span class="label btn-round label-success" style="cursor:pointer;float:right;margin-left: 20px;" (click)="findTicketByState('IN_PROGRESS')">IN_PROGRESS</span>
+                            <span class="label btn-round label-info" style="cursor:pointer;float:right;margin-left: 20px;" (click)="findTicketByState('NEW')">NEW</span>
+                            <button type="button" class="btn btn-default btn-xs" style="cursor:pointer;float:right;margin-left: 20px;"  (click)="findMyTickets()">My tickets</button>
             </div>
 
             <div id="example_filter" class="pull-right dataTables_filter">

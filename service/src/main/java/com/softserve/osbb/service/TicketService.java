@@ -2,6 +2,8 @@ package com.softserve.osbb.service;
 
 import com.softserve.osbb.model.Report;
 import com.softserve.osbb.model.Ticket;
+import com.softserve.osbb.model.User;
+import com.softserve.osbb.model.enums.TicketState;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -61,5 +63,7 @@ public interface TicketService {
 
     Page<Ticket> getTicketsByName(String name,PageRequest pageRequest);
 
+    Page<Ticket> getTicketsByState(TicketState ticketState, PageRequest pageRequest);
 
+    Page<Ticket> getTicketsByUser(User user, PageRequest pageRequest);
 }

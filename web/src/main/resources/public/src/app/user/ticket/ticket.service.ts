@@ -4,7 +4,7 @@ import "rxjs/add/operator/map";
 import "rxjs/add/operator/toPromise";
 import ApiService = require("../../../shared/services/api.service");
 import {User} from './../user';
-import {ITicket} from './ticket';
+import {ITicket,TicketState} from './ticket';
 
 @Injectable()
 export class TicketService {
@@ -17,8 +17,12 @@ export class TicketService {
     private getAssignUser:string = ApiService.serverUrl + '/restful/user/assigned';
     private getTicketByPage:string = ApiService.serverUrl + '/restful/ticket/page';
     private getUsers:string = ApiService.serverUrl + '/restful/user';
-    private findTicketByName:string = ApiService.serverUrl + '/restful/ticket/name';
-
+    private findTicketByName:string = ApiService.serverUrl + '/restful/ticket/findName';
+    private sendEmailAssignUrl:string = ApiService.serverUrl + '/sendEmailAssign';
+    private sendEmailStateUrl:string = ApiService.serverUrl + '/sendEmailState';
+    private findTicketByState:string = ApiService.serverUrl + '/restful/ticket/state';
+    private findTicketByUser:string = ApiService.serverUrl + '/restful/ticket/userEmail';
+    private aaa:string = ApiService.serverUrl + '/sendEmailMail';
     constructor(private http:Http) {
     }
 
@@ -35,8 +39,20 @@ export class TicketService {
             .catch((error)=>Observable.throw(error));
     }
 
-    findByName(pageNumber:number, selectedRow:number, name:string, order:boolean, findName:string):Observable<any> {
-        return this.http.get(this.findTicketByName + '?pageNumber=' + pageNumber + '&&sortedBy=' + name + '&&order=' + order + '&&rowNum=' + selectedRow + '&&findName=' + findName)
+    findByNameDescription(pageNumber:number, selectedRow:number, name:string, order:boolean, findName:string):Observable<any> {
+        return this.http.get(this.findTicketByName + '?pageNumber=' + pageNumber + '&&sortedBy=' + name + '&&order=' + order + '&&rowNum=' + selectedRow + '&&find=' + findName)
+            .map((response)=> response.json())
+            .catch((error)=>Observable.throw(error));
+    }
+
+    findByUser(pageNumber:number, selectedRow:number, name:string, order:boolean, email:string):Observable<any> {
+        return this.http.get(this.findTicketByUser + '?pageNumber=' + pageNumber + '&&sortedBy=' + name + '&&order=' + order + '&&rowNum=' + selectedRow + '&&find=' + email)
+            .map((response)=> response.json())
+            .catch((error)=>Observable.throw(error));
+    }
+
+    findByState(pageNumber:number, selectedRow:number, name:string, order:boolean, findName:TicketState):Observable<any> {
+        return this.http.get(this.findTicketByState + '?pageNumber=' + pageNumber + '&&sortedBy=' + name + '&&order=' + order + '&&rowNum=' + selectedRow + '&&findName=' + findName)
             .map((response)=> response.json())
             .catch((error)=>Observable.throw(error));
     }
@@ -85,13 +101,21 @@ export class TicketService {
             .catch(this.handleError);
     }
 
-    findAssignUser(name:string):Promise<User[]> {
+    findAssignUser(name:string) {
         let url = `${this.getAssignUser}/${name}`;
         return this.http.get(url)
             .toPromise()
             .then(res => res.json())
             .catch(this.handleError);
     }
+
+    sendEmailAssign(ticketId:number){
+        return this.http.post(this.sendEmailAssignUrl, JSON.stringify(ticketId))
+            .toPromise()
+            .then(res => res.json())
+            .catch(this.handleError);
+    }
+   
 
 
     private handleError(error:any):Promise<any> {
