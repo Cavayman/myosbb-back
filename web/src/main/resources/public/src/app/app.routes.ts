@@ -10,6 +10,7 @@ import {RegistrationComponent} from "./registration/registration.component";
 import {ErrorHandlerComponent} from "../shared/error/error.handler.component";
 import {adminRoutes} from "./admin/admin.routes";
 import {RegistrationOsbbComponent} from "./registration/registration.osbb.component";
+import {JoinOsbbComponent} from "./registration/join.osbb.component";
 
 
 export const routes: RouterConfig = [
@@ -17,6 +18,7 @@ export const routes: RouterConfig = [
     {path: 'login', component: LoginComponent},
     {path: 'registration', component: RegistrationComponent},
     {path: 'registration/osbb', component: RegistrationOsbbComponent},
+    {path: 'join/osbb', component: JoinOsbbComponent},
     {path: '', redirectTo: 'login', pathMatch: 'full'},
     {path: 'home', component: HomeComponent},
     {path: 'ticket/:id', component: MessageComponent},
