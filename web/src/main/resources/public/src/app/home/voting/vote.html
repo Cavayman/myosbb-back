@@ -2,12 +2,9 @@
 <vote-del-form (delete)="deleteVote($event)" #delForm></vote-del-form>
 <vote-close-form (close)="closeVote($event)" #closeForm></vote-close-form>
 <div class="vote-box" *ngFor="let vote of voteArr">
-    <div *ngIf="isCurrentUserCreator(vote)">
-        <button type="button" class="close" aria-label="Close" (click)="delForm.openDelModal(vote)">
-                        <span aria-hidden="true">&times;</span>
-        </button>
-        <button type="button" class="close glyphicon glyphicon-cog" aria-label="Close" (click)="closeForm.openCloseModal(vote)">
-        </button>
+   <div *ngIf="isCurrentUserCreator(vote)">
+        <button type="button" class="close glyphicon glyphicon-remove" aria-label="Close" (click)="delForm.openDelModal(vote)"></button>
+        <button type="button" class="close glyphicon glyphicon-cog" aria-label="Close" (click)="closeForm.openCloseModal(vote)"></button>
     </div>
     <div class="question-box" *ngIf="vote.available">
         <ul>

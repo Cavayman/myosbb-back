@@ -119,3 +119,17 @@ insert into bill(date, to_pay, paid, tariff, apartment_id, provider_id, status) 
 insert into bill(date, to_pay, paid, tariff, apartment_id, provider_id, status) VALUES('2016-08-28', 199, 0, 2, 3, 3, 'NOT_PAID');
 insert into bill(date, to_pay, paid, tariff, apartment_id, provider_id, status) VALUES('2016-08-28', 120, 120, 4.5, 6, 6, 'PAID');
 insert into bill(date, to_pay, paid, tariff, apartment_id, status, provider_id) VALUES('2016-08-28', 150.5,150.5, 4, 7, 'PAID', 1);
+
+
+
+INSERT INTO osbb(  name, description, address, district, creation_date, logo_url) VALUES ('Мій Дім','осбб для людей','м.Львів вул.Городоцька 147а','Залізничний','2016-09-01 10:46:43.221000','http://itukraine.org.ua/sites/default/files/news/sserve.jpg');
+INSERT INTO osbb(  name, description, address, district, creation_date, logo_url) VALUES ('Червона Калина','найкраще осбб','м.Львів вул.В.Великого 99','Франківський','2014-09-05 10:46:43.221220','http://ua-ekonomist.com/uploads/posts/2013-08/1376494055_932378712.jpg');
+INSERT INTO osbb(  name, description, address, district, creation_date, logo_url) VALUES ('Двір','рівні права','м.Львів вул.Б.Хмельницького 77','Франківський','2012-05-27 08:20:43.221000','http://news.dks.ua/images/0915/i_08091517_1.jpg');
+INSERT INTO osbb(  name, description, address, district, creation_date, logo_url) VALUES ('Район','осбб','м.Львів вул.Сихівськаа 33','Сихів','2015-10-15 10:46:43.221000','http://www.abmk.com.ua/content/images/projects/138047835156_orig.jpg');
+INSERT INTO osbb(  name, description, address, district, creation_date, logo_url) VALUES ('Надія','файне осбб','м.Львів вул.Гната Хоткевича 47а','Сихів','2010-08-01 10:46:43.221000','http://nomerodyn.com/public/img/big/main.jpg');
+INSERT INTO osbb(  name, description, address, district, creation_date, logo_url) VALUES ('Весна',' ','м.Львів вул.Проспект Червоної Калини 11','Сихів','2016-05-10 12:46:43.221000','http://archfest.com/web/images/139479223222_1.jpg');
+INSERT INTO osbb(  name, description, address, district, creation_date, logo_url) VALUES ('Мрія',' ','м.Львів вул.Городоцька 147а','Залізничний','2016-09-01 10:46:43.221000','https://www.askideas.com/media/39/Awesome-Empire-State-Building-Picture.jpg');
+INSERT INTO osbb(  name, description, address, district, creation_date, logo_url) VALUES ('Моя Оселя','','м.Львів вул.Повітряна 17б','Залізничний','2013-10-12 08:46:43.221340','http://img1.globalinfo.ua/im/2014/02/12/TZA04E.jpg');
+INSERT INTO osbb(  name, description, address, district, creation_date, logo_url) VALUES ('Сонечко','','м.Львів вул.Наукова 77','Франківський','2015-04-18 10:46:43.221270','http://kyiv.ridna.ua/wp-content/uploads/2015/06/Project2_0014.jpg');
+
+UPDATE house SET osbb_id=1 WHERE house_id=1;
