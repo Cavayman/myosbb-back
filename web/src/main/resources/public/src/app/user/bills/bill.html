@@ -293,6 +293,6 @@
     </div>
     <!-- loading circle -->
     <div class="loader" *ngIf="pending"></div>
-    <bill-chart *ngIf="osbbRole == 'HEAD'"></bill-chart>
+    <bill-chart [bills]="bills" *ngIf="osbbRole == 'HEAD'"></bill-chart>
 </div>
 
