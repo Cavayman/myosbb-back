@@ -51,9 +51,10 @@ export class HttpClient extends Http {
             options.headers = new Headers();
         }
         if ((localStorage.getItem(this.tokenName) != null) && (localStorage.getItem(this.tokenName) != "")) {
-            options.headers.delete('Authorization');
-            options.headers.append('Authorization', 'Bearer ' + localStorage.getItem(this.tokenName));
-            if(!options.headers.has("Content-Type"))
+            if (!options.headers.has("Authorization")) {
+                options.headers.delete('Authorization');
+                options.headers.append('Authorization', 'Bearer ' + localStorage.getItem(this.tokenName));
+            } if(!options.headers.has("Content-Type"))
             options.headers.append('Content-Type', `application/json`);
         } else {
             options.headers.append('Authorization', `Basic  Y2xpZW50YXBwOjEyMzQ1Ng==`);
@@ -69,6 +70,7 @@ export class HttpClient extends Http {
         return observable.catch((err, source) => {
             if (err.status == 401) {
                 this._router.navigate(['/login']);
+                localStorage.clear();
                 return Observable.empty();
             } else {
                 return Observable.throw(err);

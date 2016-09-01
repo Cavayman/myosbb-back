@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
@@ -41,6 +42,8 @@ public class BasicController {
     UserService userService;
     @Autowired
     OsbbService osbbService;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
    /* @RequestMapping(value = "user/login", method = RequestMethod.POST)
     public String login(@RequestBody Map<String, String> json) throws ServletException {
@@ -87,7 +90,7 @@ public class BasicController {
     public HttpStatus sendEmailOnMail(@RequestBody String email) throws MessagingException {
         User user=userService.findUserByEmail(email);
         if(user!=null) {
-            sender.send(email,"My-osbb.Your forgoten password","Hello there friend here is your pass:"+user.getPassword());
+            sender.send(email,"My-osbb.Your forgoten password","Hello there friend here is your pass:"+passwordEncoder.encode(user.getPassword()));
             return HttpStatus.ACCEPTED;
         }
         return HttpStatus.NOT_FOUND;

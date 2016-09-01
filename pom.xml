@@ -92,9 +92,9 @@
             </build>
             <properties>
                 <db.driver>org.postgresql.Driver</db.driver>
-                <db.connectionURL>jdbc:postgresql://fizzy-cherry.db.elephantsql.com:5432/aqzreszw</db.connectionURL>
-                <db.username>aqzreszw</db.username>
-                <db.password>Fi8O8oJfDiGcIkASAL8fR6snko57_S_T</db.password>
+                <db.connectionURL>jdbc:postgresql://localhost:5432/myosbb</db.connectionURL>
+                <db.username>postgres</db.username>
+                <db.password>1111</db.password>
             </properties>
         </profile>
         <profile>

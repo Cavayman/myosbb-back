@@ -33,16 +33,21 @@
                 <h5 class="col-xs-6">{{currentUser.phoneNumber}}</h5>
             </div>
             <div class="col-xs-12">
-                <label class="col-xs-6"><b>Гендер</b></label>
-                <h5 class="col-xs-6">{{currentUser.gender}}</h5>
+                <label class="col-xs-6"><b>Активований</b></label>
+                <h5 class="col-xs-6">{{currentUser.activated}}</h5>
+            </div>
+            <div class="col-xs-12">
             </div>
         </div>
-        <!--<div class="col-xs-12 images">
-            
-            <div class="col-xs-3 task-panel tasks-widget"><img src="http://cs633129.vk.me/v633129356/27c69/drkgN_DukxQ.jpg" class="center-block img-circle"></div>
-            <div class="col-xs-3 task-panel tasks-widget"><img src="http://cs633129.vk.me/v633129356/27c69/drkgN_DukxQ.jpg" class="center-block img-circle"></div>
-            <div class="col-xs-3 task-panel tasks-widget"><img src="http://cs633129.vk.me/v633129356/27c69/drkgN_DukxQ.jpg" class="center-block img-circle"></div>
-        </div>-->
+      <div class="col-xs-12 task-panel tasks-widget images">
+            <div class="col-xs-9 ">
+                <label><b>Вхід дійсний до</b></label>
+                <h2>{{expToken}}</h2>
+            </div>
+        <div class="col-xs-3">
+          <button class="btn btn-primary" (click)="refreshToken()"><i class="fa fa-refresh fa-5x" aria-hidden="true"></i></button>
+</div>
+        </div>
     </div>
 
 

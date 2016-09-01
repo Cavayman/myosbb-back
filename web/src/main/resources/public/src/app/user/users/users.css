@@ -1,27 +1,4 @@
-.myuserstable {
-
-    height: 100%;
-    opacity:1;
-    padding:4px 30px 0px 40px;
+.table-head{
+    position:fixed;
 
 }
-.table-top{
-
-    border-radius:3px 3px 0 0 ;
-    padding:10px 0 10px 0;
-    background-color:#68DFF0;
-    text-align: center;
-    margin-bottom: 3px;
-    font-weight: bold;
-    color:white;
-}
-.table-content{
-    overflow-y: auto;    /* Trigger vertical scroll    */
-    overflow-x: hidden;  /* Hide the horizontal scroll */
-    height:75%;
-    background-color:whitesmoke;
-    margin-bottom:10px;
-    border-radius:0px 0px 3px 3px ;
-}
-
-

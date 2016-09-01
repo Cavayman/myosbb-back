@@ -62,7 +62,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .authorities("ROLE_TRUSTED_CLIENT")
                 .scopes("read", "write")
                 .resourceIds(RESOURCE_ID)
-                .secret("123456");
+                .secret("123456")
+                .accessTokenValiditySeconds(600);
     }
     @Bean
     public JwtAccessTokenConverter accessTokenConverter() {

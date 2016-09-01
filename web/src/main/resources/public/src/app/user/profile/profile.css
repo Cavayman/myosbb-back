@@ -14,13 +14,10 @@
     text-align:left;
 }
 .image{
-    margin-bottom:25%;
-    margin-left:  auto;
-    margin-right:  auto;
+    pading-bottom:29px;
 }
-.images> img{
-    height:18%;
-    max-width: 100%;
+.images{
+    height:23.5%;
 }
 .task-panel{
     padding: 20px 10px 20px 10px;

@@ -18,7 +18,7 @@ import emailMask from 'node_modules/text-mask-addons/dist/emailMask.js'
 export class LoginComponent implements OnInit {
 
     ngOnInit():any {
-
+        this.isLoggedIn=this.loginService.checkLogin();
     }
 
     public emailMask = emailMask;
@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
     tokenParseInLocalStorage(data:any) {
         localStorage.setItem("access_token", data.access_token);
         localStorage.setItem("token_type", data.token_type);
-        localStorage.setItem("expires_in", data.expires_in);
+        localStorage.setItem("expires_in",new Date().setSeconds(data.expires_in));
         localStorage.setItem("scope", data.scope);
         localStorage.setItem("jti", data.jti);
         localStorage.setItem("refresh_token", data.refresh_token);

@@ -24,7 +24,6 @@
     "angular2-in-memory-web-api": "0.0.14",
     "angular2-jwt": "^0.1.16",
     "angular2-text-mask": "^0.16.3",
-    "text-mask-addons": "0.6.0",
     "angular2-toaster": "0.3.6-rc.4",
     "base64-url": "^1.3.2",
     "bootstrap": "^3.3.6",
@@ -43,6 +42,7 @@
     "ng2-datetime-picker": "0.5.4",
     "ng2-file-upload": "1.0.3",
     "ng2-select": "^1.0.3",
+    "ng2-timer": "^0.3.0",
     "primeng": "1.0.0-beta.11",
     "primeui": "4.1.14",
     "reflect-metadata": "^0.1.3",
@@ -50,10 +50,7 @@
     "select2": "^4.0.3",
     "systemjs": "0.19.27",
     "text-mask-addons": "0.6.0",
-    "zone.js": "^0.6.12",
-    "primeui": "4.1.14",
-    "primeng": "1.0.0-beta.11",
-    "fullcalendar": "3.0.0-beta"
+    "zone.js": "^0.6.12"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.5",

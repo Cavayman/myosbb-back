@@ -24,7 +24,7 @@ export const userRoutes:RouterConfig = [
     {
         path: 'home/user',
         children: [
-            {path: 'main', component: UserMainComponent},
+            {path: 'main', component: ProfileComponent},
             {path: '', redirectTo: 'main', pathMatch: 'full'},
             {path: 'apartment', component: UserApartmentComponent},
             {path: 'event', component: UserEventComponent},

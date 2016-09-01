@@ -78,4 +78,5 @@ export class LoginService {
     public static decodeAccessToken(access_token:string) {
         return JSON.parse(window.atob(access_token.split('.')[1]));
     }
+   
 }
