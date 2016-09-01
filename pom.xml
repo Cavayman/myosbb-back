@@ -62,12 +62,12 @@
     </dependencies>
 
     <!--<build>-->
-    <!--<resources>-->
-    <!--<resource>-->
-    <!--<directory>persistence/src/main/resources</directory>-->
-    <!--<filtering>true</filtering>-->
-    <!--</resource>-->
-    <!--</resources>-->
+        <!--<resources>-->
+            <!--<resource>-->
+                <!--<directory>persistence/src/main/resources</directory>-->
+                <!--<filtering>true</filtering>-->
+            <!--</resource>-->
+        <!--</resources>-->
     <!--</build>-->
 
 
@@ -113,7 +113,7 @@
             </build>
             <properties>
                 <db.driver>org.postgresql.Driver</db.driver>
-                <db.connectionURL>jdbc:postgresql://localhost:5432/osbb</db.connectionURL>
+                <db.connectionURL>jdbc:postgresql://localhost:5432/myosbb</db.connectionURL>
                 <db.username>postgres</db.username>
                 <db.password>postgres</db.password>
             </properties>
