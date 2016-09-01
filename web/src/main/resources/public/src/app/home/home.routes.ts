@@ -8,6 +8,8 @@ import {HouseTableComponent} from "../house/house.table.component";
 import {HouseShowComponent} from "../house/house.show.component";
 import {MessageComponent} from "../user/ticket/single.ticket.component";
 import {HomeWallComponent} from "./home_wall/home.wall.component";
+import {ProviderUserPageWrapperComponent} from "../user/provider/provider_home/provider-user-page.component.wrapper";
+import {ProviderInfoPageWrapperComponent} from "../user/provider/provider-info-page-wrapper.component";
 
 export const homeRoutes: RouterConfig = [
     {
@@ -21,7 +23,8 @@ export const homeRoutes: RouterConfig = [
             {path: 'event', component: UserEventComponent},
             {path: 'ticket', component: TicketComponent},
             {path: 'osbb', component: OsbbComponent},
-            {path: 'provider', component: ProviderComponent},
+            {path:'provider/info', component:ProviderUserPageWrapperComponent},
+            {path:'provider/info/:id', component:ProviderInfoPageWrapperComponent},
             {path: 'houses', component: HouseTableComponent},
             {path: 'house/:id', component: HouseShowComponent},
             {path: 'message/:id', component: MessageComponent},

@@ -13,7 +13,9 @@ import {TranslatePipe} from "ng2-translate/ng2-translate";
     templateUrl: 'src/app/user/provider/provider-info.html',
     providers: [ProviderService],
     pipes: [TranslatePipe, CapitalizeFirstLetterPipe],
-    styleUrls: ['src/app/user/profile/profile.css'],
+    styleUrls: ['src/app/user/profile/profile.css',
+        'src/app/house/house.css', 'src/shared/css/loader.css', 'src/shared/css/general.css'],
+
 })
 export class ProviderInfoComponent {
     private sub: any;

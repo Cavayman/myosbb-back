@@ -24,3 +24,7 @@ a {
 .ng-invalid {
     border-left: 5px solid #a94442; /* red */
 }
+
+.sb-backdown {
+    margin-left: 210px
+}

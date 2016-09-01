@@ -46,9 +46,7 @@
                 </thead>
                 <tbody>
 
-                <tr *ngFor="let contract of contracts" >
-                    <!--[style.background-color] = "contract.active ? 'green' : 'red'">-->
-                    <!--[ng-class]="{active: contract.active, disabled: !contract.active}" >-->
+                <tr *ngFor="let contract of contracts"  [class.success]="contract.active" [class.danger]="!contract.active" >
                     <td>{{ contract.provider.name }} <img style="max-height: 30px; max-width: 30px"></td>
                     <td>{{ contract.dateStart }}</td>
                     <td>{{ contract.dateFinish }}</td>
@@ -115,50 +113,58 @@
                             <div class="modal-body">
 
                                 <select-provider (providerChanged)="editCompany($event)" [selected]="selected.provider"></select-provider> <!-- Company -->
+                                <div  *ngIf="selected.provider.providerId != null" >
 
-                                <div class="form-group">
-                                    <label> {{ 'dateStart' | translate | capitalize }}</label>
-                                    <input type="date" class="form-control" required
-                                           name="dateStart" [(ngModel)]="selected.dateStart"
-                                           #dateStart="ngModel">
-                                    <div [hidden]="dateStart.valid"
-                                         class="alert alert-danger">
-                                        {{ 'required' | translate | capitalize }}
-                                    </div>
-                                </div> <!-- data start -->
+                                    <div class="form-group">
+                                        <label> {{ 'dateStart' | translate | capitalize }}</label>
+                                        <input type="date" class="form-control" required (keyup)="clearDateValid()"
+                                               name="dateStart" [(ngModel)]="selected.dateStart"
+                                               #dateStart="ngModel">
+                                        <div [hidden]="dateStart.valid"
+                                             class="alert alert-danger">
+                                            {{ 'required' | translate | capitalize }}
+                                        </div>
+                                        <div [hidden]="startBeforeBegin" class="alert alert-danger">
+                                            {{'begin_end_date_err' | translate}}
+                                        </div>
+                                    </div> <!-- data start -->
 
-                                <div class="form-group">
-                                    <label> {{ 'dateFinish' | translate | capitalize }}</label>
-                                    <input type="date" class="form-control" required
-                                           name="description" [(ngModel)]="selected.dateFinish"
-                                           #dateFinish="ngModel">
-                                    <div [hidden]="dateFinish.valid"
-                                         class="alert alert-danger">
-                                        {{ 'required' | translate | capitalize }}
-                                    </div>
-                                </div> <!-- date finish -->
+                                    <div class="form-group">
+                                        <label> {{ 'dateFinish' | translate | capitalize }}</label>
+                                        <input type="date" class="form-control" required (keyup)="clearDateValid()"
+                                               name="description" [(ngModel)]="selected.dateFinish"
+                                               #dateFinish="ngModel">
+                                        <div [hidden]="dateFinish.valid"
+                                             class="alert alert-danger">
+                                            {{ 'required' | translate | capitalize }}
+                                        </div>
+                                        <div [hidden]="validEndDate" class="alert alert-danger">
+                                            {{'post_date_err' | translate}}
+                                        </div>
+                                    </div> <!-- date finish -->
 
-                                <div class="form-group">
-                                    <label> {{ 'price' | translate | capitalize }}</label>
-                                    <input type="number" class="form-control" required
-                                           name="price" [(ngModel)]="selected.price"
-                                           #price="ngModel">
-                                    <currency [currentCurrency]="selected.priceCurrency"  (currencyChanged)="selectCurrency($event)"></currency>
+                                    <div class="form-group">
+                                        <label> {{ 'price' | translate | capitalize }}</label>
+                                        <input type="number" class="form-control" required
+                                               name="price" [(ngModel)]="selected.price"
+                                               #price="ngModel">
+                                        <currency [currentCurrency]="selected.priceCurrency"  (currencyChanged)="selectCurrency($event)"></currency>
 
-                                    <div [hidden]="price.valid || price.pristine"
-                                         class="alert alert-danger">
-                                        {{ 'required' | translate | capitalize }}
-                                    </div>
-                                </div> <!-- price -->
+                                        <div [hidden]="price.valid || price.pristine"
+                                             class="alert alert-danger">
+                                            {{ 'required' | translate | capitalize }}
+                                        </div>
+                                    </div> <!-- price -->
 
-                                <div class="form-group">
-                                    <label> {{ 'text' | translate | capitalize }}</label>
+                                    <div class="form-group">
+                                        <label> {{ 'text' | translate | capitalize }}</label>
 
-                                    <textarea  class="form-control" name="text" [(ngModel)]="selected.text"
-                                           #text="ngModel"></textarea>
-                                </div> <!-- text -->
-
-
+                                        <textarea  class="form-control" name="text" [(ngModel)]="selected.text" required
+                                               #text="ngModel"></textarea>
+                                    </div> <!-- text -->
+                                </div>
+                                <img src="assets/img/list.png" class="img-rounded" alt="contract" width="220"
+                                     height="220">
                             </div>
 
 
@@ -191,42 +197,52 @@
                             <div class="modal-body">
 
                                 <select-provider (providerChanged)="selectCompany($event)"></select-provider> <!-- Company -->
+                                <div  *ngIf="newContract.provider.providerId != null" >
+                                    <div class="form-group">
+                                        <label> {{ 'dateStart' | translate | capitalize }}
+                                        </label>
+                                        <input type="date" class="form-control" required (keyup)="clearDateValid()"
+                                               name="date" [(ngModel)]="newContract.dateStart" #dateStart="ngModel">
+                                        <div [hidden]="dateStart.valid || dateStart.pristine"
+                                             class="alert alert-danger">
+                                            {{ 'required' | translate | capitalize }}
+                                        </div>
+                                        <div [hidden]="startBeforeBegin" class="alert alert-danger">
+                                            {{'begin_end_date_err' | translate}}
+                                        </div>
+                                    </div>
 
-                                <div class="form-group">
-                                    <label> {{ 'dateStart' | translate | capitalize }}
+                                    <div class="form-group">
+                                        <label> {{ 'dateFinish' | translate | capitalize }}
+                                        </label>
+                                        <input type="date" class="form-control" required (keyup)="clearDateValid()"
+                                               name="dateFinish" [(ngModel)]="newContract.dateFinish" #dateFinish="ngModel">
+                                        <div [hidden]="dateFinish.valid || dateFinish.pristine" class="alert alert-danger">
+                                            {{ 'required' | translate | capitalize }}
+                                        </div>
+                                        <div [hidden]="validEndDate" class="alert alert-danger">
+                                        {{'post_date_err' | translate}}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group"><label>{{ 'price' | translate | capitalize }}
                                     </label>
-                                    <input type="date" class="form-control" required
-                                           name="date" [(ngModel)]="newContract.dateStart" #dateStart="ngModel">
-                                    <div [hidden]="dateStart.valid || dateStart.pristine" class="alert alert-danger">
-                                        {{ 'required' | translate | capitalize }}
+                                        <input type="number" class="form-control" required [(ngModel)]="newContract.price"
+                                               name="price" #price="ngModel">
+
+                                        <div [hidden]="price.valid || price.pristine" class="alert alert-danger">
+                                            {{ 'required' | translate | capitalize }}
+                                        </div>
+                                        <currency [currentCurrency]="UAH" (currencyChanged)="selectCurrency($event)"></currency>
+
+                                    </div>
+                                    <div class="form-group"><label>{{ 'text' | translate | capitalize }}</label>
+                                        <textarea  class="form-control" name="text" [(ngModel)]="newContract.text" required
+                                              #text="ngModel"></textarea>
                                     </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label> {{ 'dateFinish' | translate | capitalize }}
-                                    </label>
-                                    <input type="date" class="form-control" required
-                                           name="date" [(ngModel)]="newContract.dateFinish" #dateFinish="ngModel">
-                                    <div [hidden]="dateFinish.valid || dateFinish.pristine" class="alert alert-danger">
-                                        {{ 'required' | translate | capitalize }}
-                                    </div>
-                                </div>
-
-                                <div class="form-group"><label>{{ 'price' | translate | capitalize }}
-                                </label>
-                                    <input type="number" class="form-control" required [(ngModel)]="newContract.price"
-                                           name="price" #price="ngModel">
-
-                                    <div [hidden]="price.valid || price.pristine" class="alert alert-danger">
-                                        {{ 'required' | translate | capitalize }}
-                                    </div>
-                                    <currency [currentCurrency]="UAH" (currencyChanged)="selectCurrency($event)"></currency>
-
-                                </div>
-                                <div class="form-group"><label>{{ 'text' | translate | capitalize }}</label>
-                                    <textarea  class="form-control" name="text" [(ngModel)]="newContract.text"
-                                          #text="ngModel"></textarea>
-                                </div>
+                                <img src="assets/img/list.png" class="img-rounded" alt="contract" width="220"
+                                     height="220">
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-default" [disabled]="!contractForm.form.valid">

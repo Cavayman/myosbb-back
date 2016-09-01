@@ -10,7 +10,7 @@ import {PageCreator} from "../../../shared/services/page.creator.interface";
 import {Observable} from 'rxjs/Observable';
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS, BUTTON_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
-import {CORE_DIRECTIVES, NgClass, FORM_DIRECTIVES} from "@angular/common";
+import {CORE_DIRECTIVES, NgClass} from "@angular/common";
 import {BUTTON_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 import {SELECT_DIRECTIVES} from "ng2-select/ng2-select";
 import {ROUTER_DIRECTIVES, Router} from "@angular/router";
@@ -23,20 +23,21 @@ import {MailService} from "../../../shared/services/mail.sender.service";
 import {SelectItem} from "../../../shared/models/ng2-select-item.interface";
 import {HeaderComponent} from "../../header/header.component";
 import {PeriodicityItems} from "../../../shared/models/periodicity.const";
-import {ActiveFilter} from "../../../shared/pipes/active.filter";
+import {FORM_DIRECTIVES} from "@angular/forms";
 
 
 @Component({
     selector: 'myosbb-provider',
     templateUrl: 'src/app/user/provider/provider-table.html',
-    pipes: [TranslatePipe, CapitalizeFirstLetterPipe, ActiveFilter],
+    pipes: [TranslatePipe, CapitalizeFirstLetterPipe],
     directives: [DROPDOWN_DIRECTIVES],
     providers: [ProviderService, MailService],
     directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, ROUTER_DIRECTIVES, ProviderTypeComponent,
         SELECT_DIRECTIVES, NgClass, FORM_DIRECTIVES, BUTTON_DIRECTIVES ],
-    viewProviders: [BS_VIEW_PROVIDERS]
+    viewProviders: [BS_VIEW_PROVIDERS],
+    styleUrls: ['src/app/user/bills/bill.css', 'src/shared/css/loader.css', 'src/shared/css/general.css']
 })
-export class ProviderComponent implements OnInit{
+export class ProviderComponent {
     private providers :  Provider[];
     private selected : Provider =  {providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:{providerTypeId: null, providerTypeName: ''},
         email:'',phone:'', address:'', schedule: '', active: false};
@@ -51,8 +52,10 @@ export class ProviderComponent implements OnInit{
     @ViewChild('createModal') public createModal:ModalDirective;
     active:boolean = true;
     order:boolean = true;
-
     onlyActive: boolean = true;
+
+
+    private shouldRun: boolean = true;
 
     private providerId:number;
     private periodicities: SelectItem[] = [];
@@ -70,9 +73,8 @@ export class ProviderComponent implements OnInit{
 
         this.getPeriodicitiesTranslation();
         console.log('readable periodicities: ', this.periodicities);
-        //   this.getProvidersByPageNumAndState(this.pageNumber);
+          this.getProvidersByPageNumAndState(this.pageNumber);
     }
-
     setType(event){
         console.log("set type" + event);
         this.selected.type = event;
@@ -110,15 +112,20 @@ export class ProviderComponent implements OnInit{
     }
     onEditProviderSubmit() {
         this.active = false;
-        this._providerService.editProvider(this.selected).subscribe(() => {console.log("refreshing...");
-                this.refresh();},
-            (err)=> {
-                console.log(err)
-            }
-        );
-        console.log("save provider: ", this.selected);
-        this.editModal.hide();
-        setTimeout(() => this.active = true, 0);
+        if (this.shouldRun) {
+            this._providerService.editProvider(this.selected).subscribe(() => {console.log("refreshing...");
+                    this.shouldRun = false;
+                    this.refresh();
+            },
+                (err)=> {
+                    console.log(err)
+                }
+            );
+            console.log("save provider: ", this.selected);
+            this.editModal.hide();
+            setTimeout(() => this.active = true, 0);
+        }
+
     }
 
     openDelModal(id:number) {
@@ -222,15 +229,18 @@ export class ProviderComponent implements OnInit{
     onCreateProviderSubmit(){
         this.active = false;
         console.log("creating ", this.newProvider);
-
-        this._providerService.addProvider(this.newProvider).subscribe(() => {console.log("refreshing...");
-                this.refresh();
-                this.emptyFields();
-        },
-            (err)=> {
-                console.log(err)
-            }
-        );
+        if (this.shouldRun) {
+            this._providerService.addProvider(this.newProvider)
+                .subscribe(() => {console.log("refreshing...");
+                        this.shouldRun = false;
+                        this.refresh();
+                        this.emptyFields();
+                    },
+                    (err)=> {
+                        console.log(err)
+                    }
+                );
+        }
 
         console.log("add provider", this.newProvider);
 
@@ -263,6 +273,7 @@ export class ProviderComponent implements OnInit{
         console.log("getProvidersByPageNum "+ pageNumber + "; only active=" + this.onlyActive);
         this.pageNumber = +pageNumber;
         this.emptyArray();
+        this.shouldRun = true;
         return this._providerService.getProvidersByState(this.pageNumber, this.onlyActive)
             .subscribe((data) => {
                     this.pageCreator = data;
@@ -296,5 +307,6 @@ export class ProviderComponent implements OnInit{
         this.newProvider  =  {providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:{providerTypeId: null, providerTypeName: ''},
             email:'',phone:'', address:'', schedule: '', active: false};
     }
+
 }
 

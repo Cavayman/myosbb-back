@@ -157,7 +157,9 @@
   "find":"пошук",
   "answerTick":"Відповісти",
   "tickets": "tickets",
-  "bill_calc": "calculated amount"
+  "bill_calc": "calculated amount",
+  "post_date_err": "you are trying to draw up a backdating contract",
+  "begin_end_date_err" : "contract's strat date must be less than end date"
 }
 
 
