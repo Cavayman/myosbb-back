@@ -1,0 +1,55 @@
+<div class="container ">
+    <div class="registration-form  center-block" *ngIf="!joinedOsbb">
+        <form class="ui form" (ngSubmit)="onSubmit()" #joinOsbbForm="ngForm">
+            <div class="form-header">
+                <h3>Приєднатись до ОСББ </h3>
+            </div>
+            <div class="form-container">
+                    <div class="form-group">
+                     <label for="sel1">Виберіть ОСББ</label>
+                    <select class="form-control" id="sel1">
+                        <option *ngFor="let all of osbbArr" [value]="all">{{all.name}}</option>
+                    </select>
+                    </div>
+                     <div class="form-group">
+                     <label for="sel1">Виберіть номер будинку</label>
+                    <select class="form-control" id="sel1">
+                        <option *ngFor="let all of numbersOfHouses" [value]="all">{{all}}</option>
+                    </select>
+                    </div> 
+                     <div class="form-group">
+                     <label for="sel1">Виберіть номер квартири</label>
+                    <select class="form-control" id="sel1">
+                        <option *ngFor="let all of numbersOfAppartments" [value]="all">{{all}}</option>
+                    </select>
+                    </div>
+                    <br>
+                    <hr>
+            </div>
+            <div class="row form-footer">
+                <br>
+                <div class="col-xs-6">
+                    <a class="btn btn-danger col-xs-12" href="javascript:history.back()">Назад</a>
+                </div>
+                <div class="col-xs-6">
+                    <button class="btn btn-primary col-xs-12" type='submit' [disabled]="!joinOsbbForm.form.valid">Вперед</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <div *ngIf="joinedOsbb">
+        <div class="jumbotron" style="text-align:center;">
+            <div class="row">
+                <div class="col-sm-4"><img src="http://www.senzoku-online.jp/mobile/theory/gkg/images/img_NG.png" class="img-rounded" style="height: auto; max-height: 256px; max-width: 256px;display: block;"></div>
+                <div class="col-sm-8">
+                    <h1>В даний момент, цей модуль знаходиться на стадії розробки! Вибачте за незручності!</h1>
+                    <p><a class="btn btn-primary btn-lg" href="/myosbb/login" role="button">Перейти на головну</a></p>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
