@@ -1,5 +1,6 @@
 package com.softserve.osbb.controller;
 
+import com.softserve.osbb.model.Osbb;
 import com.softserve.osbb.model.User;
 import com.softserve.osbb.service.OsbbService;
 import com.softserve.osbb.service.UserService;
@@ -84,5 +85,10 @@ public class BasicController {
             return HttpStatus.ACCEPTED;
         }
         return HttpStatus.NOT_FOUND;
+    }
+    @RequestMapping(value = "/registration/osbb", method = RequestMethod.POST)
+    public Osbb putOsbb(@RequestBody Osbb osbb) {
+        logger.info("Saving osbb, sending to service");
+        return osbbService.addOsbb(osbb);
     }
 }
