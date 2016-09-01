@@ -3,8 +3,6 @@ import {HeaderComponent} from "./header/header.component";
 import {LoginComponent} from "./login/login.component";
 import {HomeComponent} from "./home/home.component";
 import {UserComponent} from "./user/user.component";
-import {TicketComponent} from "./user/ticket/ticket.component";
-import {MessageComponent} from "./user/ticket/single.ticket.component";
 import {homeRoutes} from "./home/home.routes";
 import {userRoutes} from "./user/user.routes";
 import {RegistrationComponent} from "./registration/registration.component";
@@ -22,8 +20,6 @@ export const routes: RouterConfig = [
     {path: 'join/osbb', component: JoinOsbbComponent},
     {path: '', redirectTo: 'login', pathMatch: 'full'},
     {path: 'home', component: HomeComponent},
-    {path: 'ticket/:id', component: MessageComponent},
-    {path: 'ticket', component: TicketComponent},
     {path: 'home/user', component: UserComponent},
     ...homeRoutes,
     ...userRoutes,

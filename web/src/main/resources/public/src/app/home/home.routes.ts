@@ -2,7 +2,7 @@ import {RouterConfig} from "@angular/router";
 import {HomeComponent} from "./home.component";
 import {ProviderComponent} from "../user/provider/provider.component";
 import {OsbbComponent} from "../user/osbb/osbb.component";
-import {TicketComponent} from "../user/ticket/ticket.component";
+import {TicketAdminComponent} from "../user/ticket/ticket.component.admin";
 import {UserEventComponent} from "../user/event/user.event.component";
 import {HouseTableComponent} from "../house/house.table.component";
 import {HouseShowComponent} from "../house/house.show.component";
@@ -21,7 +21,7 @@ export const homeRoutes: RouterConfig = [
             {path: 'wall', component: HomeWallComponent},
             {path: '', redirectTo: 'wall', pathMatch: 'full'},
             {path: 'event', component: UserEventComponent},
-            {path: 'home/ticket', component: TicketComponent},
+            {path: 'ticket', component: TicketAdminComponent},
             {path: 'osbb', component: OsbbComponent},
             {path:'provider/info', component:ProviderUserPageWrapperComponent},
             {path:'provider/info/:id', component:ProviderInfoPageWrapperComponent},
