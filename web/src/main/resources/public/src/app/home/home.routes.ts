@@ -6,7 +6,7 @@ import {TicketAdminComponent} from "../user/ticket/ticket.component.admin";
 import {UserEventComponent} from "../user/event/user.event.component";
 import {HouseTableComponent} from "../house/house.table.component";
 import {HouseShowComponent} from "../house/house.show.component";
-import {MessageComponent} from "../user/ticket/single.ticket.component";
+import {TicketSingleAdminComponent} from "../user/ticket/single.ticket.component.admin";
 import {HomeWallComponent} from "./home_wall/home.wall.component";
 import {ProviderUserPageWrapperComponent} from "../user/provider/provider_home/provider-user-page.component.wrapper";
 import {ProviderInfoPageWrapperComponent} from "../user/provider/provider-info-page-wrapper.component";
@@ -27,7 +27,7 @@ export const homeRoutes: RouterConfig = [
             {path:'provider/info/:id', component:ProviderInfoPageWrapperComponent},
             {path: 'houses', component: HouseTableComponent},
             {path: 'house/:id', component: HouseShowComponent},
-            {path: 'ticket/:id', component: MessageComponent},
+            {path: 'ticket/:id', component: TicketSingleAdminComponent},
         ]
     },
 

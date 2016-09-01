@@ -40,8 +40,8 @@ export const userRoutes:RouterConfig = [
             {path: 'osbb', component: OsbbComponent},
             {path: 'role', component: RoleComponent},
             {path: 'provider', component: ProviderComponent},
-            {path:'provider/info/:id', component:ProviderInfoComponent},
-            {path:'provider/info', component:ProviderUserPageComponent},
+            {path: 'provider/info/:id', component:ProviderInfoComponent},
+            {path: 'provider/info', component:ProviderUserPageComponent},
             {path: 'contract', component: ContractComponent},
             {path:'apartment/apartmentprofile/:id', component:ApartmentProfileComponent}
         ],
