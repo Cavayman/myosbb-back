@@ -27,6 +27,14 @@ export class EventService {
             .then(data => { console.log("service : " + data); return data; });
     }
 
+    getEvent(id:number) {
+        let url = this.url + id;
+        console.log('delete event by id: ' + id);
+        return this._http.get(url)
+            .toPromise()
+            .catch((error)=>console.error(error));
+    }
+
     getAllEvents(pageNumber:number):Observable<any> {
         return this._http.get(this.getEventUrl + pageNumber)
             .map((response)=> response.json())

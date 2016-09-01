@@ -90,12 +90,6 @@ export class UserEventComponent implements OnInit, OnDestroy {
         }
     }
 
-    openEditModal(event:Event) {
-        this.selectedEvent = event;
-        console.log('selected event: ' + this.selectedEvent);
-        this.editModal.show();
-    }
-
     isDateValid(start:Timestamp, end:Timestamp):boolean {
         return end > start;
     }
@@ -103,6 +97,12 @@ export class UserEventComponent implements OnInit, OnDestroy {
     refresh() {
         console.log('refreshing...');
         this.getEventsByPageNum(this.pageNumber);
+    }
+
+    openEditModal(event:Event) {
+        this.selectedEvent = event;
+        console.log('selected event: ' + this.selectedEvent);
+        this.editModal.show();
     }
 
     onEditEventSubmit() {

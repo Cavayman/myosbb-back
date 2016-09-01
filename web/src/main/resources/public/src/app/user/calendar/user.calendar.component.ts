@@ -75,30 +75,35 @@ export class UserCalendarComponent implements OnInit {
     handleEventClick(e) {
         this.event = new Event();
         this.event.title = e.calEvent.title;
-
-        let start = e.calEvent.start;
-        let end = e.calEvent.end;
-        if(e.view.title === 'month') {
-            start.stripTime();
-        }
-
-        if(end) {
-            end.stripTime();
-            this.event.end= end.format();
-        }
-
         this.event.id = e.calEvent.id;
-        this.event.start = start.format();
+        this.event.start = e.calEvent.format();
+        this.event.end= e.calEvent.format();
+
+        // let start = e.calEvent.start;
+        // let end = e.calEvent.end;
+        // if(e.view.title === 'month') {
+        //     start.stripTime();
+        // }
+        //
+        // if(end) {
+        //     end.stripTime();
+        //     this.event.end= end.format();
+        // }
+        //
+        // this.event.id = e.calEvent.id;
+        // this.event.start = start.format();
         this.dialogVisible = true;
     }
 
-    saveEvent() {
+    saveEvent(event:Event) {
         //update
         if(this.event.id) {
+            this.eventService.editAndSave(event);
             let index: number = this.findEventIndexById(this.event.id);
             if(index >= 0) {
+                this.event = event;
                 this.events[index] = this.event;
-                this.eventService.put(this.event);
+                this.eventService.editAndSave(this.event);
             }
         }
         //new
@@ -114,6 +119,7 @@ export class UserCalendarComponent implements OnInit {
 
     deleteEvent() {
         let index: number = this.findEventIndexById(this.event.id);
+        this.eventService.deleteEventById(this.event.id);
         if(index >= 0) {
             this.events.splice(index, 1);
         }
