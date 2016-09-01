@@ -1,5 +1,6 @@
 package com.softserve.osbb.service;
 
+import com.softserve.osbb.model.BarChartData;
 import com.softserve.osbb.model.BillChartData;
 
 /**
@@ -9,4 +10,5 @@ public interface BillChartService {
 
     BillChartData getBillChartData();
 
+    BarChartData getBarChartData(Integer year);
 }

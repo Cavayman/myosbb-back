@@ -84,6 +84,12 @@
                 },
                 {
                   "column": {
+                    "name": "osbb_id",
+                    "type": "INT"
+                  }
+                },
+                {
+                  "column": {
                     "name": "is_owner",
                     "type": "boolean"
                   }
@@ -127,6 +133,26 @@
             }
           }
         ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/31-77",
+        "author": "Roman",
+        "changes": [
+          {
+            "addColumn": {
+              "columns": [
+                {
+                  "column": {
+                    "name": "osbb_id",
+                    "type": "INT"
+                  }
+                }]
+            ,
+              "tableName": "users"
+            }
+          }]
       }
     },
     {
@@ -322,6 +348,28 @@
               "onUpdate": "NO ACTION",
               "referencedColumnNames": "role_id",
               "referencedTableName": "role"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/31-98",
+        "author": "Roman",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "addForeignKeyConstraint": {
+              "baseColumnNames": "osbb_id",
+              "baseTableName": "users",
+              "constraintName": "fk_mngnrt9xuk9v75258vut4jl8e",
+              "deferrable": false,
+              "initiallyDeferred": false,
+              "onDelete": "NO ACTION",
+              "onUpdate": "NO ACTION",
+              "referencedColumnNames": "osbb_id",
+              "referencedTableName": "osbb"
             }
           }
         ]

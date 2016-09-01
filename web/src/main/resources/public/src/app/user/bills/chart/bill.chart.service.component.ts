@@ -16,8 +16,14 @@ export class BillChartService {
     }
 
     getPercentageChartData(): Observable<any> {
-        return this._http.get(this.billChartURL+'/percentage', {headers: this.headers})
+        return this._http.get(this.billChartURL + '/percentage', {headers: this.headers})
             .map((response)=> response.json())
+            .catch((error)=>Observable.throw(error));
+    }
+
+    getBarChartData(year: number): Observable<any> {
+        return this._http.get(this.billChartURL +'/'+ year + '/bar', {headers: this.headers})
+            .map((response)=>response.json())
             .catch((error)=>Observable.throw(error));
     }
 

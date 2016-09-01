@@ -1,67 +1,112 @@
 <div class="panel panel-default pos-top">
-    <div class="panel-heading"><h4><i class="fa fa-angle-right"></i>Обговорення</h4></div>
+    <div class="panel-heading"><h4><i class="fa fa-angle-right"></i>{{'tickets' | translate}}</h4></div>
     <div class="panel-body">
         <div class="content-panel">
-              <div class="ui segment form">
-                     <button  class="btn btn-success" (click)="addForm.openAddModal()"><i>Добавити Обговорення</i></button>
-                     <ticket-add-form (created)="createTicket($event)" #addForm></ticket-add-form>
-                     <ticket-edit-form [ticket]="updatedTicket" (update)="editTicket($event)" #editForm></ticket-edit-form>
-                     <ticket-del-form  (delete)="deleteTicket($event)" #delForm></ticket-del-form>
-                         <!-- <message (showMessage)="initMessage($event)" #message></message>-->
-             </div>
-           
-            <div id="example_filter" class="pull-right dataTables_filter">
-                <input type="search" class="form-control input-sm" placeholder="пошук..." aria-controls="example">
+            <div class="ui segment form">
+                <button class="btn btn-success" (click)="addForm.openAddModal()"><i>{{'create_ticket' | translate}}</i>
+                </button>
+                <ticket-add-form (created)="createTicket($event)" #addForm></ticket-add-form>
+                <ticket-edit-form [ticket]="updatedTicket" (update)="editTicket($event)" #editForm></ticket-edit-form>
+                <ticket-del-form (delete)="deleteTicket($event)" #delForm></ticket-del-form>
+
             </div>
-            <table class="table table-striped table-advance table-hover">
+
+            <div id="example_filter" class="pull-right dataTables_filter">
+                <input type="search" (keyup)="findTicketByName(findName.value)" #findName class="form-control input-sm"
+                       placeholder="{{'find' | translate}}..." aria-controls="example">
+            </div>
+            <table class="table table-striped table-advance table-hover" style="table-layout: fixed;">
                 <thead>
-                    <tr>
-                        <th class="sorting"><i class="fa fa-bullhorn"> </i> Назва
-                            <a style="{cursor:pointer}" (click)="sortBy('name')"><span
-                                    class="fa fa-fw fa-sort pull-left"></span></a>
-                        </th>
-                        <th class="sorting"><i class=" fa fa-edit"></i> Опис
-                        <th class="sorting"><i class=" fa fa-edit"></i> Статус
-                         <th class="sorting"><i class=" fa fa-edit"></i> Дата
-                    </tr>
+                <tr>
+                    <th class="sorting" style="width:20%"><i class="fa fa-bullhorn"> </i> {{'nameTicket' | translate}}
+                        <a style="{cursor:pointer}" (click)="sortBy('name')">
+                            <span class="fa fa-fw fa-sort pull-left"></span></a>
+                    </th>
+                    <th class="sorting" style="width:25%;min-width:25%"><i class=" fa fa-edit"></i>
+                        {{'descriptionTicket' | translate}}
+                    <th class="sorting" style="width:12%;min-width:3%"><i class=" fa fa-edit"></i>
+                        {{'authorTicket'|translate}}
+                        <a style="{cursor:pointer}" (click)="sortBy('user')">
+                            <span class="fa fa-fw fa-sort pull-left"></span></a></th>
+                    <th class="sorting" style="width:10%;min-width:3%"><i class=" fa fa-edit"></i>
+                        {{'dateTicket'|translate}}
+                        <a style="{cursor:pointer}" (click)="sortBy('time')">
+                            <span class="fa fa-fw fa-sort pull-left"></span></a></th>
+                    <th class="sorting" style="width:13%;min-width:10%">
+                        <i class=" fa fa-edit"></i> {{'answer'|translate}}
+                        <a style="{cursor:pointer}" (click)="sortBy('assigned')">
+                            <span class="fa fa-fw fa-sort pull-left"></span></a></th>
+                    <th class="sorting" style="width:11%;min-width:13%"><i class=" fa fa-edit"></i>
+                        {{'state'|translate}}
+                        <a style="cursor:pointer;width:8%;min-width:8%" (click)="sortBy('state')">
+                            <span class="fa fa-fw fa-sort pull-left"></span></a></th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of ticketArr"> <!--[routerLink]="['message']" -->
-             <td><a  style="cursor: pointer" (click)="singleTicket(item.ticketId)"> {{item.name}}</a></td>
-                        <td>{{item.description}}</td>
-                         <td>{{item.state}}</td>
-                         <td>{{item.time}}</td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    Опції
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                    <li><a style="cursor: pointer" (click)="initUpdatedTicket(item);editForm.openEditModal()">Редагувати</a></li>
-                                    <li><a style="cursor: pointer" (click)="delForm.openDelModal(item)">Видалити</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                        
-                     
-                    </tr>
-                   
+                <tr *ngFor="let item of ticketArr">
+                    <td class="nameTabl"><a class="nameTablA" (click)="singleTicket(item.ticketId)"> {{item.name}}</a>
+                    </td>
+                    <td style="width:28%;min-width:28%;text-overflow: ellipsis; overflow: hidden;" class="descTabl">
+                        {{item.description}}
+                    </td>
+                    <td style="width:30px;">{{item.user.firstName}} {{item.user.lastName}}</td>
+                    <td>{{getTime(item.time)}}</td>
+                    <td style="margin: 15px;">{{item.assigned.firstName}} {{item.assigned.lastName}}</td>
+                    <td>
+
+                        <div *ngIf=" item.state == 'NEW' || item.state == '0'  ">
+                            <span class="label btn-round label-info " style="margin: 15px;"
+                                  list="assign">{{item.state}}</span>
+                        </div>
+                        <div *ngIf=" item.state == '1' || item.state == 'IN_PROGRESS'">
+                            <span class="label btn-round label-success" style="margin: 20px;">IN_PROGRESS</span>
+
+                        </div>
+                        <div *ngIf=" item.state == '2' || item.state == 'DONE'">
+                            <span class="label btn-round label-danger" style="margin: 20px;">DONE</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                {{'optionsTicket' | translate}}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li><a style="cursor: pointer"
+                                       (click)="editForm.initUpdatedTicket(item);editForm.openEditModal()">
+                                    {{'editTicket' | translate}}</a></li>
+                                <li><a style="cursor: pointer" (click)="delForm.openDelModal(item)">{{'deleteTicket' |
+                                    translate}}</a></li>
+                            </ul>
+                        </div>
+                    </td>
+
+
+                </tr>
+
                 </tbody>
             </table>
         </div>
+        <nav *ngIf="ticketArr.length != 0" class="pull-left" aria-label="Page navigation">
+            <ul class="pagination">
+                <li [ngClass]="{'active': row === selectedRow}" *ngFor="let row of rows"><a
+                        (click)="selectRowNum(row)">{{row}}</a></li>
+            </ul>
+        </nav>
+
         <nav class="pull-right" aria-label="Page navigation">
             <ul class="pagination">
-                <li [ngStyle]="{'display': pageNumber == 1? 'none' : ''}">
-                    <a (click)="prevPage()" style="cursor: pointer" aria-label="Previous">
+                <li [ngStyle]="{'display': pageNumber === 1? 'none' : ''}">
+                    <a (click)="prevPage()" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
                 <li [ngClass]="{'active': num == pageNumber}" *ngFor="let num of pageList"><a
-                        style="cursor: pointer" (click)="getReportsByPageNum(num)">{{num}}</a></li>
-                <li [ngStyle]="{'display': pageNumber == totalPages? 'none' : ''}">
-                    <a (click)="nextPage()" style="cursor: pointer" aria-label="Next">
+                        (click)="initPageNum(num, selectedRow)">{{num}}</a></li>
+                <li [ngStyle]="{'display': pageNumber === 1 || pageNumber == totalPages? 'none' : ''}">
+                    <a (click)="nextPage()" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>

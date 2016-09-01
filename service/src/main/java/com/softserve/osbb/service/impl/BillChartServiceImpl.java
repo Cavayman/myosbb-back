@@ -1,5 +1,6 @@
 package com.softserve.osbb.service.impl;
 
+import com.softserve.osbb.model.BarChartData;
 import com.softserve.osbb.model.Bill;
 import com.softserve.osbb.model.BillChartData;
 import com.softserve.osbb.model.enums.BillStatus;
@@ -11,6 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * Created by nazar.dovhyy on 28.08.2016.
@@ -44,5 +50,52 @@ public class BillChartServiceImpl implements BillChartService {
         billChartData.setTotalPercentageDebt(totalUnpaidBillsPercentage);
         logger.info("billChartData " + billChartData.toString());
         return billChartData;
+    }
+
+    public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+        Map<Object, Boolean> seen = new ConcurrentHashMap<>();
+        return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
+    }
+
+    @Override
+    public BarChartData getBarChartData(Integer year) {
+        List<Bill> bills = billRepository.getAllByYear(year);
+        BarChartData barChartData = new BarChartData();
+        logger.info("fetching list of months");
+        List<String> months = bills.stream()
+                .map((b) -> b.getDate().getMonth().toString())
+                .distinct()
+                .collect(Collectors.toList());
+        logger.info("fetching list of months: " + months);
+        logger.info("fetching list of years");
+        List<Integer> years = bills.stream()
+                .map((b) -> b.getDate().getYear())
+                .distinct()
+                .collect(Collectors.toList());
+        logger.info("fetching list of years: " + years);
+        double totalPaid;
+        double totalUnPaid;
+        for (String month : months) {
+            totalPaid = 0;
+            totalUnPaid = 0;
+            for (Bill bill : bills) {
+                if (month.equalsIgnoreCase(bill.getDate().getMonth().toString())
+                        && bill.getBillStatus() == BillStatus.PAID) {
+                    totalPaid += bill.getPaid();
+
+                } else if (month.equalsIgnoreCase(bill.getDate().getMonth().toString())
+                        && bill.getBillStatus() == BillStatus.NOT_PAID) {
+                    totalUnPaid += bill.getToPay();
+                } else {
+                    //
+                }
+            }
+            logger.info("totalPaid: " + totalPaid);
+            logger.info("totalUnPaid: " + totalUnPaid);
+            barChartData.getInnerBarChart().add(new BarChartData.InnerBarChart(month, totalPaid, totalUnPaid));
+        }
+        barChartData.setYears(years);
+
+        return barChartData;
     }
 }

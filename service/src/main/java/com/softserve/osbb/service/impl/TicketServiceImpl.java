@@ -130,6 +130,21 @@ public class TicketServiceImpl implements TicketService {
         return ticketRepository.findAll(pageRequest);
     }
 
+    @Override
+    public List<Ticket> getAllTicketsByTime() {
+        return ticketRepository.findByOrderByTimeDesc();
+    }
+
+    @Override
+    public Page<Ticket> getAllTickets(PageRequest pageRequest) {
+        return ticketRepository.findAll(pageRequest);
+    }
+
+    @Override
+    public Page<Ticket> getTicketsByName(String name, PageRequest pageRequest) {
+        return ticketRepository.findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(name, name, pageRequest);
+    }
+
     public Sort.Direction getSortingOrder(Boolean order) {
         if (order == null) {
             return Sort.Direction.DESC;

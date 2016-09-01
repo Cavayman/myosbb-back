@@ -22,20 +22,14 @@
                 },
                 {
                   "column": {
-                    "name": "description",
-                    "type": "VARCHAR(255)"
-                  }
-                },
-                {
-                  "column": {
                     "name": "message",
-                    "type": "VARCHAR(255)"
+                    "type": "VARCHAR(500)"
                   }
                 },
                 {
                   "column": {
                     "name": "time",
-                    "type": "date"
+                    "type": "TIMESTAMP(6) WITH TIME ZONE"
                   }
                 },
                 {
@@ -47,6 +41,12 @@
                 {
                   "column": {
                     "name": "user_id",
+                    "type": "INT"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "parent_id",
                     "type": "INT"
                   }
                 }

@@ -201,7 +201,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label>{{'bill_to_pay' | translate | capitalize}}</label><br>
+                                            <label>{{'bill_calc' | translate | capitalize}}</label><br>
                                             <input [(ngModel)]="billCalcVal" (keyup)="calcToPay(calc.val)"
                                                    class="form-control mod" required
                                                    name="calc" #calc="ngModel" maxlength="10" minlength="1">
@@ -293,6 +293,6 @@
     </div>
     <!-- loading circle -->
     <div class="loader" *ngIf="pending"></div>
-    <bill-chart *ngIf="osbbRole == 'HEAD'"></bill-chart>
+    <bill-chart [bills]="bills" *ngIf="osbbRole == 'HEAD'"></bill-chart>
 </div>
 

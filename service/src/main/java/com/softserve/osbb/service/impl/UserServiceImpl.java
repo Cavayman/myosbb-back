@@ -145,9 +145,13 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User findUserByEmail(String email) {
-        List<User> temp=userRepository.findUserByEmail(email);
-        return temp.get(0);
+    public User findUserByEmail(String email)  {
+        try {
+            List<User> temp = userRepository.findUserByEmail(email);
+            return temp.get(0);
+        }catch(IndexOutOfBoundsException e){
+            return null;
+        }
     }
 
 }

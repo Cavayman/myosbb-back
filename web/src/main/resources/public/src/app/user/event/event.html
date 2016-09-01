@@ -212,7 +212,7 @@
                         <div class="modal-body">
                             <div class="form-group"><label>{{ 'name' | translate | capitalize }}</label>
                                 <input type="text" class="form-control" required [(ngModel)]="newEvent.title"
-                                       name="title" #title="ngModel">
+                                       name="title" #title="ngModel" tabindex="1">
                                 <div [hidden]="title.valid || title.pristine" class="alert alert-danger">
                                     {{ 'required' | translate | capitalize }}
                                 </div>

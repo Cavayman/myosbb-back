@@ -5,6 +5,7 @@ import {VoteService} from './vote.service';
 import {OptionService} from './option.service';
 import {VoteAddFormComponent} from './vote_form/vote-add-form.component';
 import {VoteDelFormComponent} from './vote_form/vote-del-form.component';
+import {VoteCloseFormComponent}  from './vote_form/vote-close-form.component';
 import {User} from './user';
 import {CurrentUserService} from "../../../shared/services/current.user.service";
 import {TranslatePipe} from "ng2-translate";
@@ -14,7 +15,7 @@ import {CapitalizeFirstLetterPipe} from "../../../shared/pipes/capitalize-first-
     selector: 'vote',
     templateUrl: './src/app/home/voting/vote.html',
     styleUrls: ['./src/app/home/voting/vote.css'],
-    directives: [ VoteAddFormComponent, VoteDelFormComponent],
+    directives: [ VoteAddFormComponent, VoteDelFormComponent, VoteCloseFormComponent],
     providers:[VoteService, OptionService],
     pipes: [CapitalizeFirstLetterPipe, TranslatePipe]
 })
@@ -109,6 +110,12 @@ export class VoteComponent implements OnInit {
 
     deleteVote(vote: Vote): void {
         this.voteService.deleteVote(vote).then(vote => this.deleteVoteFromArr(vote));
+    }
+
+    closeVote(vote: Vote):void {
+        console.log("closeVote");
+        vote.available = false;
+        this.voteService.updateVote(vote);
     }
 
     private deleteVoteFromArr(vote: Vote): void {

@@ -3,6 +3,7 @@ import {Http, Response, Headers} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {User} from "../../shared/models/User";
 import ApiService = require("../../shared/services/api.service");
+import {routes} from "../app.routes";
 
 @Injectable()
 export class LoginService {
@@ -15,6 +16,7 @@ export class LoginService {
         'grant_type': 'password',
         'scope': 'read%20write'
     };
+
 
     constructor(private http:Http) {
     }
@@ -53,13 +55,24 @@ export class LoginService {
 
     //erasing everything from  local storage
     logOut() {
-        localStorage.clear();
-        alert("You just log out");
+            localStorage.clear();
+        
     }
 
     //gets UserName from  localStorage
     getUserName() {
         return localStorage.getItem("currentUserName");
+    }
+
+    validateEmail(data){
+        let validate=this._pathUrl+"/validEmail";
+        let headers=new Headers({'Content-Type':'application/json'});
+        return this.http.post(validate, data,{headers:headers});
+    }
+    sendPassword(data){
+        let url=this._pathUrl+"/sendEmailMail";
+        let headers=new Headers({'Content-Type':'application/json'});
+        return this.http.post(url, data,{headers:headers});
     }
     
     public static decodeAccessToken(access_token:string) {

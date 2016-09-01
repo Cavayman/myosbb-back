@@ -20,19 +20,26 @@ import {CapitalizeFirstLetterPipe} from "../../../shared/pipes/capitalize-first-
 export class HomeWallComponent implements OnInit {
 
     isLoggedIn:boolean;
-    currentOsbbId: number = 2;
+    currentOsbbId: number = 7;
     currentOsbb: Osbb;
 
     constructor(private osbbService: OsbbService) {
-        this.currentOsbb = new Osbb('', '', '', '','');
+        this.currentOsbb = new Osbb();
     }
 
     ngOnInit():any {
-         this.osbbService.getOsbbById(this.currentOsbbId).then(osbb => this.currentOsbb = osbb);
+         this.osbbService.getOsbbById(this.currentOsbbId).then(osbb => {
+                if(osbb !== undefined) {
+                    this.currentOsbb = osbb;
+                } else {
+                    let o = new Osbb();
+                    o.name="";
+                    o.description="";
+                    o.address="";
+                    o.logoUrl="";
+                    o.district="";
+                    this.currentOsbb = o;
+                }
+            });
     }
-
-    printHello(): void {             //DELETE ME
-        //console.log("Привіт");
-        console.log("CurrentOsbb: "  + this.currentOsbb.logoUrl);
-    }   
 }

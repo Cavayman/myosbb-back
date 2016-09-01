@@ -6,7 +6,7 @@ import {TicketComponent} from "../user/ticket/ticket.component";
 import {UserEventComponent} from "../user/event/user.event.component";
 import {HouseTableComponent} from "../house/house.table.component";
 import {HouseShowComponent} from "../house/house.show.component";
-import {MessageComponent} from "../user/ticket/message/message.component";
+import {MessageComponent} from "../user/ticket/single.ticket.component";
 import {HomeWallComponent} from "./home_wall/home.wall.component";
 
 export const homeRoutes: RouterConfig = [

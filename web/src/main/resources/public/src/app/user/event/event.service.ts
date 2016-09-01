@@ -20,6 +20,13 @@ export class EventService {
     constructor(private _http:Http) {
     }
 
+    getEvents() {
+        return this._http.get(this.url)
+            .toPromise()
+            .then(res => <any[]> res.json())
+            .then(data => { console.log("service : " + data); return data; });
+    }
+
     getAllEvents(pageNumber:number):Observable<any> {
         return this._http.get(this.getEventUrl + pageNumber)
             .map((response)=> response.json())

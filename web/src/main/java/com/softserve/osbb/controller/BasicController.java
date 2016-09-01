@@ -1,18 +1,20 @@
 package com.softserve.osbb.controller;
 
-import com.softserve.osbb.model.Osbb;
 import com.softserve.osbb.model.User;
 import com.softserve.osbb.service.OsbbService;
 import com.softserve.osbb.service.UserService;
-
+import com.softserve.osbb.service.impl.MailSenderImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,8 +34,8 @@ public class BasicController {
     UserService userService;
     @Autowired
     OsbbService osbbService;
-    /*
-    @RequestMapping(value = "user/login", method = RequestMethod.POST)
+
+   /* @RequestMapping(value = "user/login", method = RequestMethod.POST)
     public String login(@RequestBody Map<String, String> json) throws ServletException {
         if (json.get("username") == null || json.get("password") == null) {
             throw new ServletException("Please fill in username and password");
@@ -56,13 +58,31 @@ public class BasicController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public User putUser(@RequestBody User user) {
+        if(userService.findUserByEmail(user.getEmail())!=null)
+            return userService.findUserByEmail(user.getEmail());
         logger.info("Saving user, sending to service");
         return userService.save(user);
     }
 
-    @RequestMapping(value = "/registration/osbb", method = RequestMethod.POST)
-    public Osbb putOsbb(@RequestBody Osbb osbb) {
-        logger.info("Saving osbb, sending to service");
-        return osbbService.addOsbb(osbb);
+    @RequestMapping(value = "/validEmail", method = RequestMethod.POST)
+    public HttpStatus validateEmail(@RequestBody String email) {
+        if(userService.findUserByEmail(email)!=null) {
+            System.out.println(userService.findUserByEmail(email));
+            return HttpStatus.FOUND;
+        }
+        return HttpStatus.NOT_FOUND;
+    }
+
+    @Autowired
+    private MailSenderImpl sender;
+
+    @RequestMapping(value = "/sendEmailMail", method = RequestMethod.POST)
+    public HttpStatus sendEmailOnMail(@RequestBody String email) throws MessagingException {
+        User user=userService.findUserByEmail(email);
+        if(user!=null) {
+            sender.send(email,"My-osbb.Your forgoten password","Hello there friend here is your pass:"+user.getPassword());
+            return HttpStatus.ACCEPTED;
+        }
+        return HttpStatus.NOT_FOUND;
     }
 }

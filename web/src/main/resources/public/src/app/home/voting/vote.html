@@ -1,25 +1,26 @@
 <vote-add-form [currentUser]="currentUser" (create)="createVote($event)" #voteAddForm></vote-add-form>
 <vote-del-form (delete)="deleteVote($event)" #delForm></vote-del-form>
+<vote-close-form (close)="closeVote($event)" #closeForm></vote-close-form>
 <div class="vote-box" *ngFor="let vote of voteArr">
     <div *ngIf="isCurrentUserCreator(vote)">
         <button type="button" class="close" aria-label="Close" (click)="delForm.openDelModal(vote)">
                         <span aria-hidden="true">&times;</span>
         </button>
-        <!--<button type="button" class="close glyphicon glyphicon-cog" aria-label="Close">
-        </button>-->
+        <button type="button" class="close glyphicon glyphicon-cog" aria-label="Close" (click)="closeForm.openCloseModal(vote)">
+        </button>
     </div>
-    <div *ngIf="vote.available">
+    <div class="question-box" *ngIf="vote.available">
         <ul>
-            <li><span class="question"> {{vote.description}}</span></li>
+            <li class="question"> {{vote.description}}</li>
             <li *ngFor="let option of vote.options">
                 <input type="radio" name="{{vote.description}}" (click)="toScoreOption(option, vote)" value="{{option}}" #input>
                 {{option.description}}
             </li>
         </ul>
     </div>
-    <div *ngIf="!vote.available">
+    <div class="answer-box" *ngIf="!vote.available">
         <ul>
-            <li><span class="question"> {{vote.description}}</span></li>
+            <li class="question"> {{vote.description}}</li>
             <li *ngFor="let option of vote.options">
                 {{option.description}}
                 <div class="progress">

@@ -3,6 +3,7 @@ package com.softserve.osbb.repository;
 import com.softserve.osbb.model.Message;
 import com.softserve.osbb.model.Ticket;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 @Repository
 public interface MessageRepository extends JpaRepository<Message, Integer> {
 
-    List<Message> findByTicket(Ticket ticket);
-//    List<Message> findByTicketId(Ticket ticket);
+    List<Message> findByTicketOrderByTimeAsc(Ticket ticket);
+
+    List<Message> findByParentId(Integer id);
 }

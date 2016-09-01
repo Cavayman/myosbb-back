@@ -132,7 +132,7 @@
 				<textElement textAlignment="Center">
 					<font size="26" isBold="true"/>
 				</textElement>
-				<text><![CDATA[OSBB Invoice]]></text>
+				<text><![CDATA[Invoice]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -151,7 +151,7 @@
 				</textElement>
 				<text><![CDATA[Invoice Date :]]></text>
 			</staticText>
-			<textField pattern="MMMMM dd, yyyy">
+			<textField pattern="yyyy-MM-dd">
 				<reportElement x="436" y="10" width="88" height="20" uuid="7b857c87-4b81-460d-b96d-ddf3d35cc587"/>
 				<textFieldExpression><![CDATA[$P{invoiceDate}]]></textFieldExpression>
 			</textField>

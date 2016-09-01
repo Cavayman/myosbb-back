@@ -1,27 +1,64 @@
 <div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
-      aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-	    <div class="modal-content">
-	        <div class="modal-header">
-	            <button type="button" class="close" aria-label="Close" (click)="editModal.hide()">
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content" [ngFormModel]="creatingForm">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" (click)="editModal.hide()">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">Обновити обговорення</h4>
-             </div>
-             <div class="modal-body">
-                <div class="form-group">
-                	<input class="form-control" type="text" name="name" #updateNameInput value={{ticket.name}}><br><br>
-                    <input class="form-control" type="text" name="description" #updateDescriptionInput value={{ticket.description}}><br><br>
-                    <select name="state" #updateStateInput >
-        <option  *ngFor="let key of states"  value={{key}} >{{key}}</option>
-      </select>
-                 </div>
+                <h4 class="modal-title">{{'editTickModal'|translate}}</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group" [ngClass]="{'has-error' : submitAttempt && !nameInput.valid }">
+                    <textarea class="form-control" [(ngModel)]="nameTicket" type="text" name="name"
+                              placeholder="Enter name" ngControl="nameInput"></textarea>
+                    <div class="alert alert-danger"
+                         *ngIf="submitAttempt && isEmptyName() && !nameInput.valid || submitAttempt && !isEmptyName() && nameInput.valid ">
+                        {{'nameErrorTicket'|translate}}
+                    </div>
+                </div>
+                <div class="form-group" [ngClass]="{ 'has-error' :  submitAttempt && !descriptionInput.valid}">
+                    <textarea class="form-control" style="min-height:150px; min-weight:300px"
+                              [(ngModel)]="descriptionTicket" type="text" name="description"
+                              placeholder="Enter description " ngControl="descriptionInput"></textarea>
+                    <div class="alert alert-danger" *ngIf="submitAttempt && !descriptionInput.valid">
+                        {{'descrErrorTicket'|translate}}
+                    </div>
+                    <br>
+                </div>
+                <select class="form-control" style="margin-bottom:10px">
+                    <option *ngFor="let key of states" value={{key}}>{{key}}</option>
+                </select>
+                <div class="form-group"
+                     [ngClass]="{'has-error' : isFindAssign() && submitAttempt && !assignInput.valid }">
+                    <input class="form-control" type="text" name="assign" list="assign" [(ngModel)]="assignTicket"
+                           placeholder="Enter user name" (keyup)="assign.value" #assign ngControl="assignInput">
+                    <div class="alert alert-danger" *ngIf="submitAttempt && !isFindAssign()">
+                        {{'assignErrorTicket'|translate}}
+                    </div>
+                    <datalist id="assign">
+                        <ul>
+                            <option *ngFor="let user of userAssignArr|ticketFilter:assign.value">
+                                <li>{{user.firstName}} {{user.lastName}}</li>
+                            </option>
+                        </ul>
+                    </datalist>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" (click)="editTicket(updateNameInput.value, updateDescriptionInput.value,updateStateInput.value);editModal.hide()" class="btn btn-default">
-                    Зберегти
+                <button style="float: right; width: 20%;" type="button"
+                        (click)="toggleSubmitAttempt();onEditTicket();  " class="btn btn-primary">
+                    {{'editTicket'|translate}}
+                </button>
+
+                <button style="float: right; width: 20%; margin-right:15px" type="button" (click)=" closeEditModal(); "
+                        class="btn btn-default">
+                    {{'cancelTickModal'|translate}}
                 </button>
             </div>
+
+
         </div>
     </div>
 </div>
