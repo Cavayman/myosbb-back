@@ -70,7 +70,7 @@ export class RegistrationComponent implements OnInit  {
         }
         else if (status == this.options[0]){
             console.log('JoinToExist');
-            this._router.navigate(['/login']);
+            this._router.navigate(['/join/osbb']);
         } 
      }
 }
