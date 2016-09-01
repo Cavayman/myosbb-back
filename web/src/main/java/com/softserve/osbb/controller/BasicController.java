@@ -20,7 +20,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+import org.springframework.http.ResponseEntity;
 /**
  * Created by cavayman on 03.08.2016.
  */
@@ -90,5 +92,25 @@ public class BasicController {
     public Osbb putOsbb(@RequestBody Osbb osbb) {
         logger.info("Saving osbb, sending to service");
         return osbbService.addOsbb(osbb);
+    }
+    @RequestMapping(value = "/join/osbb", method = RequestMethod.GET)
+    public ResponseEntity<List<Resource<Osbb>>> getAllOsbb() {
+        logger.info("Get all osbb: ");
+        List<Osbb> osbbList = osbbService.getAllOsbb();
+        final List<Resource<Osbb>> resourceOsbbList = new ArrayList<>();
+
+        for(Osbb o: osbbList) {
+            resourceOsbbList.add(addResourceLinkToOsbb(o));
+        }
+        return new ResponseEntity<>(resourceOsbbList, HttpStatus.OK);
+    }
+
+    private Resource<Osbb> addResourceLinkToOsbb(Osbb osbb) {
+        if (osbb == null) return null;
+        Resource<Osbb> osbbResource = new Resource<>(osbb);
+        osbbResource.add(linkTo(methodOn(OsbbController.class)
+                .getOsbbById(osbb.getOsbbId()))
+                .withSelfRel());
+        return osbbResource;
     }
 }
