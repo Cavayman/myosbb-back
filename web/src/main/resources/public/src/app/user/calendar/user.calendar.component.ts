@@ -75,23 +75,21 @@ export class UserCalendarComponent implements OnInit {
     handleEventClick(e) {
         this.event = new Event();
         this.event.title = e.calEvent.title;
-        this.event.id = e.calEvent.id;
-        this.event.start = e.calEvent.format();
-        this.event.end= e.calEvent.format();
 
-        // let start = e.calEvent.start;
-        // let end = e.calEvent.end;
-        // if(e.view.title === 'month') {
-        //     start.stripTime();
-        // }
-        //
-        // if(end) {
-        //     end.stripTime();
-        //     this.event.end= end.format();
-        // }
-        //
-        // this.event.id = e.calEvent.id;
-        // this.event.start = start.format();
+        let start = e.calEvent.start;
+        let end = e.calEvent.end;
+        if(e.view.title === 'month') {
+            start.stripTime();
+        }
+
+        if(end) {
+            // end.stripTime();
+            this.event.end= end.format();
+        }
+
+        this.event.id = e.calEvent.id;
+        this.event.start = start.format();
+        this.event.end = end.format();
         this.dialogVisible = true;
     }
 
