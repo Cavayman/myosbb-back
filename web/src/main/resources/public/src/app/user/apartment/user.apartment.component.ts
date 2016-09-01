@@ -51,7 +51,7 @@ export class UserApartmentComponent {
 
     constructor( private apartmentService:ApartmentService,private currentUserService:CurrentUserService) {
 console.log("init items");
-        this.Items=[];
+        this.Items=[{square:'',number:'',house:{street:''}}];
       //  this.allHouses=[];
 
     }
