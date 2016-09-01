@@ -11,6 +11,7 @@ import {TranslatePipe} from "ng2-translate/ng2-translate";
 import {User} from "../../../shared/shared/models/User";
 import {CurrentUserService} from "../../../shared/services/current.user.service";
 import {PageCreator} from "../../../shared/services/page.creator.interface";
+import {HousePageObject} from "../../house/house.page.object";
 @Component({
     selector: 'my-user-apartment',
     templateUrl: 'src/app/user/apartment/apartment.html',
@@ -24,12 +25,14 @@ import {PageCreator} from "../../../shared/services/page.creator.interface";
 export class UserApartmentComponent {
     isAdmin:boolean=false;
     Items:ApartmentModel[];
-    private selectedApartment:ApartmentModel;
-    private emptyApartment:ApartmentModel;
-    @ViewChild('editModal')
-    public editModal:ModalDirective;
+    private selectedApartment:ApartmentModel={apartmentId:0,square:0,number:0,house:{street:''}};
+    private emptyApartment:ApartmentModel={square:0,number:0,house:{street:''}};
+    @ViewChild('deleteModal')
+    public deleteModal:ModalDirective;
     @ViewChild('addModal')
     public addModal:ModalDirective;
+    @ViewChild('editModal')
+    public editModal:ModalDirective;
     active:boolean = true;
     private pageCreator:PageCreator<ApartmentModel>;
     private pageNumber:number = 1;
@@ -38,6 +41,10 @@ export class UserApartmentComponent {
     order:boolean = true;
     private defaultSorter:string='number';
     private currentUser:User;
+    private apartmentToDelete:AprtmentModel;
+    private allHouses:HousePageObject[];
+    private houseToAdd :HousePageObject={street:''};
+    private isNumberValid:boolean=false;
 
 
 
@@ -45,6 +52,7 @@ export class UserApartmentComponent {
     constructor( private apartmentService:ApartmentService,private currentUserService:CurrentUserService) {
 console.log("init items");
         this.Items=[];
+      //  this.allHouses=[];
 
     }
 
@@ -53,28 +61,46 @@ console.log("init items");
 
         this.getApartmentsByPageNum(this.pageNumber);
         this.currentUser = this.currentUserService.getUser();
+
         //console.log("current user: "+this.currentUser.apartment.number);
 
     }
     
 
-    onDeleteClick(am) {
-        this.apartmentService.deleteApartment(am)
-            .then(am=>this.Items.splice(this.Items.indexOf(am, 0), 1));
+    onDeleteClick() {
+        this.Items.splice(this.Items.indexOf(this.apartmentToDelete, 0), 1);
+        this.apartmentService.deleteApartment(this.apartmentToDelete)
+            .subscribe(res=>this.apartmentToDelete=res);
+        // .subscribe(res=>this.Items.splice(this.Items.indexOf(res, 0), 1));
+
+       // this.getApartmentsByPageNum(this.pageNumber);
+         this.active=false;
+        this.deleteModal.hide();
+
 
     }
-    openEditModal(am:ApartmentModel) {
-        this.selectedApartment=am;
-       // console.log(am);
-     // console.log('selected Apartment: ' + this.selectedApartment.square );
-       this.editModal.show();
+    openDeleteModal(am) {
+        this.active=true;
+        this.apartmentToDelete=am;
+        this.deleteModal.show();
+
+
+
     }
 
+    
+    openEditModal(am){
+this.selectedApartment=am;
+        this.editModal.show();
+    }
+    
     onEditApartmentSubmit() {
-        this.active = false;
+
         //console.log('saving Apartment: ' + this.selectedApartment.apartmentId);
-      this.apartmentService.editAndSave(this.selectedApartment);
-       this.apartmentService.getAllApartments();
+      this.apartmentService.editAndSave(this.selectedApartment).
+          subscribe(res=>{});
+      // this.getApartmentsByPageNum(this.pageNumber);
+        this.active = false;
         this.editModal.hide();
         setTimeout(() => this.active = true, 0);
     }
@@ -82,14 +108,38 @@ console.log("init items");
     onAddApartmentSubmit(){
 
         this.addModal.hide();
-        this.apartmentService.addApartment(this.emptyApartment)
-            .then(emptyApartment=>this.Items.push(emptyApartment));
+       this.apartmentService.addApartment(this.emptyApartment,this.houseToAdd.houseId)
+           .subscribe(/*res=>this.Items.push(res)*/);
+        this.emptyApartment={number:'',square:''};
+       // console.log(this.houseToAdd.houseId);
 
     }
 
     openAddModal(){
-        this.addModal.show();
+        if(this.allHouses!=null) {
+            this.addModal.show();
+        }
+        else {
+            this.apartmentService.getAllHouses().subscribe(res=>{
+                this.allHouses = res;
+                this.addModal.show();
+            });
+
+
+        }
     }
+
+    chooseHouse(house:HousePageObject){
+        this.houseToAdd=house;
+    }
+
+    isApartmentNumberValid(value):boolean {
+console.log("value from input"+value);
+
+        this.isNumberValid = true;
+    }
+
+
     sortBy(value:string){
         console.log('sorted by ', value);
         this.order = !this.order;

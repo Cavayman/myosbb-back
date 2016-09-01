@@ -1,6 +1,6 @@
 
 
-    <div class="myheader">
+    <div class="myheader " >
     <div class="image">
         <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ9R8oeXNOBq-d89Z77UZ_Z6m_6cvOpTWeyEPe7Y5XY-z-aFuDF">
     </div>
@@ -24,20 +24,61 @@
                 <h5 class="col-xs-6">{{currentApartment.square}}</h5>
             </div>
             <div class="col-xs-12">
-                <label class="col-xs-6"><b>Кількість жителів</b></label>
-                <h5 class="col-xs-6">0</h5>
+                <label class="col-xs-6"><b>Мешканці: <span style="cursor: pointer" class="glyphicon glyphicon-eye-open" (click)="openUserListModal()"></span></b></label>
+                <h5 class="col-xs-6">{{countOfUsers}}</h5>
             </div>
             <div class="col-xs-12">
                 <label class="col-xs-6"><b>Контакти</b></label>
                 <h5 class="col-xs-6">{{owner.email}}</h5>
            <!-- </div>-->
         </div>
+        </div>
 
+
+
+        </div>
+
+
+
+ <div bsModal #userListModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close"
+                        (click)="userListModal.hide()">
+
+                </button>
+                <h4 class="modal-title">Мешканці</h4>
+            </div>
+            <form *ngIf="active" #apartmentForm="ngForm">
+                <div class="modal-body">
+
+
+
+                  <div *ngFor="let user of usersInApartment" class="form-group">
+
+                        <div class="form-group">
+                        <label>{{user.firstName}}   {{user.lastName}}</label>
+
+                        </div>
+                  </div>
+
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" (click)=" userListModal.hide()" class="btn btn-success"
+                            [disabled]="!apartmentForm.form.valid">
+                        Ok
+                    </button>
+                </div>
+
+
+            </form>
+        </div>
     </div>
-
-    </div>
-
-
+</div>
 
 
 

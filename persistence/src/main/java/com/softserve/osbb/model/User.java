@@ -181,7 +181,7 @@ public class User  implements Serializable {
     }
 
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "apartment_id",referencedColumnName = "apartment_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
      public Apartment getApartment() {

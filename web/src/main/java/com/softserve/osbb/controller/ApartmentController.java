@@ -155,8 +155,9 @@ public class ApartmentController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Resource<Apartment>> deleteAppartmentById(@PathVariable("id") Integer id) {
         logger.info("deleting ");
+        Apartment apartment=apartmentService.findOneApartmentByID(id);
         apartmentService.deleteApartmentByID(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(addResourceLinkToApartment(apartment),HttpStatus.OK);
 
     }
 

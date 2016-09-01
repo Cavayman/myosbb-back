@@ -2,7 +2,7 @@
 
 <div class="panel panel-default pos-top">
     <div class="panel-heading"><h4><i class="fa fa-angle-right"></i> {{ 'Apartments' | translate }}</h4>
-    <div *ngIf="isAdmin"><h1>Hello ADMIN</h1> </div>
+    <div *ngIf="isAdmin"><h1>Hello Admin</h1> </div>
         <div id="example_filter" class="pull-right dataTables_filter">
             <div style="display: inline-flex">
             <input type="search" id="searchBox" class="form-control input-sm" placeholder="пошук по номеру..." #searchterm aria-controls="example" (keyup.enter)="searchByNumber(searchterm.value)" (keyup)="clearSearchBox(searchterm)" >
@@ -10,8 +10,13 @@
             </div>
         </div>
 
-        <div class="image">
-            <img src="http://www.mossenbergrealestate.com/mydata/images/Website%20Template%20Side%20Photos/WSP1/WSP1.jpg"  [routerLink]="['apartmentprofile',currentUser.apartment.apartmentId]">
+        <div *ngIf="!isAdmin" class="image">
+            <img src="http://www.mossenbergrealestate.com/mydata/images/Website%20Template%20Side%20Photos/WSP1/WSP1.jpg"
+                 [routerLink]="['apartmentprofile',currentUser.apartment.apartmentId]">
+
+        </div>
+        <div *ngIf="isAdmin">
+            <button (click)="openAddModal()" type="button" class="glyphicon glyphicon-plus btn btn-primary "></button>
 
         </div>
     </div>
@@ -43,9 +48,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let apartment of Items"   >
-                   <td> <div > {{apartment.house.street}}</div> </td>
-                   <td style="cursor: pointer" [routerLink]="['apartmentprofile',apartment.apartmentId]" >{{ apartment.number}}</td>
+                <tr *ngFor="let apartment of Items"    >
+                   <td > {{apartment.house.street}} </td>
+                   <td style="cursor: pointer"  [routerLink]="['apartmentprofile',apartment.apartmentId ]"> {{ apartment.number}}</td>
                    <td >{{ apartment.square}}</td>
 
                     <td *ngIf="isAdmin" >
@@ -56,8 +61,8 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownProvider">
-                            <li><a style="cursor: pointer">{{ 'edit' | translate }}</a></li>
-                            <li><a style="cursor: pointer" > {{ 'delete' | translate }}</a></li>
+                            <li><a style="cursor: pointer"(click)="openEditModal(apartment)">{{ 'edit' | translate }}</a></li>
+                            <li><a style="cursor: pointer" (click)="openDeleteModal(apartment)" > {{ 'delete' | translate }}</a></li>
                         </ul>
                     </div>
                     </td>
@@ -89,47 +94,93 @@
     </div>
 
 
+<div bsModal #deleteModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close">
+
+                </button>
+                <h4 class="modal-title">Delete</h4>
+            </div>
+            <form *ngIf="active" (ngSubmit)="onDeleteClick()" #deleteForm="ngForm">
+                <div class="modal-body">
+
+
+
+                        <div class="form-group">
+                     <h2>   Are you really want to delete ?
+                     </h2>
+                        </div>
+
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="deleteModal.hide()"
+                            [disabled]="!deleteForm.form.valid">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-success"
+                            [disabled]="!deleteForm.form.valid">
+                        Ok
+                    </button>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
 
 
 
 
 <!--Edit Modal -->
-<!--<div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+<div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
      aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" aria-label="Close"
                         (click)="editModal.hide()">
-                    &lt;!&ndash;<span aria-hidden="true">&times;</span>&ndash;&gt;
+
                 </button>
                 <h4 class="modal-title">Редагувати</h4>
             </div>
             <form *ngIf="active" (ngSubmit)="onEditApartmentSubmit()" #apartmentForm="ngForm">
+
+
+
+
+
                 <div class="modal-body">
+                    <div class="form-group">
+                        <label>
+                            Адреса: {{selectedApartment.house.street}}
+                        </label>
+
+                    </div>
+
+
                     <div class="form-group"><label>Square</label>
                         <input type="text" class="form-control" required [(ngModel)]="selectedApartment.square"
                                name="square" #square="ngModel">
-                        &lt;!&ndash;<div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-                            назва відсутня
-                        </div>&ndash;&gt;
+
                     </div>
 
                     <div class="form-group">
                         <label>Number</label>
                         <input type="text" class="form-control" required
-                               name="number" [(ngModel)]="selectedApartment.number" #number="ngModel">
-                        &lt;!&ndash; <div [hidden]="date.valid || date.pristine" class="alert alert-danger">
-                             дата відсутня
-                         </div>&ndash;&gt;
-                        &lt;!&ndash;  <div [hidden]="isDateValid(selectedReport.creationDate)" class="alert alert-danger">
-                              невірний формат дати
-                          </div>&ndash;&gt;
+                               name="number" [(ngModel)]="selectedApartment.number" #numberEdit="ngModel">
+
                     </div>
 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-default"
+                    <button type="submit" class="btn btn-success"
                         [disabled]="!apartmentForm.form.valid">
                         Зберегти
                     </button>
@@ -139,64 +190,76 @@
         </form>
     </div>
 </div>
-    </div>-->
+    </div>
 
-<!--ADD MODAL WINDOW -->
-<!--<div bsModal #addModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+<!--ADD MODAL WINDOW-->
+<div bsModal #addModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
      aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" aria-label="Close"
-                        (click)="editModal.hide()">
-                    &lt;!&ndash;<span aria-hidden="true">&times;</span>&ndash;&gt;
+                        (click)="addModal.hide()">
+                    <!--<span aria-hidden="true">&times;</span>-->
                 </button>
-                <h4 class="modal-title">Додати</h4>
+                <h4 class="modal-title">Додати квартиру</h4>
             </div>
-            <form *ngIf="activeAdd" (ngSubmit)="onAddApartmentSubmit()" #apartmentForm="ngForm">
+            <form *ngIf="active" (ngSubmit)="onAddApartmentSubmit()" #addApartmentForm="ngForm">
                 <div class="modal-body">
 
-&lt;!&ndash;
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle " type="button" id="selectHouseDropDown"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                           <i  *ngIf="houseToAdd.street===''" >Виберіть будинок</i>
+                            {{houseToAdd.street}}
+                            <span class="caret"></span>
+                        </button>
+                        <ul *ngFor="let house of allHouses" class="dropdown-menu from-control" aria-labelledby="selectHouseDropDown">
+                            <li><a style="cursor: pointer" (click)="chooseHouse(house)">{{ house.street }}</a></li>
 
-                    <div class="form-group">
-                        <label>Owner</label>
-                        <input type="text" class="form-control"
-                           required    name="owner" [(ngModel)]="emptyApartment." #owner="ngModel">
+                        </ul>
                     </div>
-&ndash;&gt;
 
-
-
-                    <div class="form-group"><label>Square</label>
-                        <input type="text" class="form-control"  required
-                                name="square" [(ngModel)]="emptyApartment.square"   #square="ngModel">
-                        &lt;!&ndash;<div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-                            назва відсутня
-                        </div>&ndash;&gt;
                     </div>
 
                     <div class="form-group">
-                        <label>Number</label>
+                        <label>Номер</label>
                         <input type="text" class="form-control"
-                               required    name="number" [(ngModel)]="emptyApartment.number" #number="ngModel">
+                               [ngClass]="isNumberValid ? valid:inValid"
+                               #numberOfApartment
+                               required    name="number"
+                               pattern="[1-9]{1}[0-9]{0,2}" [(ngModel)]="emptyApartment.number"
+                               #number="ngModel" (keyup)="isApartmentNumberValid(numberOfApartment.value)" >
                     </div>
 
+                <div class="form-group ">
+                    <label>Площа</label>
+                    <input type="text" class="form-control"
+                           required    name="square" pattern="[1-9]{1}[0-9]{1,2}" [(ngModel)]="emptyApartment.square" #square="ngModel">
                 </div>
 
+
+
+
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-default"
-                            [disabled]="!apartmentForm.form.valid">
+                    <button type="button" class="btn btn-danger" (click)="addModal.hide()">
+
+                        Вийти
+                    </button>
+                    <button type="submit" class="btn btn-success"
+                            [disabled]="!addApartmentForm.form.valid">
                         Зберегти
                     </button>
+
                 </div>
 
 
             </form>
-        </div>
+
     </div>
-</div>-->
+</div>
 
 
 
-
+</div>
 

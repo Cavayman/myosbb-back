@@ -20,3 +20,13 @@ img{
 cursor: pointer;
 
 }
+.form-group{
+    margin: auto 10px auto 10px;
+}
+
+.inValid {
+    border-color: red;
+}
+.valid {
+    border-color: green;
+}

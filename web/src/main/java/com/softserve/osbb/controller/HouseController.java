@@ -4,6 +4,7 @@ import com.softserve.osbb.dto.HouseDTO;
 import com.softserve.osbb.dto.mappers.HouseDTOMapper;
 import com.softserve.osbb.model.Apartment;
 import com.softserve.osbb.model.House;
+import com.softserve.osbb.service.ApartmentService;
 import com.softserve.osbb.service.HouseService;
 import com.softserve.osbb.util.PageCreator;
 import com.softserve.osbb.util.PageRequestGenerator;
@@ -38,6 +39,9 @@ public class HouseController {
 
     @Autowired
     HouseService houseService;
+    @Autowired
+    ApartmentService apartmentService;
+
     private static Logger logger = LoggerFactory.getLogger(HouseController.class);
 
     @RequestMapping(method = RequestMethod.GET)
@@ -156,6 +160,20 @@ public class HouseController {
         }
         return apartmentList;
     }
+
+    @RequestMapping(value="/{id}",method=RequestMethod.POST)
+        public ResponseEntity<Resource<Apartment>> addApartmentToHouse(@PathVariable("id") Integer id, @RequestBody Apartment apartment){
+        House house =houseService.findHouseById(id);
+       apartment.setHouse(house);
+        apartmentService.saveApartment(apartment);
+
+        ResourceLinkCreator<Apartment> apartmentResourceLinkCreator = new ApartmentResourceList();
+        Resource<Apartment> apartmentResource = apartmentResourceLinkCreator.createLink(toResource(apartment));
+        return new ResponseEntity<>(apartmentResource,HttpStatus.OK );
+    }
+
+
+
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Resource<HouseDTO>> getHouseById(@PathVariable("id") Integer houseId) {

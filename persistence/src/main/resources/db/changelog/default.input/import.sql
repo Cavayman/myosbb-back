@@ -27,6 +27,12 @@ INSERT INTO users(  birth_date,email, first_name, gender, last_name, password,ph
 INSERT INTO users(  birth_date,email, first_name, gender, last_name, password,phone_number,role,apartment_id,is_owner) VALUES ('1994-12-16','oleg111koval@gmail.com','Oleg','male','Koval','123456','095729666','1',8,TRUE );
 
 
+INSERT INTO users(  birth_date,email, first_name, gender, last_name, password,phone_number,role,apartment_id,is_owner) VALUES ('1994-12-16','svitlanaKoval@gmail.com','Svitlana','male','Koval','123456','095729666','1',8,FALSE );
+INSERT INTO users(  birth_date,email, first_name, gender, last_name, password,phone_number,role,apartment_id,is_owner) VALUES ('1994-12-16','oleg2koval@gmail.com','Ruslan','male','Koval','123456','095729666','1',8,FALSE );
+INSERT INTO users(  birth_date,email, first_name, gender, last_name, password,phone_number,role,apartment_id,is_owner) VALUES ('1994-12-16','oleg111koval@gmail.com','Sergiy','male','Koval','123456','095729666','1',8,FALSE );
+INSERT INTO users(  birth_date,email, first_name, gender, last_name, password,phone_number,role,apartment_id,is_owner) VALUES ('1994-12-16','oleg111koval@gmail.com','Andriy','male','Koval','123456','095729666','1',8,FALSE );
+
+
 INSERT INTO provider_type ( type_name) VALUES ('Internet');
 INSERT INTO provider_type ( type_name) VALUES ('Trash');
 INSERT INTO provider_type ( type_name) VALUES ('Electricity');
