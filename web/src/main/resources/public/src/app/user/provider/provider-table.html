@@ -178,17 +178,20 @@
                                                         <label> {{ 'email' | translate | capitalize }}</label>
                                                         <input type="text" class="form-control" required
                                                                name="email" [(ngModel)]="selected.email"
-                                                               #email="ngModel">
-                                                        <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+                                                               #email="ngModel"
+                                                               pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                                                        <div *ngIf="email.errors && email.errors.required  &&  !email.pristine" class="alert alert-danger">
                                                             {{ 'required' | translate | capitalize }}
+                                                        </div>
+                                                        <div  *ngIf="email.errors && email.errors.pattern &&  !email.pristine" class="alert alert-danger">
+                                                            {{ 'mail_format_err' | translate | capitalize }}
                                                         </div>
                                                     </div> <!-- Email -->
 
                                                     <div class="form-group">
                                                         <label> {{ 'phone' | translate | capitalize }}</label>
-                                                        <input type="text" class="form-control" required
-                                                               name="phone" [(ngModel)]="selected.phone"
-                                                               #phone="ngModel">
+                                                        <input [textMask]="{mask:phoneMask}" class="form-control" name="phone" [(ngModel)]="selected.phone" type="text"
+                                                               placeholder="(0__) ___-____"  #phone="ngModel" required>
                                                         <div [hidden]="phone.valid || phone.pristine" class="alert alert-danger">
                                                             {{ 'required' | translate | capitalize }}
                                                         </div>
@@ -319,19 +322,25 @@
                                                     <label> {{ 'email' | translate | capitalize }}</label>
                                                     <input type="text" class="form-control" required
                                                            name="email" [(ngModel)]="newProvider.email"
-                                                           #email="ngModel">
-                                                    <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+                                                           #email="ngModel"
+                                                           pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                                                    <div *ngIf="email.errors && email.errors.required  &&  !email.pristine" class="alert alert-danger">
                                                         {{ 'required' | translate | capitalize }}
+                                                    </div>
+                                                    <div  *ngIf="email.errors && email.errors.pattern && !email.pristine" class="alert alert-danger">
+                                                        {{ 'mail_format_err' | translate | capitalize }}
                                                     </div>
                                                 </div> <!-- Email -->
 
                                                 <div class="form-group">
                                                     <label> {{ 'phone' | translate | capitalize }}</label>
-                                                    <input type="text" class="form-control" required
-                                                           name="phone" [(ngModel)]="newProvider.phone"
-                                                           #phone="ngModel">
-                                                    <div [hidden]="phone.valid || phone.pristine" class="alert alert-danger">
+                                                    <input [textMask]="{mask:phoneMask}" class="form-control" name="phone" [(ngModel)]="newProvider.phone" type="text"
+                                                           placeholder="(0__) ___-____"  #phone="ngModel" required>
+                                                    <div *ngIf="phone.errors && phone.errors.required  &&  !phone.pristine" class="alert alert-danger">
                                                         {{ 'required' | translate | capitalize }}
+                                                    </div>
+                                                    <div  *ngIf="phone.errors && phone.errors.pattern && !phone.pristine" class="alert alert-danger">
+                                                        {{ 'phone_format_err' | translate | capitalize }}
                                                     </div>
                                                 </div> <!-- Phone -->
 

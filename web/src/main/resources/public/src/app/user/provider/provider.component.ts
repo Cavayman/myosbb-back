@@ -24,6 +24,7 @@ import {SelectItem} from "../../../shared/models/ng2-select-item.interface";
 import {HeaderComponent} from "../../header/header.component";
 import {PeriodicityItems} from "../../../shared/models/periodicity.const";
 import {FORM_DIRECTIVES} from "@angular/forms";
+import MaskedInput from 'angular2-text-mask';
 
 
 @Component({
@@ -33,11 +34,13 @@ import {FORM_DIRECTIVES} from "@angular/forms";
     directives: [DROPDOWN_DIRECTIVES],
     providers: [ProviderService, MailService],
     directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, ROUTER_DIRECTIVES, ProviderTypeComponent,
-        SELECT_DIRECTIVES, NgClass, FORM_DIRECTIVES, BUTTON_DIRECTIVES ],
+        SELECT_DIRECTIVES, NgClass, FORM_DIRECTIVES, BUTTON_DIRECTIVES, MaskedInput ],
     viewProviders: [BS_VIEW_PROVIDERS],
     styleUrls: ['src/app/user/bills/bill.css', 'src/shared/css/loader.css', 'src/shared/css/general.css']
 })
 export class ProviderComponent {
+    public phoneMask=['(', /[0]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+    public textmask=[/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/];
     private providers :  Provider[];
     private selected : Provider =  {providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:{providerTypeId: null, providerTypeName: ''},
         email:'',phone:'', address:'', schedule: '', active: false};
