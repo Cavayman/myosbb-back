@@ -5,7 +5,6 @@ import com.softserve.osbb.dto.VoteDTOMapper;
 import com.softserve.osbb.model.Option;
 import com.softserve.osbb.model.User;
 import com.softserve.osbb.model.Vote;
-import com.softserve.osbb.service.OptionService;
 import com.softserve.osbb.service.UserService;
 import com.softserve.osbb.service.VoteService;
 import org.slf4j.Logger;
@@ -28,7 +27,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/restful")
+@RequestMapping("/restful/vote")
 public class VoteController {
 
     private static Logger logger = LoggerFactory.getLogger(VoteController.class);
@@ -39,10 +38,7 @@ public class VoteController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private OptionService optionService;
-
-    @RequestMapping(value = "/vote", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Resource<Vote>> createVote(@RequestBody Vote vote) {
         logger.info("Add vote: " + vote);
         User user = userService.findOne(vote.getUser().getUserId());
@@ -52,22 +48,20 @@ public class VoteController {
             option.setVote(vote);
         }
         vote = voteService.addVote(vote);
-        userService.save(user);
         return new ResponseEntity<>(addResourceLinkToVote(vote), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/vote/id/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Resource<Vote>> getVoteById(@PathVariable("id") Integer id) {
         logger.info("Get vote by id: " + id);
         Vote vote = voteService.getVoteById(id);
         return new ResponseEntity<>(addResourceLinkToVote(vote), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/vote", method = RequestMethod.GET)
+    @RequestMapping( method = RequestMethod.GET)
     public ResponseEntity<List<Resource<VoteDTO>>> getAllVotes() {
         logger.info("Get all votes.");
         List<Vote> voteList = voteService.getAllVotesByDateOfCreation();
-        //List<Vote> voteList = voteService.getAllVotes();
         List<VoteDTO> voteDTOList = new ArrayList<>();
         for(Vote vote: voteList) {
             voteDTOList.add(VoteDTOMapper.mapVoteEntityToDTO(vote));
@@ -78,23 +72,8 @@ public class VoteController {
         }
         return new ResponseEntity<>(resourceVoteList, HttpStatus.OK);
     }
-/*
-    @RequestMapping(value = "/vote", method = RequestMethod.GET)
-    public ResponseEntity<List<Resource<VoteDTO>>> getAllVotes() {
-        logger.info("Get all votes.");
-        List<Vote> voteList = voteService.getAllVotes();
-        List<VoteDTO> voteDTOList = new ArrayList<>();
-        for(Vote vote: voteList) {
-            voteDTOList.add(VoteDTOMapper.mapVoteEntityToDTO(vote));
-        }
-        final List<Resource<VoteDTO>> resourceVoteList = new ArrayList<>();
-        for(VoteDTO v: voteDTOList) {
-            resourceVoteList.add(addResourceLinkToVote(v));
-        }
-        return new ResponseEntity<>(resourceVoteList, HttpStatus.OK);
-    }*/
 
-    @RequestMapping(value = "/vote", method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<Resource<Vote>> updateVote(@RequestBody Vote vote) {
         logger.info("Update vote with id: " + vote.getVoteId());
         for(Option option: vote.getOptions()) {
@@ -104,20 +83,13 @@ public class VoteController {
         return new ResponseEntity<>(addResourceLinkToVote(updatedVote), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/vote/id/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Resource<Vote>> deleteVote(@PathVariable("id") Integer id) {
         logger.info("Delete vote with id: " + id);
         for(Option opt: voteService.getVoteById(id).getOptions()) {
             opt.getUsers().clear();
         }
         voteService.deleteVote(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/vote", method = RequestMethod.DELETE)
-    public ResponseEntity<Vote>  deleteAllVotes() {
-        logger.info("Delete all votes.");
-        voteService.deleteAllVotes();
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -137,5 +109,4 @@ public class VoteController {
                 .withSelfRel());
         return voteResource;
     }
-
 }

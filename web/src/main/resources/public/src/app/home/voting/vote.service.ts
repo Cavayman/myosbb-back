@@ -31,7 +31,7 @@ export class VoteService {
     }
 
     deleteVote(vote:Vote): Promise<Vote> {
-        let url = this.url + '/id/' + vote.voteId;
+        let url = this.url + '/' + vote.voteId;
         return this.http.delete(url)
                     .toPromise()
                     .then(res => vote)
