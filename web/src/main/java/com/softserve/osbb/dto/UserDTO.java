@@ -38,7 +38,7 @@ public class UserDTO {
         this.phoneNumber = user.getPhoneNumber();
         this.password = user.getPassword();
         this.gender = user.getGender();
-        this.role=user.getRole().getAuthority();
+        this.role=user.getRole().getName();
         this.activated=user.getActivated();
     }
 

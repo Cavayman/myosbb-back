@@ -62,9 +62,9 @@ public class VoteRepositoryTest {
         Assert.assertFalse(voteRepository.exists(vote.getVoteId()));
     }
 
-    @Test
-    public void testDeleteAllVotes(){
-        voteRepository.deleteAll();
-        assertTrue(voteRepository.findAll().isEmpty());
-    }
+//    @Test
+//    public void testDeleteAllVotes(){
+//        voteRepository.deleteAll();
+//        assertTrue(voteRepository.findAll().isEmpty());
+//    }
 }

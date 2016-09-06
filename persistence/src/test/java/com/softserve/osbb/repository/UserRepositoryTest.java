@@ -27,6 +27,7 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = PersistenceConfiguration.class)
 public class UserRepositoryTest extends Assert {
+
     private User user;
     private User user2;
     private Role role1;
@@ -89,20 +90,16 @@ public class UserRepositoryTest extends Assert {
         userRepository.save(user);
         userRepository.save(user2);
 
-        assertTrue(userRepository.findByRole(role1).size() >= 2);
+        assertTrue(userRepository.findByRole(role1).contains(user));
 
         user.setRole(role2);
         user2.setRole(role2);
         userRepository.save(user);
         userRepository.save(user2);
-        assertTrue(userRepository.findByRole(role2).size() >= 2);
+        assertTrue(userRepository.findByRole(role2).contains(user2));
 
         assertEquals(user.getRole().getName(),roleUserRepository.findByUsers(user).getName());
-        assertTrue(userRepository.findAll().size() >= 2);
     }
 
 
-    @After public void afterTest(){
-    userRepository.deleteAll();
-    }
 }

@@ -2,6 +2,7 @@ package com.softserve.osbb.config;
 
 import com.softserve.osbb.service.utils.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @ComponentScan("com.softserve.osbb.service")
-@EnableWebSecurity
+@EnableOAuth2Sso
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -53,13 +54,21 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers("/**").authenticated()
+//                .antMatchers("/myosbb/node_modules/**").permitAll()
+//                .antMatchers("/myosbb/assets/**").permitAll()
+//                .antMatchers("/oauth/token").permitAll()
+//                .anyRequest()
+//                .authenticated();
                 .and()
+                .antMatcher("/**")
                 .authorizeRequests()
-                .antMatchers("/**").authenticated()
-                .antMatchers("/myosbb/node_modules/**").permitAll()
-                .antMatchers("/myosbb/assets/**").permitAll()
-                .antMatchers("/oauth/token").permitAll()
-                .and().formLogin().loginPage("/login").permitAll();
+                .antMatchers("/", "/login**", "/webjars/**")
+                .permitAll()
+                .anyRequest()
+                .authenticated();
     }
 
 }

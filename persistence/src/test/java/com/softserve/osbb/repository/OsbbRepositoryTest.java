@@ -54,19 +54,19 @@ public class OsbbRepositoryTest {
         Assert.assertEquals(osbbRepository.getOne(savedOsbb.getOsbbId()),savedOsbb);
     }
 
-    @Test
-    public void testGetAllOsbb() {
-        List<Osbb> list = Arrays.asList(new Osbb(), new Osbb(), new Osbb());
-        osbbRepository.deleteAll();
-        osbbRepository.save(list);
-        Assert.assertTrue(list.size() == osbbRepository.findAll().size());
-    }
+//    @Test
+//    public void testGetAllOsbb() {
+//        List<Osbb> list = Arrays.asList(new Osbb(), new Osbb(), new Osbb());
+//        osbbRepository.deleteAll();
+//        osbbRepository.save(list);
+//        Assert.assertTrue(list.size() == osbbRepository.findAll().size());
+//    }
 
-    @Test
-    public void testDeleteOsbbById() {
-        osbbRepository.delete(osbb.getOsbbId());
-        Assert.assertFalse(osbbRepository.exists(osbb.getOsbbId()));
-    }
+//    @Test
+//    public void testDeleteOsbbById() {
+//        osbbRepository.delete(osbb.getOsbbId());
+//        Assert.assertFalse(osbbRepository.exists(osbb.getOsbbId()));
+//    }
 
     @Test
     public void testDeleteOsbbByOsbb() {
@@ -74,11 +74,11 @@ public class OsbbRepositoryTest {
         Assert.assertFalse(osbbRepository.exists(osbb.getOsbbId()));
     }
 
-    @Test
-    public void testDeleteAllOsbb() {
-        Assert.assertNotEquals(0, osbbRepository.findAll().size());
-        osbbRepository.deleteAll();
-        Assert.assertEquals(0, osbbRepository.findAll().size());
-    }
+//    @Test
+//    public void testDeleteAllOsbb() {
+//        Assert.assertNotEquals(0, osbbRepository.findAll().size());
+//        osbbRepository.deleteAll();
+//        Assert.assertEquals(0, osbbRepository.findAll().size());
+//    }
 
 }
