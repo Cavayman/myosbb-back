@@ -21,7 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @ComponentScan("com.softserve.osbb.service")
-@EnableOAuth2Sso
+@EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
