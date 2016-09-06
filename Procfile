@@ -1,1 +1,1 @@
-web: cd web mvn spring-boot:run
+web: mvn -f web spring-boot:run
