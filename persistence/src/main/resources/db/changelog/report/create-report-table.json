@@ -41,7 +41,10 @@
                 {
                   "column": {
                     "name": "name",
-                    "type": "VARCHAR(255)"
+                    "type": "VARCHAR(255)",
+                    "constraints": {
+                      "nullable": false
+                    }
                   }
                 },
                 {
@@ -80,22 +83,6 @@
               "onUpdate": "NO ACTION",
               "referencedColumnNames": "osbb_id",
               "referencedTableName": "osbb"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "changeSet": {
-        "id": "2016/08/17-01",
-        "author": "nazar",
-        "changes": [
-          {
-            "addNotNullConstraint": {
-              "columnDataType": "VARCHAR(255)",
-              "columnName": "name",
-              "schemaName": "public",
-              "tableName": "report"
             }
           }
         ]

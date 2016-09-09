@@ -1,13 +1,11 @@
 package com.softserve.osbb.model;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.softserve.osbb.model.enums.TicketState;
-import com.softserve.osbb.utils.CustomLocalDateDeserializer;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -22,8 +20,8 @@ public class Ticket {
     private String name;
     private String description;
     private TicketState state;
-    private LocalDate stateTime;
-    private LocalDate time;
+    private Timestamp stateTime;
+    private Timestamp time;
     private User user;
     private User assigned;
     private Collection<Message> messages = new ArrayList<>();
@@ -35,7 +33,6 @@ public class Ticket {
     public Ticket(String name, String description) {
         this.name = name;
         this.description = description;
-//        stateTime = time = LocalDate.now();
         state = TicketState.NEW;
     }
 
@@ -43,7 +40,6 @@ public class Ticket {
         this.name = name;
         this.description = description;
         this.user = user;
-//        stateTime = time = LocalDate.now();
         state = TicketState.NEW;
 
     }
@@ -80,14 +76,13 @@ public class Ticket {
     }
 
     @Basic
-    @JsonDeserialize(using = CustomLocalDateDeserializer.class)
     @Column(name = "time")
-    public LocalDate getTime() {
+    public Timestamp getTime() {
         return time;
     }
 
-    @JsonDeserialize(using = CustomLocalDateDeserializer.class)
-    public void setTime(LocalDate time) {
+
+    public void setTime(Timestamp time) {
         this.time = time;
     }
 
@@ -113,13 +108,12 @@ public class Ticket {
     }
 
     @Basic
-    @JsonDeserialize(using = CustomLocalDateDeserializer.class)
     @Column(name = "state_time")
-    public LocalDate getStateTime() {
+    public Timestamp getStateTime() {
         return stateTime;
     }
 
-    public void setStateTime(LocalDate stateTime) {
+    public void setStateTime(Timestamp stateTime) {
         this.stateTime = stateTime;
     }
 
@@ -133,7 +127,7 @@ public class Ticket {
         this.assigned = assigned;
     }
 
-    @OneToMany(mappedBy = "ticket",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "ticket", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public Collection<Message> getMessages() {
         return messages;
     }
@@ -159,5 +153,17 @@ public class Ticket {
     @Override
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "ticketId=" + ticketId +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", state=" + state +
+                ", stateTime=" + stateTime +
+                ", time=" + time +
+                '}';
     }
 }

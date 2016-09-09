@@ -26,6 +26,8 @@
     "app/app.component.ts",
     "app/app.boot.ts",
     "typings/browser/ambient/es6-promise/es6-promise.d.ts",
-    "typings/browser/ambient/es6-collections/es6-collections.d.ts"
+    "typings/browser/ambient/es6-collections/es6-collections.d.ts",
+	 "typings/tsd.d.ts",
+    "main.ts"
   ]
 }

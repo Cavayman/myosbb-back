@@ -1,44 +1,88 @@
-<div style="opacity: 0.85"  >
-
-<ul class="list-group"  >
-   <li  class="list-group-item list-group-item-success"><h2>Apartment #{{currentApartment.number}}</h2></li>
-
-   <button   type="button" style="width: 100%" class="list-group-item list-group-item-info  "   (click)="onUsersClick()"><h3>Кількість жителів: {{currentApartment.users.length+1}}</h3><span class="badge"  >ADD</span></button>
-
-      <li class="list-group-item" *ngIf="clicked" ><!-- *ngFor="let user of currentApartment.users"> -->
-      name : {{currentApartment.user.firstName}}
-      </li>
 
 
-   <a href="" class="list-group-item list-group-item-danger ">Рахунки <span class="badge"  >{{currentApartment.bills.length}}</span></a>
-   <li class="list-group-item">Контактний номер:{{currentApartment.user.phoneNumber}}</li>
-</ul>
+    <div class="myheader " >
+    <div class="image">
+        <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ9R8oeXNOBq-d89Z77UZ_Z6m_6cvOpTWeyEPe7Y5XY-z-aFuDF">
+    </div>
+        <div class="text-info-header">Apartment# {{currentApartment.number}}
+        </div>
+
+
+
+
+
+
+
+    <div class="row col-xs-7">
+       <!-- <div class="task-panel tasks-widget col-xs-12 right ">-->
+            <div class="col-xs-12">
+                <label class="col-xs-6"><b>Вулиця</b></label>
+                <h5 class="col-xs-6">{{currentApartment.house.street}}</h5>
+            </div>
+            <div class="col-xs-12">
+                <label class="col-xs-6"><b>Площа</b></label>
+                <h5 class="col-xs-6">{{currentApartment.square}}</h5>
+            </div>
+            <div class="col-xs-12">
+                <label class="col-xs-6"><b>Мешканці: <span style="cursor: pointer" class="glyphicon glyphicon-eye-open" (click)="openUserListModal()"></span></b></label>
+                <h5 class="col-xs-6">{{countOfUsers}}</h5>
+            </div>
+            <div class="col-xs-12">
+                <label class="col-xs-6"><b>Контакти</b></label>
+                <h5 class="col-xs-6">{{owner.email}}</h5>
+           <!-- </div>-->
+        </div>
+        </div>
+
+
+
+        </div>
+
+
+
+ <div bsModal #userListModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close"
+                        (click)="userListModal.hide()">
+
+                </button>
+                <h4 class="modal-title">Мешканці</h4>
+            </div>
+            <form *ngIf="active" #apartmentForm="ngForm">
+                <div class="modal-body">
+
+
+
+                  <div *ngFor="let user of usersInApartment" class="form-group">
+
+                        <div class="form-group">
+                        <label>{{user.firstName}}   {{user.lastName}}</label>
+
+                        </div>
+                  </div>
+
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" (click)=" userListModal.hide()" class="btn btn-success"
+                            [disabled]="!apartmentForm.form.valid">
+                        Ok
+                    </button>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
 </div>
-<!--
-
-</div>
-<div>
-<button class="btn btn-primary" type="button">
-   Рахунки <span class="badge">{{bill}}</span>
-</button>
-</div>
-
-<div>
-   <button class="btn btn-primary" type="button">
-      Кількість мешканців: {{countOfUsers}}
-   </button>
-</div>
--->
 
 
 
-   <div >
-   <div class="jumbotron">
-      <h1>Hello, {{currentApartment.user.firstName}}</h1>
-      <br>
-      <h1>HERE WILL Be Another INFORMATION</h1>
-      <p>...</p>
-      <p><a class="btn btn-primary btn-lg" role="button" (click)="btnclick()">More</a></p>
-   </div>
-</div>
+
+
+
 

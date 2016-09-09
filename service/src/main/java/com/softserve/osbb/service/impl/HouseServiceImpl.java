@@ -28,7 +28,7 @@ public class HouseServiceImpl implements HouseService {
 
     @Override
     public House addHouse(House house) {
-        return house == null ? House.EMPTY_HOUSE : addHouseIfNotNull(house);
+        return house == null ? House.NULL : addHouseIfNotNull(house);
     }
 
     private House addHouseIfNotNull(House house) {
@@ -38,20 +38,20 @@ public class HouseServiceImpl implements HouseService {
 
     @Override
     public House updateHouse(Integer houseId, House house) {
-        return house == null ? House.EMPTY_HOUSE : updateHouseIfExists(house);
+        return house == null ? House.NULL : updateHouseIfExists(house);
     }
 
     private House updateHouseIfExists(House house) {
         final boolean houseExists = houseRepository.equals(house);
         if (!houseExists) {
-            return House.EMPTY_HOUSE;
+            return House.NULL;
         }
         return house;
     }
 
     @Override
     public House findHouseById(Integer houseId) {
-        return houseRepository.exists(houseId) ? houseRepository.findOne(houseId) : House.EMPTY_HOUSE;
+        return houseRepository.exists(houseId) ? houseRepository.findOne(houseId) : House.NULL;
     }
 
     @Override
@@ -70,6 +70,11 @@ public class HouseServiceImpl implements HouseService {
     public List<House> findAllByStreet(String street) {
         return (street == null || street.isEmpty()) ?
                 EMPTY_HOUSE_LIST : houseRepository.findByStreet(street);
+    }
+
+    @Override
+    public List<House> findAll() {
+        return houseRepository.findAll();
     }
 
 

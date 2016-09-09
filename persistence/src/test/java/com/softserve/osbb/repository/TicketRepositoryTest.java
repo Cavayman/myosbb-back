@@ -15,9 +15,11 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
@@ -42,7 +44,7 @@ public class TicketRepositoryTest {
         ticket.setName("some name");
         ticket.setDescription("some description");
         ticket.setState(TicketState.NEW);
-        ticket.setTime(LocalDate.now());
+        ticket.setTime(new Timestamp(new Date().getTime()));
         ticket.setUser(new User());
         ticket.setAttachments(Arrays.asList(new Attachment(), new Attachment()));
     }

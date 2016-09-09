@@ -1,6 +1,7 @@
 package com.softserve.osbb.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.softserve.osbb.utils.CustomLocalDateDeserializer;
@@ -17,6 +18,7 @@ import java.time.LocalDate;
  */
 @Entity
 @Table(name = "report")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Report implements Serializable {
     public static final Report NO_REPORT = null;
     private Integer reportId;
@@ -127,5 +129,14 @@ public class Report implements Serializable {
         this.user = user;
     }
 
-
+    @Override
+    public String toString() {
+        return "Report{" +
+                "reportId=" + reportId +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", creationDate=" + creationDate +
+                ", filePath='" + filePath + '\'' +
+                '}';
+    }
 }

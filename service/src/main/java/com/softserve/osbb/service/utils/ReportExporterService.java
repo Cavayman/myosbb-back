@@ -1,39 +1,43 @@
 package com.softserve.osbb.service.utils;
 
 import com.softserve.osbb.model.report.ReportGenFactory;
-import com.softserve.osbb.model.report.ReportTemplate;
+import com.softserve.osbb.model.report.ReportSaver;
+import com.softserve.osbb.utils.Constants;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 /**
  * Created by nazar.dovhyy on 29.07.2016.
  */
 @Service
-class ReportExporterService {
-
-    private static final String MEDIA_TYPE_EXCEL = "application/vnd.ms-excel";
-    private static final String MEDIA_TYPE_PDF = "application/pdf";
-    private static final String MEDIA_TYPE_CSV = "text/csv";
+class ReportExporterService implements ReportExporterServiceInterface {
 
     private static Logger logger = LoggerFactory.getLogger(ReportExporterService.class);
 
+    @Autowired
+    private FileServer fileServer;
 
-    HttpServletResponse exportToOutputStream(String type,
-                                             JasperPrint jp,
-                                             HttpServletResponse response,
-                                             ByteArrayOutputStream baos) {
-        ReportTemplate reportTemplate = ReportGenFactory.generate(type);
+    @Override
+    public String export(String type, JasperPrint jp, HttpServletResponse response, ByteArrayOutputStream baos) throws IOException {
+        exportToOutputStream(type, jp, response, baos);
+        return exportToFileSystem(jp, type, fileServer.getOutputFileDirectory(Constants.REPORTS_DIR_NAME));
+    }
+
+    private HttpServletResponse exportToOutputStream(String type, JasperPrint jp, HttpServletResponse response, ByteArrayOutputStream baos) {
+        ReportSaver reportSaver = ReportGenFactory.generate(type);
         try {
-            if (reportTemplate != null) {
-                reportTemplate.saveToOutputStream(jp, baos);
+            if (reportSaver != null) {
+                reportSaver.saveToOutputStream(jp, baos);
                 logger.info("exporting report output stream in " + type);
-                buildResponse(response, baos, reportTemplate.getFileName());
+                buildHttpServletResponseMessage(response, baos, reportSaver.getFileName());
             }
         } catch (JRException e) {
             logger.error("failed to save report in " + type);
@@ -43,41 +47,30 @@ class ReportExporterService {
         return response;
     }
 
-    String exportToFile(JasperPrint jp, String type, String outputDir) {
-        String destFileName = "";
-        ReportTemplate reportTemplate = ReportGenFactory.generate(type);
-        if (reportTemplate != null) {
+    private String exportToFileSystem(JasperPrint jp, String type, String outputDir) {
+        String destFileName = null;
+        ReportSaver reportSaver = ReportGenFactory.generate(type);
+        if (reportSaver != null) {
             try {
-                destFileName = reportTemplate.saveToFile(jp, outputDir);
+                destFileName = reportSaver.saveToFile(jp, outputDir);
                 logger.info("exporting report to file in " + type);
             } catch (JRException e) {
                 logger.error("failed to save report to file in " + type);
                 throw new RuntimeException(e);
             }
+        } else {
+            throw new IllegalArgumentException("reportSaver wasn't generated due to wrong type: " + type);
         }
 
         return destFileName;
     }
 
 
-    private void buildResponse(HttpServletResponse response, ByteArrayOutputStream baos, String fileName) {
+    private void buildHttpServletResponseMessage(HttpServletResponse response, ByteArrayOutputStream baos, String fileName) {
         response.setHeader("Content-disposition", ", inline; fileName= " + fileName);
-        response.setContentType(setContentType(fileName));
+        response.setContentType(HttpResponseMessageBuilder.returnContentTypeOf(fileName));
         response.setContentLength(baos.size());
     }
 
-    private String setContentType(String fileName) {
-        switch (fileName.substring(fileName.lastIndexOf(".") + 1)) {
-            case "pdf":
-                return MEDIA_TYPE_PDF;
-            case "xls":
-                return MEDIA_TYPE_EXCEL;
-            case "csv":
-                return MEDIA_TYPE_CSV;
-            default:
-                return "application/json";
-        }
-
-    }
 
 }

@@ -10,20 +10,36 @@
         </div>
     </div>
 
-    <div class="row"  *ngFor="let provider of providers">
-        <div class="col-md-1">
-        </div>
-        <div class="col-md-6">
-            <a [routerLink]="['.', provider.providerId]">
-                <img class="img-responsive"  src="{{provider.logoUrl}}" alt="" style="width: 400px; height: 300px">
-            </a>
-        </div>
-        <div class="col-md-5">
-            <h3>{{provider.name}}</h3>
-            <h4>{{provider.type.providerTypeName}}</h4>
-            <p>{{provider.description}}</p>
-            <a class="btn btn-primary" [routerLink]="['.', provider.providerId]"> {{'providergo' | translate | capitalize }} <span class="glyphicon glyphicon-chevron-right"></span></a>
-        </div>
+    <div class="task-panel tasks-widget"> </div>
+
+        <div class="row"  *ngFor="let provider of providers">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-5">
+                    <a [routerLink]="['.', provider.providerId]">
+                        <img class="img-responsive"  src="{{provider.logoUrl}}" alt="" class="img-thumbnail">
+                    </a>
+                </div>
+                <div class="col-md-5">
+                    <div class="task-panel tasks-widget" style="padding-top: 50px">
+                    <div class="col-xs-12">
+                        <label class="col-xs-6">{{'company' | translate | capitalize }}</label>
+                        <h5 class="col-xs-6">{{provider.name}}</h5>
+                    </div>
+                    <div class="col-xs-12">
+                        <label class="col-xs-6">{{'type' | translate | capitalize }}</label>
+                        <h6 class="col-xs-6">{{provider.type.providerTypeName}}</h6>
+                    </div>
+                    <div class="col-xs-12">
+                        <label class="col-xs-6">{{'description' | translate | capitalize }}</label>
+                        <h6 class="col-xs-6">{{provider.description}}</h6>
+                    </div>
+
+                        <div class="right">
+                            <a class="btn btn-primary" [routerLink]="['.', provider.providerId]"> {{'providergo' | translate | capitalize }} <span class="glyphicon glyphicon-chevron-right"></span></a>
+                        </div>
+                </div>
+            </div>
     </div>
     <hr>
     </div>

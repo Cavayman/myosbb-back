@@ -6,6 +6,7 @@ export interface IOsbb {
     creator:User;
     address: string;
     district:string;
+    logoUrl:string;
     creationDate: Date;
 }
 
@@ -16,12 +17,8 @@ export class Osbb implements IOsbb {
     creator: User;
     address: string;
     district:string;
+    logoUrl:string;
     creationDate: Date;
 
-    constructor( name:string, description:string, address: string, district: string) {
-        this.name = name;
-        this.description = description;
-        this.address = address;
-        this.district = district;
-    }
+    
 }

@@ -1,35 +1,43 @@
-{ "databaseChangeLog": [
-  {
-    "changeSet": {
-      "id": "2016/08/03-30",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "createTable": {
-            "columns": [
-              {
-                "column": {
-                  "autoIncrement": true,
-                  "constraints": {
-                    "primaryKey": true,
-                    "primaryKeyName": "role_pkey"
-                  },
-                  "name": "role_id",
-                  "type": "SERIAL"
+{
+  "databaseChangeLog": [
+    {
+      "changeSet": {
+        "id": "2016/08/03-30",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "createTable": {
+              "columns": [
+                {
+                  "column": {
+                    "autoIncrement": true,
+                    "constraints": {
+                      "primaryKey": true,
+                      "primaryKeyName": "role_pkey"
+                    },
+                    "name": "role_id",
+                    "type": "SERIAL"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "name",
+                    "type": "VARCHAR(255)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "available",
+                    "type": "boolean"
+                  }
                 }
-              },
-              {
-                "column": {
-                  "name": "name",
-                  "type": "VARCHAR(255)"
-                }
-              }]
-          ,
-            "tableName": "role"
+              ],
+              "tableName": "role"
+            }
           }
-        }]
-
+        ]
+      }
     }
-  }]
+  ]
 }

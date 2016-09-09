@@ -26,14 +26,9 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit():any {
-    
         this._loginStat.loggedInObserver$
             .subscribe(stat => {
                 this.isLoggedIn = stat;
             })
     }
-
-    printHello(): void {             //DELETE ME
-        console.log("Привіт");
-    }   
 }

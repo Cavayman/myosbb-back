@@ -11,17 +11,15 @@ import {Mail} from "../models/mail.interface";
 
 @Injectable()
 export class MailService {
-    private url = ApiService.serverUrl + '/restful/mail/';
+    private url = ApiService.serverUrl + '/restful/mail';
 
     constructor(private _http:Http){
     }
 
     sendMail(mail : Mail){
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
         console.log("sending http POST to " + this.url);
-        console.log("json obj: " + JSON.stringify(mail));
-        return this._http.post(this.url, JSON.stringify(mail), {headers: headers})
+        console.log("json obj: ", JSON.stringify(mail));
+        return this._http.post(this.url, JSON.stringify(mail))
             .toPromise()
             .then(()=>mail)
             .catch((err)=>console.error(err));

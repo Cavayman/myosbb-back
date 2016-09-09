@@ -1,0 +1,14 @@
+
+.logo {
+    width: 270px;
+    height:230px;
+    margin-bottom:10px;
+}
+
+.ng-valid[required] {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid {
+  border-left: 5px solid #a94442; /* red */
+}

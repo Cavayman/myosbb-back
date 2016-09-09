@@ -33,10 +33,10 @@ public class ContractRepositoryTest {
     @Before
     public void init(){
         contract = new Contract();
-        contract.setContractId(6);
-        contract.setPrice(BigDecimal.valueOf(2016));
+        //contract.setContractId(6);
+        //contract.setPrice(BigDecimal.valueOf(2016));
         contract.setText("Text");
-        contract.setAttachment(new Attachment());
+//        contract.setAttachment(new Attachment());
     }
 
     @Test
@@ -49,12 +49,13 @@ public class ContractRepositoryTest {
 
     @Test
     public void testSave(){
-        contractRepository.save(contract);
+        contract = contractRepository.save(contract);
         Assert.assertNotNull(contract.getContractId());
     }
 
     @Test
     public void testDeleteContract(){
+        testSave();
         contractRepository.delete(contract);
         Assert.assertFalse(contractRepository.exists(contract.getContractId()));
     }

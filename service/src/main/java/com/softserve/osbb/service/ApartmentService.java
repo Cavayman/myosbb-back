@@ -1,6 +1,9 @@
 package com.softserve.osbb.service;
 import com.softserve.osbb.model.Apartment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,15 +18,11 @@ public interface ApartmentService {
 
     Apartment findOneApartmentByID(Integer id);
 
-    List<Apartment> findAllApartmentByIDs(List<Integer> ids);
-
     List<Apartment> findAllApartment();
 
     void deleteApartment(Apartment apartment);
 
     void deleteApartmentByID(Integer id);
-
-    void deleteListApartments(List<Apartment> list);
 
     void deleteAllApartmnets();
 
@@ -33,5 +32,7 @@ public interface ApartmentService {
 
     Apartment updateApartment(Apartment apartment);
 
-    Apartment findApartmentByNumber(Integer number);
+
+    Page<Apartment> getAllApartment(Integer pageNumber, String sortedBy, Boolean ascOrder,Integer number);
+
 }

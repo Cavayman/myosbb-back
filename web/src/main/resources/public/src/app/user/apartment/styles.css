@@ -1,5 +1,32 @@
-.mytable{
-	background-color: #ccc;
-	height: 100%;
-	opacity:0.9;
+.panel-heading{
+    display: inline-block;
+    width: 100%;
+}
+img{
+    max-width: 100%;
+    height: auto;
+    border-radius: 50%;
+    border: 1px solid #FFF;
+
+}
+.image{
+
+    margin: auto 0 auto 0%;
+
+    width:60px ;
+    height: 60px;
+    opacity:1;
+
+cursor: pointer;
+
+}
+.form-group{
+    margin: auto 10px auto 10px;
+}
+
+.inValid {
+    border-color: red;
+}
+.valid {
+    border-color: green;
 }

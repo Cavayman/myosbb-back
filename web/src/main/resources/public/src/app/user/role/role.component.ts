@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CORE_DIRECTIVES} from '@angular/common';
-import {HTTP_PROVIDERS} from "@angular/http";
+
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS} from 'ng2-bootstrap/ng2-bootstrap';
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/toPromise";
@@ -9,16 +9,14 @@ import { RoleService } from './role.service';
 import { RoleAddFormComponent } from './role_form/role-add-form.component';
 import { RoleEditFormComponent } from './role_form/role-edit-form.component';
 import { RoleDelFormComponent } from './role_form/role-del-form.component';
-import {RoleFilter} from "./role.filter";
 import {PageCreator} from "../../../shared/services/page.creator.interface";
 
 @Component({
     selector: 'role',
     templateUrl: './src/app/user/role/role.component.html',
-    providers: [HTTP_PROVIDERS, RoleService],
+    providers: [ RoleService],
     directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, RoleAddFormComponent, RoleEditFormComponent, RoleDelFormComponent],
-    viewProviders: [BS_VIEW_PROVIDERS],
-    pipes: [RoleFilter]
+    viewProviders: [BS_VIEW_PROVIDERS]
 })
 export class RoleComponent implements OnInit {
 

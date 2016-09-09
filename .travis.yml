@@ -1,0 +1,8 @@
+language: java
+jdk:
+- oraclejdk8
+
+deploy:
+  provider: heroku
+  api_key: f69bcce1-7e30-4309-90d5-9e1b5874c8c5
+  app: ancient-ridge-69506

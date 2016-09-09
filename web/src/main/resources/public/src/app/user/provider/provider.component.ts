@@ -10,7 +10,7 @@ import {PageCreator} from "../../../shared/services/page.creator.interface";
 import {Observable} from 'rxjs/Observable';
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS, BUTTON_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
-import {CORE_DIRECTIVES, NgClass, FORM_DIRECTIVES} from "@angular/common";
+import {CORE_DIRECTIVES, NgClass} from "@angular/common";
 import {BUTTON_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 import {SELECT_DIRECTIVES} from "ng2-select/ng2-select";
 import {ROUTER_DIRECTIVES, Router} from "@angular/router";
@@ -22,25 +22,29 @@ import {Mail} from "../../../shared/models/mail.interface";
 import {MailService} from "../../../shared/services/mail.sender.service";
 import {SelectItem} from "../../../shared/models/ng2-select-item.interface";
 import {HeaderComponent} from "../../header/header.component";
-import {PeriodicityItems} from "./periodicity.const";
-import {ActiveFilter} from "../../../shared/pipes/active.filter";
+import {PeriodicityItems} from "../../../shared/models/periodicity.const";
+import {FORM_DIRECTIVES} from "@angular/forms";
+import MaskedInput from 'angular2-text-mask';
 
 
 @Component({
     selector: 'myosbb-provider',
     templateUrl: 'src/app/user/provider/provider-table.html',
-    pipes: [TranslatePipe, CapitalizeFirstLetterPipe, ActiveFilter],
+    pipes: [TranslatePipe, CapitalizeFirstLetterPipe],
     directives: [DROPDOWN_DIRECTIVES],
     providers: [ProviderService, MailService],
     directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, ROUTER_DIRECTIVES, ProviderTypeComponent,
-        SELECT_DIRECTIVES, NgClass, FORM_DIRECTIVES, BUTTON_DIRECTIVES ],
-    viewProviders: [BS_VIEW_PROVIDERS]
+        SELECT_DIRECTIVES, NgClass, FORM_DIRECTIVES, BUTTON_DIRECTIVES, MaskedInput ],
+    viewProviders: [BS_VIEW_PROVIDERS],
+    styleUrls: ['src/app/user/bills/bill.css', 'src/shared/css/loader.css', 'src/shared/css/general.css']
 })
-export class ProviderComponent implements OnInit{
+export class ProviderComponent {
+    public phoneMask=['(', /[0]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+    public textMask=[/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/];
     private providers :  Provider[];
     private selected : Provider =  {providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:{providerTypeId: null, providerTypeName: ''},
         email:'',phone:'', address:'', schedule: '', active: false};
-        private newProvider : Provider =  {providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:{providerTypeId: null, providerTypeName: ''},
+    private newProvider : Provider =  {providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:{providerTypeId: null, providerTypeName: ''},
         email:'',phone:'', address:'', schedule: '', active: false};
     private pageCreator:PageCreator<Provider>;
     private pageNumber:number = 1;
@@ -51,14 +55,16 @@ export class ProviderComponent implements OnInit{
     @ViewChild('createModal') public createModal:ModalDirective;
     active:boolean = true;
     order:boolean = true;
-
     onlyActive: boolean = true;
+
+
+    private shouldRun: boolean = true;
 
     private providerId:number;
     private periodicities: SelectItem[] = [];
 
     private mail : Mail = {to:'', subject: '', text: ''};
-    constructor(private _providerService:ProviderService, private _mailService: MailService,private router: Router){
+    constructor(private _providerService:ProviderService, private _mailService: MailService){
     }
 
     ngOnInit():any {
@@ -67,11 +73,11 @@ export class ProviderComponent implements OnInit{
         for (let i=0; i<PeriodicityItems.length; i++){
             this.periodicities.push(PeriodicityItems[i]);
         }
+
         this.getPeriodicitiesTranslation();
         console.log('readable periodicities: ', this.periodicities);
-        this.getProvidersByPageNumAndState(this.pageNumber);
+          this.getProvidersByPageNumAndState(this.pageNumber);
     }
-
     setType(event){
         console.log("set type" + event);
         this.selected.type = event;
@@ -89,11 +95,9 @@ export class ProviderComponent implements OnInit{
     public onRemove(value:SelectItem):void {
         console.log('Removed value is: ', value);
     }
-
     public onType(value:SelectItem):void {
         console.log('New search input: ', value);
     }
-
     public onRefresh(value:SelectItem):void {
         if (value.text != null)
         this.selected.periodicity = value.text;
@@ -104,20 +108,27 @@ export class ProviderComponent implements OnInit{
         console.log('selected provider: ' + this.selected);
         this.editModal.show();
     }
-
-    onEditProviderSubmit() {
-        this.active = false;
-        console.log('saving provider: ' + this.selected);
-        this._providerService.editAndSave(this.selected);
-        console.log("save provider: ", this.selected);
-        this.getProvidersByPageNumAndState(this.pageNumber);
-        this.editModal.hide();
-        setTimeout(() => this.active = true, 0);
-    }
-
     closeEditModal() {
         console.log('closing edt modal');
         this.editModal.hide();
+        setTimeout(() => this.active = true, 0);
+    }
+    onEditProviderSubmit() {
+        this.active = false;
+        if (this.shouldRun) {
+            this._providerService.editProvider(this.selected).subscribe(() => {console.log("refreshing...");
+                    this.shouldRun = false;
+                    this.refresh();
+            },
+                (err)=> {
+                    console.log(err)
+                }
+            );
+            console.log("save provider: ", this.selected);
+            this.editModal.hide();
+            setTimeout(() => this.active = true, 0);
+        }
+
     }
 
     openDelModal(id:number) {
@@ -125,12 +136,19 @@ export class ProviderComponent implements OnInit{
         console.log('show', this.providerId);
         this.delModal.show();
     }
-
     closeDelModal() {
+        this.active = false;
         console.log('delete', this.providerId);
-        this._providerService.deleteProviderById(this.providerId);
-        this.getProvidersByPageNumAndState(this.pageNumber);
+        this._providerService.deleteProviderById(this.providerId).subscribe(() => {console.log("refreshing...");
+                 this.refresh();} ,
+            (err)=> {
+                console.log(err);
+                this.refresh()
+            }
+        );
         this.delModal.hide();
+
+        setTimeout(()=> {this.active = true}, 0);
     }
 
     getPeriodicitiesTranslation(){
@@ -144,7 +162,6 @@ export class ProviderComponent implements OnInit{
         }
         console.log("periodicities: ", this.periodicities);
     }
-
     backToConst(item: SelectItem): string{
         var items : SelectItem[] =
             [{id: 1, text: 'ONE_TIME'},
@@ -164,18 +181,15 @@ export class ProviderComponent implements OnInit{
         this.pageNumber = this.pageNumber - 1;
         this.getProvidersByPageNumAndState(this.pageNumber)
     }
-
     nextPage() {
         this.pageNumber = this.pageNumber + 1;
         this.getProvidersByPageNumAndState(this.pageNumber)
     }
-
     emptyArray() {
         while (this.pageList.length) {
             this.pageList.pop();
         }
     }
-
     preparePageList(start:number, end:number) {
         for (let i = start; i <= end; i++) {
             this.pageList.push(i);
@@ -218,15 +232,34 @@ export class ProviderComponent implements OnInit{
     onCreateProviderSubmit(){
         this.active = false;
         console.log("creating ", this.newProvider);
-        this._providerService.editAndSave(this.newProvider);
-        this._mailService.sendMail({
+        if (this.shouldRun) {
+            this._providerService.addProvider(this.newProvider)
+                .subscribe(() => {console.log("refreshing...");
+                        this.shouldRun = false;
+                        this.refresh();
+                        this.emptyFields();
+                    },
+                    (err)=> {
+                        console.log(err)
+                    }
+                );
+        }
+
+        console.log("add provider", this.newProvider);
+
+
+        let mail : Mail = {
             to: this.newProvider.email,
             subject: 'PRIVET',
             text: 'Welcome on the board'
-        });
-        console.log("add provider", this.newProvider);
-        this._providerService.getProviders(this.pageNumber);
-        this.getProvidersByPageNumAndState(this.pageNumber);
+        };
+        console.log("sending mail", mail);
+        if (this.newProvider.email !== null) {
+            this._mailService.sendMail(mail)
+        }
+
+        console.log("DOUBLE FUCK")
+
         this.createModal.hide();
         setTimeout(() => this.active = true, 0);
     }
@@ -243,6 +276,7 @@ export class ProviderComponent implements OnInit{
         console.log("getProvidersByPageNum "+ pageNumber + "; only active=" + this.onlyActive);
         this.pageNumber = +pageNumber;
         this.emptyArray();
+        this.shouldRun = true;
         return this._providerService.getProvidersByState(this.pageNumber, this.onlyActive)
             .subscribe((data) => {
                     this.pageCreator = data;
@@ -263,5 +297,19 @@ export class ProviderComponent implements OnInit{
         } else {console.log("listing all providers");}
         this.getProvidersByPageNumAndState(this.pageNumber);
     }
+
+    getProvidersByPageNum(num){
+        this.getProvidersByPageNumAndState(num);
+    }
+
+    refresh() {
+        this.getProvidersByPageNumAndState(this.pageNumber);
+    }
+
+    emptyFields(){
+        this.newProvider  =  {providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:{providerTypeId: null, providerTypeName: ''},
+            email:'',phone:'', address:'', schedule: '', active: false};
+    }
+
 }
 

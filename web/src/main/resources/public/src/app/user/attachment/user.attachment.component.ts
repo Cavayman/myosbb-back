@@ -5,10 +5,10 @@ import {AttachmentService} from "./attachment.service";
 import {PageCreator} from "../../../shared/services/page.creator.interface";
 import "rxjs/Rx";
 import {MODAL_DIRECTIVES, BS_VIEW_PROVIDERS, ModalDirective} from "ng2-bootstrap/ng2-bootstrap";
-import {FileSelectDirective, FileDropDirective, FileUploader} from 'ng2-file-upload/ng2-file-upload';
-import ApiService = require("../../../shared/services/api.service");
+import {FileSelectDirective, FileDropDirective, FileUploader} from "ng2-file-upload/ng2-file-upload";
 import {TranslatePipe} from "ng2-translate/ng2-translate";
 import {CapitalizeFirstLetterPipe} from "../../../shared/pipes/capitalize-first-letter";
+import ApiService = require("../../../shared/services/api.service");
 
 const attachmentUploadUrl = ApiService.serverUrl + '/restful/attachment/';
 declare var saveAs:any;
@@ -23,14 +23,13 @@ declare var saveAs:any;
 })
 export class UserAttachmentComponent implements OnInit, OnDestroy {
 
-    public uploader:FileUploader = new FileUploader({url: attachmentUploadUrl, authToken: 'Bearer '+localStorage.getItem('token')});
+    public uploader:FileUploader = new FileUploader({url: attachmentUploadUrl, authToken: 'Bearer ' + localStorage.getItem('access_token')});
     public hasDropZoneOver:boolean = false;
     public fileOverBase(e:any):void {
         this.hasDropZoneOver = e;
     }
 
     private attachments:Attachment[];
-    private selectedAttachment:Attachment = {attachmentId: null, path: ''};
     private pageCreator:PageCreator<Attachment>;
     private pageNumber:number = 1;
     private pageList:Array<number> = [];
@@ -38,24 +37,12 @@ export class UserAttachmentComponent implements OnInit, OnDestroy {
     @ViewChild('delModal') public delModal:ModalDirective;
     @ViewChild('delAllModal') public delAllModal:ModalDirective;
     @ViewChild('uploadModal') public uploadModal:ModalDirective;
-    @ViewChild('editModal') public editModal:ModalDirective;
-    active:boolean = true;
     order:boolean = true;
     private pending:boolean = false;
 
     private attachmentId:number;
 
     constructor(private _attachmentService:AttachmentService) {
-    }
-
-    openEditModal(attachment:Attachment) {
-        this.selectedAttachment = attachment;
-        console.log('selected attachment: ' + this.selectedAttachment);
-        this.editModal.show();
-    }
-
-    isDateValid(date:string):boolean {
-        return /\d{4}-\d{2}-\d{2}/.test(date);
     }
 
     transform(bytes) {
@@ -78,23 +65,19 @@ export class UserAttachmentComponent implements OnInit, OnDestroy {
         this.uploadModal.hide();
     }
 
-
     public download(attachmentPath:string) {
-
         let self = this;
         this.pending = true;
-
         let xhr = new XMLHttpRequest();
         let url = attachmentUploadUrl + attachmentPath;
         xhr.open('GET', url, true);
         xhr.responseType = 'blob';
         console.log('preparing download...');
-        xhr.setRequestHeader('Authorization', 'Bearer '+localStorage.getItem('token'));
+        xhr.setRequestHeader('Authorization', 'Bearer '+localStorage.getItem('access_token'));
         xhr.onreadystatechange = function () {
             setTimeout(() => {
                 console.log('inside service: ' + self.pending);
             }, 0);
-
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var blob = new Blob([this.response]);
                 saveAs(blob, attachmentPath);
@@ -102,10 +85,8 @@ export class UserAttachmentComponent implements OnInit, OnDestroy {
             } else if (xhr.status === 404) {
                 console.error('could not find resource');
                 self.pending = true;
-
             }
         };
-
         xhr.send();
     }
 

@@ -19,7 +19,7 @@
                         <thead>
                         <tr>
                             <th class="sorting">
-                                <i class="fa fa-bullhorn"></i> {{ 'сompany' | translate | capitalize }}
+                                <i class="fa fa-bullhorn"></i> {{ 'company' | translate | capitalize }}
                                 <a style="{cursor:pointer}" (click)="sortBy('name')"><span
                                         class="fa fa-fw fa-sort pull-right"></span></a>
                             </th>
@@ -40,8 +40,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let provider of providers">
-                            <td>{{ provider.name }} <img style="max-height: 30px; max-width: 30px" src="{{provider.logoUrl}}"></td>
+                        <tr *ngFor="let provider of providers" [class.success]="provider.active" [class.danger]="!provider.active">
+                            <td >{{ provider.name }} <img style="max-height: 30px; max-width: 30px" src="{{provider.logoUrl}}"></td>
                             <td>{{ provider.type.providerTypeName }}</td>
                             <td>{{ provider.periodicity | translate }}</td>
                             <td> {{ provider.description }}</td>
@@ -109,19 +109,35 @@
                                                         <img src="{{selected.logoUrl}}" class="logo-pic-sm">
                                                     </div>
                                                 </div>
+
                                                 <div class="col-md-6">
                                                     <div class="form-group"><label> {{ 'company' | translate | capitalize }}</label>
                                                         <input type="text" class="form-control" required [(ngModel)]="selected.name"
-                                                               name="name" #name="ngModel">
+                                                               name="name" #name="ngModel" >
                                                         <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
                                                             {{ 'required' | translate | capitalize }}
                                                         </div>
                                                     </div> <!-- Company -->
                                                 </div>
+
                                                 <div class="col-md-6">
-                                                    <provider-type [type]="selected.type" (typeChanged)="setType($event)"></provider-type> <!-- Type -->
-                                                </div>
-                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label> {{ 'logo' | translate | capitalize }}</label>
+                                                        <input type="text" class="form-control"
+                                                               name="logo" [(ngModel)]="selected.logoUrl"
+                                                               #logo="ngModel">
+                                                    </div>
+                                                </div> <!-- Logo -->
+
+
+                                                <div  *ngIf="selected.name != ''" >
+                                                    <div class="col-md-6">
+                                                        <provider-type [type]="selected.type" (typeChanged)="setType($event)"></provider-type> <!-- Type -->
+                                                    </div>
+                                                </div> <!-- Type -->
+
+                                                <div  *ngIf="selected.type.providerTypeId != null" >
+                                                    <div class="col-md-6">
                                                         <div class="form-group">
                                                             <div>
                                                                 <label> {{ 'periodicity' | translate | capitalize}} </label>
@@ -140,58 +156,69 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                </div>    <!-- Periodicity -->
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label> {{ 'logo' | translate | capitalize }}</label>
-                                                        <input type="text" class="form-control"
-                                                               name="logo" [(ngModel)]="selected.logoUrl"
-                                                               #logo="ngModel">
-                                                    </div> <!-- Logo -->
                                                 </div>
-                                                </div>
+                                                </div> <!-- Periodicity -->
 
-
-
-                                        <div class="form-group">
-                                            <label> {{ 'description' | translate | capitalize }}</label>
-                                            <textarea class="form-control" required
-                                                   name="description" [(ngModel)]="selected.description"
-                                                   #description="ngModel"></textarea>
-                                            <div [hidden]="description.valid || description.pristine"
-                                                 class="alert alert-danger">
-                                                {{ 'required' | translate | capitalize }}
                                             </div>
-                                        </div> <!-- Description -->
 
-                                        <!-- Contacts -->
-                                        <div class="form-group">
-                                            <label> {{ 'email' | translate | capitalize }}</label>
-                                            <input type="text" class="form-control"
-                                                   name="email" [(ngModel)]="selected.email"
-                                                   #email="ngModel">
-                                        </div> <!-- Email -->
+                                            <div  *ngIf="selected.periodicity != ''" >
+                                                    <div class="form-group">
+                                                        <label> {{ 'description' | translate | capitalize }}</label>
+                                                        <textarea class="form-control" required
+                                                               name="description" [(ngModel)]="selected.description"
+                                                               #description="ngModel"></textarea>
+                                                        <div [hidden]="description.valid || description.pristine"
+                                                             class="alert alert-danger">
+                                                            {{ 'required' | translate | capitalize }}
+                                                        </div>
+                                                    </div> <!-- Description -->
 
-                                        <div class="form-group">
-                                            <label> {{ 'phone' | translate | capitalize }}</label>
-                                            <input type="text" class="form-control"
-                                                   name="phone" [(ngModel)]="selected.phone"
-                                                   #phone="ngModel">
-                                        </div> <!-- Phone -->
+                                                    <!-- Contacts -->
+                                                    <div class="form-group">
+                                                        <label> {{ 'email' | translate | capitalize }}</label>
+                                                        <input type="text" class="form-control" required
+                                                               name="email" [(ngModel)]="selected.email"
+                                                               #email="ngModel"
+                                                               pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                                                        <div *ngIf="email.errors && email.errors.required  &&  !email.pristine" class="alert alert-danger">
+                                                            {{ 'required' | translate | capitalize }}
+                                                        </div>
+                                                        <div  *ngIf="email.errors && email.errors.pattern &&  !email.pristine" class="alert alert-danger">
+                                                            {{ 'mail_format_err' | translate | capitalize }}
+                                                        </div>
+                                                    </div> <!-- Email -->
 
-                                        <div class="form-group">
-                                            <label> {{ 'address' | translate | capitalize }}</label>
-                                            <input type="text" class="form-control"
-                                                   name="address" [(ngModel)]="selected.address"
-                                                   #address="ngModel">
-                                        </div> <!-- Address -->
+                                                    <div class="form-group">
+                                                        <label> {{ 'phone' | translate | capitalize }}</label>
+                                                        <input [textMask]="{mask:phoneMask}" class="form-control" name="phone" [(ngModel)]="selected.phone" type="text"
+                                                               placeholder="(0__) ___-____"  #phone="ngModel" required>
+                                                        <div [hidden]="phone.valid || phone.pristine" class="alert alert-danger">
+                                                            {{ 'required' | translate | capitalize }}
+                                                        </div>
+                                                    </div> <!-- Phone -->
 
-                                        <div class="form-group">
-                                            <label> {{ 'schedule' | translate | capitalize }}</label>
-                                            <textarea class="form-control"
-                                                   name="schedule" [(ngModel)]="selected.schedule"
-                                                   #schedule="ngModel"></textarea>
-                                        </div> <!-- Schedule -->
+                                                    <div class="form-group">
+                                                        <label> {{ 'address' | translate | capitalize }}</label>
+                                                        <input type="text" class="form-control" required
+                                                               name="address" [(ngModel)]="selected.address"
+                                                               #address="ngModel">
+                                                        <div [hidden]="address.valid || address.pristine" class="alert alert-danger">
+                                                            {{ 'required' | translate | capitalize }}
+                                                        </div>
+                                                    </div> <!-- Address -->
+
+                                                    <div class="form-group">
+                                                        <label> {{ 'schedule' | translate | capitalize }}</label>
+                                                        <textarea class="form-control" required
+                                                               name="schedule" [(ngModel)]="selected.schedule"
+                                                               #schedule="ngModel"></textarea>
+                                                        <div [hidden]="schedule.valid || schedule.pristine" class="alert alert-danger">
+                                                            {{ 'required' | translate | capitalize }}
+                                                        </div>
+                                                    </div> <!-- Schedule -->
+                                            </div>
+                                            <img src="assets/img/provider-icon.png" class="img-rounded" alt="contract" width="220"
+                                                 height="220">
                                     </div>
                                     </div>
 
@@ -238,29 +265,7 @@
                                                         </div>
                                                     </div> <!-- Company -->
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <provider-type [type]="newProvider.type" (typeChanged)="setType($event)"></provider-type> <!-- Type -->
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <div>
-                                                            <label> {{ 'periodicity' | translate | capitalize}} </label>
-                                                            <div *ngIf="periodicities.length > 0">
-                                                                <div style="width: 400px; margin-bottom: 20px;">
-                                                                    <ng-select [allowClear]="true"
-                                                                               [items]="periodicities"
-                                                                               (selected)="onSelectPeriodicity($event)"
-                                                                               (data)="onRefresh($event)"
-                                                                               (removed)="onRemove($event)"
-                                                                               (typed)="onType($event)"
-                                                                               placeholder="{{ 'periodicity' | translate}}">
-                                                                    </ng-select>
-                                                                    <p></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>    <!-- Periodicity -->
+
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label> {{ 'logo' | translate | capitalize }}</label>
@@ -269,49 +274,98 @@
                                                                #logo="ngModel">
                                                     </div> <!-- Logo -->
                                                 </div>
+
+                                                <div  *ngIf="newProvider.name != ''" >
+                                                    <div class="col-md-6">
+                                                        <provider-type [type]="newProvider.type" (typeChanged)="setType($event)"></provider-type> <!-- Type -->
+                                                    </div>
+                                                </div>
+                                                <div  *ngIf="newProvider.type.providerTypeId != null" >
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <div>
+                                                                <label> {{ 'periodicity' | translate | capitalize}} </label>
+                                                                <div *ngIf="periodicities.length > 0">
+                                                                    <div style="width: 400px; margin-bottom: 20px;">
+                                                                        <ng-select [allowClear]="true"
+                                                                                   [items]="periodicities"
+                                                                                   (selected)="onSelectPeriodicity($event)"
+                                                                                   (data)="onRefresh($event)"
+                                                                                   (removed)="onRemove($event)"
+                                                                                   (typed)="onType($event)"
+                                                                                   placeholder="{{ 'periodicity' | translate}}">
+                                                                        </ng-select>
+                                                                        <p></p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>    <!-- Periodicity -->
+                                                </div>
                                             </div>
 
+                                            <div  *ngIf="newProvider.periodicity != ''" >
 
+                                                <div class="form-group">
+                                                    <label> {{ 'description' | translate | capitalize }}</label>
+                                                    <textarea class="form-control" required
+                                                              name="description" [(ngModel)]="newProvider.description"
+                                                              #description="ngModel"></textarea>
+                                                    <div [hidden]="description.valid || description.pristine"
+                                                         class="alert alert-danger">
+                                                        {{ 'required' | translate | capitalize }}
+                                                    </div>
+                                                </div> <!-- Description -->
 
-                                            <div class="form-group">
-                                                <label> {{ 'description' | translate | capitalize }}</label>
-                                                <textarea class="form-control" required
-                                                          name="description" [(ngModel)]="newProvider.description"
-                                                          #description="ngModel"></textarea>
-                                                <div [hidden]="description.valid || description.pristine"
-                                                     class="alert alert-danger">
-                                                    {{ 'required' | translate | capitalize }}
-                                                </div>
-                                            </div> <!-- Description -->
+                                                <!-- Contacts -->
+                                                <div class="form-group">
+                                                    <label> {{ 'email' | translate | capitalize }}</label>
+                                                    <input type="text" class="form-control" required
+                                                           name="email" [(ngModel)]="newProvider.email"
+                                                           #email="ngModel"
+                                                           pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                                                    <div *ngIf="email.errors && email.errors.required  &&  !email.pristine" class="alert alert-danger">
+                                                        {{ 'required' | translate | capitalize }}
+                                                    </div>
+                                                    <div  *ngIf="email.errors && email.errors.pattern && !email.pristine" class="alert alert-danger">
+                                                        {{ 'mail_format_err' | translate | capitalize }}
+                                                    </div>
+                                                </div> <!-- Email -->
 
-                                            <!-- Contacts -->
-                                            <div class="form-group">
-                                                <label> {{ 'email' | translate | capitalize }}</label>
-                                                <input type="text" class="form-control"
-                                                       name="email" [(ngModel)]="newProvider.email"
-                                                       #email="ngModel">
-                                            </div> <!-- Email -->
+                                                <div class="form-group">
+                                                    <label> {{ 'phone' | translate | capitalize }}</label>
+                                                    <input [textMask]="{mask:phoneMask}" class="form-control" name="phone" [(ngModel)]="newProvider.phone" type="text"
+                                                           placeholder="(0__) ___-____"  #phone="ngModel" required>
+                                                    <div *ngIf="phone.errors && phone.errors.required  &&  !phone.pristine" class="alert alert-danger">
+                                                        {{ 'required' | translate | capitalize }}
+                                                    </div>
+                                                    <div  *ngIf="phone.errors && phone.errors.pattern && !phone.pristine" class="alert alert-danger">
+                                                        {{ 'phone_format_err' | translate | capitalize }}
+                                                    </div>
+                                                </div> <!-- Phone -->
 
-                                            <div class="form-group">
-                                                <label> {{ 'phone' | translate | capitalize }}</label>
-                                                <input type="text" class="form-control"
-                                                       name="phone" [(ngModel)]="newProvider.phone"
-                                                       #phone="ngModel">
-                                            </div> <!-- Phone -->
+                                                <div class="form-group">
+                                                    <label> {{ 'address' | translate | capitalize }}</label>
+                                                    <input type="text" class="form-control" required
+                                                           name="address" [(ngModel)]="newProvider.address"
+                                                           #address="ngModel">
+                                                    <div [hidden]="address.valid || address.pristine" class="alert alert-danger">
+                                                        {{ 'required' | translate | capitalize }}
+                                                    </div>
+                                                </div> <!-- Address -->
 
-                                            <div class="form-group">
-                                                <label> {{ 'address' | translate | capitalize }}</label>
-                                                <input type="text" class="form-control"
-                                                       name="address" [(ngModel)]="newProvider.address"
-                                                       #address="ngModel">
-                                            </div> <!-- Address -->
-
-                                            <div class="form-group">
-                                                <label> {{ 'schedule' | translate | capitalize }}</label>
-                                                <textarea class="form-control"
-                                                          name="schedule" [(ngModel)]="newProvider.schedule"
-                                                          #schedule="ngModel"></textarea>
-                                            </div> <!-- Schedule -->
+                                                <div class="form-group">
+                                                    <label> {{ 'schedule' | translate | capitalize }}</label>
+                                                    <textarea class="form-control" required
+                                                              name="schedule" [(ngModel)]="newProvider.schedule"
+                                                              #schedule="ngModel"></textarea>
+                                                    <div [hidden]="schedule.valid || schedule.pristine" class="alert alert-danger">
+                                                        {{ 'required' | translate | capitalize }}
+                                                    </div>
+                                                </div> <!-- Schedule -->
+                                            </div>
+                                            <img src="assets/img/provider-icon.png" class="img-rounded" alt="contract" width="220"
+                                                 height="220">
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -355,5 +409,3 @@
     </div>
 </div>
 
-
-<!--<router-outlet></router-outlet>-->

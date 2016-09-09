@@ -2,7 +2,7 @@ import {Component, OnInit, Output} from '@angular/core'
 import {EventEmitter} from '@angular/core';
 import {User} from "../../shared/models/User";
 import {RegisterService} from "./register.service";
-import {ROUTER_DIRECTIVES} from "@angular/router";
+import {ROUTER_DIRECTIVES, Router} from "@angular/router";
 import MaskedInput from 'angular2-text-mask';
 import emailMask from 'node_modules/text-mask-addons/dist/emailMask.js'
 @Component({
@@ -13,19 +13,20 @@ import emailMask from 'node_modules/text-mask-addons/dist/emailMask.js'
     directives: [ROUTER_DIRECTIVES,MaskedInput]
 })
 export class RegistrationComponent implements OnInit  {
+    options = ['Приєднатись до існуючого ОСББ','Створити нове ОСББ'];
+   
     newUser:User=new User();
-
-     public emailMask =emailMask;
+    public emailMask = emailMask;
     public textmask=[/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/,/[A-zА-яІ-і]/];
     public phoneMask=['(', /[0]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
     confirmPassword:number="";
     error:boolean=false;
     errorConfirm:boolean=false;
     errorMsg="";
-
-registered:boolean
-    constructor(private registerService:RegisterService) {
+    registered:boolean;
+    constructor(private registerService:RegisterService,private _router: Router) {
     this.newUser.password="";
+
     }
 
     onSubmit(){
@@ -60,9 +61,16 @@ registered:boolean
     this.errorConfirm=false;
     }else{this.errorConfirm=false;
     }
-  
-
-
     }
 
+    onUserClick(status) {
+        if (status == this.options[1]){
+            console.log('CreateNew');
+            this._router.navigate(['/registration/osbb']);
+        }
+        else if (status == this.options[0]){
+            console.log('JoinToExist');
+            this._router.navigate(['/join/osbb']);
+        } 
+     }
 }

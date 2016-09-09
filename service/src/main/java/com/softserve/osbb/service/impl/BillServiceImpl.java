@@ -31,8 +31,8 @@ public class BillServiceImpl implements BillService {
     ApartmentRepository apartmentRepository;
 
     @Override
-    public void saveBill(Bill bill) {
-        billRepository.save(bill);
+    public Bill saveBill(Bill bill) {
+        return billRepository.save(bill);
     }
 
     @Override
@@ -51,8 +51,8 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public List<Bill> findAllBills() {
-        return billRepository.findAll();
+    public Page<Bill> findAllBills(Pageable pageable) {
+        return billRepository.findAll(pageable);
     }
 
     @Override
@@ -65,8 +65,8 @@ public class BillServiceImpl implements BillService {
         User apartmentOwner = userRepository.findOne(ownerId);
         Page<Bill> bills = null;
         if (apartmentOwner != null) {
-            Apartment ownersApartment = apartmentRepository.findByUser(apartmentOwner);
-            bills = billRepository.findByApartment(ownersApartment, pageable);
+           Apartment ownersApartment = apartmentRepository.findByOwner(apartmentOwner.getUserId());
+           bills = billRepository.findByApartment(ownersApartment, pageable);
         }
         return bills;
     }
@@ -77,8 +77,13 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public void deleteBillByID(Integer id) {
+    public boolean deleteBillByID(Integer id) {
+        boolean billExists = billRepository.exists(id);
+        if (!billExists) {
+            return false;
+        }
         billRepository.delete(id);
+        return true;
     }
 
     @Override

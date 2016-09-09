@@ -3,15 +3,13 @@ package com.softserve.osbb.config;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.context.annotation.*;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-
-import javax.servlet.Filter;
 
 /**
  * Created by nazar.dovhyy on 08.07.2016.
@@ -53,13 +51,6 @@ public class WebAppConfiguration extends WebMvcConfigurerAdapter {
         return ppc;
     }
 
-    @Bean
-    public FilterRegistrationBean jwtFilter(){
-        final FilterRegistrationBean registrationBean=new FilterRegistrationBean();
-        registrationBean.setFilter((Filter) new JwtFilter());
-        registrationBean.addUrlPatterns("/restful/*");
 
-        return registrationBean;
-    }
 
 }

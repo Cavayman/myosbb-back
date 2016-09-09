@@ -6,15 +6,16 @@ import com.softserve.osbb.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
  * Created by nataliia on 10.07.16.
  */
+
 @Service
 public class EventServiceImpl implements EventService {
 
@@ -91,7 +92,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public Page<Event> getAllEvents(Integer pageNumber, String sortBy, Boolean order) {
         PageRequest pageRequest = new PageRequest(pageNumber - 1, DEF_ROWS,
-                getSortingOrder(order), sortBy == null ? "date" : sortBy);
+                getSortingOrder(order), sortBy == null ? "startTime" : sortBy);
         return eventRepository.findAll(pageRequest);
     }
 
@@ -105,6 +106,11 @@ public class EventServiceImpl implements EventService {
     @Override
     public List<Event> findEventsByNameOrAuthorOrDescription(String search) {
       return eventRepository.findByNameOrAuthorOrDescription(search);
+    }
+
+    @Override
+    public List<Event> findByInterval(Timestamp start, Timestamp end) {
+        return eventRepository.findBetweenStartTimeAndEndTime(start, end);
     }
 
 }

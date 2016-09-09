@@ -4,46 +4,64 @@ import {Http, Headers} from "@angular/http";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/toPromise";
 
-import {IOsbb} from "./osbb";
+import {IOsbb} from "../../../shared/models/osbb";
 import ApiService = require("../../../shared/services/api.service");
 
 @Injectable()
 export class OsbbService { 
 
-    private deleteUrl:string = ApiService.serverUrl + '/restful/osbb/id/';
-    private postUrl:string = ApiService.serverUrl + '/restful/osbb';
-    private putUrl:string = ApiService.serverUrl + '/restful/osbb';
-    private getUrl:string = ApiService.serverUrl + '/restful/osbb';
-    private headers = new Headers({'Authorization': 'Bearer ' + localStorage.getItem('token')});
+    private url:string = ApiService.serverUrl + '/restful/osbb';
 
     constructor(private http: Http) { 
-        this.headers.append('Content-Type', 'application/json');
     }
 
     getAllOsbb(): Promise<IOsbb[]> {
-        return this.http.get(this.getUrl,{headers: this.headers})
+        return this.http.get(this.url)
+                 .toPromise()
+                 .then(res => res.json())
+                 .catch(this.handleError);
+    }
+    
+    getAllOsbbByNameContaining(osbbName: string ):Promise<IOsbb[]> {
+        let url = this.url + '/search/' + osbbName;
+        return this.http.get(url)
+                 .toPromise()
+                 .then(res => res.json())
+                 .catch(this.handleError);
+    }
+
+    getAllOsbbByOrder(field: string, order: boolean) {
+        let url = this.url + '/order/' + field + ',' + order;
+        return this.http.get(url)
+                 .toPromise()
+                 .then(res => res.json())
+                 .catch(this.handleError);
+    }
+
+    getOsbbById(osbbId: number): Promise<IOsbb> {
+         let url = this.url + "/" + osbbId;
+         return this.http.get(url)
                  .toPromise()
                  .then(res => res.json())
                  .catch(this.handleError);
     }
 
     addOsbb(osbb:IOsbb): Promise<IOsbb> {
-        return this.http.post(this.postUrl, JSON.stringify(osbb), {headers: this.headers})
+        return this.http.post(this.url, JSON.stringify(osbb))
                         .toPromise()
                         .then(res => res.json())
                         .catch(this.handleError);
     }
 
     editOsbb(osbb:IOsbb):Promise<IOsbb>  {
-        return this.http.put(this.putUrl, JSON.stringify(osbb), {headers: this.headers})
+        return this.http.put(this.url, JSON.stringify(osbb))
                         .toPromise()
                         .then(res => res.json())
                         .catch(this.handleError);
     }
 
     deleteOsbb(osbb:IOsbb): Promise<IOsbb> {
-        let url = ` ${this.deleteUrl}/${osbb.osbbId}`;
-        return this.http.delete(url,{headers: this.headers})
+        return this.http.delete(this.url + '/' + osbb.osbbId)
                     .toPromise()
                     .then(res => osbb)
                     .catch(this.handleError);

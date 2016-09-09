@@ -13,12 +13,14 @@ import {TranslatePipe} from "ng2-translate/ng2-translate";
     templateUrl: 'src/app/user/provider/provider-info.html',
     providers: [ProviderService],
     pipes: [TranslatePipe, CapitalizeFirstLetterPipe],
-    directives: []
+    styleUrls: ['src/app/user/profile/profile.css',
+        'src/app/house/house.css', 'src/shared/css/loader.css', 'src/shared/css/general.css'],
+
 })
 export class ProviderInfoComponent {
     private sub: any;
-    private provider : Provider =  {providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:null, email:'',phone:'', address:''};
-
+    private provider : Provider =  {providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:{providerTypeId: null, providerTypeName: ''},
+        email:'',phone:'', address:'', schedule: '', active: false};
     constructor(private route:ActivatedRoute, private _providerService:ProviderService){
         this.sub = this.route.params.subscribe(params => {
             let id = +params['id'];

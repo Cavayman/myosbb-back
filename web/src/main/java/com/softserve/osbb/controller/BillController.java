@@ -3,9 +3,13 @@ package com.softserve.osbb.controller;
 import com.softserve.osbb.dto.BillDTO;
 import com.softserve.osbb.dto.SearchDTO;
 import com.softserve.osbb.dto.mappers.BillDTOMapper;
+import com.softserve.osbb.model.Apartment;
 import com.softserve.osbb.model.Bill;
+import com.softserve.osbb.model.Provider;
 import com.softserve.osbb.model.enums.BillStatus;
+import com.softserve.osbb.service.ApartmentService;
 import com.softserve.osbb.service.BillService;
+import com.softserve.osbb.service.ProviderService;
 import com.softserve.osbb.util.BillPageCreator;
 import com.softserve.osbb.util.PageCreator;
 import com.softserve.osbb.util.PageRequestGenerator;
@@ -29,7 +33,7 @@ import static com.softserve.osbb.util.ResourceUtil.toResource;
  * Created by nataliia on 11.07.16.
  */
 
-@RestController()
+@RestController
 @CrossOrigin
 @RequestMapping("/restful/bill")
 public class BillController {
@@ -39,10 +43,11 @@ public class BillController {
     @Autowired
     private BillService billService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public List<Bill> findAllBills() {
-        return billService.findAllBills();
-    }
+    @Autowired
+    private ApartmentService apartmentService;
+
+    @Autowired
+    private ProviderService providerService;
 
     @RequestMapping(value = "/{ids}", method = RequestMethod.GET)
     public List<Bill> findBill(List<Integer> ids) {
@@ -54,8 +59,29 @@ public class BillController {
         return billService.findOneBillByID(id);
     }
 
+    @RequestMapping(method = RequestMethod.POST, produces = "application/json")
+    public ResponseEntity<PageCreator<Resource<BillDTO>>> findAllBills(
+            @RequestParam(value = "status", required = false) String status,
+            @RequestBody SearchDTO searchDTO) {
+        logger.info(String.format("listing all bills, page number: %d ", searchDTO.getPageNumber()));
+        final PageRequest pageRequest = PageRequestGenerator.generatePageRequest(searchDTO.getPageNumber())
+                .addRows(searchDTO.getRowNum())
+                .addOrderType(searchDTO.getOrderType())
+                .addSortedBy(searchDTO.getSortedBy(), "date")
+                .toPageRequest();
+        Page<Bill> bills = billService.findAllBills(pageRequest);
+        if (bills == null || bills.getSize() == 0) {
+            logger.error("np bills were found");
+            throw new BillNotFoundException();
+        }
+        PageRequestGenerator.PageSelector pageSelector = PageRequestGenerator
+                .generatePageSelectorData(bills);
+        EntityResourceList<BillDTO> billResourceList = BillFilter.createFilteredByStatusResourceList(status, bills);
+        PageCreator<Resource<BillDTO>> billPageCreator = setUpPageCreator(pageSelector, billResourceList);
+        return new ResponseEntity<>(billPageCreator, HttpStatus.OK);
+    }
 
-    @RequestMapping(value = "/user/{userId}/all", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/{userId}/all", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<PageCreator<Resource<BillDTO>>> listAllBillsByUser(
             @PathVariable("userId") Integer userId,
             @RequestParam(value = "status", required = false) String status,
@@ -67,7 +93,7 @@ public class BillController {
                 .addSortedBy(searchDTO.getSortedBy(), "date")
                 .toPageRequest();
         Page<Bill> bills = billService.findAllByApartmentOwner(userId, pageRequest);
-        if (bills == null) {
+        if (bills == null || bills.getSize() == 0) {
             logger.error("np bills were found");
             throw new BillNotFoundException();
         }
@@ -149,6 +175,50 @@ public class BillController {
         pageCreator.setEndPage(Integer.valueOf(pageSelector.getEnd()).toString());
         pageCreator.setTotalPages(Integer.valueOf(pageSelector.getTotalPages()).toString());
         return pageCreator;
+    }
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public ResponseEntity saveBill(@RequestBody BillDTO saveBillDTO) {
+        logger.info("saving bill");
+        Bill bill = BillDTOMapper.mapDTOtoEntity(saveBillDTO, billService);
+        logger.info("bill" + bill);
+        Apartment apartment = apartmentService.findOneApartmentByID(saveBillDTO.getApartmentId());
+        Provider provider = providerService.findOneProviderById(saveBillDTO.getProviderId());
+        bill.setApartment(apartment);
+        bill.setProvider(provider);
+        apartmentService.saveApartment(apartment);
+        providerService.saveProvider(provider);
+        bill = billService.saveBill(bill);
+        if (bill == null) {
+            logger.warn("bill wasn't saved");
+            return new ResponseEntity(HttpStatus.CONTINUE);
+        }
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity updateBill(@RequestBody BillDTO billDTO) {
+        logger.info("updating bill with id" + billDTO.getBillId());
+        Bill bill = BillDTOMapper.mapDTOtoEntity(billDTO, billService);
+        bill = billService.saveBill(bill);
+        if (bill == null) {
+            logger.warn("bill wasn't saved as not found");
+            throw new BillNotFoundException();
+        }
+        logger.info("successfully updated bill with id " + bill.getBillId());
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{billId}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteById(@PathVariable("billId") Integer billId) {
+        logger.info("deleting bill with id" + billId);
+        boolean isDeleted = billService.deleteBillByID(billId);
+        if (!isDeleted) {
+            logger.warn("bill was not deleted as not found");
+            throw new BillNotFoundException();
+        }
+
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 

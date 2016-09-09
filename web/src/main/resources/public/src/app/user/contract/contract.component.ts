@@ -20,6 +20,7 @@ import {CurrencyComponent} from "./currency.component";
 import {MailService} from "../../../shared/services/mail.sender.service";
 import {Mail} from "../../../shared/models/mail.interface";
 import {ActiveFilter} from "../../../shared/pipes/active.filter";
+import clearImmediate = core.clearImmediate;
 
 @Component({
     selector: 'myosbb-contract',
@@ -29,15 +30,16 @@ import {ActiveFilter} from "../../../shared/pipes/active.filter";
     directives: [DROPDOWN_DIRECTIVES],
     providers: [ContractService, MailService],
     directives: [MODAL_DIRECTIVES, CORE_DIRECTIVES, ROUTER_DIRECTIVES, SelectProviderComponent, CurrencyComponent, NgClass, DROPDOWN_DIRECTIVES],
-    viewProviders: [BS_VIEW_PROVIDERS]
+    viewProviders: [BS_VIEW_PROVIDERS],
+    styleUrls: ['src/app/user/bills/bill.css', 'src/shared/css/loader.css', 'src/shared/css/general.css']
 })
 export class ContractComponent implements OnInit{
     private contracts :  Contract[];
     private selected : Contract =  {contractId: null, dateStart:'', dateFinish:'', text: '', price:null, priceCurrency: 'UAH',attachment: null, osbb: null,  active: false, provider:
     {providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:null, email:'',phone:'', address:'', schedule:'', active: false}};
 
-    private newContract : Contract =  {contractId: null, dateStart:'', dateFinish:'', text: '', price:null, priceCurrency: 'UAH',attachment: null, osbb: null,  active: false, provider:
-    {providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:null, email:'',phone:'', address:'', schedule:'', active: false}};
+    private newContract : Contract =  {contractId: null, dateStart:'', dateFinish:'', text: '', price:null, priceCurrency: 'UAH',attachment: null, osbb: null,  active: true, provider:
+    {providerId:null, name:'', description:'', logoUrl:'', periodicity:'', type:null, email:'',phone:'', address:'', schedule:'', active: true}};
 
     private pageCreator:PageCreator<Contract>;
     private pageNumber:number = 1;
@@ -49,6 +51,10 @@ export class ContractComponent implements OnInit{
 
     active:boolean = true;
     order:boolean = true;
+    validEndDate : boolean = true;
+    startBeforeBegin : boolean = true;
+
+    isSelectedProvider: boolean = true;
 
     onlyActive: boolean = true;
 
@@ -62,8 +68,37 @@ export class ContractComponent implements OnInit{
         this.getContractsByPageNumAndState(this.pageNumber);
         console.log("on init only active", this.onlyActive);
     }
+    refresh(){
+        this.getContractsByPageNumAndState(this.pageNumber);
+    }
+
     isDateValid(date: string): boolean {
         return /\d{4}-\d{2}-\d{2}/.test(date);
+    }
+
+    isDateActual(dateStart : string, dateFinish : string) : boolean {
+        let date : Date = new Date();
+        let current = Date.parse(date.toDateString());
+        if  (current > Date.parse(dateFinish))
+        {
+            console.log("validating err: contract has date finish at past, curent: ", current,
+                "end: ", dateFinish);
+            return this.validEndDate = false;
+        } else this.clearDateValid();
+        if (Date.parse(dateStart) >  Date.parse(dateFinish)) {
+            console.log("validating err: contract's strat date must be less than end date");
+            console.log("start", Date.parse(dateStart));
+            console.log("end",Date.parse(dateFinish));
+            console.log("diff must be > 0, now is ", dateFinish - current);
+            return this.startBeforeBegin = false;
+        } else this.clearDateValid();
+            return true;
+    }
+
+    clearDateValid(){
+        console.log('clearing');
+        this.startBeforeBegin = true;
+        this.validEndDate = true;
     }
 
     openEditModal(contract:Contract) {
@@ -74,14 +109,22 @@ export class ContractComponent implements OnInit{
     closeEditModal() {
         console.log('closing edt modal');
         this.editModal.hide();
+        setTimeout(() => this.active = true, 0);
     }
     onEditContractSubmit() {
-        this.active = false;
-        console.log('saving contract: ', this.selected);
-        this._contractService.editAndSave(this.selected);
-        this._contractService.getContracts(this.pageNumber);
-        this.editModal.hide();
-        setTimeout(() => this.active = true, 0);
+        console.log("submitted");
+        if (this.isDateActual(this.selected.dateStart, this.selected.dateFinish)){
+            this.active = false;
+            console.log('saving contract: ', this.selected);
+            this._contractService.editAndSave(this.selected).subscribe(() => {console.log("refreshing...");
+                    this.refresh();},
+                (err)=> {
+                    console.log(err)
+                }
+            );
+            this.editModal.hide();
+            setTimeout(() => this.active = true, 0);
+        }
     }
 
     openCreateModal() {
@@ -90,16 +133,50 @@ export class ContractComponent implements OnInit{
     closeCreateModal() {
         console.log('closing create modal');
         this.createModal.hide();
+        setTimeout(() => this.active = true, 0);
     }
     onCreateContractSubmit() {
-        this.active = false;
-        console.log("creating ", this.newContract);
-        this._contractService.addContract(this.newContract);
-        console.log("add contract", this.newContract);
-        this._contractService.getContracts(this.pageNumber);
-        this.getContractsByPageNumAndState(this.pageNumber);
-        this.createModal.hide();
-        setTimeout(() => this.active = true, 0);
+        console.log("submitted");
+        if (this.isDateActual(this.newContract.dateStart, this.newContract.dateFinish)){
+            this.active = false;
+            console.log("creating ", this.newContract);
+            this._contractService.addContract(this.newContract).subscribe(() => {
+                    console.log("refreshing...");
+                    this.refresh();
+                },
+                (err)=> {
+                    console.log(err)
+                }
+            );
+            console.log("add contract", this.newContract);
+            this.newContract = {
+                contractId: null,
+                dateStart: '',
+                dateFinish: '',
+                text: '',
+                price: null,
+                priceCurrency: 'UAH',
+                attachment: null,
+                osbb: null,
+                active: true,
+                provider: {
+                    providerId: null,
+                    name: '',
+                    description: '',
+                    logoUrl: '',
+                    periodicity: '',
+                    type: null,
+                    email: '',
+                    phone: '',
+                    address: '',
+                    schedule: '',
+                    active: true
+                }
+            };
+
+            this.createModal.hide();
+            setTimeout(() => this.active = true, 0);
+        }
     }
 
     openDelModal(id:number) {
@@ -108,28 +185,19 @@ export class ContractComponent implements OnInit{
         this.delModal.show();
     }
     closeDelModal() {
+        this.active = false;
         console.log('delete', this.contractId);
-        this._contractService.deleteContractById(this.contractId);
-        this.getContractsByPageNumAndState(this.pageNumber);
+        this._contractService.deleteContractById(this.contractId).subscribe(() => {console.log("refreshing...");
+                this.refresh();},
+            (err)=> {
+                console.log(err)
+            }
+        );
         this.delModal.hide();
-    }
 
-    // getContractsByPageNum(pageNumber:number) {
-    //     console.log("getContractsByPageNum"+ pageNumber);
-    //     this.pageNumber = +pageNumber;
-    //     this.emptyArray();
-    //     return this._contractService.getContracts(this.pageNumber)
-    //         .subscribe((data) => {
-    //                 this.pageCreator = data;
-    //                 this.contracts = data.rows;
-    //                 this.preparePageList(+this.pageCreator.beginPage,
-    //                     +this.pageCreator.endPage);
-    //                 this.totalPages = +data.totalPages;
-    //             },
-    //             (err) => {
-    //                 console.error(err)
-    //             });
-    // };
+        setTimeout(()=> {this.active = true}, 0);
+
+    }
 
     prevPage() {
         this.pageNumber = this.pageNumber - 1;
@@ -209,11 +277,13 @@ export class ContractComponent implements OnInit{
                 });
     };
 
+    getContractsByPageNum(num){
+        this.getContractsByPageNumAndState(num);
+    }
+
     onOnlyActive(){
         this.onlyActive = !this.onlyActive;
         console.log("change active filter, onlyActive=", this.onlyActive);
-        if (this.onlyActive == true) {console.log("listing only active contracts");
-        } else {console.log("listing all contracts");}
-        this.getContractsByPageNumAndState(this.pageNumber);
+        this.refresh();
     }
 }

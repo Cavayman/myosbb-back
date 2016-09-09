@@ -1,15 +1,11 @@
 package com.softserve.osbb.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.softserve.osbb.utils.CustomLocalDateDeserializer;
-import com.softserve.osbb.utils.CustomLocalDateSerializer;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.sql.Timestamp;
 
 /**
  * Created by Kris on 05.07.2016.
@@ -18,22 +14,21 @@ import java.time.LocalDate;
 @Table(name = "message")
 public class Message {
     private Integer messageId;
-    private String description;
+    private Integer parentId;
     private String message;
-    private LocalDate time;
+    private Timestamp time;
     private Ticket ticket;
     private User user;
 
     public Message() {
     }
 
-    public Message(String description, String message) {
-        this.description = description;
+    public Message(String message) {
+
         this.message = message;
     }
 
-    public Message(String description, String message, LocalDate time) {
-        this.description = description;
+    public Message(String message, Timestamp time) {
         this.message = message;
         this.time = time;
     }
@@ -50,14 +45,12 @@ public class Message {
     }
 
     @Basic
-    @JsonSerialize(using = CustomLocalDateSerializer.class)
     @Column(name = "time")
-    public LocalDate getTime() {
+    public Timestamp getTime() {
         return time;
     }
 
-    @JsonDeserialize(using = CustomLocalDateDeserializer.class)
-    public void setTime(LocalDate time) {
+    public void setTime(Timestamp time) {
         this.time = time;
     }
 
@@ -71,7 +64,7 @@ public class Message {
         this.message = message;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     public User getUser() {
         return user;
@@ -80,16 +73,6 @@ public class Message {
     public void setUser(User user) {
         this.user = user;
     }
-
-    @Column(name = "description")
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -112,11 +95,21 @@ public class Message {
         this.ticket = ticket;
     }
 
+    @Basic
+    @Column(name = "parentId")
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
+    }
+
     @Override
     public String toString() {
         return "Message{" +
                 "messageId=" + messageId +
-                ", description='" + description + '\'' +
+                "parrentId=" + parentId +
                 ", message='" + message + '\'' +
                 ", time=" + time +
                 '}';

@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,6 +26,10 @@ public interface BillRepository extends JpaRepository<Bill, Integer> {
     List<Bill> findAllByUserId(Integer userId);
 
     Page<Bill> findByApartment(Apartment apartment, Pageable pageable);
+
+    @Query(value = "select * from bill where EXTRACT (year from \"date\")=:year",
+            nativeQuery = true)
+    List<Bill> getAllByYear(@Param("year") Integer year);
 
 
 }

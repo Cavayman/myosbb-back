@@ -1,0 +1,23 @@
+{
+  "databaseChangeLog": [
+    {
+      "changeSet": {
+        "id": "auto-import-file",
+        "author": "cavayman",
+        "changes": [
+          {
+            "sqlFile": {
+              "dbms": "postgres",
+              "encoding": "utf8",
+              "endDelimiter": "\\nGO",
+              "path": "import.sql",
+              "relativeToChangelogFile": true,
+              "splitStatements": true,
+              "stripComments": true
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

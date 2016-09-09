@@ -2,7 +2,7 @@
   "databaseChangeLog": [
     {
       "changeSet": {
-        "id": "2016/08/03-35",
+        "id": "2016/08/29",
         "author": "nataliia",
         "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
         "changes": [
@@ -52,6 +52,13 @@
                 },
                 {
                   "column": {
+                    "name": "activated",
+                    "type": "boolean",
+                    "defaultValue": "false"
+                  }
+                },
+                {
+                  "column": {
                     "name": "password",
                     "type": "VARCHAR(255)"
                   }
@@ -61,43 +68,34 @@
                     "name": "phone_number",
                     "type": "VARCHAR(255)"
                   }
-                }
-              ],
-              "tableName": "users"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "changeSet": {
-        "id": "2016/08/03-33",
-        "author": "nataliia",
-        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-        "changes": [
-          {
-            "createTable": {
-              "columns": [
+                },
                 {
                   "column": {
-                    "constraints": {
-                      "nullable": false
-                    },
-                    "name": "user_id",
+                    "name": "role",
+                    "type": "INT",
+                    "defaultValue": 1
+                  }
+                },
+                {
+                  "column": {
+                    "name": "apartment_id",
                     "type": "INT"
                   }
                 },
                 {
                   "column": {
-                    "constraints": {
-                      "nullable": false
-                    },
-                    "name": "apartment_id",
+                    "name": "osbb_id",
                     "type": "INT"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "is_owner",
+                    "type": "boolean"
                   }
                 }
               ],
-              "tableName": "user_apartment"
+              "tableName": "users"
             }
           }
         ]
@@ -154,50 +152,6 @@
               "onUpdate": "NO ACTION",
               "referencedColumnNames": "option_id",
               "referencedTableName": "option"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "changeSet": {
-        "id": "2016/08/03-41",
-        "author": "nataliia",
-        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-        "changes": [
-          {
-            "addForeignKeyConstraint": {
-              "baseColumnNames": "user_id",
-              "baseTableName": "user_apartment",
-              "constraintName": "fk_6mrf4xbpgnwak62o08goi303j",
-              "deferrable": false,
-              "initiallyDeferred": false,
-              "onDelete": "NO ACTION",
-              "onUpdate": "NO ACTION",
-              "referencedColumnNames": "user_id",
-              "referencedTableName": "users"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "changeSet": {
-        "id": "2016/08/03-43",
-        "author": "nataliia",
-        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-        "changes": [
-          {
-            "addForeignKeyConstraint": {
-              "baseColumnNames": "apartment_id",
-              "baseTableName": "user_apartment",
-              "constraintName": "fk_affd3r40dn34gkys47ivss9d2",
-              "deferrable": false,
-              "initiallyDeferred": false,
-              "onDelete": "NO ACTION",
-              "onUpdate": "NO ACTION",
-              "referencedColumnNames": "apartment_id",
-              "referencedTableName": "apartment"
             }
           }
         ]
@@ -293,28 +247,6 @@
     },
     {
       "changeSet": {
-        "id": "2016/08/03-53",
-        "author": "nataliia",
-        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-        "changes": [
-          {
-            "addForeignKeyConstraint": {
-              "baseColumnNames": "owner_id",
-              "baseTableName": "apartment",
-              "constraintName": "fk_i2fi31t7l0ioqrn48mh6hp0b4",
-              "deferrable": false,
-              "initiallyDeferred": false,
-              "onDelete": "NO ACTION",
-              "onUpdate": "NO ACTION",
-              "referencedColumnNames": "user_id",
-              "referencedTableName": "users"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "changeSet": {
         "id": "2016/08/03-54",
         "author": "nataliia",
         "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
@@ -352,6 +284,72 @@
               "onUpdate": "NO ACTION",
               "referencedColumnNames": "user_id",
               "referencedTableName": "users"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/03-43",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "addForeignKeyConstraint": {
+              "baseColumnNames": "apartment_id",
+              "baseTableName": "users",
+              "constraintName": "fk_affd3r40dn34gkys47ivss9d5",
+              "deferrable": false,
+              "initiallyDeferred": false,
+              "onDelete": "NO ACTION",
+              "onUpdate": "NO ACTION",
+              "referencedColumnNames": "apartment_id",
+              "referencedTableName": "apartment"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/31-5",
+        "author": "cavayman",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "addForeignKeyConstraint": {
+              "baseColumnNames": "role",
+              "baseTableName": "users",
+              "constraintName": "fk_mmgnrg9xuk9v75158vut4jl8e",
+              "deferrable": false,
+              "initiallyDeferred": false,
+              "onDelete": "NO ACTION",
+              "onUpdate": "NO ACTION",
+              "referencedColumnNames": "role_id",
+              "referencedTableName": "role"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/31-98",
+        "author": "Roman",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "addForeignKeyConstraint": {
+              "baseColumnNames": "osbb_id",
+              "baseTableName": "users",
+              "constraintName": "fk_mngnrt9xuk9v75258vut4jl8e",
+              "deferrable": false,
+              "initiallyDeferred": false,
+              "onDelete": "NO ACTION",
+              "onUpdate": "NO ACTION",
+              "referencedColumnNames": "osbb_id",
+              "referencedTableName": "osbb"
             }
           }
         ]

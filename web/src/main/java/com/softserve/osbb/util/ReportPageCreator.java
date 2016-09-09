@@ -1,6 +1,6 @@
 package com.softserve.osbb.util;
 
-import com.softserve.osbb.model.Report;
+import com.softserve.osbb.dto.ReportDTO;
 import org.springframework.hateoas.Resource;
 
 import java.time.LocalDate;
@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by nazar.dovhyy on 08.08.2016.
  */
-public class ReportPageCreator extends PageCreator<Resource<Report>> {
+public class ReportPageCreator extends PageCreator<Resource<ReportDTO>> {
 
     private List<String> dates;
 

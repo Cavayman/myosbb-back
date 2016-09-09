@@ -1,0 +1,75 @@
+<div class="container ">
+    <div class="registration-form  center-block" *ngIf="!registeredOsbb">
+        <form class="ui form" (ngSubmit)="onSubmit()" #registerOsbbForm="ngForm">
+            <div class="form-header">
+                <h3>Реєстрація ОСББ </h3>
+            </div>
+            <div class="form-container">
+                <div class="form-container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <label>Назва</label>
+                            <input class="form-control placeholder-no-fix" name="name" [(ngModel)]="newOsbb.name" type="text" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <label>Описання</label>
+                            <input class="form-control placeholder-no-fix" name="descrption" [(ngModel)]="newOsbb.description" type="text" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <label>Адрес</label>
+                            <input class="form-control placeholder-no-fix" name="address" [(ngModel)]="newOsbb.address" type="text" (setAddress)="getAddress($event)"
+                                googleplace required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <label>Район</label>
+                            <input class="form-control placeholder-no-fix" name="district" [(ngModel)]="newOsbb.district" type="text" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <label>Посилання на фото дому</label>
+                            <input class="form-control placeholder-no-fix" name="logoUrl" [(ngModel)]="newOsbb.logoUrl" type="text">
+                            <div class="text-xs-center">
+                                <br>
+                                <img src="{{newOsbb.logoUrl}}" class="img-rounded" style="height: auto; max-height: 300px; max-width: 300px;display: block;
+      margin: 0 auto; ">
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <hr>
+                </div>
+            </div>
+            <div class="row form-footer">
+                <br>
+                <div class="col-xs-6">
+                    <a class="btn btn-danger col-xs-12" href="javascript:history.back()">Назад</a>
+                </div>
+                <div class="col-xs-6">
+                    <button class="btn btn-primary col-xs-12" (click)="onSubmin()" [disabled]="!registerOsbbForm.form.valid">Вперед</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <div *ngIf="registeredOsbb">
+        <div class="jumbotron" style="text-align:center;">
+            <div class="row">
+                <div class="col-sm-4"><img src="http://iconspot.ru/image.php?width=256&height=256&crop=none&id=50388" class="img-rounded" style="height: auto; max-height: 256px; max-width: 256px;display: block;"></div>
+                <div class="col-sm-8">
+                    <h1>ОСББ успішно зареєстроване!</h1>
+                    <p><a class="btn btn-primary btn-lg" href="/myosbb/login" role="button">Перейти на головну</a></p>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>

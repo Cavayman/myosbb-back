@@ -1,189 +1,189 @@
-{ "databaseChangeLog": [
-  {
-    "changeSet": {
-      "id": "2016/08/03-31",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "createTable": {
-            "columns": [
-              {
-                "column": {
-                  "autoIncrement": true,
-                  "constraints": {
-                    "primaryKey": true,
-                    "primaryKeyName": "ticket_pkey"
-                  },
-                  "name": "ticket_id",
-                  "type": "SERIAL"
+{
+  "databaseChangeLog": [
+    {
+      "changeSet": {
+        "id": "2016/08/03-31",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "createTable": {
+              "columns": [
+                {
+                  "column": {
+                    "autoIncrement": true,
+                    "constraints": {
+                      "primaryKey": true,
+                      "primaryKeyName": "ticket_pkey"
+                    },
+                    "name": "ticket_id",
+                    "type": "SERIAL"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "description",
+                    "type": "VARCHAR(500)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "name",
+                    "type": "VARCHAR(1000)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "state",
+                    "type": "VARCHAR(255)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "state_time",
+                    "type": "TIMESTAMP(6) WITH TIME ZONE"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "time",
+                    "type": "TIMESTAMP(6) WITH TIME ZONE"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "assigned",
+                    "type": "INT"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "user_id",
+                    "type": "INT"
+                  }
                 }
-              },
-              {
-                "column": {
-                  "name": "description",
-                  "type": "VARCHAR(255)"
-                }
-              },
-              {
-                "column": {
-                  "name": "name",
-                  "type": "VARCHAR(255)"
-                }
-              },
-              {
-                "column": {
-                  "name": "state",
-                  "type": "VARCHAR(255)"
-                }
-              },
-              {
-                "column": {
-                  "name": "state_time",
-                  "type": "date"
-                }
-              },
-              {
-                "column": {
-                  "name": "time",
-                  "type": "date"
-                }
-              },
-              {
-                "column": {
-                  "name": "assigned",
-                  "type": "INT"
-                }
-              },
-              {
-                "column": {
-                  "name": "user_id",
-                  "type": "INT"
-                }
-              }
-            ],
-            "tableName": "ticket"
+              ],
+              "tableName": "ticket"
+            }
           }
-        }
-      ]
-    }
-  },
-  {
-    "changeSet": {
-      "id": "2016/08/03-32",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "createTable": {
-            "columns": [
-              {
-                "column": {
-                  "constraints": {
-                    "nullable": false
-                  },
-                  "name": "ticket",
-                  "type": "INT"
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/03-32",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "createTable": {
+              "columns": [
+                {
+                  "column": {
+                    "constraints": {
+                      "nullable": false
+                    },
+                    "name": "ticket",
+                    "type": "INT"
+                  }
+                },
+                {
+                  "column": {
+                    "constraints": {
+                      "nullable": false
+                    },
+                    "name": "attachments",
+                    "type": "INT"
+                  }
                 }
-              },
-              {
-                "column": {
-                  "constraints": {
-                    "nullable": false
-                  },
-                  "name": "attachments",
-                  "type": "INT"
-                }
-              }
-            ],
-            "tableName": "ticket_attachments"
+              ],
+              "tableName": "ticket_attachments"
+            }
           }
-        }
-      ]
-    }
-  },
-  {
-    "changeSet": {
-      "id": "2016/08/03-37",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "addUniqueConstraint": {
-            "columnNames": "attachments",
-            "constraintName": "uk_leg4d0wo51vr3bj1wqxsybqcv",
-            "tableName": "ticket_attachments"
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/03-37",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "addUniqueConstraint": {
+              "columnNames": "attachments",
+              "constraintName": "uk_leg4d0wo51vr3bj1wqxsybqcv",
+              "tableName": "ticket_attachments"
+            }
           }
-        }
-      ]
-    }
-  },
-  {
-    "changeSet": {
-      "id": "2016/08/03-44",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "addForeignKeyConstraint": {
-            "baseColumnNames": "ticket",
-            "baseTableName": "ticket_attachments",
-            "constraintName": "fk_bi920n4vqcx1npa2tw3k2eyq6",
-            "deferrable": false,
-            "initiallyDeferred": false,
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "referencedColumnNames": "ticket_id",
-            "referencedTableName": "ticket"
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/03-44",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "addForeignKeyConstraint": {
+              "baseColumnNames": "ticket",
+              "baseTableName": "ticket_attachments",
+              "constraintName": "fk_bi920n4vqcx1npa2tw3k2eyq6",
+              "deferrable": false,
+              "initiallyDeferred": false,
+              "onDelete": "NO ACTION",
+              "onUpdate": "NO ACTION",
+              "referencedColumnNames": "ticket_id",
+              "referencedTableName": "ticket"
+            }
           }
-        }
-      ]
-    }
-  },
-
-  {
-    "changeSet": {
-      "id": "2016/08/03-55",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "addForeignKeyConstraint": {
-            "baseColumnNames": "attachments",
-            "baseTableName": "ticket_attachments",
-            "constraintName": "fk_leg4d0wo51vr3bj1wqxsybqcv",
-            "deferrable": false,
-            "initiallyDeferred": false,
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "referencedColumnNames": "attachment_id",
-            "referencedTableName": "attachment"
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/03-55",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "addForeignKeyConstraint": {
+              "baseColumnNames": "attachments",
+              "baseTableName": "ticket_attachments",
+              "constraintName": "fk_leg4d0wo51vr3bj1wqxsybqcv",
+              "deferrable": false,
+              "initiallyDeferred": false,
+              "onDelete": "NO ACTION",
+              "onUpdate": "NO ACTION",
+              "referencedColumnNames": "attachment_id",
+              "referencedTableName": "attachment"
+            }
           }
-        }
-      ]
-    }
-  },
-
-  {
-    "changeSet": {
-      "id": "2016/08/03-63",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "addForeignKeyConstraint": {
-            "baseColumnNames": "ticket_id",
-            "baseTableName": "message",
-            "constraintName": "fk_silcrotpni3aa4d6g86bturlu",
-            "deferrable": false,
-            "initiallyDeferred": false,
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "referencedColumnNames": "ticket_id",
-            "referencedTableName": "ticket"
+        ]
+      }
+    },
+    {
+      "changeSet": {
+        "id": "2016/08/03-63",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "addForeignKeyConstraint": {
+              "baseColumnNames": "ticket_id",
+              "baseTableName": "message",
+              "constraintName": "fk_silcrotpni3aa4d6g86bturlu",
+              "deferrable": false,
+              "initiallyDeferred": false,
+              "onDelete": "NO ACTION",
+              "onUpdate": "NO ACTION",
+              "referencedColumnNames": "ticket_id",
+              "referencedTableName": "ticket"
+            }
           }
-        }]
-
+        ]
+      }
     }
-  }]
+  ]
 }

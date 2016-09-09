@@ -1,6 +1,8 @@
 package com.softserve.osbb.service.impl;
 
 import com.softserve.osbb.model.Ticket;
+import com.softserve.osbb.model.User;
+import com.softserve.osbb.model.enums.TicketState;
 import com.softserve.osbb.repository.TicketRepository;
 import com.softserve.osbb.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,6 +131,33 @@ public class TicketServiceImpl implements TicketService {
                 getSortingOrder(order), sortBy == null ? "date" : sortBy);
         return ticketRepository.findAll(pageRequest);
     }
+
+    @Override
+    public List<Ticket> getAllTicketsByTime() {
+        return ticketRepository.findByOrderByTimeDesc();
+    }
+
+    @Override
+    public Page<Ticket> getAllTickets(PageRequest pageRequest) {
+        return ticketRepository.findAll(pageRequest);
+    }
+
+    @Override
+    public Page<Ticket> getTicketsByName(String name, PageRequest pageRequest) {
+        return ticketRepository.findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(name, name, pageRequest);
+    }
+
+    @Override
+    public Page<Ticket> getTicketsByState(TicketState ticketState, PageRequest pageRequest) {
+        return ticketRepository.findByState(ticketState, pageRequest);
+
+    }
+
+    @Override
+    public Page<Ticket> getTicketsByUser(User user, PageRequest pageRequest) {
+        return ticketRepository.findTicketsByUser(user, pageRequest) ;
+    }
+
 
     public Sort.Direction getSortingOrder(Boolean order) {
         if (order == null) {

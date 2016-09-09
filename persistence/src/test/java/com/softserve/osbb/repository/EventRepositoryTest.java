@@ -13,7 +13,9 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,29 +39,41 @@ public class EventRepositoryTest {
 
     private Event event;
     private Event event1;
+    private Timestamp t1;
+    private Timestamp t2;
+    private Timestamp t3;
+    private Timestamp t4;
 
     @Before
-    public void init() {
+    public void init() throws ParseException {
 
         Osbb osbb = new Osbb();
         osbb.setName("Test OSBB");
         osbbRepository.save(osbb);
 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm");
+        t1 = new Timestamp(dateFormat.parse("2016-01-01T00:00").getTime());
+        t2 = new Timestamp(dateFormat.parse("2016-01-02T00:00").getTime());
+        t3 = new Timestamp(dateFormat.parse("2016-01-03T00:00").getTime());
+        t4 = new Timestamp(dateFormat.parse("2016-01-04T00:00").getTime());
+
         event = new Event();
-        event.setName("Trash droping.");
+        event.setTitle("Trash droping.");
         event.setAuthor("Main OSBB");
         event.setOsbb(osbb);
         event.setDescription("Simple repeatable trash recycling.");
-        event.setPeriodicity(Periodicity.PERMANENT_WEEKLY);
-        event.setDate(LocalDate.now());
+        event.setRepeat(Periodicity.PERMANENT_WEEKLY);
+        event.setStartTime(t1);
+        event.setEndTime(t2);
 
         event1 = new Event();
-        event1.setName("Charity festival.");
+        event1.setTitle("Charity festival.");
         event1.setAuthor("City Council");
         event1.setOsbb(osbb);
         event1.setDescription("Charity festival for homelesspeople.");
-        event1.setPeriodicity(Periodicity.ONE_TIME);
-        event1.setDate(LocalDate.now());
+        event1.setRepeat(Periodicity.ONE_TIME);
+        event1.setStartTime(t3);
+        event1.setEndTime(t4);
     }
 
     @Test
@@ -150,5 +164,16 @@ public class EventRepositoryTest {
     public void testExists() {
         eventRepository.save(event);
         assertTrue(eventRepository.exists(event.getEventId()));
+    }
+
+    @Test
+    public void testFindByStartTimeBetweenOrEndTimeBetween() {
+        List<Event> list = new ArrayList<>();
+        list.add(event);
+        list.add(event1);
+        eventRepository.save(list);
+        assertTrue(eventRepository.findBetweenStartTimeAndEndTime(t1,t4).containsAll(list));
+        assertTrue(eventRepository.findBetweenStartTimeAndEndTime(t1,t2).contains(event));
+        assertFalse(eventRepository.findBetweenStartTimeAndEndTime(t1,t2).contains(event1));
     }
 }

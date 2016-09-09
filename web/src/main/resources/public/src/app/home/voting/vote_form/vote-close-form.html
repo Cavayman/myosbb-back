@@ -1,0 +1,21 @@
+<div bsModal #closeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+        aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-label="Close" (click)="closeModal.hide()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                        <h4 class="modal-title">{{'title' | translate }}</h4>
+                </div>
+                <div class="modal-body">
+                    <span> {{'endDate' | translate | capitalize}}: <span class="info-elem">{{getEndTime()}}</span> </span>
+                    <h5>{{'closeVote' | translate}}</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" (click)="closeModal.hide()">{{'no' | translate | capitalize}}</button>
+                    <button type="button" class="btn btn-primary" (click)="closeVote();closeModal.hide()">{{'yes' | translate | capitalize}}</button>
+                </div>
+           </div>
+      </div>
+</div>

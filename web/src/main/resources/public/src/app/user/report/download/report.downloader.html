@@ -1,0 +1,36 @@
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>
+<div class="row">
+    <button class="btn-lg btn-info spacing " title="pdf" (click)="download('pdf')">
+        <span class="fa fa-file-pdf-o"></span>
+    </button>
+    <button class="btn-lg btn-info spacing" title="xls" (click)="download('xls')">
+        <span class="fa fa-file-excel-o"></span>
+    </button>
+    <button class="btn-lg btn-info spacing" title="csv" (click)="download('csv')">
+        <span class="fa fa-file-text"></span>
+    </button>
+</div>
+<!-- loading circle -->
+<div *ngIf="pending" class="loader"></div>
+
+
+<!--
+<div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="true">
+        Згенерувати звіт
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <li><a class="" (click)="generate('pdf')">
+            <span class="pull-left fa fa-file-pdf-o"></span>pdf
+        </a></li>
+        <li><a class="" (click)="generate('xls')">
+            <span class="pull-left fa fa-file-excel-o"></span>xls
+        </a></li>
+        <li><a class="" (click)="generate('csv')">
+            <span class="pull-left fa fa-file-text"></span>csv
+        </a></li>
+    </ul>
+</div>
+-->

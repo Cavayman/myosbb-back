@@ -1,34 +1,42 @@
 package com.softserve.osbb.service.impl;
 
+import com.softserve.osbb.model.Role;
 import com.softserve.osbb.model.User;
+import com.softserve.osbb.repository.RoleRepository;
 import com.softserve.osbb.repository.UserRepository;
 import com.softserve.osbb.service.UserService;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.authentication.AccountStatusUserDetailsChecker;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Created by cavayman on 11.07.2016.
  */
 @Service
-public class UserServiceImpl implements UserService
-{
+public class UserServiceImpl implements UserService{
 
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    RoleRepository userRoleRepository;
+
+    private Logger log;
+
     @Override
     public User save(User user) {
-
-            return userRepository.save(user);
+        return userRepository.save(user);
     }
 
 
@@ -50,7 +58,6 @@ public class UserServiceImpl implements UserService
 
     @Override
     public boolean exists(Integer integer) {
-
         return userRepository.exists(integer);
     }
 
@@ -80,16 +87,16 @@ public class UserServiceImpl implements UserService
     }
 
     @Override
-    public void delete(Integer integer)
-    {   if(exists(integer))
-        userRepository.delete(integer);
+    public void delete(Integer integer) {
+        if (exists(integer))
+            userRepository.delete(integer);
 
 
     }
 
     @Override
     public void delete(User user) {
-        if(exists(user.getUserId()))
+        if (exists(user.getUserId()))
             userRepository.delete(user.getUserId());
 
     }
@@ -131,23 +138,23 @@ public class UserServiceImpl implements UserService
 
     @Override
     public List<User> save(Iterable<User> iterable) {
-        return userRepository.save(iterable);
+        Iterator<User> ite=iterable.iterator();
+        List<User> encodedUsers=new ArrayList<User>();
+        while(ite.hasNext()){
+            User temp=ite.next();
+            encodedUsers.add(temp);
+        }
+        return userRepository.save(encodedUsers);
     }
 
     @Override
-    public User findUserByEmail(String email) {
-        return userRepository.findUserByEmail(email);
+    public User findUserByEmail(String email)  {
+        try {
+            List<User> temp = userRepository.findUserByEmail(email);
+            return temp.get(0);
+        }catch(IndexOutOfBoundsException e){
+            return null;
+        }
     }
 
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        try{
-//        final Optional<User> user = userRepository.findUserByEmail(username);
-//        }catch(UsernameNotFoundExceptione exceptione){
-//
-//        }
-//        final AccountStatusUserDetailsChecker detailsChecker = new AccountStatusUserDetailsChecker();
-//        user.ifPresent(detailsChecker::check);
-//
-//    }
 }

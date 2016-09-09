@@ -1,13 +1,7 @@
 package com.softserve.osbb.dto;
 
-
-import com.softserve.osbb.model.Bill;
-import com.softserve.osbb.model.Contract;
 import com.softserve.osbb.model.ProviderType;
 import com.softserve.osbb.model.enums.Periodicity;
-
-import java.util.Collection;
-
 /**
  * Created by Anastasiia Fedorak on 8/2/16.
  */
@@ -34,7 +28,7 @@ public class ProviderPageDTO {
         this.name = name;
         this.description = description;
         this.logoUrl = logoUrl;
-        this.periodicity = periodicity != null ? periodicity.toString() : "";
+        this.periodicity = periodicity != null ? periodicity.toString() : "ONE_TIME";
         this.type = type;
         this.email = email;
         this.phone = phone;
@@ -45,13 +39,6 @@ public class ProviderPageDTO {
     public ProviderPageDTO(Integer providerId, String name,boolean active, String schedule) {
         this.providerId = providerId;
         this.name = name;
-//        this.description = description;
-//        this.logoUrl = logoUrl;
-        this.periodicity = periodicity != null ? periodicity.toString() : "";
-//        this.type = type;
-//        this.email = email;
-//        this.phone = phone;
-//        this.address = address;
         this.schedule = schedule;
         this.active = active;
     }

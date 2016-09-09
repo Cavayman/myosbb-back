@@ -6,15 +6,12 @@ import ApiService = require("../../shared/services/api.service");
 
 @Injectable()
 export class RegisterService{
-
     private _pathUrl=ApiService.serverUrl + '/registration';
-
     constructor(private http:Http){
     }
     sendUser(user:User){
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
         console.log(user);
+        let headers=new Headers({'Content-Type':'application/json'});
     return this.http.post(this._pathUrl,JSON.stringify(user),{headers:headers});
     }
 

@@ -1,32 +1,34 @@
 .profile{
-    width: 98%;
-    position:relative;
-    top: -60px;
-    background-color: black;
-    opacity: 0.75;
+    width: 100%;
+    height:100%;
+    position:fixed;
+    top: 60px;
+    background-color:#f2f2f2;
     overflow-y:hidden;
     text-align: center;
-    padding: 40px 20px 20px 30px;
-    margin: 40px 20px 0px 20px; 
-    border-radius: 10px;
-
+    padding: 20px;
+    margin: 0;
 }
 .top-label{
-    padding: 10px 0px  30px 0px;
+    margin:5px;
+    text-align:left;
 }
 .image{
-    margin-bottom: 100px;
+    pading-bottom:29px;
+}
+.images{
+    height:23.5%;
+}
+.task-panel{
+    padding: 20px 10px 20px 10px;
 }
 .btn{
     margin-top: 10px;
 }
-.left{height: 100%;
+.left{
+    height:75%;
 }
-.right{
-    background-color: #cccccc;
-    border-radius: 6px;
-    padding: 50px 10px 50px 10px;
-}
+
 .right label{
     margin-top: 20px;
 }

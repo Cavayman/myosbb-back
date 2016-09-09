@@ -19,7 +19,7 @@ public interface ReportService {
 
     Report updateReport(Integer reportId, Report report) throws Exception;
 
-    Report getReportById(Integer reportId) throws Exception;
+    Report getReportById(Integer reportId) ;
 
     Report getOneReportBySearchTerm(String name) throws Exception;
 

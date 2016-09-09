@@ -101,7 +101,7 @@ public class RoleController {
         return new ResponseEntity<>(addResourceLinkToRole(updatedRole), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/id/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Resource<Role>> deleteRole(@PathVariable("id") Integer id) {
         logger.info("Delete role with id: " + id );
         roleService.deleteRole(id);
@@ -109,12 +109,11 @@ public class RoleController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.DELETE)
-    public ResponseEntity<Role>  deleteAllRole() {
+    public ResponseEntity<Role>  deleteAllOsbb() {
         logger.info("Delete all role.");
         roleService.deleteAllRole();
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
     private Resource<Role> addResourceLinkToRole(Role role) {
         if (role == null) return null;
         Resource<Role> roleResource = new Resource<>(role);

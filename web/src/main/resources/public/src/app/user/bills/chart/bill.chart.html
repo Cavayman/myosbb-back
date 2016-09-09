@@ -1,0 +1,41 @@
+<div class="panel-heading">
+    <div class="row">
+        <div class="col-md-6">
+            <h4>{{'statistics' | translate | capitalize}}</h4>
+        </div>
+    </div>
+</div>
+<div class="panel-body">
+    <h4></h4>
+        <div class="col-md-6">
+            <button (click)="refreshBillChartData()" style="height: 30px; width: 45px" class="btn btn-default" type="button"
+                    name="refresh" title="Refresh">
+                <i class="glyphicon glyphicon-refresh icon-refresh"></i>
+            </button>
+        </div>
+    <base-chart class="chart"
+                [data]="showPercentageChartData"
+                [labels]="showPercentageChartLabels"
+                [chartType]="percentageChartType"
+                (chartHover)="chartPieHovered($event)"
+                (chartClick)="chartPieClicked($event)"></base-chart>
+</div>
+<div class="panel-body">
+    <!--<div class="pull-right">-->
+        <!--<ng-select [allowClear]="true"-->
+                   <!--[items]="years"-->
+                   <!--(data)="refreshYear($event)"-->
+                   <!--(selected)="selectByYear($event)"-->
+                   <!--placeholder="select year">-->
+        <!--</ng-select>-->
+    <!--</div>-->
+
+    <base-chart class="chart"
+                [datasets]="showBarChartData"
+                [labels]="showBarChartLabels"
+                [options]="barChartOptions"
+                [legend]="barChartLegend"
+                [chartType]="barChartType"
+                (chartHover)="chartBarHovered($event)"
+                (chartClick)="chartBarClicked($event)"></base-chart>
+</div>

@@ -4,70 +4,82 @@
         <ul class="sidebar-menu" id="nav-accordion">
 
             <p class="centered"><a [routerLink]="['profile']"><img src="assets/img/ui-sam.jpg" class="img-circle"
-                                                            width="60"></a></p>
+                                                                   width="60"></a></p>
             <h5 class="centered">{{userName}}</h5>
 
             <li class="sub-menu">
                 <a [routerLink]="['main']">
                     <i class="fa fa-user"></i>
-                    <span>Головна</span>
+                    <span>{{ 'homePage' | translate | capitalize }}</span>
                 </a>
             </li>
 
             <li class="sub-menu">
                 <a [routerLink]="['apartment']">
                     <i class="fa fa-building-o"></i>
-                    <span>Квартира</span>
+                    <span>{{ 'apartments' | translate | capitalize }}</span>
                 </a>
             </li>
 
             <li class="sub-menu">
                 <a [routerLink]="['event']">
                     <i class="fa fa-calendar"></i>
-                    <span>Події</span>
+                    <span>{{ 'events' | translate | capitalize }}</span>
+                </a>
+            </li>
+            <li class="sub-menu">
+                <a [routerLink]="['calendar']">
+                    <i class="fa fa-calendar"></i>
+                    <span>{{ 'calendar' | translate | capitalize }}</span>
                 </a>
             </li>
             <li class="sub-menu">
                 <a [routerLink]="['attachment']">
                     <i class="fa fa-bookmark"></i>
-                    <span>Вкладення</span>
+                    <span>{{ 'attachments' | translate | capitalize }}</span>
                 </a>
             </li>
             <li class="sub-menu">
                 <a [routerLink]="['ticket']">
                     <i class="fa fa-comments"></i>
-                    <span>Обговорення</span>
+                    <span>{{ 'messages' | translate | capitalize }}</span>
                 </a>
             </li>
             <li class="sub-menu">
                 <a [routerLink]="['bill']">
                     <i class="fa fa-credit-card-alt"></i>
-                    <span>Рахунки</span>
+                    <span>{{'bills' | translate | capitalize}}</span>
+                </a>
+            </li>
+            <li class="sub-menu">
+                <a [routerLink]="['osbb/bill']">
+                    <i class="fa fa-credit-card-alt"></i>
+                    <span>{{'bills_osbb' | translate | capitalize}}</span>
                 </a>
             </li>
 
             <li class="sub-menu">
                 <a [routerLink]="['report']">
                     <i class="fa fa-list-alt"></i>
-                    <span>Звіти</span>
+                    <span>{{'reports' | translate | capitalize}}</span>
                 </a>
             </li>
             <li class="sub-menu">
                 <a [routerLink]="['users']">
                     <i class="fa fa-users"></i>
-                    <span>Юзвери</span>
+                    <span>{{ 'users' | translate | capitalize }}</span>
                 </a>
             </li>
             <li class="sub-menu">
                 <a [routerLink]="['osbb']">
                     <i class="fa fa-users"></i>
-                    <span>ОСББ</span>
+                    <span>{{ 'osbb' | translate | capitalize }}</span>
                 </a>
             </li>
             <li class="sub-menu">
                 <a [routerLink]="['role']">
                     <i class="fa fa-user"></i>
-                    <span>Ролі</span>
+                    <span>{{ 'roles' | translate | capitalize }}</span>
                 </a>
             </li>
             <li>

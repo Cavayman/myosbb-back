@@ -83,7 +83,7 @@ public class Provider implements Serializable {
         this.description = description;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "provider")
+    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL)
     @JsonIgnore
     public Collection<Contract> getContracts() {
         return contracts;
@@ -113,7 +113,7 @@ public class Provider implements Serializable {
         this.periodicity = periodicity;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "provider_type_id")
     public ProviderType getType() {
         return type;

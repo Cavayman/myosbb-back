@@ -3,50 +3,75 @@ import {LoginService} from "./login.service";
 import {Router} from "@angular/router";
 import {RegistrationComponent} from "../registration/registration.component";
 import {CurrentUserService} from "../../shared/services/current.user.service";
+import {ToasterContainerComponent, ToasterService, ToasterConfig} from 'angular2-toaster/angular2-toaster';
+import MaskedInput from 'angular2-text-mask';
+import emailMask from 'node_modules/text-mask-addons/dist/emailMask.js'
 
 @Component({
     selector: 'app-login',
     templateUrl: 'src/app/login/login.html',
-    directives: [RegistrationComponent],
-    providers: [LoginService],
+    styleUrls: ['assets/css/login/login.css'],
+    directives: [RegistrationComponent, ToasterContainerComponent, MaskedInput],
+    providers: [LoginService, ToasterService],
     outputs: ['isLoggedIn']
 })
 export class LoginComponent implements OnInit {
-    ngOnInit(): any {
-        return undefined;
+
+    ngOnInit():any {
+        this.isLoggedIn=this.loginService.checkLogin();
     }
-    private model = { 'username': '', 'password': '' };
-    private currentUserName = '';
-    private isLoggedIn: boolean = false;
 
-    // isLoggedIn:boolean;
-    // @Output() private loggedIn = new EventEmitter();
+    public emailMask = emailMask;
 
-    constructor(private _router: Router, private loginService: LoginService
-        , private _currentUserService: CurrentUserService) {
+    private model = {"username": "", "password": ""};
+    private isLoggedIn:boolean = this.loginService.checkLogin();
+    private logInError:boolean = false;
+    public toasterconfig:ToasterConfig = new ToasterConfig({showCloseButton: true, tapToDismiss: true, timeout: 5000});
+    forgotEmail = "";
+
+    constructor(private _router:Router, private loginService:LoginService
+        , private _currentUserService:CurrentUserService, private _toasterService:ToasterService) {
     }
 
     onSubmit() {
-        this.isLoggedIn = false;
         this.loginService.sendCredentials(this.model).subscribe(
             data => {
-                localStorage.setItem("token", JSON.parse(JSON.stringify(data))._body);
-                this.loginService.sendToken(localStorage.getItem("token")).subscribe(
-                    data => {
-                        if (!this.isLoggedIn) {
-                            this.currentUserName = this.model.username;
-                            localStorage.setItem("currentUserName", this.model.username);
+                if (!this.loginService.checkLogin()) {
+                    this.tokenParseInLocalStorage(data.json());
+                    this.loginService.sendToken().subscribe(
+                        data=> {
+                            this._currentUserService.setUser(data);
                             this.model.username = "";
                             this.model.password = "";
                             this.isLoggedIn = true;
-                            this._currentUserService.setUser(data);
-                            this._router.navigate(['home']);
+                            this._toasterService.pop('success'
+                                , "Congratulation," + this._currentUserService.getUser().firstName + " !"
+                                , 'We glad to see you hare again');
+                            this._router.navigate(['home/wall']);
                         }
-                    }
-                )
-            }
+                    )
+                }
+            },
+            err => {
+                this.model.password = "";
+                this.handleErrors(err);
+            },
+            () => console.log('Sending credentials completed')
         )
+    }
 
+    private handleErrors(error) {
+        this._toasterService.pop('error', "Try again...later", "Something vary bad happened.");
+        return;
+    }
+
+    tokenParseInLocalStorage(data:any) {
+        localStorage.setItem("access_token", data.access_token);
+        localStorage.setItem("token_type", data.token_type);
+        localStorage.setItem("expires_in",new Date().setSeconds(data.expires_in));
+        localStorage.setItem("scope", data.scope);
+        localStorage.setItem("jti", data.jti);
+        localStorage.setItem("refresh_token", data.refresh_token);
     }
 
     onUserRegistrationClick() {
@@ -54,12 +79,33 @@ export class LoginComponent implements OnInit {
 
     }
 
-    // onUserLoginClick() {
-    //     this.isLoggedIn = true;
-    //     this.loggedIn.emit(this.isLoggedIn);
-    //     this._loginStat.setLoginStat(this.isLoggedIn);
-    //     this._router.navigate(['home']);
-    //
-    // }
+    emailValid:boolean = false;
 
+    validateEmail() {
+        this.loginService.validateEmail(this.forgotEmail.replace(/ /g, '')).subscribe(
+            data=> {
+                if (data.json() === "FOUND") {
+                    this.emailValid = true;
+                } else {
+                    this.emailValid = false;
+                }
+            }
+        )
+    }
+
+    sendEmail() {
+        if (this.emailValid) {
+            this.loginService.sendPassword(this.forgotEmail).subscribe(
+                data=>{
+                    this._toasterService.pop('success'
+                        , "Congratulation!"
+                        , 'Password was sendet on your email.Check it and get back soon.');
+
+                },
+                err => {
+                    this.forgotEmail = "";
+                    this.handleErrors(err);
+                }
+            )}
+    }
 }

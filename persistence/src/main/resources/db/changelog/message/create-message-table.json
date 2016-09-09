@@ -1,59 +1,61 @@
-{ "databaseChangeLog": [
-  {
-    "changeSet": {
-      "id": "2016/08/03-24",
-      "author": "nataliia",
-      "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
-      "changes": [
-        {
-          "createTable": {
-            "columns": [
-              {
-                "column": {
-                  "autoIncrement": true,
-                  "constraints": {
-                    "primaryKey": true,
-                    "primaryKeyName": "message_pkey"
-                  },
-                  "name": "message_id",
-                  "type": "SERIAL"
+{
+  "databaseChangeLog": [
+    {
+      "changeSet": {
+        "id": "2016/08/03-24",
+        "author": "nataliia",
+        "objectQuotingStrategy": "QUOTE_ALL_OBJECTS",
+        "changes": [
+          {
+            "createTable": {
+              "columns": [
+                {
+                  "column": {
+                    "autoIncrement": true,
+                    "constraints": {
+                      "primaryKey": true,
+                      "primaryKeyName": "message_pkey"
+                    },
+                    "name": "message_id",
+                    "type": "SERIAL"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "message",
+                    "type": "VARCHAR(500)"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "time",
+                    "type": "TIMESTAMP(6) WITH TIME ZONE"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "ticket_id",
+                    "type": "INT"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "user_id",
+                    "type": "INT"
+                  }
+                },
+                {
+                  "column": {
+                    "name": "parent_id",
+                    "type": "INT"
+                  }
                 }
-              },
-              {
-                "column": {
-                  "name": "description",
-                  "type": "VARCHAR(255)"
-                }
-              },
-              {
-                "column": {
-                  "name": "message",
-                  "type": "VARCHAR(255)"
-                }
-              },
-              {
-                "column": {
-                  "name": "time",
-                  "type": "date"
-                }
-              },
-              {
-                "column": {
-                  "name": "ticket_id",
-                  "type": "INT"
-                }
-              },
-              {
-                "column": {
-                  "name": "user_id",
-                  "type": "INT"
-                }
-              }]
-          ,
-            "tableName": "message"
+              ],
+              "tableName": "message"
+            }
           }
-        }]
-
+        ]
+      }
     }
-  }]
+  ]
 }

@@ -1,9 +1,12 @@
 package com.softserve.osbb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
@@ -12,13 +15,14 @@ import java.util.List;
  */
 @Entity
 @Table(name = "apartment")
-public class Apartment {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Apartment implements Serializable {
     private Integer apartmentId;
     private Integer number;
     private House house;
     private Integer square;
-    private User user;
     private List<User> users;
+    private Integer owner;
     private Collection<Bill> bills;
 
     @Id
@@ -62,8 +66,9 @@ public class Apartment {
         return HashCodeBuilder.reflectionHashCode(this);
     }
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToOne( fetch = FetchType.LAZY)
     @JoinColumn(name = "house_id", referencedColumnName = "house_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public House getHouse() {
         return house;
     }
@@ -72,17 +77,8 @@ public class Apartment {
         this.house = house;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "owner_id", referencedColumnName = "user_id")
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "apartments")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "apartment", cascade = CascadeType.ALL)
+    @JsonIgnore
     public List<User> getUsers() {
         return users;
     }
@@ -90,8 +86,18 @@ public class Apartment {
     public void setUsers(List<User> users) {
         this.users = users;
     }
+    @Basic
+    @Column(name="owner_id")
+    public Integer getOwner() {
+        return owner;
+    }
 
-    @OneToMany(mappedBy = "apartment")
+    public void setOwner(Integer owner) {
+        this.owner = owner;
+    }
+
+    @OneToMany(mappedBy = "apartment",cascade = CascadeType.ALL)
+    @JsonIgnore
     public Collection<Bill> getBills() {
         return bills;
     }
@@ -106,7 +112,6 @@ public class Apartment {
                 "apartmentId=" + apartmentId +
                 ", number=" + number +
                 ", square=" + square +
-                ", user=" + user +
                 ", users=" + users +
                 ", bills=" + bills +
                 '}';

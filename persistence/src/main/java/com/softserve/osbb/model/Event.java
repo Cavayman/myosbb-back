@@ -1,16 +1,12 @@
 package com.softserve.osbb.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.annotation.*;
 import com.softserve.osbb.model.enums.Periodicity;
-import com.softserve.osbb.utils.CustomLocalDateDeserializer;
-import com.softserve.osbb.utils.CustomLocalDateSerializer;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -22,17 +18,19 @@ import java.util.List;
 public class Event {
 
     private Integer eventId;
-    private String name;
-    private LocalDate date;
+    private String title;
+    private Timestamp startTime;
+    private Timestamp endTime;
     private String description;
     private String author;
     private Osbb osbb;
-    private Periodicity periodicity;
+    private Periodicity repeat;
     private List<Attachment> attachments;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "event_id")
+    @JsonProperty(value = "id")
     public Integer getEventId() {
         return eventId;
     }
@@ -42,25 +40,37 @@ public class Event {
     }
 
     @Basic
-    @Column(name = "name")
-    public String getName() {
-        return name;
+    @Column(name = "title")
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @Basic
-    @JsonSerialize(using = CustomLocalDateSerializer.class)
-    @Column(name = "date")
-    public LocalDate getDate() {
-        return date;
+    @Column(name = "start_time")
+    @JsonProperty(value = "start")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'hh:mm")
+    public Timestamp getStartTime() {
+        return startTime;
     }
 
-    @JsonDeserialize(using = CustomLocalDateDeserializer.class)
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setStartTime(Timestamp startTime) {
+        this.startTime = startTime;
+    }
+
+    @Basic
+    @Column(name = "end_time")
+    @JsonProperty(value = "end")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'hh:mm")
+    public Timestamp getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Timestamp endTime) {
+        this.endTime = endTime;
     }
 
     @Basic
@@ -95,14 +105,14 @@ public class Event {
     }
 
     @Basic
-    @Column(name = "repeat")
     @Enumerated(EnumType.STRING)
-    public Periodicity getPeriodicity() {
-        return periodicity;
+    @Column(name = "repeat", columnDefinition = "varchar(45) default 'ONE_TIME'")
+    public Periodicity getRepeat() {
+        return repeat;
     }
 
-    public void setPeriodicity(Periodicity periodicity) {
-        this.periodicity = periodicity;
+    public void setRepeat(Periodicity repeat) {
+        this.repeat = repeat;
     }
 
     @OneToMany(fetch = FetchType.LAZY)
@@ -124,4 +134,18 @@ public class Event {
         return HashCodeBuilder.reflectionHashCode(this);
     }
 
+    @Override
+    public Event clone() {
+        Event clone = new Event();
+        clone.eventId = this.eventId;
+        clone.title = this.title;
+        clone.startTime = this.startTime;
+        clone.endTime = this.endTime;
+        clone.description = this.description;
+        clone.author = this.author;
+        clone.osbb = this.osbb;
+        clone.repeat = this.repeat;
+        clone.attachments = this.attachments;
+        return clone;
+    }
 }

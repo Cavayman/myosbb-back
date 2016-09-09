@@ -8,7 +8,7 @@ import {Provider} from "../../../../shared/models/provider.interface";
 import {PageCreator} from "../../../../shared/services/page.creator.interface";
 import {SelectItem} from "../../../../shared/models/ng2-select-item.interface";
 import {ProviderService} from "../service/provider-service";
-import {PeriodicityItems} from "../periodicity.const";
+import {PeriodicityItems} from "../../../../shared/models/periodicity.const";
 import {ROUTER_DIRECTIVES} from "@angular/router";
 
 @Component({
@@ -16,7 +16,8 @@ import {ROUTER_DIRECTIVES} from "@angular/router";
     templateUrl: 'src/app/user/provider/provider_home/provider-user-page.html',
     pipes: [TranslatePipe, CapitalizeFirstLetterPipe],
     providers: [ProviderService],
-    directives: [ROUTER_DIRECTIVES]
+    directives: [ROUTER_DIRECTIVES],
+    styleUrls: ['src/app/house/house.css', 'src/shared/css/loader.css', 'src/shared/css/general.css']
 })
 export class ProviderUserPageComponent {
     private providers :  Provider[];

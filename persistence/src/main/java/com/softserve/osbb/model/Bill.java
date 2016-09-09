@@ -63,7 +63,7 @@ public class Bill implements Serializable {
         this.tariff = tariff;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JsonIgnore
     @JoinColumn(name = "provider_id", referencedColumnName = "provider_id")
     public Provider getProvider() {
@@ -94,7 +94,7 @@ public class Bill implements Serializable {
         this.paid = paid;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JsonIgnore
     @JoinColumn(name = "apartment_id", referencedColumnName = "apartment_id")
     public Apartment getApartment() {
@@ -107,7 +107,7 @@ public class Bill implements Serializable {
 
     @JsonIgnore
     @Enumerated(EnumType.STRING)
-    @Column(name = "status")
+    @Column(name = "status", columnDefinition = "varchar(255) default 'NOT_PAID'")
     public BillStatus getBillStatus() {
         return billStatus;
     }
@@ -124,5 +124,17 @@ public class Bill implements Serializable {
     @Override
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Bill{" +
+                "billId=" + billId +
+                ", date=" + date +
+                ", tariff=" + tariff +
+                ", toPay=" + toPay +
+                ", paid=" + paid +
+                ", billStatus=" + billStatus +
+                '}';
     }
 }

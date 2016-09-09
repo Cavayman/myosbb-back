@@ -1,41 +1,43 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
-import {VoteAddFormComponent} from './vote_form/vote-add-form.component';
 import {Vote} from './vote';
 import {Option} from './option';
 import {VoteService} from './vote.service';
 import {OptionService} from './option.service';
+import {VoteAddFormComponent} from './vote_form/vote-add-form.component';
+import {VoteDelFormComponent} from './vote_form/vote-del-form.component';
+import {VoteCloseFormComponent}  from './vote_form/vote-close-form.component';
 import {User} from './user';
 import {CurrentUserService} from "../../../shared/services/current.user.service";
+import {TranslatePipe} from "ng2-translate";
+import {CapitalizeFirstLetterPipe} from "../../../shared/pipes/capitalize-first-letter";
 
 @Component({
     selector: 'vote',
     templateUrl: './src/app/home/voting/vote.html',
     styleUrls: ['./src/app/home/voting/vote.css'],
-    directives: [ VoteAddFormComponent],
-    providers:[VoteService, OptionService]
+    directives: [ VoteAddFormComponent, VoteDelFormComponent, VoteCloseFormComponent],
+    providers:[VoteService, OptionService],
+    pipes: [CapitalizeFirstLetterPipe, TranslatePipe]
 })
 export class VoteComponent implements OnInit {
 
     @ViewChild('voteAddForm')
     voteAddForm:VoteAddFormComponent;
+
     voteArr: Vote[];
     currentUser: User;
 
     constructor(private voteService:VoteService, private optionService:OptionService, private currentUserService:CurrentUserService) {
         this.voteArr = [];
-        this.currentUser = currentUserService.getUser();
-        if(this.currentUser.userId===undefined) {                   //    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX fix this before demo
-            console.log("userId is undefined. userId = 1");
-            this.currentUser.userId = 1;
-        }
     }
 
     ngOnInit() {
         this.voteService.getAllVotes()
                         .then(voteArr => this.voteArr = voteArr)
+                        .then(()=> this.currentUser = this.currentUserService.getUser())
                         .then(()=> this.checkForUserId())
                         .then(()=> this.countNumberOfRespondents())
-                        .then(() => this.calculateProgress());
+                        .then(()=> this.calculateProgress());
     }
 
     checkForUserId(): void {
@@ -45,7 +47,6 @@ export class VoteComponent implements OnInit {
             } else {
                 this.voteArr[i].available = false;
             }
-            //this.voteArr[i].available = this.voteArr[i].usersId.includes(this.currentUser.userId);
         }
     }
 
@@ -56,6 +57,7 @@ export class VoteComponent implements OnInit {
     }
 
     openModalWindow(): void {
+        console.log("currentUserId: " + this.currentUserService.getUser().userId);
         this.voteAddForm.openAddModal();
     }
 
@@ -75,7 +77,6 @@ export class VoteComponent implements OnInit {
     }
 
     private addVote(vote: Vote): void {
-        console.log("into addVote: " + vote.user);
         this.voteArr.unshift(vote);
     }
     
@@ -91,7 +92,7 @@ export class VoteComponent implements OnInit {
         }
     }
 
-     private calcProgressForOption(usersLength: number, numberOfRespondents: number): string{
+    private calcProgressForOption(usersLength: number, numberOfRespondents: number): string{
         if(numberOfRespondents !== 0 ) {
             return String(Math.round(usersLength / numberOfRespondents  * 100));
         } else {
@@ -103,7 +104,28 @@ export class VoteComponent implements OnInit {
         return new Date(startTime).toLocaleString();
     }
 
-     getEndTime(endTime: Date):string {
+    getEndTime(endTime: Date):string {
         return new Date(endTime).toLocaleString();
+    }
+
+    deleteVote(vote: Vote): void {
+        this.voteService.deleteVote(vote).then(vote => this.deleteVoteFromArr(vote));
+    }
+
+    closeVote(vote: Vote):void {
+        console.log("closeVote");
+        vote.available = false;
+        this.voteService.updateVote(vote);
+    }
+
+    private deleteVoteFromArr(vote: Vote): void {
+         let index = this.voteArr.indexOf(vote);
+         if(index > -1) {
+            this.voteArr.splice(index, 1);
+         }
+    }
+
+    isCurrentUserCreator(vote:Vote): boolean {
+        return this.currentUser.userId === vote.user.userId ? true : false;
     }
 }   

@@ -116,7 +116,12 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public List<Message> findMessagesByTicket(Ticket ticket) {
-        return messageRepository.findByTicket(ticket);
+        return messageRepository.findByTicketOrderByTimeAsc(ticket);
+    }
+
+    @Override
+    public List<Message> getAnswers(Integer parentId) {
+        return messageRepository.findByParentId(parentId);
     }
 
 }

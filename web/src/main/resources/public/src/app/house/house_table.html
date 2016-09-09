@@ -1,4 +1,4 @@
-<toaster-component></toaster-component>
+<toaster-container></toaster-container>
 <div class="panel panel-default top-panel to-right">
     <div class="panel-heading">
         <div class="row">
@@ -6,7 +6,7 @@
                 <h4><i class="fa fa-angle-right"></i>{{'houses' | translate | capitalize}}</h4>
             </div>
             <div class="col-md-6 columns">
-                <button (click)="showAddHouseModal()" class="btn btn-default panel-btn" type="button"
+                <button *ngIf="admin" (click)="showAddHouseModal()" class="btn btn-default panel-btn" type="button"
                         name="refresh" title="Refresh">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                 </button>
@@ -46,7 +46,7 @@
                     </th>
                     <th class="sorting"> {{'additional_info' | translate | capitalize}}
                     </th>
-                    <th class="sorting"> {{'extra' | translate | capitalize}}
+                    <th *ngIf="admin" class="sorting"> {{'extra' | translate | capitalize}}
                     </th>
                 </tr>
                 </thead>
@@ -69,7 +69,7 @@
                         </button>
                     </td>
                     <td>{{house.description}}</td>
-                    <td>
+                    <td *ngIf="admin">
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -119,58 +119,85 @@
         <!--add house -->
         <div bsModal #addModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
              aria-labelledby="mySmallModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-sm">
+            <div class="modal-dialog modal-md">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" aria-label="Close"
-                                (click)="addModal.hide()">
+                                (click)="cancelAddModal()">
                             <span aria-hidden="true">&times;</span>
                         </button>
                         <h4 class="modal-title">{{'add' | translate | capitalize}}</h4>
                     </div>
                     <form *ngIf="active" (ngSubmit)="onAddHouseSubmit()" #houseForm="ngForm">
-                        <div class="modal-body">
-                            <div class="form-group"><label>{{'street' | translate | capitalize}}</label>
-                                <input type="text" class="form-control mod" required
-                                       [(ngModel)]="selectedHouse.street"
-                                       name="street" #street="ngModel" maxlength="20" minlength="5">
-                                <div [hidden]="street.valid || street.pristine" class="alert alert-danger">
-                                    {{'name_err_description' | translate }}
-                                </div>
-                                <div [hidden]="matches(selectedHouse.street)"
-                                     class="alert alert-danger">
-                                    {{'wrong_symbol' | translate }}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="modal-body">
+                                    <div class="form-group"><label>{{'street' | translate | capitalize}}</label>
+                                        <input type="text" class="form-control mod" required
+                                               [(ngModel)]="selectedHouse.street"
+                                               name="street" #street="ngModel" maxlength="20" minlength="5">
+                                        <div [hidden]="street.valid || street.pristine" class="alert alert-danger">
+                                            {{'name_err_description' | translate }}
+                                        </div>
+                                        <div [hidden]="street.pristine || matches(selectedHouse.street)"
+                                             class="alert alert-danger">
+                                            {{'wrong_symbol' | translate }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group"><label>{{'city' | translate | capitalize}}</label><br>
+                                        <input type="text" class="form-control mod" required
+                                               [(ngModel)]="selectedHouse.city"
+                                               name="city" #city="ngModel" maxlength="20" minlength="4">
+                                        <div [hidden]="city.valid || city.pristine" class="alert alert-danger">
+                                            {{'name_err_description' | translate }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group"><label>{{'zipCode' | translate | capitalize}}</label><br>
+                                        <input type="text" class="form-control mod" required
+                                               [(ngModel)]="selectedHouse.zipCode"
+                                               name="zipCode" #zipCode="ngModel" maxlength="20" minlength="5">
+                                        <div [hidden]="zipCode.valid || zipCode.pristine" class="alert alert-danger">
+                                            {{'name_err_description' | translate }}
+                                        </div>
+                                        <div [hidden]="zipCode.pristine || matches(selectedHouse.zipCode)"
+                                             class="alert alert-danger">
+                                            {{'wrong_symbol' | translate }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group"><label>Кількість квартир</label><br>
+                                        <input type="number" min="0" class="form-control mod" required
+                                               [(ngModel)]="selectedHouse.apartmentCount"
+                                               name="apartments" #apartments="ngModel" maxlength="3" minlength="1">
+                                        <div [hidden]="apartments.valid || apartments.pristine" class="alert alert-danger">
+                                            {{'name_err_description' | translate }}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-group"><label>{{'city' | translate | capitalize}}</label><br>
-                                <input type="text" class="form-control mod" required
-                                       [(ngModel)]="selectedHouse.city"
-                                       name="city" #city="ngModel" maxlength="20" minlength="5">
-                                <div [hidden]="city.valid || city.pristine" class="alert alert-danger">
-                                    {{'name_err_description' | translate }}
-                                </div>
-                            </div>
-                            <div class="form-group"><label>{{'zipCode' | translate | capitalize}}</label><br>
-                                <input type="text" class="form-control mod" required
-                                       [(ngModel)]="selectedHouse.zipCode"
-                                       name="zipCode" #zipCode="ngModel" maxlength="20" minlength="5">
-                                <div [hidden]="zipCode.valid || zipCode.pristine" class="alert alert-danger">
-                                    {{'name_err_description' | translate }}
-                                </div>
-                            </div>
-                            <div class="form-group"><label>{{'additional_info' | translate |
-                                capitalize}}</label><br>
-                                <input id="desc" type="text" class="form-control mod" required
-                                       [(ngModel)]="selectedHouse.description"
-                                       name="description" #description="ngModel" maxlength="50" minlength="5">
-                                <div [hidden]="description.valid || description.pristine" class="alert alert-danger">
-                                    {{'name_err_description' | translate }}
+                            <div class="col-md-6">
+                                <div class="text-center">
+                                    <img src="assets/img/my_house.png" class="img-rounded" alt="my_house" width="260"
+                                         height="210">
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group"><label style="margin-left: 15px">{{'additional_info' | translate |
+                            capitalize}}</label><br>
+                            <input id="desc" type="text" class="form-control" required
+                                   [(ngModel)]="selectedHouse.description"
+                                   name="description" #description="ngModel" maxlength="50" minlength="5">
+                            <div [hidden]="description.valid || description.pristine"
+                                 class="alert alert-danger">
+                                {{'name_err_description' | translate }}
+                            </div>
+                        </div>
+
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-default" [disabled]="!houseForm.form.valid">
+                            <button type="submit" class="btn btn-primary" [disabled]="!houseForm.form.valid">
                                 {{'save' | translate | capitalize}}
+                            </button>
+                            <button (click)="cancelAddModal()" class="btn btn-default">
+                                {{'cancel' | translate | capitalize}}
                             </button>
                         </div>
                     </form>
@@ -195,7 +222,7 @@
                     <a (click)="findAllHousesByPage(num, selectedRow)">{{num}}
                     </a>
                 </li>
-                <li [ngStyle]="{'display': pageNumber === 1 || pageNumber == totalPages? 'none' : ''}">
+                <li [ngStyle]="{'display':  pageNumber == totalPages? 'none' : ''}">
                     <a (click)="nextPage()" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>

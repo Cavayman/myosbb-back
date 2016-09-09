@@ -47,7 +47,7 @@ public class ProviderController {
 
         final List<Resource<ProviderPageDTO>> resourceProviderList = new ArrayList<>();
         providerList.stream().forEach((provider) -> {
-            ProviderPageDTO providerPageDTO =  ProviderPageDtoMapper.getInstance().mapProviderEntityToDto(provider.getProviderId(), provider);
+            ProviderPageDTO providerPageDTO =  ProviderPageDtoMapper.mapProviderEntityToDto(provider.getProviderId(), provider);
             try {
                 resourceProviderList.add(addResourceLinkToProvider(providerPageDTO));
             } catch (EntityNotFoundException e) {
@@ -79,7 +79,7 @@ public class ProviderController {
 
         List<Resource<ProviderPageDTO>> resourceList = new ArrayList<>();
         providersByPage.forEach((provider) -> {
-            ProviderPageDTO providerPageDTO = ProviderPageDtoMapper.getInstance().mapProviderEntityToDto(provider.getProviderId(), provider);
+            ProviderPageDTO providerPageDTO = ProviderPageDtoMapper.mapProviderEntityToDto(provider.getProviderId(), provider);
             try {
                 resourceList.add(addResourceLinkToProvider(providerPageDTO));
             } catch (EntityNotFoundException e) {
@@ -104,7 +104,7 @@ public class ProviderController {
         Resource<ProviderPageDTO> providerResource = null;
         try {
             providerResource = addResourceLinkToProvider(
-                    ProviderPageDtoMapper.getInstance().mapProviderEntityToDto(providerId, provider));
+                    ProviderPageDtoMapper.mapProviderEntityToDto(providerId, provider));
         } catch (EntityNotFoundException e) {
             logger.error(e.getMessage());
         }
@@ -114,10 +114,10 @@ public class ProviderController {
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<Resource<ProviderPageDTO>> createProvider(@RequestBody ProviderPageDTO providerPageDTO) {
         Resource<ProviderPageDTO> providerPageDtoResource;
-        Provider provider = ProviderPageDtoMapper.getInstance().getProviderEntityFromDto(providerService, providerTypeService, providerPageDTO);
+        Provider provider = ProviderPageDtoMapper.getProviderEntityFromDto(providerService, providerTypeService, providerPageDTO);
         try {
             providerService.saveProvider(provider);
-            ProviderPageDTO providerPageDto =  ProviderPageDtoMapper.getInstance().mapProviderEntityToDto(provider.getProviderId(), provider);
+            ProviderPageDTO providerPageDto =  ProviderPageDtoMapper.mapProviderEntityToDto(provider.getProviderId(), provider);
             logger.info("provider dto" + providerPageDto.getName());
             providerPageDtoResource = addResourceLinkToProvider(providerPageDto);
             logger.debug("added link");
@@ -138,14 +138,14 @@ public class ProviderController {
             if (providerService.existsProvider(providerId)){
                 Provider provider1 = providerService.findOneProviderById(providerId);
                 logger.info("updating provider by id: " + providerId);
-                provider = ProviderPageDtoMapper.getInstance().
+                provider = ProviderPageDtoMapper.
                         getProviderEntityFromDto(providerService, providerTypeService, providerPageDTO);
                 logger.info("id=" + provider.getProviderId() + "; name="+ provider.getName()
                 +"; desc=" + provider.getDescription()+"; per="+provider.getPeriodicity()
                 +"; add=" + provider.getAddress() + "; type=" + provider.getType()
                 + "; actv=" + provider.isActive());
                 providerService.saveProvider(provider);
-                ProviderPageDTO providerPageDto = ProviderPageDtoMapper.getInstance().
+                ProviderPageDTO providerPageDto = ProviderPageDtoMapper.
                         mapProviderEntityToDto(providerId, provider);
                 providerResource = addResourceLinkToProvider(providerPageDto);
             } else logger.error("provider not found");
@@ -168,7 +168,7 @@ public class ProviderController {
         providersBySearchTerm.stream().forEach((provider) -> {
             try {
                 resourceProviderList.add(addResourceLinkToProvider(
-                        ProviderPageDtoMapper.getInstance().mapProviderEntityToDto(provider.getProviderId(), provider)));
+                        ProviderPageDtoMapper.mapProviderEntityToDto(provider.getProviderId(), provider)));
             } catch (EntityNotFoundException e) {
                 logger.error(e.getMessage());
             }
@@ -193,6 +193,7 @@ public class ProviderController {
     }
 
     private Resource<ProviderPageDTO> addResourceLinkToProvider(ProviderPageDTO provider) throws EntityNotFoundException {
+        logger.info("adding resource link");
         if (provider == null) throw new EntityNotFoundException();
         Resource<ProviderPageDTO> providerResource = new Resource<>(provider);
         providerResource.add(linkTo(methodOn(ProviderController.class)

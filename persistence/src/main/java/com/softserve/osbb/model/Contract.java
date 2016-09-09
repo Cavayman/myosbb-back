@@ -92,8 +92,7 @@ public class Contract {
         this.priceCurrency = priceCurrency;
     }
 
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "attachment_id", referencedColumnName = "attachment_id")
     public Attachment getAttachment() {
         return attachment;

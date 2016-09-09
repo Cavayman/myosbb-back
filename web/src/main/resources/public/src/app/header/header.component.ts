@@ -2,34 +2,34 @@ import {Component, OnInit, OnDestroy, Output} from '@angular/core';
 import {ROUTER_DIRECTIVES, ActivatedRoute} from '@angular/router';
 import 'rxjs/Rx';
 import {LoginStat} from "../../shared/services/login.stats";
-import {LoginComponent} from "../login/login.component";
 import {Http} from "@angular/http";
 import {TranslateService, TranslatePipe} from "ng2-translate/ng2-translate";
 import {DROPDOWN_DIRECTIVES} from 'ng2-bs-dropdown/dropdown';
 import {LoginService} from "../login/login.service";
-import {CurrentUserService} from "../../shared/services/current.user.service"
+import {CurrentUserService} from "../../shared/services/current.user.service";
+import {CapitalizeFirstLetterPipe} from "../../shared/pipes/capitalize-first-letter";
+import { MODAL_DIRECTIVES } from 'ng2-bs3-modal';
 
 @Component({
     selector: 'app-header',
     templateUrl: 'src/app/header/header.html',
     providers: [LoginStat,LoginService],
     inputs: ['isLoggedIn'],
-    directives: [ROUTER_DIRECTIVES, DROPDOWN_DIRECTIVES],
-    pipes: [TranslatePipe]
+    directives: [ROUTER_DIRECTIVES, DROPDOWN_DIRECTIVES,MODAL_DIRECTIVES],
+    pipes: [TranslatePipe, CapitalizeFirstLetterPipe],
 
 })
-export class HeaderComponent implements OnInit,
-    OnDestroy {
-
-    isLoggedIn:boolean;
-    sub:any;
+export class HeaderComponent implements OnInit,OnDestroy {
     static translateService : TranslateService;
     static currentUserService : CurrentUserService;
-
+    isLoggedIn:boolean;
+    sub:any;
+    
     languages: Array<string> = ['en', 'uk'];
     selectedLang : string = 'uk';
 
-    constructor(private _currentUserService:CurrentUserService,private _loginService:LoginService,private _loginStat:LoginStat, private _route:ActivatedRoute, private translate: TranslateService, private http:Http) {
+    constructor(private _currentUserService:CurrentUserService,private _loginService:LoginService, private _loginStat:LoginStat,
+                private _route:ActivatedRoute, private translate: TranslateService, private http:Http) {
         this._loginStat.loggedInObserver$
             .subscribe(stat => {
                 this.isLoggedIn = stat;

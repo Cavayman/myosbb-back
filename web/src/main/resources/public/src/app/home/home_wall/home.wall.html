@@ -1,0 +1,54 @@
+<div id="main-content" class="content">
+    <div class="panel panel-default pos-top">
+        <div class="row top-box">
+            <div class="col-lg-4 col-md-4 col-sm-4 logo ">
+
+                <img  src="{{currentOsbb.logoUrl}}" alt="empty"/>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 osbb-info-box">
+                <div class="header-info">
+                    <h2>{{currentOsbb.name}}</h2>
+                    <span>{{currentOsbb.description}}</span>
+                </div>
+                <div class="osbb-info-row">
+                    <div class="left">{{'headmaster' | translate | capitalize}}:</div>
+                    <div class="right"> </div>
+                </div>
+                <div class="osbb-info-row">
+                    <div class="left">{{'adress' | translate | capitalize}}:</div>
+                    <div class="right">{{currentOsbb.address}}</div>
+                </div>
+                <div class="osbb-info-row">
+                    <div class="left"> {{'district' | translate | capitalize}}: </div>
+                    <div class="right">{{currentOsbb.district}}</div>
+                </div>
+                <div class="osbb-info-row">
+                    <div class="left">{{'houses' | translate | capitalize}}:</div>
+                    <div class="right">0</div>
+                </div>
+                <div class="osbb-info-row">
+                    <div class="left">{{'inhabitants' | translate | capitalize}}:</div>
+                    <div class="right"> 0 </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <my-calendar></my-calendar>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="true">
+                    {{'options' | translate}}
+                    <span class="caret"></span>
+                </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a style="cursor: pointer" (click)="voteVar.openModalWindow()">{{'addVoting' | translate}}</a></li>
+                    </ul>
+                </div>
+                <vote #voteVar></vote>
+            </div>
+        </div>
+    </div>
+</div>

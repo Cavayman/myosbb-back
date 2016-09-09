@@ -5,25 +5,25 @@
                 <li class="sub-menu">
                     <a [routerLink]="['houses']">
                         <i class="fa fa-home fa-fw fa-4x"></i>
-                        <span>Будинки</span>
+                        <span>{{ 'houses' | translate | capitalize }}</span>
                     </a>
                 </li>
                 <li class="sub-menu">
                     <a [routerLink]="['events']">
                         <i class="fa fa-user"></i>
-                        <span>Івенти</span>
+                        <span>{{ 'events' | translate | capitalize }}</span>
                     </a>
                 </li>
                 <li class="sub-menu">
-                    <a [routerLink]="['providers']">
+                    <a [routerLink]="['provider/info']">
                         <i class="fa fa-building-o"></i>
-                        <span>Провайдери</span>
+                        <span>{{ 'providers' | translate | capitalize }}</span>
                     </a>
                 </li>
                 <li class="sub-menu">
                     <a [routerLink]="['ticket']">
                         <i class="fa fa-building-o"></i>
-                        <span>Tікети</span>
+                        <span>{{ 'tickets' | translate | capitalize }}</span>
                     </a>
                 </li>
             </ul>

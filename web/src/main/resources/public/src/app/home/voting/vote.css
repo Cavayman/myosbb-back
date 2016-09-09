@@ -5,24 +5,48 @@
     background: whitesmoke;
     border-top:1px solid slategray;
     border-bottom:1px solid slategray;
+    margin-bottom: 20px;
 }
 
 .question {
-    margin-bottom: 5px;
+    font-size: 16px;
+    margin-bottom: 20px;
 }
+
 .respondents {
     margin-top:10px;
 }
-.result-box {
-    width:900px;
-    margin: 0 auto;
-    background: floralwhite;
-}
+
 ul {
     padding: 0px 40px;
-    font: 16px/1.6 Arial, Verdana, Tahama, sans-serif;
+    font: 12px/1.6 Arial, Verdana, Tahama, sans-serif;
+}
+ul > li {
+    margin-bottom:5px;
 }
 
-.date {
+.info-row {
     padding: 0px 40px;
+}
+
+.info-row span {
+    font-size: 12px;
+    font-family: Georgia, "Times New Roman", Times, Serif;
+	color: #aaaaaa;
+    padding-right: 15px;
+}
+
+.info-elem {
+    font-weight: bold;
+}
+
+.progress {
+    text-align:center;
+}
+
+.progress-value {
+    position:absolute;
+    color: black;
+    right:0;
+    left:0;
 }

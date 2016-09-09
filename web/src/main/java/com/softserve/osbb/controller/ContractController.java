@@ -1,7 +1,9 @@
 package com.softserve.osbb.controller;
 
 import com.softserve.osbb.model.Contract;
+import com.softserve.osbb.model.Provider;
 import com.softserve.osbb.service.ContractService;
+import com.softserve.osbb.service.ProviderService;
 import com.softserve.osbb.util.PageCreator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +33,9 @@ public class ContractController {
 
     @Autowired
     ContractService contractService;
+
+    @Autowired
+    ProviderService providerService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<Resource<Contract>> getAll() {
@@ -83,43 +88,6 @@ public class ContractController {
         return new ResponseEntity<>(pageCreator, HttpStatus.OK);
     }
 
-//    @RequestMapping(value = "/nonactive", method = RequestMethod.GET)
-//    public ResponseEntity<PageCreator<Resource<Contract>>> listNotActiveContracts(
-//            @RequestParam(value = "pageNum", required = true) Integer pageNumber,
-//            @RequestParam(value = "sortedBy", required = false) String sortedBy,
-//            @RequestParam(value = "asc", required = false) Boolean ascOrder,
-//            @RequestParam(value = "actv", required = false) Boolean onlyActive) {
-//
-//        logger.info("getting all contracts by page number: " + pageNumber);
-//        Page<Contract> contractsByPage = null;
-//        if (onlyActive == true) {
-//            contractsByPage = contractService.findByActiveTrue(pageNumber, sortedBy, ascOrder);
-//        } else {
-//            contractsByPage = contractService.getContracts(pageNumber, sortedBy, ascOrder);
-//        }
-//        int currentPage = contractsByPage.getNumber() + 1;
-//        logger.info("current page : " + currentPage);
-//        int begin = Math.max(1, currentPage - 5);
-//        logger.info("starts with: " + begin);
-//        int totalPages = contractsByPage.getTotalPages();
-//        int end = Math.min(currentPage + 5, totalPages);
-//        logger.info("ends with: " + totalPages);
-//
-//        List<Resource<Contract>> resourceList = new ArrayList<>();
-//        contractsByPage.forEach((contract) -> {
-//                resourceList.add(getContractResource(contract));
-//        });
-//
-//        PageCreator<Resource<Contract>> pageCreator = new PageCreator<>();
-//        pageCreator.setRows(resourceList);
-//        pageCreator.setCurrentPage(Integer.valueOf(currentPage).toString());
-//        pageCreator.setBeginPage(Integer.valueOf(begin).toString());
-//        pageCreator.setEndPage(Integer.valueOf(end).toString());
-//        pageCreator.setTotalPages(Integer.valueOf(totalPages).toString());
-//
-//        return new ResponseEntity<>(pageCreator, HttpStatus.OK);
-//    }
-
     @RequestMapping(value = "/find", method = RequestMethod.GET)
     public ResponseEntity<List<Resource<Contract>>> getContractsByProviderName(
             @RequestParam(value = "name", required = true) String name) {
@@ -144,7 +112,21 @@ public class ContractController {
     public Contract putContract(@RequestBody Contract contract) {
         logger.info("Saving contract, sending to service");
         if (contract.getPriceCurrency() == null) contract.setPriceCurrency(Contract.DEFAULT_CURRENCY);
-        return contractService.save(contract);
+        Contract newContract =  contractService.save(contract);
+        if (newContract != null) {
+            Provider provider = providerService.findOneProviderById(newContract.getProvider().getProviderId());
+            provider.setActive(true);
+            providerService.saveProvider(provider);
+            if (!provider.isActive()) {
+                try {
+                    providerService.updateProvider(provider.getProviderId(), provider);
+                } catch (Exception e) {
+                    logger.error("cannot update provider state");
+                    logger.error(e.getMessage());
+                }
+            }
+        }
+        return newContract;
     }
 
     @RequestMapping(value="/{id}",method=RequestMethod.POST)
